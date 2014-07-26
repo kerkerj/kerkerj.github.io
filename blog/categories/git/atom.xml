@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Git | kerkerj]]></title>
+  <link href="http://kerkerj.github.io/blog/categories/git/atom.xml" rel="self"/>
+  <link href="http://kerkerj.github.io/"/>
+  <updated>2014-07-27T00:12:01+08:00</updated>
+  <id>http://kerkerj.github.io/</id>
+  <author>
+    <name><![CDATA[kerkerj]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[[Mac OSX] Homebrew Update Error]]></title>
+    <link href="http://kerkerj.github.io/blog/2013/11/13/mac-osx-homebrew-update-error/"/>
+    <updated>2013-11-13T08:24:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2013/11/13/mac-osx-homebrew-update-error</id>
+    <content type="html"><![CDATA[<p>failed log:
+```
+$sudo brew update
+error: Your local changes to the following files would be overwritten by merge:</p>
+
+<pre><code>Library/Aliases/gperftools
+Library/Aliases/hashdeep
+Library/Aliases/htop
+Library/Aliases/nodejs
+Library/Aliases/ocio
+Library/Aliases/oiio
+    ....
+</code></pre>
+
+<p>error: The following untracked working tree files would be overwritten by merge:</p>
+
+<pre><code>Library/Aliases/gperftools
+Library/Aliases/hashdeep
+Library/Aliases/htop
+Library/Aliases/nodejs
+Library/Aliases/ocio
+Library/Aliases/oiio
+    ....
+</code></pre>
+
+<p>Aborting
+Error: Failure while executing: git pull -q origin refs/heads/master:refs/remotes/origin/master
+```</p>
+
+<p>Solution:
+<code>
+$ cd /usr/local
+$ git fetch origin
+$ git reset --hard origin/master
+</code></p>
+
+<p><a href="http://stackoverflow.com/questions/10762859/brew-update-the-following-untracked-working-tree-files-would-be-overwritten-by">reference</a>
+<a href="http://git-scm.com/2011/07/11/reset.html">[read]</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Git] 一小時搞懂Git]]></title>
+    <link href="http://kerkerj.github.io/blog/2011/05/26/git-for-one-hour/"/>
+    <updated>2011-05-26T15:27:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2011/05/26/git-for-one-hour</id>
+    <content type="html"><![CDATA[<p>這次只貼 Reference, 因為我也還沒看ＸＤ<br/>
+* <a href="http://people.debian.org.tw/%7Echihchun/2009/01/05/understand-git-in-one-hour/">http://people.debian.org.tw/~chihchun/2009/01/05/understand-git-in-one-hour/</a><br/>
+文中所說的影片：<br/>
+* <a href="http://gitcasts.com/">http://gitcasts.com/</a></p>
+]]></content>
+  </entry>
+  
+</feed>

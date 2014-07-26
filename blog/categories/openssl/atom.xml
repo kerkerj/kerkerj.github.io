@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Openssl | kerkerj]]></title>
+  <link href="http://kerkerj.github.io/blog/categories/openssl/atom.xml" rel="self"/>
+  <link href="http://kerkerj.github.io/"/>
+  <updated>2014-07-27T00:12:01+08:00</updated>
+  <id>http://kerkerj.github.io/</id>
+  <author>
+    <name><![CDATA[kerkerj]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[[Mac] Update Openssl on Mac]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/06/16/mac-update-openssl-on-mac/"/>
+    <updated>2014-06-16T09:16:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/06/16/mac-update-openssl-on-mac</id>
+    <content type="html"><![CDATA[<p>First of all, you need &lsquo;brew&rsquo; (<a href="http://brew.sh/">http://brew.sh/</a>)</p>
+
+<p>```
+$ brew update
+$ brew install openssl
+$ brew link &mdash;force openssl</p>
+
+<p>$openssl version -a
+```
+If it&rsquo;s still the old version, you shoud:</p>
+
+<p><code>
+$ sudo rm /usr/bin/openssl  #remove the old binary
+$ sudo ln -s /usr/local/Cellar/openssl/1.0.1h/bin/openssl /usr/local/bin
+(1.0.1h -&gt; the latest version)
+</code></p>
+
+<p>ref: <a href="http://apple.stackexchange.com/questions/126830/how-to-upgrade-openssl-in-os-x">http://apple.stackexchange.com/questions/126830/how-to-upgrade-openssl-in-os-x</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Ubuntu] Update OpenSSL]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/04/16/ubuntu-update-openssl/"/>
+    <updated>2014-04-16T11:39:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/04/16/ubuntu-update-openssl</id>
+    <content type="html"><![CDATA[<p>Easy way:</p>
+
+<ul>
+<li>Below the single command line to compiling and install the last openssl version.
+<code>
+$ curl https://www.openssl.org/source/openssl-1.0.1h.tar.gz | tar xz &amp;&amp; cd openssl-1.0.1h &amp;&amp; sudo ./config &amp;&amp; sudo make &amp;&amp; sudo make install
+</code></li>
+<li>Replace old openssl binary file by the new one via a symlink.
+<code>
+$ sudo ln -sf /usr/local/ssl/bin/openssl `which openssl`
+</code></li>
+</ul>
+
+
+<p>how to check version:
+<code>
+$ openssl version -b
+built on: Mon Apr  7 20:33:29 UTC 2014
+$ openssl version -a
+OpenSSL 1.0.1 14 Mar 2012
+built on: Mon Apr  7 20:33:29 UTC 2014
+platform: debian-amd64
+options:  bn(64,64) rc4(16x,int) des(idx,cisc,16,int) blowfish(idx)
+compiler: ..........
+OPENSSLDIR: "/usr/lib/ssl"
+</code>
+from: <a href="http://superuser.com/questions/740930/apt-get-upgrade-openssl-wont-bring-ubuntu-12-04-to-latest-version">http://superuser.com/questions/740930/apt-get-upgrade-openssl-wont-bring-ubuntu-12-04-to-latest-version</a></p>
+
+<p>Hard way:
+```bash</p>
+
+<h1>!/bin/bash</h1>
+
+<h2>#</h2>
+
+<h1>Need to upgrade an Ubuntu 13.04 server to use OpenSSL 1.0.1g?</h1>
+
+<h1>Read and execute this script :D</h1>
+
+<h2>#</h2>
+
+<h1>License: WTFPL, GPLv3, MIT, whatever; just patch your shit</h1>
+
+<h1><a href="http://askubuntu.com/questions/444702/how-to-patch-cve-2014-0160-in-openssl">http://askubuntu.com/questions/444702/how-to-patch-cve-2014-0160-in-openssl</a></h1>
+
+<h2>#</h2>
+
+<p>if [[ $EUID -ne 0 ]]; then</p>
+
+<pre><code>echo "This script must be run as root" 1&gt;&amp;2
+exit 1
+</code></pre>
+
+<p>fi
+wget <a href="https://www.openssl.org/source/openssl-1.0.1g.tar.gz">https://www.openssl.org/source/openssl-1.0.1g.tar.gz</a>
+wget <a href="https://www.openssl.org/source/openssl-1.0.1g.tar.gz.asc">https://www.openssl.org/source/openssl-1.0.1g.tar.gz.asc</a></p>
+
+<p>gpg &mdash;recv-key 0xD3577507FA40E9E2</p>
+
+<h1>Dr Stephen Henson</h1>
+
+<h1>IMPORTANT! Manually verify that this is the correct key ID:</h1>
+
+<h1><a href="http://pgp.mit.edu:11371/pks/lookup?op=vindex&amp;search=0xD3577507FA40E9E2">http://pgp.mit.edu:11371/pks/lookup?op=vindex&amp;search=0xD3577507FA40E9E2</a></h1>
+
+<h1><a href="https://www.openssl.org/about/">https://www.openssl.org/about/</a></h1>
+
+<p>gpg &mdash;verify openssl-1.0.1g.tar.gz.asc openssl-1.0.1g.tar.gz</p>
+
+<p>if [[ $? -eq 0 ]]; then</p>
+
+<pre><code>tar xzvf openssl-1.0.1g.tar.gz
+cd openssl-1.0.1g &amp;&amp; sudo ./config &amp;&amp; sudo make &amp;&amp; sudo make install
+# To link the old openssl library to a new version
+sudo ln -sf /usr/local/ssl/bin/openssl `which openssl`
+echo
+echo "DONE!"
+</code></pre>
+
+<p>fi</p>
+
+<h1>eof</h1>
+
+<p>```</p>
+]]></content>
+  </entry>
+  
+</feed>

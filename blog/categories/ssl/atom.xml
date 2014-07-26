@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Ssl | kerkerj]]></title>
+  <link href="http://kerkerj.github.io/blog/categories/ssl/atom.xml" rel="self"/>
+  <link href="http://kerkerj.github.io/"/>
+  <updated>2014-07-27T00:12:01+08:00</updated>
+  <id>http://kerkerj.github.io/</id>
+  <author>
+    <name><![CDATA[kerkerj]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[[Apache] SSL (Self-signed & Purchased Version)]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/06/19/apache-ssl/"/>
+    <updated>2014-06-19T02:32:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/06/19/apache-ssl</id>
+    <content type="html"><![CDATA[<h2>[Self-signed]</h2>
+
+<hr />
+
+<ol>
+<li><p>Generate a host key:
+<code>
+sudo ssh-keygen -f host.key
+</code></p></li>
+<li><p>Generate a certificate request file
+<code>
+sudo openssl req -new -key host.key -out request.csr
+</code></p></li>
+</ol>
+
+
+<p>Type what you want:
+```
+  Country Name (2 letter code) [AU]:TW
+  State or Province Name (full name) [Some-State]:Taiwan
+  Locality Name (eg, city) []:Taipei
+  Organization Name (eg, company) [Internet Widgits Pty Ltd]:
+  Organizational Unit Name (eg, section) []:
+  Common Name (e.g. server FQDN or YOUR name) []:
+  Email Address []:</p>
+
+<p>  Please enter the following &lsquo;extra&rsquo; attributes
+  to be sent with your certificate request
+  A challenge password []:
+  An optional company name []:
+```</p>
+
+<ol>
+<li><p>Create the SSL certificate
+<code>sudo openssl x509 -req -days 365 -in request.csr -signkey host.key -out server.crt</code></p>
+
+<p>  Create a nopass' key (optional)
+  <code>openssl rsa -in host.key -out host.nopass.key</code></p></li>
+<li><p>Configure Apache
+<code>LoadModule ssl_module libexec/apache2/mod_ssl.so</code></p></li>
+</ol>
+
+
+<p><code>
+SSLEngine on
+SSLCertificateFile "/etc/apache2/ssl/server.crt"
+SSLCertificateKeyFile "/etc/apache2/ssl/host.nopass.key"
+</code></p>
+
+<p><code>
+sudo apachectl configtest
+sudo apachectl restart
+</code></p>
+
+<p>p.s. enable mods: <code>sudo a2enmod ssl</code>
+enable sites: <code>sudo a2ensite default-ssl</code></p>
+
+<h2>[Purchased (Symantec)]</h2>
+
+<hr />
+
+<p>[<a href="http://www.symantec.com/tv/products/details.jsp?vid=1452855338001">http://www.symantec.com/tv/products/details.jsp?vid=1452855338001</a>]</p>
+
+<object id="flashObj" width="640" height="360" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,47,0"><param name="movie" value="http://c.brightcove.com/services/viewer/federated_f9?isVid=1&isUI=1" /><param name="bgcolor" value="#FFFFFF" /><param name="flashVars" value="videoId=1452855338001&linkBaseURL=http%3A%2F%2Fwww.symantec.com%2Ftv%2Fproducts%2Fdetails.jsp%3Fvid%3D1452855338001&playerID=1170996384001&playerKey=AQ~~,AAAABuIiy9k~,I8BhasVwr9yry4vRRPOpsSrBvwjFZ03K&domain=embed&dynamicStreaming=true" /><param name="base" value="http://admin.brightcove.com" /><param name="seamlesstabbing" value="false" /><param name="allowFullScreen" value="true" /><param name="swLiveConnect" value="true" /><param name="allowScriptAccess" value="always" /><embed src="http://c.brightcove.com/services/viewer/federated_f9?isVid=1&isUI=1" bgcolor="#FFFFFF" flashVars="videoId=1452855338001&linkBaseURL=http%3A%2F%2Fwww.symantec.com%2Ftv%2Fproducts%2Fdetails.jsp%3Fvid%3D1452855338001&playerID=1170996384001&playerKey=AQ~~,AAAABuIiy9k~,I8BhasVwr9yry4vRRPOpsSrBvwjFZ03K&domain=embed&dynamicStreaming=true" base="http://admin.brightcove.com" name="flashObj" width="640" height="360" seamlesstabbing="false" type="application/x-shockwave-flash" allowFullScreen="true" allowScriptAccess="always" swLiveConnect="true" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"></embed></object>
+
+
+
+
+<object id="flashObj" width="640" height="360" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,47,0"><param name="movie" value="http://c.brightcove.com/services/viewer/federated_f9?isVid=1&isUI=1" /><param name="bgcolor" value="#FFFFFF" /><param name="flashVars" value="videoId=1452855338001&linkBaseURL=http%3A%2F%2Fwww.symantec.com%2Ftv%2Fproducts%2Fdetails.jsp%3Fvid%3D1452855338001&playerID=1170996384001&playerKey=AQ~~,AAAABuIiy9k~,I8BhasVwr9yry4vRRPOpsSrBvwjFZ03K&domain=embed&dynamicStreaming=true" /><param name="base" value="http://admin.brightcove.com" /><param name="seamlesstabbing" value="false" /><param name="allowFullScreen" value="true" /><param name="swLiveConnect" value="true" /><param name="allowScriptAccess" value="always" /><embed src="http://c.brightcove.com/services/viewer/federated_f9?isVid=1&isUI=1" bgcolor="#FFFFFF" flashVars="videoId=1452855338001&linkBaseURL=http%3A%2F%2Fwww.symantec.com%2Ftv%2Fproducts%2Fdetails.jsp%3Fvid%3D1452855338001&playerID=1170996384001&playerKey=AQ~~,AAAABuIiy9k~,I8BhasVwr9yry4vRRPOpsSrBvwjFZ03K&domain=embed&dynamicStreaming=true" base="http://admin.brightcove.com" name="flashObj" width="640" height="360" seamlesstabbing="false" type="application/x-shockwave-flash" allowFullScreen="true" allowScriptAccess="always" swLiveConnect="true" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"></embed></object>
+
+]]></content>
+  </entry>
+  
+</feed>

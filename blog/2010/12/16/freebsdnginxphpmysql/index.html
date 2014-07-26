@@ -1,0 +1,361 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>[FreeBSD] FNMP (Nginx) - kerkerj</title>
+  <meta name="author" content="kerkerj">
+
+  
+  <meta name="description" content="就是網頁伺服器 Nginx
+FreeBSD + Nginx + php + MySQL 我個人是直接把 apache 直接換成 Nginx
+其他只是多安裝一些模組而已，因此換起來還好, 不過還是稍微會寫一些安裝上的順序。 安装MySQL  參閱 此篇文章 安裝PHP 1
+2
+#cd /usr/ &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://kerkerj.github.io/blog/2010/12/16/freebsdnginxphpmysql">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="kerkerj" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='//fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+  
+
+</head>
+
+<body   class="collapse-sidebar sidebar-footer" >
+  <header role="banner"><hgroup>
+  <h1><a href="/">kerkerj</a></h1>
+  
+    <h2>Cool</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+  
+  
+  
+  
+<ul class="subscription">
+  <li><a href="https://github.com/kerkerj" rel="subscribe-github" title="@kerkerj on GitHub">GitHub</a></li>
+</ul>
+  
+  
+  
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:kerkerj.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/notes">Notes</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      
+        <h1 class="entry-title">[FreeBSD] FNMP (Nginx)</h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-12-16T06:43:00+08:00" pubdate data-updated="true">Dec 16<sup>th</sup>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>就是網頁伺服器 Nginx
+FreeBSD + Nginx + php + MySQL</p>
+
+<p>我個人是直接把 apache 直接換成 Nginx
+其他只是多安裝一些模組而已，因此換起來還好, 不過還是稍微會寫一些安裝上的順序。</p>
+
+<h1>安装MySQL </h1>
+
+<p>參閱 <a href="http://kerkerj.logdown.com/posts/2010/10/05/freebsd81-famp">此篇文章</a></p>
+
+<h1>安裝PHP</h1>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#cd /usr/ports/lang/php5
+</span><span class='line'>#make config install clean</span></code></pre></td></tr></table></div></figure>
+
+
+<p>將下面的模組勾一勾，沒有的選項就不管他了～</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[X] CLI        Build CLI version
+</span><span class='line'>[X] CGI        Build CGI version
+</span><span class='line'>[X] FPM        必勾!!! Nginx處理php時是要交給他處理
+</span><span class='line'>[X] APACHE     Build Apache module
+</span><span class='line'>[ ] DEBUG      Enable debug
+</span><span class='line'>[X] SUHOSIN        Enable Suhosin protection system
+</span><span class='line'>[X] MULTIBYTE  Enable zend multibyte support
+</span><span class='line'>[ ] IPV6       Enable ipv6 support
+</span><span class='line'>[ ] REDIRECT   Enable force-cgi-redirect support (CGI only)
+</span><span class='line'>[ ] DISCARD    Enable discard-path support (CGI only)
+</span><span class='line'>[X] FASTCGI    Enable fastcgi support (CGI only)
+</span><span class='line'>[X] PATHINFO   Enable path-info-check support (CGI only)</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>安裝php5-entensions</h1>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#cd /usr/ports/lang/php5-extensions/
+</span><span class='line'># make config install clean</span></code></pre></td></tr></table></div></figure>
+
+
+<p>勾選需要的extension，下面必裝，其餘隨意。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[X] FTP        FTP support
+</span><span class='line'>[X] GD       
+</span><span class='line'>[X] GETTEXT
+</span><span class='line'>[X] MBSTRING
+</span><span class='line'>[X] MYSQL
+</span><span class='line'>[ ] POSIX //去掉.
+</span><span class='line'>[ ] SQLITE //去掉.
+</span><span class='line'>[X] ZLIB</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#cd /usr/local/etc
+</span><span class='line'># cp php.ini-development php.ini</span></code></pre></td></tr></table></div></figure>
+
+
+<p>=>修改PHP設定檔</p>
+
+<h1>安裝nginx</h1>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#cd /usr/ports/www/nginx/
+</span><span class='line'>#make install clean</span></code></pre></td></tr></table></div></figure>
+
+
+<p>安裝nginx就是這麼簡單～</p>
+
+<p>設定nginx的部份：
+編輯 <code>/usr/local/etc/nginx/nginx.conf</code>
+將<code>#user nobody;</code> 改成 <code>user www;</code>
+找到下面的部份：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>location / {
+</span><span class='line'>    root    /usr/local/www/nginx;  //網頁目錄可以換，看你網頁放哪 (ex./home/www)
+</span><span class='line'>    index    index.html index.htm;  //記得加入 index.php 等等
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>下面是給 FPM 處理 PHP 的部份，記得先將前面的 # 註解刪掉，
+然後將 <code>fastcgi_param</code> 的 <code>/scripts$fastcgi_script.name</code>
+更改為: <code>/你的網頁目錄$fastcgi_script.name</code>
+例如： <code>/home/www$fastcgi_script.name</code></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#location ~ \.php$ {
+</span><span class='line'>#    fastcgi_pass    127.0.0.1:9000;
+</span><span class='line'>#    fastcgi_index   index.php;
+</span><span class='line'>#    fastcgi_param     SCRIPT_FILENAME    /scripts$fastcgi_script.name;
+</span><span class='line'>#    include      fastcgi_params;
+</span><span class='line'>#}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>安裝完後, 記得編輯 <code>/etc/rc.conf</code>, 加入:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mysql_enable="YES"
+</span><span class='line'>nginx_enable="YES"
+</span><span class='line'>php_fpm_enable="YES"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這樣就可以啦<del>~
+如果有 phpmyadmin 的話，可以將該資料夾整個複製到網頁根目錄底下，就可以操作了</del></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Authored by <span class="fn">kerkerj</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-12-16T06:43:00+08:00" pubdate data-updated="true">Dec 16<sup>th</sup>, 2010</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/fnmp/'>fnmp</a>, <a class='category' href='/blog/categories/freebsd/'>freebsd</a>, <a class='category' href='/blog/categories/mysql/'>mysql</a>, <a class='category' href='/blog/categories/nginx/'>nginx</a>, <a class='category' href='/blog/categories/php/'>php</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://kerkerj.github.io/blog/2010/12/16/freebsdnginxphpmysql/" data-via="jerry54010" data-counturl="http://kerkerj.github.io/blog/2010/12/16/freebsdnginxphpmysql/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/10/26/win7-dvd/" title="Previous Post: [Win7] 使用Win7 DVD 修復開機選單">&laquo; [Win7] 使用Win7 DVD 修復開機選單</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/01/26/php-db/" title="Next Post: [PHP] 簡單的資料庫連結">[PHP] 簡單的資料庫連結 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+
+</div>
+
+<aside class="sidebar">
+  
+    
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - kerkerj -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a> | Themed with <a href="https://github.com/lucaslew/whitespace">Whitespace</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

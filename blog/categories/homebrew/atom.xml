@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Homebrew | kerkerj]]></title>
+  <link href="http://kerkerj.github.io/blog/categories/homebrew/atom.xml" rel="self"/>
+  <link href="http://kerkerj.github.io/"/>
+  <updated>2014-07-27T00:12:01+08:00</updated>
+  <id>http://kerkerj.github.io/</id>
+  <author>
+    <name><![CDATA[kerkerj]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[[Mac OSX] Bash-it]]></title>
+    <link href="http://kerkerj.github.io/blog/2013/11/13/mac-osx-bash-it/"/>
+    <updated>2013-11-13T08:43:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2013/11/13/mac-osx-bash-it</id>
+    <content type="html"><![CDATA[<p>bash-it:
+<code>
+$git clone http://github.com/revans/bash-it.git ~/.bash_it
+$~/.bash_it/install.sh
+</code>
+他會幫你自動備份原來的 <code>.bash_profile</code> 為 <code>.bash_profile.bak</code> 所以別擔心
+當他在問你要使用什麼 completion 或 script 之類的東西時，
+選擇 &lsquo;some&rsquo; 就可以自己選擇~</p>
+
+<p>有許多的 theme 及 package , completion 等等可以用，很方便！</p>
+
+<p><a href="http://www.scholarslab.org/research-and-development/customizing-bash/">http://www.scholarslab.org/research-and-development/customizing-bash/</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Mac OSX] Homebrew Update Error]]></title>
+    <link href="http://kerkerj.github.io/blog/2013/11/13/mac-osx-homebrew-update-error/"/>
+    <updated>2013-11-13T08:24:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2013/11/13/mac-osx-homebrew-update-error</id>
+    <content type="html"><![CDATA[<p>failed log:
+```
+$sudo brew update
+error: Your local changes to the following files would be overwritten by merge:</p>
+
+<pre><code>Library/Aliases/gperftools
+Library/Aliases/hashdeep
+Library/Aliases/htop
+Library/Aliases/nodejs
+Library/Aliases/ocio
+Library/Aliases/oiio
+    ....
+</code></pre>
+
+<p>error: The following untracked working tree files would be overwritten by merge:</p>
+
+<pre><code>Library/Aliases/gperftools
+Library/Aliases/hashdeep
+Library/Aliases/htop
+Library/Aliases/nodejs
+Library/Aliases/ocio
+Library/Aliases/oiio
+    ....
+</code></pre>
+
+<p>Aborting
+Error: Failure while executing: git pull -q origin refs/heads/master:refs/remotes/origin/master
+```</p>
+
+<p>Solution:
+<code>
+$ cd /usr/local
+$ git fetch origin
+$ git reset --hard origin/master
+</code></p>
+
+<p><a href="http://stackoverflow.com/questions/10762859/brew-update-the-following-untracked-working-tree-files-would-be-overwritten-by">reference</a>
+<a href="http://git-scm.com/2011/07/11/reset.html">[read]</a></p>
+]]></content>
+  </entry>
+  
+</feed>

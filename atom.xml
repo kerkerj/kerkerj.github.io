@@ -1,16 +1,969 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[My Octopress Blog]]></title>
+  <title><![CDATA[kerkerj]]></title>
   <link href="http://kerkerj.github.io/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-07-26T19:58:14+08:00</updated>
+  <updated>2014-07-27T00:12:01+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[kerkerj]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[Rails] ActionController::InvalidAuthenticityToken When Useing Rails4 as API]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/07/03/rails-actioncontrollerinvalidauthenticitytoken-when-useing-rails-as-api/"/>
+    <updated>2014-07-03T04:02:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/07/03/rails-actioncontrollerinvalidauthenticitytoken-when-useing-rails-as-api</id>
+    <content type="html"><![CDATA[<p>change<br/>
+<code>protect_from_forgery with: :exception</code><br/>
+to<br/>
+<code>protect_from_forgery with: :null_session</code><br/>
+in <code>ApplicationController</code></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Apache] SSL (Self-signed & Purchased Version)]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/06/19/apache-ssl/"/>
+    <updated>2014-06-19T02:32:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/06/19/apache-ssl</id>
+    <content type="html"><![CDATA[<h2>[Self-signed]</h2>
+
+<hr />
+
+<ol>
+<li>Generate a host key:</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo ssh-keygen -f host.key</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>Generate a certificate request file</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo openssl req -new -key host.key -out request.csr</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Type what you want:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  Country Name (2 letter code) [AU]:TW
+</span><span class='line'>  State or Province Name (full name) [Some-State]:Taiwan
+</span><span class='line'>  Locality Name (eg, city) []:Taipei
+</span><span class='line'>  Organization Name (eg, company) [Internet Widgits Pty Ltd]:
+</span><span class='line'>  Organizational Unit Name (eg, section) []:
+</span><span class='line'>  Common Name (e.g. server FQDN or YOUR name) []:
+</span><span class='line'>  Email Address []:
+</span><span class='line'>  
+</span><span class='line'>  Please enter the following 'extra' attributes
+</span><span class='line'>  to be sent with your certificate request
+</span><span class='line'>  A challenge password []:
+</span><span class='line'>  An optional company name []:</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li><p>Create the SSL certificate
+<code>sudo openssl x509 -req -days 365 -in request.csr -signkey host.key -out server.crt</code></p>
+
+<p>  Create a nopass&#8217; key (optional)
+  <code>openssl rsa -in host.key -out host.nopass.key</code></p></li>
+<li><p>Configure Apache
+<code>LoadModule ssl_module libexec/apache2/mod_ssl.so</code></p></li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>SSLEngine on 
+</span><span class='line'>SSLCertificateFile "/etc/apache2/ssl/server.crt"
+</span><span class='line'>SSLCertificateKeyFile "/etc/apache2/ssl/host.nopass.key"</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apachectl configtest 
+</span><span class='line'>sudo apachectl restart </span></code></pre></td></tr></table></div></figure>
+
+
+<p>p.s. enable mods: <code>sudo a2enmod ssl</code>
+enable sites: <code>sudo a2ensite default-ssl</code></p>
+
+<h2>[Purchased (Symantec)]</h2>
+
+<hr />
+
+<p>[<a href="http://www.symantec.com/tv/products/details.jsp?vid=1452855338001">http://www.symantec.com/tv/products/details.jsp?vid=1452855338001</a>]</p>
+
+<object id="flashObj" width="640" height="360" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,47,0"><param name="movie" value="http://c.brightcove.com/services/viewer/federated_f9?isVid=1&isUI=1" /><param name="bgcolor" value="#FFFFFF" /><param name="flashVars" value="videoId=1452855338001&linkBaseURL=http%3A%2F%2Fwww.symantec.com%2Ftv%2Fproducts%2Fdetails.jsp%3Fvid%3D1452855338001&playerID=1170996384001&playerKey=AQ~~,AAAABuIiy9k~,I8BhasVwr9yry4vRRPOpsSrBvwjFZ03K&domain=embed&dynamicStreaming=true" /><param name="base" value="http://admin.brightcove.com" /><param name="seamlesstabbing" value="false" /><param name="allowFullScreen" value="true" /><param name="swLiveConnect" value="true" /><param name="allowScriptAccess" value="always" /><embed src="http://c.brightcove.com/services/viewer/federated_f9?isVid=1&isUI=1" bgcolor="#FFFFFF" flashVars="videoId=1452855338001&linkBaseURL=http%3A%2F%2Fwww.symantec.com%2Ftv%2Fproducts%2Fdetails.jsp%3Fvid%3D1452855338001&playerID=1170996384001&playerKey=AQ~~,AAAABuIiy9k~,I8BhasVwr9yry4vRRPOpsSrBvwjFZ03K&domain=embed&dynamicStreaming=true" base="http://admin.brightcove.com" name="flashObj" width="640" height="360" seamlesstabbing="false" type="application/x-shockwave-flash" allowFullScreen="true" allowScriptAccess="always" swLiveConnect="true" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"></embed></object>
+
+
+
+
+<object id="flashObj" width="640" height="360" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,47,0"><param name="movie" value="http://c.brightcove.com/services/viewer/federated_f9?isVid=1&isUI=1" /><param name="bgcolor" value="#FFFFFF" /><param name="flashVars" value="videoId=1452855338001&linkBaseURL=http%3A%2F%2Fwww.symantec.com%2Ftv%2Fproducts%2Fdetails.jsp%3Fvid%3D1452855338001&playerID=1170996384001&playerKey=AQ~~,AAAABuIiy9k~,I8BhasVwr9yry4vRRPOpsSrBvwjFZ03K&domain=embed&dynamicStreaming=true" /><param name="base" value="http://admin.brightcove.com" /><param name="seamlesstabbing" value="false" /><param name="allowFullScreen" value="true" /><param name="swLiveConnect" value="true" /><param name="allowScriptAccess" value="always" /><embed src="http://c.brightcove.com/services/viewer/federated_f9?isVid=1&isUI=1" bgcolor="#FFFFFF" flashVars="videoId=1452855338001&linkBaseURL=http%3A%2F%2Fwww.symantec.com%2Ftv%2Fproducts%2Fdetails.jsp%3Fvid%3D1452855338001&playerID=1170996384001&playerKey=AQ~~,AAAABuIiy9k~,I8BhasVwr9yry4vRRPOpsSrBvwjFZ03K&domain=embed&dynamicStreaming=true" base="http://admin.brightcove.com" name="flashObj" width="640" height="360" seamlesstabbing="false" type="application/x-shockwave-flash" allowFullScreen="true" allowScriptAccess="always" swLiveConnect="true" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"></embed></object>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Mac] Update Openssl on Mac]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/06/16/mac-update-openssl-on-mac/"/>
+    <updated>2014-06-16T09:16:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/06/16/mac-update-openssl-on-mac</id>
+    <content type="html"><![CDATA[<p>First of all, you need &lsquo;brew&rsquo; (<a href="http://brew.sh/">http://brew.sh/</a>)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ brew update
+</span><span class='line'>$ brew install openssl
+</span><span class='line'>$ brew link --force openssl
+</span><span class='line'> 
+</span><span class='line'>$openssl version -a</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If it&rsquo;s still the old version, you shoud:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo rm /usr/bin/openssl   #remove the old binary 
+</span><span class='line'>$ sudo ln -s /usr/local/Cellar/openssl/1.0.1h/bin/openssl /usr/local/bin
+</span><span class='line'>(1.0.1h -&gt; the latest version)</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>ref: <a href="http://apple.stackexchange.com/questions/126830/how-to-upgrade-openssl-in-os-x">http://apple.stackexchange.com/questions/126830/how-to-upgrade-openssl-in-os-x</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[MySQL] Add a Unique Index by 2 Columns]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/06/11/mysql-add-a-unique-index-by-2-columns/"/>
+    <updated>2014-06-11T08:51:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/06/11/mysql-add-a-unique-index-by-2-columns</id>
+    <content type="html"><![CDATA[<p><code>ALTER TABLE table_name ADD UNIQUE INDEX(column1, column2);</code></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Ubuntu] Enable/disable Services on Start-up]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/05/30/ubuntu-enable-disable-services-on-start-up/"/>
+    <updated>2014-05-30T03:56:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/05/30/ubuntu-enable-disable-services-on-start-up</id>
+    <content type="html"><![CDATA[<p>Take apache for example:</p>
+
+<p>Disable &ndash; <code>update-rc.d -f apache2 remove</code></p>
+
+<p>Enable &ndash; <code>update-rc.d apache2 defaults</code></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Codeigniter] Tips Deploy to Amazon Web Services]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/05/28/codeigniter-tips-deploy-to-amazon-web-services/"/>
+    <updated>2014-05-28T06:36:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/05/28/codeigniter-tips-deploy-to-amazon-web-services</id>
+    <content type="html"><![CDATA[<ol>
+<li>If you use Amazon RDS, especially micro plan,<br/>
+ remember to set <code>$config['pconnect'] = FALSE</code> in <code>application/config/database.php</code>.<br/>
+ Because RDS has Max_connection limits.</li>
+<li>If you use RDS, remeber that the system timezone in RDS is +0 timezone.<br/>
+ In your application, you should care about this thing.</li>
+<li>If you will use loadbalancer, remember to &hellip;.(???)</li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[MySQL] Several Useful Statements (GROUP_CONCAT, Ifnull, DATE_FORMAT)]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/05/06/mysql-several-useful-statements-group-concat-ifnull-date-format/"/>
+    <updated>2014-05-06T06:10:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/05/06/mysql-several-useful-statements-group-concat-ifnull-date-format</id>
+    <content type="html"><![CDATA[<ol>
+<li><p>將 query 出來的多筆記錄結合成一個欄位<br/>
+例如原本的 query 結果為：<br/>
+<code>SELECT 'fruits' FROM 'fruits_table'</code><br/>
+apple<br/>
+banana<br/>
+kiwi<br/>
+<code>SELECT group_concat('fruits' separator ',') FROM 'fruits_table'</code><br/>
+result: apple,banana,kiwi</p></li>
+<li><p>改變 datetime 欄位的顯示結果<br/>
+<code>SELECT DATE_FORMAT( 'created_at', '%Y/%m/%d %H:%i') AS 'created_at' FROM 'message_table'</code><br/>
+result: 2014/05/06 18:20</p></li>
+<li><p>若某個欄位的值為空，則給予預設值<br/>
+<code>SELECT ifnull('is_success', 0) AS 'is_success' FROM ....</code></p></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Ubuntu] Update OpenSSL]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/04/16/ubuntu-update-openssl/"/>
+    <updated>2014-04-16T11:39:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/04/16/ubuntu-update-openssl</id>
+    <content type="html"><![CDATA[<p>Easy way:</p>
+
+<ul>
+<li>Below the single command line to compiling and install the last openssl version.</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ curl https://www.openssl.org/source/openssl-1.0.1h.tar.gz | tar xz && cd openssl-1.0.1h && sudo ./config && sudo make && sudo make install</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Replace old openssl binary file by the new one via a symlink.</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo ln -sf /usr/local/ssl/bin/openssl `which openssl`</span></code></pre></td></tr></table></div></figure>
+
+
+<p>how to check version:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ openssl version -b
+</span><span class='line'>built on: Mon Apr  7 20:33:29 UTC 2014
+</span><span class='line'>$ openssl version -a
+</span><span class='line'>OpenSSL 1.0.1 14 Mar 2012
+</span><span class='line'>built on: Mon Apr  7 20:33:29 UTC 2014
+</span><span class='line'>platform: debian-amd64
+</span><span class='line'>options:  bn(64,64) rc4(16x,int) des(idx,cisc,16,int) blowfish(idx)
+</span><span class='line'>compiler: ..........
+</span><span class='line'>OPENSSLDIR: "/usr/lib/ssl"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>from: <a href="http://superuser.com/questions/740930/apt-get-upgrade-openssl-wont-bring-ubuntu-12-04-to-latest-version">http://superuser.com/questions/740930/apt-get-upgrade-openssl-wont-bring-ubuntu-12-04-to-latest-version</a></p>
+
+<p>Hard way:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c">#!/bin/bash</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">###</span>
+</span><span class='line'><span class="c"># Need to upgrade an Ubuntu 13.04 server to use OpenSSL 1.0.1g?</span>
+</span><span class='line'><span class="c"># Read and execute this script :D</span>
+</span><span class='line'><span class="c">###</span>
+</span><span class='line'><span class="c"># License: WTFPL, GPLv3, MIT, whatever; just patch your shit</span>
+</span><span class='line'><span class="c"># http://askubuntu.com/questions/444702/how-to-patch-cve-2014-0160-in-openssl</span>
+</span><span class='line'><span class="c">###</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="o">[[</span> <span class="nv">$EUID</span> -ne 0 <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+</span><span class='line'><span class="k">  </span><span class="nb">echo</span> <span class="s2">&quot;This script must be run as root&quot;</span> 1&gt;<span class="p">&amp;</span>2
+</span><span class='line'>  <span class="nb">exit </span>1
+</span><span class='line'><span class="k">fi</span>
+</span><span class='line'>wget https://www.openssl.org/source/openssl-1.0.1g.tar.gz
+</span><span class='line'>wget https://www.openssl.org/source/openssl-1.0.1g.tar.gz.asc
+</span><span class='line'>
+</span><span class='line'>gpg --recv-key 0xD3577507FA40E9E2
+</span><span class='line'><span class="c"># Dr Stephen Henson</span>
+</span><span class='line'><span class="c"># IMPORTANT! Manually verify that this is the correct key ID:</span>
+</span><span class='line'><span class="c"># http://pgp.mit.edu:11371/pks/lookup?op=vindex&amp;search=0xD3577507FA40E9E2</span>
+</span><span class='line'><span class="c"># https://www.openssl.org/about/</span>
+</span><span class='line'>
+</span><span class='line'>gpg --verify openssl-1.0.1g.tar.gz.asc openssl-1.0.1g.tar.gz
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="o">[[</span> <span class="nv">$?</span> -eq 0 <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+</span><span class='line'><span class="k">  </span>tar xzvf openssl-1.0.1g.tar.gz
+</span><span class='line'>  <span class="nb">cd </span>openssl-1.0.1g <span class="o">&amp;&amp;</span> sudo ./config <span class="o">&amp;&amp;</span> sudo make <span class="o">&amp;&amp;</span> sudo make install
+</span><span class='line'>  <span class="c"># To link the old openssl library to a new version</span>
+</span><span class='line'>  sudo ln -sf /usr/local/ssl/bin/openssl <span class="sb">`</span>which openssl<span class="sb">`</span>
+</span><span class='line'>  <span class="nb">echo</span>
+</span><span class='line'><span class="nb"> echo</span> <span class="s2">&quot;DONE!&quot;</span>
+</span><span class='line'><span class="k">fi</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># eof</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[PHP] Json_decode Error by Wrong Json String With Quotes]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/01/28/php-json-decode-error-by-wrong-json-string-with-quotes/"/>
+    <updated>2014-01-28T06:29:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/01/28/php-json-decode-error-by-wrong-json-string-with-quotes</id>
+    <content type="html"><![CDATA[<p>Normal json string:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{"Hey":"There"}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Error json string got from $_POST variable:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{\"Hey\":\"There\"}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This may causes by <code>magic_quotes</code> in <code>php.ini</code>
+Magic is never good in development.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Sublime Text 2] Integration With RVM and Rspec]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/01/09/sublime-text-2-integration-with-rvm-and-rspec/"/>
+    <updated>2014-01-09T02:17:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/01/09/sublime-text-2-integration-with-rvm-and-rspec</id>
+    <content type="html"><![CDATA[<p>Ruby:</p>
+
+<p><code>~/Library/Application\ Support/Sublime\ Text\ 2/Packages/Ruby/Ruby.sublime-build</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='json'><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="nt">&quot;env&quot;</span><span class="p">:{</span>
+</span><span class='line'>      <span class="nt">&quot;PATH&quot;</span><span class="p">:</span><span class="s2">&quot;${HOME}/.rvm/bin:${PATH}&quot;</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nt">&quot;cmd&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;rvm-auto-ruby&quot;</span><span class="p">,</span> <span class="s2">&quot;$file&quot;</span><span class="p">],</span>
+</span><span class='line'>  <span class="nt">&quot;file_regex&quot;</span><span class="p">:</span> <span class="s2">&quot;^(...*?):([0-9]*):?([0-9]*)&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nt">&quot;selector&quot;</span><span class="p">:</span> <span class="s2">&quot;source.ruby&quot;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="http://rubenlaguna.com/wp/2012/12/07/sublime-text-2-rvm-rspec-take-2/">http://rubenlaguna.com/wp/2012/12/07/sublime-text-2-rvm-rspec-take-2/</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Rails] PUT v.s. PATCH]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/01/02/rails-put-vs-patch/"/>
+    <updated>2014-01-02T07:39:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/01/02/rails-put-vs-patch</id>
+    <content type="html"><![CDATA[<p>According to rails convention,</p>
+
+<p>PUT is used for updating an existing resource</p>
+
+<p>POST is used for creating a new resource</p>
+
+<p>In rails 4, PUT has been changed to PATCH to avoid confusion.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'> posts GET    /posts(.:format)                            {:action=&gt;"index", :controller=&gt;"posts"}
+</span><span class='line'>      POST   /posts(.:format)                            {:action=&gt;"create", :controller=&gt;"posts"}
+</span><span class='line'> new_post GET    /posts/new(.:format)                        {:action=&gt;"new", :controller=&gt;"posts"}
+</span><span class='line'>edit_post GET    /posts/:id/edit(.:format)                   {:action=&gt;"edit", :controller=&gt;"posts"}
+</span><span class='line'> post GET    /posts/:id(.:format)                        {:action=&gt;"show", :controller=&gt;"posts"}
+</span><span class='line'>      PUT    /posts/:id(.:format)                        {:action=&gt;"update", :controller=&gt;"posts"}
+</span><span class='line'>      DELETE /posts/:id(.:format)                        {:action=&gt;"destroy", :controller=&gt;"posts"}
+</span><span class='line'></span></code></pre></td></tr></table></div></figure>
+
+
+<p>延伸閱讀：ihower &ndash; <a href="http://ihower.tw/blog/archives/6483">HTTP Verbs: 談 POST, PUT 和 PATCH 的應用</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Rails] List of Rails Model Type (MySQL)]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/01/02/rails-list-of-rails-model-type-mysql/"/>
+    <updated>2014-01-02T07:38:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/01/02/rails-list-of-rails-model-type-mysql</id>
+    <content type="html"><![CDATA[<p>:binary<br/>
+:boolean<br/>
+:date<br/>
+:datetime<br/>
+:decimal<br/>
+:float<br/>
+:integer<br/>
+:primary_key<br/>
+:string<br/>
+:text<br/>
+:time<br/>
+:timestamp</p>
+
+<p><a href="http://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters/TableDefinition.html#method-i-column">http://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters/TableDefinition.html#method-i-column</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[AWS] Ubuntu Swap]]></title>
+    <link href="http://kerkerj.github.io/blog/2013/12/26/aws-ubuntu-swap/"/>
+    <updated>2013-12-26T10:11:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2013/12/26/aws-ubuntu-swap</id>
+    <content type="html"><![CDATA[<p>Add swap for an instance</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo /bin/dd if=/dev/zero of=/var/swap.1 bs=1M count=1024
+</span><span class='line'>$ sudo /sbin/mkswap /var/swap.1
+</span><span class='line'>$ sudo /sbin/swapon /var/swap.1
+</span><span class='line'>$ echo "/var/swap.1 swap swap defaults 0 0" &gt;&gt; /etc/fstab #將 swap 加入 開機啟動</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在 Amazon EC2 micro plan，加入 swap 很容易 I/O 過量，
+因此最好是需要時才開啟 swap，不用時關閉 swap 以免被收錢~</p>
+
+<p>swap usage</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="gp">$</span> swapon -s
+</span><span class='line'><span class="gp">$</span> free -k
+</span><span class='line'><span class="go">---</span>
+</span><span class='line'><span class="gp">$</span> swapoff -a
+</span><span class='line'><span class="gp">$</span> swapon  -a
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[SublimeText2] Use Command to Call Sublime Text2]]></title>
+    <link href="http://kerkerj.github.io/blog/2013/12/24/sublimetext2-use-command-to-call-sublime-text2/"/>
+    <updated>2013-12-24T07:26:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2013/12/24/sublimetext2-use-command-to-call-sublime-text2</id>
+    <content type="html"><![CDATA[<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ln -s /Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl /usr/local/bin/sublime</span></code></pre></td></tr></table></div></figure>
+
+
+<p>in terminal:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sublime filename
+</span><span class='line'>$ sublime . (open the directory)</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Gem] How to Make --no-ri --no-rdoc the Default for Gem Install?]]></title>
+    <link href="http://kerkerj.github.io/blog/2013/12/22/gem-how-to-make-no-ri-no-rdoc-the-default-for-gem-install/"/>
+    <updated>2013-12-22T08:50:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2013/12/22/gem-how-to-make-no-ri-no-rdoc-the-default-for-gem-install</id>
+    <content type="html"><![CDATA[<p>In home dir, create a file: .gemrc (on linux, maybe on mac)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>echo "gem: --no-ri --no-rdoc" &gt;&gt; ~/.gemrc</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Ubuntu] RoR Environment]]></title>
+    <link href="http://kerkerj.github.io/blog/2013/12/20/ubuntu-ror-environment/"/>
+    <updated>2013-12-20T03:34:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2013/12/20/ubuntu-ror-environment</id>
+    <content type="html"><![CDATA[<h2>RVM with Ruby2.0.0-p353 + Rails4.0.2 + Ubuntu12.04(precise64) + php-fpm by Vagrant(clean install)</h2>
+
+<p>p.s.
+If you don&rsquo;t use RVM, you can just follow the instruction from <a href="http://www.modrails.com/documentation/Users%20guide%20Nginx.html#install_on_debian_ubuntu">Passenger offcial website</a>. It will be easier.
+Plus, I installed all these things by Vagrant.</p>
+
+<h2>First thing to do</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get update
+</span><span class='line'>$ sudo apt-get upgrade</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Pre-setup: install necessary packages</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get update
+</span><span class='line'>$ sudo apt-get install build-essential libssl-dev libpcre3-dev libncurses5-dev libreadline6-dev git vim curl libcurl4-openssl-dev libreadline6 autoconf openssl git-core zlib1g zlib1g-dev  libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev autoconf libc6-dev libgdbm-dev libncurses5-dev automake libtool bison subversion pkg-config libffi-dev</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Get .bashrc from my repo (Optional)</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd
+</span><span class='line'>$ git clone https://github.com/jerry54010/bash-it.git
+</span><span class='line'>$ mv bash-it .bash_it
+</span><span class='line'>$ cd .bash_it
+</span><span class='line'>$ git checkout ubuntu
+</span><span class='line'>$ ln -s ~/.bash_it/.bash_profile ~/.bash_profile
+</span><span class='line'>$ cd
+</span><span class='line'>$ source ~/.bash_profile</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Get .vimrc from my repo (Optional)</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ wget https://gist.github.com/jerry54010/8049575/raw/42ced22651fedf06174457e311d22d17f6591b65/.vimrc</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>RVM and Ruby 2.0 (RVM: Ruby version management)</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ \curl -sSL https://get.rvm.io | bash -s stable
+</span><span class='line'>$ source ~/.bash_profile //if you installed my bash_profile. 
+</span><span class='line'>//If not, source ~/.profile
+</span><span class='line'>$ rvm requirements
+</span><span class='line'>$ echo 'gem: --no-ri --no-rdoc'  &gt;&gt; ~/.gemrc
+</span><span class='line'>$ rvm install 2.0.0
+</span><span class='line'>$ source ~/.bash_profile //if you installed my bash_profile. 
+</span><span class='line'>//If not, source ~/.profile
+</span><span class='line'>
+</span><span class='line'>add this line to .bash_rc or .bash_profile (if you don't use my .bash_profile)
+</span><span class='line'>[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
+</span><span class='line'>
+</span><span class='line'>$ rvm use 2.0.0 --default</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now we should be using ruby2.0.0 by RVM, let&rsquo;s check:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rvm list
+</span><span class='line'>=* ruby-2.0.0-p353 [ x86_64 ] 
+</span><span class='line'>// =&gt; - current
+</span><span class='line'>// =* - current && default
+</span><span class='line'>//  * - default</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Nodejs, libv8-dev(for javascript) and SQLite3 (sqlite3 libsqlite3-dev)</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get -y install nodejs libv8-dev sqlite3 libsqlite3-dev </span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Passenger with NGINX</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ gem install passenger 
+</span><span class='line'>$ rvmsudo passenger-install-nginx-module
+</span><span class='line'>choose 2: customize
+</span><span class='line'>  a. src dir: /home/vagrant/nginx-1.4.4/ (where the nginx you download)
+</span><span class='line'>  b. I installed nginx with passenger in `/etc/nginx` (default is /opt/nginx)
+</span><span class='line'>  c. default</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Get nginx script</h2>
+
+<p>If you use /opt/nginx as root dir, you don&rsquo;t need to modify this script.
+If you use /etc/nginx or else dir as root dir like me, you should modify the script.
+(from <a href="https://library.linode.com/web-servers/nginx/installation/ubuntu-12.04-precise-pangolin">linode</a>)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ wget -O init-deb.sh http://library.linode.com/assets/1139-init-deb.sh
+</span><span class='line'>$ sudo mv init-deb.sh /etc/init.d/nginx
+</span><span class='line'>$ chmod +x /etc/init.d/nginx
+</span><span class='line'>$ sudo /usr/sbin/update-rc.d -f nginx defaults</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The nginx default public folder will be in <code>/etc/nginx/html</code>
+check nginx version:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ /etc/nginx/sbin/nginx -v
+</span><span class='line'>nginx version: nginx/1.4.4</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Install php5-fpm</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get -y install php5-cli php5-common php5-fpm
+</span><span class='line'>$ sudo vim /etc/php5/fpm/php.ini 
+</span><span class='line'>//(find and change to `cgi.fix_pathinfo = 0` )
+</span><span class='line'>$ sudo vim /etc/php5/fpm/pool.d/www.conf 
+</span><span class='line'>//change: listen = 127.0.0.1:9000 to listen = /var/run/php5-fpm.sock
+</span><span class='line'>$ sudo vim /etc/nginx/conf/nginx.conf or /opt/nginx/conf/nginx.conf //find and modify 
+</span><span class='line'>location ~ \.php$ {
+</span><span class='line'>    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+</span><span class='line'>    # NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
+</span><span class='line'>    # With php5-cgi alone:
+</span><span class='line'>    #fastcgi_pass 127.0.0.1:9000;
+</span><span class='line'>    # With php5-fpm:
+</span><span class='line'>    fastcgi_pass unix:/var/run/php5-fpm.sock;
+</span><span class='line'>    fastcgi_index index.php;
+</span><span class='line'>    fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+</span><span class='line'>    include fastcgi_params;
+</span><span class='line'>}
+</span><span class='line'>$ echo "&lt;?php phpinfo(); ?&gt;" | sudo tee -a /etc/nginx/html/phpinfo.php</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Restart all:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo service php5-fpm restart
+</span><span class='line'>$ sudo service nginx restart</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Install rails</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ gem install rails</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>RoR environment check</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ruby -v 
+</span><span class='line'>ruby 2.0.0p353 (2013-11-22 revision 43784) [x86_64-linux]
+</span><span class='line'>$ rails -v
+</span><span class='line'>Rails 4.0.2
+</span><span class='line'>$ rake -V
+</span><span class='line'>rake, version 10.1.0</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you passed, you are good to go!</p>
+
+<h2>Deploy Rails application by nginx:</h2>
+
+<p>Assume your rails application path is: <code>/home/vagrant/projects/subapp/</code>
+(by <code>rails new subapp</code>)
+then, the <code>/etc/nginx/conf/nginx.conf</code> will be:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>http {
+</span><span class='line'>    ...
+</span><span class='line'>    server {
+</span><span class='line'>        listen 80;
+</span><span class='line'>        server_name localhost;
+</span><span class='line'>        root /etc/nginx/html;
+</span><span class='line'>
+</span><span class='line'>        # This block has been added.
+</span><span class='line'>        location ~ ^/subapp(/.*|$) {
+</span><span class='line'>            passenger_base_uri /subapp;
+</span><span class='line'>            alias /home/vagrant/projects/subapp/public$1;  # &lt;-- be sure to point to 'public'!
+</span><span class='line'>            passenger_app_root /home/vagrant/projects/subapp;
+</span><span class='line'>            passenger_enabled on;
+</span><span class='line'>            rails_env development; # or production
+</span><span class='line'>        }
+</span><span class='line'>    }
+</span><span class='line'>    ...
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>restart nginx, you can access the url: <code>http://localhost/subapp/</code></p>
+
+<h2>Install MySQL and Mysql adapter</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get -y install mysql-server mysql-common mysql-client libmysqlclient-dev  
+</span><span class='line'>$ gem install mysql2 //gem mysql2 is faster than gem mysql  </span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><p>The gem you installed is placed in RVM&rsquo;s ruby, if you are using RVM&rsquo;s ruby.</p></blockquote>
+
+<p>If you use MySQL in your rails application, remember to change the database.yml.</p>
+
+<p>p.s. If you want to use phpmyadmin, you can do:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get install php5-mysql</span></code></pre></td></tr></table></div></figure>
+
+
+<p>download phpmyadmin, then extract to <code>/etc/nginx/html/phpmyadmin</code><br/>
+then start the server, access: <code>http://localhost/phpmyadmin/</code></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Vagrant] Use Knife-solo to Deploy a New VM]]></title>
+    <link href="http://kerkerj.github.io/blog/2013/12/19/vagrant-use-knife-solo-to-deploy-a-new-vm/"/>
+    <updated>2013-12-19T10:47:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2013/12/19/vagrant-use-knife-solo-to-deploy-a-new-vm</id>
+    <content type="html"><![CDATA[<p>My own computer: host side
+My VM: guest side</p>
+
+<p>knife-solo is a tool for Chef.
+host side: you need ruby environment!</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ gem install knife-solo</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The only thing you need to install is just knife-solo by ruby!</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ knife configure -r . --defaults (產生預設設定檔，內容為空)
+</span><span class='line'>$ knife cookbook create "package"
+</span><span class='line'>$ knife solo bootstrap vagrant@ip.address (bootstrap = prepare + cook, only for the first time)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>加入菜單：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ knife cookbook create nginx</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在 cookbooks/nginx/recipes/default.rb 裡最少要加入
+<code>package 'nginx'</code> 也就是套件名稱
+其他內容可以自己加
+例如：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>package 'nginx'
+</span><span class='line'>
+</span><span class='line'>service 'nginx' do
+</span><span class='line'>    supports [:status, :restart, :reload]
+</span><span class='line'>      action :start
+</span><span class='line'>end
+</span><span class='line'>
+</span><span class='line'>directory "/vagrant/demo" do
+</span><span class='line'>end
+</span><span class='line'>
+</span><span class='line'>file "/vagrant/index.php" do
+</span><span class='line'>    content "&lt;?php phpinfo(); ?&gt;"
+</span><span class='line'>end
+</span><span class='line'>
+</span><span class='line'>template "/etc/nginx/sites-enabled/default" do
+</span><span class='line'>    source 'default.erb'
+</span><span class='line'>      notifies :restart, 'service[nginx]', :immediately
+</span><span class='line'>end
+</span><span class='line'></span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Ubuntu] -bash: Warning: Setlocale: LC_CTYPE: Cannot Change Locale]]></title>
+    <link href="http://kerkerj.github.io/blog/2013/12/18/ubuntu-bash-warning-setlocale-lc-ctype-cannot-change-locale/"/>
+    <updated>2013-12-18T08:42:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2013/12/18/ubuntu-bash-warning-setlocale-lc-ctype-cannot-change-locale</id>
+    <content type="html"><![CDATA[<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo locale-gen zh_TW.UTF-8
+</span><span class='line'>$ sudo update-locale LANG=zh_TW.UTF-8</span></code></pre></td></tr></table></div></figure>
+
+
+<p>reload your bash profile</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Ruby] PP to Ruby as Var_dump to PHP]]></title>
+    <link href="http://kerkerj.github.io/blog/2013/12/18/ruby-pp-to-ruby-as-var-dump-to-php/"/>
+    <updated>2013-12-18T06:46:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2013/12/18/ruby-pp-to-ruby-as-var-dump-to-php</id>
+    <content type="html"><![CDATA[<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;pp&#39;</span>
+</span><span class='line'><span class="n">pp</span><span class="p">(</span><span class="no">ENV</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><p>Usage:
+pp(any_variable)</p></blockquote>
+
+<p>just like <code>var_dump</code> in <code>php</code></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Codeigniter] Use Markdown as Library]]></title>
+    <link href="http://kerkerj.github.io/blog/2013/12/16/codeigniter-use-markdown-as-library/"/>
+    <updated>2013-12-16T07:01:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2013/12/16/codeigniter-use-markdown-as-library</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/erusev/parsedown">https://github.com/erusev/parsedown</a></p>
+
+<p>download the Parsedown.php
+and put it into Library folder
+then edit autoload.php</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$autoload['libraries'] = array('Parsedown');</span></code></pre></td></tr></table></div></figure>
+
+
+<p>then in the view php for tests:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$text = 'Hello **Parsedown**!';
+</span><span class='line'>$result = Parsedown::instance()-&gt;parse($text);
+</span><span class='line'>echo $result;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>No need to require or include the file.
+If you want to load a file with path, you can use the function called file_get_contents:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>file_get_contents('./markdown/test.md',true); (true: enable path)</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
   
 </feed>

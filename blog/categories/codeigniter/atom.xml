@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Codeigniter | kerkerj]]></title>
+  <link href="http://kerkerj.github.io/blog/categories/codeigniter/atom.xml" rel="self"/>
+  <link href="http://kerkerj.github.io/"/>
+  <updated>2014-07-27T00:12:01+08:00</updated>
+  <id>http://kerkerj.github.io/</id>
+  <author>
+    <name><![CDATA[kerkerj]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[[Codeigniter] Disallowed Key Characters]]></title>
+    <link href="http://kerkerj.github.io/blog/2012/01/31/codeigniter-disallowed-key-characters/"/>
+    <updated>2012-01-31T16:18:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2012/01/31/codeigniter-disallowed-key-characters</id>
+    <content type="html"><![CDATA[<p>Codeigniter 顯示 Disallowed Key Characters<br/>
+我的情況是：<br/>
+表單(form)名稱型態不符合格式。<br/>
+不得使用中文。<br/>
+<code>＜input name="姓名" type="checkbox" value="1" /＞</code><br/>
+改掉就好了</p>
+
+<p>ref: <a href="http://clonn.blogspot.com/2010/12/codeigniter-disallowed-key-characters.html">Codeigniter 顯示 Disallowed Key Characters</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Codeigniter] Remove index.php & 圖片無法讀取問題]]></title>
+    <link href="http://kerkerj.github.io/blog/2011/12/20/codeigniter-remove-indexphp/"/>
+    <updated>2011-12-20T07:48:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2011/12/20/codeigniter-remove-indexphp</id>
+    <content type="html"><![CDATA[<p>首先，是先簡單說明使用 Codeigniter framework 時移除 URL 中的 index.php<br/>
+在 Codeigniter 的根目錄新增一 .htaccess 檔案<br/>
+並放入以下內容<br/>
+<code>
+RewriteEngine on  
+RewriteCond $1 !^(index\.php|js|robots\.txt|css)  
+RewriteRule ^(.*)$ index.php/$1 [L]  
+</code></p>
+
+<p>另外還要修改 Codeigniter 的 config.php 設定<br/>
+<code>$config['index_page'] = ''";</code></p>
+
+<p>不過上面的 rewrite rule 有些問題，<br/>
+情境是這樣的：<br/>
+我在 Codeigniter 根目錄新增一資料夾為 uploads ，<br/>
+放置上傳的圖片與影片，<br/>
+但是因為 rewrite rule routing 的關係沒辦法讀取到圖片，<br/>
+因此我將 .htaccess 檔修改如下：</p>
+
+<p><code>
+RewriteEngine on  
+RewriteCond $1 !^(index\.php|images|css|js|robots\.txt|favicon\.ico)  
+RewriteCond %{REQUEST_FILENAME} !-f  
+RewriteCond %{REQUEST_FILENAME} !-d  
+RewriteRule ^(.*)$ ./index.php?/$1 [L,QSA]  
+</code></p>
+
+<p>主要是在三四行的 <code>%{REQUEST_FILENAME}</code><br/>
+這樣修改完就解決問題了!</p>
+
+<p>ref: <a href="http://milk4candy.wordpress.com/2010/12/31/codeigniter%E5%A6%82%E4%BD%95%E5%8E%BB%E6%8E%89-url-%E4%B8%AD%E7%9A%84-index-php/">CodeIgniter 如何去掉 URL 中的 index.php</a></p>
+]]></content>
+  </entry>
+  
+</feed>

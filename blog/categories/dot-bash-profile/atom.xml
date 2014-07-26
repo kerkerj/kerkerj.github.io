@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: .bash_profile | kerkerj]]></title>
+  <link href="http://kerkerj.github.io/blog/categories/dot-bash-profile/atom.xml" rel="self"/>
+  <link href="http://kerkerj.github.io/"/>
+  <updated>2014-07-27T00:12:01+08:00</updated>
+  <id>http://kerkerj.github.io/</id>
+  <author>
+    <name><![CDATA[kerkerj]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[[Mac OSX] Slow-Opening Terminal Windows]]></title>
+    <link href="http://kerkerj.github.io/blog/2013/11/13/mac-osx-slow-opening-terminal-windows/"/>
+    <updated>2013-11-13T07:34:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2013/11/13/mac-osx-slow-opening-terminal-windows</id>
+    <content type="html"><![CDATA[<p>最近在開 mac 的 iTerm.app 或者是內建的終端機都覺得卡卡的，
+之前以為是 .bashrc 載入太多東西導致的，所以把一些掛載的 bin 目錄都註解掉，
+但是還是沒解決，心想不對勁，就順手 google 了一下&hellip;</p>
+
+<p>我執行了下列語法：
+```
+$ time /usr/libexec/path_helper
+PATH=&ldquo;/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/ABC/android-sdks/platform-tools:/Users/ABC/android-sdks/tools:/Application/Vagrant/bin&rdquo;; export PATH;</p>
+
+<p>real    0m0.043s
+user    0m0.001s
+sys 0m0.002s
+<code>``
+接著我把</code>PATH<code>的內容寫進</code>.bash_profile`，問題竟然就解決了&hellip;
+速度飛快～～</p>
+
+<p>後來看到一篇 <a href="http://www.joshstaiger.org/archives/2005/07/bash_profile_vs.html">.bash_profile vs.bashrc</a>
+雖然大家都知道 <code>.bash_profile</code> 是在登入時執行（即是輸入帳號密碼時），
+而 <code>.bashrc</code> 是在系統內非登入狀態時開啟 prompt 時執行，
+但是！！ Mac OSX 是個例外～是個例外～是個例外～&hellip;&hellip;.=.=</p>
+
+<blockquote><p>Mac OS X — an exception
+An exception to the terminal window guidelines is Mac OS X&rsquo;s Terminal.app, which runs a login shell by default for each new terminal window, calling .bash_profile instead of .bashrc. Other GUI terminal emulators may do the same, but most tend not to.</p></blockquote>
+
+<p>所以通常解決方法是在 <code>.bash_profile</code> 寫入以下 script:
+```
+if [ -f ~/.bashrc ]; then</p>
+
+<pre><code>source ~/.bashrc
+</code></pre>
+
+<p>fi
+```</p>
+
+<p>不過我之前就這樣做了，這次成功的方式是直接在 <code>.bash_profile</code> 寫入 PATH 路徑&hellip;
+猜想應該是在 <code>.bash_profile</code> 預先讀取而加快速度的
+如果把原本的 <code>.bashrc</code> 的 <code>PATH</code> 註解掉都移到 <code>.bash_profile</code> 會再稍快一些</p>
+]]></content>
+  </entry>
+  
+</feed>

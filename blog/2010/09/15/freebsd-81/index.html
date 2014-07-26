@@ -1,0 +1,427 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>[FreeBSD] 8.1 基本安裝紀錄 - kerkerj</title>
+  <meta name="author" content="kerkerj">
+
+  
+  <meta name="description" content="FreeBSD 安裝 &ndash; FreeBSD 8.1
+幾乎是整套SOP流程了 = = 乾脆寫起來查比較快, 自己都重灌不曉得幾百遍了
+好站推薦：twbsd.org 安裝系統： 選擇鍵盤配置
+選擇Custom (可選DHCP)
+在這裡只紀錄如何搞Label （以40GB為例) /    ： &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://kerkerj.github.io/blog/2010/09/15/freebsd-81">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="kerkerj" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='//fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+  
+
+</head>
+
+<body   class="collapse-sidebar sidebar-footer" >
+  <header role="banner"><hgroup>
+  <h1><a href="/">kerkerj</a></h1>
+  
+    <h2>Cool</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+  
+  
+  
+  
+<ul class="subscription">
+  <li><a href="https://github.com/kerkerj" rel="subscribe-github" title="@kerkerj on GitHub">GitHub</a></li>
+</ul>
+  
+  
+  
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:kerkerj.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/notes">Notes</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      
+        <h1 class="entry-title">[FreeBSD] 8.1 基本安裝紀錄</h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-09-15T08:28:00+08:00" pubdate data-updated="true">Sep 15<sup>th</sup>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>FreeBSD 安裝 &ndash; FreeBSD 8.1<br/>
+幾乎是整套SOP流程了 = = 乾脆寫起來查比較快, 自己都重灌不曉得幾百遍了
+好站推薦：<a href="http://twbsd.org/cht/book/index.php">twbsd.org</a></p>
+
+<h1>安裝系統：</h1>
+
+<ol>
+<li>選擇鍵盤配置</li>
+<li>選擇Custom (可選DHCP)</li>
+<li>在這裡只紀錄如何搞Label （以40GB為例)<br/>
+     /    ：1GB<br/>
+ swap ：512MB (也可以視情況而定)<br/>
+ /usr ：10GB<br/>
+ /tmp ：1GB<br/>
+ /var ：5GB<br/>
+ /home：其他剩下的空間</li>
+<li>選擇CD/DVD安裝</li>
+<li>commit 即可安裝完畢</li>
+</ol>
+
+
+<h1>登入後的一般設置：<a href="http://plog.longwin.com.tw/my_note-unix/2007/07/16/freebsd_initial_env_build_2007">一些基本套件語法等等可以看這裡</a></h1>
+
+<p>先新增一使用者並加入wheel群組
+(可有可無：將.vimrc及csh.cshrc分別放入家目錄及/etc/底下)</p>
+
+<hr />
+
+<p>設定時區: <code>#sysinstall</code>
+選擇config &ndash;> Timezone &ndash;> 選擇時區</p>
+
+<hr />
+
+<p>設定網路: <code>#sysinstall</code>
+選擇config &ndash;> networking &ndash;> 即可設定網路
+會跳三個選項 &ndash; IPv6, DHCP, 選擇網路卡
+前兩者可選可不選, 網卡以主要連線的為主 （反正應該都知道哪張是給FreeBSD連線的吧XD
+之後作一點IP, gateway等等的設定即可</p>
+
+<hr />
+
+<p>更改開機設定檔:  <code>/etc/rc.conf</code>
+加入: <code>sshd_enable="yes"</code></p>
+
+<hr />
+
+<p>套件安裝：
+cd 到該套件的目錄底下
+安裝前可先 <code>#make config</code> 來作設定
+設定完再 <code>#make install clean</code></p>
+
+<p>當第一次進行套件更新時會出現以下狀況：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># cd /usr/ports/
+</span><span class='line'># make update
+</span><span class='line'>--------------------------------------------------------------
+</span><span class='line'>&gt;&gt;&gt; Running portsnap
+</span><span class='line'>--------------------------------------------------------------
+</span><span class='line'>Error: 'make update' uses portsnap(8) by default and
+</span><span class='line'>needs /usr/ports to be created by portsnap on its first run.
+</span><span class='line'>
+</span><span class='line'>Please run 'portsnap fetch extract' first.
+</span><span class='line'>You can also define SUP_UPDATE and PORTSSUPFILE to use csup(1) or CVS_UPDATE to use cvs(1) for updating.</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+就照著他所說的下指令即可(此時必須要有網路狀態, 且過程有點久)：<br/>
+<code># portsnap fetch extract</code></p>
+
+<hr />
+
+<p>設定make.conf
+新增編輯 <code>/etc/make.conf</code><br/>
+加入以下資料(更新時可以直接到台灣的ftp抓,速度快)</p>
+
+<p>p.s.自從 FreeBSD 6.2 開始，系統就內建了 csup 這指令來更新 Ports，使用方法就和 cvsup 一樣, 省去非常久的時間在安裝 cvsup (因此cvsup-without-gui可裝可不裝，但還是要設定make.conf)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># for make install
+</span><span class='line'>MASTER_SITE_BACKUP?= \
+</span><span class='line'>ftp://ftp.tw.freebsd.org/pub/FreeBSD/distfiles/${DIST_SUBDIR}/\
+</span><span class='line'>ftp://ftp7.tw.freebsd.org/pub/FreeBSD/distfiles/${DIST_SUBDIR}/\
+</span><span class='line'>ftp://ftp8.tw.freebsd.org/pub/FreeBSD/distfiles/${DIST_SUBDIR}/\
+</span><span class='line'>ftp://freebsd.csie.ncu.edu.tw/distfiles/${DIST_SUBDIR}/\
+</span><span class='line'>ftp://freebsd.csie.nctu.edu.tw/pub/distfiles/${DIST_SUBDIR}/
+</span><span class='line'>MASTER_SITE_OVERRIDE?= ${MASTER_SITE_BACKUP}
+</span><span class='line'>
+</span><span class='line'># For CSUP make update
+</span><span class='line'># SUPHOST 代表要到哪台 CSUP，假如你知道哪個伺服站離你的主機比較近，請改成離您
+</span><span class='line'># 比較近的 Server 會有效率些。
+</span><span class='line'># 目前可用的 cvsup.tw.FreeBSD.org, cvsup1.tw.FreeBSD.org .... 到
+</span><span class='line'># cvsup14.tw.FreeBSD.org 可以選用。
+</span><span class='line'># 在SUPFILE的部份
+</span><span class='line'># 如果您是用 -stable，請用 stable-supfile
+</span><span class='line'># 如果您是用 -current，請用 standard-supfile
+</span><span class='line'>
+</span><span class='line'>SUP_UPDATE= yes
+</span><span class='line'>SUP= /usr/bin/csup
+</span><span class='line'>SUPFLAGS= -g -L 2
+</span><span class='line'>SUPHOST= cvsup.tw.FreeBSD.org
+</span><span class='line'>SUPFILE= /usr/share/examples/cvsup/standard-supfile
+</span><span class='line'>PORTSSUPFILE= /usr/share/examples/cvsup/ports-supfile
+</span><span class='line'>DOCSUPFILE= /usr/share/examples/cvsup/doc-supfile</span></code></pre></td></tr></table></div></figure>
+
+
+<p>即可到 port 作 <code>make update</code></p>
+
+<p>設定 <code>/etc/crontab</code> 讓主機每 12 小時自動更新一次 port tree，以後每次都可以安裝到新的套件。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># echo '0 */12 * * * root cd /usr/ports; make update && make fetchindex &gt;/dev/null 2&gt;&1' &gt;&gt; /etc/crontab</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<p>校正主機的時間</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># ntpdate "stdtime.sinica.edu.tw"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然後設定 <code>/etc/crontab</code> 讓主機每 30 分鐘自動校時一次</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># echo '*/30 * * * * root ntpdate "stdtime.sinica.edu.tw" &gt; /dev/null 2&gt;&1 &gt;&gt; /etc/crontab</span></code></pre></td></tr></table></div></figure>
+
+
+<p>寫入 <code>&gt; /dev/null 2&gt;&amp;1</code> 後每次校時的結果便不會回報給系統管理員，可以減少看很多封回報通知信。</p>
+
+<hr />
+
+<p>基本套件： sudo, gnuls, vim, screen</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#cd /usr/ports/security/sudo   
+</span><span class='line'>#make install clean  </span></code></pre></td></tr></table></div></figure>
+
+
+<p>編輯 <code>/usr/local/etc/sudoers</code>
+取消註解 <code>%wheel ALL=(ALL) ALL</code>
+嫌麻煩也可以註解掉下面的 <code>NOPASSWD</code> 但是記得改回來 (若是正式機器)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#cd/usr/ports/misc/gnuls
+</span><span class='line'>#make install clean</span></code></pre></td></tr></table></div></figure>
+
+
+<p>設定 <code>/etc/csh.cshrc</code> ( 或 user 家目錄下的 .cshrc )</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>alias ls 'gnuls --color=auto --show-control-chars'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>vim:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#cd /usr/ports/editors/vim-lite  (或者可以裝vim6 不過會裝很久)
+</span><span class='line'>#make install clean</span></code></pre></td></tr></table></div></figure>
+
+
+<p>screen:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#cd /usr/ports/sysutils/screen
+</span><span class='line'>#make install clean</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<p>這些東西裝完就是一個平常使用的FreeBSD囉~</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Authored by <span class="fn">kerkerj</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-09-15T08:28:00+08:00" pubdate data-updated="true">Sep 15<sup>th</sup>, 2010</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/freebsd/'>freebsd</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://kerkerj.github.io/blog/2010/09/15/freebsd-81/" data-via="jerry54010" data-counturl="http://kerkerj.github.io/blog/2010/09/15/freebsd-81/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/10/04/freebsd81-famp/" title="Next Post: [FreeBSD] FAMP">[FreeBSD] FAMP &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+
+</div>
+
+<aside class="sidebar">
+  
+    
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - kerkerj -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a> | Themed with <a href="https://github.com/lucaslew/whitespace">Whitespace</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Php | kerkerj]]></title>
+  <link href="http://kerkerj.github.io/blog/categories/php/atom.xml" rel="self"/>
+  <link href="http://kerkerj.github.io/"/>
+  <updated>2014-07-27T00:12:01+08:00</updated>
+  <id>http://kerkerj.github.io/</id>
+  <author>
+    <name><![CDATA[kerkerj]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[[PHP] Json_decode Error by Wrong Json String With Quotes]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/01/28/php-json-decode-error-by-wrong-json-string-with-quotes/"/>
+    <updated>2014-01-28T06:29:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/01/28/php-json-decode-error-by-wrong-json-string-with-quotes</id>
+    <content type="html"><![CDATA[<p>Normal json string:
+<code>
+{"Hey":"There"}
+</code>
+Error json string got from $_POST variable:
+<code>
+{\"Hey\":\"There\"}
+</code>
+This may causes by <code>magic_quotes</code> in <code>php.ini</code>
+Magic is never good in development.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[PHP] Checkbox Check/uncheck All]]></title>
+    <link href="http://kerkerj.github.io/blog/2012/06/12/php-checkbox-checkuncheck-all/"/>
+    <updated>2012-06-12T17:23:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2012/06/12/php-checkbox-checkuncheck-all</id>
+    <content type="html"><![CDATA[<p>今天在做 checkbox 時, 想做全選/取消全選
+多使用一個 checkbox, 若勾選則是全選, 再點一次則全不選
+於是就產生了這段 code&hellip;</p>
+
+<iframe style="width: 100%; height: 300px" src="http://jsfiddle.net/jerry54010/tmJXb/4/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Codeigniter] Disallowed Key Characters]]></title>
+    <link href="http://kerkerj.github.io/blog/2012/01/31/codeigniter-disallowed-key-characters/"/>
+    <updated>2012-01-31T16:18:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2012/01/31/codeigniter-disallowed-key-characters</id>
+    <content type="html"><![CDATA[<p>Codeigniter 顯示 Disallowed Key Characters<br/>
+我的情況是：<br/>
+表單(form)名稱型態不符合格式。<br/>
+不得使用中文。<br/>
+<code>＜input name="姓名" type="checkbox" value="1" /＞</code><br/>
+改掉就好了</p>
+
+<p>ref: <a href="http://clonn.blogspot.com/2010/12/codeigniter-disallowed-key-characters.html">Codeigniter 顯示 Disallowed Key Characters</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[PHP] 取得目前時間]]></title>
+    <link href="http://kerkerj.github.io/blog/2012/01/31/php-get-current-time/"/>
+    <updated>2012-01-31T16:14:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2012/01/31/php-get-current-time</id>
+    <content type="html"><![CDATA[<p>很簡單，也很常忘，所以記下來 Orz</p>
+
+<p><code>$now =date("Y-m-d H:i:s",time());</code></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[PHP] 上傳檔案的限制]]></title>
+    <link href="http://kerkerj.github.io/blog/2012/01/31/php-uploadfile-limit/"/>
+    <updated>2012-01-31T16:12:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2012/01/31/php-uploadfile-limit</id>
+    <content type="html"><![CDATA[<p>php.ini</p>
+
+<ol>
+<li><p>max_execution_time
+Script執行時間上限(單位：秒)</p></li>
+<li><p>max_input_time
+Script處理資料時間上限(單位：秒)</p></li>
+<li><p>memory_limit
+系統記憶體 (要比4,5大</p></li>
+<li><p>post_max_size
+表單的POST發送量</p></li>
+<li><p>upload_max_filesize
+單次上傳檔案容量</p></li>
+<li><p>default_socket_timeout
+Socket無回應斷線時間(單位：秒)</p></li>
+<li><p>mysql.connect_timeout
+無回應斷線時間(單位：秒；-1代表不斷線一直等)</p></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+</feed>
