@@ -4,7 +4,7 @@
   <title><![CDATA[kerkerj]]></title>
   <link href="http://kerkerj.github.io/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-07-27T00:53:12+08:00</updated>
+  <updated>2014-08-05T22:29:21+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,170 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Install Rails Server Env With Rbenv on Ubuntu 14.04]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/07/30/install-rails-server-env-with-rbenv-on-ubuntu-14-dot-04/"/>
+    <updated>2014-07-30T11:36:54+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/07/30/install-rails-server-env-with-rbenv-on-ubuntu-14-dot-04</id>
+    <content type="html"><![CDATA[<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>nodejs v0.10.25 (for rails javascript engine)
+</span><span class='line'>
+</span><span class='line'>rbenv 0.4.0-98-g13a474c
+</span><span class='line'>
+</span><span class='line'>ruby 2.1.2p95 (2014-05-08 revision 45877) [x86_64-linux]
+</span><span class='line'>
+</span><span class='line'>Rails 4.1.4
+</span><span class='line'>
+</span><span class='line'>nginx version: nginx/1.6.0
+</span><span class='line'>
+</span><span class='line'>Phusion Passenger version 4.0.48
+</span><span class='line'>
+</span><span class='line'>mysql  Ver 14.14 Distrib 5.5.38, for debian-linux-gnu (x86_64) using readline 6.3
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Installing Ruby &amp; Rails</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get update && sudo apt-get upgrade
+</span><span class='line'>sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties nodejs npm</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Use rbenv</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd
+</span><span class='line'>git clone git://github.com/sstephenson/rbenv.git .rbenv
+</span><span class='line'>echo 'export PATH="$HOME/.rbenv/bin:$PATH"' &gt;&gt; ~/.bashrc
+</span><span class='line'>echo 'eval "$(rbenv init -)"' &gt;&gt; ~/.bashrc
+</span><span class='line'>exec $SHELL
+</span><span class='line'>
+</span><span class='line'>git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+</span><span class='line'>echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' &gt;&gt; ~/.bashrc
+</span><span class='line'>exec $SHELL
+</span><span class='line'>
+</span><span class='line'>rbenv install 2.1.2
+</span><span class='line'>exec $SHELL
+</span><span class='line'>
+</span><span class='line'>rbenv global 2.1.2
+</span><span class='line'>ruby -v</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Don&rsquo;t install rdoc when installing gems</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>echo "gem: --no-ri --no-rdoc" &gt; ~/.gemrc</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Install rails</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gem install rails
+</span><span class='line'>exec $SHELL
+</span><span class='line'>rails -v</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Installing Nginx with passenger</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># Install Phusion's PGP key to verify packages
+</span><span class='line'>gpg --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7
+</span><span class='line'>gpg --armor --export 561F9B9CAC40B2F7 | sudo apt-key add -
+</span><span class='line'>
+</span><span class='line'># Add HTTPS support to APT
+</span><span class='line'>sudo apt-get install apt-transport-https
+</span><span class='line'>
+</span><span class='line'># Add the passenger repository
+</span><span class='line'>sudo sh -c "echo 'deb https://oss-binaries.phusionpassenger.com/apt/passenger trusty main' &gt;&gt; /etc/apt/sources.list.d/passenger.list"
+</span><span class='line'>sudo chown root: /etc/apt/sources.list.d/passenger.list
+</span><span class='line'>sudo chmod 600 /etc/apt/sources.list.d/passenger.list
+</span><span class='line'>sudo apt-get update
+</span><span class='line'>
+</span><span class='line'># Install nginx and passenger
+</span><span class='line'>sudo apt-get install nginx-full passenger</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Edit passenger configuration in <code>/etc/nginx/nginx.conf</code></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>##
+</span><span class='line'># Phusion Passenger
+</span><span class='line'>##
+</span><span class='line'># Uncomment it if you installed ruby-passenger or ruby-passenger-enterprise
+</span><span class='line'>##
+</span><span class='line'>
+</span><span class='line'>passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;
+</span><span class='line'>
+</span><span class='line'>passenger_ruby /usr/bin/ruby; #change this line
+</span><span class='line'>
+</span><span class='line'># passenger_ruby /home/yourpath/.rbenv/shims/ruby; # If you use rbenv
+</span><span class='line'># Use `which ruby`</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Installing MySQL</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get install mysql-server mysql-client libmysqlclient-dev</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Done!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[Rails] ActionController::InvalidAuthenticityToken When Useing Rails4 as API]]></title>
@@ -927,42 +1091,6 @@ host side: you need ruby environment!</p>
 pp(any_variable)</p></blockquote>
 
 <p>just like <code>var_dump</code> in <code>php</code></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[Codeigniter] Use Markdown as Library]]></title>
-    <link href="http://kerkerj.github.io/blog/2013/12/16/codeigniter-use-markdown-as-library/"/>
-    <updated>2013-12-16T07:01:00+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2013/12/16/codeigniter-use-markdown-as-library</id>
-    <content type="html"><![CDATA[<p><a href="https://github.com/erusev/parsedown">https://github.com/erusev/parsedown</a></p>
-
-<p>download the Parsedown.php
-and put it into Library folder
-then edit autoload.php</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$autoload['libraries'] = array('Parsedown');</span></code></pre></td></tr></table></div></figure>
-
-
-<p>then in the view php for tests:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$text = 'Hello **Parsedown**!';
-</span><span class='line'>$result = Parsedown::instance()-&gt;parse($text);
-</span><span class='line'>echo $result;</span></code></pre></td></tr></table></div></figure>
-
-
-<p>No need to require or include the file.
-If you want to load a file with path, you can use the function called file_get_contents:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>file_get_contents('./markdown/test.md',true); (true: enable path)</span></code></pre></td></tr></table></div></figure>
-
-
-
 ]]></content>
   </entry>
   

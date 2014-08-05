@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Mysql | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/mysql/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-07-27T00:53:12+08:00</updated>
+  <updated>2014-08-05T22:29:21+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,128 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Install Rails Server Env With Rbenv on Ubuntu 14.04]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/07/30/install-rails-server-env-with-rbenv-on-ubuntu-14-dot-04/"/>
+    <updated>2014-07-30T11:36:54+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/07/30/install-rails-server-env-with-rbenv-on-ubuntu-14-dot-04</id>
+    <content type="html"><![CDATA[<p>```
+nodejs v0.10.25 (for rails javascript engine)</p>
+
+<p>rbenv 0.4.0-98-g13a474c</p>
+
+<p>ruby 2.1.2p95 (2014-05-08 revision 45877) [x86_64-linux]</p>
+
+<p>Rails 4.1.4</p>
+
+<p>nginx version: nginx/1.6.0</p>
+
+<p>Phusion Passenger version 4.0.48</p>
+
+<p>mysql  Ver 14.14 Distrib 5.5.38, for debian-linux-gnu (x86_64) using readline 6.3</p>
+
+<p>```</p>
+
+<h2>Installing Ruby &amp; Rails</h2>
+
+<p><code>
+sudo apt-get update &amp;&amp; sudo apt-get upgrade
+sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties nodejs npm
+</code></p>
+
+<p>Use rbenv</p>
+
+<p>```
+cd
+git clone git://github.com/sstephenson/rbenv.git .rbenv
+echo &lsquo;export PATH=&ldquo;$HOME/.rbenv/bin:$PATH&rdquo;&rsquo; >> ~/.bashrc
+echo &lsquo;eval &ldquo;$(rbenv init &ndash;)&rdquo;&rsquo; >> ~/.bashrc
+exec $SHELL</p>
+
+<p>git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+echo &lsquo;export PATH=&ldquo;$HOME/.rbenv/plugins/ruby-build/bin:$PATH&rdquo;&rsquo; >> ~/.bashrc
+exec $SHELL</p>
+
+<p>rbenv install 2.1.2
+exec $SHELL</p>
+
+<p>rbenv global 2.1.2
+ruby -v
+```</p>
+
+<p>Don&rsquo;t install rdoc when installing gems</p>
+
+<p><code>
+echo "gem: --no-ri --no-rdoc" &gt; ~/.gemrc
+</code></p>
+
+<p>Install rails</p>
+
+<p><code>
+gem install rails
+exec $SHELL
+rails -v
+</code></p>
+
+<h2>Installing Nginx with passenger</h2>
+
+<p>```</p>
+
+<h1>Install Phusion&rsquo;s PGP key to verify packages</h1>
+
+<p>gpg &mdash;keyserver keyserver.ubuntu.com &mdash;recv-keys 561F9B9CAC40B2F7
+gpg &mdash;armor &mdash;export 561F9B9CAC40B2F7 | sudo apt-key add &ndash;</p>
+
+<h1>Add HTTPS support to APT</h1>
+
+<p>sudo apt-get install apt-transport-https</p>
+
+<h1>Add the passenger repository</h1>
+
+<p>sudo sh -c &ldquo;echo &lsquo;deb <a href="https://oss-binaries.phusionpassenger.com/apt/passenger">https://oss-binaries.phusionpassenger.com/apt/passenger</a> trusty main&rsquo; >> /etc/apt/sources.list.d/passenger.list&rdquo;
+sudo chown root: /etc/apt/sources.list.d/passenger.list
+sudo chmod 600 /etc/apt/sources.list.d/passenger.list
+sudo apt-get update</p>
+
+<h1>Install nginx and passenger</h1>
+
+<p>sudo apt-get install nginx-full passenger
+```</p>
+
+<p>Edit passenger configuration in <code>/etc/nginx/nginx.conf</code></p>
+
+<p>```</p>
+
+<h1>#</h1>
+
+<h1>Phusion Passenger</h1>
+
+<h1>#</h1>
+
+<h1>Uncomment it if you installed ruby-passenger or ruby-passenger-enterprise</h1>
+
+<h1>#</h1>
+
+<p>passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;</p>
+
+<p>passenger_ruby /usr/bin/ruby; #change this line</p>
+
+<h1>passenger_ruby /home/yourpath/.rbenv/shims/ruby; # If you use rbenv</h1>
+
+<h1>Use <code>which ruby</code></h1>
+
+<p>```</p>
+
+<h2>Installing MySQL</h2>
+
+<p><code>
+sudo apt-get install mysql-server mysql-client libmysqlclient-dev
+</code></p>
+
+<p>Done!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[MySQL] Several Useful Statements (GROUP_CONCAT, Ifnull, DATE_FORMAT)]]></title>
@@ -389,271 +511,6 @@ php_fpm_enable="YES"
 </code>
 這樣就可以啦<del>~
 如果有 phpmyadmin 的話，可以將該資料夾整個複製到網頁根目錄底下，就可以操作了</del></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[FreeBSD] FAMP]]></title>
-    <link href="http://kerkerj.github.io/blog/2010/10/04/freebsd81-famp/"/>
-    <updated>2010-10-04T18:25:00+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2010/10/04/freebsd81-famp</id>
-    <content type="html"><![CDATA[<p>FAMP:
-經典的網頁伺服器組合, 由FreeBSD, Apache, MySQL, PHP所組成 (使用Linux則稱為LAMP)
-以下則是在FreeBSD安裝網頁伺服器的過程簡單紀錄及問題排解。</p>
-
-<p>Env: FreeBSD 8.1　（以"此篇"安裝好的FreeBSD接續）
-安裝順序為:MySQL-> Apache-> PHP-> PHP-extension &ndash;> phpMyAdmin</p>
-
-<h1>MySQL</h1>
-
-<p>```</p>
-
-<h1>cd /usr/ports/databases/mysql50-server</h1>
-
-<h1>make WITH_CHARSET=utf8 WITH_XCHARSET=all WITH_COLLATION=utf8_unicode_ci BUILD_OPTIMIZED=yes instal clean</h1>
-
-<p>```
-=>安裝 mysql server 並設定編碼為utf8</p>
-
-<p>```</p>
-
-<h1>rehash</h1>
-
-<h1>sudo mysql_install_db (記得需要用root權限)</h1>
-
-<p>```
-=>安裝資料庫</p>
-
-<p>```</p>
-
-<h1>cp /usr/local/share/mysql/my-medium.cnf /etc/my.cnf</h1>
-
-<p>```
-=>複製設定檔</p>
-
-<p>```</p>
-
-<h1>sudo chown -R mysql:mysql /var/db/mysql</h1>
-
-<p>```
-=>變更mysql資料庫權限</p>
-
-<p>```</p>
-
-<h1>sudo mysqld_safe &amp;</h1>
-
-<p>```
-=>初始啟動</p>
-
-<p>```</p>
-
-<h1>sudo mysqladmin -u root -p password &lsquo;Your_password&rsquo;</h1>
-
-<p>也可以是這樣</p>
-
-<h1>sudo mysqladmin -u root passowrd &lsquo;Your_password&rsquo;</h1>
-
-<p>```
-=>新增使用者 root , 前者會出現"Enter Password", 就當做是confirm就好了</p>
-
-<p>```</p>
-
-<h1>sudo mysql -u root</h1>
-
-<p>```
-=>進入MySQL, 輸入剛剛設定的密碼即可</p>
-
-<h1>Apache</h1>
-
-<p>```</p>
-
-<h1>cd /usr/ports/www/apache22</h1>
-
-<h1>make install clean</h1>
-
-<p>```
-=>安裝apache 皆使用預設設定</p>
-
-<h1>PHP</h1>
-
-<p>```</p>
-
-<h1>cd /usr/ports/lang/php5</h1>
-
-<h1>make config install clean</h1>
-
-<p>p.s.勾選 [X] APACHE Build Apache module
-```
-=>安裝php</p>
-
-<p>```</p>
-
-<h1>cd /usr/ports/lang/php5-extensions/</h1>
-
-<h1>make config install clean</h1>
-
-<p>```
-=>安裝 php5-entensions, 勾選需要的extension</p>
-
-<p>```</p>
-
-<h1>cd /usr/local/etc</h1>
-
-<h1>cp php.ini-development php.ini</h1>
-
-<p>```
-=>修改PHP設定檔</p>
-
-<p>修改Apache設定檔:
-編輯 <code>/usr/local/etc/apache22/httpd.conf</code>
-加入:
-<code>
-AddType application/x-httpd-php .php
-AddType application/x-httpd-php-source .phps
-</code>
-將 <code>DirectoryIndex index.html</code>
-修改成 <code>DirectoryIndex index.php index.html index.htm</code></p>
-
-<p>*如果要變更網站檔案預設路徑的話請見附註</p>
-
-<p>設定開機啟動Apache以及MySQL
-編輯 <code>/etc/rc.conf</code>
-加入:
-<code>
-apache22_enable="YES"
-apache22_http_accept_enable="YES"
-mysql_enable="YES"
-</code></p>
-
-<h1>phpMyAdmin</h1>
-
-<p>```</p>
-
-<h1>cd /usr/ports/databases/phpmyadmin</h1>
-
-<h1>make install clean</h1>
-
-<p><code>
-</code>
-Alias /phpmyadmin/ &ldquo;/usr/local/www/phpMyAdmin/"<br/>
- <Directory "/usr/local/www/phpMyAdmin/"><br/>
-     Options Indexes FollowSymLinks<br/>
-     AllowOverride None<br/>
-     Order allow,deny<br/>
-     Allow from all<br/>
- </Directory><br/>
-<code>``
-編輯</code>httpd.conf`:</p>
-
-<p>```</p>
-
-<h1>cd /usr/local/www/phpmyadmin/</h1>
-
-<h1>cp config.sample.inc.php config.inc.php</h1>
-
-<h1>vim config.inc.php</h1>
-
-<p>```
-=>編輯phpMyAdmin的設定檔</p>
-
-<p>把這行 <code>$cfg['blowfish_secret'] = '';</code>
-改成 <code>$cfg['blowfish_secret'] = 'aabbccdd'; //裡面的字串可以自己修改</code></p>
-
-<p>重新啟動apache之後就可以連到 <code>http://你的網址/phpmyadmin/</code>看到 phpMyAdmin 的登入畫面
-此時可以使用mysql的帳號密碼登入管理資料庫</p>
-
-<h1>安裝後注意：</h1>
-
-<p>啟動： <code>/usr/local/etc/rc.d/mysql-server start</code>
-進入command line： <code>#/usr/local/bin/mysql mysql</code>
-更改root密碼：
-<code>
-UPDATE user SET password=password('你的密碼') where user='root';
-FLUSH PRIVILEGES;
-</code>
-新增一使用者（完整權限，localhost登入), 再刪除root</p>
-
-<hr />
-
-<p>狀況A &ndash; 若啟動apache時出現以下狀況<br/>
-<code>httpd: Could not reliably determine the server's fully qualified domain name, using 127.0.0.1 for ServerName</code></p>
-
-<p>到 <code>httd.conf</code><br/>
-找到 <code>#ServerName www.example.com:80</code><br/>
-將註解刪除, 並將 <code>www.example.com</code> 改成自己的 domain
-若是自己的測試機就改成 <code>localhost</code> , 這樣重新啟動即可</p>
-
-<hr />
-
-<p>狀況B:<br/>
-```</p>
-
-<h1>mysql -u root -p</h1>
-
-<p>Enter password:<br/>
-ERROR 1045 (28000): Access denied for user &lsquo;root&rsquo;@&lsquo;localhost&rsquo; (using password: NO)<br/>
-<code>
-</code></p>
-
-<h1>sudo /usr/local/etc/rc.d/mysql-server stop</h1>
-
-<h1>sudo mysqld_safe &mdash;user=mysql &mdash;skip-grant-tables &mdash;skip-networking &amp;</h1>
-
-<h1>sudo mysql -u root mysql</h1>
-
-<p>mysql> UPDATE user SET Password=PASSWORD(&lsquo;newpassword&rsquo;) where USER=&lsquo;root&rsquo;;
-mysql> FLUSH PRIVILEGES;
-mysql> quit</p>
-
-<h1>sudo /usr/local/etc/rc.d/mysql-server restart</h1>
-
-<h1>mysql -u root -p</h1>
-
-<p>Enter password: &lt;輸入新設定的密碼></p>
-
-<p>mysql>
-```
-done!</p>
-
-<hr />
-
-<p>狀況C: 若遇上**警告提示
-<code>
-Warning: phpinfo() [[function.phpinfo][1]]: It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected 'UTC' for '8.0/no DST' instead in **/.../index.php** on line **2  
-</code></p>
-
-<p>通常是出現在5.3.0的版本<br/>
-只要修改 <code>php.ini</code> , 加上 <code>'date'.timezone = "Asia/Taipei"</code> 即可解決!</p>
-
-<hr />
-
-<p>狀況D: 進入 phpmyadmin 時，出現 <code>無法讀取 mcrypt 模組,&lt;br /&gt;請檢查 PHP 設定</code></p>
-
-<p>解決方法:<br/>
-<code>vim config.inc.php</code><br/>
-找出 <code>$cfg['Servers'][$i]['auth_type'] = 'cokies';</code><br/>
-改成 <code>$cfg['Servers'][$i]['auth_type'] = 'http';</code><br/>
-由原本網頁上面輸入帳號密碼變成跳出對話框來輸入帳號密碼</p>
-
-<hr />
-
-<p>補充:<br/>
-更改apache的DocumentRoot<br/>
-不想把文件放在 <code>/usr/local/www/apache22/data</code><br/>
-想把他放在 <code>/home/www/</code><br/>
-因此到 home 目錄去 mkdir 一個 www 資料夾<br/>
-再到 <code>httpd.conf</code>, 更改兩個地方, 原本為<br/>
-<code>
-DocumentRoot "/usr/local/www/apache22/data"
-&lt;Directory "/usr/local/www/apache22/data"&gt;
-</code></p>
-
-<p>改為<br/>
-<code>
-DocumentRoot "/home/www/"  
-&lt;Directory "/home/www/"&gt;  
-</code>
-這樣就會連到/home/www/去讀資料了</p>
 ]]></content>
   </entry>
   

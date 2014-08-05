@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Nginx | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/nginx/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-07-27T00:53:12+08:00</updated>
+  <updated>2014-08-05T22:29:21+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,128 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Install Rails Server Env With Rbenv on Ubuntu 14.04]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/07/30/install-rails-server-env-with-rbenv-on-ubuntu-14-dot-04/"/>
+    <updated>2014-07-30T11:36:54+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/07/30/install-rails-server-env-with-rbenv-on-ubuntu-14-dot-04</id>
+    <content type="html"><![CDATA[<p>```
+nodejs v0.10.25 (for rails javascript engine)</p>
+
+<p>rbenv 0.4.0-98-g13a474c</p>
+
+<p>ruby 2.1.2p95 (2014-05-08 revision 45877) [x86_64-linux]</p>
+
+<p>Rails 4.1.4</p>
+
+<p>nginx version: nginx/1.6.0</p>
+
+<p>Phusion Passenger version 4.0.48</p>
+
+<p>mysql  Ver 14.14 Distrib 5.5.38, for debian-linux-gnu (x86_64) using readline 6.3</p>
+
+<p>```</p>
+
+<h2>Installing Ruby &amp; Rails</h2>
+
+<p><code>
+sudo apt-get update &amp;&amp; sudo apt-get upgrade
+sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties nodejs npm
+</code></p>
+
+<p>Use rbenv</p>
+
+<p>```
+cd
+git clone git://github.com/sstephenson/rbenv.git .rbenv
+echo &lsquo;export PATH=&ldquo;$HOME/.rbenv/bin:$PATH&rdquo;&rsquo; >> ~/.bashrc
+echo &lsquo;eval &ldquo;$(rbenv init &ndash;)&rdquo;&rsquo; >> ~/.bashrc
+exec $SHELL</p>
+
+<p>git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+echo &lsquo;export PATH=&ldquo;$HOME/.rbenv/plugins/ruby-build/bin:$PATH&rdquo;&rsquo; >> ~/.bashrc
+exec $SHELL</p>
+
+<p>rbenv install 2.1.2
+exec $SHELL</p>
+
+<p>rbenv global 2.1.2
+ruby -v
+```</p>
+
+<p>Don&rsquo;t install rdoc when installing gems</p>
+
+<p><code>
+echo "gem: --no-ri --no-rdoc" &gt; ~/.gemrc
+</code></p>
+
+<p>Install rails</p>
+
+<p><code>
+gem install rails
+exec $SHELL
+rails -v
+</code></p>
+
+<h2>Installing Nginx with passenger</h2>
+
+<p>```</p>
+
+<h1>Install Phusion&rsquo;s PGP key to verify packages</h1>
+
+<p>gpg &mdash;keyserver keyserver.ubuntu.com &mdash;recv-keys 561F9B9CAC40B2F7
+gpg &mdash;armor &mdash;export 561F9B9CAC40B2F7 | sudo apt-key add &ndash;</p>
+
+<h1>Add HTTPS support to APT</h1>
+
+<p>sudo apt-get install apt-transport-https</p>
+
+<h1>Add the passenger repository</h1>
+
+<p>sudo sh -c &ldquo;echo &lsquo;deb <a href="https://oss-binaries.phusionpassenger.com/apt/passenger">https://oss-binaries.phusionpassenger.com/apt/passenger</a> trusty main&rsquo; >> /etc/apt/sources.list.d/passenger.list&rdquo;
+sudo chown root: /etc/apt/sources.list.d/passenger.list
+sudo chmod 600 /etc/apt/sources.list.d/passenger.list
+sudo apt-get update</p>
+
+<h1>Install nginx and passenger</h1>
+
+<p>sudo apt-get install nginx-full passenger
+```</p>
+
+<p>Edit passenger configuration in <code>/etc/nginx/nginx.conf</code></p>
+
+<p>```</p>
+
+<h1>#</h1>
+
+<h1>Phusion Passenger</h1>
+
+<h1>#</h1>
+
+<h1>Uncomment it if you installed ruby-passenger or ruby-passenger-enterprise</h1>
+
+<h1>#</h1>
+
+<p>passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;</p>
+
+<p>passenger_ruby /usr/bin/ruby; #change this line</p>
+
+<h1>passenger_ruby /home/yourpath/.rbenv/shims/ruby; # If you use rbenv</h1>
+
+<h1>Use <code>which ruby</code></h1>
+
+<p>```</p>
+
+<h2>Installing MySQL</h2>
+
+<p><code>
+sudo apt-get install mysql-server mysql-client libmysqlclient-dev
+</code></p>
+
+<p>Done!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[Ubuntu] RoR Environment]]></title>

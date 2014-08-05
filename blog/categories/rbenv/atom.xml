@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Rails | kerkerj]]></title>
-  <link href="http://kerkerj.github.io/blog/categories/rails/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Rbenv | kerkerj]]></title>
+  <link href="http://kerkerj.github.io/blog/categories/rbenv/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
   <updated>2014-08-05T22:29:21+08:00</updated>
   <id>http://kerkerj.github.io/</id>
@@ -132,74 +132,6 @@ sudo apt-get install mysql-server mysql-client libmysqlclient-dev
 </code></p>
 
 <p>Done!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[Rails] ActionController::InvalidAuthenticityToken When Useing Rails4 as API]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/07/03/rails-actioncontrollerinvalidauthenticitytoken-when-useing-rails-as-api/"/>
-    <updated>2014-07-03T04:02:00+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/07/03/rails-actioncontrollerinvalidauthenticitytoken-when-useing-rails-as-api</id>
-    <content type="html"><![CDATA[<p>change<br/>
-<code>protect_from_forgery with: :exception</code><br/>
-to<br/>
-<code>protect_from_forgery with: :null_session</code><br/>
-in <code>ApplicationController</code></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[Rails] PUT v.s. PATCH]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/01/02/rails-put-vs-patch/"/>
-    <updated>2014-01-02T07:39:00+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/01/02/rails-put-vs-patch</id>
-    <content type="html"><![CDATA[<p>According to rails convention,</p>
-
-<p>PUT is used for updating an existing resource</p>
-
-<p>POST is used for creating a new resource</p>
-
-<p>In rails 4, PUT has been changed to PATCH to avoid confusion.</p>
-
-<p>```</p>
-
-<pre><code> posts GET    /posts(.:format)                            {:action=&gt;"index", :controller=&gt;"posts"}
-      POST   /posts(.:format)                            {:action=&gt;"create", :controller=&gt;"posts"}
-</code></pre>
-
-<p> new_post GET    /posts/new(.:format)                        {:action=>&ldquo;new&rdquo;, :controller=>&ldquo;posts&rdquo;}
-edit_post GET    /posts/:id/edit(.:format)                   {:action=>&ldquo;edit&rdquo;, :controller=>&ldquo;posts&rdquo;}</p>
-
-<pre><code> post GET    /posts/:id(.:format)                        {:action=&gt;"show", :controller=&gt;"posts"}
-      PUT    /posts/:id(.:format)                        {:action=&gt;"update", :controller=&gt;"posts"}
-      DELETE /posts/:id(.:format)                        {:action=&gt;"destroy", :controller=&gt;"posts"}
-</code></pre>
-
-<p>```</p>
-
-<p>延伸閱讀：ihower &ndash; <a href="http://ihower.tw/blog/archives/6483">HTTP Verbs: 談 POST, PUT 和 PATCH 的應用</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[Rails] List of Rails Model Type (MySQL)]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/01/02/rails-list-of-rails-model-type-mysql/"/>
-    <updated>2014-01-02T07:38:00+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/01/02/rails-list-of-rails-model-type-mysql</id>
-    <content type="html"><![CDATA[<p>:binary<br/>
-:boolean<br/>
-:date<br/>
-:datetime<br/>
-:decimal<br/>
-:float<br/>
-:integer<br/>
-:primary_key<br/>
-:string<br/>
-:text<br/>
-:time<br/>
-:timestamp</p>
-
-<p><a href="http://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters/TableDefinition.html#method-i-column">http://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters/TableDefinition.html#method-i-column</a></p>
 ]]></content>
   </entry>
   

@@ -9,7 +9,11 @@
   <meta name="author" content="kerkerj">
 
   
-  <meta name="description" content="不知道大家在寫 Android 用 thread 處理 UI 更新時，有沒有遇過這樣的錯誤： Only the original thread that created a view hierarchy can touch its views. 通常這是因為自己產生的 thread 不能去更動到 &hellip;">
+  <meta name="description" content="Ubuntu 裝完是沒辦法透過別台機器 ssh 進這台機器
+只能夠 ssh 出去, 所以來安裝一下 1
+2
+$sudo apt-get update $sudo apt-get install ssh 裝完後修改一下設定檔 : $sudo vi /etc/ssh/sshd_config
+預設 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -91,6 +95,63 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/04/20/ubuntu-ssh/">[Ubuntu] 安裝設定ssh</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-20T03:12:00+08:00" pubdate data-updated="true">Apr 20<sup>th</sup>, 2012</time>
+        
+           | <a href="/blog/2012/04/20/ubuntu-ssh/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2012/04/20/ubuntu-ssh/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ubuntu 裝完是沒辦法透過別台機器 ssh 進這台機器<br/>
+只能夠 ssh 出去, 所以來安裝一下</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$sudo apt-get update  
+</span><span class='line'>$sudo apt-get install ssh  </span></code></pre></td></tr></table></div></figure>
+
+
+<p>裝完後修改一下設定檔 : <code>$sudo vi /etc/ssh/sshd_config</code><br/>
+預設 port 為 22 可以改成別的 ( 可以到 <code>/etc/services</code> 看有沒有沒再用的 port 並指給它 ) (optional)<br/>
+<code>Port 22</code> 找到這行, 意思為允許 root 登入 (optional)<br/>
+<code>PermitRootLogin yes</code> 將 yes 改成 no, 不允許 root 登入.</p>
+
+<p>另外可以設定 <code>/etc/hosts.allow</code> 和 <code>/etc/hosts.deny</code> 更精準的限制連線 (optional)<br/>
+例如: 我只要 192.168.11.11 登入我這台機器<br/>
+則編輯 <code>/etc/hosts.allow</code> , 加入: <code>sshd:192.168.11.11 :allow</code><br/>
+編輯 <code>/etc/hosts.deny</code> , 讓其他人都無法連入, 加入這行: <code>sshd:all:deny</code><br/>
+全數編輯完畢後, 重新啟動 ssh 服務 <code>$sudo /etc/init.d/ssh restart</code></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -729,63 +790,6 @@ Intent.ACTION_USER_PRESENT //解鎖</p></blockquote>
   <div class="entry-content"><p>很簡單，也很常忘，所以記下來 Orz</p>
 
 <p><code>$now =date("Y-m-d H:i:s",time());</code></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/01/31/php-uploadfile-limit/">[PHP] 上傳檔案的限制</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-01-31T16:12:00+08:00" pubdate data-updated="true">Jan 31<sup>st</sup>, 2012</time>
-        
-           | <a href="/blog/2012/01/31/php-uploadfile-limit/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2012/01/31/php-uploadfile-limit/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>php.ini</p>
-
-<ol>
-<li><p>max_execution_time
-Script執行時間上限(單位：秒)</p></li>
-<li><p>max_input_time
-Script處理資料時間上限(單位：秒)</p></li>
-<li><p>memory_limit
-系統記憶體 (要比4,5大</p></li>
-<li><p>post_max_size
-表單的POST發送量</p></li>
-<li><p>upload_max_filesize
-單次上傳檔案容量</p></li>
-<li><p>default_socket_timeout
-Socket無回應斷線時間(單位：秒)</p></li>
-<li><p>mysql.connect_timeout
-無回應斷線時間(單位：秒；-1代表不斷線一直等)</p></li>
-</ol>
-
 </div>
   
   

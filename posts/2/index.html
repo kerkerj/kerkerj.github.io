@@ -9,7 +9,15 @@
   <meta name="author" content="kerkerj">
 
   
-  <meta name="description" content="According to rails convention, PUT is used for updating an existing resource POST is used for creating a new resource In rails 4, PUT has been &hellip;">
+  <meta name="description" content="Ruby: ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/Ruby/Ruby.sublime-build 1
+2
+3
+4
+5
+6
+7
+8
+{ &quot;env&quot;:{ &quot;PATH&quot;:&quot;${ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -91,6 +99,68 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/01/09/sublime-text-2-integration-with-rvm-and-rspec/">[Sublime Text 2] Integration With RVM and Rspec</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-09T02:17:00+08:00" pubdate data-updated="true">Jan 9<sup>th</sup>, 2014</time>
+        
+           | <a href="/blog/2014/01/09/sublime-text-2-integration-with-rvm-and-rspec/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/01/09/sublime-text-2-integration-with-rvm-and-rspec/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ruby:</p>
+
+<p><code>~/Library/Application\ Support/Sublime\ Text\ 2/Packages/Ruby/Ruby.sublime-build</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='json'><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="nt">&quot;env&quot;</span><span class="p">:{</span>
+</span><span class='line'>      <span class="nt">&quot;PATH&quot;</span><span class="p">:</span><span class="s2">&quot;${HOME}/.rvm/bin:${PATH}&quot;</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nt">&quot;cmd&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;rvm-auto-ruby&quot;</span><span class="p">,</span> <span class="s2">&quot;$file&quot;</span><span class="p">],</span>
+</span><span class='line'>  <span class="nt">&quot;file_regex&quot;</span><span class="p">:</span> <span class="s2">&quot;^(...*?):([0-9]*):?([0-9]*)&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nt">&quot;selector&quot;</span><span class="p">:</span> <span class="s2">&quot;source.ruby&quot;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="http://rubenlaguna.com/wp/2012/12/07/sublime-text-2-rvm-rspec-take-2/">http://rubenlaguna.com/wp/2012/12/07/sublime-text-2-rvm-rspec-take-2/</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -880,72 +950,6 @@ host side: you need ruby environment!</p>
 pp(any_variable)</p></blockquote>
 
 <p>just like <code>var_dump</code> in <code>php</code></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/16/codeigniter-use-markdown-as-library/">[Codeigniter] Use Markdown as Library</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-16T07:01:00+08:00" pubdate data-updated="true">Dec 16<sup>th</sup>, 2013</time>
-        
-           | <a href="/blog/2013/12/16/codeigniter-use-markdown-as-library/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2013/12/16/codeigniter-use-markdown-as-library/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="https://github.com/erusev/parsedown">https://github.com/erusev/parsedown</a></p>
-
-<p>download the Parsedown.php
-and put it into Library folder
-then edit autoload.php</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$autoload['libraries'] = array('Parsedown');</span></code></pre></td></tr></table></div></figure>
-
-
-<p>then in the view php for tests:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$text = 'Hello **Parsedown**!';
-</span><span class='line'>$result = Parsedown::instance()-&gt;parse($text);
-</span><span class='line'>echo $result;</span></code></pre></td></tr></table></div></figure>
-
-
-<p>No need to require or include the file.
-If you want to load a file with path, you can use the function called file_get_contents:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>file_get_contents('./markdown/test.md',true); (true: enable path)</span></code></pre></td></tr></table></div></figure>
-
-
-
 </div>
   
   

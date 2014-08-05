@@ -9,10 +9,12 @@
   <meta name="author" content="kerkerj">
 
   
-  <meta name="description" content="FreeBSD 8.1 FTP伺服器 pureftp 安裝： 1
+  <meta name="description" content="灌雙系統 (Win7 / Ubuntu) 後, 刪除Ubuntu不當的話,
+重開機可能會出現： (連Win7都進不去) 1
 2
-#cd /usr/ports/ftp/pure-ftpd
-#make install clean FTP這玩意是要看個人需求而定的, 因此在這講好我的需求, 我架了網頁伺服器, 並且想讓網頁管理人員能夠用 FTP, &hellip;">
+error : no such partition
+grub secure&gt; 此時只要將 Win7 光碟放入, 進入修復，選擇命令提示字元, 並輸入： 1
+2 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -94,6 +96,62 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/10/26/win7-dvd/">[Win7] 使用Win7 DVD 修復開機選單</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-10-26T10:23:00+08:00" pubdate data-updated="true">Oct 26<sup>th</sup>, 2010</time>
+        
+           | <a href="/blog/2010/10/26/win7-dvd/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2010/10/26/win7-dvd/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>灌雙系統 (Win7 / Ubuntu) 後, 刪除Ubuntu不當的話,
+重開機可能會出現： (連Win7都進不去)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>error : no such partition
+</span><span class='line'>grub secure&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>此時只要將 Win7 光碟放入, 進入修復，選擇命令提示字元, 並輸入：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>bootrec.exe /fixboot
+</span><span class='line'>bootrec.exe /fixmbr</span></code></pre></td></tr></table></div></figure>
+
+
+<p>重開機後Win7就回來囉</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
