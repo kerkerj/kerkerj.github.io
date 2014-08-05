@@ -9,15 +9,9 @@
   <meta name="author" content="kerkerj">
 
   
-  <meta name="description" content="Ruby: ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/Ruby/Ruby.sublime-build 1
-2
-3
-4
-5
-6
-7
-8
-{ &quot;env&quot;:{ &quot;PATH&quot;:&quot;${ &hellip;">
+  <meta name="description" content="Normal json string: 1
+{"Hey":"There"} Error json string got from $_POST variable: 1
+{\"Hey\":\"There\"} This may causes by magic_quotes in php.ini &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -99,6 +93,58 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/01/28/php-json-decode-error-by-wrong-json-string-with-quotes/">[PHP] Json_decode Error by Wrong Json String With Quotes</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T06:29:00+08:00" pubdate data-updated="true">Jan 28<sup>th</sup>, 2014</time>
+        
+           | <a href="/blog/2014/01/28/php-json-decode-error-by-wrong-json-string-with-quotes/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/01/28/php-json-decode-error-by-wrong-json-string-with-quotes/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Normal json string:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{"Hey":"There"}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Error json string got from $_POST variable:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{\"Hey\":\"There\"}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This may causes by <code>magic_quotes</code> in <code>php.ini</code>
+Magic is never good in development.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -901,55 +947,6 @@ host side: you need ruby environment!</p>
 
 
 <p>reload your bash profile</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/18/ruby-pp-to-ruby-as-var-dump-to-php/">[Ruby] PP to Ruby as Var_dump to PHP</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-18T06:46:00+08:00" pubdate data-updated="true">Dec 18<sup>th</sup>, 2013</time>
-        
-           | <a href="/blog/2013/12/18/ruby-pp-to-ruby-as-var-dump-to-php/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2013/12/18/ruby-pp-to-ruby-as-var-dump-to-php/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;pp&#39;</span>
-</span><span class='line'><span class="n">pp</span><span class="p">(</span><span class="no">ENV</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<blockquote><p>Usage:
-pp(any_variable)</p></blockquote>
-
-<p>just like <code>var_dump</code> in <code>php</code></p>
 </div>
   
   

@@ -9,8 +9,17 @@
   <meta name="author" content="kerkerj">
 
   
-  <meta name="description" content="只有連結，因為看連結就好了，圖解很累ＸＤ (圖片來源：http://blog.csdn.net/dmgactive/archive/2009/06/28/4304567.aspx )
-http://download.oracle.com/javase/tutorial/uiswing/layout &hellip;">
+  <meta name="description" content="1
+2
+3
+4
+5
+6
+7
+8
+9
+public String toHexString(byte[] in){ BigInteger temp = new BigInteger(in); return temp.toString(16);
+} public byte[] fromHexString &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -92,6 +101,66 @@ http://download.oracle.com/javase/tutorial/uiswing/layout &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/06/01/java-hex-string-byte-array/">[Java] Hex String & Byte Array 轉換</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-01T15:23:00+08:00" pubdate data-updated="true">Jun 1<sup>st</sup>, 2011</time>
+        
+           | <a href="/blog/2011/06/01/java-hex-string-byte-array/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2011/06/01/java-hex-string-byte-array/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="n">String</span> <span class="nf">toHexString</span><span class="o">(</span><span class="kt">byte</span><span class="o">[]</span> <span class="n">in</span><span class="o">){</span>
+</span><span class='line'>  <span class="n">BigInteger</span> <span class="n">temp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BigInteger</span><span class="o">(</span><span class="n">in</span><span class="o">);</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">temp</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="mi">16</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kt">byte</span><span class="o">[]</span> <span class="nf">fromHexString</span><span class="o">(</span><span class="n">String</span> <span class="n">in</span><span class="o">){</span>
+</span><span class='line'>  <span class="n">BigInteger</span> <span class="n">temp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BigInteger</span><span class="o">(</span><span class="n">in</span><span class="o">,</span> <span class="mi">16</span><span class="o">);</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">temp</span><span class="o">.</span><span class="na">toByteArray</span><span class="o">();</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>文章參考<a href="http://ranger1976.blogspot.com/2008/07/hex-string-to-byte-array-and-reverse.html">自此</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -896,184 +965,6 @@ AES &ndash; <a href="http://java.sun.com/developer/technicalArticles/Security/AE
 
 
 <p>若資料庫有資料就可以正確顯示溜</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/12/16/freebsdnginxphpmysql/">[FreeBSD] FNMP (Nginx)</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-12-16T06:43:00+08:00" pubdate data-updated="true">Dec 16<sup>th</sup>, 2010</time>
-        
-           | <a href="/blog/2010/12/16/freebsdnginxphpmysql/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2010/12/16/freebsdnginxphpmysql/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>就是網頁伺服器 Nginx
-FreeBSD + Nginx + php + MySQL</p>
-
-<p>我個人是直接把 apache 直接換成 Nginx
-其他只是多安裝一些模組而已，因此換起來還好, 不過還是稍微會寫一些安裝上的順序。</p>
-
-<h1>安装MySQL </h1>
-
-<p>參閱 <a href="http://kerkerj.logdown.com/posts/2010/10/05/freebsd81-famp">此篇文章</a></p>
-
-<h1>安裝PHP</h1>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#cd /usr/ports/lang/php5
-</span><span class='line'>#make config install clean</span></code></pre></td></tr></table></div></figure>
-
-
-<p>將下面的模組勾一勾，沒有的選項就不管他了～</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[X] CLI        Build CLI version
-</span><span class='line'>[X] CGI        Build CGI version
-</span><span class='line'>[X] FPM        必勾!!! Nginx處理php時是要交給他處理
-</span><span class='line'>[X] APACHE     Build Apache module
-</span><span class='line'>[ ] DEBUG      Enable debug
-</span><span class='line'>[X] SUHOSIN        Enable Suhosin protection system
-</span><span class='line'>[X] MULTIBYTE  Enable zend multibyte support
-</span><span class='line'>[ ] IPV6       Enable ipv6 support
-</span><span class='line'>[ ] REDIRECT   Enable force-cgi-redirect support (CGI only)
-</span><span class='line'>[ ] DISCARD    Enable discard-path support (CGI only)
-</span><span class='line'>[X] FASTCGI    Enable fastcgi support (CGI only)
-</span><span class='line'>[X] PATHINFO   Enable path-info-check support (CGI only)</span></code></pre></td></tr></table></div></figure>
-
-
-<h1>安裝php5-entensions</h1>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#cd /usr/ports/lang/php5-extensions/
-</span><span class='line'># make config install clean</span></code></pre></td></tr></table></div></figure>
-
-
-<p>勾選需要的extension，下面必裝，其餘隨意。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[X] FTP        FTP support
-</span><span class='line'>[X] GD       
-</span><span class='line'>[X] GETTEXT
-</span><span class='line'>[X] MBSTRING
-</span><span class='line'>[X] MYSQL
-</span><span class='line'>[ ] POSIX //去掉.
-</span><span class='line'>[ ] SQLITE //去掉.
-</span><span class='line'>[X] ZLIB</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#cd /usr/local/etc
-</span><span class='line'># cp php.ini-development php.ini</span></code></pre></td></tr></table></div></figure>
-
-
-<p>=>修改PHP設定檔</p>
-
-<h1>安裝nginx</h1>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#cd /usr/ports/www/nginx/
-</span><span class='line'>#make install clean</span></code></pre></td></tr></table></div></figure>
-
-
-<p>安裝nginx就是這麼簡單～</p>
-
-<p>設定nginx的部份：
-編輯 <code>/usr/local/etc/nginx/nginx.conf</code>
-將<code>#user nobody;</code> 改成 <code>user www;</code>
-找到下面的部份：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>location / {
-</span><span class='line'>    root    /usr/local/www/nginx;  //網頁目錄可以換，看你網頁放哪 (ex./home/www)
-</span><span class='line'>    index    index.html index.htm;  //記得加入 index.php 等等
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
-
-
-<p>下面是給 FPM 處理 PHP 的部份，記得先將前面的 # 註解刪掉，
-然後將 <code>fastcgi_param</code> 的 <code>/scripts$fastcgi_script.name</code>
-更改為: <code>/你的網頁目錄$fastcgi_script.name</code>
-例如： <code>/home/www$fastcgi_script.name</code></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#location ~ \.php$ {
-</span><span class='line'>#    fastcgi_pass    127.0.0.1:9000;
-</span><span class='line'>#    fastcgi_index   index.php;
-</span><span class='line'>#    fastcgi_param     SCRIPT_FILENAME    /scripts$fastcgi_script.name;
-</span><span class='line'>#    include      fastcgi_params;
-</span><span class='line'>#}</span></code></pre></td></tr></table></div></figure>
-
-
-<p>安裝完後, 記得編輯 <code>/etc/rc.conf</code>, 加入:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>mysql_enable="YES"
-</span><span class='line'>nginx_enable="YES"
-</span><span class='line'>php_fpm_enable="YES"</span></code></pre></td></tr></table></div></figure>
-
-
-<p>這樣就可以啦<del>~
-如果有 phpmyadmin 的話，可以將該資料夾整個複製到網頁根目錄底下，就可以操作了</del></p>
 </div>
   
   

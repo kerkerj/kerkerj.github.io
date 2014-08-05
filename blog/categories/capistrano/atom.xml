@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Capistrano | kerkerj]]></title>
+  <link href="http://kerkerj.github.io/blog/categories/capistrano/atom.xml" rel="self"/>
+  <link href="http://kerkerj.github.io/"/>
+  <updated>2014-08-05T23:24:53+08:00</updated>
+  <id>http://kerkerj.github.io/</id>
+  <author>
+    <name><![CDATA[kerkerj]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Capistrano With Rails - Basic Notes]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/08/05/capistrano-with-rails-basic-notes/"/>
+    <updated>2014-08-05T22:36:48+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/08/05/capistrano-with-rails-basic-notes</id>
+    <content type="html"><![CDATA[<p>Capistrano 剛開始寫 deploy script 時真的會有點搞不太懂 XD<br/>
+記錄一下使用 &lsquo;capistrano&rsquo; 把特定的 github repo 抓到 remote server</p>
+
+<h2>安裝</h2>
+
+<p>先在 Gemfile 加入:</p>
+
+<p><code>
+gem 'capistrano', '~&gt; 3.2.0'   
+</code>
+然後安裝~</p>
+
+<p><code>
+bundle install
+</code></p>
+
+<p>步驟大概會是：</p>
+
+<p>假設已經寫完 capistrano 了，執行 script 時，<br/>
+capistrano 會先利用 script 裡提供的 server ip 以及 public key，<br/>
+先連線到 remote server，接著再到 github 上拉 code 到指定的目錄裡，<br/>
+再重開 server。</p>
+
+<h2>產生相關檔案</h2>
+
+<p><code>
+bundle exec cap install
+</code></p>
+
+<p>會產生以下檔案:  (copy from <a href="https://github.com/capistrano/capistrano">Capistrano@github</a>)</p>
+
+<p>```
+├── Capfile
+├── config
+│   ├── deploy
+│   │   ├── production.rb
+│   │   └── staging.rb
+│   └── deploy.rb
+└── lib</p>
+
+<pre><code>└── capistrano
+        └── tasks
+</code></pre>
+
+<p>```</p>
+
+<p>deploy.rb 通常是設定 source control 的類型 (可以設定 git, hg, svn)， <br/>
+project repo 的路徑，要 deploy 到 server 的哪個目錄等等，<br/>
+<code>config/deploy/*</code> 底下的檔案則是根據不同的 stage 分別設定，<br/>
+以下是 deploy.rb, production.rb 的一些簡單設定</p>
+
+<p>```ruby deploy.rb</p>
+
+<h1>config valid only for Capistrano 3.1</h1>
+
+<p>lock &lsquo;3.2.1&rsquo;</p>
+
+<p>set :application, &lsquo;application_name&rsquo;
+set :repo_url, &lsquo;github_repo_url&rsquo;</p>
+
+<p>set :deploy_via, :copy</p>
+
+<h1>Default branch is :master</h1>
+
+<h1>ask :branch, proc { <code>git rev-parse --abbrev-ref HEAD</code>.chomp }.call</h1>
+
+<h1>Default deploy_to directory is /var/www/my_app</h1>
+
+<p>set :deploy_to, &lsquo;/server/www/path/&rsquo;</p>
+
+<h1>Default value for :scm is :git</h1>
+
+<p>set :scm, :git</p>
+
+<h1>Default value for :format is :pretty</h1>
+
+<p>set :format, :pretty</p>
+
+<h1>Default value for :log_level is :debug</h1>
+
+<p>set :log_level, :debug</p>
+
+<h1>Default value for :pty is false</h1>
+
+<h1>set :pty, true</h1>
+
+<h1>Default value for :linked_files is []</h1>
+
+<h1>set :linked_files, %w{config/database.yml}</h1>
+
+<h1>Default value for linked_dirs is []</h1>
+
+<h1>set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}</h1>
+
+<h1>Default value for default_env is {}</h1>
+
+<h1>set :default_env, { path: &ldquo;/opt/ruby/bin:$PATH&rdquo; }</h1>
+
+<h1>Default value for keep_releases is 5</h1>
+
+<h1>set :keep_releases, 5</h1>
+
+<p>namespace :deploy do</p>
+
+<p>  desc &lsquo;Restart application&rsquo;
+  task :restart do</p>
+
+<pre><code>on roles(:app), in: :sequence, wait: 5 do
+  # Your restart mechanism here, for example:
+  execute :mkdir, '-p', "#{ release_path }/tmp"
+  execute :touch, release_path.join('tmp/restart.txt')
+end
+</code></pre>
+
+<p>  end</p>
+
+<p>  after :publishing, :restart</p>
+
+<p>  after :restart, :clear_cache do</p>
+
+<pre><code>on roles(:web), in: :groups, limit: 3, wait: 10 do
+  # Here we can do anything such as:
+  # within release_path do
+  #  execute :rake, 'cache:clear'
+  # end
+end
+</code></pre>
+
+<p>  end</p>
+
+<p>end</p>
+
+<p>```</p>
+
+<p>```ruby production.rb</p>
+
+<h1>Simple Role Syntax</h1>
+
+<h1>==================</h1>
+
+<h1>Supports bulk-adding hosts to roles, the primary server in each group</h1>
+
+<h1>is considered to be the first unless any hosts have the primary</h1>
+
+<h1>property set.  Don&rsquo;t declare <code>role :all</code>, it&rsquo;s a meta role.</h1>
+
+<p>role :app, %w{app@server}
+role :web, %w{web@server}
+role :db,  %w{db@server}</p>
+
+<h1>Extended Server Syntax</h1>
+
+<h1>======================</h1>
+
+<h1>This can be used to drop a more detailed server definition into the</h1>
+
+<h1>server list. The second argument is a, or duck-types, Hash and is</h1>
+
+<h1>used to set extended properties on the server.</h1>
+
+<p>server &lsquo;server_ip&rsquo;, user: &lsquo;server_user&rsquo;, roles: %w{app}, my_property: :my_value</p>
+
+<h1>Custom SSH Options</h1>
+
+<h1>==================</h1>
+
+<h1>You may pass any option but keep in mind that net/ssh understands a</h1>
+
+<h1>limited set of options, consult<a href="http://net-ssh.github.io/net-ssh/classes/Net/SSH.html#method-c-start">net/ssh documentation</a>.</h1>
+
+<p>#</p>
+
+<h1>Global options</h1>
+
+<h1>&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;</h1>
+
+<h1>set :ssh_options, {</h1>
+
+<h1>keys: %w(/home/rlisowski/.ssh/id_rsa),</h1>
+
+<h1>forward_agent: true</h1>
+
+<h1>auth_methods: %w(password)</h1>
+
+<h1>}</h1>
+
+<p>#</p>
+
+<h1>And/or per server (overrides global)</h1>
+
+<h1>&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;</h1>
+
+<p> server &lsquo;server_ip&rsquo;,
+   user: &lsquo;server_user&rsquo;,
+   ssh_options: {</p>
+
+<pre><code> keys: %w(/user/.ssh/id_rsa),
+ forward_agent: false,
+ auth_methods: %w(publickey password)
+</code></pre>
+
+<p>   }</p>
+
+<p>```</p>
+
+<p>設定完後，因為這邊是設定 production.rb<br/>
+因此執行以下指令 deploy 到 production server
+<code>console
+bundle exec cap production deploy
+</code></p>
+
+<p>如果 <code>exit status 0 (successful).</code> <br/>
+那就是成功啦~</p>
+]]></content>
+  </entry>
+  
+</feed>

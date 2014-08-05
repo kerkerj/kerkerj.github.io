@@ -4,7 +4,7 @@
   <title><![CDATA[kerkerj]]></title>
   <link href="http://kerkerj.github.io/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-08-05T22:29:21+08:00</updated>
+  <updated>2014-08-05T23:24:53+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,298 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Capistrano With Rails - Basic Notes]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/08/05/capistrano-with-rails-basic-notes/"/>
+    <updated>2014-08-05T22:36:48+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/08/05/capistrano-with-rails-basic-notes</id>
+    <content type="html"><![CDATA[<p>Capistrano 剛開始寫 deploy script 時真的會有點搞不太懂 XD<br/>
+記錄一下使用 &lsquo;capistrano&rsquo; 把特定的 github repo 抓到 remote server</p>
+
+<h2>安裝</h2>
+
+<p>先在 Gemfile 加入:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gem 'capistrano', '~&gt; 3.2.0'   </span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+然後安裝~</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>bundle install</span></code></pre></td></tr></table></div></figure>
+
+
+<p>步驟大概會是：</p>
+
+<p>假設已經寫完 capistrano 了，執行 script 時，<br/>
+capistrano 會先利用 script 裡提供的 server ip 以及 public key，<br/>
+先連線到 remote server，接著再到 github 上拉 code 到指定的目錄裡，<br/>
+再重開 server。</p>
+
+<h2>產生相關檔案</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>bundle exec cap install </span></code></pre></td></tr></table></div></figure>
+
+
+<p>會產生以下檔案:  (copy from <a href="https://github.com/capistrano/capistrano">Capistrano@github</a>)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>├── Capfile
+</span><span class='line'>├── config
+</span><span class='line'>│   ├── deploy
+</span><span class='line'>│   │   ├── production.rb
+</span><span class='line'>│   │   └── staging.rb
+</span><span class='line'>│   └── deploy.rb
+</span><span class='line'>└── lib
+</span><span class='line'>    └── capistrano
+</span><span class='line'>            └── tasks</span></code></pre></td></tr></table></div></figure>
+
+
+<p>deploy.rb 通常是設定 source control 的類型 (可以設定 git, hg, svn)， <br/>
+project repo 的路徑，要 deploy 到 server 的哪個目錄等等，<br/>
+<code>config/deploy/*</code> 底下的檔案則是根據不同的 stage 分別設定，<br/>
+以下是 deploy.rb, production.rb 的一些簡單設定</p>
+
+<figure class='code'><figcaption><span>deploy.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># config valid only for Capistrano 3.1</span>
+</span><span class='line'><span class="n">lock</span> <span class="s1">&#39;3.2.1&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">set</span> <span class="ss">:application</span><span class="p">,</span> <span class="s1">&#39;application_name&#39;</span>
+</span><span class='line'><span class="n">set</span> <span class="ss">:repo_url</span><span class="p">,</span> <span class="s1">&#39;github_repo_url&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">set</span> <span class="ss">:deploy_via</span><span class="p">,</span> <span class="ss">:copy</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># Default branch is :master</span>
+</span><span class='line'><span class="c1"># ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># Default deploy_to directory is /var/www/my_app</span>
+</span><span class='line'><span class="n">set</span> <span class="ss">:deploy_to</span><span class="p">,</span> <span class="s1">&#39;/server/www/path/&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># Default value for :scm is :git</span>
+</span><span class='line'><span class="n">set</span> <span class="ss">:scm</span><span class="p">,</span> <span class="ss">:git</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># Default value for :format is :pretty</span>
+</span><span class='line'><span class="n">set</span> <span class="ss">:format</span><span class="p">,</span> <span class="ss">:pretty</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># Default value for :log_level is :debug</span>
+</span><span class='line'><span class="n">set</span> <span class="ss">:log_level</span><span class="p">,</span> <span class="ss">:debug</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># Default value for :pty is false</span>
+</span><span class='line'><span class="c1"># set :pty, true</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># Default value for :linked_files is []</span>
+</span><span class='line'><span class="c1"># set :linked_files, %w{config/database.yml}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># Default value for linked_dirs is []</span>
+</span><span class='line'><span class="c1"># set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># Default value for default_env is {}</span>
+</span><span class='line'><span class="c1"># set :default_env, { path: &quot;/opt/ruby/bin:$PATH&quot; }</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># Default value for keep_releases is 5</span>
+</span><span class='line'><span class="c1"># set :keep_releases, 5</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">namespace</span> <span class="ss">:deploy</span> <span class="k">do</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">desc</span> <span class="s1">&#39;Restart application&#39;</span>
+</span><span class='line'>  <span class="n">task</span> <span class="ss">:restart</span> <span class="k">do</span>
+</span><span class='line'>    <span class="n">on</span> <span class="n">roles</span><span class="p">(</span><span class="ss">:app</span><span class="p">),</span> <span class="k">in</span><span class="p">:</span> <span class="ss">:sequence</span><span class="p">,</span> <span class="ss">wait</span><span class="p">:</span> <span class="mi">5</span> <span class="k">do</span>
+</span><span class='line'>      <span class="c1"># Your restart mechanism here, for example:</span>
+</span><span class='line'>      <span class="n">execute</span> <span class="ss">:mkdir</span><span class="p">,</span> <span class="s1">&#39;-p&#39;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">#{</span> <span class="n">release_path</span> <span class="si">}</span><span class="s2">/tmp&quot;</span>
+</span><span class='line'>      <span class="n">execute</span> <span class="ss">:touch</span><span class="p">,</span> <span class="n">release_path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;tmp/restart.txt&#39;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">after</span> <span class="ss">:publishing</span><span class="p">,</span> <span class="ss">:restart</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">after</span> <span class="ss">:restart</span><span class="p">,</span> <span class="ss">:clear_cache</span> <span class="k">do</span>
+</span><span class='line'>    <span class="n">on</span> <span class="n">roles</span><span class="p">(</span><span class="ss">:web</span><span class="p">),</span> <span class="k">in</span><span class="p">:</span> <span class="ss">:groups</span><span class="p">,</span> <span class="ss">limit</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="ss">wait</span><span class="p">:</span> <span class="mi">10</span> <span class="k">do</span>
+</span><span class='line'>      <span class="c1"># Here we can do anything such as:</span>
+</span><span class='line'>      <span class="c1"># within release_path do</span>
+</span><span class='line'>      <span class="c1">#  execute :rake, &#39;cache:clear&#39;</span>
+</span><span class='line'>      <span class="c1"># end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>production.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># Simple Role Syntax</span>
+</span><span class='line'><span class="c1"># ==================</span>
+</span><span class='line'><span class="c1"># Supports bulk-adding hosts to roles, the primary server in each group</span>
+</span><span class='line'><span class="c1"># is considered to be the first unless any hosts have the primary</span>
+</span><span class='line'><span class="c1"># property set.  Don&#39;t declare `role :all`, it&#39;s a meta role.</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">role</span> <span class="ss">:app</span><span class="p">,</span> <span class="sx">%w{app@server}</span>
+</span><span class='line'><span class="n">role</span> <span class="ss">:web</span><span class="p">,</span> <span class="sx">%w{web@server}</span>
+</span><span class='line'><span class="n">role</span> <span class="ss">:db</span><span class="p">,</span>  <span class="sx">%w{db@server}</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># Extended Server Syntax</span>
+</span><span class='line'><span class="c1"># ======================</span>
+</span><span class='line'><span class="c1"># This can be used to drop a more detailed server definition into the</span>
+</span><span class='line'><span class="c1"># server list. The second argument is a, or duck-types, Hash and is</span>
+</span><span class='line'><span class="c1"># used to set extended properties on the server.</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">server</span> <span class="s1">&#39;server_ip&#39;</span><span class="p">,</span> <span class="ss">user</span><span class="p">:</span> <span class="s1">&#39;server_user&#39;</span><span class="p">,</span> <span class="ss">roles</span><span class="p">:</span> <span class="sx">%w{app}</span><span class="p">,</span> <span class="n">my_property</span><span class="p">:</span> <span class="ss">:my_value</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># Custom SSH Options</span>
+</span><span class='line'><span class="c1"># ==================</span>
+</span><span class='line'><span class="c1"># You may pass any option but keep in mind that net/ssh understands a</span>
+</span><span class='line'><span class="c1"># limited set of options, consult[net/ssh documentation](http://net-ssh.github.io/net-ssh/classes/Net/SSH.html#method-c-start).</span>
+</span><span class='line'><span class="c1">#</span>
+</span><span class='line'><span class="c1"># Global options</span>
+</span><span class='line'><span class="c1"># --------------</span>
+</span><span class='line'><span class="c1">#  set :ssh_options, {</span>
+</span><span class='line'><span class="c1">#    keys: %w(/home/rlisowski/.ssh/id_rsa),</span>
+</span><span class='line'><span class="c1">#    forward_agent: true</span>
+</span><span class='line'><span class="c1">#    auth_methods: %w(password)</span>
+</span><span class='line'><span class="c1">#  }</span>
+</span><span class='line'><span class="c1">#</span>
+</span><span class='line'><span class="c1"># And/or per server (overrides global)</span>
+</span><span class='line'><span class="c1"># ------------------------------------</span>
+</span><span class='line'> <span class="n">server</span> <span class="s1">&#39;server_ip&#39;</span><span class="p">,</span>
+</span><span class='line'>   <span class="ss">user</span><span class="p">:</span> <span class="s1">&#39;server_user&#39;</span><span class="p">,</span>
+</span><span class='line'>   <span class="n">ssh_options</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>     <span class="ss">keys</span><span class="p">:</span> <span class="sx">%w(/user/.ssh/id_rsa)</span><span class="p">,</span>
+</span><span class='line'>     <span class="n">forward_agent</span><span class="p">:</span> <span class="kp">false</span><span class="p">,</span>
+</span><span class='line'>     <span class="n">auth_methods</span><span class="p">:</span> <span class="sx">%w(publickey password)</span>
+</span><span class='line'>   <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>設定完後，因為這邊是設定 production.rb<br/>
+因此執行以下指令 deploy 到 production server</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="go">bundle exec cap production deploy</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>如果 <code>exit status 0 (successful).</code> <br/>
+那就是成功啦~</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Install Rails Server Env With Rbenv on Ubuntu 14.04]]></title>
@@ -1072,25 +1364,6 @@ host side: you need ruby environment!</p>
 
 
 <p>reload your bash profile</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[Ruby] PP to Ruby as Var_dump to PHP]]></title>
-    <link href="http://kerkerj.github.io/blog/2013/12/18/ruby-pp-to-ruby-as-var-dump-to-php/"/>
-    <updated>2013-12-18T06:46:00+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2013/12/18/ruby-pp-to-ruby-as-var-dump-to-php</id>
-    <content type="html"><![CDATA[<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;pp&#39;</span>
-</span><span class='line'><span class="n">pp</span><span class="p">(</span><span class="no">ENV</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<blockquote><p>Usage:
-pp(any_variable)</p></blockquote>
-
-<p>just like <code>var_dump</code> in <code>php</code></p>
 ]]></content>
   </entry>
   
