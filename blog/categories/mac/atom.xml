@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Mac | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/mac/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-08-05T23:29:31+08:00</updated>
+  <updated>2014-08-06T02:03:49+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,58 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Writing Lua on Mac]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/08/06/writing-lua-on-mac/"/>
+    <updated>2014-08-06T01:36:57+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/08/06/writing-lua-on-mac</id>
+    <content type="html"><![CDATA[<h2>Install lua on mac</h2>
+
+<p>I&rsquo;m not sure that whether Lua is built on mac originally.</p>
+
+<p>So I installed Lua via <a href="http://brew.sh/">Homebrew</a>.</p>
+
+<p>Install homebrew (optional)</p>
+
+<p><code>
+ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+</code></p>
+
+<p>Install Lua by homebrew</p>
+
+<p><code>
+brew install lua
+</code></p>
+
+<h2>Writing Lua</h2>
+
+<p>You can use command: <code>lua</code> to interact with lua. (just like <code>php -a</code> or <code>irb</code>)</p>
+
+<p>```lua hello.lua
+print(&ldquo;Hello World&rdquo;)</p>
+
+<p>```</p>
+
+<p>```lua fact.lua
+function fact(n)</p>
+
+<pre><code>if n == 0 then
+    return 1
+else
+    return n * fact(n-1)
+end
+</code></pre>
+
+<p>end</p>
+
+<p>print(&ldquo;enter a number:&rdquo;)
+num = io.read(&ldquo;*number&rdquo;)
+print(fact(num))</p>
+
+<p>```</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[Mac] Update Openssl on Mac]]></title>

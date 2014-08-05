@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Nginx | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/nginx/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-08-05T23:29:31+08:00</updated>
+  <updated>2014-08-06T02:03:49+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,125 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Openresty on Ubuntu 14.04]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/08/05/openresty-on-ubuntu-14-dot-04/"/>
+    <updated>2014-08-05T23:47:39+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/08/05/openresty-on-ubuntu-14-dot-04</id>
+    <content type="html"><![CDATA[<h2>Install</h2>
+
+<p>choose the latest version of Openresty<br/>
+I used ngx_openresty-1.7.2.1.tar.gz</p>
+
+<p>```console</p>
+
+<h1>install packages</h1>
+
+<p>sudo apt-get install libreadline-dev libpcre3-dev libssl-dev perl</p>
+
+<h1>get openresty package</h1>
+
+<p>wget <a href="http://openresty.org/download/ngx_openresty-1.7.2.1.tar.gz">http://openresty.org/download/ngx_openresty-1.7.2.1.tar.gz</a></p>
+
+<h1>unzip</h1>
+
+<p>tar xzvf ngx_openresty-1.7.2.1.tar.gz</p>
+
+<h1>install</h1>
+
+<p>cd ngx_openresty-1.7.2.1/</p>
+
+<h1>You can setup with ./configure &mdash;prefix=&ldquo;the folder you want to install&rdquo;, default is &lsquo;/usr/local/openresty&rsquo;</h1>
+
+<p>./configure
+make
+sudo make install # need permission to copy file to target folder
+```</p>
+
+<p>Default folder: <code>/usr/local/openresty</code></p>
+
+<h2>Setup</h2>
+
+<p>create work folder in ~<br/>
+<code>
+mkdir ~/work
+cd ~/work
+mkdir logs/ conf/
+</code></p>
+
+<p>create a new file in <code>~/work/conf/nginx.conf</code>
+```
+worker_processes  1;
+error_log logs/error.log;
+events {</p>
+
+<pre><code>worker_connections 1024;
+</code></pre>
+
+<p>}
+http {</p>
+
+<pre><code>server {
+    listen 8080;
+    location / {
+        default_type text/html;
+        content_by_lua '
+            ngx.say("&lt;p&gt;hello, world&lt;/p&gt;")
+        ';
+    }
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>because Openresty is installed in <code>/usr/local/openresty</code>,<br/>
+we need to add the directory to PATH variable
+<code>
+PATH=/usr/local/openresty/nginx/sbin:$PATH
+export PATH
+</code></p>
+
+<p>Then use the way below to start nginx server
+<code>
+nginx -p `pwd`/ -c conf/nginx.conf
+</code></p>
+
+<p>Assume that you have a nginx server originally, and then you installed Openresty, it can be set up at the same time if the port is not confilcted to the origin nginx.</p>
+
+<h2>Use external lua file to keep conf clean</h2>
+
+<p>Edit <code>~/work/conf/nginx.conf</code></p>
+
+<p>```
+worker_processes  1;
+error_log logs/error.log;
+events {</p>
+
+<pre><code>worker_connections 1024;
+</code></pre>
+
+<p>}
+http {</p>
+
+<pre><code>server {
+    listen 8080;
+    location /hello {
+        content_by_lua_file conf/hello.lua;
+    }
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p><code>lua hello.lua
+-- hello.lua
+ngx.say("Hello World")
+</code></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Install Rails Server Env With Rbenv on Ubuntu 14.04]]></title>
