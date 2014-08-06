@@ -97,6 +97,79 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2014/08/06/emoji-data-in-mysql/">Emoji Data in MySQL</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-06T18:17:59+08:00" pubdate data-updated="true">Aug 6<sup>th</sup>, 2014</time>
+        
+           | <a href="/blog/2014/08/06/emoji-data-in-mysql/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/08/06/emoji-data-in-mysql/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Supported MySQL 5.5, 5.6.</p>
+
+<p>First, MySQL should set DB and table to utf8mb4.</p>
+
+<p>utf8 &ndash; 3 byte characters</p>
+
+<p>utf8mb4 &ndash; 4 byte characters</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">ALTER</span> <span class="k">DATABASE</span> <span class="n">my_database</span> <span class="k">DEFAULT</span> <span class="nb">CHARACTER</span> <span class="k">SET</span> <span class="n">utf8mb4</span> <span class="k">COLLATE</span> <span class="n">utf8mb4_general_ci</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">my_table</span> <span class="k">DEFAULT</span> <span class="nb">CHARACTER</span> <span class="k">SET</span> <span class="n">utf8mb4</span> <span class="k">COLLATE</span> <span class="n">utf8mb4_unicode_ci</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">my_column</span> <span class="n">CHANGE</span> <span class="n">my_column</span> <span class="n">my_column</span> <span class="nb">TEXT</span> <span class="nb">CHARACTER</span> <span class="k">SET</span> <span class="n">utf8mb4</span> <span class="k">COLLATE</span> <span class="n">utf8mb4_unicode_ci</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Then, when inserting data or selecting data, execute this statement first:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="c1">--Execute this statement first</span>
+</span><span class='line'><span class="k">SET</span> <span class="k">NAMES</span> <span class="n">utf8mb4</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">--then insert or select</span>
+</span><span class='line'><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">my_table</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2014/08/06/writing-lua-on-mac/">Writing Lua on Mac</a></h1>
     
     
@@ -1211,53 +1284,6 @@ enable sites: <code>sudo a2ensite default-ssl</code></p>
 <p>Disable &ndash; <code>update-rc.d -f apache2 remove</code></p>
 
 <p>Enable &ndash; <code>update-rc.d apache2 defaults</code></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/05/28/codeigniter-tips-deploy-to-amazon-web-services/">[Codeigniter] Tips Deploy to Amazon Web Services</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-05-28T06:36:00+08:00" pubdate data-updated="true">May 28<sup>th</sup>, 2014</time>
-        
-           | <a href="/blog/2014/05/28/codeigniter-tips-deploy-to-amazon-web-services/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/05/28/codeigniter-tips-deploy-to-amazon-web-services/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><ol>
-<li>If you use Amazon RDS, especially micro plan,<br/>
- remember to set <code>$config['pconnect'] = FALSE</code> in <code>application/config/database.php</code>.<br/>
- Because RDS has Max_connection limits.</li>
-<li>If you use RDS, remeber that the system timezone in RDS is +0 timezone.<br/>
- In your application, you should care about this thing.</li>
-<li>If you will use loadbalancer, remember to &hellip;.(???)</li>
-</ol>
-
 </div>
   
   

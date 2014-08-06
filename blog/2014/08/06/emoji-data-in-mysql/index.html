@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Writing Lua on Mac - kerkerj</title>
+  <title>Emoji Data in MySQL - kerkerj</title>
   <meta name="author" content="kerkerj">
 
   
   <meta name="description" content="cool thing, cool guy">
-  <meta name="keywords" content="mac,lua">
+  <meta name="keywords" content="mysql,emoji">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://kerkerj.github.io/blog/2014/08/06/writing-lua-on-mac">
+  <link rel="canonical" href="http://kerkerj.github.io/blog/2014/08/06/emoji-data-in-mysql">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="kerkerj" type="application/atom+xml">
@@ -95,7 +95,7 @@
   <header>
     
       
-        <h1 class="entry-title">Writing Lua on Mac</h1>
+        <h1 class="entry-title">Emoji Data in MySQL</h1>
       
     
     
@@ -112,7 +112,7 @@
   
 
 
-<time datetime="2014-08-06T01:36:57+08:00" pubdate data-updated="true">Aug 6<sup>th</sup>, 2014</time>
+<time datetime="2014-08-06T18:17:59+08:00" pubdate data-updated="true">Aug 6<sup>th</sup>, 2014</time>
         
            | <a href="#disqus_thread"
              data-disqus-identifier="http://kerkerj.github.io">Comments</a>
@@ -122,64 +122,40 @@
   </header>
 
 
-<div class="entry-content"><h2>Install lua on mac</h2>
+<div class="entry-content"><p>Supported MySQL 5.5, 5.6.</p>
 
-<p>I&rsquo;m not sure that whether Lua is built on mac originally.</p>
+<p>First, MySQL should set DB and table to utf8mb4.</p>
 
-<p><span style="color:red;">(Ok, tested on Mac OSX 10.9, there is Lua in it.)</span></p>
+<p>utf8 &ndash; 3 byte characters</p>
 
-<p>So I installed Lua via <a href="http://brew.sh/">Homebrew</a>.</p>
+<p>utf8mb4 &ndash; 4 byte characters</p>
 
-<p>Install homebrew (optional)</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Install Lua by homebrew</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>brew install lua</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Writing Lua</h2>
-
-<p>You can use command: <code>lua</code> to interact with lua. (just like <code>php -a</code> or <code>irb</code>)</p>
-
-<figure class='code'><figcaption><span>hello.lua</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='lua'><span class='line'><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">Hello World&quot;</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><figcaption><span>fact.lua</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='lua'><span class='line'><span class="k">function</span> <span class="nf">fact</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-</span><span class='line'>  <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">then</span>
-</span><span class='line'>      <span class="k">return</span> <span class="mi">1</span>
-</span><span class='line'>  <span class="k">else</span>
-</span><span class='line'>      <span class="k">return</span> <span class="n">n</span> <span class="o">*</span> <span class="n">fact</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">ALTER</span> <span class="k">DATABASE</span> <span class="n">my_database</span> <span class="k">DEFAULT</span> <span class="nb">CHARACTER</span> <span class="k">SET</span> <span class="n">utf8mb4</span> <span class="k">COLLATE</span> <span class="n">utf8mb4_general_ci</span><span class="p">;</span>
 </span><span class='line'>
-</span><span class='line'><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">enter a number:&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="n">num</span> <span class="o">=</span> <span class="nb">io.read</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">*number&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="nb">print</span><span class="p">(</span><span class="n">fact</span><span class="p">(</span><span class="n">num</span><span class="p">))</span>
-</span><span class='line'>      
+</span><span class='line'><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">my_table</span> <span class="k">DEFAULT</span> <span class="nb">CHARACTER</span> <span class="k">SET</span> <span class="n">utf8mb4</span> <span class="k">COLLATE</span> <span class="n">utf8mb4_unicode_ci</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">my_column</span> <span class="n">CHANGE</span> <span class="n">my_column</span> <span class="n">my_column</span> <span class="nb">TEXT</span> <span class="nb">CHARACTER</span> <span class="k">SET</span> <span class="n">utf8mb4</span> <span class="k">COLLATE</span> <span class="n">utf8mb4_unicode_ci</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">;</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
+<p>Then, when inserting data or selecting data, execute this statement first:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="c1">--Execute this statement first</span>
+</span><span class='line'><span class="k">SET</span> <span class="k">NAMES</span> <span class="n">utf8mb4</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">--then insert or select</span>
+</span><span class='line'><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">my_table</span>
+</span></code></pre></td></tr></table></div></figure>
 
 </div>
 
@@ -203,12 +179,12 @@
   
 
 
-<time datetime="2014-08-06T01:36:57+08:00" pubdate data-updated="true">Aug 6<sup>th</sup>, 2014</time>
+<time datetime="2014-08-06T18:17:59+08:00" pubdate data-updated="true">Aug 6<sup>th</sup>, 2014</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/lua/'>lua</a>, <a class='category' href='/blog/categories/mac/'>mac</a>
+    <a class='category' href='/blog/categories/emoji/'>emoji</a>, <a class='category' href='/blog/categories/mysql/'>mysql</a>
   
 </span>
 
@@ -217,7 +193,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://kerkerj.github.io/blog/2014/08/06/writing-lua-on-mac/" data-via="jerry54010" data-counturl="http://kerkerj.github.io/blog/2014/08/06/writing-lua-on-mac/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://kerkerj.github.io/blog/2014/08/06/emoji-data-in-mysql/" data-via="jerry54010" data-counturl="http://kerkerj.github.io/blog/2014/08/06/emoji-data-in-mysql/" >Tweet</a>
   
   
   
@@ -228,10 +204,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/08/05/openresty-on-ubuntu-14-dot-04/" title="Previous Post: Openresty on Ubuntu 14.04">&laquo; Openresty on Ubuntu 14.04</a>
+        <a class="basic-alignment left" href="/blog/2014/08/06/writing-lua-on-mac/" title="Previous Post: Writing Lua on Mac">&laquo; Writing Lua on Mac</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/08/06/emoji-data-in-mysql/" title="Next Post: Emoji data in MySQL">Emoji data in MySQL &raquo;</a>
       
     </p>
   </footer>
@@ -268,8 +242,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://kerkerj.github.io/blog/2014/08/06/writing-lua-on-mac/';
-        var disqus_url = 'http://kerkerj.github.io/blog/2014/08/06/writing-lua-on-mac/';
+        var disqus_identifier = 'http://kerkerj.github.io/blog/2014/08/06/emoji-data-in-mysql/';
+        var disqus_url = 'http://kerkerj.github.io/blog/2014/08/06/emoji-data-in-mysql/';
         var disqus_script = 'embed.js';
       
     (function () {

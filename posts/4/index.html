@@ -97,6 +97,208 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2013/10/22/vagrant-vagrant-nginx-php5-fpm/">[Vagrant] 使用 Vagrant 安裝 Nginx, Php5-fpm, MySQL</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-22T13:21:00+08:00" pubdate data-updated="true">Oct 22<sup>nd</sup>, 2013</time>
+        
+           | <a href="/blog/2013/10/22/vagrant-vagrant-nginx-php5-fpm/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2013/10/22/vagrant-vagrant-nginx-php5-fpm/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1><a href="http://www.vagrantup.com/">Vagrant</a> &ndash; Development environments made easy.</h1>
+
+<p>就是這個軟體的宗旨，把它想做是 ghost 吧！我們開發網站或是測試一些多機器架構時，常不小心就把自己的電腦或是測試主機搞到爛掉，租機器又慢又花錢，搞到爛重灌更麻煩。因此這個軟體基於 VirtualBox 做出了令人方便設定的功能，讓我們可以快速架設安裝環境並測試，尤其是以多機器架構而言更是方便！例如從最簡單的 Web server + DB server，或是 Web Load Balancer + Application Server * 5 等等的架構，一台電腦就能達成囉！
+今天主要是以安裝 Vagrant 及架設出 Nginx + php5-fpm 的架構，下一篇打算另外建構一台 mongodb server，達到 Vagrant 最主要的多機器設定功能~</p>
+
+<h1>Vagrant 基本設定</h1>
+
+<ol>
+<li>先下載 VirtualBox 吧！</li>
+<li>下載 Vagarnt 套件 <a href="http://downloads.vagrantup.com/">http://downloads.vagrantup.com/</a><br/>
+安裝好後，可能會需要加 path，至少 1.3.0 當時我是自己加的，現在 1.3.5 就不清楚了~</li>
+<li>接下來就可以開始加入 box (可以把它想為 ghost 檔)，並開始設定 Vagrant。</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vagrant box add {你想要的Box名稱} {下載網址} </span></code></pre></td></tr></table></div></figure>
+
+
+<p>輸入後就會開始下載該 box 了！ 範例：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$vagrant box add devbox http://ﬁles.vagrantup.com/precise64.box   
+</span><span class='line'>$mkdir my_box  
+</span><span class='line'>$cd my_box  
+</span><span class='line'>$vagrant init devbox (將 my_box 這個專案資料夾以 devbox 這個 box 檔案初始化)  </span></code></pre></td></tr></table></div></figure>
+
+
+<p>box 官方有提供 Ubuntu 的，在 <a href="http://www.vagrantbox.es/">vagrantbox.es</a> 很多，可以自己找～ 當然自己做應該也是可以的！</p>
+
+<h1>Vagrant 基本指令</h1>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vagrant up 開機  
+</span><span class='line'>vagrant ssh 登⼊  
+</span><span class='line'>vagrant suspend 暫停  
+</span><span class='line'>vagrant halt 關機  
+</span><span class='line'>vagrant destroy 刪除  </span></code></pre></td></tr></table></div></figure>
+
+
+<h1>進入新裝好的機器吧！</h1>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$vagrant up  //開機  
+</span><span class='line'>$vagrant ssh //登入  </span></code></pre></td></tr></table></div></figure>
+
+
+<h1>Vagrantfile 設定</h1>
+
+<p>Vagrantfile 這個設定檔可以用很多很強大的設定，在官方網頁裡有教學
+不過首先要先做的是： <code>config.vm.forward_port 80, 8088</code>
+把虛擬機器裡從 80 port 傳送的東西丟到本機的 8088 port
+如此一來在本機瀏覽器輸入 localhost:8088 ，就可以看到網頁了！
+另外就是： <code>config.vm.synced_folder "/vagrant", "本機目錄"</code>
+如此一來，Ubuntu 底下就有一個 /vargrant 目錄，和自己主機裡的某個目錄是同步的！
+也就是在自己主機上寫好程式後，就可以直接讓虛擬機器抓到 code 去執行，超方便的！
+只要把 nginx 的網頁目錄設定在 /vagrant 上就可以了！ (後面會說)</p>
+
+<h1>Ubuntu 基本安裝</h1>
+
+<p>進去後是乾淨的 Ubuntu 12.04 64位元版，因此需先做點安裝:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$sudo apt-get -y update  
+</span><span class='line'>$sudo apt-get --no-install-recommends -y install build-essential openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev libgdbm-dev ncurses-dev automake libtool bison subversion pkg-config libffi-dev vim  </span></code></pre></td></tr></table></div></figure>
+
+
+<p>有些東西其實可以不用裝，就看個人的需求，必裝應該是 build-essential, openssl, curl, git-core, vim XD</p>
+
+<h1>Nginx &amp; php5-fpm 安裝</h1>
+
+<p>安裝 Nginx</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$sudo apt-get install nginx  </span></code></pre></td></tr></table></div></figure>
+
+
+<p>若要更改 Nginx 的網頁目錄，設定檔在 <code>/etc/nginx/</code> 裡，
+通常應該是更改 <code>/etc/nginx/sites-enable/default</code> 裡的 <code>root /usr/share/nginx/www/</code>
+還要將這段 code 解除註解：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>location ~ \.php$ {
+</span><span class='line'>  fastcgi_split_path_info ^(.+\.php)(/.+)$;
+</span><span class='line'>  # NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
+</span><span class='line'>
+</span><span class='line'>  # With php5-cgi alone:
+</span><span class='line'>  #fastcgi_pass 127.0.0.1:9000;
+</span><span class='line'>  # With php5-fpm:
+</span><span class='line'>  fastcgi_pass unix:/var/run/php5-fpm.sock;
+</span><span class='line'>  fastcgi_index index.php;
+</span><span class='line'>  include fastcgi_params;
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>更改後確認一下 <code>/etc/nginx/nginx.conf</code> 是否有 <code>inculde /etc/nginx/sites-enable/*</code></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$sudo service nginx start (開始服務)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>安裝 php5-fpm</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$sudo apt-get install php5-fpm  
+</span><span class='line'>$sudo vim /etc/php5/fpm/php.ini (找到並更改 cgi.fix_pathinfo = 0 )  
+</span><span class='line'>$sudo vim /etc/php5/fpm/pool.d/www.conf  </span></code></pre></td></tr></table></div></figure>
+
+
+<p>找到 <code>listen = 127.0.0.1:9000</code>, 換成 <code>/var/run/php5-fpm.sock</code>
+寫個 phpinfo(); 的 php 檔放入資料夾</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$sudo service php5-fpm restart (開啟服務)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在瀏覽器輸入 localhost:8088 就可以看到 nginx 的頁面，再讀取剛剛寫的 php 應該就成功囉！</p>
+
+<p>安裝 MySQL:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get install mysql-server</span></code></pre></td></tr></table></div></figure>
+
+
+<p>過程中會問 root 的密碼，裝完後就可以登入：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ mysql -u root -p</span></code></pre></td></tr></table></div></figure>
+
+
+<p>下回就是多機器的設定囉～</p>
+
+<p>reference:<br/>
+<a href="http://gogojimmy.net/2013/05/26/vagrant-tutorial/">http://gogojimmy.net/2013/05/26/vagrant-tutorial/</a>
+<a href="http://www.slideshare.net/ihower/vagrant-osdc">http://www.slideshare.net/ihower/vagrant-osdc</a>
+<a href="https://www.digitalocean.com/community/articles/how-to-install-linux-nginx-mysql-php-lemp-stack-on-ubuntu-12-04">https://www.digitalocean.com/community/articles/how-to-install-linux-nginx-mysql-php-lemp-stack-on-ubuntu-12-04</a></p>
+
+<p>p.s. Vagrantfile 產生器：<a href="https://puphpet.com/#vagrantfile">Puphpet.com/#vagrantfile</a>
+這網站有很多值得玩的地方，可以直接幫你產生出這些設定檔真的是太方便了！</p>
+
+<p>p.s.s.有亂入用到的指令記一下：dpkg &mdash;get-selections 列出已安裝的 package
+另外提供一下我在研究 Vagrant 的筆記，很亂超級亂，但是有些東西沒有寫在 blog 裡~
+<a href="https://www.evernote.com/shard/s81/sh/91ccf490-d9cd-468e-943a-d57c79d052f4/71e0a682b024c6e97fd8c79b90f89f67">Evernote by kerkerj</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2012/06/12/android-ui-update-2/">[Android] Thread 處理 UI Update (2)</a></h1>
     
     
@@ -852,61 +1054,6 @@ swap           : 5GB<br/>
 <a href="http://4.bp.blogspot.com/--oXdMgP1MrA/T4bsHAKWbVI/AAAAAAAAC4k/_mXM7x55s6c/s1600/%E6%9C%AA%E5%91%BD%E5%90%8D2.png"><img src="http://4.bp.blogspot.com/--oXdMgP1MrA/T4bsHAKWbVI/AAAAAAAAC4k/_mXM7x55s6c/s640/%E6%9C%AA%E5%91%BD%E5%90%8D2.png" alt="" /></a></p>
 
 <p>加入個 POWER BY BLOGGER 吧，按下去就可以登入了XD</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/04/11/android-remote-shutdown/">[Android] 遠端主機已強制關閉一個現存的連線</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-04-11T07:30:00+08:00" pubdate data-updated="true">Apr 11<sup>th</sup>, 2012</time>
-        
-           | <a href="/blog/2012/04/11/android-remote-shutdown/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2012/04/11/android-remote-shutdown/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>不知道大家在寫Android程式時使用實體機接PC時會不會很常出現這個錯誤
-我個人還蠻常出現的，在測試時是非常緩慢的
-Google了一下，找到了強者自己寫的adb.exe
-檔案在討論串裡：<a href="http://code.google.com/p/android/issues/detail?id=12141">http://code.google.com/p/android/issues/detail?id=12141</a></p>
-
-<pre><code>Nov 28, 2011  
-New patched version of adb (1.0.29)   
-Patch (diff) the same as early  
-adb.exe   
-478 KB Download  
-</code></pre>
-
-<p>Download: <a href="http://android.googlecode.com/issues/attachment?aid=121410050000&amp;name=adb.exe&amp;token=O8Q8Mzj8XLo6-cOEE6a2H8SG4Bg%3A1334136508184">adb.exe</a></p>
-
-<p>下載後，到Android的SDK資料夾，進platform-tool資料夾，
-將原本的adb.exe做備份，再將新的複製到原本的exe檔所在的地方，
-重新啟動adb就可以了 (進DDMS重新啟動，或者重新啟動Eclipse也行)</p>
 </div>
   
   

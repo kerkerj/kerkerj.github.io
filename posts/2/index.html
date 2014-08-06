@@ -97,6 +97,53 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2014/05/28/codeigniter-tips-deploy-to-amazon-web-services/">[Codeigniter] Tips Deploy to Amazon Web Services</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-28T06:36:00+08:00" pubdate data-updated="true">May 28<sup>th</sup>, 2014</time>
+        
+           | <a href="/blog/2014/05/28/codeigniter-tips-deploy-to-amazon-web-services/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/05/28/codeigniter-tips-deploy-to-amazon-web-services/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><ol>
+<li>If you use Amazon RDS, especially micro plan,<br/>
+ remember to set <code>$config['pconnect'] = FALSE</code> in <code>application/config/database.php</code>.<br/>
+ Because RDS has Max_connection limits.</li>
+<li>If you use RDS, remeber that the system timezone in RDS is +0 timezone.<br/>
+ In your application, you should care about this thing.</li>
+<li>If you will use loadbalancer, remember to &hellip;.(???)</li>
+</ol>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2014/05/06/mysql-several-useful-statements-group-concat-ifnull-date-format/">[MySQL] Several Useful Statements (GROUP_CONCAT, Ifnull, DATE_FORMAT)</a></h1>
     
     
@@ -687,321 +734,6 @@ Magic is never good in development.</p>
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>echo "gem: --no-ri --no-rdoc" &gt;&gt; ~/.gemrc</span></code></pre></td></tr></table></div></figure>
 
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/20/ubuntu-ror-environment/">[Ubuntu] RoR Environment</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-20T03:34:00+08:00" pubdate data-updated="true">Dec 20<sup>th</sup>, 2013</time>
-        
-           | <a href="/blog/2013/12/20/ubuntu-ror-environment/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2013/12/20/ubuntu-ror-environment/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>RVM with Ruby2.0.0-p353 + Rails4.0.2 + Ubuntu12.04(precise64) + php-fpm by Vagrant(clean install)</h2>
-
-<p>p.s.
-If you don&rsquo;t use RVM, you can just follow the instruction from <a href="http://www.modrails.com/documentation/Users%20guide%20Nginx.html#install_on_debian_ubuntu">Passenger offcial website</a>. It will be easier.
-Plus, I installed all these things by Vagrant.</p>
-
-<h2>First thing to do</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get update
-</span><span class='line'>$ sudo apt-get upgrade</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Pre-setup: install necessary packages</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get update
-</span><span class='line'>$ sudo apt-get install build-essential libssl-dev libpcre3-dev libncurses5-dev libreadline6-dev git vim curl libcurl4-openssl-dev libreadline6 autoconf openssl git-core zlib1g zlib1g-dev  libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev autoconf libc6-dev libgdbm-dev libncurses5-dev automake libtool bison subversion pkg-config libffi-dev</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Get .bashrc from my repo (Optional)</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd
-</span><span class='line'>$ git clone https://github.com/jerry54010/bash-it.git
-</span><span class='line'>$ mv bash-it .bash_it
-</span><span class='line'>$ cd .bash_it
-</span><span class='line'>$ git checkout ubuntu
-</span><span class='line'>$ ln -s ~/.bash_it/.bash_profile ~/.bash_profile
-</span><span class='line'>$ cd
-</span><span class='line'>$ source ~/.bash_profile</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Get .vimrc from my repo (Optional)</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ wget https://gist.github.com/jerry54010/8049575/raw/42ced22651fedf06174457e311d22d17f6591b65/.vimrc</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>RVM and Ruby 2.0 (RVM: Ruby version management)</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ \curl -sSL https://get.rvm.io | bash -s stable
-</span><span class='line'>$ source ~/.bash_profile //if you installed my bash_profile. 
-</span><span class='line'>//If not, source ~/.profile
-</span><span class='line'>$ rvm requirements
-</span><span class='line'>$ echo 'gem: --no-ri --no-rdoc'  &gt;&gt; ~/.gemrc
-</span><span class='line'>$ rvm install 2.0.0
-</span><span class='line'>$ source ~/.bash_profile //if you installed my bash_profile. 
-</span><span class='line'>//If not, source ~/.profile
-</span><span class='line'>
-</span><span class='line'>add this line to .bash_rc or .bash_profile (if you don't use my .bash_profile)
-</span><span class='line'>[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
-</span><span class='line'>
-</span><span class='line'>$ rvm use 2.0.0 --default</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Now we should be using ruby2.0.0 by RVM, let&rsquo;s check:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ rvm list
-</span><span class='line'>=* ruby-2.0.0-p353 [ x86_64 ] 
-</span><span class='line'>// =&gt; - current
-</span><span class='line'>// =* - current && default
-</span><span class='line'>//  * - default</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Nodejs, libv8-dev(for javascript) and SQLite3 (sqlite3 libsqlite3-dev)</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get -y install nodejs libv8-dev sqlite3 libsqlite3-dev </span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Passenger with NGINX</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ gem install passenger 
-</span><span class='line'>$ rvmsudo passenger-install-nginx-module
-</span><span class='line'>choose 2: customize
-</span><span class='line'>  a. src dir: /home/vagrant/nginx-1.4.4/ (where the nginx you download)
-</span><span class='line'>  b. I installed nginx with passenger in `/etc/nginx` (default is /opt/nginx)
-</span><span class='line'>  c. default</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Get nginx script</h2>
-
-<p>If you use /opt/nginx as root dir, you don&rsquo;t need to modify this script.
-If you use /etc/nginx or else dir as root dir like me, you should modify the script.
-(from <a href="https://library.linode.com/web-servers/nginx/installation/ubuntu-12.04-precise-pangolin">linode</a>)</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ wget -O init-deb.sh http://library.linode.com/assets/1139-init-deb.sh
-</span><span class='line'>$ sudo mv init-deb.sh /etc/init.d/nginx
-</span><span class='line'>$ chmod +x /etc/init.d/nginx
-</span><span class='line'>$ sudo /usr/sbin/update-rc.d -f nginx defaults</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The nginx default public folder will be in <code>/etc/nginx/html</code>
-check nginx version:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ /etc/nginx/sbin/nginx -v
-</span><span class='line'>nginx version: nginx/1.4.4</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Install php5-fpm</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get -y install php5-cli php5-common php5-fpm
-</span><span class='line'>$ sudo vim /etc/php5/fpm/php.ini 
-</span><span class='line'>//(find and change to `cgi.fix_pathinfo = 0` )
-</span><span class='line'>$ sudo vim /etc/php5/fpm/pool.d/www.conf 
-</span><span class='line'>//change: listen = 127.0.0.1:9000 to listen = /var/run/php5-fpm.sock
-</span><span class='line'>$ sudo vim /etc/nginx/conf/nginx.conf or /opt/nginx/conf/nginx.conf //find and modify 
-</span><span class='line'>location ~ \.php$ {
-</span><span class='line'>    fastcgi_split_path_info ^(.+\.php)(/.+)$;
-</span><span class='line'>    # NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
-</span><span class='line'>    # With php5-cgi alone:
-</span><span class='line'>    #fastcgi_pass 127.0.0.1:9000;
-</span><span class='line'>    # With php5-fpm:
-</span><span class='line'>    fastcgi_pass unix:/var/run/php5-fpm.sock;
-</span><span class='line'>    fastcgi_index index.php;
-</span><span class='line'>    fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
-</span><span class='line'>    include fastcgi_params;
-</span><span class='line'>}
-</span><span class='line'>$ echo "&lt;?php phpinfo(); ?&gt;" | sudo tee -a /etc/nginx/html/phpinfo.php</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Restart all:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo service php5-fpm restart
-</span><span class='line'>$ sudo service nginx restart</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Install rails</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ gem install rails</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>RoR environment check</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ ruby -v 
-</span><span class='line'>ruby 2.0.0p353 (2013-11-22 revision 43784) [x86_64-linux]
-</span><span class='line'>$ rails -v
-</span><span class='line'>Rails 4.0.2
-</span><span class='line'>$ rake -V
-</span><span class='line'>rake, version 10.1.0</span></code></pre></td></tr></table></div></figure>
-
-
-<p>If you passed, you are good to go!</p>
-
-<h2>Deploy Rails application by nginx:</h2>
-
-<p>Assume your rails application path is: <code>/home/vagrant/projects/subapp/</code>
-(by <code>rails new subapp</code>)
-then, the <code>/etc/nginx/conf/nginx.conf</code> will be:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>http {
-</span><span class='line'>    ...
-</span><span class='line'>    server {
-</span><span class='line'>        listen 80;
-</span><span class='line'>        server_name localhost;
-</span><span class='line'>        root /etc/nginx/html;
-</span><span class='line'>
-</span><span class='line'>        # This block has been added.
-</span><span class='line'>        location ~ ^/subapp(/.*|$) {
-</span><span class='line'>            passenger_base_uri /subapp;
-</span><span class='line'>            alias /home/vagrant/projects/subapp/public$1;  # &lt;-- be sure to point to 'public'!
-</span><span class='line'>            passenger_app_root /home/vagrant/projects/subapp;
-</span><span class='line'>            passenger_enabled on;
-</span><span class='line'>            rails_env development; # or production
-</span><span class='line'>        }
-</span><span class='line'>    }
-</span><span class='line'>    ...
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
-
-
-<p>restart nginx, you can access the url: <code>http://localhost/subapp/</code></p>
-
-<h2>Install MySQL and Mysql adapter</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get -y install mysql-server mysql-common mysql-client libmysqlclient-dev  
-</span><span class='line'>$ gem install mysql2 //gem mysql2 is faster than gem mysql  </span></code></pre></td></tr></table></div></figure>
-
-
-<blockquote><p>The gem you installed is placed in RVM&rsquo;s ruby, if you are using RVM&rsquo;s ruby.</p></blockquote>
-
-<p>If you use MySQL in your rails application, remember to change the database.yml.</p>
-
-<p>p.s. If you want to use phpmyadmin, you can do:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get install php5-mysql</span></code></pre></td></tr></table></div></figure>
-
-
-<p>download phpmyadmin, then extract to <code>/etc/nginx/html/phpmyadmin</code><br/>
-then start the server, access: <code>http://localhost/phpmyadmin/</code></p>
 </div>
   
   

@@ -97,6 +97,321 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2013/12/20/ubuntu-ror-environment/">[Ubuntu] RoR Environment</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-20T03:34:00+08:00" pubdate data-updated="true">Dec 20<sup>th</sup>, 2013</time>
+        
+           | <a href="/blog/2013/12/20/ubuntu-ror-environment/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2013/12/20/ubuntu-ror-environment/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>RVM with Ruby2.0.0-p353 + Rails4.0.2 + Ubuntu12.04(precise64) + php-fpm by Vagrant(clean install)</h2>
+
+<p>p.s.
+If you don&rsquo;t use RVM, you can just follow the instruction from <a href="http://www.modrails.com/documentation/Users%20guide%20Nginx.html#install_on_debian_ubuntu">Passenger offcial website</a>. It will be easier.
+Plus, I installed all these things by Vagrant.</p>
+
+<h2>First thing to do</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get update
+</span><span class='line'>$ sudo apt-get upgrade</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Pre-setup: install necessary packages</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get update
+</span><span class='line'>$ sudo apt-get install build-essential libssl-dev libpcre3-dev libncurses5-dev libreadline6-dev git vim curl libcurl4-openssl-dev libreadline6 autoconf openssl git-core zlib1g zlib1g-dev  libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev autoconf libc6-dev libgdbm-dev libncurses5-dev automake libtool bison subversion pkg-config libffi-dev</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Get .bashrc from my repo (Optional)</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd
+</span><span class='line'>$ git clone https://github.com/jerry54010/bash-it.git
+</span><span class='line'>$ mv bash-it .bash_it
+</span><span class='line'>$ cd .bash_it
+</span><span class='line'>$ git checkout ubuntu
+</span><span class='line'>$ ln -s ~/.bash_it/.bash_profile ~/.bash_profile
+</span><span class='line'>$ cd
+</span><span class='line'>$ source ~/.bash_profile</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Get .vimrc from my repo (Optional)</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ wget https://gist.github.com/jerry54010/8049575/raw/42ced22651fedf06174457e311d22d17f6591b65/.vimrc</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>RVM and Ruby 2.0 (RVM: Ruby version management)</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ \curl -sSL https://get.rvm.io | bash -s stable
+</span><span class='line'>$ source ~/.bash_profile //if you installed my bash_profile. 
+</span><span class='line'>//If not, source ~/.profile
+</span><span class='line'>$ rvm requirements
+</span><span class='line'>$ echo 'gem: --no-ri --no-rdoc'  &gt;&gt; ~/.gemrc
+</span><span class='line'>$ rvm install 2.0.0
+</span><span class='line'>$ source ~/.bash_profile //if you installed my bash_profile. 
+</span><span class='line'>//If not, source ~/.profile
+</span><span class='line'>
+</span><span class='line'>add this line to .bash_rc or .bash_profile (if you don't use my .bash_profile)
+</span><span class='line'>[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
+</span><span class='line'>
+</span><span class='line'>$ rvm use 2.0.0 --default</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now we should be using ruby2.0.0 by RVM, let&rsquo;s check:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rvm list
+</span><span class='line'>=* ruby-2.0.0-p353 [ x86_64 ] 
+</span><span class='line'>// =&gt; - current
+</span><span class='line'>// =* - current && default
+</span><span class='line'>//  * - default</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Nodejs, libv8-dev(for javascript) and SQLite3 (sqlite3 libsqlite3-dev)</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get -y install nodejs libv8-dev sqlite3 libsqlite3-dev </span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Passenger with NGINX</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ gem install passenger 
+</span><span class='line'>$ rvmsudo passenger-install-nginx-module
+</span><span class='line'>choose 2: customize
+</span><span class='line'>  a. src dir: /home/vagrant/nginx-1.4.4/ (where the nginx you download)
+</span><span class='line'>  b. I installed nginx with passenger in `/etc/nginx` (default is /opt/nginx)
+</span><span class='line'>  c. default</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Get nginx script</h2>
+
+<p>If you use /opt/nginx as root dir, you don&rsquo;t need to modify this script.
+If you use /etc/nginx or else dir as root dir like me, you should modify the script.
+(from <a href="https://library.linode.com/web-servers/nginx/installation/ubuntu-12.04-precise-pangolin">linode</a>)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ wget -O init-deb.sh http://library.linode.com/assets/1139-init-deb.sh
+</span><span class='line'>$ sudo mv init-deb.sh /etc/init.d/nginx
+</span><span class='line'>$ chmod +x /etc/init.d/nginx
+</span><span class='line'>$ sudo /usr/sbin/update-rc.d -f nginx defaults</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The nginx default public folder will be in <code>/etc/nginx/html</code>
+check nginx version:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ /etc/nginx/sbin/nginx -v
+</span><span class='line'>nginx version: nginx/1.4.4</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Install php5-fpm</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get -y install php5-cli php5-common php5-fpm
+</span><span class='line'>$ sudo vim /etc/php5/fpm/php.ini 
+</span><span class='line'>//(find and change to `cgi.fix_pathinfo = 0` )
+</span><span class='line'>$ sudo vim /etc/php5/fpm/pool.d/www.conf 
+</span><span class='line'>//change: listen = 127.0.0.1:9000 to listen = /var/run/php5-fpm.sock
+</span><span class='line'>$ sudo vim /etc/nginx/conf/nginx.conf or /opt/nginx/conf/nginx.conf //find and modify 
+</span><span class='line'>location ~ \.php$ {
+</span><span class='line'>    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+</span><span class='line'>    # NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
+</span><span class='line'>    # With php5-cgi alone:
+</span><span class='line'>    #fastcgi_pass 127.0.0.1:9000;
+</span><span class='line'>    # With php5-fpm:
+</span><span class='line'>    fastcgi_pass unix:/var/run/php5-fpm.sock;
+</span><span class='line'>    fastcgi_index index.php;
+</span><span class='line'>    fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+</span><span class='line'>    include fastcgi_params;
+</span><span class='line'>}
+</span><span class='line'>$ echo "&lt;?php phpinfo(); ?&gt;" | sudo tee -a /etc/nginx/html/phpinfo.php</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Restart all:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo service php5-fpm restart
+</span><span class='line'>$ sudo service nginx restart</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Install rails</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ gem install rails</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>RoR environment check</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ruby -v 
+</span><span class='line'>ruby 2.0.0p353 (2013-11-22 revision 43784) [x86_64-linux]
+</span><span class='line'>$ rails -v
+</span><span class='line'>Rails 4.0.2
+</span><span class='line'>$ rake -V
+</span><span class='line'>rake, version 10.1.0</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you passed, you are good to go!</p>
+
+<h2>Deploy Rails application by nginx:</h2>
+
+<p>Assume your rails application path is: <code>/home/vagrant/projects/subapp/</code>
+(by <code>rails new subapp</code>)
+then, the <code>/etc/nginx/conf/nginx.conf</code> will be:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>http {
+</span><span class='line'>    ...
+</span><span class='line'>    server {
+</span><span class='line'>        listen 80;
+</span><span class='line'>        server_name localhost;
+</span><span class='line'>        root /etc/nginx/html;
+</span><span class='line'>
+</span><span class='line'>        # This block has been added.
+</span><span class='line'>        location ~ ^/subapp(/.*|$) {
+</span><span class='line'>            passenger_base_uri /subapp;
+</span><span class='line'>            alias /home/vagrant/projects/subapp/public$1;  # &lt;-- be sure to point to 'public'!
+</span><span class='line'>            passenger_app_root /home/vagrant/projects/subapp;
+</span><span class='line'>            passenger_enabled on;
+</span><span class='line'>            rails_env development; # or production
+</span><span class='line'>        }
+</span><span class='line'>    }
+</span><span class='line'>    ...
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>restart nginx, you can access the url: <code>http://localhost/subapp/</code></p>
+
+<h2>Install MySQL and Mysql adapter</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get -y install mysql-server mysql-common mysql-client libmysqlclient-dev  
+</span><span class='line'>$ gem install mysql2 //gem mysql2 is faster than gem mysql  </span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><p>The gem you installed is placed in RVM&rsquo;s ruby, if you are using RVM&rsquo;s ruby.</p></blockquote>
+
+<p>If you use MySQL in your rails application, remember to change the database.yml.</p>
+
+<p>p.s. If you want to use phpmyadmin, you can do:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get install php5-mysql</span></code></pre></td></tr></table></div></figure>
+
+
+<p>download phpmyadmin, then extract to <code>/etc/nginx/html/phpmyadmin</code><br/>
+then start the server, access: <code>http://localhost/phpmyadmin/</code></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2013/12/19/vagrant-use-knife-solo-to-deploy-a-new-vm/">[Vagrant] Use Knife-solo to Deploy a New VM</a></h1>
     
     
@@ -681,208 +996,6 @@ An exception to the terminal window guidelines is Mac OS X&rsquo;s Terminal.app,
 <p>不過我之前就這樣做了，這次成功的方式是直接在 <code>.bash_profile</code> 寫入 PATH 路徑&hellip;
 猜想應該是在 <code>.bash_profile</code> 預先讀取而加快速度的
 如果把原本的 <code>.bashrc</code> 的 <code>PATH</code> 註解掉都移到 <code>.bash_profile</code> 會再稍快一些</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/10/22/vagrant-vagrant-nginx-php5-fpm/">[Vagrant] 使用 Vagrant 安裝 Nginx, Php5-fpm, MySQL</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-22T13:21:00+08:00" pubdate data-updated="true">Oct 22<sup>nd</sup>, 2013</time>
-        
-           | <a href="/blog/2013/10/22/vagrant-vagrant-nginx-php5-fpm/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2013/10/22/vagrant-vagrant-nginx-php5-fpm/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1><a href="http://www.vagrantup.com/">Vagrant</a> &ndash; Development environments made easy.</h1>
-
-<p>就是這個軟體的宗旨，把它想做是 ghost 吧！我們開發網站或是測試一些多機器架構時，常不小心就把自己的電腦或是測試主機搞到爛掉，租機器又慢又花錢，搞到爛重灌更麻煩。因此這個軟體基於 VirtualBox 做出了令人方便設定的功能，讓我們可以快速架設安裝環境並測試，尤其是以多機器架構而言更是方便！例如從最簡單的 Web server + DB server，或是 Web Load Balancer + Application Server * 5 等等的架構，一台電腦就能達成囉！
-今天主要是以安裝 Vagrant 及架設出 Nginx + php5-fpm 的架構，下一篇打算另外建構一台 mongodb server，達到 Vagrant 最主要的多機器設定功能~</p>
-
-<h1>Vagrant 基本設定</h1>
-
-<ol>
-<li>先下載 VirtualBox 吧！</li>
-<li>下載 Vagarnt 套件 <a href="http://downloads.vagrantup.com/">http://downloads.vagrantup.com/</a><br/>
-安裝好後，可能會需要加 path，至少 1.3.0 當時我是自己加的，現在 1.3.5 就不清楚了~</li>
-<li>接下來就可以開始加入 box (可以把它想為 ghost 檔)，並開始設定 Vagrant。</li>
-</ol>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>vagrant box add {你想要的Box名稱} {下載網址} </span></code></pre></td></tr></table></div></figure>
-
-
-<p>輸入後就會開始下載該 box 了！ 範例：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$vagrant box add devbox http://ﬁles.vagrantup.com/precise64.box   
-</span><span class='line'>$mkdir my_box  
-</span><span class='line'>$cd my_box  
-</span><span class='line'>$vagrant init devbox (將 my_box 這個專案資料夾以 devbox 這個 box 檔案初始化)  </span></code></pre></td></tr></table></div></figure>
-
-
-<p>box 官方有提供 Ubuntu 的，在 <a href="http://www.vagrantbox.es/">vagrantbox.es</a> 很多，可以自己找～ 當然自己做應該也是可以的！</p>
-
-<h1>Vagrant 基本指令</h1>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>vagrant up 開機  
-</span><span class='line'>vagrant ssh 登⼊  
-</span><span class='line'>vagrant suspend 暫停  
-</span><span class='line'>vagrant halt 關機  
-</span><span class='line'>vagrant destroy 刪除  </span></code></pre></td></tr></table></div></figure>
-
-
-<h1>進入新裝好的機器吧！</h1>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$vagrant up  //開機  
-</span><span class='line'>$vagrant ssh //登入  </span></code></pre></td></tr></table></div></figure>
-
-
-<h1>Vagrantfile 設定</h1>
-
-<p>Vagrantfile 這個設定檔可以用很多很強大的設定，在官方網頁裡有教學
-不過首先要先做的是： <code>config.vm.forward_port 80, 8088</code>
-把虛擬機器裡從 80 port 傳送的東西丟到本機的 8088 port
-如此一來在本機瀏覽器輸入 localhost:8088 ，就可以看到網頁了！
-另外就是： <code>config.vm.synced_folder "/vagrant", "本機目錄"</code>
-如此一來，Ubuntu 底下就有一個 /vargrant 目錄，和自己主機裡的某個目錄是同步的！
-也就是在自己主機上寫好程式後，就可以直接讓虛擬機器抓到 code 去執行，超方便的！
-只要把 nginx 的網頁目錄設定在 /vagrant 上就可以了！ (後面會說)</p>
-
-<h1>Ubuntu 基本安裝</h1>
-
-<p>進去後是乾淨的 Ubuntu 12.04 64位元版，因此需先做點安裝:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$sudo apt-get -y update  
-</span><span class='line'>$sudo apt-get --no-install-recommends -y install build-essential openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev libgdbm-dev ncurses-dev automake libtool bison subversion pkg-config libffi-dev vim  </span></code></pre></td></tr></table></div></figure>
-
-
-<p>有些東西其實可以不用裝，就看個人的需求，必裝應該是 build-essential, openssl, curl, git-core, vim XD</p>
-
-<h1>Nginx &amp; php5-fpm 安裝</h1>
-
-<p>安裝 Nginx</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$sudo apt-get install nginx  </span></code></pre></td></tr></table></div></figure>
-
-
-<p>若要更改 Nginx 的網頁目錄，設定檔在 <code>/etc/nginx/</code> 裡，
-通常應該是更改 <code>/etc/nginx/sites-enable/default</code> 裡的 <code>root /usr/share/nginx/www/</code>
-還要將這段 code 解除註解：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>location ~ \.php$ {
-</span><span class='line'>  fastcgi_split_path_info ^(.+\.php)(/.+)$;
-</span><span class='line'>  # NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
-</span><span class='line'>
-</span><span class='line'>  # With php5-cgi alone:
-</span><span class='line'>  #fastcgi_pass 127.0.0.1:9000;
-</span><span class='line'>  # With php5-fpm:
-</span><span class='line'>  fastcgi_pass unix:/var/run/php5-fpm.sock;
-</span><span class='line'>  fastcgi_index index.php;
-</span><span class='line'>  include fastcgi_params;
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
-
-
-<p>更改後確認一下 <code>/etc/nginx/nginx.conf</code> 是否有 <code>inculde /etc/nginx/sites-enable/*</code></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$sudo service nginx start (開始服務)</span></code></pre></td></tr></table></div></figure>
-
-
-<p>安裝 php5-fpm</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$sudo apt-get install php5-fpm  
-</span><span class='line'>$sudo vim /etc/php5/fpm/php.ini (找到並更改 cgi.fix_pathinfo = 0 )  
-</span><span class='line'>$sudo vim /etc/php5/fpm/pool.d/www.conf  </span></code></pre></td></tr></table></div></figure>
-
-
-<p>找到 <code>listen = 127.0.0.1:9000</code>, 換成 <code>/var/run/php5-fpm.sock</code>
-寫個 phpinfo(); 的 php 檔放入資料夾</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$sudo service php5-fpm restart (開啟服務)</span></code></pre></td></tr></table></div></figure>
-
-
-<p>在瀏覽器輸入 localhost:8088 就可以看到 nginx 的頁面，再讀取剛剛寫的 php 應該就成功囉！</p>
-
-<p>安裝 MySQL:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get install mysql-server</span></code></pre></td></tr></table></div></figure>
-
-
-<p>過程中會問 root 的密碼，裝完後就可以登入：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ mysql -u root -p</span></code></pre></td></tr></table></div></figure>
-
-
-<p>下回就是多機器的設定囉～</p>
-
-<p>reference:<br/>
-<a href="http://gogojimmy.net/2013/05/26/vagrant-tutorial/">http://gogojimmy.net/2013/05/26/vagrant-tutorial/</a>
-<a href="http://www.slideshare.net/ihower/vagrant-osdc">http://www.slideshare.net/ihower/vagrant-osdc</a>
-<a href="https://www.digitalocean.com/community/articles/how-to-install-linux-nginx-mysql-php-lemp-stack-on-ubuntu-12-04">https://www.digitalocean.com/community/articles/how-to-install-linux-nginx-mysql-php-lemp-stack-on-ubuntu-12-04</a></p>
-
-<p>p.s. Vagrantfile 產生器：<a href="https://puphpet.com/#vagrantfile">Puphpet.com/#vagrantfile</a>
-這網站有很多值得玩的地方，可以直接幫你產生出這些設定檔真的是太方便了！</p>
-
-<p>p.s.s.有亂入用到的指令記一下：dpkg &mdash;get-selections 列出已安裝的 package
-另外提供一下我在研究 Vagrant 的筆記，很亂超級亂，但是有些東西沒有寫在 blog 裡~
-<a href="https://www.evernote.com/shard/s81/sh/91ccf490-d9cd-468e-943a-d57c79d052f4/71e0a682b024c6e97fd8c79b90f89f67">Evernote by kerkerj</a></p>
 </div>
   
   
