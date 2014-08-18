@@ -98,6 +98,55 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2013/12/24/sublimetext2-use-command-to-call-sublime-text2/">[SublimeText2] Use Command to Call Sublime Text2</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-24T07:26:00+08:00" pubdate data-updated="true">Dec 24<sup>th</sup>, 2013</time>
+        
+           | <a href="/blog/2013/12/24/sublimetext2-use-command-to-call-sublime-text2/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2013/12/24/sublimetext2-use-command-to-call-sublime-text2/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ln -s /Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl /usr/local/bin/sublime</span></code></pre></td></tr></table></div></figure>
+
+
+<p>in terminal:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sublime filename
+</span><span class='line'>$ sublime . (open the directory)</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2013/12/22/gem-how-to-make-no-ri-no-rdoc-the-default-for-gem-install/">[Gem] How to Make &#8211;no-ri &#8211;no-rdoc the Default for Gem Install?</a></h1>
     
     
@@ -868,98 +917,6 @@ If you want to load a file with path, you can use the function called file_get_c
 <p>有許多的 theme 及 package , completion 等等可以用，很方便！</p>
 
 <p><a href="http://www.scholarslab.org/research-and-development/customizing-bash/">http://www.scholarslab.org/research-and-development/customizing-bash/</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/11/13/mac-osx-homebrew-update-error/">[Mac OSX] Homebrew Update Error</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-11-13T08:24:00+08:00" pubdate data-updated="true">Nov 13<sup>th</sup>, 2013</time>
-        
-           | <a href="/blog/2013/11/13/mac-osx-homebrew-update-error/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2013/11/13/mac-osx-homebrew-update-error/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>failed log:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$sudo brew update
-</span><span class='line'>error: Your local changes to the following files would be overwritten by merge:
-</span><span class='line'>    Library/Aliases/gperftools
-</span><span class='line'>    Library/Aliases/hashdeep
-</span><span class='line'>    Library/Aliases/htop
-</span><span class='line'>    Library/Aliases/nodejs
-</span><span class='line'>    Library/Aliases/ocio
-</span><span class='line'>    Library/Aliases/oiio
-</span><span class='line'>      ....
-</span><span class='line'>error: The following untracked working tree files would be overwritten by merge:
-</span><span class='line'>  Library/Aliases/gperftools
-</span><span class='line'>    Library/Aliases/hashdeep
-</span><span class='line'>    Library/Aliases/htop
-</span><span class='line'>    Library/Aliases/nodejs
-</span><span class='line'>    Library/Aliases/ocio
-</span><span class='line'>    Library/Aliases/oiio
-</span><span class='line'>      ....
-</span><span class='line'>Aborting
-</span><span class='line'>Error: Failure while executing: git pull -q origin refs/heads/master:refs/remotes/origin/master</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Solution:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd /usr/local
-</span><span class='line'>$ git fetch origin
-</span><span class='line'>$ git reset --hard origin/master</span></code></pre></td></tr></table></div></figure>
-
-
-<p><a href="http://stackoverflow.com/questions/10762859/brew-update-the-following-untracked-working-tree-files-would-be-overwritten-by">reference</a>
-<a href="http://git-scm.com/2011/07/11/reset.html">[read]</a></p>
 </div>
   
   

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Event-driven | kerkerj]]></title>
+  <link href="http://kerkerj.github.io/blog/categories/event-driven/atom.xml" rel="self"/>
+  <link href="http://kerkerj.github.io/"/>
+  <updated>2014-08-19T02:26:39+08:00</updated>
+  <id>http://kerkerj.github.io/</id>
+  <author>
+    <name><![CDATA[kerkerj]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Event-driven I/O Models and Coroutine Notes]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/08/18/event-driven-i-slash-o-models-and-coroutine/"/>
+    <updated>2014-08-18T23:19:51+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/08/18/event-driven-i-slash-o-models-and-coroutine</id>
+    <content type="html"><![CDATA[<h2>Event-driven I/O model</h2>
+
+<p>首先，聽到 Event-driven 是從 <a href="http://nodejs.org/">Node.js</a> 得知，</p>
+
+<blockquote><p>Node.js® is a platform built on <a href="http://code.google.com/p/v8/">Chrome&rsquo;s JavaScript runtime</a> for easily building fast, scalable network applications.</p>
+
+<p>Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient, perfect for data-intensive real-time applications that run across distributed devices.</p></blockquote>
+
+<p>其實剛聽到這詞會有點陌生，我們可以先從 Victor 所寫的文章開始讀起:
+<a href="http://blog.ez2learn.com/2010/07/17/talk-about-coroutine-and-gevent/">淺談coroutine與gevent</a></p>
+
+<p>裡面提到了幾種網路模型：</p>
+
+<blockquote><ol>
+<li>阻塞式單一行程</li>
+<li>阻塞式多行程</li>
+<li>阻塞式多行程多執行序</li>
+<li>非阻塞式事件驅動</li>
+<li>非阻塞式 coroutine</li>
+</ol>
+</blockquote>
+
+<p>以下是各語言 event-driven 的 model<br/>
+(Node.js 就不列出了，本身就是 event-driven 設計)</p>
+
+<p>```
+Event-driven model:
+* Ruby  &ndash;> <a href="http://rubyeventmachine.com/">Eventmachine</a></p>
+
+<pre><code>        -&gt; [Celluloid::IO](https://github.com/celluloid/celluloid-io)   
+        -&gt; [Thin Server](http://code.macournoyer.com/thin)   
+</code></pre>
+
+<ul>
+<li>Python    &ndash;> <a href="https://twistedmatrix.com/trac/">Twisted</a><br/>
+          &ndash;> <a href="http://www.tornadoweb.org/en/stable">Tornado</a></li>
+<li>Perl   &ndash;> <a href="http://poe.perl.org">Perl Object Environment (POE)</a></li>
+<li>PHP       &ndash;> <a href="http://reactphp.org">REACT</a>
+```</li>
+</ul>
+
+
+<p>以 Ruby 建構 API Service 的話，可以使用 Sinatra + Eventmachine + thin proxy + Nginx 的 Solution:<br/>
+<a href="http://recipes.sinatrarb.com/p/embed/event-machine">Embedding Sinatra within EventMachine</a></p>
+
+<p>延伸閱讀: <br/>
+<a href="https://www.igvita.com/2008/05/27/ruby-eventmachine-the-speed-demon/">2008 &ndash; Eventmachine and Reactor pattern</a> <br/>
+<a href="http://developwithstyle.com/articles/2012/05/23/lessons-learnt-from-building-a-rest-based-api/">2012 &ndash; Lessons Learnt From Building a REST API</a><br/>
+<a href="https://docs.google.com/document/d/1dU-juYN25FMXdp6Ju62KAIT_0tuuZAPEgZkj-aT6kPQ/edit#heading=h.lafes4uxj2b0">年份未知 &ndash; 針對各 framework 進行評測 Event Driven I/O Web Application Server Analysis</a><br/>
+<a href="http://blog.sina.com.cn/s/blog_704b6af70100py9n.html">Twisted 教程</a></p>
+
+<h4>Reactor 模型</h4>
+
+<p>Node.js 處理 concurrency 是 Reactor mode<br/>
+Ruby 的 Goliath framework 也是 Reactor mode<br/>
+Golang, Erlang 是 CSP (communicating sequential process)</p>
+
+<p>現在比較流行的是 event-driven 的 Reactor mode, e.g. Node.js, Goliath<br/>
+但是 Node.js 比較令人詬病的是 code 難維護，太多層層的 callback 會擾亂邏輯<br/>
+畢竟線性處理比較符合人類思維 <br/>
+而 Ruby 使用 Fiber 以避免寫出過多的 callback<br/>
+Python 的 Twisted 也已經存在好一陣子，穩定發展中</p>
+
+<p>不過以 Node.js 典型的應用的確是 proxy, API server<br/>
+因此我們可以參考 Node.js 的特性，使用其他語言來達到同樣的效果<br/>
+那就是 event-driven</p>
+
+<h2>Coroutine Programming</h2>
+
+<p><code>
+* Golang - goroutine (native)
+* Python - [gevent](http://www.gevent.org/)  
+* Ruby - Fiber (native)   
+* Lua   
+</code></p>
+
+<p>延伸閱讀:<br/>
+<a href="http://www.bigfastblog.com/">Ruby 的 eventmachine 相關討論</a><br/>
+<a href="http://www.blogjava.net/killme2008/archive/2010/03/11/315158.html">Ruby Fiber 指南</a><br/>
+<a href="http://electronic-blue.herokuapp.com/blog/2012/06/coroutine-an-introduction/">2012 &ndash; Lua &ndash; Coroutine introduction</a><br/>
+<a href="https://www.igvita.com/2009/05/13/fibers-cooperative-scheduling-in-ruby/">2009 &ndash; Fibers &amp; Cooperative Scheduling in Ruby</a><br/>
+<a href="http://www.blogjava.net/killme2008/archive/2010/03/02/314264.html">2010 &ndash; Lua、LuaJIT Coroutine和Ruby Fiber的切換效率對比</a></p>
+
+<hr />
+
+<p>建構 API Service 考慮到的除了 Server 以外，<br/>
+語言的特性通常也必須考慮進去，例如<br/>
+sync v.s. async<br/>
+coroutine v.s. non-coroutine<br/>
+但通常以當前需求而言，其實也不需要 over-design<br/>
+只要選擇拿手的，能夠快速方便的開發出雛形，<br/>
+我想等到真的快要 10000 per/second request 時，再來煩惱更進一步的架構吧</p>
+]]></content>
+  </entry>
+  
+</feed>

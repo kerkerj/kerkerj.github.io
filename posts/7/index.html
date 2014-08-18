@@ -98,6 +98,109 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2011/05/26/bouncy-castle-cryptography/">[Java] Bouncy Castle Cryptography</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-26T15:33:00+08:00" pubdate data-updated="true">May 26<sup>th</sup>, 2011</time>
+        
+           | <a href="/blog/2011/05/26/bouncy-castle-cryptography/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2011/05/26/bouncy-castle-cryptography/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>這是為了ECT作業所作的筆記
+<a href="http://www.bouncycastle.org/docs/docs1.6/index.html">Bouncy Castle Cryptography</a></p>
+
+<p>這次作業用到了密碼學的技術，助教給了這個網站的library讓大家方便實作</p>
+
+<p>作業內容是：可讀取文字, 圖片, 聲音<br/>
+先初始化轉成byte後，利用SHA512進行訊息摘要，<br/>
+再對檔案做RSA加密, 解密,接著是 AES 加密, 解密, <br/>
+最後使用解密後的內容作還原的動作,<br/>
+若input的檔案與output的檔案內容一樣表示成功。</p>
+
+<p>以下是這次作業會用到的class</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>* SHA512Digest 產生訊息摘要MD  
+</span><span class='line'>* AESEngine (對稱式加密)  
+</span><span class='line'>* RSAEngine (非對稱式加密)  
+</span><span class='line'>* RSAKeyParameters ，用來產生RSA的公鑰、私鑰  
+</span><span class='line'>* KeyParameter  
+</span><span class='line'>* BigInteger  </span></code></pre></td></tr></table></div></figure>
+
+
+<p>p.s. 以下是在寫作業時遇到的問題解決網址<br/>
+<a href="http://danielroc0108.blogspot.com/2008/06/legion-of-bouncy-castle.html">其實用到了什麼class也是google後從學長的部落格看來的XD</a></p>
+
+<p>SHA512: <a href="http://stackoverflow.com/questions/2208374/how-can-i-create-an-sha512-digest-string-in-java-using-bouncy-castle">SHA512 ouput 問題</a><br/>
+發現除了 SHA 的 out 外<br/>
+其他的加解密產生 output 值要印出時都可以用到：<br/>
+用： <code>String.format("%0128x", new BigInteger(1, byteData));</code><br/>
+來取代 <code>Hex.encode(byteData);</code></p>
+
+<p>RSA:<br/>
+<a href="http://www.javaworld.com.tw/jute/post/view?bid=29&amp;id=90179&amp;tpg=8&amp;ppg=1&amp;sty=1&amp;age=0">JavaWorld &ndash; 在RSA 解密時的問題 </a><br/>
+<a href="http://borispong.pixnet.net/blog/post/23242319">使用Java進行RSA加解密</a><br/>
+<a href="http://ox.no/posts/rsa-using-bouncycastle">RSA using BouncyCastle</a> (有問題 不過解決了 &mdash;> JavaClassCastException)</p>
+
+<p>AES:<br/>
+<a href="http://albertsong.iteye.com/blog/196273">用Bouncy Castle实现AES-128-CBC加密解密 (殘體字不喜勿入)</a><br/>
+<a href="http://www.itcsolutions.eu/2010/12/28/how-to-encrypt-decrypt-with-aes-from-bouncy-castle-api-in-j2me-applications/">How to encrypt / decrypt with AES from Bouncy Castle API in J2ME applications</a></p>
+
+<p>最後的檔案輸出：<br/>
+<a href="http://caterpillar.onlyfun.net/Gossip/JavaGossip-V2/ByteArrayInOutStream.htm">良葛格的學習筆記</a>  (最後寫輸出時才想到有這個網站，因此也修改了輸入檔案時的做法，一氣呵成~~ )</p>
+
+<p>若有一直google的話，會發現有許多做法<br/>
+我認為以下做法最省事：(省略了很多作法，自行google)</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Cipher</span> <span class="n">out</span> <span class="o">=</span> <span class="n">Cipher</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="s">&quot;演算法的名字 (ex. AES)&quot;</span><span class="o">,</span> <span class="s">&quot;BC&quot;</span><span class="o">);</span>
+</span><span class='line'><span class="n">out</span><span class="o">.</span><span class="na">init</span><span class="o">(</span><span class="n">Cipher</span><span class="o">.</span><span class="na">DECRYPT_MODE</span> <span class="o">(</span><span class="err">或是</span><span class="n">ENCRYPT_MODE</span><span class="o">),</span> <span class="n">key</span><span class="o">,</span> <span class="k">new</span> <span class="n">IvParameterSpec</span><span class="o">(</span><span class="n">AESiv</span><span class="o">));</span>
+</span><span class='line'><span class="n">outputByteArray</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="na">doFinal</span><span class="o">(</span> <span class="n">inputByteArray</span><span class="o">);</span><span class="err">  </span> <span class="o">(</span><span class="err">通常因為長度很長所以會用迴圈去做分段讀取的動作</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>2011/06/02  Updated:<br/>
+單純加解密：<br/>
+RSA &ndash; <a href="http://www.javamex.com/tutorials/cryptography/rsa_encryption.shtml">http://www.javamex.com/tutorials/cryptography/rsa_encryption.shtml</a><br/>
+AES &ndash; <a href="http://java.sun.com/developer/technicalArticles/Security/AES/AES_v1.html">http://java.sun.com/developer/technicalArticles/Security/AES/AES_v1.html</a><br/>
+超級有用 &ndash; <a href="http://introcs.cs.princeton.edu/java/78crypto/RSA.java.html">http://introcs.cs.princeton.edu/java/78crypto/RSA.java.html</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2011/05/26/git-for-one-hour/">[Git] 一小時搞懂Git</a></h1>
     
     

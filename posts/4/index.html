@@ -98,6 +98,98 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2013/11/13/mac-osx-homebrew-update-error/">[Mac OSX] Homebrew Update Error</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-13T08:24:00+08:00" pubdate data-updated="true">Nov 13<sup>th</sup>, 2013</time>
+        
+           | <a href="/blog/2013/11/13/mac-osx-homebrew-update-error/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2013/11/13/mac-osx-homebrew-update-error/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>failed log:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$sudo brew update
+</span><span class='line'>error: Your local changes to the following files would be overwritten by merge:
+</span><span class='line'>    Library/Aliases/gperftools
+</span><span class='line'>    Library/Aliases/hashdeep
+</span><span class='line'>    Library/Aliases/htop
+</span><span class='line'>    Library/Aliases/nodejs
+</span><span class='line'>    Library/Aliases/ocio
+</span><span class='line'>    Library/Aliases/oiio
+</span><span class='line'>      ....
+</span><span class='line'>error: The following untracked working tree files would be overwritten by merge:
+</span><span class='line'>  Library/Aliases/gperftools
+</span><span class='line'>    Library/Aliases/hashdeep
+</span><span class='line'>    Library/Aliases/htop
+</span><span class='line'>    Library/Aliases/nodejs
+</span><span class='line'>    Library/Aliases/ocio
+</span><span class='line'>    Library/Aliases/oiio
+</span><span class='line'>      ....
+</span><span class='line'>Aborting
+</span><span class='line'>Error: Failure while executing: git pull -q origin refs/heads/master:refs/remotes/origin/master</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Solution:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd /usr/local
+</span><span class='line'>$ git fetch origin
+</span><span class='line'>$ git reset --hard origin/master</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="http://stackoverflow.com/questions/10762859/brew-update-the-following-untracked-working-tree-files-would-be-overwritten-by">reference</a>
+<a href="http://git-scm.com/2011/07/11/reset.html">[read]</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2013/11/13/mac-osx-slow-opening-terminal-windows/">[Mac OSX] Slow-Opening Terminal Windows</a></h1>
     
     
@@ -1020,60 +1112,6 @@ swap           : 5GB<br/>
 /home      : 40GB</p></blockquote>
 
 <p>no use: 170G ( 可以拿來灌Win7 )</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/04/16/hardware-asus-1215n/">[Hardware] Asus 1215N 拆解</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-04-16T03:25:00+08:00" pubdate data-updated="true">Apr 16<sup>th</sup>, 2012</time>
-        
-           | <a href="/blog/2012/04/16/hardware-asus-1215n/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2012/04/16/hardware-asus-1215n/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>某天筆電的鍵盤卡卡的，所以找了資料並拆解了一下<br/>
-大致的步驟是這樣：</p>
-
-<p>1.拆觸控板的板子，這塊板子其實是用卡榫卡住的，我是用一字螺絲起子慢慢從邊邊打開的。因為是卡榫，所以要小心不要把它弄斷，弄斷裝回去時卡不住會鬆鬆的。<br/>
-另外要注意的是，觸控板有一條排線連接著主機板，不要扯下來，扯下來觸控板也和你說掰掰了。<br/>
-2.拆觸控板的目的是要將鍵盤的螺絲轉開，若你已經將觸控板大致扳開後，就會看到鎖鍵盤的螺絲了。這時候一樣是用一字起子慢慢將鍵盤扳開，它也是卡榫，所以還是要注意～<br/>
-3.這時候鍵盤應該就被拔下來了XD<br/>
-這是只有拆鍵盤的部分，我有找到換硬碟的說明，不過我沒有試過，所以沒辦法提供注意事項，不過仍然附註在下面。</p>
-
-<hr />
-
-<p>拆硬碟的步驟同上述1,2,3點，不過在這1,2,3點前，需要先做第0點：<br/>
-0.將筆電翻到背面，有個可以用螺絲起子打開的記憶體插槽，將它打開後，裡面可以看到4,5顆螺絲，除了四個角落外，有一塊記憶體的下方還藏有一個，所以要先把記憶體拔掉，再將該螺絲轉開。<br/>
-1,2,3. 接著就重複上面的1,2,3點。<br/>
-4.鍵盤拆了以後就可以看見鍵盤下面有一大塊不鏽鋼板，一樣有螺絲固定，將螺絲拆了以後拿下不鏽鋼板就可以看見硬碟了。<br/>
-5.硬碟也有螺絲固定，螺絲拆了後就可以換硬碟。</p>
 </div>
   
   
