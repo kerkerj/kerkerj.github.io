@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Codeigniter | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/codeigniter/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-08-26T16:46:34+08:00</updated>
+  <updated>2014-09-25T16:15:44+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,108 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Codeigniter on Nginx]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/09/25/codeigniter-on-nginx/"/>
+    <updated>2014-09-25T16:03:24+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/09/25/codeigniter-on-nginx</id>
+    <content type="html"><![CDATA[<p>I use Ubuntu 14.04, Nginx 1.4.6, php5-fpm, Codeigniter 2.2.0</p>
+
+<p>It will remove index.php, and access Codeigniter site normally.</p>
+
+<p>Clean configuration:</p>
+
+<p>```text &ldquo;/etc/nginx/site-enabled/default&rdquo;
+server {</p>
+
+<h1>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START</h1>
+
+<pre><code>    listen 80;
+    listen [::]:80 default_server ipv6only=on;
+
+    root /YOUR/PROJECT/ROOT;
+    index index.html index.htm index.php;
+
+    # Make site accessible from http://localhost/
+    server_name localhost;
+
+    #location ~* .(ico|css|js|gif|jpe?g|png)(?[0-9]+)?$ {
+    #   expires max;
+    #   log_not_found off;
+    #}
+
+    location / {
+            # First attempt to serve request as file, then
+            # as directory, then fall back to displaying a 404.
+            try_files $uri $uri/ /index.php;
+            # Uncomment to enable naxsi on this location
+            # include /etc/nginx/naxsi.rules
+    }
+
+    location ~ .php$ {
+        root           /YOUR/PROJECT/ROOT;
+        try_files $uri =404;
+        fastcgi_pass unix:/var/run/php5-fpm.sock;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+        include        fastcgi_params;
+        fastcgi_buffer_size 128k;
+        fastcgi_buffers 256 4k;
+        fastcgi_busy_buffers_size 256k;
+        fastcgi_temp_file_write_size 256k;
+    }
+</code></pre>
+
+<h1>&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; END</h1>
+
+<pre><code>    # Only for nginx-naxsi used with nginx-naxsi-ui : process denied requests
+    #location /RequestDenied {
+    #       proxy_pass http://127.0.0.1:8080;
+
+    #error_page 404 /404.html;
+
+    # redirect server error pages to the static page /50x.html
+    #
+    #error_page 500 502 503 504 /50x.html;
+    #location = /50x.html {
+    #       root /usr/share/nginx/html;
+    #}
+
+    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+    #
+    #location ~ \.php$ {
+    #       fastcgi_split_path_info ^(.+\.php)(/.+)$;
+    #       # NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
+    #
+    #       # With php5-cgi alone:
+    #       fastcgi_pass 127.0.0.1:9000;
+    #       # With php5-fpm:
+    #       fastcgi_pass unix:/var/run/php5-fpm.sock;
+    #       fastcgi_index index.php;
+    #       include fastcgi_params;
+    #}
+
+    # deny access to .htaccess files, if Apache's document root
+    # concurs with nginx's one
+    #
+    #location ~ /\.ht {
+    #       deny all;
+    #}
+</code></pre>
+
+<p>}</p>
+
+<p>```</p>
+
+<p>Codeigniter config:</p>
+
+<p><code>php config.php
+$config['index_page'] = '';
+$config['uri_protocol'] = 'REQUEST_URI';
+</code></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[Codeigniter] Disallowed Key Characters]]></title>

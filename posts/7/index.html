@@ -98,6 +98,65 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2011/05/28/android-29/">[Android] 樣式,主題開發雜記</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-28T19:16:00+08:00" pubdate data-updated="true">May 28<sup>th</sup>, 2011</time>
+        
+           | <a href="/blog/2011/05/28/android-29/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2011/05/28/android-29/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>就是改變Android 預設的介面,主題樣式，例如按鈕的樣子</p>
+
+<p>(以下殘體文)<br/>
+1. style属性在某个空间中起作用，而theme属性则会在整个activity和application中起作用。可以用theme统一整个程序的风格，再用 style微调其中的某些风格。andorid中的某些widget并不遵守theme所定义的风格，比如button上的字。如果你在 activity甚至在application范围内使用theme，button的字还是白色的！估计是这个空间没有引用android:textColor风格，此时只能用button的style属性来改变它了。 (<a href="http://blog.csdn.net/lijiecong/archive/2009/11/10/4795306.aspx">引用自此</a>)<br/>
+2. <a href="http://www.moandroid.com/?p=909">Android Styles &amp; Themes（上）——Style</a><br/>
+3. <a href="http://www.moandroid.com/?p=918">Android Styles &amp; Themes（下）——Theme</a><br/>
+4. <a href="http://blog.csdn.net/G_rrrr/archive/2009/12/23/5056654.aspx">去掉默认ACTIVITY背景图</a><br/>
+5. <a href="http://icekirin.com/wordpress/?p=81">Button的应用(for android)</a><br/>
+6. <a href="http://android.yaohuiji.com/">{ Android学习指南 }</a></p>
+
+<p>(以下為英,中文)<br/>
+7. <a href="http://blog.androgames.net/40/custom-button-style-and-theme/">custom-button-style-and-theme</a></p>
+
+<pre><code>    (好站!! [http://blog.androgames.net/category/android-tutorials/][10])   
+</code></pre>
+
+<ol>
+<li><a href="http://jp-lin.blogspot.com/2010/12/%E4%BD%BF%E7%94%A8android-sdk%E6%8F%90%E4%BE%9B%E7%9A%84draw9patch-tool.html">使用Android SDK提供的Draw9Patch Tool </a></li>
+<li><a href="http://jp-lin.blogspot.com/2010/12/android.html">在Android中使用客製化按鈕 </a></li>
+</ol>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2011/05/26/bouncy-castle-cryptography/">[Java] Bouncy Castle Cryptography</a></h1>
     
     
@@ -1179,253 +1238,9 @@ FreeBSD + Nginx + php + MySQL</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/09/15/freebsd-81/">[FreeBSD] 8.1 基本安裝紀錄</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-09-15T08:28:00+08:00" pubdate data-updated="true">Sep 15<sup>th</sup>, 2010</time>
-        
-           | <a href="/blog/2010/09/15/freebsd-81/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2010/09/15/freebsd-81/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>FreeBSD 安裝 &ndash; FreeBSD 8.1<br/>
-幾乎是整套SOP流程了 = = 乾脆寫起來查比較快, 自己都重灌不曉得幾百遍了
-好站推薦：<a href="http://twbsd.org/cht/book/index.php">twbsd.org</a></p>
-
-<h1>安裝系統：</h1>
-
-<ol>
-<li>選擇鍵盤配置</li>
-<li>選擇Custom (可選DHCP)</li>
-<li>在這裡只紀錄如何搞Label （以40GB為例)<br/>
-     /    ：1GB<br/>
- swap ：512MB (也可以視情況而定)<br/>
- /usr ：10GB<br/>
- /tmp ：1GB<br/>
- /var ：5GB<br/>
- /home：其他剩下的空間</li>
-<li>選擇CD/DVD安裝</li>
-<li>commit 即可安裝完畢</li>
-</ol>
-
-
-<h1>登入後的一般設置：<a href="http://plog.longwin.com.tw/my_note-unix/2007/07/16/freebsd_initial_env_build_2007">一些基本套件語法等等可以看這裡</a></h1>
-
-<p>先新增一使用者並加入wheel群組
-(可有可無：將.vimrc及csh.cshrc分別放入家目錄及/etc/底下)</p>
-
-<hr />
-
-<p>設定時區: <code>#sysinstall</code>
-選擇config &ndash;> Timezone &ndash;> 選擇時區</p>
-
-<hr />
-
-<p>設定網路: <code>#sysinstall</code>
-選擇config &ndash;> networking &ndash;> 即可設定網路
-會跳三個選項 &ndash; IPv6, DHCP, 選擇網路卡
-前兩者可選可不選, 網卡以主要連線的為主 （反正應該都知道哪張是給FreeBSD連線的吧XD
-之後作一點IP, gateway等等的設定即可</p>
-
-<hr />
-
-<p>更改開機設定檔:  <code>/etc/rc.conf</code>
-加入: <code>sshd_enable="yes"</code></p>
-
-<hr />
-
-<p>套件安裝：
-cd 到該套件的目錄底下
-安裝前可先 <code>#make config</code> 來作設定
-設定完再 <code>#make install clean</code></p>
-
-<p>當第一次進行套件更新時會出現以下狀況：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># cd /usr/ports/
-</span><span class='line'># make update
-</span><span class='line'>--------------------------------------------------------------
-</span><span class='line'>&gt;&gt;&gt; Running portsnap
-</span><span class='line'>--------------------------------------------------------------
-</span><span class='line'>Error: 'make update' uses portsnap(8) by default and
-</span><span class='line'>needs /usr/ports to be created by portsnap on its first run.
-</span><span class='line'>
-</span><span class='line'>Please run 'portsnap fetch extract' first.
-</span><span class='line'>You can also define SUP_UPDATE and PORTSSUPFILE to use csup(1) or CVS_UPDATE to use cvs(1) for updating.</span></code></pre></td></tr></table></div></figure>
-
-
-<p>
-就照著他所說的下指令即可(此時必須要有網路狀態, 且過程有點久)：<br/>
-<code># portsnap fetch extract</code></p>
-
-<hr />
-
-<p>設定make.conf
-新增編輯 <code>/etc/make.conf</code><br/>
-加入以下資料(更新時可以直接到台灣的ftp抓,速度快)</p>
-
-<p>p.s.自從 FreeBSD 6.2 開始，系統就內建了 csup 這指令來更新 Ports，使用方法就和 cvsup 一樣, 省去非常久的時間在安裝 cvsup (因此cvsup-without-gui可裝可不裝，但還是要設定make.conf)</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># for make install
-</span><span class='line'>MASTER_SITE_BACKUP?= \
-</span><span class='line'>ftp://ftp.tw.freebsd.org/pub/FreeBSD/distfiles/${DIST_SUBDIR}/\
-</span><span class='line'>ftp://ftp7.tw.freebsd.org/pub/FreeBSD/distfiles/${DIST_SUBDIR}/\
-</span><span class='line'>ftp://ftp8.tw.freebsd.org/pub/FreeBSD/distfiles/${DIST_SUBDIR}/\
-</span><span class='line'>ftp://freebsd.csie.ncu.edu.tw/distfiles/${DIST_SUBDIR}/\
-</span><span class='line'>ftp://freebsd.csie.nctu.edu.tw/pub/distfiles/${DIST_SUBDIR}/
-</span><span class='line'>MASTER_SITE_OVERRIDE?= ${MASTER_SITE_BACKUP}
-</span><span class='line'>
-</span><span class='line'># For CSUP make update
-</span><span class='line'># SUPHOST 代表要到哪台 CSUP，假如你知道哪個伺服站離你的主機比較近，請改成離您
-</span><span class='line'># 比較近的 Server 會有效率些。
-</span><span class='line'># 目前可用的 cvsup.tw.FreeBSD.org, cvsup1.tw.FreeBSD.org .... 到
-</span><span class='line'># cvsup14.tw.FreeBSD.org 可以選用。
-</span><span class='line'># 在SUPFILE的部份
-</span><span class='line'># 如果您是用 -stable，請用 stable-supfile
-</span><span class='line'># 如果您是用 -current，請用 standard-supfile
-</span><span class='line'>
-</span><span class='line'>SUP_UPDATE= yes
-</span><span class='line'>SUP= /usr/bin/csup
-</span><span class='line'>SUPFLAGS= -g -L 2
-</span><span class='line'>SUPHOST= cvsup.tw.FreeBSD.org
-</span><span class='line'>SUPFILE= /usr/share/examples/cvsup/standard-supfile
-</span><span class='line'>PORTSSUPFILE= /usr/share/examples/cvsup/ports-supfile
-</span><span class='line'>DOCSUPFILE= /usr/share/examples/cvsup/doc-supfile</span></code></pre></td></tr></table></div></figure>
-
-
-<p>即可到 port 作 <code>make update</code></p>
-
-<p>設定 <code>/etc/crontab</code> 讓主機每 12 小時自動更新一次 port tree，以後每次都可以安裝到新的套件。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># echo '0 */12 * * * root cd /usr/ports; make update && make fetchindex &gt;/dev/null 2&gt;&1' &gt;&gt; /etc/crontab</span></code></pre></td></tr></table></div></figure>
-
-
-<hr />
-
-<p>校正主機的時間</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># ntpdate "stdtime.sinica.edu.tw"</span></code></pre></td></tr></table></div></figure>
-
-
-<p>然後設定 <code>/etc/crontab</code> 讓主機每 30 分鐘自動校時一次</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># echo '*/30 * * * * root ntpdate "stdtime.sinica.edu.tw" &gt; /dev/null 2&gt;&1 &gt;&gt; /etc/crontab</span></code></pre></td></tr></table></div></figure>
-
-
-<p>寫入 <code>&gt; /dev/null 2&gt;&amp;1</code> 後每次校時的結果便不會回報給系統管理員，可以減少看很多封回報通知信。</p>
-
-<hr />
-
-<p>基本套件： sudo, gnuls, vim, screen</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#cd /usr/ports/security/sudo   
-</span><span class='line'>#make install clean  </span></code></pre></td></tr></table></div></figure>
-
-
-<p>編輯 <code>/usr/local/etc/sudoers</code>
-取消註解 <code>%wheel ALL=(ALL) ALL</code>
-嫌麻煩也可以註解掉下面的 <code>NOPASSWD</code> 但是記得改回來 (若是正式機器)</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#cd/usr/ports/misc/gnuls
-</span><span class='line'>#make install clean</span></code></pre></td></tr></table></div></figure>
-
-
-<p>設定 <code>/etc/csh.cshrc</code> ( 或 user 家目錄下的 .cshrc )</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>alias ls 'gnuls --color=auto --show-control-chars'</span></code></pre></td></tr></table></div></figure>
-
-
-<p>vim:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#cd /usr/ports/editors/vim-lite  (或者可以裝vim6 不過會裝很久)
-</span><span class='line'>#make install clean</span></code></pre></td></tr></table></div></figure>
-
-
-<p>screen:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#cd /usr/ports/sysutils/screen
-</span><span class='line'>#make install clean</span></code></pre></td></tr></table></div></figure>
-
-
-<hr />
-
-<p>這些東西裝完就是一個平常使用的FreeBSD囉~</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
+    
+      <a class="prev" href="/posts/8">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     

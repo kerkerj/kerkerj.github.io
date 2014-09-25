@@ -4,7 +4,7 @@
   <title><![CDATA[kerkerj]]></title>
   <link href="http://kerkerj.github.io/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-08-26T16:46:22+08:00</updated>
+  <updated>2014-09-25T16:15:44+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,179 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Codeigniter on Nginx]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/09/25/codeigniter-on-nginx/"/>
+    <updated>2014-09-25T16:03:24+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/09/25/codeigniter-on-nginx</id>
+    <content type="html"><![CDATA[<p>I use Ubuntu 14.04, Nginx 1.4.6, php5-fpm, Codeigniter 2.2.0</p>
+
+<p>It will remove index.php, and access Codeigniter site normally.</p>
+
+<p>Clean configuration:</p>
+
+<figure class='code'><figcaption><span>&#8220;/etc/nginx/site-enabled/default&#8221;</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>server {
+</span><span class='line'>
+</span><span class='line'>#&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; START
+</span><span class='line'>        listen 80;
+</span><span class='line'>        listen [::]:80 default_server ipv6only=on;
+</span><span class='line'>
+</span><span class='line'>        root /YOUR/PROJECT/ROOT;
+</span><span class='line'>        index index.html index.htm index.php;
+</span><span class='line'>
+</span><span class='line'>        # Make site accessible from http://localhost/
+</span><span class='line'>        server_name localhost;
+</span><span class='line'>
+</span><span class='line'>        #location ~* .(ico|css|js|gif|jpe?g|png)(?[0-9]+)?$ {
+</span><span class='line'>        #   expires max;
+</span><span class='line'>        #   log_not_found off;
+</span><span class='line'>        #}
+</span><span class='line'>
+</span><span class='line'>        location / {
+</span><span class='line'>                # First attempt to serve request as file, then
+</span><span class='line'>                # as directory, then fall back to displaying a 404.
+</span><span class='line'>                try_files $uri $uri/ /index.php;
+</span><span class='line'>                # Uncomment to enable naxsi on this location
+</span><span class='line'>                # include /etc/nginx/naxsi.rules
+</span><span class='line'>        }
+</span><span class='line'>
+</span><span class='line'>        location ~ .php$ {
+</span><span class='line'>            root           /YOUR/PROJECT/ROOT;
+</span><span class='line'>            try_files $uri =404;
+</span><span class='line'>            fastcgi_pass unix:/var/run/php5-fpm.sock;
+</span><span class='line'>            fastcgi_index  index.php;
+</span><span class='line'>            fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+</span><span class='line'>            include        fastcgi_params;
+</span><span class='line'>            fastcgi_buffer_size 128k;
+</span><span class='line'>            fastcgi_buffers 256 4k;
+</span><span class='line'>            fastcgi_busy_buffers_size 256k;
+</span><span class='line'>            fastcgi_temp_file_write_size 256k;
+</span><span class='line'>        }
+</span><span class='line'>
+</span><span class='line'>#&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; END
+</span><span class='line'>
+</span><span class='line'>        # Only for nginx-naxsi used with nginx-naxsi-ui : process denied requests
+</span><span class='line'>        #location /RequestDenied {
+</span><span class='line'>        #       proxy_pass http://127.0.0.1:8080;
+</span><span class='line'>
+</span><span class='line'>        #error_page 404 /404.html;
+</span><span class='line'>
+</span><span class='line'>        # redirect server error pages to the static page /50x.html
+</span><span class='line'>        #
+</span><span class='line'>        #error_page 500 502 503 504 /50x.html;
+</span><span class='line'>        #location = /50x.html {
+</span><span class='line'>        #       root /usr/share/nginx/html;
+</span><span class='line'>        #}
+</span><span class='line'>
+</span><span class='line'>        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+</span><span class='line'>        #
+</span><span class='line'>        #location ~ \.php$ {
+</span><span class='line'>        #       fastcgi_split_path_info ^(.+\.php)(/.+)$;
+</span><span class='line'>        #       # NOTE: You should have &quot;cgi.fix_pathinfo = 0;&quot; in php.ini
+</span><span class='line'>        #
+</span><span class='line'>        #       # With php5-cgi alone:
+</span><span class='line'>        #       fastcgi_pass 127.0.0.1:9000;
+</span><span class='line'>        #       # With php5-fpm:
+</span><span class='line'>        #       fastcgi_pass unix:/var/run/php5-fpm.sock;
+</span><span class='line'>        #       fastcgi_index index.php;
+</span><span class='line'>        #       include fastcgi_params;
+</span><span class='line'>        #}
+</span><span class='line'>
+</span><span class='line'>        # deny access to .htaccess files, if Apache&#39;s document root
+</span><span class='line'>        # concurs with nginx&#39;s one
+</span><span class='line'>        #
+</span><span class='line'>        #location ~ /\.ht {
+</span><span class='line'>        #       deny all;
+</span><span class='line'>        #}
+</span><span class='line'>}
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Codeigniter config:</p>
+
+<figure class='code'><figcaption><span>config.php</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;index_page&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;uri_protocol&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;REQUEST_URI&#39;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Event-driven I/O Models and Coroutine Notes]]></title>
@@ -1310,45 +1483,6 @@ Magic is never good in development.</p>
 :timestamp</p>
 
 <p><a href="http://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters/TableDefinition.html#method-i-column">http://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters/TableDefinition.html#method-i-column</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[AWS] Ubuntu Swap]]></title>
-    <link href="http://kerkerj.github.io/blog/2013/12/26/aws-ubuntu-swap/"/>
-    <updated>2013-12-26T10:11:00+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2013/12/26/aws-ubuntu-swap</id>
-    <content type="html"><![CDATA[<p>Add swap for an instance</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo /bin/dd if=/dev/zero of=/var/swap.1 bs=1M count=1024
-</span><span class='line'>$ sudo /sbin/mkswap /var/swap.1
-</span><span class='line'>$ sudo /sbin/swapon /var/swap.1
-</span><span class='line'>$ echo "/var/swap.1 swap swap defaults 0 0" &gt;&gt; /etc/fstab #將 swap 加入 開機啟動</span></code></pre></td></tr></table></div></figure>
-
-
-<p>在 Amazon EC2 micro plan，加入 swap 很容易 I/O 過量，
-因此最好是需要時才開啟 swap，不用時關閉 swap 以免被收錢~</p>
-
-<p>swap usage</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="gp">$</span> swapon -s
-</span><span class='line'><span class="gp">$</span> free -k
-</span><span class='line'><span class="go">---</span>
-</span><span class='line'><span class="gp">$</span> swapoff -a
-</span><span class='line'><span class="gp">$</span> swapon  -a
-</span></code></pre></td></tr></table></div></figure>
-
-
-
 ]]></content>
   </entry>
   
