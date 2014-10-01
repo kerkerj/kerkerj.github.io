@@ -98,6 +98,185 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2014/01/09/sublime-text-2-integration-with-rvm-and-rspec/">[Sublime Text 2] Integration With RVM and Rspec</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-09T02:17:00+08:00" pubdate data-updated="true">Jan 9<sup>th</sup>, 2014</time>
+        
+           | <a href="/blog/2014/01/09/sublime-text-2-integration-with-rvm-and-rspec/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/01/09/sublime-text-2-integration-with-rvm-and-rspec/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ruby:</p>
+
+<p><code>~/Library/Application\ Support/Sublime\ Text\ 2/Packages/Ruby/Ruby.sublime-build</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='json'><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="nt">&quot;env&quot;</span><span class="p">:{</span>
+</span><span class='line'>      <span class="nt">&quot;PATH&quot;</span><span class="p">:</span><span class="s2">&quot;${HOME}/.rvm/bin:${PATH}&quot;</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nt">&quot;cmd&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;rvm-auto-ruby&quot;</span><span class="p">,</span> <span class="s2">&quot;$file&quot;</span><span class="p">],</span>
+</span><span class='line'>  <span class="nt">&quot;file_regex&quot;</span><span class="p">:</span> <span class="s2">&quot;^(...*?):([0-9]*):?([0-9]*)&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nt">&quot;selector&quot;</span><span class="p">:</span> <span class="s2">&quot;source.ruby&quot;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="http://rubenlaguna.com/wp/2012/12/07/sublime-text-2-rvm-rspec-take-2/">http://rubenlaguna.com/wp/2012/12/07/sublime-text-2-rvm-rspec-take-2/</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/01/02/rails-put-vs-patch/">[Rails] PUT v.s. PATCH</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-02T07:39:00+08:00" pubdate data-updated="true">Jan 2<sup>nd</sup>, 2014</time>
+        
+           | <a href="/blog/2014/01/02/rails-put-vs-patch/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/01/02/rails-put-vs-patch/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>According to rails convention,</p>
+
+<p>PUT is used for updating an existing resource</p>
+
+<p>POST is used for creating a new resource</p>
+
+<p>In rails 4, PUT has been changed to PATCH to avoid confusion.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'> posts GET    /posts(.:format)                            {:action=&gt;"index", :controller=&gt;"posts"}
+</span><span class='line'>      POST   /posts(.:format)                            {:action=&gt;"create", :controller=&gt;"posts"}
+</span><span class='line'> new_post GET    /posts/new(.:format)                        {:action=&gt;"new", :controller=&gt;"posts"}
+</span><span class='line'>edit_post GET    /posts/:id/edit(.:format)                   {:action=&gt;"edit", :controller=&gt;"posts"}
+</span><span class='line'> post GET    /posts/:id(.:format)                        {:action=&gt;"show", :controller=&gt;"posts"}
+</span><span class='line'>      PUT    /posts/:id(.:format)                        {:action=&gt;"update", :controller=&gt;"posts"}
+</span><span class='line'>      DELETE /posts/:id(.:format)                        {:action=&gt;"destroy", :controller=&gt;"posts"}
+</span><span class='line'></span></code></pre></td></tr></table></div></figure>
+
+
+<p>延伸閱讀：ihower &ndash; <a href="http://ihower.tw/blog/archives/6483">HTTP Verbs: 談 POST, PUT 和 PATCH 的應用</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/01/02/rails-list-of-rails-model-type-mysql/">[Rails] List of Rails Model Type (MySQL)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-02T07:38:00+08:00" pubdate data-updated="true">Jan 2<sup>nd</sup>, 2014</time>
+        
+           | <a href="/blog/2014/01/02/rails-list-of-rails-model-type-mysql/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/01/02/rails-list-of-rails-model-type-mysql/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>:binary<br/>
+:boolean<br/>
+:date<br/>
+:datetime<br/>
+:decimal<br/>
+:float<br/>
+:integer<br/>
+:primary_key<br/>
+:string<br/>
+:text<br/>
+:time<br/>
+:timestamp</p>
+
+<p><a href="http://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters/TableDefinition.html#method-i-column">http://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters/TableDefinition.html#method-i-column</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2013/12/26/aws-ubuntu-swap/">[AWS] Ubuntu Swap</a></h1>
     
     
@@ -764,175 +943,6 @@ host side: you need ruby environment!</p>
 pp(any_variable)</p></blockquote>
 
 <p>just like <code>var_dump</code> in <code>php</code></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/16/codeigniter-use-markdown-as-library/">[Codeigniter] Use Markdown as Library</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-16T07:01:00+08:00" pubdate data-updated="true">Dec 16<sup>th</sup>, 2013</time>
-        
-           | <a href="/blog/2013/12/16/codeigniter-use-markdown-as-library/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2013/12/16/codeigniter-use-markdown-as-library/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="https://github.com/erusev/parsedown">https://github.com/erusev/parsedown</a></p>
-
-<p>download the Parsedown.php
-and put it into Library folder
-then edit autoload.php</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$autoload['libraries'] = array('Parsedown');</span></code></pre></td></tr></table></div></figure>
-
-
-<p>then in the view php for tests:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$text = 'Hello **Parsedown**!';
-</span><span class='line'>$result = Parsedown::instance()-&gt;parse($text);
-</span><span class='line'>echo $result;</span></code></pre></td></tr></table></div></figure>
-
-
-<p>No need to require or include the file.
-If you want to load a file with path, you can use the function called file_get_contents:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>file_get_contents('./markdown/test.md',true); (true: enable path)</span></code></pre></td></tr></table></div></figure>
-
-
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/11/26/ubuntu-1204-install-oracle-java/">[Ubuntu] 12.04 Install Oracle Java</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-11-26T02:18:00+08:00" pubdate data-updated="true">Nov 26<sup>th</sup>, 2013</time>
-        
-           | <a href="/blog/2013/11/26/ubuntu-1204-install-oracle-java/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2013/11/26/ubuntu-1204-install-oracle-java/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo rm /var/lib/dpkg/info/oracle-java7-installer*
-</span><span class='line'>sudo apt-get purge oracle-java7-installer*
-</span><span class='line'>sudo rm /etc/apt/sources.list.d/*java*
-</span><span class='line'>sudo apt-get update
-</span><span class='line'>sudo add-apt-repository ppa:webupd8team/java
-</span><span class='line'>sudo apt-get update
-</span><span class='line'>sudo apt-get install oracle-java7-installer</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/11/19/xcode-emulator-home-keys-are-gone/">[Xcode] 模擬器的 Home 鍵不見了?!</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-11-19T15:02:00+08:00" pubdate data-updated="true">Nov 19<sup>th</sup>, 2013</time>
-        
-           | <a href="/blog/2013/11/19/xcode-emulator-home-keys-are-gone/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2013/11/19/xcode-emulator-home-keys-are-gone/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>其實有點有趣
-今天由於某些因素在測試 iOS app
-於是開了許久沒動的 xcode
-更新了一下發現多了一些 retina 的模擬器
-也沒想那麼多就把它 run 到模擬器上
-但模擬器一開出來我還以為是模擬器壞掉 XDDDD
-它的 home 鍵勒～～～～～</p>
-
-<p>其實是因為 iOS 5 以後的 simulater 沒有 home 鍵</p>
-
-<blockquote><p>叫出 home 鍵     <code>command</code>+<code>shift</code>+<code>h</code>
-調整大小               <code>command</code>+ <code>1</code> or <code>2</code> or <code>3</code></p></blockquote>
 </div>
   
   

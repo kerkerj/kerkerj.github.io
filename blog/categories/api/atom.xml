@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Api | kerkerj]]></title>
+  <link href="http://kerkerj.github.io/blog/categories/api/atom.xml" rel="self"/>
+  <link href="http://kerkerj.github.io/"/>
+  <updated>2014-10-02T01:41:44+08:00</updated>
+  <id>http://kerkerj.github.io/</id>
+  <author>
+    <name><![CDATA[kerkerj]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[[API-d1] - 定義 1 - 什麼是 REST/RESTful?]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/02/api-d1/"/>
+    <updated>2014-10-02T01:02:26+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/02/api-d1</id>
+    <content type="html"><![CDATA[<p>Representational State Transfer，簡稱 <code>REST</code>，<br/>
+它是一種網路架構風格，他並不是一種標準。</p>
+
+<p>而 RESTful 可以這樣子想像:<br/>
+美麗 (Beauty) 的事物可以稱為 Beautiful<br/>
+設計為 REST 的系統就可以稱為 RESTful</p>
+
+<p>以 API 而言，假設我們正在撰寫一組待辦事項的 API，<br/>
+可能會有以下方式來作為 API 的 interface:<br/>
+<code>
+獲取使用者資料     /getAllUsers
+獲取使用者資料     /getUser/1
+新增使用者資料     /createUser
+更新使用者資料     /updateUser/1
+刪除使用者資料     /deleteUser/1
+</code></p>
+
+<p>若是以 REST 風格來開發 RESTful API 的話:
+<code>
+獲取使用者資料     /GET            /users
+獲取使用者資料     /GET            /user/1
+新增使用者資料     /POST          /user
+更新使用者資料     /PUT             /user/1
+刪除使用者資料     /DELETE      /user/1
+</code></p>
+
+<p>兩者差異是在於 RESTful API 充分地使用了 HTTP protocol (GET/POST/PUT/DELETE)，<br/>
+達到<br/>
+1. 以直觀簡潔的資源 URI<br/>
+2. 並且善用 HTTP Verb<br/>
+3. 達到對資源的操作<br/>
+4. 並使用 Web 所接受的資料類型: JSON, XML, YAML 等，最常見的是 JSON</p>
+
+<p>通常是使用 HTTP, URI, JSON, HTML 這些現有廣泛流行的協議和標準，<br/>
+且使用 HTTP status code 來代表該資源的狀態。</p>
+
+<p>框架中強制使用 REST 風格的最有名的應該就是 Ruby on Rails 了!<br/>
+(不過我們並不會使用 Rails 來開發 API service :P)</p>
+
+<p>p.s. 因為 REST 並非是一種標準，因此有時候也不一定非得要照著 REST 來做，<br/>
+只是在資源的操作面上，可以設計成這類的風格，以達到簡潔易懂，並且可重用。</p>
+
+<p>下一篇會來聊聊 REST 的要求與優點</p>
+]]></content>
+  </entry>
+  
+</feed>
