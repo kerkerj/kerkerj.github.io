@@ -98,6 +98,301 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2011/01/26/php-db/">[PHP] 簡單的資料庫連結</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-26T16:29:00+08:00" pubdate data-updated="true">Jan 26<sup>th</sup>, 2011</time>
+        
+           | <a href="/blog/2011/01/26/php-db/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2011/01/26/php-db/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>我是PHP新手，超級嫩，所以就寫寫簡單的東西，今天來寫關於資料庫的連結。<br/>
+環境同之前寫的，就是 FreeBSD、MySQL、phpMyadmin 啦~</p>
+
+<p>我將他分成兩個檔案來寫：<br/>
+一個是負責連結資料庫：<code>connectDB.inc.php</code><br/>
+另一個則是測試的 php ：<code>test.php</code></p>
+
+<p>在 <code>connectDB.inc.php</code> 中設定好 SQL 主機的 IP、使用者名稱密碼等等資料，<br/>
+然後由 <code>test.php</code> 來呈現資料，直接看 code 最快：</p>
+
+<figure class='code'><figcaption><span>connectDB.inc.php</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
+</span><span class='line'>  <span class="nv">$cfgDB_HOST</span> <span class="o">=</span> <span class="s2">&quot;localhost&quot;</span><span class="p">;</span>      <span class="c1">//主機名稱或ip位址</span>
+</span><span class='line'>  <span class="nv">$cfgDB_PORT</span> <span class="o">=</span> <span class="s2">&quot;80&quot;</span><span class="p">;</span>                     <span class="c1">//主機開放連線的port</span>
+</span><span class='line'>  <span class="nv">$cfgDB_USERNAME</span> <span class="o">=</span> <span class="s2">&quot;account&quot;</span><span class="p">;</span>    <span class="c1">//登入主機帳號</span>
+</span><span class='line'>  <span class="nv">$cfgDB_PASSWORD</span> <span class="o">=</span> <span class="s2">&quot;password&quot;</span><span class="p">;</span>   <span class="c1">//登入主機密碼</span>
+</span><span class='line'>  <span class="nv">$cfgDB_NAME</span> <span class="o">=</span> <span class="s2">&quot;db_name&quot;</span><span class="p">;</span>            <span class="c1">//資料庫名稱</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">//建立資料庫連線</span>
+</span><span class='line'>  <span class="nv">$link</span> <span class="o">=</span> <span class="nb">mysql_connect</span><span class="p">(</span><span class="nv">$cfgDB_HOST</span> <span class="o">.</span> <span class="s2">&quot;:&quot;</span> <span class="o">.</span> <span class="nv">$cfgDB_PORT</span><span class="p">,</span> <span class="nv">$cfgDB_USERNAME</span><span class="p">,</span> <span class="nv">$cfgDB_PASSWORD</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s2">&quot;Could not connect MySQL&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="c1">//選擇資料庫</span>
+</span><span class='line'>  <span class="nb">mysql_select_db</span><span class="p">(</span><span class="nv">$cfgDB_NAME</span><span class="p">,</span> <span class="nv">$link</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s2">&quot;Could not select database&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="c1">//讓中文正常顯示</span>
+</span><span class='line'>  <span class="nb">mysql_query</span><span class="p">(</span><span class="s2">&quot;SET NAMES &#39;utf8&#39;&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">?&gt;</span><span class="x"></span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>test.php</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
+</span><span class='line'>      <span class="k">include</span> <span class="p">(</span><span class="s2">&quot;connectDB.inc.php&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">try</span><span class="p">{</span>
+</span><span class='line'>      <span class="nv">$sql</span><span class="o">=</span><span class="s2">&quot;SELECT * from test&quot;</span><span class="p">;</span>  <span class="c1">//給予SQL指令</span>
+</span><span class='line'>      <span class="nv">$result</span><span class="o">=</span><span class="nb">mysql_query</span><span class="p">(</span><span class="nv">$sql</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s2">&quot;invalid query&quot;</span><span class="p">);</span><span class="c1">//傳給MySQL指令</span>
+</span><span class='line'>      <span class="c1">//將所有資料顯示出來</span>
+</span><span class='line'>      <span class="k">while</span><span class="p">(</span><span class="nv">$record</span><span class="o">=</span><span class="nb">mysql_fetch_array</span><span class="p">(</span><span class="nv">$result</span><span class="p">)){</span>
+</span><span class='line'>          <span class="k">echo</span> <span class="s2">&quot;id: </span><span class="si">$record[0]</span><span class="s2">&lt;br&gt;&quot;</span><span class="p">;</span>                        <span class="c1">//第一種讀取資料庫欄位的方法，使用欄位序號</span>
+</span><span class='line'>        <span class="k">echo</span> <span class="s2">&quot;name: &quot;</span><span class="o">.</span><span class="nv">$record</span><span class="p">[</span><span class="s2">&quot;test_string&quot;</span><span class="p">]</span><span class="o">.</span><span class="s2">&quot;&lt;br&gt;&quot;</span><span class="p">;</span>    <span class="c1">//第二種讀取資料庫欄位方法，使用欄位名稱</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>      <span class="nb">mysql_close</span><span class="p">(</span><span class="nv">$link</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">Exception</span> <span class="nv">$e</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">echo</span> <span class="nv">$e</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="cp">?&gt;</span><span class="x"></span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>若資料庫有資料就可以正確顯示溜</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/12/16/freebsdnginxphpmysql/">[FreeBSD] FNMP (Nginx)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-12-16T06:43:00+08:00" pubdate data-updated="true">Dec 16<sup>th</sup>, 2010</time>
+        
+           | <a href="/blog/2010/12/16/freebsdnginxphpmysql/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2010/12/16/freebsdnginxphpmysql/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>就是網頁伺服器 Nginx
+FreeBSD + Nginx + php + MySQL</p>
+
+<p>我個人是直接把 apache 直接換成 Nginx
+其他只是多安裝一些模組而已，因此換起來還好, 不過還是稍微會寫一些安裝上的順序。</p>
+
+<h1>安装MySQL </h1>
+
+<p>參閱 <a href="http://kerkerj.logdown.com/posts/2010/10/05/freebsd81-famp">此篇文章</a></p>
+
+<h1>安裝PHP</h1>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#cd /usr/ports/lang/php5
+</span><span class='line'>#make config install clean</span></code></pre></td></tr></table></div></figure>
+
+
+<p>將下面的模組勾一勾，沒有的選項就不管他了～</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[X] CLI        Build CLI version
+</span><span class='line'>[X] CGI        Build CGI version
+</span><span class='line'>[X] FPM        必勾!!! Nginx處理php時是要交給他處理
+</span><span class='line'>[X] APACHE     Build Apache module
+</span><span class='line'>[ ] DEBUG      Enable debug
+</span><span class='line'>[X] SUHOSIN        Enable Suhosin protection system
+</span><span class='line'>[X] MULTIBYTE  Enable zend multibyte support
+</span><span class='line'>[ ] IPV6       Enable ipv6 support
+</span><span class='line'>[ ] REDIRECT   Enable force-cgi-redirect support (CGI only)
+</span><span class='line'>[ ] DISCARD    Enable discard-path support (CGI only)
+</span><span class='line'>[X] FASTCGI    Enable fastcgi support (CGI only)
+</span><span class='line'>[X] PATHINFO   Enable path-info-check support (CGI only)</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>安裝php5-entensions</h1>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#cd /usr/ports/lang/php5-extensions/
+</span><span class='line'># make config install clean</span></code></pre></td></tr></table></div></figure>
+
+
+<p>勾選需要的extension，下面必裝，其餘隨意。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[X] FTP        FTP support
+</span><span class='line'>[X] GD       
+</span><span class='line'>[X] GETTEXT
+</span><span class='line'>[X] MBSTRING
+</span><span class='line'>[X] MYSQL
+</span><span class='line'>[ ] POSIX //去掉.
+</span><span class='line'>[ ] SQLITE //去掉.
+</span><span class='line'>[X] ZLIB</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#cd /usr/local/etc
+</span><span class='line'># cp php.ini-development php.ini</span></code></pre></td></tr></table></div></figure>
+
+
+<p>=>修改PHP設定檔</p>
+
+<h1>安裝nginx</h1>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#cd /usr/ports/www/nginx/
+</span><span class='line'>#make install clean</span></code></pre></td></tr></table></div></figure>
+
+
+<p>安裝nginx就是這麼簡單～</p>
+
+<p>設定nginx的部份：
+編輯 <code>/usr/local/etc/nginx/nginx.conf</code>
+將<code>#user nobody;</code> 改成 <code>user www;</code>
+找到下面的部份：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>location / {
+</span><span class='line'>    root    /usr/local/www/nginx;  //網頁目錄可以換，看你網頁放哪 (ex./home/www)
+</span><span class='line'>    index    index.html index.htm;  //記得加入 index.php 等等
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>下面是給 FPM 處理 PHP 的部份，記得先將前面的 # 註解刪掉，
+然後將 <code>fastcgi_param</code> 的 <code>/scripts$fastcgi_script.name</code>
+更改為: <code>/你的網頁目錄$fastcgi_script.name</code>
+例如： <code>/home/www$fastcgi_script.name</code></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#location ~ \.php$ {
+</span><span class='line'>#    fastcgi_pass    127.0.0.1:9000;
+</span><span class='line'>#    fastcgi_index   index.php;
+</span><span class='line'>#    fastcgi_param     SCRIPT_FILENAME    /scripts$fastcgi_script.name;
+</span><span class='line'>#    include      fastcgi_params;
+</span><span class='line'>#}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>安裝完後, 記得編輯 <code>/etc/rc.conf</code>, 加入:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mysql_enable="YES"
+</span><span class='line'>nginx_enable="YES"
+</span><span class='line'>php_fpm_enable="YES"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這樣就可以啦<del>~
+如果有 phpmyadmin 的話，可以將該資料夾整個複製到網頁根目錄底下，就可以操作了</del></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2010/10/26/win7-dvd/">[Win7] 使用Win7 DVD 修復開機選單</a></h1>
     
     
