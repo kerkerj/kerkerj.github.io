@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Arch Linux | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/arch-linux/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-02T20:39:53+08:00</updated>
+  <updated>2014-10-03T21:52:41+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -81,23 +81,19 @@ Arch linux wiki 上關於 KDE 的頁面是正體中文
 
 <h1>固定 IP 設定</h1>
 
-<p>```</p>
+<pre><code>    (IP亂打的XD)
+    #Static IP example
+  eth0="eth0 266.100.200.3 netmask 255.255.255.0 broadcast 266.100.200.255"
+  #eth0="dhcp"
+  INTERFACES=(eth0)
 
-<pre><code>(IP亂打的XD)
-#Static IP example
-</code></pre>
-
-<p>  eth0=&ldquo;eth0 266.100.200.3 netmask 255.255.255.0 broadcast 266.100.200.255&rdquo;
-  #eth0=&ldquo;dhcp&rdquo;
-  INTERFACES=(eth0)</p>
-
-<p>  # Routes to start at boot-up (in this order)
+  # Routes to start at boot-up (in this order)
   # Declare each route then list in ROUTES
-  # &ndash; prefix an entry in ROUTES with a ! to disable it
-  #<br/>
-  gateway=&ldquo;default gw 266.100.200.254&rdquo;
+  # - prefix an entry in ROUTES with a ! to disable it
+  #  
+  gateway="default gw 266.100.200.254"
   ROUTES=(gateway)
-```</p>
+</code></pre>
 ]]></content>
   </entry>
   

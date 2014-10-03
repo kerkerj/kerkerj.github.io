@@ -4,7 +4,7 @@
   <title><![CDATA[Category: .bash_profile | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/dot-bash-profile/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-02T20:39:53+08:00</updated>
+  <updated>2014-10-03T21:52:41+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -23,7 +23,7 @@
 但是還是沒解決，心想不對勁，就順手 google 了一下&hellip;</p>
 
 <p>我執行了下列語法：
-```
+&#8220;`
 $ time /usr/libexec/path_helper
 PATH=&ldquo;/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/ABC/android-sdks/platform-tools:/Users/ABC/android-sdks/tools:/Application/Vagrant/bin&rdquo;; export PATH;</p>
 
@@ -43,14 +43,11 @@ sys 0m0.002s
 An exception to the terminal window guidelines is Mac OS X&rsquo;s Terminal.app, which runs a login shell by default for each new terminal window, calling .bash_profile instead of .bashrc. Other GUI terminal emulators may do the same, but most tend not to.</p></blockquote>
 
 <p>所以通常解決方法是在 <code>.bash_profile</code> 寫入以下 script:
-```
-if [ -f ~/.bashrc ]; then</p>
-
-<pre><code>source ~/.bashrc
-</code></pre>
-
-<p>fi
-```</p>
+<code>
+if [ -f ~/.bashrc ]; then
+    source ~/.bashrc
+fi
+</code></p>
 
 <p>不過我之前就這樣做了，這次成功的方式是直接在 <code>.bash_profile</code> 寫入 PATH 路徑&hellip;
 猜想應該是在 <code>.bash_profile</code> 預先讀取而加快速度的

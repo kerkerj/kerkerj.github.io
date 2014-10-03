@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Rails | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/rails/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-02T20:39:53+08:00</updated>
+  <updated>2014-10-03T21:52:41+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -18,7 +18,7 @@
     <link href="http://kerkerj.github.io/blog/2014/08/05/capistrano-with-rails-basic-notes/"/>
     <updated>2014-08-05T22:36:48+08:00</updated>
     <id>http://kerkerj.github.io/blog/2014/08/05/capistrano-with-rails-basic-notes</id>
-    <content type="html"><![CDATA[<p>詳細的東西還是看 project&rsquo;s github page 比較快 &ndash; <a href="https://github.com/capistrano/capistrano">Capistrano@github</a></p>
+    <content type="html"><![CDATA[<p>詳細的東西還是看 project&rsquo;s github page 比較快 - <a href="https://github.com/capistrano/capistrano">Capistrano@github</a></p>
 
 <p>Capistrano 剛開始寫 deploy script 時真的會有點搞不太懂 XD<br/>
 記錄一下使用 &lsquo;capistrano&rsquo; 把特定的 github repo 抓到 remote server</p>
@@ -27,14 +27,13 @@
 
 <p>先在 Gemfile 加入:</p>
 
-<p><code>
-gem 'capistrano', '~&gt; 3.2.0'   
-</code>
-然後安裝~</p>
+<pre><code>gem 'capistrano', '~&gt; 3.2.0'   
+</code></pre>
 
-<p><code>
-bundle install
-</code></p>
+<p>然後安裝~</p>
+
+<pre><code>bundle install
+</code></pre>
 
 <p>步驟大概會是：</p>
 
@@ -45,185 +44,133 @@ capistrano 會先利用 script 裡提供的 server ip 以及 public key，<br/>
 
 <h2>產生相關檔案</h2>
 
-<p><code>
-bundle exec cap install
-</code></p>
+<pre><code>bundle exec cap install 
+</code></pre>
 
 <p>會產生以下檔案:  (copy from <a href="https://github.com/capistrano/capistrano">Capistrano@github</a>)</p>
 
-<p>```
-├── Capfile
+<pre><code>├── Capfile
 ├── config
 │   ├── deploy
 │   │   ├── production.rb
 │   │   └── staging.rb
 │   └── deploy.rb
-└── lib</p>
-
-<pre><code>└── capistrano
-        └── tasks
+└── lib
+    └── capistrano
+            └── tasks
 </code></pre>
-
-<p>```</p>
 
 <p>deploy.rb 通常是設定 source control 的類型 (可以設定 git, hg, svn)， <br/>
 project repo 的路徑，要 deploy 到 server 的哪個目錄等等，<br/>
 <code>config/deploy/*</code> 底下的檔案則是根據不同的 stage 分別設定，<br/>
 以下是 deploy.rb, production.rb 的一些簡單設定</p>
 
-<p>```ruby deploy.rb</p>
+<pre><code class="ruby deploy.rb"># config valid only for Capistrano 3.1
+lock '3.2.1'
 
-<h1>config valid only for Capistrano 3.1</h1>
+set :application, 'application_name'
+set :repo_url, 'github_repo_url'
 
-<p>lock &lsquo;3.2.1&rsquo;</p>
+set :deploy_via, :copy
 
-<p>set :application, &lsquo;application_name&rsquo;
-set :repo_url, &lsquo;github_repo_url&rsquo;</p>
+# Default branch is :master
+# ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
-<p>set :deploy_via, :copy</p>
+# Default deploy_to directory is /var/www/my_app
+set :deploy_to, '/server/www/path/'
 
-<h1>Default branch is :master</h1>
+# Default value for :scm is :git
+set :scm, :git
 
-<h1>ask :branch, proc { <code>git rev-parse --abbrev-ref HEAD</code>.chomp }.call</h1>
+# Default value for :format is :pretty
+set :format, :pretty
 
-<h1>Default deploy_to directory is /var/www/my_app</h1>
+# Default value for :log_level is :debug
+set :log_level, :debug
 
-<p>set :deploy_to, &lsquo;/server/www/path/&rsquo;</p>
+# Default value for :pty is false
+# set :pty, true
 
-<h1>Default value for :scm is :git</h1>
+# Default value for :linked_files is []
+# set :linked_files, %w{config/database.yml}
 
-<p>set :scm, :git</p>
+# Default value for linked_dirs is []
+# set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
-<h1>Default value for :format is :pretty</h1>
+# Default value for default_env is {}
+# set :default_env, { path: "/opt/ruby/bin:$PATH" }
 
-<p>set :format, :pretty</p>
+# Default value for keep_releases is 5
+# set :keep_releases, 5
 
-<h1>Default value for :log_level is :debug</h1>
+namespace :deploy do
 
-<p>set :log_level, :debug</p>
+  desc 'Restart application'
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      # Your restart mechanism here, for example:
+      execute :mkdir, '-p', "#{ release_path }/tmp"
+      execute :touch, release_path.join('tmp/restart.txt')
+    end
+  end
 
-<h1>Default value for :pty is false</h1>
+  after :publishing, :restart
 
-<h1>set :pty, true</h1>
+  after :restart, :clear_cache do
+    on roles(:web), in: :groups, limit: 3, wait: 10 do
+      # Here we can do anything such as:
+      # within release_path do
+      #  execute :rake, 'cache:clear'
+      # end
+    end
+  end
 
-<h1>Default value for :linked_files is []</h1>
-
-<h1>set :linked_files, %w{config/database.yml}</h1>
-
-<h1>Default value for linked_dirs is []</h1>
-
-<h1>set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}</h1>
-
-<h1>Default value for default_env is {}</h1>
-
-<h1>set :default_env, { path: &ldquo;/opt/ruby/bin:$PATH&rdquo; }</h1>
-
-<h1>Default value for keep_releases is 5</h1>
-
-<h1>set :keep_releases, 5</h1>
-
-<p>namespace :deploy do</p>
-
-<p>  desc &lsquo;Restart application&rsquo;
-  task :restart do</p>
-
-<pre><code>on roles(:app), in: :sequence, wait: 5 do
-  # Your restart mechanism here, for example:
-  execute :mkdir, '-p', "#{ release_path }/tmp"
-  execute :touch, release_path.join('tmp/restart.txt')
 end
 </code></pre>
 
-<p>  end</p>
+<pre><code class="ruby production.rb"># Simple Role Syntax
+# ==================
+# Supports bulk-adding hosts to roles, the primary server in each group
+# is considered to be the first unless any hosts have the primary
+# property set.  Don't declare `role :all`, it's a meta role.
 
-<p>  after :publishing, :restart</p>
-
-<p>  after :restart, :clear_cache do</p>
-
-<pre><code>on roles(:web), in: :groups, limit: 3, wait: 10 do
-  # Here we can do anything such as:
-  # within release_path do
-  #  execute :rake, 'cache:clear'
-  # end
-end
-</code></pre>
-
-<p>  end</p>
-
-<p>end</p>
-
-<p>```</p>
-
-<p>```ruby production.rb</p>
-
-<h1>Simple Role Syntax</h1>
-
-<h1>==================</h1>
-
-<h1>Supports bulk-adding hosts to roles, the primary server in each group</h1>
-
-<h1>is considered to be the first unless any hosts have the primary</h1>
-
-<h1>property set.  Don&rsquo;t declare <code>role :all</code>, it&rsquo;s a meta role.</h1>
-
-<p>role :app, %w{app@server}
+role :app, %w{app@server}
 role :web, %w{web@server}
-role :db,  %w{db@server}</p>
+role :db,  %w{db@server}
 
-<h1>Extended Server Syntax</h1>
 
-<h1>======================</h1>
+# Extended Server Syntax
+# ======================
+# This can be used to drop a more detailed server definition into the
+# server list. The second argument is a, or duck-types, Hash and is
+# used to set extended properties on the server.
 
-<h1>This can be used to drop a more detailed server definition into the</h1>
+server 'server_ip', user: 'server_user', roles: %w{app}, my_property: :my_value
 
-<h1>server list. The second argument is a, or duck-types, Hash and is</h1>
 
-<h1>used to set extended properties on the server.</h1>
-
-<p>server &lsquo;server_ip&rsquo;, user: &lsquo;server_user&rsquo;, roles: %w{app}, my_property: :my_value</p>
-
-<h1>Custom SSH Options</h1>
-
-<h1>==================</h1>
-
-<h1>You may pass any option but keep in mind that net/ssh understands a</h1>
-
-<h1>limited set of options, consult<a href="http://net-ssh.github.io/net-ssh/classes/Net/SSH.html#method-c-start">net/ssh documentation</a>.</h1>
-
-<p>#</p>
-
-<h1>Global options</h1>
-
-<h1>&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;</h1>
-
-<h1>set :ssh_options, {</h1>
-
-<h1>keys: %w(/home/rlisowski/.ssh/id_rsa),</h1>
-
-<h1>forward_agent: true</h1>
-
-<h1>auth_methods: %w(password)</h1>
-
-<h1>}</h1>
-
-<p>#</p>
-
-<h1>And/or per server (overrides global)</h1>
-
-<h1>&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;</h1>
-
-<p> server &lsquo;server_ip&rsquo;,
-   user: &lsquo;server_user&rsquo;,
-   ssh_options: {</p>
-
-<pre><code> keys: %w(/user/.ssh/id_rsa),
- forward_agent: false,
- auth_methods: %w(publickey password)
+# Custom SSH Options
+# ==================
+# You may pass any option but keep in mind that net/ssh understands a
+# limited set of options, consult[net/ssh documentation](http://net-ssh.github.io/net-ssh/classes/Net/SSH.html#method-c-start).
+#
+# Global options
+# --------------
+#  set :ssh_options, {
+#    keys: %w(/home/rlisowski/.ssh/id_rsa),
+#    forward_agent: true
+#    auth_methods: %w(password)
+#  }
+#
+# And/or per server (overrides global)
+# ------------------------------------
+ server 'server_ip',
+   user: 'server_user',
+   ssh_options: {
+     keys: %w(/user/.ssh/id_rsa),
+     forward_agent: false,
+     auth_methods: %w(publickey password)
+   }
 </code></pre>
-
-<p>   }</p>
-
-<p>```</p>
 
 <p>設定完後，因為這邊是設定 production.rb<br/>
 因此執行以下指令 deploy 到 production server
@@ -241,118 +188,97 @@ bundle exec cap production deploy
     <link href="http://kerkerj.github.io/blog/2014/07/30/install-rails-server-env-with-rbenv-on-ubuntu-14-dot-04/"/>
     <updated>2014-07-30T11:36:54+08:00</updated>
     <id>http://kerkerj.github.io/blog/2014/07/30/install-rails-server-env-with-rbenv-on-ubuntu-14-dot-04</id>
-    <content type="html"><![CDATA[<p>```
-nodejs v0.10.25 (for rails javascript engine)</p>
+    <content type="html"><![CDATA[<pre><code>nodejs v0.10.25 (for rails javascript engine)
 
-<p>rbenv 0.4.0-98-g13a474c</p>
+rbenv 0.4.0-98-g13a474c
 
-<p>ruby 2.1.2p95 (2014-05-08 revision 45877) [x86_64-linux]</p>
+ruby 2.1.2p95 (2014-05-08 revision 45877) [x86_64-linux]
 
-<p>Rails 4.1.4</p>
+Rails 4.1.4
 
-<p>nginx version: nginx/1.6.0</p>
+nginx version: nginx/1.6.0
 
-<p>Phusion Passenger version 4.0.48</p>
+Phusion Passenger version 4.0.48
 
-<p>mysql  Ver 14.14 Distrib 5.5.38, for debian-linux-gnu (x86_64) using readline 6.3</p>
-
-<p>```</p>
+mysql  Ver 14.14 Distrib 5.5.38, for debian-linux-gnu (x86_64) using readline 6.3
+</code></pre>
 
 <h2>Installing Ruby &amp; Rails</h2>
 
-<p><code>
-sudo apt-get update &amp;&amp; sudo apt-get upgrade
+<pre><code>sudo apt-get update &amp;&amp; sudo apt-get upgrade
 sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties nodejs npm
-</code></p>
+</code></pre>
 
 <p>Use rbenv</p>
 
-<p>```
-cd
+<pre><code>cd
 git clone git://github.com/sstephenson/rbenv.git .rbenv
-echo &lsquo;export PATH=&ldquo;$HOME/.rbenv/bin:$PATH&rdquo;&rsquo; >> ~/.bashrc
-echo &lsquo;eval &ldquo;$(rbenv init &ndash;)&rdquo;&rsquo; >> ~/.bashrc
-exec $SHELL</p>
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' &gt;&gt; ~/.bashrc
+echo 'eval "$(rbenv init -)"' &gt;&gt; ~/.bashrc
+exec $SHELL
 
-<p>git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
-echo &lsquo;export PATH=&ldquo;$HOME/.rbenv/plugins/ruby-build/bin:$PATH&rdquo;&rsquo; >> ~/.bashrc
-exec $SHELL</p>
+git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' &gt;&gt; ~/.bashrc
+exec $SHELL
 
-<p>rbenv install 2.1.2
-exec $SHELL</p>
+rbenv install 2.1.2
+exec $SHELL
 
-<p>rbenv global 2.1.2
+rbenv global 2.1.2
 ruby -v
-```</p>
+</code></pre>
 
 <p>Don&rsquo;t install rdoc when installing gems</p>
 
-<p><code>
-echo "gem: --no-ri --no-rdoc" &gt; ~/.gemrc
-</code></p>
+<pre><code>echo "gem: --no-ri --no-rdoc" &gt; ~/.gemrc
+</code></pre>
 
 <p>Install rails</p>
 
-<p><code>
-gem install rails
+<pre><code>gem install rails
 exec $SHELL
 rails -v
-</code></p>
+</code></pre>
 
 <h2>Installing Nginx with passenger</h2>
 
-<p>```</p>
+<pre><code># Install Phusion's PGP key to verify packages
+gpg --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7
+gpg --armor --export 561F9B9CAC40B2F7 | sudo apt-key add -
 
-<h1>Install Phusion&rsquo;s PGP key to verify packages</h1>
+# Add HTTPS support to APT
+sudo apt-get install apt-transport-https
 
-<p>gpg &mdash;keyserver keyserver.ubuntu.com &mdash;recv-keys 561F9B9CAC40B2F7
-gpg &mdash;armor &mdash;export 561F9B9CAC40B2F7 | sudo apt-key add &ndash;</p>
-
-<h1>Add HTTPS support to APT</h1>
-
-<p>sudo apt-get install apt-transport-https</p>
-
-<h1>Add the passenger repository</h1>
-
-<p>sudo sh -c &ldquo;echo &lsquo;deb <a href="https://oss-binaries.phusionpassenger.com/apt/passenger">https://oss-binaries.phusionpassenger.com/apt/passenger</a> trusty main&rsquo; >> /etc/apt/sources.list.d/passenger.list&rdquo;
+# Add the passenger repository
+sudo sh -c "echo 'deb https://oss-binaries.phusionpassenger.com/apt/passenger trusty main' &gt;&gt; /etc/apt/sources.list.d/passenger.list"
 sudo chown root: /etc/apt/sources.list.d/passenger.list
 sudo chmod 600 /etc/apt/sources.list.d/passenger.list
-sudo apt-get update</p>
+sudo apt-get update
 
-<h1>Install nginx and passenger</h1>
-
-<p>sudo apt-get install nginx-full passenger
-```</p>
+# Install nginx and passenger
+sudo apt-get install nginx-full passenger
+</code></pre>
 
 <p>Edit passenger configuration in <code>/etc/nginx/nginx.conf</code></p>
 
-<p>```</p>
+<pre><code>##
+# Phusion Passenger
+##
+# Uncomment it if you installed ruby-passenger or ruby-passenger-enterprise
+##
 
-<h1>#</h1>
+passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;
 
-<h1>Phusion Passenger</h1>
+passenger_ruby /usr/bin/ruby; #change this line
 
-<h1>#</h1>
-
-<h1>Uncomment it if you installed ruby-passenger or ruby-passenger-enterprise</h1>
-
-<h1>#</h1>
-
-<p>passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;</p>
-
-<p>passenger_ruby /usr/bin/ruby; #change this line</p>
-
-<h1>passenger_ruby /home/yourpath/.rbenv/shims/ruby; # If you use rbenv</h1>
-
-<h1>Use <code>which ruby</code></h1>
-
-<p>```</p>
+# passenger_ruby /home/yourpath/.rbenv/shims/ruby; # If you use rbenv
+# Use `which ruby`
+</code></pre>
 
 <h2>Installing MySQL</h2>
 
-<p><code>
-sudo apt-get install mysql-server mysql-client libmysqlclient-dev
-</code></p>
+<pre><code>sudo apt-get install mysql-server mysql-client libmysqlclient-dev
+</code></pre>
 
 <p>Done!</p>
 ]]></content>
@@ -384,23 +310,16 @@ in <code>ApplicationController</code></p>
 
 <p>In rails 4, PUT has been changed to PATCH to avoid confusion.</p>
 
-<p>```</p>
-
-<pre><code> posts GET    /posts(.:format)                            {:action=&gt;"index", :controller=&gt;"posts"}
-      POST   /posts(.:format)                            {:action=&gt;"create", :controller=&gt;"posts"}
+<pre><code>     posts GET    /posts(.:format)                            {:action=&gt;"index", :controller=&gt;"posts"}
+          POST   /posts(.:format)                            {:action=&gt;"create", :controller=&gt;"posts"}
+ new_post GET    /posts/new(.:format)                        {:action=&gt;"new", :controller=&gt;"posts"}
+edit_post GET    /posts/:id/edit(.:format)                   {:action=&gt;"edit", :controller=&gt;"posts"}
+     post GET    /posts/:id(.:format)                        {:action=&gt;"show", :controller=&gt;"posts"}
+          PUT    /posts/:id(.:format)                        {:action=&gt;"update", :controller=&gt;"posts"}
+          DELETE /posts/:id(.:format)                        {:action=&gt;"destroy", :controller=&gt;"posts"}
 </code></pre>
 
-<p> new_post GET    /posts/new(.:format)                        {:action=>&ldquo;new&rdquo;, :controller=>&ldquo;posts&rdquo;}
-edit_post GET    /posts/:id/edit(.:format)                   {:action=>&ldquo;edit&rdquo;, :controller=>&ldquo;posts&rdquo;}</p>
-
-<pre><code> post GET    /posts/:id(.:format)                        {:action=&gt;"show", :controller=&gt;"posts"}
-      PUT    /posts/:id(.:format)                        {:action=&gt;"update", :controller=&gt;"posts"}
-      DELETE /posts/:id(.:format)                        {:action=&gt;"destroy", :controller=&gt;"posts"}
-</code></pre>
-
-<p>```</p>
-
-<p>延伸閱讀：ihower &ndash; <a href="http://ihower.tw/blog/archives/6483">HTTP Verbs: 談 POST, PUT 和 PATCH 的應用</a></p>
+<p>延伸閱讀：ihower - <a href="http://ihower.tw/blog/archives/6483">HTTP Verbs: 談 POST, PUT 和 PATCH 的應用</a></p>
 ]]></content>
   </entry>
   

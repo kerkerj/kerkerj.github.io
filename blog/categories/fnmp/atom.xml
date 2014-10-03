@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Fnmp | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/fnmp/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-02T20:39:53+08:00</updated>
+  <updated>2014-10-03T21:52:41+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -30,13 +30,9 @@ FreeBSD + Nginx + php + MySQL</p>
 
 <h1>安裝PHP</h1>
 
-<p>```</p>
-
-<h1>cd /usr/ports/lang/php5</h1>
-
-<h1>make config install clean</h1>
-
-<p>```</p>
+<pre><code>#cd /usr/ports/lang/php5
+#make config install clean
+</code></pre>
 
 <p>將下面的模組勾一勾，沒有的選項就不管他了～
 <code>
@@ -56,13 +52,9 @@ FreeBSD + Nginx + php + MySQL</p>
 
 <h1>安裝php5-entensions</h1>
 
-<p>```</p>
-
-<h1>cd /usr/ports/lang/php5-extensions/</h1>
-
-<h1>make config install clean</h1>
-
-<p>```</p>
+<pre><code>#cd /usr/ports/lang/php5-extensions/
+# make config install clean
+</code></pre>
 
 <p>勾選需要的extension，下面必裝，其餘隨意。
 <code>
@@ -76,25 +68,19 @@ FreeBSD + Nginx + php + MySQL</p>
 [X] ZLIB
 </code></p>
 
-<p>```</p>
+<pre><code>#cd /usr/local/etc
+# cp php.ini-development php.ini
+</code></pre>
 
-<h1>cd /usr/local/etc</h1>
-
-<h1>cp php.ini-development php.ini</h1>
-
-<p>```
-=>修改PHP設定檔</p>
+<p>=>修改PHP設定檔</p>
 
 <h1>安裝nginx</h1>
 
-<p>```</p>
+<pre><code>#cd /usr/ports/www/nginx/
+#make install clean
+</code></pre>
 
-<h1>cd /usr/ports/www/nginx/</h1>
-
-<h1>make install clean</h1>
-
-<p>```
-安裝nginx就是這麼簡單～</p>
+<p>安裝nginx就是這麼簡單～</p>
 
 <p>設定nginx的部份：
 編輯 <code>/usr/local/etc/nginx/nginx.conf</code>
@@ -112,21 +98,13 @@ location / {
 更改為: <code>/你的網頁目錄$fastcgi_script.name</code>
 例如： <code>/home/www$fastcgi_script.name</code></p>
 
-<p>```</p>
-
-<h1>location ~ .php$ {</h1>
-
-<h1>    fastcgi_pass    127.0.0.1:9000;</h1>
-
-<h1>    fastcgi_index   index.php;</h1>
-
-<h1>    fastcgi_param     SCRIPT_FILENAME    /scripts$fastcgi_script.name;</h1>
-
-<h1>    include      fastcgi_params;</h1>
-
-<h1>}</h1>
-
-<p>```</p>
+<pre><code>#location ~ \.php$ {
+#    fastcgi_pass    127.0.0.1:9000;
+#    fastcgi_index   index.php;
+#    fastcgi_param     SCRIPT_FILENAME    /scripts$fastcgi_script.name;
+#    include      fastcgi_params;
+#}
+</code></pre>
 
 <p>安裝完後, 記得編輯 <code>/etc/rc.conf</code>, 加入:
 <code>
@@ -134,8 +112,8 @@ mysql_enable="YES"
 nginx_enable="YES"
 php_fpm_enable="YES"
 </code>
-這樣就可以啦<del>~
-如果有 phpmyadmin 的話，可以將該資料夾整個複製到網頁根目錄底下，就可以操作了</del></p>
+這樣就可以啦~~~
+如果有 phpmyadmin 的話，可以將該資料夾整個複製到網頁根目錄底下，就可以操作了~~</p>
 ]]></content>
   </entry>
   

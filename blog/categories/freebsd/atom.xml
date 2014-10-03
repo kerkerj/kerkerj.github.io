@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Freebsd | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/freebsd/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-02T20:39:53+08:00</updated>
+  <updated>2014-10-03T21:52:41+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -30,13 +30,9 @@ FreeBSD + Nginx + php + MySQL</p>
 
 <h1>安裝PHP</h1>
 
-<p>```</p>
-
-<h1>cd /usr/ports/lang/php5</h1>
-
-<h1>make config install clean</h1>
-
-<p>```</p>
+<pre><code>#cd /usr/ports/lang/php5
+#make config install clean
+</code></pre>
 
 <p>將下面的模組勾一勾，沒有的選項就不管他了～
 <code>
@@ -56,13 +52,9 @@ FreeBSD + Nginx + php + MySQL</p>
 
 <h1>安裝php5-entensions</h1>
 
-<p>```</p>
-
-<h1>cd /usr/ports/lang/php5-extensions/</h1>
-
-<h1>make config install clean</h1>
-
-<p>```</p>
+<pre><code>#cd /usr/ports/lang/php5-extensions/
+# make config install clean
+</code></pre>
 
 <p>勾選需要的extension，下面必裝，其餘隨意。
 <code>
@@ -76,25 +68,19 @@ FreeBSD + Nginx + php + MySQL</p>
 [X] ZLIB
 </code></p>
 
-<p>```</p>
+<pre><code>#cd /usr/local/etc
+# cp php.ini-development php.ini
+</code></pre>
 
-<h1>cd /usr/local/etc</h1>
-
-<h1>cp php.ini-development php.ini</h1>
-
-<p>```
-=>修改PHP設定檔</p>
+<p>=>修改PHP設定檔</p>
 
 <h1>安裝nginx</h1>
 
-<p>```</p>
+<pre><code>#cd /usr/ports/www/nginx/
+#make install clean
+</code></pre>
 
-<h1>cd /usr/ports/www/nginx/</h1>
-
-<h1>make install clean</h1>
-
-<p>```
-安裝nginx就是這麼簡單～</p>
+<p>安裝nginx就是這麼簡單～</p>
 
 <p>設定nginx的部份：
 編輯 <code>/usr/local/etc/nginx/nginx.conf</code>
@@ -112,21 +98,13 @@ location / {
 更改為: <code>/你的網頁目錄$fastcgi_script.name</code>
 例如： <code>/home/www$fastcgi_script.name</code></p>
 
-<p>```</p>
-
-<h1>location ~ .php$ {</h1>
-
-<h1>    fastcgi_pass    127.0.0.1:9000;</h1>
-
-<h1>    fastcgi_index   index.php;</h1>
-
-<h1>    fastcgi_param     SCRIPT_FILENAME    /scripts$fastcgi_script.name;</h1>
-
-<h1>    include      fastcgi_params;</h1>
-
-<h1>}</h1>
-
-<p>```</p>
+<pre><code>#location ~ \.php$ {
+#    fastcgi_pass    127.0.0.1:9000;
+#    fastcgi_index   index.php;
+#    fastcgi_param     SCRIPT_FILENAME    /scripts$fastcgi_script.name;
+#    include      fastcgi_params;
+#}
+</code></pre>
 
 <p>安裝完後, 記得編輯 <code>/etc/rc.conf</code>, 加入:
 <code>
@@ -134,8 +112,8 @@ mysql_enable="YES"
 nginx_enable="YES"
 php_fpm_enable="YES"
 </code>
-這樣就可以啦<del>~
-如果有 phpmyadmin 的話，可以將該資料夾整個複製到網頁根目錄底下，就可以操作了</del></p>
+這樣就可以啦~~~
+如果有 phpmyadmin 的話，可以將該資料夾整個複製到網頁根目錄底下，就可以操作了~~</p>
 ]]></content>
   </entry>
   
@@ -146,50 +124,42 @@ php_fpm_enable="YES"
     <id>http://kerkerj.github.io/blog/2010/10/04/freebsd-81-ftp</id>
     <content type="html"><![CDATA[<p>FreeBSD 8.1 FTP伺服器 pureftp</p>
 
-<p>安裝：
-```</p>
+<p>安裝：</p>
 
-<h1>cd /usr/ports/ftp/pure-ftpd</h1>
+<pre><code>#cd /usr/ports/ftp/pure-ftpd
+#make install clean
+</code></pre>
 
-<h1>make install clean</h1>
-
-<p>```
-FTP這玩意是要看個人需求而定的, 因此在這講好我的需求, 我架了網頁伺服器, 並且想讓網頁管理人員能夠用 FTP,   連上他的網頁目錄做上傳修改, 因此 FTP 不能是匿名使用者, 需要一個虛擬帳號, 而該虛擬帳號也必須要有權限能夠讀取到 apache 的網頁資料夾</p>
+<p>FTP這玩意是要看個人需求而定的, 因此在這講好我的需求, 我架了網頁伺服器, 並且想讓網頁管理人員能夠用 FTP,   連上他的網頁目錄做上傳修改, 因此 FTP 不能是匿名使用者, 需要一個虛擬帳號, 而該虛擬帳號也必須要有權限能夠讀取到 apache 的網頁資料夾</p>
 
 <p>下面即是我的過程安裝紀錄<br/>
 建立一個 ftpgroup 群組及一個 ftpuser 使用者。<br/>
 當作「系統帳號」 (就像www是apache建立來作為系統帳號用的意思一樣)</p>
 
-<p>```</p>
-
-<h1>pw groupadd ftpgroup</h1>
-
-<h1>pw useradd ftpuser -g ftpgroup -d /dev/null -s /etc</h1>
-
-<p>```</p>
+<pre><code>#pw groupadd ftpgroup
+#pw useradd ftpuser -g ftpgroup -d /dev/null -s /etc
+</code></pre>
 
 <p>接著要建立虛擬帳號<br/>
-建立一個 &ldquo;kerker"，他的家目錄是 <code>/usr/local/www/apache22/data</code> (網頁伺服器的根目錄)<br/>
-與 "kerker&rdquo; 相關的系統帳號是 &ldquo;ftpuser"<br/>
+建立一個 &ldquo;kerker&#8221;，他的家目錄是 <code>/usr/local/www/apache22/data</code> (網頁伺服器的根目錄)<br/>
+與 &#8220;kerker&rdquo; 相關的系統帳號是 &ldquo;ftpuser&rdquo;<br/>
 <code># pure-pw useradd kerker -u 48 -g 48 -d/www/apache22/data -m</code></p>
 
 <p>kerker為虛擬帳號<br/>
-系統本身就有 apache 這 user, 這邊是當作虛擬使用者的群組<br/>
-<code>
--m，立即更新pureftpd.pdb檔 (or 建立)
+系統本身就有 apache 這 user, 這邊是當作虛擬使用者的群組</p>
+
+<pre><code>-m，立即更新pureftpd.pdb檔 (or 建立)
 -d，chroot user
 -D，dont chroot user
-</code></p>
+</code></pre>
 
-<p>接著修改 <code>/usr/local/etc/pure-ftpd.conf</code>
-```</p>
+<p>接著修改 <code>/usr/local/etc/pure-ftpd.conf</code></p>
 
-<h1>Minimum UID for an authenticated user to log in.</h1>
+<pre><code># Minimum UID for an authenticated user to log in.
+MinUID 14
 
-<p>MinUID 14</p>
-
-<p>PureDB      /usr/local/etc/pureftpd.pdb
-```</p>
+PureDB      /usr/local/etc/pureftpd.pdb
+</code></pre>
 
 <p>修改此兩項後, 啟動ftp
 <code>#/usr/local/etc/rc.d/pureftpd start</code>
@@ -211,117 +181,88 @@ FTP這玩意是要看個人需求而定的, 因此在這講好我的需求, 我�
 經典的網頁伺服器組合, 由FreeBSD, Apache, MySQL, PHP所組成 (使用Linux則稱為LAMP)
 以下則是在FreeBSD安裝網頁伺服器的過程簡單紀錄及問題排解。</p>
 
-<p>Env: FreeBSD 8.1　（以"此篇"安裝好的FreeBSD接續）
-安裝順序為:MySQL-> Apache-> PHP-> PHP-extension &ndash;> phpMyAdmin</p>
+<p>Env: FreeBSD 8.1　（以&#8221;此篇&#8221;安裝好的FreeBSD接續）
+安裝順序為:MySQL-> Apache-> PHP-> PHP-extension -> phpMyAdmin</p>
 
 <h1>MySQL</h1>
 
-<p>```</p>
+<pre><code>#cd /usr/ports/databases/mysql50-server  
+#make WITH_CHARSET=utf8 WITH_XCHARSET=all WITH_COLLATION=utf8_unicode_ci BUILD_OPTIMIZED=yes instal clean
+</code></pre>
 
-<h1>cd /usr/ports/databases/mysql50-server</h1>
+<p>=>安裝 mysql server 並設定編碼為utf8</p>
 
-<h1>make WITH_CHARSET=utf8 WITH_XCHARSET=all WITH_COLLATION=utf8_unicode_ci BUILD_OPTIMIZED=yes instal clean</h1>
+<pre><code>#rehash
+#sudo mysql_install_db (記得需要用root權限)
+</code></pre>
 
-<p>```
-=>安裝 mysql server 並設定編碼為utf8</p>
+<p>=>安裝資料庫</p>
 
-<p>```</p>
+<pre><code>#cp /usr/local/share/mysql/my-medium.cnf /etc/my.cnf  
+</code></pre>
 
-<h1>rehash</h1>
+<p>=>複製設定檔</p>
 
-<h1>sudo mysql_install_db (記得需要用root權限)</h1>
+<pre><code>#sudo chown -R mysql:mysql /var/db/mysql
+</code></pre>
 
-<p>```
-=>安裝資料庫</p>
+<p>=>變更mysql資料庫權限</p>
 
-<p>```</p>
+<pre><code>#sudo mysqld_safe &amp;  
+</code></pre>
 
-<h1>cp /usr/local/share/mysql/my-medium.cnf /etc/my.cnf</h1>
+<p>=>初始啟動</p>
 
-<p>```
-=>複製設定檔</p>
+<pre><code>#sudo mysqladmin -u root -p password 'Your_password'
+也可以是這樣
+#sudo mysqladmin -u root passowrd 'Your_password'  
+</code></pre>
 
-<p>```</p>
+<p>=>新增使用者 root , 前者會出現&#8221;Enter Password&#8221;, 就當做是confirm就好了</p>
 
-<h1>sudo chown -R mysql:mysql /var/db/mysql</h1>
+<pre><code>#sudo mysql -u root
+</code></pre>
 
-<p>```
-=>變更mysql資料庫權限</p>
-
-<p>```</p>
-
-<h1>sudo mysqld_safe &amp;</h1>
-
-<p>```
-=>初始啟動</p>
-
-<p>```</p>
-
-<h1>sudo mysqladmin -u root -p password &lsquo;Your_password&rsquo;</h1>
-
-<p>也可以是這樣</p>
-
-<h1>sudo mysqladmin -u root passowrd &lsquo;Your_password&rsquo;</h1>
-
-<p>```
-=>新增使用者 root , 前者會出現"Enter Password", 就當做是confirm就好了</p>
-
-<p>```</p>
-
-<h1>sudo mysql -u root</h1>
-
-<p>```
-=>進入MySQL, 輸入剛剛設定的密碼即可</p>
+<p>=>進入MySQL, 輸入剛剛設定的密碼即可</p>
 
 <h1>Apache</h1>
 
-<p>```</p>
+<pre><code># cd /usr/ports/www/apache22
+# make install clean
+</code></pre>
 
-<h1>cd /usr/ports/www/apache22</h1>
-
-<h1>make install clean</h1>
-
-<p>```
-=>安裝apache 皆使用預設設定</p>
+<p>=>安裝apache 皆使用預設設定</p>
 
 <h1>PHP</h1>
 
-<p>```</p>
+<pre><code># cd /usr/ports/lang/php5
+# make config install clean
+p.s.勾選 [X] APACHE Build Apache module
+</code></pre>
 
-<h1>cd /usr/ports/lang/php5</h1>
+<p>=>安裝php</p>
 
-<h1>make config install clean</h1>
+<pre><code># cd /usr/ports/lang/php5-extensions/
+# make config install clean
+</code></pre>
 
-<p>p.s.勾選 [X] APACHE Build Apache module
-```
-=>安裝php</p>
+<p>=>安裝 php5-entensions, 勾選需要的extension</p>
 
-<p>```</p>
+<pre><code># cd /usr/local/etc
+# cp php.ini-development php.ini
+</code></pre>
 
-<h1>cd /usr/ports/lang/php5-extensions/</h1>
-
-<h1>make config install clean</h1>
-
-<p>```
-=>安裝 php5-entensions, 勾選需要的extension</p>
-
-<p>```</p>
-
-<h1>cd /usr/local/etc</h1>
-
-<h1>cp php.ini-development php.ini</h1>
-
-<p>```
-=>修改PHP設定檔</p>
+<p>=>修改PHP設定檔</p>
 
 <p>修改Apache設定檔:
 編輯 <code>/usr/local/etc/apache22/httpd.conf</code>
-加入:
-<code>
-AddType application/x-httpd-php .php
+加入:</p>
+
+<pre><code>AddType application/x-httpd-php .php
 AddType application/x-httpd-php-source .phps
-</code>
-將 <code>DirectoryIndex index.html</code>
+</code></pre>
+
+<p>將 <code>DirectoryIndex index.html</code>
 修改成 <code>DirectoryIndex index.php index.html index.htm</code></p>
 
 <p>*如果要變更網站檔案預設路徑的話請見附註</p>
@@ -337,34 +278,27 @@ mysql_enable="YES"
 
 <h1>phpMyAdmin</h1>
 
-<p>```</p>
+<pre><code># cd /usr/ports/databases/phpmyadmin
+# make install clean
+</code></pre>
 
-<h1>cd /usr/ports/databases/phpmyadmin</h1>
+<pre><code>Alias /phpmyadmin/ "/usr/local/www/phpMyAdmin/"  
+ &lt;Directory "/usr/local/www/phpMyAdmin/"&gt;  
+     Options Indexes FollowSymLinks  
+     AllowOverride None  
+     Order allow,deny  
+     Allow from all  
+ &lt;/Directory&gt;  
+</code></pre>
 
-<h1>make install clean</h1>
+<p>編輯 <code>httpd.conf</code>:</p>
 
-<p><code>
-</code>
-Alias /phpmyadmin/ &ldquo;/usr/local/www/phpMyAdmin/"<br/>
- <Directory "/usr/local/www/phpMyAdmin/"><br/>
-     Options Indexes FollowSymLinks<br/>
-     AllowOverride None<br/>
-     Order allow,deny<br/>
-     Allow from all<br/>
- </Directory><br/>
-<code>``
-編輯</code>httpd.conf`:</p>
+<pre><code># cd /usr/local/www/phpmyadmin/
+# cp config.sample.inc.php config.inc.php
+# vim config.inc.php
+</code></pre>
 
-<p>```</p>
-
-<h1>cd /usr/local/www/phpmyadmin/</h1>
-
-<h1>cp config.sample.inc.php config.inc.php</h1>
-
-<h1>vim config.inc.php</h1>
-
-<p>```
-=>編輯phpMyAdmin的設定檔</p>
+<p>=>編輯phpMyAdmin的設定檔</p>
 
 <p>把這行 <code>$cfg['blowfish_secret'] = '';</code>
 改成 <code>$cfg['blowfish_secret'] = 'aabbccdd'; //裡面的字串可以自己修改</code></p>
@@ -376,16 +310,17 @@ Alias /phpmyadmin/ &ldquo;/usr/local/www/phpMyAdmin/"<br/>
 
 <p>啟動： <code>/usr/local/etc/rc.d/mysql-server start</code>
 進入command line： <code>#/usr/local/bin/mysql mysql</code>
-更改root密碼：
-<code>
-UPDATE user SET password=password('你的密碼') where user='root';
+更改root密碼：</p>
+
+<pre><code>UPDATE user SET password=password('你的密碼') where user='root';
 FLUSH PRIVILEGES;
-</code>
-新增一使用者（完整權限，localhost登入), 再刪除root</p>
+</code></pre>
+
+<p>新增一使用者（完整權限，localhost登入), 再刪除root</p>
 
 <hr />
 
-<p>狀況A &ndash; 若啟動apache時出現以下狀況<br/>
+<p>狀況A - 若啟動apache時出現以下狀況<br/>
 <code>httpd: Could not reliably determine the server's fully qualified domain name, using 127.0.0.1 for ServerName</code></p>
 
 <p>到 <code>httd.conf</code><br/>
@@ -395,42 +330,35 @@ FLUSH PRIVILEGES;
 
 <hr />
 
-<p>狀況B:<br/>
-```</p>
+<p>狀況B:</p>
 
-<h1>mysql -u root -p</h1>
+<pre><code class=""># mysql -u root -p  
+Enter password:  
+ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: NO)  
+</code></pre>
 
-<p>Enter password:<br/>
-ERROR 1045 (28000): Access denied for user &lsquo;root&rsquo;@&lsquo;localhost&rsquo; (using password: NO)<br/>
-<code>
-</code></p>
+<pre><code># sudo /usr/local/etc/rc.d/mysql-server stop
+# sudo mysqld_safe --user=mysql --skip-grant-tables --skip-networking &amp;
+# sudo mysql -u root mysql
+mysql&gt; UPDATE user SET Password=PASSWORD('newpassword') where USER='root';
+mysql&gt; FLUSH PRIVILEGES;
+mysql&gt; quit
 
-<h1>sudo /usr/local/etc/rc.d/mysql-server stop</h1>
+# sudo /usr/local/etc/rc.d/mysql-server restart
+# mysql -u root -p
+Enter password: &lt;輸入新設定的密碼&gt;
 
-<h1>sudo mysqld_safe &mdash;user=mysql &mdash;skip-grant-tables &mdash;skip-networking &amp;</h1>
+mysql&gt;
+</code></pre>
 
-<h1>sudo mysql -u root mysql</h1>
-
-<p>mysql> UPDATE user SET Password=PASSWORD(&lsquo;newpassword&rsquo;) where USER=&lsquo;root&rsquo;;
-mysql> FLUSH PRIVILEGES;
-mysql> quit</p>
-
-<h1>sudo /usr/local/etc/rc.d/mysql-server restart</h1>
-
-<h1>mysql -u root -p</h1>
-
-<p>Enter password: &lt;輸入新設定的密碼></p>
-
-<p>mysql>
-```
-done!</p>
+<p>done!</p>
 
 <hr />
 
-<p>狀況C: 若遇上**警告提示
-<code>
-Warning: phpinfo() [[function.phpinfo][1]]: It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected 'UTC' for '8.0/no DST' instead in **/.../index.php** on line **2  
-</code></p>
+<p>狀況C: 若遇上**警告提示</p>
+
+<pre><code>Warning: phpinfo() [[function.phpinfo][1]]: It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected 'UTC' for '8.0/no DST' instead in **/.../index.php** on line **2  
+</code></pre>
 
 <p>通常是出現在5.3.0的版本<br/>
 只要修改 <code>php.ini</code> , 加上 <code>'date'.timezone = "Asia/Taipei"</code> 即可解決!</p>
@@ -452,18 +380,19 @@ Warning: phpinfo() [[function.phpinfo][1]]: It is not safe to rely on the system
 不想把文件放在 <code>/usr/local/www/apache22/data</code><br/>
 想把他放在 <code>/home/www/</code><br/>
 因此到 home 目錄去 mkdir 一個 www 資料夾<br/>
-再到 <code>httpd.conf</code>, 更改兩個地方, 原本為<br/>
-<code>
-DocumentRoot "/usr/local/www/apache22/data"
-&lt;Directory "/usr/local/www/apache22/data"&gt;
-</code></p>
+再到 <code>httpd.conf</code>, 更改兩個地方, 原本為</p>
 
-<p>改為<br/>
-<code>
-DocumentRoot "/home/www/"  
+<pre><code>DocumentRoot "/usr/local/www/apache22/data"
+&lt;Directory "/usr/local/www/apache22/data"&gt;
+</code></pre>
+
+<p>改為</p>
+
+<pre><code>DocumentRoot "/home/www/"  
 &lt;Directory "/home/www/"&gt;  
-</code>
-這樣就會連到/home/www/去讀資料了</p>
+</code></pre>
+
+<p>這樣就會連到/home/www/去讀資料了</p>
 ]]></content>
   </entry>
   
@@ -472,7 +401,7 @@ DocumentRoot "/home/www/"
     <link href="http://kerkerj.github.io/blog/2010/09/15/freebsd-81/"/>
     <updated>2010-09-15T08:28:00+08:00</updated>
     <id>http://kerkerj.github.io/blog/2010/09/15/freebsd-81</id>
-    <content type="html"><![CDATA[<p>FreeBSD 安裝 &ndash; FreeBSD 8.1<br/>
+    <content type="html"><![CDATA[<p>FreeBSD 安裝 - FreeBSD 8.1<br/>
 幾乎是整套SOP流程了 = = 乾脆寫起來查比較快, 自己都重灌不曉得幾百遍了
 好站推薦：<a href="http://twbsd.org/cht/book/index.php">twbsd.org</a></p>
 
@@ -501,13 +430,13 @@ DocumentRoot "/home/www/"
 <hr />
 
 <p>設定時區: <code>#sysinstall</code>
-選擇config &ndash;> Timezone &ndash;> 選擇時區</p>
+選擇config -> Timezone -> 選擇時區</p>
 
 <hr />
 
 <p>設定網路: <code>#sysinstall</code>
-選擇config &ndash;> networking &ndash;> 即可設定網路
-會跳三個選項 &ndash; IPv6, DHCP, 選擇網路卡
+選擇config -> networking -> 即可設定網路
+會跳三個選項 - IPv6, DHCP, 選擇網路卡
 前兩者可選可不選, 網卡以主要連線的為主 （反正應該都知道哪張是給FreeBSD連線的吧XD
 之後作一點IP, gateway等等的設定即可</p>
 
@@ -523,25 +452,22 @@ cd 到該套件的目錄底下
 安裝前可先 <code>#make config</code> 來作設定
 設定完再 <code>#make install clean</code></p>
 
-<p>當第一次進行套件更新時會出現以下狀況：<br/>
-```</p>
+<p>當第一次進行套件更新時會出現以下狀況：</p>
 
-<h1>cd /usr/ports/</h1>
+<pre><code># cd /usr/ports/
+# make update
+--------------------------------------------------------------
+&gt;&gt;&gt; Running portsnap
+--------------------------------------------------------------
+Error: 'make update' uses portsnap(8) by default and
+needs /usr/ports to be created by portsnap on its first run.
 
-<h1>make update</h1>
-
-<hr />
-
-<blockquote><blockquote><blockquote><h2>Running portsnap</h2>
-
-<p>Error: &lsquo;make update&rsquo; uses portsnap(8) by default and
-needs /usr/ports to be created by portsnap on its first run.</p></blockquote></blockquote></blockquote>
-
-<p>Please run &lsquo;portsnap fetch extract&rsquo; first.
+Please run 'portsnap fetch extract' first.
 You can also define SUP_UPDATE and PORTSSUPFILE to use csup(1) or CVS_UPDATE to use cvs(1) for updating.
-<code>``
-就照著他所說的下指令即可(此時必須要有網路狀態, 且過程有點久)：  
-</code># portsnap fetch extract`</p>
+</code></pre>
+
+<p>就照著他所說的下指令即可(此時必須要有網路狀態, 且過程有點久)：<br/>
+<code># portsnap fetch extract</code></p>
 
 <hr />
 
@@ -549,108 +475,90 @@ You can also define SUP_UPDATE and PORTSSUPFILE to use csup(1) or CVS_UPDATE to 
 新增編輯 <code>/etc/make.conf</code><br/>
 加入以下資料(更新時可以直接到台灣的ftp抓,速度快)</p>
 
-<p>p.s.自從 FreeBSD 6.2 開始，系統就內建了 csup 這指令來更新 Ports，使用方法就和 cvsup 一樣, 省去非常久的時間在安裝 cvsup (因此cvsup-without-gui可裝可不裝，但還是要設定make.conf)
-```</p>
+<p>p.s.自從 FreeBSD 6.2 開始，系統就內建了 csup 這指令來更新 Ports，使用方法就和 cvsup 一樣, 省去非常久的時間在安裝 cvsup (因此cvsup-without-gui可裝可不裝，但還是要設定make.conf)</p>
 
-<h1>for make install</h1>
+<pre><code># for make install
+MASTER_SITE_BACKUP?= \
+ftp://ftp.tw.freebsd.org/pub/FreeBSD/distfiles/${DIST_SUBDIR}/\
+ftp://ftp7.tw.freebsd.org/pub/FreeBSD/distfiles/${DIST_SUBDIR}/\
+ftp://ftp8.tw.freebsd.org/pub/FreeBSD/distfiles/${DIST_SUBDIR}/\
+ftp://freebsd.csie.ncu.edu.tw/distfiles/${DIST_SUBDIR}/\
+ftp://freebsd.csie.nctu.edu.tw/pub/distfiles/${DIST_SUBDIR}/
+MASTER_SITE_OVERRIDE?= ${MASTER_SITE_BACKUP}
 
-<p>MASTER_SITE_BACKUP?= \
-<a href="ftp://ftp.tw.freebsd.org/pub/FreeBSD/distfiles/$">ftp://ftp.tw.freebsd.org/pub/FreeBSD/distfiles/$</a>{DIST_SUBDIR}/\
-<a href="ftp://ftp7.tw.freebsd.org/pub/FreeBSD/distfiles/$">ftp://ftp7.tw.freebsd.org/pub/FreeBSD/distfiles/$</a>{DIST_SUBDIR}/\
-<a href="ftp://ftp8.tw.freebsd.org/pub/FreeBSD/distfiles/$">ftp://ftp8.tw.freebsd.org/pub/FreeBSD/distfiles/$</a>{DIST_SUBDIR}/\
-<a href="ftp://freebsd.csie.ncu.edu.tw/distfiles/$">ftp://freebsd.csie.ncu.edu.tw/distfiles/$</a>{DIST_SUBDIR}/\
-<a href="ftp://freebsd.csie.nctu.edu.tw/pub/distfiles/$">ftp://freebsd.csie.nctu.edu.tw/pub/distfiles/$</a>{DIST_SUBDIR}/
-MASTER_SITE_OVERRIDE?= ${MASTER_SITE_BACKUP}</p>
+# For CSUP make update
+# SUPHOST 代表要到哪台 CSUP，假如你知道哪個伺服站離你的主機比較近，請改成離您
+# 比較近的 Server 會有效率些。
+# 目前可用的 cvsup.tw.FreeBSD.org, cvsup1.tw.FreeBSD.org .... 到
+# cvsup14.tw.FreeBSD.org 可以選用。
+# 在SUPFILE的部份
+# 如果您是用 -stable，請用 stable-supfile
+# 如果您是用 -current，請用 standard-supfile
 
-<h1>For CSUP make update</h1>
-
-<h1>SUPHOST 代表要到哪台 CSUP，假如你知道哪個伺服站離你的主機比較近，請改成離您</h1>
-
-<h1>比較近的 Server 會有效率些。</h1>
-
-<h1>目前可用的 cvsup.tw.FreeBSD.org, cvsup1.tw.FreeBSD.org &hellip;. 到</h1>
-
-<h1>cvsup14.tw.FreeBSD.org 可以選用。</h1>
-
-<h1>在SUPFILE的部份</h1>
-
-<h1>如果您是用 -stable，請用 stable-supfile</h1>
-
-<h1>如果您是用 -current，請用 standard-supfile</h1>
-
-<p>SUP_UPDATE= yes
+SUP_UPDATE= yes
 SUP= /usr/bin/csup
 SUPFLAGS= -g -L 2
 SUPHOST= cvsup.tw.FreeBSD.org
 SUPFILE= /usr/share/examples/cvsup/standard-supfile
 PORTSSUPFILE= /usr/share/examples/cvsup/ports-supfile
 DOCSUPFILE= /usr/share/examples/cvsup/doc-supfile
-<code>``
-即可到 port 作</code>make update`</p>
+</code></pre>
 
-<p>設定 <code>/etc/crontab</code> 讓主機每 12 小時自動更新一次 port tree，以後每次都可以安裝到新的套件。
-```</p>
+<p>即可到 port 作 <code>make update</code></p>
 
-<h1>echo &lsquo;0 */12 * * * root cd /usr/ports; make update &amp;&amp; make fetchindex >/dev/null 2>&amp;1&rsquo; >> /etc/crontab</h1>
+<p>設定 <code>/etc/crontab</code> 讓主機每 12 小時自動更新一次 port tree，以後每次都可以安裝到新的套件。</p>
 
-<p>```</p>
-
-<hr />
-
-<p>校正主機的時間
-```</p>
-
-<h1>ntpdate &ldquo;stdtime.sinica.edu.tw&rdquo;</h1>
-
-<p><code>
-然後設定 `/etc/crontab` 讓主機每 30 分鐘自動校時一次
-</code></p>
-
-<h1>echo &lsquo;*/30 * * * * root ntpdate &ldquo;stdtime.sinica.edu.tw&rdquo; > /dev/null 2>&amp;1 >> /etc/crontab</h1>
-
-<p><code>``
-寫入</code>> /dev/null 2>&amp;1` 後每次校時的結果便不會回報給系統管理員，可以減少看很多封回報通知信。</p>
+<pre><code># echo '0 */12 * * * root cd /usr/ports; make update &amp;&amp; make fetchindex &gt;/dev/null 2&gt;&amp;1' &gt;&gt; /etc/crontab
+</code></pre>
 
 <hr />
 
-<p>基本套件： sudo, gnuls, vim, screen
-```</p>
+<p>校正主機的時間</p>
 
-<h1>cd /usr/ports/security/sudo</h1>
+<pre><code># ntpdate "stdtime.sinica.edu.tw"
+</code></pre>
 
-<h1>make install clean</h1>
+<p>然後設定 <code>/etc/crontab</code> 讓主機每 30 分鐘自動校時一次</p>
 
-<p><code>
-編輯 `/usr/local/etc/sudoers`
-取消註解 `%wheel ALL=(ALL) ALL`
-嫌麻煩也可以註解掉下面的 `NOPASSWD` 但是記得改回來 (若是正式機器)
-</code></p>
+<pre><code># echo '*/30 * * * * root ntpdate "stdtime.sinica.edu.tw" &gt; /dev/null 2&gt;&amp;1 &gt;&gt; /etc/crontab
+</code></pre>
 
-<h1>cd/usr/ports/misc/gnuls</h1>
+<p>寫入 <code>&gt; /dev/null 2&gt;&amp;1</code> 後每次校時的結果便不會回報給系統管理員，可以減少看很多封回報通知信。</p>
 
-<h1>make install clean</h1>
+<hr />
 
-<p><code>
-設定 `/etc/csh.cshrc` ( 或 user 家目錄下的 .cshrc )
-</code>
-alias ls &lsquo;gnuls &mdash;color=auto &mdash;show-control-chars&rsquo;
-<code>
-vim:
-</code></p>
+<p>基本套件： sudo, gnuls, vim, screen</p>
 
-<h1>cd /usr/ports/editors/vim-lite  (或者可以裝vim6 不過會裝很久)</h1>
+<pre><code>#cd /usr/ports/security/sudo   
+#make install clean  
+</code></pre>
 
-<h1>make install clean</h1>
+<p>編輯 <code>/usr/local/etc/sudoers</code>
+取消註解 <code>%wheel ALL=(ALL) ALL</code>
+嫌麻煩也可以註解掉下面的 <code>NOPASSWD</code> 但是記得改回來 (若是正式機器)</p>
 
-<p><code>
-screen:
-</code></p>
+<pre><code>#cd/usr/ports/misc/gnuls
+#make install clean
+</code></pre>
 
-<h1>cd /usr/ports/sysutils/screen</h1>
+<p>設定 <code>/etc/csh.cshrc</code> ( 或 user 家目錄下的 .cshrc )</p>
 
-<h1>make install clean</h1>
+<pre><code>alias ls 'gnuls --color=auto --show-control-chars'
+</code></pre>
 
-<h2>```</h2>
+<p>vim:</p>
+
+<pre><code>#cd /usr/ports/editors/vim-lite  (或者可以裝vim6 不過會裝很久)
+#make install clean
+</code></pre>
+
+<p>screen:</p>
+
+<pre><code>#cd /usr/ports/sysutils/screen
+#make install clean
+</code></pre>
+
+<hr />
 
 <p>這些東西裝完就是一個平常使用的FreeBSD囉~</p>
 ]]></content>

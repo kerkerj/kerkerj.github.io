@@ -98,6 +98,176 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2014/08/06/emoji-data-in-mysql/">Emoji Data in MySQL</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-06T18:17:59+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/08/06/emoji-data-in-mysql/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/08/06/emoji-data-in-mysql/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Supported MySQL 5.5, 5.6.</p>
+
+<p>First, MySQL should set DB and table to utf8mb4.</p>
+
+<p>utf8 - 3 byte characters</p>
+
+<p>utf8mb4 - 4 byte characters</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">ALTER</span> <span class="k">DATABASE</span> <span class="n">my_database</span> <span class="k">DEFAULT</span> <span class="nb">CHARACTER</span> <span class="k">SET</span> <span class="n">utf8mb4</span> <span class="k">COLLATE</span> <span class="n">utf8mb4_general_ci</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">my_table</span> <span class="k">DEFAULT</span> <span class="nb">CHARACTER</span> <span class="k">SET</span> <span class="n">utf8mb4</span> <span class="k">COLLATE</span> <span class="n">utf8mb4_unicode_ci</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">my_column</span> <span class="n">CHANGE</span> <span class="n">my_column</span> <span class="n">my_column</span> <span class="nb">TEXT</span> <span class="nb">CHARACTER</span> <span class="k">SET</span> <span class="n">utf8mb4</span> <span class="k">COLLATE</span> <span class="n">utf8mb4_unicode_ci</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Then, when inserting data or selecting data, execute this statement first:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="c1">--Execute this statement first</span>
+</span><span class='line'><span class="k">SET</span> <span class="k">NAMES</span> <span class="n">utf8mb4</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">--then insert or select</span>
+</span><span class='line'><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">my_table</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/08/06/writing-lua-on-mac/">Writing Lua on Mac</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-06T01:36:57+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/08/06/writing-lua-on-mac/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/08/06/writing-lua-on-mac/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>Install lua on mac</h2>
+
+<p>I&rsquo;m not sure that whether Lua is built on mac originally.</p>
+
+<p><span style="color:red;">(Ok, tested on Mac OSX 10.9, there is Lua in it.)</span></p>
+
+<p>So I installed Lua via <a href="http://brew.sh/">Homebrew</a>.</p>
+
+<p>Install homebrew (optional)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Install Lua by homebrew</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>brew install lua</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Writing Lua</h2>
+
+<p>You can use command: <code>lua</code> to interact with lua. (just like <code>php -a</code> or <code>irb</code>)</p>
+
+<figure class='code'><figcaption><span>hello.lua</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='lua'><span class='line'><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">Hello World&quot;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>fact.lua</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='lua'><span class='line'><span class="k">function</span> <span class="nf">fact</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">then</span>
+</span><span class='line'>      <span class="k">return</span> <span class="mi">1</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>      <span class="k">return</span> <span class="n">n</span> <span class="o">*</span> <span class="n">fact</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">enter a number:&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="n">num</span> <span class="o">=</span> <span class="nb">io.read</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">*number&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="nb">print</span><span class="p">(</span><span class="n">fact</span><span class="p">(</span><span class="n">num</span><span class="p">))</span>
+</span><span class='line'>      
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2014/08/05/openresty-on-ubuntu-14-dot-04/">Openresty on Ubuntu 14.04</a></h1>
     
     
@@ -114,7 +284,7 @@
   
 
 
-<time datetime="2014-08-05T23:47:39+08:00" pubdate data-updated="true">Aug 5<sup>th</sup>, 2014</time>
+<time datetime="2014-08-05T23:47:39+08:00" pubdate data-updated="true"></time>
         
            | <a href="/blog/2014/08/05/openresty-on-ubuntu-14-dot-04/#disqus_thread"
              data-disqus-identifier="http://kerkerj.github.io/blog/2014/08/05/openresty-on-ubuntu-14-dot-04/">Comments</a>
@@ -304,7 +474,7 @@ we need to add the directory to PATH variable</p>
   
 
 
-<time datetime="2014-08-05T22:36:48+08:00" pubdate data-updated="true">Aug 5<sup>th</sup>, 2014</time>
+<time datetime="2014-08-05T22:36:48+08:00" pubdate data-updated="true"></time>
         
            | <a href="/blog/2014/08/05/capistrano-with-rails-basic-notes/#disqus_thread"
              data-disqus-identifier="http://kerkerj.github.io/blog/2014/08/05/capistrano-with-rails-basic-notes/">Comments</a>
@@ -314,7 +484,7 @@ we need to add the directory to PATH variable</p>
   </header>
 
 
-  <div class="entry-content"><p>詳細的東西還是看 project&rsquo;s github page 比較快 &ndash; <a href="https://github.com/capistrano/capistrano">Capistrano@github</a></p>
+  <div class="entry-content"><p>詳細的東西還是看 project&rsquo;s github page 比較快 - <a href="https://github.com/capistrano/capistrano">Capistrano@github</a></p>
 
 <p>Capistrano 剛開始寫 deploy script 時真的會有點搞不太懂 XD<br/>
 記錄一下使用 &lsquo;capistrano&rsquo; 把特定的 github repo 抓到 remote server</p>
@@ -628,7 +798,7 @@ project repo 的路徑，要 deploy 到 server 的哪個目錄等等，<br/>
   
 
 
-<time datetime="2014-07-30T11:36:54+08:00" pubdate data-updated="true">Jul 30<sup>th</sup>, 2014</time>
+<time datetime="2014-07-30T11:36:54+08:00" pubdate data-updated="true"></time>
         
            | <a href="/blog/2014/07/30/install-rails-server-env-with-rbenv-on-ubuntu-14-dot-04/#disqus_thread"
              data-disqus-identifier="http://kerkerj.github.io/blog/2014/07/30/install-rails-server-env-with-rbenv-on-ubuntu-14-dot-04/">Comments</a>
@@ -822,7 +992,7 @@ project repo 的路徑，要 deploy 到 server 的哪個目錄等等，<br/>
   
 
 
-<time datetime="2014-07-03T04:02:00+08:00" pubdate data-updated="true">Jul 3<sup>rd</sup>, 2014</time>
+<time datetime="2014-07-03T04:02:00+08:00" pubdate data-updated="true"></time>
         
            | <a href="/blog/2014/07/03/rails-actioncontrollerinvalidauthenticitytoken-when-useing-rails-as-api/#disqus_thread"
              data-disqus-identifier="http://kerkerj.github.io/blog/2014/07/03/rails-actioncontrollerinvalidauthenticitytoken-when-useing-rails-as-api/">Comments</a>
@@ -865,7 +1035,7 @@ in <code>ApplicationController</code></p>
   
 
 
-<time datetime="2014-06-19T02:32:00+08:00" pubdate data-updated="true">Jun 19<sup>th</sup>, 2014</time>
+<time datetime="2014-06-19T02:32:00+08:00" pubdate data-updated="true"></time>
         
            | <a href="/blog/2014/06/19/apache-ssl/#disqus_thread"
              data-disqus-identifier="http://kerkerj.github.io/blog/2014/06/19/apache-ssl/">Comments</a>
@@ -996,7 +1166,7 @@ enable sites: <code>sudo a2ensite default-ssl</code></p>
   
 
 
-<time datetime="2014-06-16T09:16:00+08:00" pubdate data-updated="true">Jun 16<sup>th</sup>, 2014</time>
+<time datetime="2014-06-16T09:16:00+08:00" pubdate data-updated="true"></time>
         
            | <a href="/blog/2014/06/16/mac-update-openssl-on-mac/#disqus_thread"
              data-disqus-identifier="http://kerkerj.github.io/blog/2014/06/16/mac-update-openssl-on-mac/">Comments</a>
@@ -1061,7 +1231,7 @@ enable sites: <code>sudo a2ensite default-ssl</code></p>
   
 
 
-<time datetime="2014-06-11T08:51:00+08:00" pubdate data-updated="true">Jun 11<sup>th</sup>, 2014</time>
+<time datetime="2014-06-11T08:51:00+08:00" pubdate data-updated="true"></time>
         
            | <a href="/blog/2014/06/11/mysql-add-a-unique-index-by-2-columns/#disqus_thread"
              data-disqus-identifier="http://kerkerj.github.io/blog/2014/06/11/mysql-add-a-unique-index-by-2-columns/">Comments</a>
@@ -1100,7 +1270,7 @@ enable sites: <code>sudo a2ensite default-ssl</code></p>
   
 
 
-<time datetime="2014-05-30T03:56:00+08:00" pubdate data-updated="true">May 30<sup>th</sup>, 2014</time>
+<time datetime="2014-05-30T03:56:00+08:00" pubdate data-updated="true"></time>
         
            | <a href="/blog/2014/05/30/ubuntu-enable-disable-services-on-start-up/#disqus_thread"
              data-disqus-identifier="http://kerkerj.github.io/blog/2014/05/30/ubuntu-enable-disable-services-on-start-up/">Comments</a>
@@ -1112,110 +1282,9 @@ enable sites: <code>sudo a2ensite default-ssl</code></p>
 
   <div class="entry-content"><p>Take apache for example:</p>
 
-<p>Disable &ndash; <code>update-rc.d -f apache2 remove</code></p>
+<p>Disable - <code>update-rc.d -f apache2 remove</code></p>
 
-<p>Enable &ndash; <code>update-rc.d apache2 defaults</code></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/05/28/codeigniter-tips-deploy-to-amazon-web-services/">[Codeigniter] Tips Deploy to Amazon Web Services</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-05-28T06:36:00+08:00" pubdate data-updated="true">May 28<sup>th</sup>, 2014</time>
-        
-           | <a href="/blog/2014/05/28/codeigniter-tips-deploy-to-amazon-web-services/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/05/28/codeigniter-tips-deploy-to-amazon-web-services/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><ol>
-<li>If you use Amazon RDS, especially micro plan,<br/>
- remember to set <code>$config['pconnect'] = FALSE</code> in <code>application/config/database.php</code>.<br/>
- Because RDS has Max_connection limits.</li>
-<li>If you use RDS, remeber that the system timezone in RDS is +0 timezone.<br/>
- In your application, you should care about this thing.</li>
-<li>If you will use loadbalancer, remember to &hellip;.(???)</li>
-</ol>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/05/06/mysql-several-useful-statements-group-concat-ifnull-date-format/">[MySQL] Several Useful Statements (GROUP_CONCAT, Ifnull, DATE_FORMAT)</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-05-06T06:10:00+08:00" pubdate data-updated="true">May 6<sup>th</sup>, 2014</time>
-        
-           | <a href="/blog/2014/05/06/mysql-several-useful-statements-group-concat-ifnull-date-format/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/05/06/mysql-several-useful-statements-group-concat-ifnull-date-format/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><ol>
-<li><p>將 query 出來的多筆記錄結合成一個欄位<br/>
-例如原本的 query 結果為：<br/>
-<code>SELECT 'fruits' FROM 'fruits_table'</code><br/>
-apple<br/>
-banana<br/>
-kiwi<br/>
-<code>SELECT group_concat('fruits' separator ',') FROM 'fruits_table'</code><br/>
-result: apple,banana,kiwi</p></li>
-<li><p>改變 datetime 欄位的顯示結果<br/>
-<code>SELECT DATE_FORMAT( 'created_at', '%Y/%m/%d %H:%i') AS 'created_at' FROM 'message_table'</code><br/>
-result: 2014/05/06 18:20</p></li>
-<li><p>若某個欄位的值為空，則給予預設值<br/>
-<code>SELECT ifnull('is_success', 0) AS 'is_success' FROM ....</code></p></li>
-</ol>
-
+<p>Enable - <code>update-rc.d apache2 defaults</code></p>
 </div>
   
   

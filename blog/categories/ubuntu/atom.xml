@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ubuntu | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/ubuntu/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-02T20:39:53+08:00</updated>
+  <updated>2014-10-03T21:52:41+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -23,30 +23,23 @@
 <p>choose the latest version of Openresty<br/>
 I used ngx_openresty-1.7.2.1.tar.gz</p>
 
-<p>```console</p>
+<pre><code class="console"># install packages
+sudo apt-get install libreadline-dev libpcre3-dev libssl-dev perl  
 
-<h1>install packages</h1>
+# get openresty package
+wget http://openresty.org/download/ngx_openresty-1.7.2.1.tar.gz   
 
-<p>sudo apt-get install libreadline-dev libpcre3-dev libssl-dev perl</p>
+# unzip
+tar xzvf ngx_openresty-1.7.2.1.tar.gz
 
-<h1>get openresty package</h1>
+# install
+cd ngx_openresty-1.7.2.1/
 
-<p>wget <a href="http://openresty.org/download/ngx_openresty-1.7.2.1.tar.gz">http://openresty.org/download/ngx_openresty-1.7.2.1.tar.gz</a></p>
-
-<h1>unzip</h1>
-
-<p>tar xzvf ngx_openresty-1.7.2.1.tar.gz</p>
-
-<h1>install</h1>
-
-<p>cd ngx_openresty-1.7.2.1/</p>
-
-<h1>You can setup with ./configure &mdash;prefix=&ldquo;the folder you want to install&rdquo;, default is &lsquo;/usr/local/openresty&rsquo;</h1>
-
-<p>./configure
+# You can setup with ./configure --prefix="the folder you want to install", default is '/usr/local/openresty'
+./configure 
 make
 sudo make install # need permission to copy file to target folder
-```</p>
+</code></pre>
 
 <p>Default folder: <code>/usr/local/openresty</code></p>
 
@@ -60,30 +53,24 @@ mkdir logs/ conf/
 </code></p>
 
 <p>create a new file in <code>~/work/conf/nginx.conf</code>
-```
+<code>
 worker_processes  1;
 error_log logs/error.log;
-events {</p>
-
-<pre><code>worker_connections 1024;
-</code></pre>
-
-<p>}
-http {</p>
-
-<pre><code>server {
-    listen 8080;
-    location / {
-        default_type text/html;
-        content_by_lua '
-            ngx.say("&lt;p&gt;hello, world&lt;/p&gt;")
-        ';
+events {
+    worker_connections 1024;
+}
+http {
+    server {
+        listen 8080;
+        location / {
+            default_type text/html;
+            content_by_lua '
+                ngx.say("&lt;p&gt;hello, world&lt;/p&gt;")
+            ';
+        }
     }
 }
-</code></pre>
-
-<p>}
-```</p>
+</code></p>
 
 <p>because Openresty is installed in <code>/usr/local/openresty</code>,<br/>
 we need to add the directory to PATH variable
@@ -103,32 +90,24 @@ nginx -p `pwd`/ -c conf/nginx.conf
 
 <p>Edit <code>~/work/conf/nginx.conf</code></p>
 
-<p>```
-worker_processes  1;
+<pre><code>worker_processes  1;
 error_log logs/error.log;
-events {</p>
-
-<pre><code>worker_connections 1024;
-</code></pre>
-
-<p>}
-http {</p>
-
-<pre><code>server {
-    listen 8080;
-    location /hello {
-        content_by_lua_file conf/hello.lua;
+events {
+    worker_connections 1024;
+}
+http {
+    server {
+        listen 8080;
+        location /hello {
+            content_by_lua_file conf/hello.lua;
+        }
     }
 }
 </code></pre>
 
-<p>}
-```</p>
-
-<p><code>lua hello.lua
--- hello.lua
+<pre><code class="lua hello.lua">-- hello.lua
 ngx.say("Hello World")
-</code></p>
+</code></pre>
 ]]></content>
   </entry>
   
@@ -137,118 +116,97 @@ ngx.say("Hello World")
     <link href="http://kerkerj.github.io/blog/2014/07/30/install-rails-server-env-with-rbenv-on-ubuntu-14-dot-04/"/>
     <updated>2014-07-30T11:36:54+08:00</updated>
     <id>http://kerkerj.github.io/blog/2014/07/30/install-rails-server-env-with-rbenv-on-ubuntu-14-dot-04</id>
-    <content type="html"><![CDATA[<p>```
-nodejs v0.10.25 (for rails javascript engine)</p>
+    <content type="html"><![CDATA[<pre><code>nodejs v0.10.25 (for rails javascript engine)
 
-<p>rbenv 0.4.0-98-g13a474c</p>
+rbenv 0.4.0-98-g13a474c
 
-<p>ruby 2.1.2p95 (2014-05-08 revision 45877) [x86_64-linux]</p>
+ruby 2.1.2p95 (2014-05-08 revision 45877) [x86_64-linux]
 
-<p>Rails 4.1.4</p>
+Rails 4.1.4
 
-<p>nginx version: nginx/1.6.0</p>
+nginx version: nginx/1.6.0
 
-<p>Phusion Passenger version 4.0.48</p>
+Phusion Passenger version 4.0.48
 
-<p>mysql  Ver 14.14 Distrib 5.5.38, for debian-linux-gnu (x86_64) using readline 6.3</p>
-
-<p>```</p>
+mysql  Ver 14.14 Distrib 5.5.38, for debian-linux-gnu (x86_64) using readline 6.3
+</code></pre>
 
 <h2>Installing Ruby &amp; Rails</h2>
 
-<p><code>
-sudo apt-get update &amp;&amp; sudo apt-get upgrade
+<pre><code>sudo apt-get update &amp;&amp; sudo apt-get upgrade
 sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties nodejs npm
-</code></p>
+</code></pre>
 
 <p>Use rbenv</p>
 
-<p>```
-cd
+<pre><code>cd
 git clone git://github.com/sstephenson/rbenv.git .rbenv
-echo &lsquo;export PATH=&ldquo;$HOME/.rbenv/bin:$PATH&rdquo;&rsquo; >> ~/.bashrc
-echo &lsquo;eval &ldquo;$(rbenv init &ndash;)&rdquo;&rsquo; >> ~/.bashrc
-exec $SHELL</p>
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' &gt;&gt; ~/.bashrc
+echo 'eval "$(rbenv init -)"' &gt;&gt; ~/.bashrc
+exec $SHELL
 
-<p>git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
-echo &lsquo;export PATH=&ldquo;$HOME/.rbenv/plugins/ruby-build/bin:$PATH&rdquo;&rsquo; >> ~/.bashrc
-exec $SHELL</p>
+git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' &gt;&gt; ~/.bashrc
+exec $SHELL
 
-<p>rbenv install 2.1.2
-exec $SHELL</p>
+rbenv install 2.1.2
+exec $SHELL
 
-<p>rbenv global 2.1.2
+rbenv global 2.1.2
 ruby -v
-```</p>
+</code></pre>
 
 <p>Don&rsquo;t install rdoc when installing gems</p>
 
-<p><code>
-echo "gem: --no-ri --no-rdoc" &gt; ~/.gemrc
-</code></p>
+<pre><code>echo "gem: --no-ri --no-rdoc" &gt; ~/.gemrc
+</code></pre>
 
 <p>Install rails</p>
 
-<p><code>
-gem install rails
+<pre><code>gem install rails
 exec $SHELL
 rails -v
-</code></p>
+</code></pre>
 
 <h2>Installing Nginx with passenger</h2>
 
-<p>```</p>
+<pre><code># Install Phusion's PGP key to verify packages
+gpg --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7
+gpg --armor --export 561F9B9CAC40B2F7 | sudo apt-key add -
 
-<h1>Install Phusion&rsquo;s PGP key to verify packages</h1>
+# Add HTTPS support to APT
+sudo apt-get install apt-transport-https
 
-<p>gpg &mdash;keyserver keyserver.ubuntu.com &mdash;recv-keys 561F9B9CAC40B2F7
-gpg &mdash;armor &mdash;export 561F9B9CAC40B2F7 | sudo apt-key add &ndash;</p>
-
-<h1>Add HTTPS support to APT</h1>
-
-<p>sudo apt-get install apt-transport-https</p>
-
-<h1>Add the passenger repository</h1>
-
-<p>sudo sh -c &ldquo;echo &lsquo;deb <a href="https://oss-binaries.phusionpassenger.com/apt/passenger">https://oss-binaries.phusionpassenger.com/apt/passenger</a> trusty main&rsquo; >> /etc/apt/sources.list.d/passenger.list&rdquo;
+# Add the passenger repository
+sudo sh -c "echo 'deb https://oss-binaries.phusionpassenger.com/apt/passenger trusty main' &gt;&gt; /etc/apt/sources.list.d/passenger.list"
 sudo chown root: /etc/apt/sources.list.d/passenger.list
 sudo chmod 600 /etc/apt/sources.list.d/passenger.list
-sudo apt-get update</p>
+sudo apt-get update
 
-<h1>Install nginx and passenger</h1>
-
-<p>sudo apt-get install nginx-full passenger
-```</p>
+# Install nginx and passenger
+sudo apt-get install nginx-full passenger
+</code></pre>
 
 <p>Edit passenger configuration in <code>/etc/nginx/nginx.conf</code></p>
 
-<p>```</p>
+<pre><code>##
+# Phusion Passenger
+##
+# Uncomment it if you installed ruby-passenger or ruby-passenger-enterprise
+##
 
-<h1>#</h1>
+passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;
 
-<h1>Phusion Passenger</h1>
+passenger_ruby /usr/bin/ruby; #change this line
 
-<h1>#</h1>
-
-<h1>Uncomment it if you installed ruby-passenger or ruby-passenger-enterprise</h1>
-
-<h1>#</h1>
-
-<p>passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;</p>
-
-<p>passenger_ruby /usr/bin/ruby; #change this line</p>
-
-<h1>passenger_ruby /home/yourpath/.rbenv/shims/ruby; # If you use rbenv</h1>
-
-<h1>Use <code>which ruby</code></h1>
-
-<p>```</p>
+# passenger_ruby /home/yourpath/.rbenv/shims/ruby; # If you use rbenv
+# Use `which ruby`
+</code></pre>
 
 <h2>Installing MySQL</h2>
 
-<p><code>
-sudo apt-get install mysql-server mysql-client libmysqlclient-dev
-</code></p>
+<pre><code>sudo apt-get install mysql-server mysql-client libmysqlclient-dev
+</code></pre>
 
 <p>Done!</p>
 ]]></content>
@@ -261,9 +219,9 @@ sudo apt-get install mysql-server mysql-client libmysqlclient-dev
     <id>http://kerkerj.github.io/blog/2014/05/30/ubuntu-enable-disable-services-on-start-up</id>
     <content type="html"><![CDATA[<p>Take apache for example:</p>
 
-<p>Disable &ndash; <code>update-rc.d -f apache2 remove</code></p>
+<p>Disable - <code>update-rc.d -f apache2 remove</code></p>
 
-<p>Enable &ndash; <code>update-rc.d apache2 defaults</code></p>
+<p>Enable - <code>update-rc.d apache2 defaults</code></p>
 ]]></content>
   </entry>
   
@@ -275,20 +233,24 @@ sudo apt-get install mysql-server mysql-client libmysqlclient-dev
     <content type="html"><![CDATA[<p>Easy way:</p>
 
 <ul>
-<li>Below the single command line to compiling and install the last openssl version.
-<code>
-$ curl https://www.openssl.org/source/openssl-1.0.1h.tar.gz | tar xz &amp;&amp; cd openssl-1.0.1h &amp;&amp; sudo ./config &amp;&amp; sudo make &amp;&amp; sudo make install
-</code></li>
-<li>Replace old openssl binary file by the new one via a symlink.
-<code>
-$ sudo ln -sf /usr/local/ssl/bin/openssl `which openssl`
-</code></li>
+<li>Below the single command line to compiling and install the last openssl version.</li>
 </ul>
 
 
-<p>how to check version:
-<code>
-$ openssl version -b
+<pre><code>$ curl https://www.openssl.org/source/openssl-1.0.1h.tar.gz | tar xz &amp;&amp; cd openssl-1.0.1h &amp;&amp; sudo ./config &amp;&amp; sudo make &amp;&amp; sudo make install
+</code></pre>
+
+<ul>
+<li>Replace old openssl binary file by the new one via a symlink.</li>
+</ul>
+
+
+<pre><code>$ sudo ln -sf /usr/local/ssl/bin/openssl `which openssl`
+</code></pre>
+
+<p>how to check version:</p>
+
+<pre><code>$ openssl version -b
 built on: Mon Apr  7 20:33:29 UTC 2014
 $ openssl version -a
 OpenSSL 1.0.1 14 Mar 2012
@@ -297,65 +259,48 @@ platform: debian-amd64
 options:  bn(64,64) rc4(16x,int) des(idx,cisc,16,int) blowfish(idx)
 compiler: ..........
 OPENSSLDIR: "/usr/lib/ssl"
-</code>
-from: <a href="http://superuser.com/questions/740930/apt-get-upgrade-openssl-wont-bring-ubuntu-12-04-to-latest-version">http://superuser.com/questions/740930/apt-get-upgrade-openssl-wont-bring-ubuntu-12-04-to-latest-version</a></p>
-
-<p>Hard way:
-```bash</p>
-
-<h1>!/bin/bash</h1>
-
-<h2>#</h2>
-
-<h1>Need to upgrade an Ubuntu 13.04 server to use OpenSSL 1.0.1g?</h1>
-
-<h1>Read and execute this script :D</h1>
-
-<h2>#</h2>
-
-<h1>License: WTFPL, GPLv3, MIT, whatever; just patch your shit</h1>
-
-<h1><a href="http://askubuntu.com/questions/444702/how-to-patch-cve-2014-0160-in-openssl">http://askubuntu.com/questions/444702/how-to-patch-cve-2014-0160-in-openssl</a></h1>
-
-<h2>#</h2>
-
-<p>if [[ $EUID -ne 0 ]]; then</p>
-
-<pre><code>echo "This script must be run as root" 1&gt;&amp;2
-exit 1
 </code></pre>
 
-<p>fi
-wget <a href="https://www.openssl.org/source/openssl-1.0.1g.tar.gz">https://www.openssl.org/source/openssl-1.0.1g.tar.gz</a>
-wget <a href="https://www.openssl.org/source/openssl-1.0.1g.tar.gz.asc">https://www.openssl.org/source/openssl-1.0.1g.tar.gz.asc</a></p>
+<p>from: <a href="http://superuser.com/questions/740930/apt-get-upgrade-openssl-wont-bring-ubuntu-12-04-to-latest-version">http://superuser.com/questions/740930/apt-get-upgrade-openssl-wont-bring-ubuntu-12-04-to-latest-version</a></p>
 
-<p>gpg &mdash;recv-key 0xD3577507FA40E9E2</p>
+<p>Hard way:</p>
 
-<h1>Dr Stephen Henson</h1>
+<pre><code class="bash">#!/bin/bash
 
-<h1>IMPORTANT! Manually verify that this is the correct key ID:</h1>
+###
+# Need to upgrade an Ubuntu 13.04 server to use OpenSSL 1.0.1g?
+# Read and execute this script :D
+###
+# License: WTFPL, GPLv3, MIT, whatever; just patch your shit
+# http://askubuntu.com/questions/444702/how-to-patch-cve-2014-0160-in-openssl
+###
 
-<h1><a href="http://pgp.mit.edu:11371/pks/lookup?op=vindex&amp;search=0xD3577507FA40E9E2">http://pgp.mit.edu:11371/pks/lookup?op=vindex&amp;search=0xD3577507FA40E9E2</a></h1>
+if [[ $EUID -ne 0 ]]; then
+    echo "This script must be run as root" 1&gt;&amp;2
+    exit 1
+fi
+wget https://www.openssl.org/source/openssl-1.0.1g.tar.gz
+wget https://www.openssl.org/source/openssl-1.0.1g.tar.gz.asc
 
-<h1><a href="https://www.openssl.org/about/">https://www.openssl.org/about/</a></h1>
+gpg --recv-key 0xD3577507FA40E9E2
+# Dr Stephen Henson
+# IMPORTANT! Manually verify that this is the correct key ID:
+# http://pgp.mit.edu:11371/pks/lookup?op=vindex&amp;search=0xD3577507FA40E9E2
+# https://www.openssl.org/about/
 
-<p>gpg &mdash;verify openssl-1.0.1g.tar.gz.asc openssl-1.0.1g.tar.gz</p>
+gpg --verify openssl-1.0.1g.tar.gz.asc openssl-1.0.1g.tar.gz
 
-<p>if [[ $? -eq 0 ]]; then</p>
+if [[ $? -eq 0 ]]; then
+    tar xzvf openssl-1.0.1g.tar.gz
+    cd openssl-1.0.1g &amp;&amp; sudo ./config &amp;&amp; sudo make &amp;&amp; sudo make install
+    # To link the old openssl library to a new version
+    sudo ln -sf /usr/local/ssl/bin/openssl `which openssl`
+    echo
+    echo "DONE!"
+fi
 
-<pre><code>tar xzvf openssl-1.0.1g.tar.gz
-cd openssl-1.0.1g &amp;&amp; sudo ./config &amp;&amp; sudo make &amp;&amp; sudo make install
-# To link the old openssl library to a new version
-sudo ln -sf /usr/local/ssl/bin/openssl `which openssl`
-echo
-echo "DONE!"
+# eof
 </code></pre>
-
-<p>fi</p>
-
-<h1>eof</h1>
-
-<p>```</p>
 ]]></content>
   </entry>
   
@@ -364,25 +309,25 @@ echo "DONE!"
     <link href="http://kerkerj.github.io/blog/2013/12/26/aws-ubuntu-swap/"/>
     <updated>2013-12-26T10:11:00+08:00</updated>
     <id>http://kerkerj.github.io/blog/2013/12/26/aws-ubuntu-swap</id>
-    <content type="html"><![CDATA[<p>Add swap for an instance
-<code>
-$ sudo /bin/dd if=/dev/zero of=/var/swap.1 bs=1M count=1024
+    <content type="html"><![CDATA[<p>Add swap for an instance</p>
+
+<pre><code>$ sudo /bin/dd if=/dev/zero of=/var/swap.1 bs=1M count=1024
 $ sudo /sbin/mkswap /var/swap.1
 $ sudo /sbin/swapon /var/swap.1
 $ echo "/var/swap.1 swap swap defaults 0 0" &gt;&gt; /etc/fstab #將 swap 加入 開機啟動
-</code>
-在 Amazon EC2 micro plan，加入 swap 很容易 I/O 過量，
+</code></pre>
+
+<p>在 Amazon EC2 micro plan，加入 swap 很容易 I/O 過量，
 因此最好是需要時才開啟 swap，不用時關閉 swap 以免被收錢~</p>
 
-<p>swap usage
-```console
-$ swapon -s</p>
+<p>swap usage</p>
 
-<h2>$ free -k  </h2>
-
-<p>$ swapoff -a<br/>
-$ swapon  -a<br/>
-```</p>
+<pre><code class="console">$ swapon -s   
+$ free -k  
+---
+$ swapoff -a  
+$ swapon  -a  
+</code></pre>
 ]]></content>
   </entry>
   

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Apache | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/apache/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-02T20:39:53+08:00</updated>
+  <updated>2014-10-03T21:52:41+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -35,7 +35,7 @@ sudo openssl req -new -key host.key -out request.csr
 
 
 <p>Type what you want:
-```
+&#8220;`
   Country Name (2 letter code) [AU]:TW
   State or Province Name (full name) [Some-State]:Taiwan
   Locality Name (eg, city) []:Taipei
@@ -48,29 +48,27 @@ sudo openssl req -new -key host.key -out request.csr
   to be sent with your certificate request
   A challenge password []:
   An optional company name []:
-```</p>
+&#8220;`</p>
 
 <ol>
 <li><p>Create the SSL certificate
 <code>sudo openssl x509 -req -days 365 -in request.csr -signkey host.key -out server.crt</code></p>
 
-<p>  Create a nopass' key (optional)
+<p>  Create a nopass&#8217; key (optional)
   <code>openssl rsa -in host.key -out host.nopass.key</code></p></li>
 <li><p>Configure Apache
 <code>LoadModule ssl_module libexec/apache2/mod_ssl.so</code></p></li>
 </ol>
 
 
-<p><code>
-SSLEngine on
+<pre><code>SSLEngine on 
 SSLCertificateFile "/etc/apache2/ssl/server.crt"
 SSLCertificateKeyFile "/etc/apache2/ssl/host.nopass.key"
-</code></p>
+</code></pre>
 
-<p><code>
-sudo apachectl configtest
-sudo apachectl restart
-</code></p>
+<pre><code>sudo apachectl configtest 
+sudo apachectl restart 
+</code></pre>
 
 <p>p.s. enable mods: <code>sudo a2enmod ssl</code>
 enable sites: <code>sudo a2ensite default-ssl</code></p>
@@ -100,117 +98,88 @@ enable sites: <code>sudo a2ensite default-ssl</code></p>
 經典的網頁伺服器組合, 由FreeBSD, Apache, MySQL, PHP所組成 (使用Linux則稱為LAMP)
 以下則是在FreeBSD安裝網頁伺服器的過程簡單紀錄及問題排解。</p>
 
-<p>Env: FreeBSD 8.1　（以"此篇"安裝好的FreeBSD接續）
-安裝順序為:MySQL-> Apache-> PHP-> PHP-extension &ndash;> phpMyAdmin</p>
+<p>Env: FreeBSD 8.1　（以&#8221;此篇&#8221;安裝好的FreeBSD接續）
+安裝順序為:MySQL-> Apache-> PHP-> PHP-extension -> phpMyAdmin</p>
 
 <h1>MySQL</h1>
 
-<p>```</p>
+<pre><code>#cd /usr/ports/databases/mysql50-server  
+#make WITH_CHARSET=utf8 WITH_XCHARSET=all WITH_COLLATION=utf8_unicode_ci BUILD_OPTIMIZED=yes instal clean
+</code></pre>
 
-<h1>cd /usr/ports/databases/mysql50-server</h1>
+<p>=>安裝 mysql server 並設定編碼為utf8</p>
 
-<h1>make WITH_CHARSET=utf8 WITH_XCHARSET=all WITH_COLLATION=utf8_unicode_ci BUILD_OPTIMIZED=yes instal clean</h1>
+<pre><code>#rehash
+#sudo mysql_install_db (記得需要用root權限)
+</code></pre>
 
-<p>```
-=>安裝 mysql server 並設定編碼為utf8</p>
+<p>=>安裝資料庫</p>
 
-<p>```</p>
+<pre><code>#cp /usr/local/share/mysql/my-medium.cnf /etc/my.cnf  
+</code></pre>
 
-<h1>rehash</h1>
+<p>=>複製設定檔</p>
 
-<h1>sudo mysql_install_db (記得需要用root權限)</h1>
+<pre><code>#sudo chown -R mysql:mysql /var/db/mysql
+</code></pre>
 
-<p>```
-=>安裝資料庫</p>
+<p>=>變更mysql資料庫權限</p>
 
-<p>```</p>
+<pre><code>#sudo mysqld_safe &amp;  
+</code></pre>
 
-<h1>cp /usr/local/share/mysql/my-medium.cnf /etc/my.cnf</h1>
+<p>=>初始啟動</p>
 
-<p>```
-=>複製設定檔</p>
+<pre><code>#sudo mysqladmin -u root -p password 'Your_password'
+也可以是這樣
+#sudo mysqladmin -u root passowrd 'Your_password'  
+</code></pre>
 
-<p>```</p>
+<p>=>新增使用者 root , 前者會出現&#8221;Enter Password&#8221;, 就當做是confirm就好了</p>
 
-<h1>sudo chown -R mysql:mysql /var/db/mysql</h1>
+<pre><code>#sudo mysql -u root
+</code></pre>
 
-<p>```
-=>變更mysql資料庫權限</p>
-
-<p>```</p>
-
-<h1>sudo mysqld_safe &amp;</h1>
-
-<p>```
-=>初始啟動</p>
-
-<p>```</p>
-
-<h1>sudo mysqladmin -u root -p password &lsquo;Your_password&rsquo;</h1>
-
-<p>也可以是這樣</p>
-
-<h1>sudo mysqladmin -u root passowrd &lsquo;Your_password&rsquo;</h1>
-
-<p>```
-=>新增使用者 root , 前者會出現"Enter Password", 就當做是confirm就好了</p>
-
-<p>```</p>
-
-<h1>sudo mysql -u root</h1>
-
-<p>```
-=>進入MySQL, 輸入剛剛設定的密碼即可</p>
+<p>=>進入MySQL, 輸入剛剛設定的密碼即可</p>
 
 <h1>Apache</h1>
 
-<p>```</p>
+<pre><code># cd /usr/ports/www/apache22
+# make install clean
+</code></pre>
 
-<h1>cd /usr/ports/www/apache22</h1>
-
-<h1>make install clean</h1>
-
-<p>```
-=>安裝apache 皆使用預設設定</p>
+<p>=>安裝apache 皆使用預設設定</p>
 
 <h1>PHP</h1>
 
-<p>```</p>
+<pre><code># cd /usr/ports/lang/php5
+# make config install clean
+p.s.勾選 [X] APACHE Build Apache module
+</code></pre>
 
-<h1>cd /usr/ports/lang/php5</h1>
+<p>=>安裝php</p>
 
-<h1>make config install clean</h1>
+<pre><code># cd /usr/ports/lang/php5-extensions/
+# make config install clean
+</code></pre>
 
-<p>p.s.勾選 [X] APACHE Build Apache module
-```
-=>安裝php</p>
+<p>=>安裝 php5-entensions, 勾選需要的extension</p>
 
-<p>```</p>
+<pre><code># cd /usr/local/etc
+# cp php.ini-development php.ini
+</code></pre>
 
-<h1>cd /usr/ports/lang/php5-extensions/</h1>
-
-<h1>make config install clean</h1>
-
-<p>```
-=>安裝 php5-entensions, 勾選需要的extension</p>
-
-<p>```</p>
-
-<h1>cd /usr/local/etc</h1>
-
-<h1>cp php.ini-development php.ini</h1>
-
-<p>```
-=>修改PHP設定檔</p>
+<p>=>修改PHP設定檔</p>
 
 <p>修改Apache設定檔:
 編輯 <code>/usr/local/etc/apache22/httpd.conf</code>
-加入:
-<code>
-AddType application/x-httpd-php .php
+加入:</p>
+
+<pre><code>AddType application/x-httpd-php .php
 AddType application/x-httpd-php-source .phps
-</code>
-將 <code>DirectoryIndex index.html</code>
+</code></pre>
+
+<p>將 <code>DirectoryIndex index.html</code>
 修改成 <code>DirectoryIndex index.php index.html index.htm</code></p>
 
 <p>*如果要變更網站檔案預設路徑的話請見附註</p>
@@ -226,34 +195,27 @@ mysql_enable="YES"
 
 <h1>phpMyAdmin</h1>
 
-<p>```</p>
+<pre><code># cd /usr/ports/databases/phpmyadmin
+# make install clean
+</code></pre>
 
-<h1>cd /usr/ports/databases/phpmyadmin</h1>
+<pre><code>Alias /phpmyadmin/ "/usr/local/www/phpMyAdmin/"  
+ &lt;Directory "/usr/local/www/phpMyAdmin/"&gt;  
+     Options Indexes FollowSymLinks  
+     AllowOverride None  
+     Order allow,deny  
+     Allow from all  
+ &lt;/Directory&gt;  
+</code></pre>
 
-<h1>make install clean</h1>
+<p>編輯 <code>httpd.conf</code>:</p>
 
-<p><code>
-</code>
-Alias /phpmyadmin/ &ldquo;/usr/local/www/phpMyAdmin/"<br/>
- <Directory "/usr/local/www/phpMyAdmin/"><br/>
-     Options Indexes FollowSymLinks<br/>
-     AllowOverride None<br/>
-     Order allow,deny<br/>
-     Allow from all<br/>
- </Directory><br/>
-<code>``
-編輯</code>httpd.conf`:</p>
+<pre><code># cd /usr/local/www/phpmyadmin/
+# cp config.sample.inc.php config.inc.php
+# vim config.inc.php
+</code></pre>
 
-<p>```</p>
-
-<h1>cd /usr/local/www/phpmyadmin/</h1>
-
-<h1>cp config.sample.inc.php config.inc.php</h1>
-
-<h1>vim config.inc.php</h1>
-
-<p>```
-=>編輯phpMyAdmin的設定檔</p>
+<p>=>編輯phpMyAdmin的設定檔</p>
 
 <p>把這行 <code>$cfg['blowfish_secret'] = '';</code>
 改成 <code>$cfg['blowfish_secret'] = 'aabbccdd'; //裡面的字串可以自己修改</code></p>
@@ -265,16 +227,17 @@ Alias /phpmyadmin/ &ldquo;/usr/local/www/phpMyAdmin/"<br/>
 
 <p>啟動： <code>/usr/local/etc/rc.d/mysql-server start</code>
 進入command line： <code>#/usr/local/bin/mysql mysql</code>
-更改root密碼：
-<code>
-UPDATE user SET password=password('你的密碼') where user='root';
+更改root密碼：</p>
+
+<pre><code>UPDATE user SET password=password('你的密碼') where user='root';
 FLUSH PRIVILEGES;
-</code>
-新增一使用者（完整權限，localhost登入), 再刪除root</p>
+</code></pre>
+
+<p>新增一使用者（完整權限，localhost登入), 再刪除root</p>
 
 <hr />
 
-<p>狀況A &ndash; 若啟動apache時出現以下狀況<br/>
+<p>狀況A - 若啟動apache時出現以下狀況<br/>
 <code>httpd: Could not reliably determine the server's fully qualified domain name, using 127.0.0.1 for ServerName</code></p>
 
 <p>到 <code>httd.conf</code><br/>
@@ -284,42 +247,35 @@ FLUSH PRIVILEGES;
 
 <hr />
 
-<p>狀況B:<br/>
-```</p>
+<p>狀況B:</p>
 
-<h1>mysql -u root -p</h1>
+<pre><code class=""># mysql -u root -p  
+Enter password:  
+ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: NO)  
+</code></pre>
 
-<p>Enter password:<br/>
-ERROR 1045 (28000): Access denied for user &lsquo;root&rsquo;@&lsquo;localhost&rsquo; (using password: NO)<br/>
-<code>
-</code></p>
+<pre><code># sudo /usr/local/etc/rc.d/mysql-server stop
+# sudo mysqld_safe --user=mysql --skip-grant-tables --skip-networking &amp;
+# sudo mysql -u root mysql
+mysql&gt; UPDATE user SET Password=PASSWORD('newpassword') where USER='root';
+mysql&gt; FLUSH PRIVILEGES;
+mysql&gt; quit
 
-<h1>sudo /usr/local/etc/rc.d/mysql-server stop</h1>
+# sudo /usr/local/etc/rc.d/mysql-server restart
+# mysql -u root -p
+Enter password: &lt;輸入新設定的密碼&gt;
 
-<h1>sudo mysqld_safe &mdash;user=mysql &mdash;skip-grant-tables &mdash;skip-networking &amp;</h1>
+mysql&gt;
+</code></pre>
 
-<h1>sudo mysql -u root mysql</h1>
-
-<p>mysql> UPDATE user SET Password=PASSWORD(&lsquo;newpassword&rsquo;) where USER=&lsquo;root&rsquo;;
-mysql> FLUSH PRIVILEGES;
-mysql> quit</p>
-
-<h1>sudo /usr/local/etc/rc.d/mysql-server restart</h1>
-
-<h1>mysql -u root -p</h1>
-
-<p>Enter password: &lt;輸入新設定的密碼></p>
-
-<p>mysql>
-```
-done!</p>
+<p>done!</p>
 
 <hr />
 
-<p>狀況C: 若遇上**警告提示
-<code>
-Warning: phpinfo() [[function.phpinfo][1]]: It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected 'UTC' for '8.0/no DST' instead in **/.../index.php** on line **2  
-</code></p>
+<p>狀況C: 若遇上**警告提示</p>
+
+<pre><code>Warning: phpinfo() [[function.phpinfo][1]]: It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected 'UTC' for '8.0/no DST' instead in **/.../index.php** on line **2  
+</code></pre>
 
 <p>通常是出現在5.3.0的版本<br/>
 只要修改 <code>php.ini</code> , 加上 <code>'date'.timezone = "Asia/Taipei"</code> 即可解決!</p>
@@ -341,18 +297,19 @@ Warning: phpinfo() [[function.phpinfo][1]]: It is not safe to rely on the system
 不想把文件放在 <code>/usr/local/www/apache22/data</code><br/>
 想把他放在 <code>/home/www/</code><br/>
 因此到 home 目錄去 mkdir 一個 www 資料夾<br/>
-再到 <code>httpd.conf</code>, 更改兩個地方, 原本為<br/>
-<code>
-DocumentRoot "/usr/local/www/apache22/data"
-&lt;Directory "/usr/local/www/apache22/data"&gt;
-</code></p>
+再到 <code>httpd.conf</code>, 更改兩個地方, 原本為</p>
 
-<p>改為<br/>
-<code>
-DocumentRoot "/home/www/"  
+<pre><code>DocumentRoot "/usr/local/www/apache22/data"
+&lt;Directory "/usr/local/www/apache22/data"&gt;
+</code></pre>
+
+<p>改為</p>
+
+<pre><code>DocumentRoot "/home/www/"  
 &lt;Directory "/home/www/"&gt;  
-</code>
-這樣就會連到/home/www/去讀資料了</p>
+</code></pre>
+
+<p>這樣就會連到/home/www/去讀資料了</p>
 ]]></content>
   </entry>
   

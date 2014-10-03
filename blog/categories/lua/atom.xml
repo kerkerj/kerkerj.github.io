@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Lua | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/lua/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-02T20:39:53+08:00</updated>
+  <updated>2014-10-03T21:52:41+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -28,42 +28,33 @@
 
 <p>Install homebrew (optional)</p>
 
-<p><code>
-ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
-</code></p>
+<pre><code>ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+</code></pre>
 
 <p>Install Lua by homebrew</p>
 
-<p><code>
-brew install lua
-</code></p>
+<pre><code>brew install lua
+</code></pre>
 
 <h2>Writing Lua</h2>
 
 <p>You can use command: <code>lua</code> to interact with lua. (just like <code>php -a</code> or <code>irb</code>)</p>
 
-<p>```lua hello.lua
-print(&ldquo;Hello World&rdquo;)</p>
-
-<p>```</p>
-
-<p>```lua fact.lua
-function fact(n)</p>
-
-<pre><code>if n == 0 then
-    return 1
-else
-    return n * fact(n-1)
-end
+<pre><code class="lua hello.lua">print("Hello World")
 </code></pre>
 
-<p>end</p>
+<pre><code class="lua fact.lua">function fact(n)
+    if n == 0 then
+        return 1
+    else
+        return n * fact(n-1)
+    end
+end
 
-<p>print(&ldquo;enter a number:&rdquo;)
-num = io.read(&ldquo;*number&rdquo;)
-print(fact(num))</p>
-
-<p>```</p>
+print("enter a number:")
+num = io.read("*number") 
+print(fact(num))
+</code></pre>
 ]]></content>
   </entry>
   

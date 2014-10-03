@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Android | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/android/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-02T20:39:53+08:00</updated>
+  <updated>2014-10-03T21:52:41+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -42,21 +42,18 @@ Step2. 安裝 <a href="http://www.eclipse.org/downloads/packages/eclipse-ide-jav
 Step3. 到 <a href="http://developer.android.com/">Android Developers</a> 下載 <a href="http://developer.android.com/sdk/index.html">Android SDK</a> 並安裝<br/>
 <a href="http://4.bp.blogspot.com/-B4zRQJ_Hino/T47FNembF_I/AAAAAAAAC5w/onWCdvf2iC8/s1600/android1.png"><img src="http://4.bp.blogspot.com/-B4zRQJ_Hino/T47FNembF_I/AAAAAAAAC5w/onWCdvf2iC8/s640/android1.png" alt="" /></a>
 Step4. 安裝 ADT Plugin for Eclipse ( <a href="http://developer.android.com/sdk/eclipse-adt.html#installing">官方文件</a> )
-   a. 開啟 Eclipse， [Help] &ndash;> [Install New Software&hellip;.]
+   a. 開啟 Eclipse， [Help] -> [Install New Software&hellip;.]
    b. 點選 [Add] 輸入名稱及網址 ( APT / <a href="https://dl-ssl.google.com/android/eclipse/">https://dl-ssl.google.com/android/eclipse/</a> )
    c. 等待 pending 結束後會看到可以勾選的 Developer Tools ，選擇 next 並 accept 開始安裝
 <a href="http://3.bp.blogspot.com/-QHyb2NYl9Bc/T47FOa_Pj0I/AAAAAAAAC50/Yrskz6l_VrU/s1600/android2.png"><img src="http://3.bp.blogspot.com/-QHyb2NYl9Bc/T47FOa_Pj0I/AAAAAAAAC50/Yrskz6l_VrU/s640/android2.png" alt="" /></a>
 Step5. 安裝 packages (Platforms and Other Packages)
-   a. 從 Eclipse : [Window] &ndash;> [Android SDK Manager]
+   a. 從 Eclipse : [Window] -> [Android SDK Manager]
    b. 從 Windows : 到 Android SDK 資料夾中點擊 SDK Manager.exe
    c. 從 Linux/Mac : 到 Android SDK 的 tools 資料夾，並執行 android 指令
    選擇要開發的版本或package並安裝
-<a href="http://2.bp.blogspot.com/-K8t_6L2xiBs/T47FOxvM8BI/AAAAAAAAC6A/a7WIq7z-ygw/s1600/android3.png"><img src="http://2.bp.blogspot.com/-K8t_6L2xiBs/T47FOxvM8BI/AAAAAAAAC6A/a7WIq7z-ygw/s640/android3.png" alt="" /></a></p>
-
-<pre><code>沒記錯的話安裝完 Eclpise 的外掛後，Eclipse 會自動跳出問你的 Android SDK 裝在哪，
-</code></pre>
-
-<p>  若這時候已經安裝好 SDK 的話就可以選擇第二個選項，並指定資料夾位址<br/>
+<a href="http://2.bp.blogspot.com/-K8t_6L2xiBs/T47FOxvM8BI/AAAAAAAAC6A/a7WIq7z-ygw/s1600/android3.png"><img src="http://2.bp.blogspot.com/-K8t_6L2xiBs/T47FOxvM8BI/AAAAAAAAC6A/a7WIq7z-ygw/s640/android3.png" alt="" /></a>
+    沒記錯的話安裝完 Eclpise 的外掛後，Eclipse 會自動跳出問你的 Android SDK 裝在哪，
+  若這時候已經安裝好 SDK 的話就可以選擇第二個選項，並指定資料夾位址<br/>
 <a href="http://2.bp.blogspot.com/-6bJrhcn2SiM/T47GecGxajI/AAAAAAAAC6Q/eneUabD0cmE/s1600/android4.png"><img src="http://2.bp.blogspot.com/-6bJrhcn2SiM/T47GecGxajI/AAAAAAAAC6Q/eneUabD0cmE/s640/android4.png" alt="" /></a>
 接著就可以寫程式了
 開啟模擬器的話就到下圖所示新增即可
@@ -102,22 +99,19 @@ adb.exe
 Intent.ACTION_USER_PRESENT //解鎖</p></blockquote>
 
 <p>只要建立下面的 Receiver
-```java
-public class MyReceiver extends BroadcastReceiver {</p>
-
-<pre><code>@Override
-public void onReceive(final Context context, final Intent intent) {
-    final String action = intent.getAction();
-    if (Intent.ACTION_BOOT_COMPLETED.equals(action)) {
-  // TODO 開機啟動
-    } else if (Intent.ACTION_USER_PRESENT.equals(action)) {
-        // TODO 解鎖啟動
-    }
-}   
-</code></pre>
-
-<p>}
-```
+<code>java
+public class MyReceiver extends BroadcastReceiver {
+    @Override
+    public void onReceive(final Context context, final Intent intent) {
+        final String action = intent.getAction();
+        if (Intent.ACTION_BOOT_COMPLETED.equals(action)) {
+      // TODO 開機啟動
+        } else if (Intent.ACTION_USER_PRESENT.equals(action)) {
+            // TODO 解鎖啟動
+        }
+    }   
+}
+</code>
 並且在 AndroidManifest.xml 裡宣告就可以了</p>
 ]]></content>
   </entry>
@@ -127,33 +121,31 @@ public void onReceive(final Context context, final Intent intent) {
     <link href="http://kerkerj.github.io/blog/2011/08/30/android-alertdialog-with-edittext/"/>
     <updated>2011-08-30T09:27:00+08:00</updated>
     <id>http://kerkerj.github.io/blog/2011/08/30/android-alertdialog-with-edittext</id>
-    <content type="html"><![CDATA[<p>```java
-  AlertDialog.Builder alert = new AlertDialog.Builder(this);</p>
+    <content type="html"><![CDATA[<pre><code class="java ">  AlertDialog.Builder alert = new AlertDialog.Builder(this);  
 
-<pre><code>alert.setTitle("Title");  
-alert.setMessage("Message");  
-// Set an EditText view to get user input   
-final EditText input = new EditText(this);  
-alert.setView(input);  
+    alert.setTitle("Title");  
+    alert.setMessage("Message");  
+    // Set an EditText view to get user input   
+    final EditText input = new EditText(this);  
+    alert.setView(input);  
 
-alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {  
- public void onClick(DialogInterface dialog, int whichButton) {  
- String value = input.getText();  
- Do something with value!  
- }  
-});  
+    alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {  
+     public void onClick(DialogInterface dialog, int whichButton) {  
+     String value = input.getText();  
+     Do something with value!  
+     }  
+    });  
 
-alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {  
- public void onClick(DialogInterface dialog, int whichButton) {  
- // Canceled.  
- }  
-});  
+    alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {  
+     public void onClick(DialogInterface dialog, int whichButton) {  
+     // Canceled.  
+     }  
+    });  
 
-alert.show();  
+    alert.show();  
 </code></pre>
 
-<p>``` <br/>
-就這樣XD</p>
+<p>就這樣XD</p>
 
 <p>ref: <a href="http://www.androidsnippets.com/prompt-user-input-with-an-alertdialog">http://www.androidsnippets.com/prompt-user-input-with-an-alertdialog</a></p>
 ]]></content>

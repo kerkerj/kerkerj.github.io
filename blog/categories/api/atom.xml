@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Api | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/api/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-02T20:39:53+08:00</updated>
+  <updated>2014-10-03T21:52:41+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,42 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[API-d3] - 使用時機與實際 API 參考]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/03/api-d3/"/>
+    <updated>2014-10-03T21:07:32+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/03/api-d3</id>
+    <content type="html"><![CDATA[<h1>使用時機與實際 API 參考</h1>
+
+<p>什麼時候需要打造 RESTful API?<br/>
+看看別人的 RESTful API (Instagram/Twitter)</p>
+
+<p>什麼時候需要打造 RESTful API?<br/>
+我認為當有數組資源要被多種不同平台使用時，就需要打造 RESTful API<br/>
+例如，有 Android/ iOS / Web 要對同一 table 做存取時，<br/>
+假設有個 MySQL DB，各個平台都使用各自的 mysql-driver 來直接操作 DB<br/>
+假設有個 A 專案建立了一套書籍管理系統，資料庫裡記錄了大大小小的書籍，<br/>
+而有個新的 B 專案需要使用到書籍的資料，此時 DB 操作的程式碼只能再寫一遍，<br/>
+且各個平台重新撰寫，似乎是不大靠譜。</p>
+
+<p>撰寫 RESTful API 的好處之一即是 RESTful 使用 HTTP 協定，<br/>
+各個平台皆支援，不需要太複雜的程式，只需要使用各個平台的 http-client，<br/>
+各個平台也不需要了解 DB 操作語法，只需要知道 json, xml 習慣的資料格式，  <br/>
+且開發 API 還能夠對各個資源輕易地上 cache 增進反應速度，<br/>
+開發 RESTful API 好處多多，哪天想 Open API 也就不需要再多作處理了～</p>
+
+<p>接著讓我們來看看兩個有名網站的 API 吧！</p>
+
+<p>Instagram: <a href="http://instagram.com/developer/api-console/">http://instagram.com/developer/api-console/</a><br/>
+Twitter: <a href="https://dev.twitter.com/rest/tools/console">https://dev.twitter.com/rest/tools/console</a></p>
+
+<p>很顯然的，我比較喜歡 Instagram 的 API 資源定義與命名方式 :P</p>
+
+<p>下一篇會介紹我接下來會用到的工具箱，暖身結束，要正式開始了!<br/>
+(不好意思前面嘴炮一點 XD)</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[API-d2] - 定義 2 - RESTful 的優點與要求]]></title>

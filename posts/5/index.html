@@ -98,6 +98,255 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2013/10/22/vagrant-vagrant-nginx-php5-fpm/">[Vagrant] 使用 Vagrant 安裝 Nginx, Php5-fpm, MySQL</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-22T13:21:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/10/22/vagrant-vagrant-nginx-php5-fpm/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2013/10/22/vagrant-vagrant-nginx-php5-fpm/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1><a href="http://www.vagrantup.com/">Vagrant</a> - Development environments made easy.</h1>
+
+<p>就是這個軟體的宗旨，把它想做是 ghost 吧！我們開發網站或是測試一些多機器架構時，常不小心就把自己的電腦或是測試主機搞到爛掉，租機器又慢又花錢，搞到爛重灌更麻煩。因此這個軟體基於 VirtualBox 做出了令人方便設定的功能，讓我們可以快速架設安裝環境並測試，尤其是以多機器架構而言更是方便！例如從最簡單的 Web server + DB server，或是 Web Load Balancer + Application Server * 5 等等的架構，一台電腦就能達成囉！
+今天主要是以安裝 Vagrant 及架設出 Nginx + php5-fpm 的架構，下一篇打算另外建構一台 mongodb server，達到 Vagrant 最主要的多機器設定功能~</p>
+
+<h1>Vagrant 基本設定</h1>
+
+<ol>
+<li>先下載 VirtualBox 吧！</li>
+<li>下載 Vagarnt 套件 <a href="http://downloads.vagrantup.com/">http://downloads.vagrantup.com/</a><br/>
+安裝好後，可能會需要加 path，至少 1.3.0 當時我是自己加的，現在 1.3.5 就不清楚了~</li>
+<li>接下來就可以開始加入 box (可以把它想為 ghost 檔)，並開始設定 Vagrant。</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vagrant box add {你想要的Box名稱} {下載網址} </span></code></pre></td></tr></table></div></figure>
+
+
+<p>輸入後就會開始下載該 box 了！ 範例：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$vagrant box add devbox http://ﬁles.vagrantup.com/precise64.box   
+</span><span class='line'>$mkdir my_box  
+</span><span class='line'>$cd my_box  
+</span><span class='line'>$vagrant init devbox (將 my_box 這個專案資料夾以 devbox 這個 box 檔案初始化)  </span></code></pre></td></tr></table></div></figure>
+
+
+<p>box 官方有提供 Ubuntu 的，在 <a href="http://www.vagrantbox.es/">vagrantbox.es</a> 很多，可以自己找～ 當然自己做應該也是可以的！</p>
+
+<h1>Vagrant 基本指令</h1>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vagrant up 開機  
+</span><span class='line'>vagrant ssh 登⼊  
+</span><span class='line'>vagrant suspend 暫停  
+</span><span class='line'>vagrant halt 關機  
+</span><span class='line'>vagrant destroy 刪除  </span></code></pre></td></tr></table></div></figure>
+
+
+<h1>進入新裝好的機器吧！</h1>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$vagrant up  //開機  
+</span><span class='line'>$vagrant ssh //登入  </span></code></pre></td></tr></table></div></figure>
+
+
+<h1>Vagrantfile 設定</h1>
+
+<p>Vagrantfile 這個設定檔可以用很多很強大的設定，在官方網頁裡有教學
+不過首先要先做的是： <code>config.vm.forward_port 80, 8088</code>
+把虛擬機器裡從 80 port 傳送的東西丟到本機的 8088 port
+如此一來在本機瀏覽器輸入 localhost:8088 ，就可以看到網頁了！
+另外就是： <code>config.vm.synced_folder "/vagrant", "本機目錄"</code>
+如此一來，Ubuntu 底下就有一個 /vargrant 目錄，和自己主機裡的某個目錄是同步的！
+也就是在自己主機上寫好程式後，就可以直接讓虛擬機器抓到 code 去執行，超方便的！
+只要把 nginx 的網頁目錄設定在 /vagrant 上就可以了！ (後面會說)</p>
+
+<h1>Ubuntu 基本安裝</h1>
+
+<p>進去後是乾淨的 Ubuntu 12.04 64位元版，因此需先做點安裝:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$sudo apt-get -y update  
+</span><span class='line'>$sudo apt-get --no-install-recommends -y install build-essential openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev libgdbm-dev ncurses-dev automake libtool bison subversion pkg-config libffi-dev vim  </span></code></pre></td></tr></table></div></figure>
+
+
+<p>有些東西其實可以不用裝，就看個人的需求，必裝應該是 build-essential, openssl, curl, git-core, vim XD</p>
+
+<h1>Nginx &amp; php5-fpm 安裝</h1>
+
+<p>安裝 Nginx</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$sudo apt-get install nginx  </span></code></pre></td></tr></table></div></figure>
+
+
+<p>若要更改 Nginx 的網頁目錄，設定檔在 <code>/etc/nginx/</code> 裡，
+通常應該是更改 <code>/etc/nginx/sites-enable/default</code> 裡的 <code>root /usr/share/nginx/www/</code>
+還要將這段 code 解除註解：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>location ~ \.php$ {
+</span><span class='line'>  fastcgi_split_path_info ^(.+\.php)(/.+)$;
+</span><span class='line'>  # NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
+</span><span class='line'>
+</span><span class='line'>  # With php5-cgi alone:
+</span><span class='line'>  #fastcgi_pass 127.0.0.1:9000;
+</span><span class='line'>  # With php5-fpm:
+</span><span class='line'>  fastcgi_pass unix:/var/run/php5-fpm.sock;
+</span><span class='line'>  fastcgi_index index.php;
+</span><span class='line'>  include fastcgi_params;
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>更改後確認一下 <code>/etc/nginx/nginx.conf</code> 是否有 <code>inculde /etc/nginx/sites-enable/*</code></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$sudo service nginx start (開始服務)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>安裝 php5-fpm</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$sudo apt-get install php5-fpm  
+</span><span class='line'>$sudo vim /etc/php5/fpm/php.ini (找到並更改 cgi.fix_pathinfo = 0 )  
+</span><span class='line'>$sudo vim /etc/php5/fpm/pool.d/www.conf  </span></code></pre></td></tr></table></div></figure>
+
+
+<p>找到 <code>listen = 127.0.0.1:9000</code>, 換成 <code>/var/run/php5-fpm.sock</code>
+寫個 phpinfo(); 的 php 檔放入資料夾</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$sudo service php5-fpm restart (開啟服務)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在瀏覽器輸入 localhost:8088 就可以看到 nginx 的頁面，再讀取剛剛寫的 php 應該就成功囉！</p>
+
+<p>安裝 MySQL:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get install mysql-server</span></code></pre></td></tr></table></div></figure>
+
+
+<p>過程中會問 root 的密碼，裝完後就可以登入：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ mysql -u root -p</span></code></pre></td></tr></table></div></figure>
+
+
+<p>下回就是多機器的設定囉～</p>
+
+<p>reference:<br/>
+<a href="http://gogojimmy.net/2013/05/26/vagrant-tutorial/">http://gogojimmy.net/2013/05/26/vagrant-tutorial/</a>
+<a href="http://www.slideshare.net/ihower/vagrant-osdc">http://www.slideshare.net/ihower/vagrant-osdc</a>
+<a href="https://www.digitalocean.com/community/articles/how-to-install-linux-nginx-mysql-php-lemp-stack-on-ubuntu-12-04">https://www.digitalocean.com/community/articles/how-to-install-linux-nginx-mysql-php-lemp-stack-on-ubuntu-12-04</a></p>
+
+<p>p.s. Vagrantfile 產生器：<a href="https://puphpet.com/#vagrantfile">Puphpet.com/#vagrantfile</a>
+這網站有很多值得玩的地方，可以直接幫你產生出這些設定檔真的是太方便了！</p>
+
+<p>p.s.s.有亂入用到的指令記一下：dpkg &ndash;get-selections 列出已安裝的 package
+另外提供一下我在研究 Vagrant 的筆記，很亂超級亂，但是有些東西沒有寫在 blog 裡~
+<a href="https://www.evernote.com/shard/s81/sh/91ccf490-d9cd-468e-943a-d57c79d052f4/71e0a682b024c6e97fd8c79b90f89f67">Evernote by kerkerj</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/06/12/android-ui-update-2/">[Android] Thread 處理 UI Update (2)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-12T17:32:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2012/06/12/android-ui-update-2/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2012/06/12/android-ui-update-2/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>這是第一篇: [[Android] thread 處理 UI update]</p>
+
+<p>在那之後自己在寫一些東西時也用到 runOnUiThread<br/>
+不過有別的方法可以不用像 runOnUiThread 寫的比較雜亂<br/>
+那就是用 AsyncTask , 剛剛自己也順手寫了一個 Test 放在 Github 上<br/>
+我覺得使用 AsyncTask 可以不用處理 thread, 而且寫法上比較清楚~</p>
+
+<script src="https://gist.github.com/kerkerj/7367244.js"></script>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2012/06/12/php-checkbox-checkuncheck-all/">[PHP] Checkbox Check/uncheck All</a></h1>
     
     
@@ -114,7 +363,7 @@
   
 
 
-<time datetime="2012-06-12T17:23:00+08:00" pubdate data-updated="true">Jun 12<sup>th</sup>, 2012</time>
+<time datetime="2012-06-12T17:23:00+08:00" pubdate data-updated="true"></time>
         
            | <a href="/blog/2012/06/12/php-checkbox-checkuncheck-all/#disqus_thread"
              data-disqus-identifier="http://kerkerj.github.io/blog/2012/06/12/php-checkbox-checkuncheck-all/">Comments</a>
@@ -158,7 +407,7 @@
   
 
 
-<time datetime="2012-04-27T16:44:00+08:00" pubdate data-updated="true">Apr 27<sup>th</sup>, 2012</time>
+<time datetime="2012-04-27T16:44:00+08:00" pubdate data-updated="true"></time>
         
            | <a href="/blog/2012/04/27/ubuntu-ror-install-with-rvm/#disqus_thread"
              data-disqus-identifier="http://kerkerj.github.io/blog/2012/04/27/ubuntu-ror-install-with-rvm/">Comments</a>
@@ -197,24 +446,21 @@
 
 <p>指令:</p>
 
-<blockquote><p>rvm info &ndash;> 查看 rvm 做的設定
-rvm list known &ndash;> 列出所有可安裝的套件
-rvm list &ndash;> 列出目前已安裝的套件
-rvm install &ldquo;package_name&rdquo; &ndash;> 安裝套件
-rvm remove &ldquo;package_name&rdquo; &ndash;> 移除套件
-rvm 1.9.2 &mdash;default &ndash;> 設定預設的 ruby 版本</p></blockquote>
+<blockquote><p>rvm info -> 查看 rvm 做的設定
+rvm list known -> 列出所有可安裝的套件
+rvm list -> 列出目前已安裝的套件
+rvm install &ldquo;package_name&rdquo; -> 安裝套件
+rvm remove &ldquo;package_name&rdquo; -> 移除套件
+rvm 1.9.2 &ndash;default -> 設定預設的 ruby 版本</p></blockquote>
 
 <p>假設系統上的 ruby 版本是 1.9.1, 而我用 rvm 安裝了 ruby1.9.3
 那麼目前系統上的預設 ruby 版本是 1.9.3, 用 <code>ruby -v</code> 測試看看
 如果要切換回系統的 ruby 版本, 則使用 <code>rvm system</code>
-要切換回來的話,則:</p>
-
-<pre><code>    `rvm 1.9.3` (直接輸入有安裝過的 ruby 版號即可)
-    or
-    `rvm use 1.9.3`
-</code></pre>
-
-<p>以上是 rvm 的一些簡單指令, 因為今天是要安裝 ruby on rails
+要切換回來的話,則:
+        <code>rvm 1.9.3</code> (直接輸入有安裝過的 ruby 版號即可)
+        or
+        <code>rvm use 1.9.3</code>
+以上是 rvm 的一些簡單指令, 因為今天是要安裝 ruby on rails
 所以先安裝 ruby 吧:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -227,8 +473,8 @@ rvm 1.9.2 &mdash;default &ndash;> 設定預設的 ruby 版本</p></blockquote>
 
 <p>指令:</p>
 
-<blockquote><p>gem list &ndash;> 列出目前已安裝的套件
-gem install &ldquo;package_name&rdquo; &ndash;> 安裝套件不同的 ruby 版本有不同的 gem</p></blockquote>
+<blockquote><p>gem list -> 列出目前已安裝的套件
+gem install &ldquo;package_name&rdquo; -> 安裝套件不同的 ruby 版本有不同的 gem</p></blockquote>
 
 <p>如果 rvm 裡有 1.9.1 和 1.9.3 兩個乾淨的 ruby 版本
 目前使用的 ruby 版本是 1.9.3
@@ -250,24 +496,21 @@ gem install &ldquo;package_name&rdquo; &ndash;> 安裝套件不同的 ruby 版�
 如果說我想要在 ruby 1.9.2 底下安裝兩種 rails 版本, 又怕會衝突該怎麼辦?
 就可以用 gemset 了</p>
 
-<p>樹狀架構大概如下:</p>
-
-<pre><code>    rvm -&gt; 1.9.1 -&gt; gemset: rails-2.3.9
-                            rails-3.1.1*
-        -&gt; 1.9.3 -&gt; gemset: rails-2.3.9
-                            rails-3.1.1
-</code></pre>
-
-<p>可以解釋為: 在 rvm 的 ruby 1.9.1 底下有兩個 gemset, 分別是 rails-2.3.9 和 rails-3.1.1</p>
+<p>樹狀架構大概如下:
+        rvm -> 1.9.1 -> gemset: rails-2.3.9
+                                rails-3.1.1*
+            -> 1.9.3 -> gemset: rails-2.3.9
+                                rails-3.1.1
+可以解釋為: 在 rvm 的 ruby 1.9.1 底下有兩個 gemset, 分別是 rails-2.3.9 和 rails-3.1.1</p>
 
 <p>指令:</p>
 
-<blockquote><p>rvm gemset list &ndash;> 查看目前建立的 gemset
-rvm 1.9.2@rails-3.1.1 &ndash;> 在 ruby 1.9.2 版本底下使用 rails-3.1.1 這個 gemset
-rvm gemset create &ldquo;gemset_name&rdquo; &ndash;> 建立 gemset
-rvm gemset use &ldquo;gemset_name&rdquo; &ndash;> 使用某個 gemset
-rvm gemset empty &ldquo;gemset_name&rdquo; &ndash;> 清空某個 gemset (只是清空)
-rvm gemset delete &ldquo;gemset_name&rdquo; &ndash;> 刪除某個 gemset以上就是關於 rvm 的二三事, 做到這邊, ruby 和 rails 套件應該就安裝完了</p></blockquote>
+<blockquote><p>rvm gemset list -> 查看目前建立的 gemset
+rvm 1.9.2@rails-3.1.1 -> 在 ruby 1.9.2 版本底下使用 rails-3.1.1 這個 gemset
+rvm gemset create &ldquo;gemset_name&rdquo; -> 建立 gemset
+rvm gemset use &ldquo;gemset_name&rdquo; -> 使用某個 gemset
+rvm gemset empty &ldquo;gemset_name&rdquo; -> 清空某個 gemset (只是清空)
+rvm gemset delete &ldquo;gemset_name&rdquo; -> 刪除某個 gemset以上就是關於 rvm 的二三事, 做到這邊, ruby 和 rails 套件應該就安裝完了</p></blockquote>
 
 <p>最後安裝資料庫的 adapter , 這裡是用 sqlite
 <code>gem install sqlite3 --no-ri --no-rdoc</code>
@@ -290,7 +533,7 @@ Gem::RemoteFetcher::FetchError: SSL_connect returned=1 errno=0 state=SSLv3 read 
 
 <blockquote><p>rvm pkg install openssl
 rvm remove 1.9.3
-rvm install 1.9.3 &mdash;with-openssl-dir=$rvm_path/usr
+rvm install 1.9.3 &ndash;with-openssl-dir=$rvm_path/usr
 然後將 rvm 裡的 ssl certs 資料夾移除, 改成直接讀系統的 ssl certs
 rmdir $rvm_path/usr/ssl/certs
 ln -s /etc/ssl/certs $rvm_path/usr/ssl</p></blockquote>
@@ -299,7 +542,7 @@ ln -s /etc/ssl/certs $rvm_path/usr/ssl</p></blockquote>
 
 <blockquote><p>when excuting the command &ldquo;gem install rails&rdquo;
 ERROR:  Loading command: install (LoadError)
-cannot load such file &mdash; zlib
+cannot load such file &ndash; zlib
 ERROR:  While executing gem &hellip; (NameError)
 uninitialized constant Gem::Commands::InstallCommand</p></blockquote>
 
@@ -319,7 +562,7 @@ Install zlib1g-dev, then install ruby in system and rvm.</p></blockquote>
 <p>Solution:
 <code>sudo apt-get install nodejs</code>
 Reference:
-<a href="http://www.openfoundry.org/tw/tech-column/8513-rvm-ruby-environment-version-manager">RVM &ndash; Ruby enVironment (Version) Manager</a></p>
+<a href="http://www.openfoundry.org/tw/tech-column/8513-rvm-ruby-environment-version-manager">RVM - Ruby enVironment (Version) Manager</a></p>
 </div>
   
   
@@ -348,7 +591,7 @@ Reference:
   
 
 
-<time datetime="2012-04-20T03:12:00+08:00" pubdate data-updated="true">Apr 20<sup>th</sup>, 2012</time>
+<time datetime="2012-04-20T03:12:00+08:00" pubdate data-updated="true"></time>
         
            | <a href="/blog/2012/04/20/ubuntu-ssh/#disqus_thread"
              data-disqus-identifier="http://kerkerj.github.io/blog/2012/04/20/ubuntu-ssh/">Comments</a>
@@ -405,7 +648,7 @@ Reference:
   
 
 
-<time datetime="2012-04-18T15:26:00+08:00" pubdate data-updated="true">Apr 18<sup>th</sup>, 2012</time>
+<time datetime="2012-04-18T15:26:00+08:00" pubdate data-updated="true"></time>
         
            | <a href="/blog/2012/04/18/android-thread-ui-update/#disqus_thread"
              data-disqus-identifier="http://kerkerj.github.io/blog/2012/04/18/android-thread-ui-update/">Comments</a>
@@ -602,7 +845,7 @@ Reference:
   
 
 
-<time datetime="2012-04-18T13:54:00+08:00" pubdate data-updated="true">Apr 18<sup>th</sup>, 2012</time>
+<time datetime="2012-04-18T13:54:00+08:00" pubdate data-updated="true"></time>
         
            | <a href="/blog/2012/04/18/android-install-developing-env/#disqus_thread"
              data-disqus-identifier="http://kerkerj.github.io/blog/2012/04/18/android-install-developing-env/">Comments</a>
@@ -619,21 +862,18 @@ Step2. 安裝 <a href="http://www.eclipse.org/downloads/packages/eclipse-ide-jav
 Step3. 到 <a href="http://developer.android.com/">Android Developers</a> 下載 <a href="http://developer.android.com/sdk/index.html">Android SDK</a> 並安裝<br/>
 <a href="http://4.bp.blogspot.com/-B4zRQJ_Hino/T47FNembF_I/AAAAAAAAC5w/onWCdvf2iC8/s1600/android1.png"><img src="http://4.bp.blogspot.com/-B4zRQJ_Hino/T47FNembF_I/AAAAAAAAC5w/onWCdvf2iC8/s640/android1.png" alt="" /></a>
 Step4. 安裝 ADT Plugin for Eclipse ( <a href="http://developer.android.com/sdk/eclipse-adt.html#installing">官方文件</a> )
-   a. 開啟 Eclipse， [Help] &ndash;> [Install New Software&hellip;.]
+   a. 開啟 Eclipse， [Help] -> [Install New Software&hellip;.]
    b. 點選 [Add] 輸入名稱及網址 ( APT / <a href="https://dl-ssl.google.com/android/eclipse/">https://dl-ssl.google.com/android/eclipse/</a> )
    c. 等待 pending 結束後會看到可以勾選的 Developer Tools ，選擇 next 並 accept 開始安裝
 <a href="http://3.bp.blogspot.com/-QHyb2NYl9Bc/T47FOa_Pj0I/AAAAAAAAC50/Yrskz6l_VrU/s1600/android2.png"><img src="http://3.bp.blogspot.com/-QHyb2NYl9Bc/T47FOa_Pj0I/AAAAAAAAC50/Yrskz6l_VrU/s640/android2.png" alt="" /></a>
 Step5. 安裝 packages (Platforms and Other Packages)
-   a. 從 Eclipse : [Window] &ndash;> [Android SDK Manager]
+   a. 從 Eclipse : [Window] -> [Android SDK Manager]
    b. 從 Windows : 到 Android SDK 資料夾中點擊 SDK Manager.exe
    c. 從 Linux/Mac : 到 Android SDK 的 tools 資料夾，並執行 android 指令
    選擇要開發的版本或package並安裝
-<a href="http://2.bp.blogspot.com/-K8t_6L2xiBs/T47FOxvM8BI/AAAAAAAAC6A/a7WIq7z-ygw/s1600/android3.png"><img src="http://2.bp.blogspot.com/-K8t_6L2xiBs/T47FOxvM8BI/AAAAAAAAC6A/a7WIq7z-ygw/s640/android3.png" alt="" /></a></p>
-
-<pre><code>沒記錯的話安裝完 Eclpise 的外掛後，Eclipse 會自動跳出問你的 Android SDK 裝在哪，
-</code></pre>
-
-<p>  若這時候已經安裝好 SDK 的話就可以選擇第二個選項，並指定資料夾位址<br/>
+<a href="http://2.bp.blogspot.com/-K8t_6L2xiBs/T47FOxvM8BI/AAAAAAAAC6A/a7WIq7z-ygw/s1600/android3.png"><img src="http://2.bp.blogspot.com/-K8t_6L2xiBs/T47FOxvM8BI/AAAAAAAAC6A/a7WIq7z-ygw/s640/android3.png" alt="" /></a>
+    沒記錯的話安裝完 Eclpise 的外掛後，Eclipse 會自動跳出問你的 Android SDK 裝在哪，
+  若這時候已經安裝好 SDK 的話就可以選擇第二個選項，並指定資料夾位址<br/>
 <a href="http://2.bp.blogspot.com/-6bJrhcn2SiM/T47GecGxajI/AAAAAAAAC6Q/eneUabD0cmE/s1600/android4.png"><img src="http://2.bp.blogspot.com/-6bJrhcn2SiM/T47GecGxajI/AAAAAAAAC6Q/eneUabD0cmE/s640/android4.png" alt="" /></a>
 接著就可以寫程式了
 開啟模擬器的話就到下圖所示新增即可
@@ -666,7 +906,7 @@ Step5. 安裝 packages (Platforms and Other Packages)
   
 
 
-<time datetime="2012-04-16T08:18:00+08:00" pubdate data-updated="true">Apr 16<sup>th</sup>, 2012</time>
+<time datetime="2012-04-16T08:18:00+08:00" pubdate data-updated="true"></time>
         
            | <a href="/blog/2012/04/16/ubuntu-disk-arrange/#disqus_thread"
              data-disqus-identifier="http://kerkerj.github.io/blog/2012/04/16/ubuntu-disk-arrange/">Comments</a>
@@ -717,7 +957,7 @@ swap           : 5GB<br/>
   
 
 
-<time datetime="2012-04-16T03:25:00+08:00" pubdate data-updated="true">Apr 16<sup>th</sup>, 2012</time>
+<time datetime="2012-04-16T03:25:00+08:00" pubdate data-updated="true"></time>
         
            | <a href="/blog/2012/04/16/hardware-asus-1215n/#disqus_thread"
              data-disqus-identifier="http://kerkerj.github.io/blog/2012/04/16/hardware-asus-1215n/">Comments</a>
@@ -771,7 +1011,7 @@ swap           : 5GB<br/>
   
 
 
-<time datetime="2012-04-12T15:04:00+08:00" pubdate data-updated="true">Apr 12<sup>th</sup>, 2012</time>
+<time datetime="2012-04-12T15:04:00+08:00" pubdate data-updated="true"></time>
         
            | <a href="/blog/2012/04/12/blogger/#disqus_thread"
              data-disqus-identifier="http://kerkerj.github.io/blog/2012/04/12/blogger/">Comments</a>
@@ -791,149 +1031,16 @@ swap           : 5GB<br/>
 <a href="http://1.bp.blogspot.com/-yR92RTCKlOM/T4bsH2GoQqI/AAAAAAAAC4w/be5bK2vK3-Q/s1600/%E6%9C%AA%E5%91%BD%E5%90%8D3.png"><img src="http://1.bp.blogspot.com/-yR92RTCKlOM/T4bsH2GoQqI/AAAAAAAAC4w/be5bK2vK3-Q/s640/%E6%9C%AA%E5%91%BD%E5%90%8D3.png" alt="" /></a></p>
 
 <p>改的方法有幾種：
-1.直接使用 css 的 <code>display:none;</code> 語法把導覽列隱藏，在 <code>&lt;head&gt;</code> 標籤下加入</p>
-
-<pre><code>`.Navbar {visibility:hidden;display:none;}`
-</code></pre>
-
-<p>  有個缺點，雖然導覽列不見了，但是導覽列的區塊還是會留著。
-2.改變整個 body 的位置，將 body 往上移約 40px，產生導覽列看不見的錯覺XD (我個人使用這種)</p>
-
-<pre><code>`body {margin: -40px 0 0 0;}`
-</code></pre>
+1.直接使用 css 的 <code>display:none;</code> 語法把導覽列隱藏，在 <code>&lt;head&gt;</code> 標籤下加入
+    <code>.Navbar {visibility:hidden;display:none;}</code>
+  有個缺點，雖然導覽列不見了，但是導覽列的區塊還是會留著。
+2.改變整個 body 的位置，將 body 往上移約 40px，產生導覽列看不見的錯覺XD (我個人使用這種)
+    <code>body {margin: -40px 0 0 0;}</code></p>
 
 <p>最後，導覽列不見了很棒，但是沒辦法方便的登入，怎麼辦？
 <a href="http://4.bp.blogspot.com/--oXdMgP1MrA/T4bsHAKWbVI/AAAAAAAAC4k/_mXM7x55s6c/s1600/%E6%9C%AA%E5%91%BD%E5%90%8D2.png"><img src="http://4.bp.blogspot.com/--oXdMgP1MrA/T4bsHAKWbVI/AAAAAAAAC4k/_mXM7x55s6c/s640/%E6%9C%AA%E5%91%BD%E5%90%8D2.png" alt="" /></a></p>
 
 <p>加入個 POWER BY BLOGGER 吧，按下去就可以登入了XD</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/04/11/android-remote-shutdown/">[Android] 遠端主機已強制關閉一個現存的連線</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-04-11T07:30:00+08:00" pubdate data-updated="true">Apr 11<sup>th</sup>, 2012</time>
-        
-           | <a href="/blog/2012/04/11/android-remote-shutdown/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2012/04/11/android-remote-shutdown/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>不知道大家在寫Android程式時使用實體機接PC時會不會很常出現這個錯誤
-我個人還蠻常出現的，在測試時是非常緩慢的
-Google了一下，找到了強者自己寫的adb.exe
-檔案在討論串裡：<a href="http://code.google.com/p/android/issues/detail?id=12141">http://code.google.com/p/android/issues/detail?id=12141</a></p>
-
-<pre><code>Nov 28, 2011  
-New patched version of adb (1.0.29)   
-Patch (diff) the same as early  
-adb.exe   
-478 KB Download  
-</code></pre>
-
-<p>Download: <a href="http://android.googlecode.com/issues/attachment?aid=121410050000&amp;name=adb.exe&amp;token=O8Q8Mzj8XLo6-cOEE6a2H8SG4Bg%3A1334136508184">adb.exe</a></p>
-
-<p>下載後，到Android的SDK資料夾，進platform-tool資料夾，
-將原本的adb.exe做備份，再將新的複製到原本的exe檔所在的地方，
-重新啟動adb就可以了 (進DDMS重新啟動，或者重新啟動Eclipse也行)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/04/11/android/">[Android] 開機啟動與解鎖啟動</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-04-11T07:29:00+08:00" pubdate data-updated="true">Apr 11<sup>th</sup>, 2012</time>
-        
-           | <a href="/blog/2012/04/11/android/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2012/04/11/android/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>BroadcastReceiver 開機啟動與解鎖啟動</p>
-
-<p>主要是這兩個intent:</p>
-
-<blockquote><p>Intent.ACTION_BOOT_COMPLETED //開機
-Intent.ACTION_USER_PRESENT //解鎖</p></blockquote>
-
-<p>只要建立下面的 Receiver</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyReceiver</span> <span class="kd">extends</span> <span class="n">BroadcastReceiver</span> <span class="o">{</span>
-</span><span class='line'>  <span class="nd">@Override</span>
-</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onReceive</span><span class="o">(</span><span class="kd">final</span> <span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="kd">final</span> <span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>      <span class="kd">final</span> <span class="n">String</span> <span class="n">action</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getAction</span><span class="o">();</span>
-</span><span class='line'>      <span class="k">if</span> <span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_BOOT_COMPLETED</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">action</span><span class="o">))</span> <span class="o">{</span>
-</span><span class='line'>      <span class="c1">// TODO 開機啟動</span>
-</span><span class='line'>      <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_USER_PRESENT</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">action</span><span class="o">))</span> <span class="o">{</span>
-</span><span class='line'>          <span class="c1">// TODO 解鎖啟動</span>
-</span><span class='line'>      <span class="o">}</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>並且在 AndroidManifest.xml 裡宣告就可以了</p>
 </div>
   
   

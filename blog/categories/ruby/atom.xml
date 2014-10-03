@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ruby | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-02T20:39:53+08:00</updated>
+  <updated>2014-10-03T21:52:41+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -43,30 +43,23 @@
 <p>以下是各語言 event-driven 的 model<br/>
 (Node.js 就不列出了，本身就是 event-driven 設計)</p>
 
-<p>```
-Event-driven model:
-* Ruby  &ndash;> <a href="http://rubyeventmachine.com/">Eventmachine</a></p>
-
-<pre><code>        -&gt; [Celluloid::IO](https://github.com/celluloid/celluloid-io)   
-        -&gt; [Thin Server](http://code.macournoyer.com/thin)   
+<pre><code>Event-driven model:
+* Ruby  -&gt; [Eventmachine](http://rubyeventmachine.com/)  
+            -&gt; [Celluloid::IO](https://github.com/celluloid/celluloid-io)   
+            -&gt; [Thin Server](http://code.macournoyer.com/thin)   
+* Python    -&gt; [Twisted](https://twistedmatrix.com/trac/)  
+            -&gt; [Tornado](http://www.tornadoweb.org/en/stable)   
+* Perl   -&gt; [Perl Object Environment (POE)](http://poe.perl.org)    
+* PHP       -&gt; [REACT](http://reactphp.org) 
 </code></pre>
-
-<ul>
-<li>Python    &ndash;> <a href="https://twistedmatrix.com/trac/">Twisted</a><br/>
-          &ndash;> <a href="http://www.tornadoweb.org/en/stable">Tornado</a></li>
-<li>Perl   &ndash;> <a href="http://poe.perl.org">Perl Object Environment (POE)</a></li>
-<li>PHP       &ndash;> <a href="http://reactphp.org">REACT</a>
-```</li>
-</ul>
-
 
 <p>以 Ruby 建構 API Service 的話，可以使用 Sinatra + Eventmachine + thin proxy + Nginx 的 Solution:<br/>
 <a href="http://recipes.sinatrarb.com/p/embed/event-machine">Embedding Sinatra within EventMachine</a></p>
 
 <p>延伸閱讀: <br/>
-<a href="https://www.igvita.com/2008/05/27/ruby-eventmachine-the-speed-demon/">2008 &ndash; Eventmachine and Reactor pattern</a> <br/>
-<a href="http://developwithstyle.com/articles/2012/05/23/lessons-learnt-from-building-a-rest-based-api/">2012 &ndash; Lessons Learnt From Building a REST API</a><br/>
-<a href="https://docs.google.com/document/d/1dU-juYN25FMXdp6Ju62KAIT_0tuuZAPEgZkj-aT6kPQ/edit#heading=h.lafes4uxj2b0">年份未知 &ndash; 針對各 framework 進行評測 Event Driven I/O Web Application Server Analysis</a><br/>
+<a href="https://www.igvita.com/2008/05/27/ruby-eventmachine-the-speed-demon/">2008 - Eventmachine and Reactor pattern</a> <br/>
+<a href="http://developwithstyle.com/articles/2012/05/23/lessons-learnt-from-building-a-rest-based-api/">2012 - Lessons Learnt From Building a REST API</a><br/>
+<a href="https://docs.google.com/document/d/1dU-juYN25FMXdp6Ju62KAIT_0tuuZAPEgZkj-aT6kPQ/edit#heading=h.lafes4uxj2b0">年份未知 - 針對各 framework 進行評測 Event Driven I/O Web Application Server Analysis</a><br/>
 <a href="http://blog.sina.com.cn/s/blog_704b6af70100py9n.html">Twisted 教程</a></p>
 
 <h4>Reactor 模型</h4>
@@ -87,19 +80,18 @@ Python 的 Twisted 也已經存在好一陣子，穩定發展中</p>
 
 <h2>Coroutine Programming</h2>
 
-<p><code>
-* Golang - goroutine (native)
+<pre><code>* Golang - goroutine (native) 
 * Python - [gevent](http://www.gevent.org/)  
 * Ruby - Fiber (native)   
 * Lua   
-</code></p>
+</code></pre>
 
 <p>延伸閱讀:<br/>
 <a href="http://www.bigfastblog.com/">Ruby 的 eventmachine 相關討論</a><br/>
 <a href="http://www.blogjava.net/killme2008/archive/2010/03/11/315158.html">Ruby Fiber 指南</a><br/>
-<a href="http://electronic-blue.herokuapp.com/blog/2012/06/coroutine-an-introduction/">2012 &ndash; Lua &ndash; Coroutine introduction</a><br/>
-<a href="https://www.igvita.com/2009/05/13/fibers-cooperative-scheduling-in-ruby/">2009 &ndash; Fibers &amp; Cooperative Scheduling in Ruby</a><br/>
-<a href="http://www.blogjava.net/killme2008/archive/2010/03/02/314264.html">2010 &ndash; Lua、LuaJIT Coroutine和Ruby Fiber的切換效率對比</a></p>
+<a href="http://electronic-blue.herokuapp.com/blog/2012/06/coroutine-an-introduction/">2012 - Lua - Coroutine introduction</a><br/>
+<a href="https://www.igvita.com/2009/05/13/fibers-cooperative-scheduling-in-ruby/">2009 - Fibers &amp; Cooperative Scheduling in Ruby</a><br/>
+<a href="http://www.blogjava.net/killme2008/archive/2010/03/02/314264.html">2010 - Lua、LuaJIT Coroutine和Ruby Fiber的切換效率對比</a></p>
 
 <hr />
 
@@ -121,19 +113,16 @@ coroutine v.s. non-coroutine<br/>
     <content type="html"><![CDATA[<p>Ruby:</p>
 
 <p><code>~/Library/Application\ Support/Sublime\ Text\ 2/Packages/Ruby/Ruby.sublime-build</code>
-```json
+<code>json
 {
-  &ldquo;env&rdquo;:{</p>
-
-<pre><code>  "PATH":"${HOME}/.rvm/bin:${PATH}"
-</code></pre>
-
-<p>  },
-  &ldquo;cmd&rdquo;: [&ldquo;rvm-auto-ruby&rdquo;, &ldquo;$file&rdquo;],
-  &ldquo;file_regex&rdquo;: &ldquo;^(&hellip;<em>?):([0-9]</em>):?([0-9]*)&rdquo;,
-  &ldquo;selector&rdquo;: &ldquo;source.ruby&rdquo;
+  "env":{
+      "PATH":"${HOME}/.rvm/bin:${PATH}"
+  },
+  "cmd": ["rvm-auto-ruby", "$file"],
+  "file_regex": "^(...*?):([0-9]*):?([0-9]*)",
+  "selector": "source.ruby"
 }
-```</p>
+</code></p>
 
 <p><a href="http://rubenlaguna.com/wp/2012/12/07/sublime-text-2-rvm-rspec-take-2/">http://rubenlaguna.com/wp/2012/12/07/sublime-text-2-rvm-rspec-take-2/</a></p>
 ]]></content>
@@ -168,24 +157,21 @@ Load RVM function:  <code>~/.bash_profile</code></p>
 
 <p>指令:</p>
 
-<blockquote><p>rvm info &ndash;> 查看 rvm 做的設定
-rvm list known &ndash;> 列出所有可安裝的套件
-rvm list &ndash;> 列出目前已安裝的套件
-rvm install &ldquo;package_name&rdquo; &ndash;> 安裝套件
-rvm remove &ldquo;package_name&rdquo; &ndash;> 移除套件
-rvm 1.9.2 &mdash;default &ndash;> 設定預設的 ruby 版本</p></blockquote>
+<blockquote><p>rvm info -> 查看 rvm 做的設定
+rvm list known -> 列出所有可安裝的套件
+rvm list -> 列出目前已安裝的套件
+rvm install &ldquo;package_name&rdquo; -> 安裝套件
+rvm remove &ldquo;package_name&rdquo; -> 移除套件
+rvm 1.9.2 &ndash;default -> 設定預設的 ruby 版本</p></blockquote>
 
 <p>假設系統上的 ruby 版本是 1.9.1, 而我用 rvm 安裝了 ruby1.9.3
 那麼目前系統上的預設 ruby 版本是 1.9.3, 用 <code>ruby -v</code> 測試看看
 如果要切換回系統的 ruby 版本, 則使用 <code>rvm system</code>
-要切換回來的話,則:</p>
-
-<pre><code>    `rvm 1.9.3` (直接輸入有安裝過的 ruby 版號即可)
-    or
-    `rvm use 1.9.3`
-</code></pre>
-
-<p>以上是 rvm 的一些簡單指令, 因為今天是要安裝 ruby on rails
+要切換回來的話,則:
+        <code>rvm 1.9.3</code> (直接輸入有安裝過的 ruby 版號即可)
+        or
+        <code>rvm use 1.9.3</code>
+以上是 rvm 的一些簡單指令, 因為今天是要安裝 ruby on rails
 所以先安裝 ruby 吧:
 <code>
 $rvm pkg install openssl (詳見最後的 trouble shooting)
@@ -196,8 +182,8 @@ $rvm install 1.9.3 --with-openssl-dir=$rvm_path/usr
 
 <p>指令:</p>
 
-<blockquote><p>gem list &ndash;> 列出目前已安裝的套件
-gem install &ldquo;package_name&rdquo; &ndash;> 安裝套件不同的 ruby 版本有不同的 gem</p></blockquote>
+<blockquote><p>gem list -> 列出目前已安裝的套件
+gem install &ldquo;package_name&rdquo; -> 安裝套件不同的 ruby 版本有不同的 gem</p></blockquote>
 
 <p>如果 rvm 裡有 1.9.1 和 1.9.3 兩個乾淨的 ruby 版本
 目前使用的 ruby 版本是 1.9.3
@@ -219,24 +205,21 @@ gem install &ldquo;package_name&rdquo; &ndash;> 安裝套件不同的 ruby 版�
 如果說我想要在 ruby 1.9.2 底下安裝兩種 rails 版本, 又怕會衝突該怎麼辦?
 就可以用 gemset 了</p>
 
-<p>樹狀架構大概如下:</p>
-
-<pre><code>    rvm -&gt; 1.9.1 -&gt; gemset: rails-2.3.9
-                            rails-3.1.1*
-        -&gt; 1.9.3 -&gt; gemset: rails-2.3.9
-                            rails-3.1.1
-</code></pre>
-
-<p>可以解釋為: 在 rvm 的 ruby 1.9.1 底下有兩個 gemset, 分別是 rails-2.3.9 和 rails-3.1.1</p>
+<p>樹狀架構大概如下:
+        rvm -> 1.9.1 -> gemset: rails-2.3.9
+                                rails-3.1.1*
+            -> 1.9.3 -> gemset: rails-2.3.9
+                                rails-3.1.1
+可以解釋為: 在 rvm 的 ruby 1.9.1 底下有兩個 gemset, 分別是 rails-2.3.9 和 rails-3.1.1</p>
 
 <p>指令:</p>
 
-<blockquote><p>rvm gemset list &ndash;> 查看目前建立的 gemset
-rvm 1.9.2@rails-3.1.1 &ndash;> 在 ruby 1.9.2 版本底下使用 rails-3.1.1 這個 gemset
-rvm gemset create &ldquo;gemset_name&rdquo; &ndash;> 建立 gemset
-rvm gemset use &ldquo;gemset_name&rdquo; &ndash;> 使用某個 gemset
-rvm gemset empty &ldquo;gemset_name&rdquo; &ndash;> 清空某個 gemset (只是清空)
-rvm gemset delete &ldquo;gemset_name&rdquo; &ndash;> 刪除某個 gemset以上就是關於 rvm 的二三事, 做到這邊, ruby 和 rails 套件應該就安裝完了</p></blockquote>
+<blockquote><p>rvm gemset list -> 查看目前建立的 gemset
+rvm 1.9.2@rails-3.1.1 -> 在 ruby 1.9.2 版本底下使用 rails-3.1.1 這個 gemset
+rvm gemset create &ldquo;gemset_name&rdquo; -> 建立 gemset
+rvm gemset use &ldquo;gemset_name&rdquo; -> 使用某個 gemset
+rvm gemset empty &ldquo;gemset_name&rdquo; -> 清空某個 gemset (只是清空)
+rvm gemset delete &ldquo;gemset_name&rdquo; -> 刪除某個 gemset以上就是關於 rvm 的二三事, 做到這邊, ruby 和 rails 套件應該就安裝完了</p></blockquote>
 
 <p>最後安裝資料庫的 adapter , 這裡是用 sqlite
 <code>gem install sqlite3 --no-ri --no-rdoc</code>
@@ -259,7 +242,7 @@ Gem::RemoteFetcher::FetchError: SSL_connect returned=1 errno=0 state=SSLv3 read 
 
 <blockquote><p>rvm pkg install openssl
 rvm remove 1.9.3
-rvm install 1.9.3 &mdash;with-openssl-dir=$rvm_path/usr
+rvm install 1.9.3 &ndash;with-openssl-dir=$rvm_path/usr
 然後將 rvm 裡的 ssl certs 資料夾移除, 改成直接讀系統的 ssl certs
 rmdir $rvm_path/usr/ssl/certs
 ln -s /etc/ssl/certs $rvm_path/usr/ssl</p></blockquote>
@@ -268,7 +251,7 @@ ln -s /etc/ssl/certs $rvm_path/usr/ssl</p></blockquote>
 
 <blockquote><p>when excuting the command &ldquo;gem install rails&rdquo;
 ERROR:  Loading command: install (LoadError)
-cannot load such file &mdash; zlib
+cannot load such file &ndash; zlib
 ERROR:  While executing gem &hellip; (NameError)
 uninitialized constant Gem::Commands::InstallCommand</p></blockquote>
 
@@ -288,7 +271,7 @@ Install zlib1g-dev, then install ruby in system and rvm.</p></blockquote>
 <p>Solution:
 <code>sudo apt-get install nodejs</code>
 Reference:
-<a href="http://www.openfoundry.org/tw/tech-column/8513-rvm-ruby-environment-version-manager">RVM &ndash; Ruby enVironment (Version) Manager</a></p>
+<a href="http://www.openfoundry.org/tw/tech-column/8513-rvm-ruby-environment-version-manager">RVM - Ruby enVironment (Version) Manager</a></p>
 ]]></content>
   </entry>
   

@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>[Ubuntu] 將 Big5 文字檔轉成 UTF-8 - kerkerj</title>
+  <title>[API-d3] - 使用時機與實際 API 參考 - kerkerj</title>
   <meta name="author" content="kerkerj">
 
   
   <meta name="description" content="cool thing, cool guy">
-  <meta name="keywords" content="mac,ubuntu,nginx,rails,ruby,php,mysql,freebsd,technique,geek">
+  <meta name="keywords" content="RESTful, API">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://kerkerj.github.io/blog/2011/08/15/ubuntu-big5utf-8">
+  <link rel="canonical" href="http://kerkerj.github.io/blog/2014/10/03/api-d3">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="kerkerj" type="application/atom+xml">
@@ -96,7 +96,7 @@
   <header>
     
       
-        <h1 class="entry-title">[Ubuntu] 將 Big5 文字檔轉成 UTF-8</h1>
+        <h1 class="entry-title">[API-d3] - 使用時機與實際 API 參考</h1>
       
     
     
@@ -113,7 +113,7 @@
   
 
 
-<time datetime="2011-08-15T10:47:00+08:00" pubdate data-updated="true"></time>
+<time datetime="2014-10-03T21:07:32+08:00" pubdate data-updated="true"></time>
         
            | <a href="#disqus_thread"
              data-disqus-identifier="http://kerkerj.github.io">Comments</a>
@@ -123,19 +123,34 @@
   </header>
 
 
-<div class="entry-content"><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ iconv -f big5 -t utf-8 "要轉的big5檔案路徑" -o  "轉好後要輸出的檔案名"  
-</span><span class='line'>$ iconv -f big5 -t utf-8 /home/test/bigtext.txt -o  /home/test/utf8text.txt  </span></code></pre></td></tr></table></div></figure>
+<div class="entry-content"><h1>使用時機與實際 API 參考</h1>
 
+<p>什麼時候需要打造 RESTful API?<br/>
+看看別人的 RESTful API (Instagram/Twitter)</p>
 
-<p>也可以輸入和輸出是同一個檔案</p>
+<p>什麼時候需要打造 RESTful API?<br/>
+我認為當有數組資源要被多種不同平台使用時，就需要打造 RESTful API<br/>
+例如，有 Android/ iOS / Web 要對同一 table 做存取時，<br/>
+假設有個 MySQL DB，各個平台都使用各自的 mysql-driver 來直接操作 DB<br/>
+假設有個 A 專案建立了一套書籍管理系統，資料庫裡記錄了大大小小的書籍，<br/>
+而有個新的 B 專案需要使用到書籍的資料，此時 DB 操作的程式碼只能再寫一遍，<br/>
+且各個平台重新撰寫，似乎是不大靠譜。</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ iconv -f big5 -t utf-8 /home/test/text.txt -o  /home/test/text.txt  </span></code></pre></td></tr></table></div></figure>
+<p>撰寫 RESTful API 的好處之一即是 RESTful 使用 HTTP 協定，<br/>
+各個平台皆支援，不需要太複雜的程式，只需要使用各個平台的 http-client，<br/>
+各個平台也不需要了解 DB 操作語法，只需要知道 json, xml 習慣的資料格式，  <br/>
+且開發 API 還能夠對各個資源輕易地上 cache 增進反應速度，<br/>
+開發 RESTful API 好處多多，哪天想 Open API 也就不需要再多作處理了～</p>
 
+<p>接著讓我們來看看兩個有名網站的 API 吧！</p>
 
+<p>Instagram: <a href="http://instagram.com/developer/api-console/">http://instagram.com/developer/api-console/</a><br/>
+Twitter: <a href="https://dev.twitter.com/rest/tools/console">https://dev.twitter.com/rest/tools/console</a></p>
 
+<p>很顯然的，我比較喜歡 Instagram 的 API 資源定義與命名方式 :P</p>
+
+<p>下一篇會介紹我接下來會用到的工具箱，暖身結束，要正式開始了!<br/>
+(不好意思前面嘴炮一點 XD)</p>
 </div>
 
 
@@ -158,12 +173,12 @@
   
 
 
-<time datetime="2011-08-15T10:47:00+08:00" pubdate data-updated="true"></time>
+<time datetime="2014-10-03T21:07:32+08:00" pubdate data-updated="true"></time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/ubuntu/'>ubuntu</a>
+    <a class='category' href='/blog/categories/api/'>api</a>, <a class='category' href='/blog/categories/restful/'>restful</a>
   
 </span>
 
@@ -172,7 +187,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://kerkerj.github.io/blog/2011/08/15/ubuntu-big5utf-8/" data-via="jerry54010" data-counturl="http://kerkerj.github.io/blog/2011/08/15/ubuntu-big5utf-8/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://kerkerj.github.io/blog/2014/10/03/api-d3/" data-via="jerry54010" data-counturl="http://kerkerj.github.io/blog/2014/10/03/api-d3/" >Tweet</a>
   
   
   
@@ -183,10 +198,10 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2011/07/04/eclipse-eclipseutf-8/" title="Previous Post: [Eclipse] 將eclipse改成utf-8編碼">&laquo; [Eclipse] 將eclipse改成utf-8編碼</a>
+        <a class="basic-alignment left" href="/blog/2014/10/02/swift-d2/" title="Previous Post: [Swift-d2] - 安裝及 Hello World!">&laquo; [Swift-d2] - 安裝及 Hello World!</a>
       
       
-        <a class="basic-alignment right" href="/blog/2011/08/30/android-alertdialog-with-edittext/" title="Next Post: [Android] AlertDialog with Edittext">[Android] AlertDialog with Edittext &raquo;</a>
+        <a class="basic-alignment right" href="/blog/2014/10/03/swift-d3/" title="Next Post: [Swift-d3] - Playground - 變數與常數, 註解, 基本資料型別 ">[Swift-d3] - Playground - 變數與常數, 註解, 基本資料型別  &raquo;</a>
       
     </p>
   </footer>
@@ -223,8 +238,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://kerkerj.github.io/blog/2011/08/15/ubuntu-big5utf-8/';
-        var disqus_url = 'http://kerkerj.github.io/blog/2011/08/15/ubuntu-big5utf-8/';
+        var disqus_identifier = 'http://kerkerj.github.io/blog/2014/10/03/api-d3/';
+        var disqus_url = 'http://kerkerj.github.io/blog/2014/10/03/api-d3/';
         var disqus_script = 'embed.js';
       
     (function () {

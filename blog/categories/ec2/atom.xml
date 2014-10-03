@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ec2 | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/ec2/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-02T20:39:53+08:00</updated>
+  <updated>2014-10-03T21:52:41+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -18,25 +18,25 @@
     <link href="http://kerkerj.github.io/blog/2013/12/26/aws-ubuntu-swap/"/>
     <updated>2013-12-26T10:11:00+08:00</updated>
     <id>http://kerkerj.github.io/blog/2013/12/26/aws-ubuntu-swap</id>
-    <content type="html"><![CDATA[<p>Add swap for an instance
-<code>
-$ sudo /bin/dd if=/dev/zero of=/var/swap.1 bs=1M count=1024
+    <content type="html"><![CDATA[<p>Add swap for an instance</p>
+
+<pre><code>$ sudo /bin/dd if=/dev/zero of=/var/swap.1 bs=1M count=1024
 $ sudo /sbin/mkswap /var/swap.1
 $ sudo /sbin/swapon /var/swap.1
 $ echo "/var/swap.1 swap swap defaults 0 0" &gt;&gt; /etc/fstab #將 swap 加入 開機啟動
-</code>
-在 Amazon EC2 micro plan，加入 swap 很容易 I/O 過量，
+</code></pre>
+
+<p>在 Amazon EC2 micro plan，加入 swap 很容易 I/O 過量，
 因此最好是需要時才開啟 swap，不用時關閉 swap 以免被收錢~</p>
 
-<p>swap usage
-```console
-$ swapon -s</p>
+<p>swap usage</p>
 
-<h2>$ free -k  </h2>
-
-<p>$ swapoff -a<br/>
-$ swapon  -a<br/>
-```</p>
+<pre><code class="console">$ swapon -s   
+$ free -k  
+---
+$ swapoff -a  
+$ swapon  -a  
+</code></pre>
 ]]></content>
   </entry>
   

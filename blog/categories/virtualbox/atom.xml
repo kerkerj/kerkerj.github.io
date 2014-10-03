@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Virtualbox | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/virtualbox/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-02T20:39:53+08:00</updated>
+  <updated>2014-10-03T21:52:41+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -18,7 +18,7 @@
     <link href="http://kerkerj.github.io/blog/2013/10/22/vagrant-vagrant-nginx-php5-fpm/"/>
     <updated>2013-10-22T13:21:00+08:00</updated>
     <id>http://kerkerj.github.io/blog/2013/10/22/vagrant-vagrant-nginx-php5-fpm</id>
-    <content type="html"><![CDATA[<h1><a href="http://www.vagrantup.com/">Vagrant</a> &ndash; Development environments made easy.</h1>
+    <content type="html"><![CDATA[<h1><a href="http://www.vagrantup.com/">Vagrant</a> - Development environments made easy.</h1>
 
 <p>就是這個軟體的宗旨，把它想做是 ghost 吧！我們開發網站或是測試一些多機器架構時，常不小心就把自己的電腦或是測試主機搞到爛掉，租機器又慢又花錢，搞到爛重灌更麻煩。因此這個軟體基於 VirtualBox 做出了令人方便設定的功能，讓我們可以快速架設安裝環境並測試，尤其是以多機器架構而言更是方便！例如從最簡單的 Web server + DB server，或是 Web Load Balancer + Application Server * 5 等等的架構，一台電腦就能達成囉！
 今天主要是以安裝 Vagrant 及架設出 Nginx + php5-fpm 的架構，下一篇打算另外建構一台 mongodb server，達到 Vagrant 最主要的多機器設定功能~</p>
@@ -46,20 +46,18 @@ box 官方有提供 Ubuntu 的，在 <a href="http://www.vagrantbox.es/">vagrant
 
 <h1>Vagrant 基本指令</h1>
 
-<p><code>
-vagrant up 開機  
+<pre><code>vagrant up 開機  
 vagrant ssh 登⼊  
 vagrant suspend 暫停  
 vagrant halt 關機  
 vagrant destroy 刪除  
-</code></p>
+</code></pre>
 
 <h1>進入新裝好的機器吧！</h1>
 
-<p><code>
-$vagrant up  //開機  
+<pre><code>$vagrant up  //開機  
 $vagrant ssh //登入  
-</code></p>
+</code></pre>
 
 <h1>Vagrantfile 設定</h1>
 
@@ -90,13 +88,12 @@ $sudo apt-get install nginx
 若要更改 Nginx 的網頁目錄，設定檔在 <code>/etc/nginx/</code> 裡，
 通常應該是更改 <code>/etc/nginx/sites-enable/default</code> 裡的 <code>root /usr/share/nginx/www/</code>
 還要將這段 code 解除註解：
-```
-location ~ .php$ {</p>
+&#8220;`
+location ~ .php$ {
+    fastcgi_split_path_info ^(.+.php)(/.+)$;
+    # NOTE: You should have &ldquo;cgi.fix_pathinfo = 0;&rdquo; in php.ini</p>
 
-<pre><code>fastcgi_split_path_info ^(.+\.php)(/.+)$;
-# NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
-
-# With php5-cgi alone:
+<pre><code># With php5-cgi alone:
 #fastcgi_pass 127.0.0.1:9000;
 # With php5-fpm:
 fastcgi_pass unix:/var/run/php5-fpm.sock;
@@ -120,7 +117,7 @@ $sudo vim /etc/php5/fpm/pool.d/www.conf<br/>
 寫個 phpinfo(); 的 php 檔放入資料夾
 </code>
 $sudo service php5-fpm restart (開啟服務)
-```
+&#8220;`
 在瀏覽器輸入 localhost:8088 就可以看到 nginx 的頁面，再讀取剛剛寫的 php 應該就成功囉！</p>
 
 <p>安裝 MySQL:
@@ -142,7 +139,7 @@ $ mysql -u root -p
 <p>p.s. Vagrantfile 產生器：<a href="https://puphpet.com/#vagrantfile">Puphpet.com/#vagrantfile</a>
 這網站有很多值得玩的地方，可以直接幫你產生出這些設定檔真的是太方便了！</p>
 
-<p>p.s.s.有亂入用到的指令記一下：dpkg &mdash;get-selections 列出已安裝的 package
+<p>p.s.s.有亂入用到的指令記一下：dpkg &ndash;get-selections 列出已安裝的 package
 另外提供一下我在研究 Vagrant 的筆記，很亂超級亂，但是有些東西沒有寫在 blog 裡~
 <a href="https://www.evernote.com/shard/s81/sh/91ccf490-d9cd-468e-943a-d57c79d052f4/71e0a682b024c6e97fd8c79b90f89f67">Evernote by kerkerj</a></p>
 ]]></content>

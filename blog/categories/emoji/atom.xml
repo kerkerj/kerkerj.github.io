@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Emoji | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/emoji/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-02T20:39:53+08:00</updated>
+  <updated>2014-10-03T21:52:41+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -22,27 +22,25 @@
 
 <p>First, MySQL should set DB and table to utf8mb4.</p>
 
-<p>utf8 &ndash; 3 byte characters</p>
+<p>utf8 - 3 byte characters</p>
 
-<p>utf8mb4 &ndash; 4 byte characters</p>
+<p>utf8mb4 - 4 byte characters</p>
 
-<p>```sql
-ALTER DATABASE my_database DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;</p>
+<pre><code class="sql">ALTER DATABASE my_database DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 
-<p>ALTER TABLE my_table DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;</p>
+ALTER TABLE my_table DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
-<p>ALTER TABLE my_column CHANGE my_column my_column TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;
-```</p>
+ALTER TABLE my_column CHANGE my_column my_column TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;
+</code></pre>
 
 <p>Then, when inserting data or selecting data, execute this statement first:</p>
 
-<p>```sql
-&mdash;Execute this statement first
-SET NAMES utf8mb4;</p>
+<pre><code class="sql">--Execute this statement first
+SET NAMES utf8mb4;
 
-<p>&mdash;then insert or select
+--then insert or select
 SELECT * FROM my_table
-```</p>
+</code></pre>
 ]]></content>
   </entry>
   

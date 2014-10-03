@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Codeigniter | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/codeigniter/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-02T20:39:53+08:00</updated>
+  <updated>2014-10-03T21:52:41+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -24,94 +24,87 @@
 
 <p>Clean configuration:</p>
 
-<p>```text &ldquo;/etc/nginx/site-enabled/default&rdquo;
-server {</p>
+<pre><code class="text "/etc/nginx/site-enabled/default"">server {
 
-<h1>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START</h1>
+#&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; START
+        listen 80;
+        listen [::]:80 default_server ipv6only=on;
 
-<pre><code>    listen 80;
-    listen [::]:80 default_server ipv6only=on;
+        root /YOUR/PROJECT/ROOT;
+        index index.html index.htm index.php;
 
-    root /YOUR/PROJECT/ROOT;
-    index index.html index.htm index.php;
+        # Make site accessible from http://localhost/
+        server_name localhost;
 
-    # Make site accessible from http://localhost/
-    server_name localhost;
+        #location ~* .(ico|css|js|gif|jpe?g|png)(?[0-9]+)?$ {
+        #   expires max;
+        #   log_not_found off;
+        #}
 
-    #location ~* .(ico|css|js|gif|jpe?g|png)(?[0-9]+)?$ {
-    #   expires max;
-    #   log_not_found off;
-    #}
+        location / {
+                # First attempt to serve request as file, then
+                # as directory, then fall back to displaying a 404.
+                try_files $uri $uri/ /index.php;
+                # Uncomment to enable naxsi on this location
+                # include /etc/nginx/naxsi.rules
+        }
 
-    location / {
-            # First attempt to serve request as file, then
-            # as directory, then fall back to displaying a 404.
-            try_files $uri $uri/ /index.php;
-            # Uncomment to enable naxsi on this location
-            # include /etc/nginx/naxsi.rules
-    }
+        location ~ .php$ {
+            root           /YOUR/PROJECT/ROOT;
+            try_files $uri =404;
+            fastcgi_pass unix:/var/run/php5-fpm.sock;
+            fastcgi_index  index.php;
+            fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+            include        fastcgi_params;
+            fastcgi_buffer_size 128k;
+            fastcgi_buffers 256 4k;
+            fastcgi_busy_buffers_size 256k;
+            fastcgi_temp_file_write_size 256k;
+        }
 
-    location ~ .php$ {
-        root           /YOUR/PROJECT/ROOT;
-        try_files $uri =404;
-        fastcgi_pass unix:/var/run/php5-fpm.sock;
-        fastcgi_index  index.php;
-        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
-        include        fastcgi_params;
-        fastcgi_buffer_size 128k;
-        fastcgi_buffers 256 4k;
-        fastcgi_busy_buffers_size 256k;
-        fastcgi_temp_file_write_size 256k;
-    }
+#&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; END
+
+        # Only for nginx-naxsi used with nginx-naxsi-ui : process denied requests
+        #location /RequestDenied {
+        #       proxy_pass http://127.0.0.1:8080;
+
+        #error_page 404 /404.html;
+
+        # redirect server error pages to the static page /50x.html
+        #
+        #error_page 500 502 503 504 /50x.html;
+        #location = /50x.html {
+        #       root /usr/share/nginx/html;
+        #}
+
+        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+        #
+        #location ~ \.php$ {
+        #       fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        #       # NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
+        #
+        #       # With php5-cgi alone:
+        #       fastcgi_pass 127.0.0.1:9000;
+        #       # With php5-fpm:
+        #       fastcgi_pass unix:/var/run/php5-fpm.sock;
+        #       fastcgi_index index.php;
+        #       include fastcgi_params;
+        #}
+
+        # deny access to .htaccess files, if Apache's document root
+        # concurs with nginx's one
+        #
+        #location ~ /\.ht {
+        #       deny all;
+        #}
+}
 </code></pre>
-
-<h1>&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; END</h1>
-
-<pre><code>    # Only for nginx-naxsi used with nginx-naxsi-ui : process denied requests
-    #location /RequestDenied {
-    #       proxy_pass http://127.0.0.1:8080;
-
-    #error_page 404 /404.html;
-
-    # redirect server error pages to the static page /50x.html
-    #
-    #error_page 500 502 503 504 /50x.html;
-    #location = /50x.html {
-    #       root /usr/share/nginx/html;
-    #}
-
-    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
-    #
-    #location ~ \.php$ {
-    #       fastcgi_split_path_info ^(.+\.php)(/.+)$;
-    #       # NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
-    #
-    #       # With php5-cgi alone:
-    #       fastcgi_pass 127.0.0.1:9000;
-    #       # With php5-fpm:
-    #       fastcgi_pass unix:/var/run/php5-fpm.sock;
-    #       fastcgi_index index.php;
-    #       include fastcgi_params;
-    #}
-
-    # deny access to .htaccess files, if Apache's document root
-    # concurs with nginx's one
-    #
-    #location ~ /\.ht {
-    #       deny all;
-    #}
-</code></pre>
-
-<p>}</p>
-
-<p>```</p>
 
 <p>Codeigniter config:</p>
 
-<p><code>php config.php
-$config['index_page'] = '';
+<pre><code class="php config.php">$config['index_page'] = '';
 $config['uri_protocol'] = 'REQUEST_URI';
-</code></p>
+</code></pre>
 ]]></content>
   </entry>
   
@@ -155,13 +148,12 @@ RewriteRule ^(.*)$ index.php/$1 [L]
 但是因為 rewrite rule routing 的關係沒辦法讀取到圖片，<br/>
 因此我將 .htaccess 檔修改如下：</p>
 
-<p><code>
-RewriteEngine on  
+<pre><code>RewriteEngine on  
 RewriteCond $1 !^(index\.php|images|css|js|robots\.txt|favicon\.ico)  
 RewriteCond %{REQUEST_FILENAME} !-f  
 RewriteCond %{REQUEST_FILENAME} !-d  
 RewriteRule ^(.*)$ ./index.php?/$1 [L,QSA]  
-</code></p>
+</code></pre>
 
 <p>主要是在三四行的 <code>%{REQUEST_FILENAME}</code><br/>
 這樣修改完就解決問題了!</p>

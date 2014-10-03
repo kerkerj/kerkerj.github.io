@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Swift | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/swift/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-02T20:39:53+08:00</updated>
+  <updated>2014-10-03T21:52:41+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,122 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[Swift-d3] - Playground - 變數與常數, 註解, 基本資料型別]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/03/swift-d3/"/>
+    <updated>2014-10-03T21:07:41+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/03/swift-d3</id>
+    <content type="html"><![CDATA[<h2>變數與常數</h2>
+
+<p>定義一個變數:</p>
+
+<pre><code class="Swift">var obj: String = ""
+</code></pre>
+
+<p>var 是保留字，宣告 obj 是一個變數名稱，冒號後面接資料形態<br/>
+以此例子來說，宣告了一個字串變數叫做 obj，並且初始化為 &ldquo;&rdquo; 空字串</p>
+
+<pre><code>let obj: String = ""
+</code></pre>
+
+<p>let 同樣是用來宣告一個變數，但是宣告此變數後，該變數的值無法被改變，<br/>
+無法被改變的數值其實正正的名字就叫做常數
+以上面的例子來說， 若我們多做一件事:</p>
+
+<pre><code>let obj: String = ""
+obj = "test"
+</code></pre>
+
+<p>若我們試圖去更改 obj，讓 obj 從空字串變成 &ldquo;test&rdquo; 時， <br/>
+Xcode 就會報錯，不能更改該值</p>
+
+<p>再來是宣告的變型，其實宣告時不一定要給資料形態，<br/>
+Swift 會自動從後面的值來判斷 x 可能是什麼資料形態，<br/>
+只是由於筆者的習慣，會儘量在後面加上該變數的資料型別</p>
+
+<pre><code>var x = "test"
+</code></pre>
+
+<p>一行內宣告多值：</p>
+
+<pre><code>var x = 0.0, y = 0.0, z = 0.0
+</code></pre>
+
+<p>我們就可以在 Playground 裡面試著宣告一些變數看看，並且使用昨天的輸出函式來輸出變數:</p>
+
+<pre><code>var str: String = "測試"
+let fixString: String = "fixed"
+
+var x = 0, y = 1, z = 2
+
+println(str)
+println(x)
+println(y)
+println(z)
+</code></pre>
+
+<h2>註解</h2>
+
+<pre><code>// 單行註解
+
+/*
+多行註解
+多行註解
+多行註解
+*/
+</code></pre>
+
+<h2>基本資料型別</h2>
+
+<p>Swift 是一個強型別語言，意即若是以下的程式碼是會出錯的:</p>
+
+<pre><code>var x = "test"
+x = 2
+</code></pre>
+
+<p>由於 x 已經被先 Swift 判定是 String 了，後面想指定 Int 資料給 x 就會出錯</p>
+
+<p>Int 整數:
+Swift 提供了 Int 還另外提供了 8, 16, 32, 64 位元的有號和無號整數型別<br/>
+若在 32 位元平台，宣告 Int 的話， Int 的長度和 Int32 是一樣的<br/>
+若在 64 位元平台，宣告 Int 的話， Int 的長度和 Int64 是一樣的</p>
+
+<p>浮點數：
+3.2, 0.0 之類的數字，可以用
+Double - 64 位元浮點數 (至少 15 位數)
+Float - 32 位元浮點數 (至少 6 位數)</p>
+
+<p>布林值：
+true/false</p>
+
+<p>Tuples:
+Tuple 可以將多個值組合成一個值，例如：</p>
+
+<pre><code>//賦值
+let httpSucess = (200, "Success")
+
+// 反過來接值
+let (statusCode, statusMessage) = httpSucess
+
+// 若只需要其中一個值，另一個值可以用 _ 代替，但是不能沒有 _ 
+let (statusCode, _) = httpSucess
+
+// 也可以用索引的方式拿值
+println(httpSucess.0)
+
+// 宣告 tuples 時也可以直接給予參數一個名稱
+let httpSucess = (statusCode: 200, statusMessage: "Success")
+
+// 拿值時就可以:
+println(httpSucess.statusCode)
+</code></pre>
+
+<p>同時結合 function 這樣就可以多值回傳了！</p>
+
+<p>下一篇會接續今天變數相關的主題~</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[Swift-d2] - 安裝及 Hello World!]]></title>
@@ -28,7 +144,7 @@
 <p>安裝完 Xcode 後</p>
 
 <p>首先開啓 Xcode<br/>
-選擇 &ldquo;Create a playground"<br/>
+選擇 &ldquo;Create a playground&rdquo;<br/>
 <img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-02%2011.24.32.png" alt="p1" /></p>
 
 <p>輸入 Playground 名稱並選擇儲存位置<br/>
@@ -41,13 +157,12 @@
 
 <p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-02%2011.25.26.png" alt="p4" /></p>
 
-<p>```
-// Playground &ndash; noun: a place where people can play</p>
+<pre><code>// Playground - noun: a place where people can play
 
-<p>import UIKit</p>
+import UIKit
 
-<p>var str = &ldquo;Hello, playground&rdquo;
-```</p>
+var str = "Hello, playground"
+</code></pre>
 
 <p>第一行，使用了 <code>//</code>，有寫過程式的話一定都知道這是註解 <br/>
 在 Swift 裡面使用 <code>//</code> 及 <code>/* .... */</code> 來註解程式碼</p>
@@ -62,7 +177,7 @@ Xcode 會即時顯示該變數的值、型別、以及輸出結果，<br/>
 對於剛入門 Swift 的開發者來說是一個非常好的功能來練習語法，
 也因此未來幾天都會使用 Playground 來練習 Swift 基本語法!</p>
 
-<p>最後當然要不免俗的撰寫最經典的程式 &ndash; Hello World!</p>
+<p>最後當然要不免俗的撰寫最經典的程式 - Hello World!</p>
 
 <p>加入:
 <code>

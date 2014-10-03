@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Mac | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/mac/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-02T20:39:53+08:00</updated>
+  <updated>2014-10-03T21:52:41+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -28,42 +28,33 @@
 
 <p>Install homebrew (optional)</p>
 
-<p><code>
-ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
-</code></p>
+<pre><code>ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+</code></pre>
 
 <p>Install Lua by homebrew</p>
 
-<p><code>
-brew install lua
-</code></p>
+<pre><code>brew install lua
+</code></pre>
 
 <h2>Writing Lua</h2>
 
 <p>You can use command: <code>lua</code> to interact with lua. (just like <code>php -a</code> or <code>irb</code>)</p>
 
-<p>```lua hello.lua
-print(&ldquo;Hello World&rdquo;)</p>
-
-<p>```</p>
-
-<p>```lua fact.lua
-function fact(n)</p>
-
-<pre><code>if n == 0 then
-    return 1
-else
-    return n * fact(n-1)
-end
+<pre><code class="lua hello.lua">print("Hello World")
 </code></pre>
 
-<p>end</p>
+<pre><code class="lua fact.lua">function fact(n)
+    if n == 0 then
+        return 1
+    else
+        return n * fact(n-1)
+    end
+end
 
-<p>print(&ldquo;enter a number:&rdquo;)
-num = io.read(&ldquo;*number&rdquo;)
-print(fact(num))</p>
-
-<p>```</p>
+print("enter a number:")
+num = io.read("*number") 
+print(fact(num))
+</code></pre>
 ]]></content>
   </entry>
   
@@ -74,20 +65,19 @@ print(fact(num))</p>
     <id>http://kerkerj.github.io/blog/2014/06/16/mac-update-openssl-on-mac</id>
     <content type="html"><![CDATA[<p>First of all, you need &lsquo;brew&rsquo; (<a href="http://brew.sh/">http://brew.sh/</a>)</p>
 
-<p>```
-$ brew update
+<pre><code>$ brew update
 $ brew install openssl
-$ brew link &mdash;force openssl</p>
+$ brew link --force openssl
 
-<p>$openssl version -a
-```
-If it&rsquo;s still the old version, you shoud:</p>
+$openssl version -a
+</code></pre>
 
-<p><code>
-$ sudo rm /usr/bin/openssl  #remove the old binary
+<p>If it&rsquo;s still the old version, you shoud:</p>
+
+<pre><code>$ sudo rm /usr/bin/openssl  #remove the old binary 
 $ sudo ln -s /usr/local/Cellar/openssl/1.0.1h/bin/openssl /usr/local/bin
 (1.0.1h -&gt; the latest version)
-</code></p>
+</code></pre>
 
 <p>ref: <a href="http://apple.stackexchange.com/questions/126830/how-to-upgrade-openssl-in-os-x">http://apple.stackexchange.com/questions/126830/how-to-upgrade-openssl-in-os-x</a></p>
 ]]></content>
@@ -119,33 +109,27 @@ $~/.bash_it/install.sh
     <updated>2013-11-13T08:24:00+08:00</updated>
     <id>http://kerkerj.github.io/blog/2013/11/13/mac-osx-homebrew-update-error</id>
     <content type="html"><![CDATA[<p>failed log:
-```
+<code>
 $sudo brew update
-error: Your local changes to the following files would be overwritten by merge:</p>
-
-<pre><code>Library/Aliases/gperftools
-Library/Aliases/hashdeep
-Library/Aliases/htop
-Library/Aliases/nodejs
-Library/Aliases/ocio
-Library/Aliases/oiio
-    ....
-</code></pre>
-
-<p>error: The following untracked working tree files would be overwritten by merge:</p>
-
-<pre><code>Library/Aliases/gperftools
-Library/Aliases/hashdeep
-Library/Aliases/htop
-Library/Aliases/nodejs
-Library/Aliases/ocio
-Library/Aliases/oiio
-    ....
-</code></pre>
-
-<p>Aborting
+error: Your local changes to the following files would be overwritten by merge:
+    Library/Aliases/gperftools
+    Library/Aliases/hashdeep
+    Library/Aliases/htop
+    Library/Aliases/nodejs
+    Library/Aliases/ocio
+    Library/Aliases/oiio
+        ....
+error: The following untracked working tree files would be overwritten by merge:
+    Library/Aliases/gperftools
+    Library/Aliases/hashdeep
+    Library/Aliases/htop
+    Library/Aliases/nodejs
+    Library/Aliases/ocio
+    Library/Aliases/oiio
+        ....
+Aborting
 Error: Failure while executing: git pull -q origin refs/heads/master:refs/remotes/origin/master
-```</p>
+</code></p>
 
 <p>Solution:
 <code>
@@ -169,7 +153,7 @@ $ git reset --hard origin/master
 但是還是沒解決，心想不對勁，就順手 google 了一下&hellip;</p>
 
 <p>我執行了下列語法：
-```
+&#8220;`
 $ time /usr/libexec/path_helper
 PATH=&ldquo;/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/ABC/android-sdks/platform-tools:/Users/ABC/android-sdks/tools:/Application/Vagrant/bin&rdquo;; export PATH;</p>
 
@@ -189,14 +173,11 @@ sys 0m0.002s
 An exception to the terminal window guidelines is Mac OS X&rsquo;s Terminal.app, which runs a login shell by default for each new terminal window, calling .bash_profile instead of .bashrc. Other GUI terminal emulators may do the same, but most tend not to.</p></blockquote>
 
 <p>所以通常解決方法是在 <code>.bash_profile</code> 寫入以下 script:
-```
-if [ -f ~/.bashrc ]; then</p>
-
-<pre><code>source ~/.bashrc
-</code></pre>
-
-<p>fi
-```</p>
+<code>
+if [ -f ~/.bashrc ]; then
+    source ~/.bashrc
+fi
+</code></p>
 
 <p>不過我之前就這樣做了，這次成功的方式是直接在 <code>.bash_profile</code> 寫入 PATH 路徑&hellip;
 猜想應該是在 <code>.bash_profile</code> 預先讀取而加快速度的

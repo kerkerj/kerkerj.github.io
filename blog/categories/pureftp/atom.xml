@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Pureftp | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/pureftp/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-02T20:39:53+08:00</updated>
+  <updated>2014-10-03T21:52:41+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -20,50 +20,42 @@
     <id>http://kerkerj.github.io/blog/2010/10/04/freebsd-81-ftp</id>
     <content type="html"><![CDATA[<p>FreeBSD 8.1 FTP伺服器 pureftp</p>
 
-<p>安裝：
-```</p>
+<p>安裝：</p>
 
-<h1>cd /usr/ports/ftp/pure-ftpd</h1>
+<pre><code>#cd /usr/ports/ftp/pure-ftpd
+#make install clean
+</code></pre>
 
-<h1>make install clean</h1>
-
-<p>```
-FTP這玩意是要看個人需求而定的, 因此在這講好我的需求, 我架了網頁伺服器, 並且想讓網頁管理人員能夠用 FTP,   連上他的網頁目錄做上傳修改, 因此 FTP 不能是匿名使用者, 需要一個虛擬帳號, 而該虛擬帳號也必須要有權限能夠讀取到 apache 的網頁資料夾</p>
+<p>FTP這玩意是要看個人需求而定的, 因此在這講好我的需求, 我架了網頁伺服器, 並且想讓網頁管理人員能夠用 FTP,   連上他的網頁目錄做上傳修改, 因此 FTP 不能是匿名使用者, 需要一個虛擬帳號, 而該虛擬帳號也必須要有權限能夠讀取到 apache 的網頁資料夾</p>
 
 <p>下面即是我的過程安裝紀錄<br/>
 建立一個 ftpgroup 群組及一個 ftpuser 使用者。<br/>
 當作「系統帳號」 (就像www是apache建立來作為系統帳號用的意思一樣)</p>
 
-<p>```</p>
-
-<h1>pw groupadd ftpgroup</h1>
-
-<h1>pw useradd ftpuser -g ftpgroup -d /dev/null -s /etc</h1>
-
-<p>```</p>
+<pre><code>#pw groupadd ftpgroup
+#pw useradd ftpuser -g ftpgroup -d /dev/null -s /etc
+</code></pre>
 
 <p>接著要建立虛擬帳號<br/>
-建立一個 &ldquo;kerker"，他的家目錄是 <code>/usr/local/www/apache22/data</code> (網頁伺服器的根目錄)<br/>
-與 "kerker&rdquo; 相關的系統帳號是 &ldquo;ftpuser"<br/>
+建立一個 &ldquo;kerker&#8221;，他的家目錄是 <code>/usr/local/www/apache22/data</code> (網頁伺服器的根目錄)<br/>
+與 &#8220;kerker&rdquo; 相關的系統帳號是 &ldquo;ftpuser&rdquo;<br/>
 <code># pure-pw useradd kerker -u 48 -g 48 -d/www/apache22/data -m</code></p>
 
 <p>kerker為虛擬帳號<br/>
-系統本身就有 apache 這 user, 這邊是當作虛擬使用者的群組<br/>
-<code>
--m，立即更新pureftpd.pdb檔 (or 建立)
+系統本身就有 apache 這 user, 這邊是當作虛擬使用者的群組</p>
+
+<pre><code>-m，立即更新pureftpd.pdb檔 (or 建立)
 -d，chroot user
 -D，dont chroot user
-</code></p>
+</code></pre>
 
-<p>接著修改 <code>/usr/local/etc/pure-ftpd.conf</code>
-```</p>
+<p>接著修改 <code>/usr/local/etc/pure-ftpd.conf</code></p>
 
-<h1>Minimum UID for an authenticated user to log in.</h1>
+<pre><code># Minimum UID for an authenticated user to log in.
+MinUID 14
 
-<p>MinUID 14</p>
-
-<p>PureDB      /usr/local/etc/pureftpd.pdb
-```</p>
+PureDB      /usr/local/etc/pureftpd.pdb
+</code></pre>
 
 <p>修改此兩項後, 啟動ftp
 <code>#/usr/local/etc/rc.d/pureftpd start</code>

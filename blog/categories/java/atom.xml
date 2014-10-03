@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Java | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-02T20:39:53+08:00</updated>
+  <updated>2014-10-03T21:52:41+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -18,15 +18,14 @@
     <link href="http://kerkerj.github.io/blog/2013/11/26/ubuntu-1204-install-oracle-java/"/>
     <updated>2013-11-26T02:18:00+08:00</updated>
     <id>http://kerkerj.github.io/blog/2013/11/26/ubuntu-1204-install-oracle-java</id>
-    <content type="html"><![CDATA[<p><code>
-sudo rm /var/lib/dpkg/info/oracle-java7-installer*
+    <content type="html"><![CDATA[<pre><code>sudo rm /var/lib/dpkg/info/oracle-java7-installer*
 sudo apt-get purge oracle-java7-installer*
 sudo rm /etc/apt/sources.list.d/*java*
 sudo apt-get update
 sudo add-apt-repository ppa:webupd8team/java
 sudo apt-get update
 sudo apt-get install oracle-java7-installer
-</code></p>
+</code></pre>
 ]]></content>
   </entry>
   
@@ -44,21 +43,14 @@ sudo apt-get install oracle-java7-installer
     <link href="http://kerkerj.github.io/blog/2011/06/15/java-string-split/"/>
     <updated>2011-06-15T17:11:00+08:00</updated>
     <id>http://kerkerj.github.io/blog/2011/06/15/java-string-split</id>
-    <content type="html"><![CDATA[<p>```java</p>
+    <content type="html"><![CDATA[<pre><code class="java">    String temp = "data1, data2, data3, data4"; //欲分割的字串
+  String data[] = temp.split(","); //分割後存進字串陣列
 
-<pre><code>String temp = "data1, data2, data3, data4"; //欲分割的字串
+  //印出每一個陣列元素
+  for(String result:data){
+    System.out.println(result);
+  }
 </code></pre>
-
-<p>  String data[] = temp.split(&ldquo;,&rdquo;); //分割後存進字串陣列</p>
-
-<p>  //印出每一個陣列元素
-  for(String result:data){</p>
-
-<pre><code>System.out.println(result);
-</code></pre>
-
-<p>  }
-```</p>
 ]]></content>
   </entry>
   
@@ -67,23 +59,16 @@ sudo apt-get install oracle-java7-installer
     <link href="http://kerkerj.github.io/blog/2011/06/01/java-hex-string-byte-array/"/>
     <updated>2011-06-01T15:23:00+08:00</updated>
     <id>http://kerkerj.github.io/blog/2011/06/01/java-hex-string-byte-array</id>
-    <content type="html"><![CDATA[<p>```java
-public String toHexString(byte[] in){</p>
+    <content type="html"><![CDATA[<pre><code class="java">public String toHexString(byte[] in){
+    BigInteger temp = new BigInteger(in);
+  return temp.toString(16);
+}
 
-<pre><code>BigInteger temp = new BigInteger(in);
+public byte[] fromHexString(String in){
+    BigInteger temp = new BigInteger(in, 16);
+  return temp.toByteArray();
+}  
 </code></pre>
-
-<p>  return temp.toString(16);
-}</p>
-
-<p>public byte[] fromHexString(String in){</p>
-
-<pre><code>BigInteger temp = new BigInteger(in, 16);
-</code></pre>
-
-<p>  return temp.toByteArray();
-}<br/>
-```</p>
 
 <p>文章參考<a href="http://ranger1976.blogspot.com/2008/07/hex-string-to-byte-array-and-reverse.html">自此</a></p>
 ]]></content>
