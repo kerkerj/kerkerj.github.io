@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Swift | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/swift/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-03T21:52:41+08:00</updated>
+  <updated>2014-10-04T19:00:07+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,82 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[Swift-d4] - Playground - Optional, ! And ?]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/04/swift-d4/"/>
+    <updated>2014-10-04T18:53:03+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/04/swift-d4</id>
+    <content type="html"><![CDATA[<h1>Playground - Optional, ! and ?</h1>
+
+<p>今天要來探討 Optional 型別，我認為這塊是初學 Swift 常遇到的問題<br/>
+大家搞不懂 &ldquo;!&rdquo; &ldquo;?&rdquo; 到底在幹什麼，所以今天就來了解一下</p>
+
+<p>在 Swift 中，所有的資料型別都不能賦予 nil<br/>
+也就是以下這件事是不成立的：</p>
+
+<pre><code class="Swift">var x: String = "test"
+x = nil
+</code></pre>
+
+<p>所以在 Swift 底下，就要使用 Optional 來處理值可能不存在的情況<br/>
+當一個變數 x 被宣告成 Optional 型別時，該變數就會有兩個情況：</p>
+
+<pre><code>1. 有值，等於 x
+2. 沒有值
+</code></pre>
+
+<p>要宣告一個變數可能為 nil 時的方式是使用問號 &lsquo;?&#8217;：</p>
+
+<pre><code>// 此時 x = "yaya"
+var x: String? = "yaya"
+
+// 此時 x 沒有值
+x = nil
+</code></pre>
+
+<p>拿以下程式在 Playground 執行看看：</p>
+
+<pre><code>var str: String = ""
+println(str)
+str = "yaya"
+println(str)
+
+var str2: String?
+println(str2)
+str2 = "yaya"
+println(str2)
+</code></pre>
+
+<p>可以看一下 Playground 右邊的輸出框，觀察兩個 string 的差異<br/>
+當 str2 被賦予 Optional 型別後，<br/>
+str2  已經不是單純的 String 型別了，</p>
+
+<p>那如何強制以 String 型別拿到 str2 的資料呢?
+試著在 str2 後面加上驚嘆號，並觀察右方輸出結果:</p>
+
+<pre><code>println(str2!)
+</code></pre>
+
+<p>請注意！若要強制取值，一定要確保此 Optional 型別中一定有值，
+否則將會導致執行錯誤，以下是錯誤範例：</p>
+
+<pre><code>var str2: String? = "yaya"
+println(str2)
+str2 = nil
+println(str2!)
+</code></pre>
+
+<p>程式將會在第四行返回錯誤，因此使用驚嘆號強制取值前請先確保 Optional 裡有值。</p>
+
+<p>在 Objective-C 中，nil 是指向一個不存在物件的指標；
+而 Swift 中，nil 是一種非常明確地值 － 他就是代表「不存在」。</p>
+
+<p>在 Playground 中多試試看囉~~</p>
+
+<p>ps. Swift 的 ? 和 Ruby 的 ? 是完全不同意思的XD</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[Swift-d3] - Playground - 變數與常數, 註解, 基本資料型別]]></title>

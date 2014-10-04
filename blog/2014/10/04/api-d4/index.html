@@ -1,0 +1,328 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>[API-d4] - 使用技術與工具介紹及原因 - kerkerj</title>
+  <meta name="author" content="kerkerj">
+
+  
+  <meta name="description" content="cool thing, cool guy">
+  <meta name="keywords" content="restful, api">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://kerkerj.github.io/blog/2014/10/04/api-d4">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="kerkerj" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+
+<link href="/favicon.ico" rel="icon">
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='//fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-45583907-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   class="collapse-sidebar sidebar-footer" >
+  <header role="banner"><hgroup>
+  <h1><a href="/">kerkerj</a></h1>
+  
+    <h2>Cool</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+  
+  
+  
+  
+<ul class="subscription">
+  <li><a href="https://github.com/kerkerj" rel="subscribe-github" title="@kerkerj on GitHub">GitHub</a></li>
+</ul>
+  
+  
+  
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:kerkerj.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/notes">Notes</a></li>
+  <li><a href="/mac-app-list">Mac App List</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      
+        <h1 class="entry-title">[API-d4] - 使用技術與工具介紹及原因</h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-04T18:52:58+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h1>使用技術與工具介紹及原因</h1>
+
+<p>終於要開始進入正題了！</p>
+
+<p>在了解 REST/RESTful 後，</p>
+
+<p>就要從無到有 - 從 Server 到 API endpoint 都由自己打造</p>
+
+<p>今天會先來說明接下來會使用到哪些工具及技術</p>
+
+<p>由於筆者使用 Mac ，因此若是有其他平台的使用者可能需要自行找教學</p>
+
+<h2>Server - Ubuntu with Vagrant + VitrualBox</h2>
+
+<p>接下來幾天會先從這個部分開始提起</p>
+
+<p>我們會使用 VirtualBox + Vagrant 的方式來建立自己的虛擬環境</p>
+
+<p>避免一些讀者可能對 Server command line 不熟</p>
+
+<p>這個部分是大家可以跳過的部分，但是我還是會從無到有架起來</p>
+
+<h2>Backend Language - Node.js</h2>
+
+<p>後端語言使用了 Node.js，其實本來有考慮使用 Golang，</p>
+
+<p>但顧及自己的時間&hellip; 還是使用 Node.js，方便快速</p>
+
+<p>這幾年是 Javascript 的時代，</p>
+
+<p>優勝美地似乎也可以支援使用 Javascript 撰寫 <a href="https://github.com/tylergaw/js-osx-app-examples">Automation Tool</a></p>
+
+<p>從前端打到後端甚至到 DB 都可以使用到 Javascript ，</p>
+
+<p>是該來看看 Javascript 的語法特性了 :D</p>
+
+<p>而且 Node.js Event-driven 的特性，可以利用少少的資源提供高效能的服務</p>
+
+<p>同時搭配易用性及社群活躍度，這是我選擇 Node.js 而非選擇 Golang 的原因</p>
+
+<h2>Framework - Express</h2>
+
+<p>我使用了 Node.js 的 web framework - Express</p>
+
+<p>Node.js 之於 Express 可以把它想像成是 Ruby 之於 Sinatra</p>
+
+<p>我使用 Express 方便處理 Route</p>
+
+<p>並且這套 framework 算是 Node.js 裡最具代表性的 framework</p>
+
+<p>學起來也還不錯</p>
+
+<h2>Database - MongoDB</h2>
+
+<p>DB 為了追求簡單快速，我使用了 MongoDB</p>
+
+<p>從 API 到 DB 無縫接軌，簡單的操作模式以及 Schema-free 的特性</p>
+
+<p>應該會讓這整件事情變得更簡單</p>
+
+<h2>Test client - PostMan (chrome extension)</h2>
+
+<p>由於 API 是純粹後端 service，我們使用 Express 並不會使用到樣板語言，</p>
+
+<p>也就是我們並不會撰寫 View (HTML, CSS 等等的語法)</p>
+
+<p>因此除了寫測試外，我們就可以使用這套 Chrome Extension 來對 API 做存取!</p>
+
+<hr />
+
+<p>結束! 接下來幾天會教大家建立自己的虛擬機哦~~</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Authored by <span class="fn">kerkerj</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-04T18:52:58+08:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/api/'>api</a>, <a class='category' href='/blog/categories/restful/'>restful</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://kerkerj.github.io/blog/2014/10/04/api-d4/" data-via="jerry54010" data-counturl="http://kerkerj.github.io/blog/2014/10/04/api-d4/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/10/03/swift-d3/" title="Previous Post: [Swift-d3] - Playground - 變數與常數, 註解, 基本資料型別 ">&laquo; [Swift-d3] - Playground - 變數與常數, 註解, 基本資料型別 </a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/10/04/swift-d4/" title="Next Post: [Swift-d4] - Playground - Optional, ! and ? ">[Swift-d4] - Playground - Optional, ! and ?  &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+
+</div>
+
+<aside class="sidebar">
+  
+    
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - kerkerj -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a> | Themed with <a href="https://github.com/lucaslew/whitespace">Whitespace</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'kerkerj-github';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://kerkerj.github.io/blog/2014/10/04/api-d4/';
+        var disqus_url = 'http://kerkerj.github.io/blog/2014/10/04/api-d4/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

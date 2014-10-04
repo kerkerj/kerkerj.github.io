@@ -153,7 +153,7 @@
 <p>Day1  -  <a href="http://kerkerj.github.io/blog/2014/10/02/api-d1/">[API-d1] - 定義 1 - 什麼是 REST/RESTful?</a><br/>
 Day2  -  <a href="http://kerkerj.github.io/blog/2014/10/02/api-d2/">[API-d2] - 定義 2 - RESTful 的優點與要求</a><br/>
 Day3  -  <a href="http://kerkerj.github.io/blog/2014/10/03/api-d3/">[API-d3] - 使用時機與實際 API 參考</a><br/>
-Day4  -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day4  -  <a href="http://kerkerj.github.io/blog/2014/10/04/api-d4/">[API-d4] - 使用技術與工具介紹及原因</a><br/>
 Day5  -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day6  -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day7  -  <a href="http://kerkerj.github.io/">#</a><br/>
@@ -186,7 +186,7 @@ Day30 -  <a href="http://kerkerj.github.io/">#</a></p>
 <p>Day1  -  <a href="http://kerkerj.github.io/blog/2014/10/02/swift-d1/">[Swift-d1] - 介紹</a><br/>
 Day2  -  <a href="http://kerkerj.github.io/blog/2014/10/02/swift-d2/">[Swift-d2] - 安裝及 Hello World!</a><br/>
 Day3  -  <a href="http://kerkerj.github.io/blog/2014/10/03/swift-d3/">[Swift-d3] - Playground - 變數與常數, 註解, 基本資料型別</a><br/>
-Day4  -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day4  -  <a href="http://kerkerj.github.io/blog/2014/10/04/swift-d4/">[Swift-d4] - Playground - Optional, ! and ? </a><br/>
 Day5  -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day6  -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day7  -  <a href="http://kerkerj.github.io/">#</a><br/>
@@ -213,6 +213,250 @@ Day27 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day28 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day29 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day30 -  <a href="http://kerkerj.github.io/">#</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/04/swift-d4/">[Swift-d4] - Playground - Optional, ! And ?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-04T18:53:03+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/10/04/swift-d4/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/04/swift-d4/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>Playground - Optional, ! and ?</h1>
+
+<p>今天要來探討 Optional 型別，我認為這塊是初學 Swift 常遇到的問題<br/>
+大家搞不懂 &ldquo;!&rdquo; &ldquo;?&rdquo; 到底在幹什麼，所以今天就來了解一下</p>
+
+<p>在 Swift 中，所有的資料型別都不能賦予 nil<br/>
+也就是以下這件事是不成立的：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="k">var</span> <span class="nl">x</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="s">&quot;test&quot;</span>
+</span><span class='line'><span class="n">x</span> <span class="o">=</span> <span class="nb">nil</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>所以在 Swift 底下，就要使用 Optional 來處理值可能不存在的情況<br/>
+當一個變數 x 被宣告成 Optional 型別時，該變數就會有兩個情況：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="mf">1.</span> <span class="err">有值，等於</span> <span class="n">x</span>
+</span><span class='line'><span class="mf">2.</span> <span class="err">沒有值</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>要宣告一個變數可能為 nil 時的方式是使用問號 &lsquo;?&#8217;：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="c1">// 此時 x = &quot;yaya&quot;</span>
+</span><span class='line'><span class="k">var</span> <span class="nl">x</span><span class="p">:</span> <span class="n">String</span><span class="o">?</span> <span class="o">=</span> <span class="s">&quot;yaya&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 此時 x 沒有值</span>
+</span><span class='line'><span class="n">x</span> <span class="o">=</span> <span class="nb">nil</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>拿以下程式在 Playground 執行看看：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="k">var</span> <span class="nl">str</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
+</span><span class='line'><span class="n">str</span> <span class="o">=</span> <span class="s">&quot;yaya&quot;</span>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">var</span> <span class="nl">str2</span><span class="p">:</span> <span class="n">String</span><span class="o">?</span>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str2</span><span class="p">)</span>
+</span><span class='line'><span class="n">str2</span> <span class="o">=</span> <span class="s">&quot;yaya&quot;</span>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str2</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可以看一下 Playground 右邊的輸出框，觀察兩個 string 的差異<br/>
+當 str2 被賦予 Optional 型別後，<br/>
+str2  已經不是單純的 String 型別了，</p>
+
+<p>那如何強制以 String 型別拿到 str2 的資料呢?
+試著在 str2 後面加上驚嘆號，並觀察右方輸出結果:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str2</span><span class="o">!</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>請注意！若要強制取值，一定要確保此 Optional 型別中一定有值，
+否則將會導致執行錯誤，以下是錯誤範例：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="k">var</span> <span class="nl">str2</span><span class="p">:</span> <span class="n">String</span><span class="o">?</span> <span class="o">=</span> <span class="s">&quot;yaya&quot;</span>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str2</span><span class="p">)</span>
+</span><span class='line'><span class="n">str2</span> <span class="o">=</span> <span class="nb">nil</span>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str2</span><span class="o">!</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>程式將會在第四行返回錯誤，因此使用驚嘆號強制取值前請先確保 Optional 裡有值。</p>
+
+<p>在 Objective-C 中，nil 是指向一個不存在物件的指標；
+而 Swift 中，nil 是一種非常明確地值 － 他就是代表「不存在」。</p>
+
+<p>在 Playground 中多試試看囉~~</p>
+
+<p>ps. Swift 的 ? 和 Ruby 的 ? 是完全不同意思的XD</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/04/api-d4/">[API-d4] - 使用技術與工具介紹及原因</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-04T18:52:58+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/10/04/api-d4/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/04/api-d4/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>使用技術與工具介紹及原因</h1>
+
+<p>終於要開始進入正題了！</p>
+
+<p>在了解 REST/RESTful 後，</p>
+
+<p>就要從無到有 - 從 Server 到 API endpoint 都由自己打造</p>
+
+<p>今天會先來說明接下來會使用到哪些工具及技術</p>
+
+<p>由於筆者使用 Mac ，因此若是有其他平台的使用者可能需要自行找教學</p>
+
+<h2>Server - Ubuntu with Vagrant + VitrualBox</h2>
+
+<p>接下來幾天會先從這個部分開始提起</p>
+
+<p>我們會使用 VirtualBox + Vagrant 的方式來建立自己的虛擬環境</p>
+
+<p>避免一些讀者可能對 Server command line 不熟</p>
+
+<p>這個部分是大家可以跳過的部分，但是我還是會從無到有架起來</p>
+
+<h2>Backend Language - Node.js</h2>
+
+<p>後端語言使用了 Node.js，其實本來有考慮使用 Golang，</p>
+
+<p>但顧及自己的時間&hellip; 還是使用 Node.js，方便快速</p>
+
+<p>這幾年是 Javascript 的時代，</p>
+
+<p>優勝美地似乎也可以支援使用 Javascript 撰寫 <a href="https://github.com/tylergaw/js-osx-app-examples">Automation Tool</a></p>
+
+<p>從前端打到後端甚至到 DB 都可以使用到 Javascript ，</p>
+
+<p>是該來看看 Javascript 的語法特性了 :D</p>
+
+<p>而且 Node.js Event-driven 的特性，可以利用少少的資源提供高效能的服務</p>
+
+<p>同時搭配易用性及社群活躍度，這是我選擇 Node.js 而非選擇 Golang 的原因</p>
+
+<h2>Framework - Express</h2>
+
+<p>我使用了 Node.js 的 web framework - Express</p>
+
+<p>Node.js 之於 Express 可以把它想像成是 Ruby 之於 Sinatra</p>
+
+<p>我使用 Express 方便處理 Route</p>
+
+<p>並且這套 framework 算是 Node.js 裡最具代表性的 framework</p>
+
+<p>學起來也還不錯</p>
+
+<h2>Database - MongoDB</h2>
+
+<p>DB 為了追求簡單快速，我使用了 MongoDB</p>
+
+<p>從 API 到 DB 無縫接軌，簡單的操作模式以及 Schema-free 的特性</p>
+
+<p>應該會讓這整件事情變得更簡單</p>
+
+<h2>Test client - PostMan (chrome extension)</h2>
+
+<p>由於 API 是純粹後端 service，我們使用 Express 並不會使用到樣板語言，</p>
+
+<p>也就是我們並不會撰寫 View (HTML, CSS 等等的語法)</p>
+
+<p>因此除了寫測試外，我們就可以使用這套 Chrome Extension 來對 API 做存取!</p>
+
+<hr />
+
+<p>結束! 接下來幾天會教大家建立自己的虛擬機哦~~</p>
 </div>
   
   
@@ -1013,189 +1257,6 @@ Cocoa framework 是 Apple 爲 Mac OSX 所建立的環境，用來開發 OSX 的�
 </pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;index_page&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
 </span><span class='line'><span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;uri_protocol&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;REQUEST_URI&#39;</span><span class="p">;</span>
 </span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/08/18/event-driven-i-slash-o-models-and-coroutine/">Event-driven I/O Models and Coroutine Notes</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-18T23:19:51+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/08/18/event-driven-i-slash-o-models-and-coroutine/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/08/18/event-driven-i-slash-o-models-and-coroutine/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>Event-driven I/O model</h2>
-
-<p>首先，聽到 Event-driven 是從 <a href="http://nodejs.org/">Node.js</a> 得知，</p>
-
-<blockquote><p>Node.js® is a platform built on <a href="http://code.google.com/p/v8/">Chrome&rsquo;s JavaScript runtime</a> for easily building fast, scalable network applications.</p>
-
-<p>Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient, perfect for data-intensive real-time applications that run across distributed devices.</p></blockquote>
-
-<p>其實剛聽到這詞會有點陌生，我們可以先從 Victor 所寫的文章開始讀起:
-<a href="http://blog.ez2learn.com/2010/07/17/talk-about-coroutine-and-gevent/">淺談coroutine與gevent</a></p>
-
-<p>裡面提到了幾種網路模型：</p>
-
-<blockquote><ol>
-<li>阻塞式單一行程</li>
-<li>阻塞式多行程</li>
-<li>阻塞式多行程多執行序</li>
-<li>非阻塞式事件驅動</li>
-<li>非阻塞式 coroutine</li>
-</ol>
-</blockquote>
-
-<p>以下是各語言 event-driven 的 model<br/>
-(Node.js 就不列出了，本身就是 event-driven 設計)</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Event-driven model:
-</span><span class='line'>* Ruby    -&gt; [Eventmachine](http://rubyeventmachine.com/)  
-</span><span class='line'>          -&gt; [Celluloid::IO](https://github.com/celluloid/celluloid-io)   
-</span><span class='line'>          -&gt; [Thin Server](http://code.macournoyer.com/thin)   
-</span><span class='line'>* Python  -&gt; [Twisted](https://twistedmatrix.com/trac/)  
-</span><span class='line'>          -&gt; [Tornado](http://www.tornadoweb.org/en/stable)   
-</span><span class='line'>* Perl     -&gt; [Perl Object Environment (POE)](http://poe.perl.org)    
-</span><span class='line'>* PHP     -&gt; [REACT](http://reactphp.org) </span></code></pre></td></tr></table></div></figure>
-
-
-<p></p>
-
-<p>以 Ruby 建構 API Service 的話，可以使用 Sinatra + Eventmachine + thin proxy + Nginx 的 Solution:<br/>
-<a href="http://recipes.sinatrarb.com/p/embed/event-machine">Embedding Sinatra within EventMachine</a></p>
-
-<p>延伸閱讀: <br/>
-<a href="https://www.igvita.com/2008/05/27/ruby-eventmachine-the-speed-demon/">2008 - Eventmachine and Reactor pattern</a> <br/>
-<a href="http://developwithstyle.com/articles/2012/05/23/lessons-learnt-from-building-a-rest-based-api/">2012 - Lessons Learnt From Building a REST API</a><br/>
-<a href="https://docs.google.com/document/d/1dU-juYN25FMXdp6Ju62KAIT_0tuuZAPEgZkj-aT6kPQ/edit#heading=h.lafes4uxj2b0">年份未知 - 針對各 framework 進行評測 Event Driven I/O Web Application Server Analysis</a><br/>
-<a href="http://blog.sina.com.cn/s/blog_704b6af70100py9n.html">Twisted 教程</a></p>
-
-<h4>Reactor 模型</h4>
-
-<p>Node.js 處理 concurrency 是 Reactor mode<br/>
-Ruby 的 Goliath framework 也是 Reactor mode<br/>
-Golang, Erlang 是 CSP (communicating sequential process)</p>
-
-<p>現在比較流行的是 event-driven 的 Reactor mode, e.g. Node.js, Goliath<br/>
-但是 Node.js 比較令人詬病的是 code 難維護，太多層層的 callback 會擾亂邏輯<br/>
-畢竟線性處理比較符合人類思維 <br/>
-而 Ruby 使用 Fiber 以避免寫出過多的 callback<br/>
-Python 的 Twisted 也已經存在好一陣子，穩定發展中</p>
-
-<p>不過以 Node.js 典型的應用的確是 proxy, API server<br/>
-因此我們可以參考 Node.js 的特性，使用其他語言來達到同樣的效果<br/>
-那就是 event-driven</p>
-
-<h2>Coroutine Programming</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>* Golang - goroutine (native) 
-</span><span class='line'>* Python - [gevent](http://www.gevent.org/)  
-</span><span class='line'>* Ruby - Fiber (native)   
-</span><span class='line'>* Lua   </span></code></pre></td></tr></table></div></figure>
-
-
-<p>延伸閱讀:<br/>
-<a href="http://www.bigfastblog.com/">Ruby 的 eventmachine 相關討論</a><br/>
-<a href="http://www.blogjava.net/killme2008/archive/2010/03/11/315158.html">Ruby Fiber 指南</a><br/>
-<a href="http://electronic-blue.herokuapp.com/blog/2012/06/coroutine-an-introduction/">2012 - Lua - Coroutine introduction</a><br/>
-<a href="https://www.igvita.com/2009/05/13/fibers-cooperative-scheduling-in-ruby/">2009 - Fibers &amp; Cooperative Scheduling in Ruby</a><br/>
-<a href="http://www.blogjava.net/killme2008/archive/2010/03/02/314264.html">2010 - Lua、LuaJIT Coroutine和Ruby Fiber的切換效率對比</a></p>
-
-<hr />
-
-<p>建構 API Service 考慮到的除了 Server 以外，<br/>
-語言的特性通常也必須考慮進去，例如<br/>
-sync v.s. async<br/>
-coroutine v.s. non-coroutine<br/>
-但通常以當前需求而言，其實也不需要 over-design<br/>
-只要選擇拿手的，能夠快速方便的開發出雛形，<br/>
-我想等到真的快要 10000 per/second request 時，再來煩惱更進一步的架構吧</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/08/15/add-tracked-file-to-gitignore/">Add Tracked File to .gitignore</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-15T18:27:30+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/08/15/add-tracked-file-to-gitignore/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/08/15/add-tracked-file-to-gitignore/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git update-index --assume-unchanged &lt;file&gt;</span></code></pre></td></tr></table></div></figure>
-
-
-<p>If there&rsquo;s a remote server, also do:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git rm --cached &lt;file&gt;</span></code></pre></td></tr></table></div></figure>
 
 </div>
   

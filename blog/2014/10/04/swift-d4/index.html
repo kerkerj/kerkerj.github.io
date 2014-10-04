@@ -1,0 +1,354 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>[Swift-d4] - Playground - Optional, ! And ? - kerkerj</title>
+  <meta name="author" content="kerkerj">
+
+  
+  <meta name="description" content="cool thing, cool guy">
+  <meta name="keywords" content="swift">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://kerkerj.github.io/blog/2014/10/04/swift-d4">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="kerkerj" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+
+<link href="/favicon.ico" rel="icon">
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='//fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-45583907-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   class="collapse-sidebar sidebar-footer" >
+  <header role="banner"><hgroup>
+  <h1><a href="/">kerkerj</a></h1>
+  
+    <h2>Cool</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+  
+  
+  
+  
+<ul class="subscription">
+  <li><a href="https://github.com/kerkerj" rel="subscribe-github" title="@kerkerj on GitHub">GitHub</a></li>
+</ul>
+  
+  
+  
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:kerkerj.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/notes">Notes</a></li>
+  <li><a href="/mac-app-list">Mac App List</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      
+        <h1 class="entry-title">[Swift-d4] - Playground - Optional, ! And ?</h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-04T18:53:03+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h1>Playground - Optional, ! and ?</h1>
+
+<p>今天要來探討 Optional 型別，我認為這塊是初學 Swift 常遇到的問題<br/>
+大家搞不懂 &ldquo;!&rdquo; &ldquo;?&rdquo; 到底在幹什麼，所以今天就來了解一下</p>
+
+<p>在 Swift 中，所有的資料型別都不能賦予 nil<br/>
+也就是以下這件事是不成立的：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="k">var</span> <span class="nl">x</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="s">&quot;test&quot;</span>
+</span><span class='line'><span class="n">x</span> <span class="o">=</span> <span class="nb">nil</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>所以在 Swift 底下，就要使用 Optional 來處理值可能不存在的情況<br/>
+當一個變數 x 被宣告成 Optional 型別時，該變數就會有兩個情況：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="mf">1.</span> <span class="err">有值，等於</span> <span class="n">x</span>
+</span><span class='line'><span class="mf">2.</span> <span class="err">沒有值</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>要宣告一個變數可能為 nil 時的方式是使用問號 &lsquo;?&#8217;：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="c1">// 此時 x = &quot;yaya&quot;</span>
+</span><span class='line'><span class="k">var</span> <span class="nl">x</span><span class="p">:</span> <span class="n">String</span><span class="o">?</span> <span class="o">=</span> <span class="s">&quot;yaya&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 此時 x 沒有值</span>
+</span><span class='line'><span class="n">x</span> <span class="o">=</span> <span class="nb">nil</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>拿以下程式在 Playground 執行看看：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="k">var</span> <span class="nl">str</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
+</span><span class='line'><span class="n">str</span> <span class="o">=</span> <span class="s">&quot;yaya&quot;</span>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">var</span> <span class="nl">str2</span><span class="p">:</span> <span class="n">String</span><span class="o">?</span>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str2</span><span class="p">)</span>
+</span><span class='line'><span class="n">str2</span> <span class="o">=</span> <span class="s">&quot;yaya&quot;</span>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str2</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可以看一下 Playground 右邊的輸出框，觀察兩個 string 的差異<br/>
+當 str2 被賦予 Optional 型別後，<br/>
+str2  已經不是單純的 String 型別了，</p>
+
+<p>那如何強制以 String 型別拿到 str2 的資料呢?
+試著在 str2 後面加上驚嘆號，並觀察右方輸出結果:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str2</span><span class="o">!</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>請注意！若要強制取值，一定要確保此 Optional 型別中一定有值，
+否則將會導致執行錯誤，以下是錯誤範例：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="k">var</span> <span class="nl">str2</span><span class="p">:</span> <span class="n">String</span><span class="o">?</span> <span class="o">=</span> <span class="s">&quot;yaya&quot;</span>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str2</span><span class="p">)</span>
+</span><span class='line'><span class="n">str2</span> <span class="o">=</span> <span class="nb">nil</span>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str2</span><span class="o">!</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>程式將會在第四行返回錯誤，因此使用驚嘆號強制取值前請先確保 Optional 裡有值。</p>
+
+<p>在 Objective-C 中，nil 是指向一個不存在物件的指標；
+而 Swift 中，nil 是一種非常明確地值 － 他就是代表「不存在」。</p>
+
+<p>在 Playground 中多試試看囉~~</p>
+
+<p>ps. Swift 的 ? 和 Ruby 的 ? 是完全不同意思的XD</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Authored by <span class="fn">kerkerj</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-04T18:53:03+08:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/swift/'>swift</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://kerkerj.github.io/blog/2014/10/04/swift-d4/" data-via="jerry54010" data-counturl="http://kerkerj.github.io/blog/2014/10/04/swift-d4/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/10/04/api-d4/" title="Previous Post: [API-d4] - 使用技術與工具介紹及原因">&laquo; [API-d4] - 使用技術與工具介紹及原因</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/11/01/planning/" title="Next Post: Planning">Planning &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+
+</div>
+
+<aside class="sidebar">
+  
+    
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - kerkerj -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a> | Themed with <a href="https://github.com/lucaslew/whitespace">Whitespace</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'kerkerj-github';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://kerkerj.github.io/blog/2014/10/04/swift-d4/';
+        var disqus_url = 'http://kerkerj.github.io/blog/2014/10/04/swift-d4/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
