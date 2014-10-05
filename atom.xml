@@ -4,7 +4,7 @@
   <title><![CDATA[kerkerj]]></title>
   <link href="http://kerkerj.github.io/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-04T19:00:07+08:00</updated>
+  <updated>2014-10-05T16:47:43+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -48,7 +48,7 @@
 Day2  -  <a href="http://kerkerj.github.io/blog/2014/10/02/api-d2/">[API-d2] - 定義 2 - RESTful 的優點與要求</a><br/>
 Day3  -  <a href="http://kerkerj.github.io/blog/2014/10/03/api-d3/">[API-d3] - 使用時機與實際 API 參考</a><br/>
 Day4  -  <a href="http://kerkerj.github.io/blog/2014/10/04/api-d4/">[API-d4] - 使用技術與工具介紹及原因</a><br/>
-Day5  -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day5  -  <a href="http://kerkerj.github.io/blog/2014/10/05/api-d5/">[API-d5] - [Server 番外篇] 建立自己的本機虛擬伺服器 1 - Vagrant + VirtualBox 安裝</a><br/>
 Day6  -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day7  -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day8  -  <a href="http://kerkerj.github.io/">#</a><br/>
@@ -81,7 +81,7 @@ Day30 -  <a href="http://kerkerj.github.io/">#</a></p>
 Day2  -  <a href="http://kerkerj.github.io/blog/2014/10/02/swift-d2/">[Swift-d2] - 安裝及 Hello World!</a><br/>
 Day3  -  <a href="http://kerkerj.github.io/blog/2014/10/03/swift-d3/">[Swift-d3] - Playground - 變數與常數, 註解, 基本資料型別</a><br/>
 Day4  -  <a href="http://kerkerj.github.io/blog/2014/10/04/swift-d4/">[Swift-d4] - Playground - Optional, ! and ? </a><br/>
-Day5  -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day5  -  <a href="http://kerkerj.github.io/blog/2014/10/05/swift-d5/">[Swift-d5] - Playground - Array, Dictionary, Controll Flow</a><br/>
 Day6  -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day7  -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day8  -  <a href="http://kerkerj.github.io/">#</a><br/>
@@ -107,6 +107,633 @@ Day27 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day28 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day29 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day30 -  <a href="http://kerkerj.github.io/">#</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Swift-d5] - Playground - Array, Dictionary, Controll Flow]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/05/swift-d5/"/>
+    <updated>2014-10-05T16:40:23+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/05/swift-d5</id>
+    <content type="html"><![CDATA[<h2>Array</h2>
+
+<h3>宣告</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="c1">// var VARIABLE_NAME: [TYPE] = .....</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">var</span> <span class="nl">fruits</span><span class="p">:</span> <span class="p">[</span><span class="n">String</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;apple&quot;</span><span class="p">,</span> <span class="s">&quot;banana&quot;</span><span class="p">]</span>
+</span><span class='line'><span class="k">var</span> <span class="nl">nums</span><span class="p">:</span> <span class="p">[</span><span class="n">Int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 或是讓 Swift 自行判斷類型:</span>
+</span><span class='line'><span class="k">var</span> <span class="n">fruits</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;apple&quot;</span><span class="p">,</span> <span class="s">&quot;banana&quot;</span><span class="p">]</span>
+</span><span class='line'><span class="k">var</span> <span class="n">nums</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 初始化:</span>
+</span><span class='line'><span class="k">var</span> <span class="n">cars</span> <span class="o">=</span> <span class="p">[</span><span class="n">String</span><span class="p">]()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ps. Beta 版時的寫法是 <code>var fruits: String[]</code></p>
+
+<p>現在已經變成了 <code>var fruits: [String]</code></p>
+
+<h3>操作</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="c1">// 判斷該陣列是否有值，回傳 true 或 false</span>
+</span><span class='line'><span class="n">fruits</span><span class="p">.</span><span class="n">isEmpty</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 增加元素</span>
+</span><span class='line'><span class="n">fruits</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;watermelon&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="n">fruits</span> <span class="o">+=</span> <span class="p">[</span><span class="s">&quot;lemon&quot;</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 取值 </span>
+</span><span class='line'><span class="n">fruits</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span><span class='line'><span class="n">fruits</span><span class="p">[</span><span class="mf">0.</span><span class="p">.</span><span class="mf">.2</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 刪除值 - 將 apple 移除，banana 會自動補上</span>
+</span><span class='line'><span class="n">fruits</span><span class="p">.</span><span class="n">removeAtIndex</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span><span class='line'><span class="n">fruits</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 兩個陣列合併 (必須相同類別 e.g. String)</span>
+</span><span class='line'><span class="n">fruits</span> <span class="o">+</span> <span class="n">cars</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 陣列元素數量</span>
+</span><span class='line'><span class="n">fruits</span><span class="p">.</span><span class="n">count</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Dictionary</h2>
+
+<h3>宣告</h3>
+
+<p>由於 Dictionary 是 key/value 為一組 (pair)，</p>
+
+<p>因此宣告時必須宣告 key 和 value 分別是哪種型別</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">var</span> <span class="nl">httpStatus</span><span class="p">:</span> <span class="n">Dictionary</span><span class="o">&lt;</span><span class="n">Int</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">Dictionary</span><span class="o">&lt;</span><span class="n">Int</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">var</span> <span class="nl">httpStatus</span><span class="p">:</span> <span class="n">Dictionary</span><span class="o">&lt;</span><span class="n">Int</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">[</span><span class="mi">200</span><span class="o">:</span> <span class="s">&quot;Success&quot;</span><span class="p">,</span> <span class="mi">404</span><span class="o">:</span> <span class="s">&quot;Not found&quot;</span><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>操作</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="c1">// 一樣有 isEmpty 方法</span>
+</span><span class='line'><span class="n">httpStatus</span><span class="p">.</span><span class="n">isEmpty</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 取值</span>
+</span><span class='line'><span class="n">httpStatus</span><span class="p">[</span><span class="mi">200</span><span class="p">]</span> <span class="c1">// = &quot;Success&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 加入值</span>
+</span><span class='line'><span class="n">httpStatus</span><span class="p">[</span><span class="mi">500</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;Internal Server Error&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 修改值</span>
+</span><span class='line'><span class="n">httpStatus</span><span class="p">[</span><span class="mi">200</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;True&quot;</span>
+</span><span class='line'><span class="n">httpStatus</span><span class="p">.</span><span class="n">updateValue</span><span class="p">(</span><span class="s">&quot;internal server error&quot;</span><span class="p">,</span> <span class="nl">forKey</span><span class="p">:</span> <span class="mi">500</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 刪除值</span>
+</span><span class='line'><span class="n">httpStatus</span><span class="p">.</span><span class="n">removeValueForKey</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 字典元素數量</span>
+</span><span class='line'><span class="n">httpStatus</span><span class="p">.</span><span class="n">count</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Controll Flow</h2>
+
+<h3>For loop</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">for</span> <span class="n">fruit</span> <span class="k">in</span> <span class="n">fruits</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">println</span><span class="p">(</span><span class="n">fruit</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">for</span> <span class="k">var</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="n">fruits</span><span class="p">.</span><span class="n">count</span><span class="p">;</span> <span class="o">++</span><span class="n">index</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">println</span><span class="p">(</span><span class="n">fruits</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>While</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">var</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'><span class="k">while</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="n">fruits</span><span class="p">.</span><span class="n">count</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">println</span><span class="p">(</span><span class="n">fruits</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+</span><span class='line'>    <span class="n">index</span><span class="o">++</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Do-while</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">var</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'><span class="k">do</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">println</span><span class="p">(</span><span class="n">fruits</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+</span><span class='line'>  <span class="n">index</span><span class="o">++</span>
+</span><span class='line'><span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">index</span> <span class="o">&lt;</span> <span class="n">fruits</span><span class="p">.</span><span class="n">count</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>If</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">var</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">5566</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">5566</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">println</span><span class="p">(</span><span class="s">&quot;5566 不能亡&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">5566</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">println</span><span class="p">(</span><span class="s">&quot;5566 不能亡&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">println</span><span class="p">(</span><span class="s">&quot;You are not 5566&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">5566</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">println</span><span class="p">(</span><span class="s">&quot;5566 不能亡&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="mi">5566</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">println</span><span class="p">(</span><span class="s">&quot;You are less than 5566&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">println</span><span class="p">(</span><span class="s">&quot;You are bigger than 5566&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Switch</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">var</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">switch</span> <span class="n">index</span> <span class="p">{</span>
+</span><span class='line'><span class="k">case</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span>
+</span><span class='line'>  <span class="n">println</span><span class="p">(</span><span class="s">&quot;small&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="k">case</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">11</span>
+</span><span class='line'>  <span class="n">println</span><span class="p">(</span><span class="s">&quot;big&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="k">default</span><span class="o">:</span>
+</span><span class='line'>  <span class="n">println</span><span class="p">(</span><span class="s">&quot;others&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>引入 Tuple</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">let</span> <span class="n">httpStatus</span> <span class="o">=</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s">&quot;Success&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">switch</span> <span class="n">httpStatus</span> <span class="p">{</span>
+</span><span class='line'><span class="k">case</span> <span class="p">(</span><span class="k">let</span> <span class="n">statusCode</span><span class="p">,</span> <span class="s">&quot;Error&quot;</span><span class="p">)</span><span class="o">:</span>
+</span><span class='line'>    <span class="n">println</span><span class="p">(</span><span class="s">&quot;(\(statusCode)) is Error&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="k">case</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="k">let</span> <span class="n">msg</span><span class="p">)</span><span class="o">:</span>
+</span><span class='line'>    <span class="n">println</span><span class="p">(</span><span class="s">&quot;(\(msg))&#39;s statusCode is 200&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Switch - break, continue, fallthrough</h2>
+
+<h3>Continue</h3>
+
+<p>continue 會使該次的 loop 停止，並繼續執行下一個 loop</p>
+
+<p>continue 不存在於單一的 switch, 只會在 loop 裡的 switch 語句時才能使用</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">var</span> <span class="n">fruits</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;apple&quot;</span><span class="p">,</span> <span class="s">&quot;banana&quot;</span><span class="p">,</span> <span class="s">&quot;lemon&quot;</span><span class="p">,</span> <span class="s">&quot;waterlemon&quot;</span><span class="p">,</span> <span class="s">&quot;orange&quot;</span><span class="p">]</span>
+</span><span class='line'><span class="k">for</span> <span class="n">fruit</span> <span class="k">in</span> <span class="n">fruits</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">println</span><span class="p">(</span><span class="s">&quot;Start&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">switch</span> <span class="n">fruit</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">case</span> <span class="s">&quot;banana&quot;</span><span class="o">:</span>
+</span><span class='line'>        <span class="k">continue</span>
+</span><span class='line'>    <span class="k">default</span><span class="o">:</span>
+</span><span class='line'>        <span class="n">println</span><span class="p">(</span><span class="n">fruit</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">println</span><span class="p">(</span><span class="s">&quot;End&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Start 和 End 理論上都要被印五次，</p>
+
+<p>但是加入了 continue 後，banana case 當次 loop 的 End 就沒有被執行了</p>
+
+<h3>Break</h3>
+
+<p>通常是用在不想處理某個 case 或，特別想要處理時 (?) 反之嘛 XD</p>
+
+<p>當使用了 break，會立即中斷 switch 程式碼的執行，並且跳到 switch 區塊程式碼結束的大括號後 (}) 的第一行程式</p>
+
+<p>暫時想不到什麼好例子&hellip;.</p>
+
+<p>先借別人的例子來用吧:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">let</span> <span class="nl">numberSymbol</span><span class="p">:</span> <span class="n">Character</span> <span class="o">=</span> <span class="s">&quot;三&quot;</span>  <span class="c1">// 簡體中文裡的數字 3</span>
+</span><span class='line'><span class="k">var</span> <span class="nl">possibleIntegerValue</span><span class="p">:</span> <span class="n">Int</span><span class="o">?</span>
+</span><span class='line'><span class="k">switch</span> <span class="n">numberSymbol</span> <span class="p">{</span>
+</span><span class='line'><span class="k">case</span> <span class="s">&quot;1&quot;</span><span class="p">,</span> <span class="s">&quot;١&quot;</span><span class="p">,</span> <span class="s">&quot;一&quot;</span><span class="p">,</span> <span class="s">&quot;๑&quot;</span><span class="o">:</span>
+</span><span class='line'>    <span class="n">possibleIntegerValue</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span class='line'><span class="k">case</span> <span class="s">&quot;2&quot;</span><span class="p">,</span> <span class="s">&quot;٢&quot;</span><span class="p">,</span> <span class="s">&quot;二&quot;</span><span class="p">,</span> <span class="s">&quot;๒&quot;</span><span class="o">:</span>
+</span><span class='line'>    <span class="n">possibleIntegerValue</span> <span class="o">=</span> <span class="mi">2</span>
+</span><span class='line'><span class="k">case</span> <span class="s">&quot;3&quot;</span><span class="p">,</span> <span class="s">&quot;٣&quot;</span><span class="p">,</span> <span class="s">&quot;三&quot;</span><span class="p">,</span> <span class="s">&quot;๓&quot;</span><span class="o">:</span>
+</span><span class='line'>    <span class="n">possibleIntegerValue</span> <span class="o">=</span> <span class="mi">3</span>
+</span><span class='line'><span class="k">case</span> <span class="s">&quot;4&quot;</span><span class="p">,</span> <span class="s">&quot;٤&quot;</span><span class="p">,</span> <span class="s">&quot;四&quot;</span><span class="p">,</span> <span class="s">&quot;๔&quot;</span><span class="o">:</span>
+</span><span class='line'>    <span class="n">possibleIntegerValue</span> <span class="o">=</span> <span class="mi">4</span>
+</span><span class='line'><span class="k">default</span><span class="o">:</span>
+</span><span class='line'>    <span class="k">break</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">if</span> <span class="k">let</span> <span class="n">integerValue</span> <span class="o">=</span> <span class="n">possibleIntegerValue</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">println</span><span class="p">(</span><span class="s">&quot;The integer value of \(numberSymbol) is \(integerValue).&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">println</span><span class="p">(</span><span class="s">&quot;An integer value could not be found for \(numberSymbol).&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="c1">// 輸出 &quot;The integer value of 三 is 3.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Fallthrough</h3>
+
+<p>在 Swift 中，掃到第一個符合的 case 後，就會中斷 switch 的執行了，避免掉入一些 case 處理的錯誤</p>
+
+<p>而 fallthrough, 很有趣, 宣告後，會讓 switch 繼續掃下一個 case</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">let</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">5</span>
+</span><span class='line'><span class="k">var</span> <span class="n">description</span> <span class="o">=</span> <span class="s">&quot;\(num) is&quot;</span>
+</span><span class='line'><span class="k">switch</span> <span class="n">num</span> <span class="p">{</span>
+</span><span class='line'><span class="k">case</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">19</span><span class="o">:</span>
+</span><span class='line'>    <span class="n">description</span> <span class="o">+=</span> <span class="s">&quot; a prime, also&quot;</span>
+</span><span class='line'>    <span class="k">fallthrough</span>
+</span><span class='line'><span class="k">case</span> <span class="mi">5</span><span class="o">:</span>
+</span><span class='line'>    <span class="n">println</span><span class="p">(</span><span class="s">&quot;I&#39;m here&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="k">default</span><span class="o">:</span>
+</span><span class='line'>    <span class="n">description</span> <span class="o">+=</span> <span class="s">&quot; an integer.&quot;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">description</span><span class="p">)</span>
+</span><span class='line'><span class="c1">// I&#39;m here</span>
+</span><span class='line'><span class="c1">// 5 is a prime, also an integer.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[API-d5] - [Server 番外篇] 建立自己的本機虛擬伺服器 1 - Vagrant + VirtualBox 安裝]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/05/api-d5/"/>
+    <updated>2014-10-05T16:40:18+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/05/api-d5</id>
+    <content type="html"><![CDATA[<p>VirtualBox 是一套虛擬軟體，可以方便幫助我們在現有的作業系統上</p>
+
+<p>模擬另一個作業系統 (如 linux, Ubuntu, CentOS&hellip;)</p>
+
+<p>在虛擬機器裡面所以的一切變動，都不會影響到現有的作業系統，</p>
+
+<p>非常適合拿來做測試使用</p>
+
+<p>由於現在大部份的 Service 除了架設在 Windows Server 外，最大宗的就是 *nix distribution 了</p>
+
+<p>因此這在這個系列文中，也是一定要教大家如何建立起虛擬測試機器，</p>
+
+<p>來模擬真實 Server 環境中，如何架設自己撰寫的 API Service</p>
+
+<h2>VirtualBox</h2>
+
+<p>到 <a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a> 官方網站下載合適的安裝檔案吧!</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-04%2012.56.26.png" alt="p1" /></p>
+
+<p>安裝完成就可以了!</p>
+
+<p>因為我們接下來會使用 Vagrant 這套 commaond line tool 來對 VirtualBox 進行操作</p>
+
+<p>因此只要安裝完 VirtualBox 後就可以不用管他了 XD</p>
+
+<h2>Vagrant</h2>
+
+<p><a href="https://www.vagrantup.com/">Vagrant</a></p>
+
+<p>它可以幫助我們快速的建立一個輕量、可重複使用、並且可以打包起來帶著走的環境</p>
+
+<p>透過編輯一個設定檔，就可以簡單設定該虛擬系統的 *nix 基本設定，如 共享資料夾、網路存取等等，</p>
+
+<p>不需要透過 VirtualBox</p>
+
+<p>通常這套軟體可以應用在團隊開發上：</p>
+
+<p>以網頁開發來說，如果大家的測試環境與版本都不太一樣，例如 apache 或 php 版本不同</p>
+
+<p>有時候會造成團隊溝通的負擔，因此透過 Vagrant 將 server 環境重新建立一套虛擬機器，</p>
+
+<p>並且透過 Vagrant 打包，就可以丟給其他人使用，這樣一來大家的環境都一樣，</p>
+
+<p>就可以避免這個問題，</p>
+
+<p>而且還有一點，Server 的安裝是很累人的，同樣的事情基本上都不會想做第二遍，</p>
+
+<p>因此打包一個乾淨的環境後備份，弄髒了可以隨時快速再把備份拿出來用，非常方便！</p>
+
+<h3>安裝:</h3>
+
+<p>到 <a href="https://www.vagrantup.com/downloads">下載頁面</a> 尋找適合自己的下載並且安裝</p>
+
+<p>安裝完後應該就可以在終端機中使用 vagrant 這個指令了!</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ vagrant -v
+</span><span class='line'>Vagrant 1.6.5</span></code></pre></td></tr></table></div></figure>
+
+
+<p>目前最新的版本應該是 1.6.5</p>
+
+<h3>建立自己的虛擬機器</h3>
+
+<p>首先在自己想要建立虛擬機器的地方先開一個資料夾</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ mkdir ~/ithome/ </span></code></pre></td></tr></table></div></figure>
+
+
+<p>切換到該資料夾</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd ~/ithome</span></code></pre></td></tr></table></div></figure>
+
+
+<p>使用 vagrant 初始化這個資料夾，並且指定我們要使用 Ubuntu 14.04 版本</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ vagrant init ubuntu/trusty64
+</span><span class='line'>A `Vagrantfile` has been placed in this directory. You are now
+</span><span class='line'>ready to `vagrant up` your first virtual environment! Please read
+</span><span class='line'>the comments in the Vagrantfile as well as documentation on
+</span><span class='line'>`vagrantup.com` for more information on using Vagrant.</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果想要使用別種 *nix 版本可以到這裡找 - <a href="https://vagrantcloud.com/discover/featured">VagrantCloud</a></p>
+
+<p>下完 <code>vagrant init ubuntu/trusty64</code> 指令後，指令告訴你有一個檔案叫做 <code>Vagrantfile</code> 被建立在這個資料夾裡了，</p>
+
+<p>可以使用 <code>vagrant up</code> 來開啟虛擬機器</p>
+
+<p>不過我們先不要下開機指令，我們先來看看 <code>Vagrantfile</code> 的內容，我直接把比較重要的設定說明寫在註解裡面了：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  ...
+</span><span class='line'>  
+</span><span class='line'>  // 此行是說明要使用哪一個 box ，會到自己的系統裡面尋找，如果沒有的話就會下載一個
+</span><span class='line'>  // 由於我們剛剛是使用 VagrantCloud 找的版本，因此 vagrant 會去找 
+</span><span class='line'>  config.vm.box = "ubuntu/trusty64"
+</span><span class='line'>
+</span><span class='line'>  // 這個是設定網路
+</span><span class='line'>  // 預設是 NAT，也就是如果我們在虛擬機器裝了網頁伺服器，
+</span><span class='line'>  // 必須使用 port forwarding 的方式來讀到虛擬機器裡面的網頁 
+</span><span class='line'>  #config.vm.network "forwarded_port", guest: 80, host: 8080
+</span><span class='line'>
+</span><span class='line'>  // Important! 
+</span><span class='line'>  // 承上，或者我們可以使用一個 private network ip，我們把它開啟註解吧~
+</span><span class='line'>  // 這樣我們開啟虛擬機器時，他的 IP 就會是 192.168.33.10
+</span><span class='line'>  config.vm.network "private_network", ip: "192.168.33.10"
+</span><span class='line'>
+</span><span class='line'>  // 開啟註解的話，就是直接使用 bridge 的方式，如果是使用分享器的話
+</span><span class='line'>  // 虛擬機會到分享器要一個 IP 
+</span><span class='line'>  # config.vm.network "public_network"
+</span><span class='line'>  
+</span><span class='line'>  // 這個是設定共享資料夾
+</span><span class='line'>  // 預設是放 Vagrantfile 的那個資料夾
+</span><span class='line'>  // 在這個資料夾放檔案的話，在虛擬機器裡的 '/vagrant/' 資料夾是可以看到的!!
+</span><span class='line'>  // 如果有想要指定到特殊的資料夾，再編輯此行並開啟註解即可
+</span><span class='line'>  # config.vm.synced_folder "../data", "/vagrant_data"
+</span><span class='line'>
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>再來就讓它開機吧!</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ vagrant up </span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果沒有下載過 ubuntu 系統的話，會先幫你下載，所以需要等待一些時間</p>
+
+<p>若看到終端機說系統已經建立完成，</p>
+
+<p>就可以連線進去了!</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ vagrant ssh
+</span><span class='line'>.....
+</span><span class='line'>vagrant@vagrant-ubuntu-trusty-64:~$ </span></code></pre></td></tr></table></div></figure>
+
+
+<p>就會發現終端機的 prompt 已經不一樣了，變成 ubuntu-trusty-64 ，表示我們已經進入虛擬機器裡面了</p>
+
+<p>由於今天的內容只會先到這，關於 Ubuntu 的設定是明天，所以記得離開虛擬機器並且幫他關機 XDD</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// 如果剛剛有進入虛擬機器的話，輸入 exit 離開
+</span><span class='line'>$ exit</span></code></pre></td></tr></table></div></figure>
+
+
+<p>再下關機指令:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ vagrant halt </span></code></pre></td></tr></table></div></figure>
+
+
+<p>虛擬機器就被關起來了!</p>
+
+<p>順帶一提</p>
+
+<p>如果在虛擬機器開機時，需要更改 Vagrantfile 的設定，</p>
+
+<p>改完後虛擬機器必須要重新開啟才會讀到新的設定</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ vagrant reload</span></code></pre></td></tr></table></div></figure>
+
+
+<p>下回待續!!</p>
 ]]></content>
   </entry>
   
@@ -1746,142 +2373,6 @@ project repo 的路徑，要 deploy 到 server 的哪個目錄等等，<br/>
 to<br/>
 <code>protect_from_forgery with: :null_session</code><br/>
 in <code>ApplicationController</code></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[Apache] SSL (Self-signed & Purchased Version)]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/06/19/apache-ssl/"/>
-    <updated>2014-06-19T02:32:00+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/06/19/apache-ssl</id>
-    <content type="html"><![CDATA[<h2>[Self-signed]</h2>
-
-<hr />
-
-<ol>
-<li>Generate a host key:</li>
-</ol>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo ssh-keygen -f host.key</span></code></pre></td></tr></table></div></figure>
-
-
-<ol>
-<li>Generate a certificate request file</li>
-</ol>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo openssl req -new -key host.key -out request.csr</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Type what you want:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>  Country Name (2 letter code) [AU]:TW
-</span><span class='line'>  State or Province Name (full name) [Some-State]:Taiwan
-</span><span class='line'>  Locality Name (eg, city) []:Taipei
-</span><span class='line'>  Organization Name (eg, company) [Internet Widgits Pty Ltd]:
-</span><span class='line'>  Organizational Unit Name (eg, section) []:
-</span><span class='line'>  Common Name (e.g. server FQDN or YOUR name) []:
-</span><span class='line'>  Email Address []:
-</span><span class='line'>  
-</span><span class='line'>  Please enter the following 'extra' attributes
-</span><span class='line'>  to be sent with your certificate request
-</span><span class='line'>  A challenge password []:
-</span><span class='line'>  An optional company name []:</span></code></pre></td></tr></table></div></figure>
-
-
-<ol>
-<li><p>Create the SSL certificate
-<code>sudo openssl x509 -req -days 365 -in request.csr -signkey host.key -out server.crt</code></p>
-
-<p>  Create a nopass&#8217; key (optional)
-  <code>openssl rsa -in host.key -out host.nopass.key</code></p></li>
-<li><p>Configure Apache
-<code>LoadModule ssl_module libexec/apache2/mod_ssl.so</code></p></li>
-</ol>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>SSLEngine on 
-</span><span class='line'>SSLCertificateFile "/etc/apache2/ssl/server.crt"
-</span><span class='line'>SSLCertificateKeyFile "/etc/apache2/ssl/host.nopass.key"</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apachectl configtest 
-</span><span class='line'>sudo apachectl restart </span></code></pre></td></tr></table></div></figure>
-
-
-<p>p.s. enable mods: <code>sudo a2enmod ssl</code>
-enable sites: <code>sudo a2ensite default-ssl</code></p>
-
-<h2>[Purchased (Symantec)]</h2>
-
-<hr />
-
-<p>[<a href="http://www.symantec.com/tv/products/details.jsp?vid=1452855338001">http://www.symantec.com/tv/products/details.jsp?vid=1452855338001</a>]</p>
-
-<object id="flashObj" width="640" height="360" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,47,0"><param name="movie" value="http://c.brightcove.com/services/viewer/federated_f9?isVid=1&isUI=1" /><param name="bgcolor" value="#FFFFFF" /><param name="flashVars" value="videoId=1452855338001&linkBaseURL=http%3A%2F%2Fwww.symantec.com%2Ftv%2Fproducts%2Fdetails.jsp%3Fvid%3D1452855338001&playerID=1170996384001&playerKey=AQ~~,AAAABuIiy9k~,I8BhasVwr9yry4vRRPOpsSrBvwjFZ03K&domain=embed&dynamicStreaming=true" /><param name="base" value="http://admin.brightcove.com" /><param name="seamlesstabbing" value="false" /><param name="allowFullScreen" value="true" /><param name="swLiveConnect" value="true" /><param name="allowScriptAccess" value="always" /><embed src="http://c.brightcove.com/services/viewer/federated_f9?isVid=1&isUI=1" bgcolor="#FFFFFF" flashVars="videoId=1452855338001&linkBaseURL=http%3A%2F%2Fwww.symantec.com%2Ftv%2Fproducts%2Fdetails.jsp%3Fvid%3D1452855338001&playerID=1170996384001&playerKey=AQ~~,AAAABuIiy9k~,I8BhasVwr9yry4vRRPOpsSrBvwjFZ03K&domain=embed&dynamicStreaming=true" base="http://admin.brightcove.com" name="flashObj" width="640" height="360" seamlesstabbing="false" type="application/x-shockwave-flash" allowFullScreen="true" allowScriptAccess="always" swLiveConnect="true" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"></embed></object>
-
-
-
-
-<object id="flashObj" width="640" height="360" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,47,0"><param name="movie" value="http://c.brightcove.com/services/viewer/federated_f9?isVid=1&isUI=1" /><param name="bgcolor" value="#FFFFFF" /><param name="flashVars" value="videoId=1452855338001&linkBaseURL=http%3A%2F%2Fwww.symantec.com%2Ftv%2Fproducts%2Fdetails.jsp%3Fvid%3D1452855338001&playerID=1170996384001&playerKey=AQ~~,AAAABuIiy9k~,I8BhasVwr9yry4vRRPOpsSrBvwjFZ03K&domain=embed&dynamicStreaming=true" /><param name="base" value="http://admin.brightcove.com" /><param name="seamlesstabbing" value="false" /><param name="allowFullScreen" value="true" /><param name="swLiveConnect" value="true" /><param name="allowScriptAccess" value="always" /><embed src="http://c.brightcove.com/services/viewer/federated_f9?isVid=1&isUI=1" bgcolor="#FFFFFF" flashVars="videoId=1452855338001&linkBaseURL=http%3A%2F%2Fwww.symantec.com%2Ftv%2Fproducts%2Fdetails.jsp%3Fvid%3D1452855338001&playerID=1170996384001&playerKey=AQ~~,AAAABuIiy9k~,I8BhasVwr9yry4vRRPOpsSrBvwjFZ03K&domain=embed&dynamicStreaming=true" base="http://admin.brightcove.com" name="flashObj" width="640" height="360" seamlesstabbing="false" type="application/x-shockwave-flash" allowFullScreen="true" allowScriptAccess="always" swLiveConnect="true" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"></embed></object>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[Mac] Update Openssl on Mac]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/06/16/mac-update-openssl-on-mac/"/>
-    <updated>2014-06-16T09:16:00+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/06/16/mac-update-openssl-on-mac</id>
-    <content type="html"><![CDATA[<p>First of all, you need &lsquo;brew&rsquo; (<a href="http://brew.sh/">http://brew.sh/</a>)</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ brew update
-</span><span class='line'>$ brew install openssl
-</span><span class='line'>$ brew link --force openssl
-</span><span class='line'> 
-</span><span class='line'>$openssl version -a</span></code></pre></td></tr></table></div></figure>
-
-
-<p>If it&rsquo;s still the old version, you shoud:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo rm /usr/bin/openssl   #remove the old binary 
-</span><span class='line'>$ sudo ln -s /usr/local/Cellar/openssl/1.0.1h/bin/openssl /usr/local/bin
-</span><span class='line'>(1.0.1h -&gt; the latest version)</span></code></pre></td></tr></table></div></figure>
-
-
-<p></p>
-
-<p>ref: <a href="http://apple.stackexchange.com/questions/126830/how-to-upgrade-openssl-in-os-x">http://apple.stackexchange.com/questions/126830/how-to-upgrade-openssl-in-os-x</a></p>
 ]]></content>
   </entry>
   

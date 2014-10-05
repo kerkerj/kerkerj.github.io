@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Swift | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/swift/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-04T19:00:07+08:00</updated>
+  <updated>2014-10-05T16:47:43+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,254 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[Swift-d5] - Playground - Array, Dictionary, Controll Flow]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/05/swift-d5/"/>
+    <updated>2014-10-05T16:40:23+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/05/swift-d5</id>
+    <content type="html"><![CDATA[<h2>Array</h2>
+
+<h3>宣告</h3>
+
+<pre><code class="swift">// var VARIABLE_NAME: [TYPE] = .....
+
+var fruits: [String] = ["apple", "banana"]
+var nums: [Int] = [1, 2]
+
+// 或是讓 Swift 自行判斷類型:
+var fruits = ["apple", "banana"]
+var nums = [1, 2]
+
+// 初始化:
+var cars = [String]()
+</code></pre>
+
+<p>ps. Beta 版時的寫法是 <code>var fruits: String[]</code></p>
+
+<p>現在已經變成了 <code>var fruits: [String]</code></p>
+
+<h3>操作</h3>
+
+<pre><code>// 判斷該陣列是否有值，回傳 true 或 false
+fruits.isEmpty 
+
+// 增加元素
+fruits.append("watermelon")
+fruits += ["lemon"]
+
+// 取值 
+fruits[0]
+fruits[0...2]
+
+// 刪除值 - 將 apple 移除，banana 會自動補上
+fruits.removeAtIndex(0)
+fruits[0]
+
+// 兩個陣列合併 (必須相同類別 e.g. String)
+fruits + cars
+
+// 陣列元素數量
+fruits.count
+</code></pre>
+
+<h2>Dictionary</h2>
+
+<h3>宣告</h3>
+
+<p>由於 Dictionary 是 key/value 為一組 (pair)，</p>
+
+<p>因此宣告時必須宣告 key 和 value 分別是哪種型別</p>
+
+<pre><code>var httpStatus: Dictionary&lt;Int, String&gt; = Dictionary&lt;Int, String&gt;()
+
+var httpStatus: Dictionary&lt;Int, String&gt; = [200: "Success", 404: "Not found"]
+</code></pre>
+
+<h3>操作</h3>
+
+<pre><code>// 一樣有 isEmpty 方法
+httpStatus.isEmpty
+
+// 取值
+httpStatus[200] // = "Success"
+
+// 加入值
+httpStatus[500] = "Internal Server Error"
+
+// 修改值
+httpStatus[200] = "True"
+httpStatus.updateValue("internal server error", forKey: 500)
+
+// 刪除值
+httpStatus.removeValueForKey(200)
+
+// 字典元素數量
+httpStatus.count
+</code></pre>
+
+<h2>Controll Flow</h2>
+
+<h3>For loop</h3>
+
+<pre><code>for fruit in fruits {
+    println(fruit)
+}
+
+for var index = 0; index &lt; fruits.count; ++index {
+    println(fruits[index])
+}
+</code></pre>
+
+<h3>While</h3>
+
+<pre><code>var index = 0
+while index &lt; fruits.count {
+    println(fruits[index])
+    index++
+}
+</code></pre>
+
+<h3>Do-while</h3>
+
+<pre><code>var index = 0
+do {
+    println(fruits[index])
+    index++ 
+} while (index &lt; fruits.count)
+</code></pre>
+
+<h3>If</h3>
+
+<pre><code>var index = 5566
+
+if index = 5566 {
+    println("5566 不能亡")
+}
+
+if index = 5566 {
+    println("5566 不能亡")
+} else {
+    println("You are not 5566")
+}
+
+if index = 5566 {
+    println("5566 不能亡")
+} else if index &lt; 5566 {
+    println("You are less than 5566")
+} else {
+    println("You are bigger than 5566")
+}
+</code></pre>
+
+<h3>Switch</h3>
+
+<pre><code>var index = 0
+
+switch index {
+case 0, 1, 2
+    println("small")
+case 8, 9, 11 
+    println("big")
+default:
+    println("others")
+}
+</code></pre>
+
+<p>引入 Tuple</p>
+
+<pre><code>let httpStatus = (200, "Success")
+
+switch httpStatus {
+case (let statusCode, "Error"):
+    println("(\(statusCode)) is Error")
+case (200, let msg):
+    println("(\(msg))'s statusCode is 200")
+}
+</code></pre>
+
+<h2>Switch - break, continue, fallthrough</h2>
+
+<h3>Continue</h3>
+
+<p>continue 會使該次的 loop 停止，並繼續執行下一個 loop</p>
+
+<p>continue 不存在於單一的 switch, 只會在 loop 裡的 switch 語句時才能使用</p>
+
+<pre><code>var fruits = ["apple", "banana", "lemon", "waterlemon", "orange"]
+for fruit in fruits {
+    println("Start")
+
+    switch fruit {
+    case "banana":
+        continue
+    default:
+        println(fruit)
+    }
+
+    println("End")
+}
+</code></pre>
+
+<p>Start 和 End 理論上都要被印五次，</p>
+
+<p>但是加入了 continue 後，banana case 當次 loop 的 End 就沒有被執行了</p>
+
+<h3>Break</h3>
+
+<p>通常是用在不想處理某個 case 或，特別想要處理時 (?) 反之嘛 XD</p>
+
+<p>當使用了 break，會立即中斷 switch 程式碼的執行，並且跳到 switch 區塊程式碼結束的大括號後 (}) 的第一行程式</p>
+
+<p>暫時想不到什麼好例子&hellip;.</p>
+
+<p>先借別人的例子來用吧:</p>
+
+<pre><code>let numberSymbol: Character = "三"  // 簡體中文裡的數字 3
+var possibleIntegerValue: Int?
+switch numberSymbol {
+case "1", "١", "一", "๑":
+    possibleIntegerValue = 1
+case "2", "٢", "二", "๒":
+    possibleIntegerValue = 2
+case "3", "٣", "三", "๓":
+    possibleIntegerValue = 3
+case "4", "٤", "四", "๔":
+    possibleIntegerValue = 4
+default:
+    break
+}
+if let integerValue = possibleIntegerValue {
+    println("The integer value of \(numberSymbol) is \(integerValue).")
+} else {
+    println("An integer value could not be found for \(numberSymbol).")
+}
+// 輸出 "The integer value of 三 is 3.
+</code></pre>
+
+<h3>Fallthrough</h3>
+
+<p>在 Swift 中，掃到第一個符合的 case 後，就會中斷 switch 的執行了，避免掉入一些 case 處理的錯誤</p>
+
+<p>而 fallthrough, 很有趣, 宣告後，會讓 switch 繼續掃下一個 case</p>
+
+<pre><code>let num = 5
+var description = "\(num) is"
+switch num {
+case 2, 3, 5, 7, 11, 13, 17, 19:
+    description += " a prime, also"
+    fallthrough
+case 5: 
+    println("I'm here")
+default:
+    description += " an integer."
+}
+println(description)
+// I'm here
+// 5 is a prime, also an integer.
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[Swift-d4] - Playground - Optional, ! And ?]]></title>
