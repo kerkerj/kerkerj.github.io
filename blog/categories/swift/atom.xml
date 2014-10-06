@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Swift | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/swift/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-05T16:47:43+08:00</updated>
+  <updated>2014-10-06T19:02:03+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,280 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[Swift-d6] - Playground - Function]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/06/swift-d6/"/>
+    <updated>2014-10-06T18:54:13+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/06/swift-d6</id>
+    <content type="html"><![CDATA[<h1>Playground - function</h1>
+
+<p>來看看 Swift 各種 function 的寫法吧!</p>
+
+<p>Swift 使用 <code>func</code> 當作宣告的保留字</p>
+
+<p>GOLANG 的 fu&hellip;. XD</p>
+
+<p>寫 Swift 的 function 會很開心</p>
+
+<h2>基本的</h2>
+
+<pre><code class="swift">func say() {
+    println("Hello!")
+}
+</code></pre>
+
+<h2>有一個回傳值的</h2>
+
+<pre><code class="swift">func say() -&gt; String {
+    return "Hello!"
+}
+</code></pre>
+
+<h2>有多個回傳值的!!! (就是回傳 Tuple)</h2>
+
+<pre><code class="swift">func say() -&gt; (String, Int) {
+    let greeting = "hello"
+    let times = 5
+    return (greeting, times)
+}
+
+say()
+</code></pre>
+
+<h2>有參數的</h2>
+
+<pre><code class="swift">func say(g: String) {
+    println(g)
+}
+
+say("Hello")
+</code></pre>
+
+<p>多個參數</p>
+
+<pre><code class="swift">func say(g: String, times: Int) {
+    for index in 1...times {
+        println(g)
+    }
+}
+
+say("Hello", 3)
+</code></pre>
+
+<h2>有參數的進階版</h2>
+
+<pre><code class="swift">func say(greetings g: String) {
+    println(g)
+}
+
+say("Hello", 3)
+</code></pre>
+
+<p>此時如果同樣使用 <code>say("hello")</code> 會出錯</p>
+
+<p>因為我們剛剛宣告了外部參數名稱</p>
+
+<p>因此需要:</p>
+
+<pre><code class="swift">say(greetings: "hello")
+</code></pre>
+
+<p>這種寫法在必須代入許多參數時，非常好用，會讓程式可讀性變高</p>
+
+<p>另外，方便起見，也可以加上 <code>#</code>，表示外部參數名稱與 func 內部名稱是一樣的</p>
+
+<pre><code class="swift">func say(greetings g: String, #times: Int) {
+    for index in 1...times {
+        println(g)
+    }
+}
+say(greetings: "Hello", times: 3)
+</code></pre>
+
+<p>可以看到第一種寫法和第二種寫法是一樣的功用~</p>
+
+<h2>給參數預設值</h2>
+
+<pre><code class="swift">func say(greetings g: String = "hello") {
+    println(g)
+}
+
+say()
+</code></pre>
+
+<p>如果呼叫 <code>say()</code> 而沒有給定參數時，會直接使用預設值</p>
+
+<h2>常數參數與變數參數</h2>
+
+<p>簡單看一下以下的程式碼</p>
+
+<pre><code class="swift">func say(greetings: String = "hello") {
+    greetings = "\(greetings), welcome!"
+    println(greetings)
+}
+
+let greetings = "Hello!"
+say(greetings: greetings)
+</code></pre>
+
+<p>我們定義了一個常數，代入 say() 裡面，</p>
+
+<p>但是 say function 裡面必須改變代入的值，於是這個時候 Xcode 就會該了</p>
+
+<p>那要怎麼辦呢?</p>
+
+<p>修改成:</p>
+
+<pre><code class="swift">func say(var greetings: String = "hello") {
+    greetings = "\(greetings), welcome!"
+    println(greetings)
+}
+
+let greetings = "Hello!"
+say(greetings: greetings)
+</code></pre>
+
+<p>多加一個 <code>var</code> 宣告，就會 copy 一份傳入，就可以更改值了!</p>
+
+<p>一樣是非常有用的語法!</p>
+
+<h2>輸入輸出函數</h2>
+
+<p>直接看例子</p>
+
+<pre><code class="swift">func swapInt(inout a: Int, inout b: Int) {
+    let tmpA = a
+    a = b
+    b = tmpA
+}
+
+var a = 1
+var b = 2
+
+swap(&amp;a, &amp;b)
+
+println(a)
+println(b)
+</code></pre>
+
+<p>酷吧</p>
+
+<h2>function types 函式型別</h2>
+
+<p>直接看例子</p>
+
+<pre><code class="swift">func addTwoInt(a: Int, b: Int) -&gt; Int {
+    return a + b
+}
+
+func mTwoInt(a: Int, b: Int) -&gt; Int {
+    return a * b
+}
+
+func printHello() {
+    println("Hello World")
+}
+
+var mathFunction: (Int, Int) -&gt; Int = addTwoInt
+
+println("result: \(mathFunction(2, 3))")
+</code></pre>
+
+<p>前面宣告了三個 function ，</p>
+
+<p>而</p>
+
+<pre><code class="swift">var mathFunction: (Int, Int) -&gt; Int = addTwoInt
+</code></pre>
+
+<p>後面的這句的意思是:</p>
+
+<p>我們定義了一個變數叫做 <code>mathFunction</code>，</p>
+
+<p>他的型別是「一個 (Int, Int) 的參數，並且回傳 Int」的 function，</p>
+
+<p>簡單說就是 mathFunction 的型別是一個 Function</p>
+
+<p>並指向 addTwoInt 這個 function</p>
+
+<p>所以上面的例子中，<code>mathFunction</code> 代入的 <code>(2, 3)</code> 會丟給 addTwoInt，</p>
+
+<p>並且最後回傳 Int</p>
+
+<p>有 javascript 的味道:</p>
+
+<pre><code class="javascript">var test = function(a, b) {
+  return a + b;
+};
+
+var add = test;
+
+console.log("result = " + add(2, 3));
+</code></pre>
+
+<h2>function as parameter types</h2>
+
+<p>函式也可以拿來當做參數傳入函式中，</p>
+
+<p>接續上面的例子，加入：</p>
+
+<pre><code>func printResult(mathFunction: (Int, Int) -&gt; Int, a: Int, b: Int )  {
+    println("Result: \(mathFunction(a, b))")
+}
+printResult(mathFunction, 2, 3)
+</code></pre>
+
+<h2>function as return type</h2>
+
+<p>函式也可以拿來當做回傳值</p>
+
+<p>就是在原本的回傳符號 <code>-&gt;</code> 後面代入函式型別</p>
+
+<p>這邊直接借別人的例子來參考吧</p>
+
+<pre><code>// 定義兩個 function 
+func stepForward(input: Int) -&gt; Int {
+    return input + 1
+}
+func stepBackward(input: Int) -&gt; Int {
+    return input - 1
+}
+
+// 再定義一個 function ，透過布林值導往上面不同的 function
+func chooseStepFunction(backwards: Bool) -&gt; (Int) -&gt; Int {
+    return backwards ? stepBackward : stepForward
+}
+
+var currentValue = 3
+
+// 將 chooseStepFunction 指給 moveNearerToZero
+// 所以 moveNearerToZero 現在是一個 function 了!
+let moveNearerToZero = chooseStepFunction(currentValue &gt; 0)
+
+println("Counting to zero:")
+// Counting to zero:
+while currentValue != 0 {
+    println("\(currentValue)... ")
+    currentValue = moveNearerToZero(currentValue)
+}
+println("zero!")
+</code></pre>
+
+<h2>Nested Function</h2>
+
+<p>就是 funciton 中的 function，變數有分 global、local 變數，function 也有</p>
+
+<p>以上面的例子來改寫:</p>
+
+<pre><code>func chooseStepFunction(backwards: Bool) -&gt; (Int) -&gt; Int {
+    func stepForward(input: Int) -&gt; Int { return input + 1 }
+    func stepBackward(input: Int) -&gt; Int { return input - 1 }
+    return backwards ? stepBackward : stepForward
+}
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[Swift-d5] - Playground - Array, Dictionary, Controll Flow]]></title>
@@ -517,48 +791,6 @@ println(str)
 例如 <code>print()</code>，可以試試看，有些許不一樣哦!</p>
 
 <p>未來一個禮拜都會來練習一些基本語法!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[Swift-d1] - 介紹]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/02/swift-d1/"/>
-    <updated>2014-10-02T01:37:44+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/02/swift-d1</id>
-    <content type="html"><![CDATA[<p>Swift 是 2014 年由蘋果公司在其開發者大會 WWDC 上所發佈的程式語言</p>
-
-<p>The Swift Programming Language 一書中提到：</p>
-
-<ol>
-<li>Swift 用來撰寫 iOS 及 Mac OSX 的程式。</li>
-<li>Swift 吸收了 C 和 Objective-C 的優點，使其在設計更具彈性、容易，且撰寫時有更多樂趣。</li>
-<li>Swift 是基於成熟而且倍受喜愛的 Cocoa 和 Cocoa Touch framework，意即 Swift 可以直接使用這些現有的框架</li>
-<li>Swift 兼具編譯語言的性能，以及直譯式語言的特性。</li>
-</ol>
-
-
-<p>** 什麼是 Cocoa/Cocoa Touch framework: <br/>
-Cocoa framework 是 Apple 爲 Mac OSX 所建立的環境，用來開發 OSX 的程式，<br/>
-而 Cocoa Touch framework 則是建立於 Cocoa framework 之上，用來開發 iOS 作業系統程式，<br/>
-此兩種 framework 皆遵循 MVC 軟體架構，開發時必須遵循此架構。</p>
-
-<p>若之前從未接觸過 Objective-C 但又想嘗試開發 iOS app 的話，<br/>
-現在是個入門的好時機，Swift 去除了 Objective-C 的繁瑣語法，<br/>
-且相較於 Objective-C 是個更好入門的程式語言。</p>
-
-<p>對於非 Objective-C 開發者而言，若先前有過程式語言開發經驗的話，語法上手不會太難，<br/>
-只是需要花時間學習 Cocoa/Cocoa Touch framework，但是，都要學習撰寫 iOS app 了，<br/>
-不學 Cocoa/Cocoa Touch framework 應該也說不過去 :D</p>
-
-<p>而對於 Objective-C 開發者而言，由於已經非常熟悉 Cocoa/Cocoa Touch framework 了，<br/>
-在 Swift 使用 Cocoa/Cocoa Touch framework 是幾乎無痛轉換的，因為函式、變數名稱完全一樣，<br/>
-只需要熟悉 Swift 語法，不出一天即可快速上手，也因此 Objectiv-C 開發者也不需過於擔心飯碗被搶走 XD<br/>
-接觸過 Cocoa/Cocoa Touch framework 的開發者來說還是有相當大的優勢的。</p>
-
-<p>由於筆者之前從未接觸過 Objective-C/ Cocoa/ Cocoa Touch framework，<br/>
-只有些許 java/php/ruby 撰寫經驗，<br/>
-選擇 Swift 的原因之一即是語法上手容易，並且有 playground 可以馬上執行撰寫的程式，<br/>
-也因此希望能夠透過學習 Swift ，了解 iOS app 開發架構，實際打造出一款 app！</p>
 ]]></content>
   </entry>
   
