@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Restful | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/restful/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-06T19:02:03+08:00</updated>
+  <updated>2014-10-07T19:17:56+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,114 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[API-d7] - [Server 番外篇] 建立自己的本機虛擬伺服器 3 - 打包環境]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/07/api-d7/"/>
+    <updated>2014-10-07T19:12:40+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/07/api-d7</id>
+    <content type="html"><![CDATA[<p>昨天我們已經把一個全新乾淨的環境架起來了</p>
+
+<p>這時候我們不希望因為日後的操作導致 Server 環境髒掉，又要重灌</p>
+
+<p>因此我們今天就來練習一下如何使用 vagrant 打包環境!</p>
+
+<h2>Vagrant 打包</h2>
+
+<p>一樣先進入虛擬機資料夾，先確保虛擬機沒有在運作:</p>
+
+<pre><code>$ vagrant status
+Current machine states:
+
+default                   poweroff (virtualbox)
+
+The VM is powered off. To restart the VM, simply run `vagrant up`
+</code></pre>
+
+<p>如果是 poweroff 的話，就可以進行接下來的動作，如果是其他狀態的話，就先下關機指令囉</p>
+
+<pre><code>$ vagrant package
+==&gt; default: Clearing any previously set forwarded ports...
+==&gt; default: Exporting VM...
+==&gt; default: Compressing package to: /Users/.../ithome/package.box
+</code></pre>
+
+<p>vagrant 就會在虛擬機器資料夾底下建立一個 package.box</p>
+
+<p>這個檔案就是整個伺服器環境的檔案了!</p>
+
+<p>假設今天想要讓團隊成員使用，只要他們都有 VirtualBox + Vagrant 的話，</p>
+
+<p>就可以依循下面的指令步驟將你所做的 box 匯入並使用：</p>
+
+<p>首先我們可以先看看原本所使用的 box 清單:</p>
+
+<pre><code>$ vagrant box list
+ubuntu/trusty64                          (virtualbox, 14.04)
+</code></pre>
+
+<p>是 <code>ubuntu/trusty64</code> 沒錯！</p>
+
+<p>那麼我們現在想要加入剛剛所製作的 box ，並重新命名：</p>
+
+<pre><code>$ vagrant box add my_box package.box
+==&gt; box: Adding box 'my_box' (v0) for provider:
+    box: Downloading: file:///Users/.../ithome/package.box
+==&gt; box: Successfully added box 'my_box' (v0) for 'virtualbox'!
+</code></pre>
+
+<p>此時再看看 box 清單:</p>
+
+<pre><code>$ vagrant box list
+ubuntu/trusty64                          (virtualbox, 14.04)
+my_box                                   (virtualbox, 0)
+</code></pre>
+
+<p>就會多一個了!</p>
+
+<p><code>vagrant box add my_box package.box</code></p>
+
+<p>這個指令的意思是將 <code>package.box</code> 加入 box 清單，並以 my_box 命名</p>
+
+<p><code>package.box</code> 可以是本機路徑，也可以是網址，</p>
+
+<p>如果要分享給團隊成員使用，就可以使用 url 分享，其他人就可以下指令來下載 box 並加入 box list</p>
+
+<p>例如:</p>
+
+<pre><code>$ vagrant box add my_box http://my_dropbox.com/package.box
+</code></pre>
+
+<p>接著其他人就可以建立自己的虛擬機資料夾，並且到該資料夾中下指令就可以初始化虛擬機器了，例如：</p>
+
+<pre><code>$ mkdir ~/my_machine/
+$ cd ~/my_machine/
+$ vagrant init my_box 
+</code></pre>
+
+<p>超方便的啦～</p>
+
+<p>如果想要從 box list 中刪除不需要的 box，下此指令即可：</p>
+
+<pre><code>$ vagrant box remove my_box
+Are you sure you want to remove this box? [y/N] y
+</code></pre>
+
+<p>上面只會刪除 box 清單，</p>
+
+<p>如果要刪除虛擬機器資料夾，以及虛擬機器的所有檔案的話，先到虛擬機器資料夾，然後下此指令：</p>
+
+<pre><code>$ vagrant destroy
+    default: Are you sure you want to destroy the 'default' VM? [y/N] y
+</code></pre>
+
+<p>虛擬機就會被移除，再來只要將該資料夾砍掉即可～ 就恢復成乾乾淨淨的了~</p>
+
+<p>是不是很方便勒~~</p>
+
+<p>接下來我們就會開始先寫寫 Node.js 的 Hello World 囉~</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[API-d6] - [Server 番外篇] 建立自己的本機虛擬伺服器 2 - Ubuntu 基本設定與安裝 Node.js, MongoDB]]></title>
@@ -455,46 +563,6 @@ Twitter: <a href="https://dev.twitter.com/rest/tools/console">https://dev.twitte
 
 <p>下一篇會介紹我接下來會用到的工具箱，暖身結束，要正式開始了!<br/>
 (不好意思前面嘴炮一點 XD)</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[API-d2] - 定義 2 - RESTful 的優點與要求]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/02/api-d2/"/>
-    <updated>2014-10-02T20:17:24+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/02/api-d2</id>
-    <content type="html"><![CDATA[<p>承上篇，</p>
-
-<p>RESTful 的優點如下所列:</p>
-
-<pre><code> 1. 瀏覽器即可以作為 client 端
- 2. 可以更高效地利用 cache 來達到更快的回應速度
- 3. 界面與資料分離
- 4. 節省伺服器的計算資源
- 5. 可重用! web/android/ios 都可以用, 無痛轉換!
-</code></pre>
-
-<p>RESTful 的要求:</p>
-
-<pre><code> 1. client - server 架構  
- 2. 分層系統  
- 3. 利用快取機制增加效能  
-      server-side: 在 GET 資源時，若該資源並沒有被變更，就可以利用 cache 機制減少 query，並且加快回應速度  
-      client-side: 透過 client 端 cache 記錄 cache 版本，  
-           若向 server 要求資源時發現 server 最新版與 cache 相同，  
-           則 client 端直接取用本地資源即可，不需要再做一次查詢  
-      省機器運算及流量 = 省錢  
- 4. 通訊協定具有無狀態性  
-      不能讓兩隻 API 做同一個動作!  
-           假設完成轉賬手續必須先 call A 再 call B 的話，  
-           若做完 A 後斷線導致 B 無法執行，後續要處理 A -&gt; B 的方式會很麻煩  
-      且不應該假設伺服器知道目前的狀態!  
-      因此設計出來的 API 不能有狀態性  
- 5. 統一界面  
-      使用 HTTP Verb: GET/POST/PUT/DELETE  
-</code></pre>
-
-<p>下一篇會討論什麼時候該打造 RESTful API?  以及看看別人寫的 RESTful API</p>
 ]]></content>
   </entry>
   

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Swift | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/swift/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-06T19:02:03+08:00</updated>
+  <updated>2014-10-07T19:17:56+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,121 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[Swift-d7] - Playground - Closures]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/07/swift-d7/"/>
+    <updated>2014-10-07T19:12:45+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/07/swift-d7</id>
+    <content type="html"><![CDATA[<p>閉包表達式語法：</p>
+
+<pre><code class="swift">{ (parameters) -&gt; returnType in
+    statements
+}
+</code></pre>
+
+<p>舉個例子:</p>
+
+<pre><code>func multiple(value: Int, multiple: Int -&gt; Int) -&gt; Int {
+    return multiple(value)
+}
+
+multiple(3, { (value) -&gt; Int in
+    value * 3
+})
+</code></pre>
+
+<p>在 <code>multiple</code> function 中需要傳入一個 <code>function</code></p>
+
+<p>在這邊我們並沒有另外定義，而是直接使用閉包的方式傳入一個 <code>function</code></p>
+
+<p>這個閉包就符合了上面的定義</p>
+
+<h2>根據上下文判斷型別 (Inferring type from context)</h2>
+
+<p>承上一個例子，我們可以寫得更簡潔一點</p>
+
+<pre><code>multiple(3, { value in
+    value * 3
+})
+</code></pre>
+
+<p>這是因為 Swift 會根據兩邊的定義來判斷型別，因此可以寫得更簡潔一些</p>
+
+<h3>參數名稱縮寫, 運算子函式</h3>
+
+<p>直接看例子</p>
+
+<pre><code>func biggerThan0(value: Int, isBigger: Int -&gt; Bool) -&gt; Bool {
+    return isBigger(value)
+}
+
+biggerThan0(-1,
+    { $0 &gt; 0 }
+)
+</code></pre>
+
+<h3>尾隨閉包 (trailing closures)</h3>
+
+<p>通常如果閉包太長的話，可以把閉包接在括號後面：</p>
+
+<pre><code>func someFunc(closure: () -&gt; ()) {
+    // main
+}
+
+someFunc({
+    // closure main
+})
+
+somFunc() {
+    // closure main
+}
+</code></pre>
+
+<p>以上面的例子做例子:</p>
+
+<pre><code>func biggerThan0(value: Int, isBigger: Int -&gt; Bool) -&gt; Bool {
+    return isBigger(value)
+}
+
+biggerThan0(-1) { $0 &gt; 0 }
+</code></pre>
+
+<p>如果是不需要參數的話，甚至可以把 () 省略掉</p>
+
+<p>這邊直接參考一下別人的例子，是使用 array map 方法</p>
+
+<p>下面要做的事情是</p>
+
+<p>將 [16,58,510] 轉成 [&ldquo;OneSix&rdquo;, &ldquo;FiveEight&rdquo;, &ldquo;FiveOneZero&rdquo;]</p>
+
+<pre><code>let digitNames = [
+    0: "Zero", 1: "One", 2: "Two",   3: "Three", 4: "Four",
+    5: "Five", 6: "Six", 7: "Seven", 8: "Eight", 9: "Nine"
+]
+
+let numbers = [16, 58, 510]
+
+let strings = numbers.map {
+    (var number) -&gt; String in
+    var output = ""
+    while number &gt; 0 {
+        output = digitNames[number % 10]! + output
+        number /= 10
+    }
+    return output
+}
+</code></pre>
+
+<p>這個例子中，array 的 map 會用後面接的閉包，接連的處理陣列裡面的元素</p>
+
+<p>所以最後 strings 的陣列就是處理過後的陣列</p>
+
+<p>而處理的方法則是將 Int 的每個位數分別轉換成 String 連接起來再回傳</p>
+
+<p>很方便的方法!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[Swift-d6] - Playground - Function]]></title>
@@ -724,73 +839,6 @@ println(httpSucess.statusCode)
 <p>同時結合 function 這樣就可以多值回傳了！</p>
 
 <p>下一篇會接續今天變數相關的主題~</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[Swift-d2] - 安裝及 Hello World!]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/02/swift-d2/"/>
-    <updated>2014-10-02T20:19:45+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/02/swift-d2</id>
-    <content type="html"><![CDATA[<p>首先，你必須要有一台 Mac。<br/>
-我也不知道要如何用虛擬機 build 一台 Mac VM 出來，<br/>
-所以就是，先買一台 Mac XD</p>
-
-<p>若已經有了 Mac，只要到 Appstore 下載 Xcode 即可，<br/>
-注意是要 Xcode 6.0 以上， Xcode 6 才有支援 Swift ，舊版的 Xcode 5 是無法開發 Swift 的</p>
-
-<p>安裝完 Xcode 後</p>
-
-<p>首先開啓 Xcode<br/>
-選擇 &ldquo;Create a playground&rdquo;<br/>
-<img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-02%2011.24.32.png" alt="p1" /></p>
-
-<p>輸入 Playground 名稱並選擇儲存位置<br/>
-<img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-02%2011.25.13.png" alt="p2" /></p>
-
-<p>就進入了 Playground 了！</p>
-
-<p>可以看到 Xcode 已經預先載入了幾行程式碼了
-來稍微看一下:</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-02%2011.25.26.png" alt="p4" /></p>
-
-<pre><code>// Playground - noun: a place where people can play
-
-import UIKit
-
-var str = "Hello, playground"
-</code></pre>
-
-<p>第一行，使用了 <code>//</code>，有寫過程式的話一定都知道這是註解 <br/>
-在 Swift 裡面使用 <code>//</code> 及 <code>/* .... */</code> 來註解程式碼</p>
-
-<p>第二行意思則是將 UIKit 引入到 playground 中，<br/>
-借此使用 UIKit 的函示物件等等，目前還都不會用到</p>
-
-<p>第三行的意思則是宣告了一個變數，該變數為一個字串，內容為 &ldquo;Hello World!&rdquo;</p>
-
-<p>在 Playground 中，很有意思的是右邊的灰色區塊，<br/>
-Xcode 會即時顯示該變數的值、型別、以及輸出結果，<br/>
-對於剛入門 Swift 的開發者來說是一個非常好的功能來練習語法，
-也因此未來幾天都會使用 Playground 來練習 Swift 基本語法!</p>
-
-<p>最後當然要不免俗的撰寫最經典的程式 - Hello World!</p>
-
-<p>加入:
-<code>
-println(str)
-</code></p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-02%2011.27.21.png" alt="p5" /></p>
-
-<p>馬上就可以在右邊看到結果囉!</p>
-
-<p><code>println(args)</code> 是 Swift 標準輸出的函示，算是使用率蠻高的一個 method，只要將參數代入即可顯示該參數的內容，<br/>
-有興趣也可以透過 Xcode 的 autocomplete 來看看和 <code>print</code> 有關的 method，<br/>
-例如 <code>print()</code>，可以試試看，有些許不一樣哦!</p>
-
-<p>未來一個禮拜都會來練習一些基本語法!</p>
 ]]></content>
   </entry>
   

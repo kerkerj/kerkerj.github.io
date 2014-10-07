@@ -98,6 +98,234 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2012/06/12/php-checkbox-checkuncheck-all/">[PHP] Checkbox Check/uncheck All</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-12T17:23:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2012/06/12/php-checkbox-checkuncheck-all/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2012/06/12/php-checkbox-checkuncheck-all/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>今天在做 checkbox 時, 想做全選/取消全選
+多使用一個 checkbox, 若勾選則是全選, 再點一次則全不選
+於是就產生了這段 code&hellip;</p>
+
+<iframe style="width: 100%; height: 300px" src="http://jsfiddle.net/jerry54010/tmJXb/4/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/04/27/ubuntu-ror-install-with-rvm/">[Ubuntu] [RoR] Install With Rvm</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-27T16:44:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2012/04/27/ubuntu-ror-install-with-rvm/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2012/04/27/ubuntu-ror-install-with-rvm/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>以下都是以 Ubuntu 11.10為操作環境
+主要目標為使用 rvm (Ruby Version Manager)來管理 ruby 版本並安裝 ruby 和 rails</p>
+
+<p>先安裝一些必要套件 ( ex. openssl, zlib1g-dev &hellip;.etc. )</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$sudo apt-get install build-essential bison openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev nodejs</span></code></pre></td></tr></table></div></figure>
+
+
+<p>安裝完基本套件後, 有兩種選擇:
+1. 直接在系統上安裝 ruby ( sudo apt-get install ruby )
+2. 使用 rvm 來管理 ruby 版本
+基本上有 rvm 來管理 ruby 版本是比較方便的, 可以隨時切換不同的 ruby 版本
+(不過在使用一些套件上會有一些問題需要排解, 本篇最底下有 trouble shooting)</p>
+
+<h1>RVM</h1>
+
+<p>安裝:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$bash &lt; &lt;(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer) 
+</span><span class='line'>$echo '[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Load RVM function:  <code>~/.bash_profile</code></p>
+
+<p>指令:</p>
+
+<blockquote><p>rvm info -> 查看 rvm 做的設定
+rvm list known -> 列出所有可安裝的套件
+rvm list -> 列出目前已安裝的套件
+rvm install &ldquo;package_name&rdquo; -> 安裝套件
+rvm remove &ldquo;package_name&rdquo; -> 移除套件
+rvm 1.9.2 &ndash;default -> 設定預設的 ruby 版本</p></blockquote>
+
+<p>假設系統上的 ruby 版本是 1.9.1, 而我用 rvm 安裝了 ruby1.9.3
+那麼目前系統上的預設 ruby 版本是 1.9.3, 用 <code>ruby -v</code> 測試看看
+如果要切換回系統的 ruby 版本, 則使用 <code>rvm system</code>
+要切換回來的話,則:
+        <code>rvm 1.9.3</code> (直接輸入有安裝過的 ruby 版號即可)
+        or
+        <code>rvm use 1.9.3</code>
+以上是 rvm 的一些簡單指令, 因為今天是要安裝 ruby on rails
+所以先安裝 ruby 吧:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$rvm pkg install openssl (詳見最後的 trouble shooting)
+</span><span class='line'>$rvm install 1.9.3 --with-openssl-dir=$rvm_path/usr</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>Gem</h1>
+
+<p>指令:</p>
+
+<blockquote><p>gem list -> 列出目前已安裝的套件
+gem install &ldquo;package_name&rdquo; -> 安裝套件不同的 ruby 版本有不同的 gem</p></blockquote>
+
+<p>如果 rvm 裡有 1.9.1 和 1.9.3 兩個乾淨的 ruby 版本
+目前使用的 ruby 版本是 1.9.3
+則在 gem install rails 後
+使用 gem list 則會看到 一大堆的套件
+接著切換到 1.9.1 執行 gem list 後則會發現沒有任何東西</p>
+
+<p>在安裝 gem 套件時可以加上一些參數
+如: 不想要有說明文件 (通常這些東西都蠻肥大的) 就可以加上
+<code>gem install "gem_name" --no-ri --no-rdoc</code>
+以上是 gem 在 rvm 裡的一些概念, 因為今天是要安裝 ruby on rails
+所以來安裝 rails 吧:
+<code>gem install rails --no-ri --no-rdoc (不要安裝文件, 速度會比較快)</code>
+如果發現用 gem 安裝套件時需要 root 權限, 表示目前使用的 ruby 版本是系統的版本</p>
+
+<h1>Gemset</h1>
+
+<p>rvm 提供了方便的功能 gemset, 就把它看作 gem 的分類資料夾
+如果說我想要在 ruby 1.9.2 底下安裝兩種 rails 版本, 又怕會衝突該怎麼辦?
+就可以用 gemset 了</p>
+
+<p>樹狀架構大概如下:
+        rvm -> 1.9.1 -> gemset: rails-2.3.9
+                                rails-3.1.1*
+            -> 1.9.3 -> gemset: rails-2.3.9
+                                rails-3.1.1
+可以解釋為: 在 rvm 的 ruby 1.9.1 底下有兩個 gemset, 分別是 rails-2.3.9 和 rails-3.1.1</p>
+
+<p>指令:</p>
+
+<blockquote><p>rvm gemset list -> 查看目前建立的 gemset
+rvm 1.9.2@rails-3.1.1 -> 在 ruby 1.9.2 版本底下使用 rails-3.1.1 這個 gemset
+rvm gemset create &ldquo;gemset_name&rdquo; -> 建立 gemset
+rvm gemset use &ldquo;gemset_name&rdquo; -> 使用某個 gemset
+rvm gemset empty &ldquo;gemset_name&rdquo; -> 清空某個 gemset (只是清空)
+rvm gemset delete &ldquo;gemset_name&rdquo; -> 刪除某個 gemset以上就是關於 rvm 的二三事, 做到這邊, ruby 和 rails 套件應該就安裝完了</p></blockquote>
+
+<p>最後安裝資料庫的 adapter , 這裡是用 sqlite
+<code>gem install sqlite3 --no-ri --no-rdoc</code>
+接著就可以建立第一個 rails 專案:</p>
+
+<blockquote><p>mkdir project
+cd project
+rails new demo
+rails server連上 localhost:3000 就是起始畫面了</p></blockquote>
+
+<h1>Trouble shooting:</h1>
+
+<h2>Error message1: openssl  LoadError</h2>
+
+<blockquote><p>SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificate verify failed (OpenSSL::SSL::SSLError)
+or
+Gem::RemoteFetcher::FetchError: SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B</p></blockquote>
+
+<p>Solution:</p>
+
+<blockquote><p>rvm pkg install openssl
+rvm remove 1.9.3
+rvm install 1.9.3 &ndash;with-openssl-dir=$rvm_path/usr
+然後將 rvm 裡的 ssl certs 資料夾移除, 改成直接讀系統的 ssl certs
+rmdir $rvm_path/usr/ssl/certs
+ln -s /etc/ssl/certs $rvm_path/usr/ssl</p></blockquote>
+
+<h2>Error message2:</h2>
+
+<blockquote><p>when excuting the command &ldquo;gem install rails&rdquo;
+ERROR:  Loading command: install (LoadError)
+cannot load such file &ndash; zlib
+ERROR:  While executing gem &hellip; (NameError)
+uninitialized constant Gem::Commands::InstallCommand</p></blockquote>
+
+<p>Solution:</p>
+
+<blockquote><p>rvm remove 1.9.3 (depends on your ruby version, if your system also has ruby, remove it, too.)
+sudo apt-get install zlib1g-dev先將 rvm 的 ruby 和 system 的 ruby 移除
+然後安裝 zlib1g-dev
+安裝 system 和 rvm 的 ruby 就可以了
+Remove system&rsquo;s ruby, and all ruby versions in rvm
+Install zlib1g-dev, then install ruby in system and rvm.</p></blockquote>
+
+<h2>Error message3:</h2>
+
+<blockquote><p>ExecJS::RuntimeUnavailable</p></blockquote>
+
+<p>Solution:
+<code>sudo apt-get install nodejs</code>
+Reference:
+<a href="http://www.openfoundry.org/tw/tech-column/8513-rvm-ruby-environment-version-manager">RVM - Ruby enVironment (Version) Manager</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2012/04/20/ubuntu-ssh/">[Ubuntu] 安裝設定ssh</a></h1>
     
     
@@ -692,93 +920,6 @@ Intent.ACTION_USER_PRESENT //解鎖</p></blockquote>
 
 
 <p>並且在 AndroidManifest.xml 裡宣告就可以了</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/01/31/codeigniter-disallowed-key-characters/">[Codeigniter] Disallowed Key Characters</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-01-31T16:18:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2012/01/31/codeigniter-disallowed-key-characters/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2012/01/31/codeigniter-disallowed-key-characters/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Codeigniter 顯示 Disallowed Key Characters<br/>
-我的情況是：<br/>
-表單(form)名稱型態不符合格式。<br/>
-不得使用中文。<br/>
-<code>＜input name="姓名" type="checkbox" value="1" /＞</code><br/>
-改掉就好了</p>
-
-<p>ref: <a href="http://clonn.blogspot.com/2010/12/codeigniter-disallowed-key-characters.html">Codeigniter 顯示 Disallowed Key Characters</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/01/31/php-get-current-time/">[PHP] 取得目前時間</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-01-31T16:14:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2012/01/31/php-get-current-time/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2012/01/31/php-get-current-time/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>很簡單，也很常忘，所以記下來 Orz</p>
-
-<p><code>$now =date("Y-m-d H:i:s",time());</code></p>
 </div>
   
   
