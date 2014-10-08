@@ -157,7 +157,7 @@ Day4  -  <a href="http://kerkerj.github.io/blog/2014/10/04/api-d4/">[API-d4] - �
 Day5  -  <a href="http://kerkerj.github.io/blog/2014/10/05/api-d5/">[API-d5] - [Server 番外篇] 建立自己的本機虛擬伺服器 1 - Vagrant + VirtualBox 安裝</a><br/>
 Day6  -  <a href="http://kerkerj.github.io/blog/2014/10/06/api-d6/">[API-d6] - [Server 番外篇] 建立自己的本機虛擬伺服器 2 - Ubuntu 基本設定與安裝 Node.js, MongoDB </a><br/>
 Day7  -  <a href="http://kerkerj.github.io/blog/2014/10/07/api-d7/">[API-d7] - [Server 番外篇] 建立自己的本機虛擬伺服器 3 - 打包環境</a><br/>
-Day8  -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day8  -  <a href="http://kerkerj.github.io/blog/2014/10/08/api-d8/">[API-d8] - Node.js - Hello World!</a><br/>
 Day9  -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day10 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day11 -  <a href="http://kerkerj.github.io/">#</a><br/>
@@ -190,7 +190,7 @@ Day4  -  <a href="http://kerkerj.github.io/blog/2014/10/04/swift-d4/">[Swift-d4]
 Day5  -  <a href="http://kerkerj.github.io/blog/2014/10/05/swift-d5/">[Swift-d5] - Playground - Array, Dictionary, Controll Flow</a><br/>
 Day6  -  <a href="http://kerkerj.github.io/blog/2014/10/06/swift-d6/">[Swift-d6] - Playground - function</a><br/>
 Day7  -  <a href="http://kerkerj.github.io/blog/2014/10/07/swift-d7/">[Swift-d7] - Playground - Closures</a><br/>
-Day8  -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day8  -  <a href="http://kerkerj.github.io/blog/2014/10/08/swift-d8/">[Swift-d9] - Playground - Enumerations</a><br/>
 Day9  -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day10 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day11 -  <a href="http://kerkerj.github.io/">#</a><br/>
@@ -213,6 +213,353 @@ Day27 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day28 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day29 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day30 -  <a href="http://kerkerj.github.io/">#</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/08/swift-d8/">[Swift-d8] - Playground - Enumerations</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-08T13:04:25+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/10/08/swift-d8/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/08/swift-d8/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>Playground - Enumerations</h1>
+
+<p>通常會使用來定義一組相關的值</p>
+
+<p>也是很方便的東西</p>
+
+<h2>列舉語法</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">enum</span> <span class="n">SomeEnumeration</span> <span class="p">{</span>
+</span><span class='line'>  <span class="c1">// enumeration definition goes here</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>比方說，車子</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">enum</span> <span class="n">Car</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">case</span> <span class="n">toyota</span>
+</span><span class='line'>  <span class="k">case</span> <span class="n">benz</span>
+</span><span class='line'>  <span class="k">case</span> <span class="n">BMW</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>也可以這樣寫</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">enum</span> <span class="n">Car</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">case</span> <span class="n">toyota</span><span class="p">,</span> <span class="n">benz</span><span class="p">,</span> <span class="n">BMW</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>使用:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">var</span> <span class="n">car</span> <span class="o">=</span> <span class="n">Car</span><span class="p">.</span><span class="n">benz</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>和 Switch 的搭配</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">enum</span> <span class="n">Car</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">case</span> <span class="n">Toyota</span><span class="p">,</span> <span class="n">Benz</span><span class="p">,</span> <span class="n">BMW</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">var</span> <span class="n">car</span> <span class="o">=</span> <span class="n">Car</span><span class="p">.</span><span class="n">Benz</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">switch</span> <span class="n">car</span> <span class="p">{</span>
+</span><span class='line'><span class="k">case</span> <span class="p">.</span><span class="nl">Toyota</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">println</span><span class="p">(</span><span class="s">&quot;Toyota&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="k">case</span> <span class="p">.</span><span class="nl">Benz</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">println</span><span class="p">(</span><span class="s">&quot;Benz&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="k">case</span> <span class="p">.</span><span class="nl">BMW</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">println</span><span class="p">(</span><span class="s">&quot;BMW&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Associated Values</h2>
+
+<p>以 Barcode 來舉例子</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">enum</span> <span class="n">Barcode</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">case</span> <span class="n">UPCA</span><span class="p">(</span><span class="n">Int</span><span class="p">,</span> <span class="n">Int</span><span class="p">,</span> <span class="n">Int</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">case</span> <span class="n">QRCode</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">var</span> <span class="n">productBarcode</span> <span class="o">=</span> <span class="n">Barcode</span><span class="p">.</span><span class="n">UPCA</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8948</span><span class="p">,</span> <span class="mi">333</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我們可以借此來定義一些結構</p>
+
+<h2>Raw Values</h2>
+
+<p>我們可以先給定預設值：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">enum</span> <span class="nl">Barcode</span><span class="p">:</span> <span class="n">String</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">case</span> <span class="n">UPCA</span> <span class="o">=</span> <span class="s">&quot;upca&quot;</span>
+</span><span class='line'>    <span class="k">case</span> <span class="n">QRCode</span> <span class="o">=</span> <span class="s">&quot;qrcode&quot;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">var</span> <span class="n">productBarcode</span> <span class="o">=</span> <span class="n">Barcode</span><span class="p">.</span><span class="n">UPCA</span>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">productBarcode</span><span class="p">.</span><span class="n">toRaw</span><span class="p">())</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可以透過 raw value 來找尋</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">Barcode</span><span class="p">.</span><span class="n">fromRaw</span><span class="p">(</span><span class="s">&quot;qrcode&quot;</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這個部分雖然不多，但是很實用</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/08/api-d8/">[API-d8] - Node.js - Hello World!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-08T13:04:20+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/10/08/api-d8/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/08/api-d8/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>Node.js - Hello World!</h1>
+
+<p>一樣先開虛擬機哦~</p>
+
+<p>並且開啟終端機連進 server 裡面~</p>
+
+<p>以下是 <a href="http://nodejs.org/">Node.js</a> 官方網站的 web server 程式範例，我稍作小修改：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;http&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;text/plain&#39;</span><span class="p">});</span>
+</span><span class='line'>  <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="s1">&#39;Hello World\n&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}).</span><span class="nx">listen</span><span class="p">(</span><span class="mi">1337</span><span class="p">,</span> <span class="s1">&#39;0.0.0.0&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Server running at http://0.0.0.0:1337/&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我們先在虛擬機的資料夾建立一個子資料夾 &lsquo;HelloWorld&rsquo;</p>
+
+<p>在 HelloWorld 資料夾裡面建立一個 app.js</p>
+
+<p>內容如上，存檔。</p>
+
+<p>使用終端機進入 server :</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="nx">vagrant</span> <span class="nx">ssh</span>
+</span><span class='line'><span class="nx">$</span> <span class="nx">cd</span> <span class="o">/</span><span class="nx">vagrant</span><span class="o">/</span><span class="nx">HelloWorld</span>
+</span><span class='line'><span class="nx">$</span> <span class="nx">node</span> <span class="nx">server</span><span class="p">.</span><span class="nx">js</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>到瀏覽器輸入 <a href="http://192.168.33.10:1337/">http://192.168.33.10:1337/</a></p>
+
+<p>(或者是你的 Vagrantfile 裡面設定的 private IP)</p>
+
+<p>即可看到 Hello World 了！</p>
+
+<p>要關掉 Server 也非常簡單，回到下指令的地方，按下 ctrl + c 即可中斷程式</p>
+
+<h2>分析</h2>
+
+<p>簡單分析一下此段程式：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;http&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>將 http 這個模組引入，並指定給物件 http</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span>
+</span><span class='line'>  <span class="p">...</span>
+</span><span class='line'><span class="p">).</span><span class="nx">listen</span><span class="p">(</span><span class="mi">1337</span><span class="p">,</span> <span class="s1">&#39;0.0.0.0&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>先略過中間的 function 不看，<br/>
+這段 code 的用意即是讓呼叫 http 物件中的 createServer 的方法，
+.listen() 則是設定該 server 要跑在哪個 port、hostname</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;text/plain&#39;</span><span class="p">});</span>
+</span><span class='line'>  <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="s1">&#39;Hello World\n&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上面的 code 則是原本在 .createServer() 裡的，
+我們可以看一下 Node.js 的 API doc <a href="http://nodejs.org/api/http.html#http_http_createserver_requestlistener">關於此方法的部分</a></p>
+
+<p>.createServer() 要帶入的東西其實是一個 requestListener，<br/>
+也就是當 Server 跑起來時，我們開啟瀏覽器，輸入 127.0.0.1:1337 時，<br/>
+Node.js Server 要回丟的東西，因此觀察一下此 listener:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="p">...</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>function 中帶入參數的是 req, res，意即 request, response，<br/>
+request 即是 server 接收到 client 端的訊息，<br/>
+response 則是 server 要回丟給 client 的訊息，<br/>
+由於在此範例中，我們只是要回丟給 client 端一個 hello world 的訊息，
+因此，我們不處理 client 送給 server 的 request，
+我們只需處理要回丟給 client 的訊息，</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;text/plain&#39;</span><span class="p">});</span>
+</span><span class='line'><span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="s1">&#39;Hello World\n&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>寫網頁的開發者應該對一些關鍵字例如 Content-type, text/plain 不陌生，<br/>
+第一行代表回傳給使用者的訊息中，HTTP HEAD 的設定是 http status code 200,
+並且 Content-type 設定為 text/plain</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;text/plain&#39;</span><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>那麼，以下這行 code 的意思即是，此次要回送給使用者的訊息到這裡結束，以 &ldquo;Hello World&rdquo; 作結尾</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="s1">&#39;Hello World\n&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>因此整段 code 看下來，就是一個非常簡單的 http server，</p>
+
+<p><a href="http://192.168.33.10:1337/">http://192.168.33.10:1337/</a> 總是會回傳 Hello World</p>
+
+<p>今天就完成了我們的 Hello World 了!</p>
 </div>
   
   
@@ -2108,311 +2455,6 @@ str2  已經不是單純的 String 型別了，</p>
 <p>在 Playground 中多試試看囉~~</p>
 
 <p>ps. Swift 的 ? 和 Ruby 的 ? 是完全不同意思的XD</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/04/api-d4/">[API-d4] - 使用技術與工具介紹及原因</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-04T18:52:58+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/10/04/api-d4/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/04/api-d4/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>使用技術與工具介紹及原因</h1>
-
-<p>終於要開始進入正題了！</p>
-
-<p>在了解 REST/RESTful 後，</p>
-
-<p>就要從無到有 - 從 Server 到 API endpoint 都由自己打造</p>
-
-<p>今天會先來說明接下來會使用到哪些工具及技術</p>
-
-<p>由於筆者使用 Mac ，因此若是有其他平台的使用者可能需要自行找教學</p>
-
-<h2>Server - Ubuntu with Vagrant + VitrualBox</h2>
-
-<p>接下來幾天會先從這個部分開始提起</p>
-
-<p>我們會使用 VirtualBox + Vagrant 的方式來建立自己的虛擬環境</p>
-
-<p>避免一些讀者可能對 Server command line 不熟</p>
-
-<p>這個部分是大家可以跳過的部分，但是我還是會從無到有架起來</p>
-
-<h2>Backend Language - Node.js</h2>
-
-<p>後端語言使用了 Node.js，其實本來有考慮使用 Golang，</p>
-
-<p>但顧及自己的時間&hellip; 還是使用 Node.js，方便快速</p>
-
-<p>這幾年是 Javascript 的時代，</p>
-
-<p>優勝美地似乎也可以支援使用 Javascript 撰寫 <a href="https://github.com/tylergaw/js-osx-app-examples">Automation Tool</a></p>
-
-<p>從前端打到後端甚至到 DB 都可以使用到 Javascript ，</p>
-
-<p>是該來看看 Javascript 的語法特性了 :D</p>
-
-<p>而且 Node.js Event-driven 的特性，可以利用少少的資源提供高效能的服務</p>
-
-<p>同時搭配易用性及社群活躍度，這是我選擇 Node.js 而非選擇 Golang 的原因</p>
-
-<h2>Framework - Express</h2>
-
-<p>我使用了 Node.js 的 web framework - Express</p>
-
-<p>Node.js 之於 Express 可以把它想像成是 Ruby 之於 Sinatra</p>
-
-<p>我使用 Express 方便處理 Route</p>
-
-<p>並且這套 framework 算是 Node.js 裡最具代表性的 framework</p>
-
-<p>學起來也還不錯</p>
-
-<h2>Database - MongoDB</h2>
-
-<p>DB 為了追求簡單快速，我使用了 MongoDB</p>
-
-<p>從 API 到 DB 無縫接軌，簡單的操作模式以及 Schema-free 的特性</p>
-
-<p>應該會讓這整件事情變得更簡單</p>
-
-<h2>Test client - PostMan (chrome extension)</h2>
-
-<p>由於 API 是純粹後端 service，我們使用 Express 並不會使用到樣板語言，</p>
-
-<p>也就是我們並不會撰寫 View (HTML, CSS 等等的語法)</p>
-
-<p>因此除了寫測試外，我們就可以使用這套 Chrome Extension 來對 API 做存取!</p>
-
-<hr />
-
-<p>結束! 接下來幾天會教大家建立自己的虛擬機哦~~</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/03/swift-d3/">[Swift-d3] - Playground - 變數與常數, 註解, 基本資料型別</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-03T21:07:41+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/10/03/swift-d3/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/03/swift-d3/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>變數與常數</h2>
-
-<p>定義一個變數:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="k">var</span> <span class="nl">obj</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>var 是保留字，宣告 obj 是一個變數名稱，冒號後面接資料形態<br/>
-以此例子來說，宣告了一個字串變數叫做 obj，並且初始化為 &ldquo;&rdquo; 空字串</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="k">let</span> <span class="nl">obj</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>let 同樣是用來宣告一個變數，但是宣告此變數後，該變數的值無法被改變，<br/>
-無法被改變的數值其實正正的名字就叫做常數
-以上面的例子來說， 若我們多做一件事:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="k">let</span> <span class="nl">obj</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
-</span><span class='line'><span class="n">obj</span> <span class="o">=</span> <span class="s">&quot;test&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>若我們試圖去更改 obj，讓 obj 從空字串變成 &ldquo;test&rdquo; 時， <br/>
-Xcode 就會報錯，不能更改該值</p>
-
-<p>再來是宣告的變型，其實宣告時不一定要給資料形態，<br/>
-Swift 會自動從後面的值來判斷 x 可能是什麼資料形態，<br/>
-只是由於筆者的習慣，會儘量在後面加上該變數的資料型別</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="k">var</span> <span class="n">x</span> <span class="o">=</span> <span class="s">&quot;test&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>一行內宣告多值：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="k">var</span> <span class="n">x</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="mf">0.0</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>我們就可以在 Playground 裡面試著宣告一些變數看看，並且使用昨天的輸出函式來輸出變數:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="k">var</span> <span class="nl">str</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="s">&quot;測試&quot;</span>
-</span><span class='line'><span class="k">let</span> <span class="nl">fixString</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="s">&quot;fixed&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">var</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="mi">2</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>註解</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="c1">// 單行註解</span>
-</span><span class='line'>
-</span><span class='line'><span class="cm">/*</span>
-</span><span class='line'><span class="cm">多行註解</span>
-</span><span class='line'><span class="cm">多行註解</span>
-</span><span class='line'><span class="cm">多行註解</span>
-</span><span class='line'><span class="cm">*/</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>基本資料型別</h2>
-
-<p>Swift 是一個強型別語言，意即若是以下的程式碼是會出錯的:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="k">var</span> <span class="n">x</span> <span class="o">=</span> <span class="s">&quot;test&quot;</span>
-</span><span class='line'><span class="n">x</span> <span class="o">=</span> <span class="mi">2</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>由於 x 已經被先 Swift 判定是 String 了，後面想指定 Int 資料給 x 就會出錯</p>
-
-<p>Int 整數:
-Swift 提供了 Int 還另外提供了 8, 16, 32, 64 位元的有號和無號整數型別<br/>
-若在 32 位元平台，宣告 Int 的話， Int 的長度和 Int32 是一樣的<br/>
-若在 64 位元平台，宣告 Int 的話， Int 的長度和 Int64 是一樣的</p>
-
-<p>浮點數：
-3.2, 0.0 之類的數字，可以用
-Double - 64 位元浮點數 (至少 15 位數)
-Float - 32 位元浮點數 (至少 6 位數)</p>
-
-<p>布林值：
-true/false</p>
-
-<p>Tuples:
-Tuple 可以將多個值組合成一個值，例如：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="c1">//賦值</span>
-</span><span class='line'><span class="k">let</span> <span class="n">httpSucess</span> <span class="o">=</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s">&quot;Success&quot;</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// 反過來接值</span>
-</span><span class='line'><span class="k">let</span> <span class="p">(</span><span class="n">statusCode</span><span class="p">,</span> <span class="n">statusMessage</span><span class="p">)</span> <span class="o">=</span> <span class="n">httpSucess</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// 若只需要其中一個值，另一個值可以用 _ 代替，但是不能沒有 _ </span>
-</span><span class='line'><span class="k">let</span> <span class="p">(</span><span class="n">statusCode</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="o">=</span> <span class="n">httpSucess</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// 也可以用索引的方式拿值</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">httpSucess</span><span class="mf">.0</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// 宣告 tuples 時也可以直接給予參數一個名稱</span>
-</span><span class='line'><span class="k">let</span> <span class="n">httpSucess</span> <span class="o">=</span> <span class="p">(</span><span class="nl">statusCode</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="nl">statusMessage</span><span class="p">:</span> <span class="s">&quot;Success&quot;</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// 拿值時就可以:</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">httpSucess</span><span class="p">.</span><span class="n">statusCode</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>同時結合 function 這樣就可以多值回傳了！</p>
-
-<p>下一篇會接續今天變數相關的主題~</p>
 </div>
   
   
