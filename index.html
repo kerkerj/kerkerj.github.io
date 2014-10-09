@@ -158,7 +158,7 @@ Day5  -  <a href="http://kerkerj.github.io/blog/2014/10/05/api-d5/">[API-d5] - [
 Day6  -  <a href="http://kerkerj.github.io/blog/2014/10/06/api-d6/">[API-d6] - [Server 番外篇] 建立自己的本機虛擬伺服器 2 - Ubuntu 基本設定與安裝 Node.js, MongoDB </a><br/>
 Day7  -  <a href="http://kerkerj.github.io/blog/2014/10/07/api-d7/">[API-d7] - [Server 番外篇] 建立自己的本機虛擬伺服器 3 - 打包環境</a><br/>
 Day8  -  <a href="http://kerkerj.github.io/blog/2014/10/08/api-d8/">[API-d8] - Node.js - Hello World!</a><br/>
-Day9  -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day9  -  <a href="http://kerkerj.github.io/blog/2014/10/09/api-d9/">[API-d9] - NVM 與 NPM 使用</a><br/>
 Day10 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day11 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day12 -  <a href="http://kerkerj.github.io/">#</a><br/>
@@ -191,7 +191,7 @@ Day5  -  <a href="http://kerkerj.github.io/blog/2014/10/05/swift-d5/">[Swift-d5]
 Day6  -  <a href="http://kerkerj.github.io/blog/2014/10/06/swift-d6/">[Swift-d6] - Playground - function</a><br/>
 Day7  -  <a href="http://kerkerj.github.io/blog/2014/10/07/swift-d7/">[Swift-d7] - Playground - Closures</a><br/>
 Day8  -  <a href="http://kerkerj.github.io/blog/2014/10/08/swift-d8/">[Swift-d8] - Playground - Enumerations</a><br/>
-Day9  -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day9  -  <a href="http://kerkerj.github.io/blog/2014/10/09/swift-d9/">[Swift-d9] - Playground - Class, Struct</a><br/>
 Day10 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day11 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day12 -  <a href="http://kerkerj.github.io/">#</a><br/>
@@ -213,6 +213,730 @@ Day27 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day28 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day29 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day30 -  <a href="http://kerkerj.github.io/">#</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/09/swift-d9/">[Swift-d9] - Playground - Class, Struct</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-09T21:46:17+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/10/09/swift-d9/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/09/swift-d9/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>Playground - Class, Struct</h1>
+
+<p>再來就是要提重點的東西了!</p>
+
+<p>class 和 struct 是用來建構整個程式重要的東西</p>
+
+<p>兩者的差異在於：class 可以繼承其他 class，但是 struct 無法繼承</p>
+
+<p>以下是宣告方式</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">class</span> <span class="n">SomeClass</span> <span class="p">{</span>
+</span><span class='line'>  <span class="c1">//...</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">struct</span> <span class="n">SomeStruct</span> <span class="p">{</span>
+</span><span class='line'>  <span class="c1">//...</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>注意，Swift 的 class 和 struct 命名慣例是大寫命名風格 <code>UpperCamelCase</code></p>
+
+<p>而屬性和方法則是 <code>lowerCamelCase</code></p>
+
+<p>例如 <code>increaseCount</code>, <code>addTwoInts</code></p>
+
+<p>舉個例子:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">struct</span> <span class="n">Resolution</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">var</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'>  <span class="k">var</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="n">CustomLabel</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">var</span> <span class="n">resolution</span> <span class="o">=</span> <span class="n">Resolution</span><span class="p">()</span>
+</span><span class='line'>  <span class="k">var</span> <span class="n">isLabel</span> <span class="o">=</span> <span class="nb">true</span>
+</span><span class='line'>  <span class="k">var</span> <span class="nl">name</span><span class="p">:</span> <span class="n">String</span><span class="o">?</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>實體化，就可以改變其中的值了</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">var</span> <span class="n">someResolution</span> <span class="o">=</span> <span class="n">Resolution</span><span class="p">()</span>
+</span><span class='line'><span class="k">var</span> <span class="n">someLabel</span> <span class="o">=</span> <span class="n">CustomLabel</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">someResolution</span><span class="p">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">100</span>
+</span><span class='line'><span class="n">someLabel</span><span class="p">.</span><span class="n">resolution</span><span class="p">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">200</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>就是一直 <code>點</code> 下去就對了!</p>
+
+<p>Struct 我們也可以直接給定初始值，class 就不能這樣做了~</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">var</span> <span class="n">someResolution</span> <span class="o">=</span> <span class="n">Resolution</span><span class="p">(</span><span class="nl">width</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="nl">height</span><span class="p">:</span> <span class="mi">300</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>sttuct 的 Getter 和 Setter 只存在於 computed properties</p>
+
+<p>亦即是必須要被計算過的才能使用 Getter, Setter</p>
+
+<p>以下就直接看別人的例子吧:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">struct</span> <span class="n">Point</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">var</span> <span class="n">x</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mf">0.0</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">struct</span> <span class="n">Size</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">var</span> <span class="n">width</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mf">0.0</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">struct</span> <span class="n">Rect</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">var</span> <span class="n">origin</span> <span class="o">=</span> <span class="n">Point</span><span class="p">()</span>
+</span><span class='line'>    <span class="k">var</span> <span class="n">size</span> <span class="o">=</span> <span class="n">Size</span><span class="p">()</span>
+</span><span class='line'>    <span class="k">var</span> <span class="nl">center</span><span class="p">:</span> <span class="n">Point</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kr">get</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">let</span> <span class="n">centerX</span> <span class="o">=</span> <span class="n">origin</span><span class="p">.</span><span class="n">x</span> <span class="o">+</span> <span class="p">(</span><span class="n">size</span><span class="p">.</span><span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">let</span> <span class="n">centerY</span> <span class="o">=</span> <span class="n">origin</span><span class="p">.</span><span class="n">y</span> <span class="o">+</span> <span class="p">(</span><span class="n">size</span><span class="p">.</span><span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="nl">x</span><span class="p">:</span> <span class="n">centerX</span><span class="p">,</span> <span class="nl">y</span><span class="p">:</span> <span class="n">centerY</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="kr">set</span><span class="p">(</span><span class="n">newCenter</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">origin</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">newCenter</span><span class="p">.</span><span class="n">x</span> <span class="o">-</span> <span class="p">(</span><span class="n">size</span><span class="p">.</span><span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">origin</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">newCenter</span><span class="p">.</span><span class="n">y</span> <span class="o">-</span> <span class="p">(</span><span class="n">size</span><span class="p">.</span><span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">var</span> <span class="n">square</span> <span class="o">=</span> <span class="n">Rect</span><span class="p">(</span><span class="nl">origin</span><span class="p">:</span> <span class="n">Point</span><span class="p">(</span><span class="nl">x</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="nl">y</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">),</span>
+</span><span class='line'>    <span class="nl">size</span><span class="p">:</span> <span class="n">Size</span><span class="p">(</span><span class="nl">width</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">,</span> <span class="nl">height</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">))</span>
+</span><span class='line'><span class="k">let</span> <span class="n">initialSquareCenter</span> <span class="o">=</span> <span class="n">square</span><span class="p">.</span><span class="n">center</span>
+</span><span class='line'><span class="n">square</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="nl">x</span><span class="p">:</span> <span class="mf">15.0</span><span class="p">,</span> <span class="nl">y</span><span class="p">:</span> <span class="mf">15.0</span><span class="p">)</span>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="s">&quot;square.origin is now at (\(square.origin.x), \(square.origin.y))&quot;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Struct 和 enum 是一種值型別</h3>
+
+<p>值型別的的例子像是 Int, String &hellip;.</p>
+
+<p>那 struct 和 enum 也是，都是以值來操作的</p>
+
+<h3>Class 是參考型別</h3>
+
+<h2>使用時機</h2>
+
+<p>struct:</p>
+
+<ul>
+<li>用來封裝少量相關的資料</li>
+<li>不需要繼承</li>
+<li>是 copy value 而不是 reference</li>
+</ul>
+
+
+<p>例如：Label 的長寬, 三角形的三個點</p>
+
+<h2>Class 二三事</h2>
+
+<p>礙于篇幅關係，這邊簡單講解一些 class 比較重要的點</p>
+
+<p>通常一個 class 裡面會有一些 variable 與 methods</p>
+
+<p>通常還會有靜態的 variables, methods 或是 建構子 (constructor)</p>
+
+<p>甚至是延遲載入一個變數</p>
+
+<p>下面就簡單寫了一個 class 來說明這幾個部分</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">class</span> <span class="n">Person</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">var</span> <span class="nl">name</span><span class="p">:</span> <span class="n">String</span>
+</span><span class='line'>    <span class="k">var</span> <span class="nl">height</span><span class="p">:</span> <span class="n">Int</span><span class="o">!</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// 型別屬性 (靜態變數)</span>
+</span><span class='line'>    <span class="k">class</span> <span class="k">var</span> <span class="nl">isAnimal</span><span class="p">:</span> <span class="n">Bool</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nb">true</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// 初始化時必定輸入 name, 必須知道初始化時變數所代表的意義</span>
+</span><span class='line'>    <span class="k">init</span><span class="p">(</span><span class="nl">name</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// 型別方法 (靜態方法)</span>
+</span><span class='line'>    <span class="k">class</span> <span class="k">func</span> <span class="n">sayHi</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">String</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="s">&quot;Hi!&quot;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">func</span> <span class="n">sayYa</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">String</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="s">&quot;Ya&quot;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">final</span> <span class="k">func</span> <span class="n">car</span><span class="p">(</span><span class="err">#</span><span class="nl">title</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">title</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">lazy</span> <span class="k">var</span> <span class="nl">personalizedGreeting</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>        <span class="p">[</span><span class="kr">unowned</span> <span class="nb">self</span><span class="p">]</span> <span class="k">in</span>
+</span><span class='line'>        <span class="k">return</span> <span class="s">&quot;Hello, \(self.name)!&quot;</span>
+</span><span class='line'>    <span class="p">}()</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">let</span> <span class="n">person</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="nl">name</span><span class="p">:</span> <span class="s">&quot;Kerkerj&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">person</span><span class="p">.</span><span class="n">personalizedGreeting</span><span class="p">)</span>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">person</span><span class="p">.</span><span class="n">car</span><span class="p">(</span><span class="nl">title</span><span class="p">:</span> <span class="s">&quot;Toyota&quot;</span><span class="p">))</span>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">person</span><span class="p">.</span><span class="n">sayYa</span><span class="p">())</span>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">Person</span><span class="p">.</span><span class="n">sayHi</span><span class="p">())</span>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">Person</span><span class="p">.</span><span class="n">isAnimal</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>self</code> 的意思就代表 class 自己，就字面上來看應該蠻好懂的</p>
+
+<p>通常 <code>lazy</code> 的使用時機在於，</p>
+
+<p>有個值需要被複雜或大量計算時，或是初始化時可能需要大量計算時，</p>
+
+<p>我們可以加入 <code>lazy</code>，使該變數在需要操作時再計算</p>
+
+<p>下面再簡單講一點繼承的東西</p>
+
+<p>直接看例子，我設定了一個 class 稱為 Man，繼承自 Person</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">class</span> <span class="nl">Man</span><span class="p">:</span> <span class="n">Person</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">class</span> <span class="k">var</span> <span class="nl">sex</span><span class="p">:</span> <span class="n">String</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="s">&quot;Male&quot;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kr">override</span> <span class="k">init</span><span class="p">(</span><span class="nl">name</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nb">super</span><span class="p">.</span><span class="k">init</span><span class="p">(</span><span class="nl">name</span><span class="p">:</span> <span class="n">name</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kr">override</span> <span class="k">func</span> <span class="n">sayYa</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">String</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="s">&quot;YAYA&quot;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">func</span> <span class="n">sayYo</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">String</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="s">&quot;YO&quot;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">let</span> <span class="n">kerkerj</span> <span class="o">=</span> <span class="n">Man</span><span class="p">(</span><span class="nl">name</span><span class="p">:</span> <span class="s">&quot;kerkerj&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">kerkerj</span><span class="p">.</span><span class="n">name</span><span class="p">)</span>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">kerkerj</span><span class="p">.</span><span class="n">sayYa</span><span class="p">())</span>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">kerkerj</span><span class="p">.</span><span class="n">sayYo</span><span class="p">())</span>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">Man</span><span class="p">.</span><span class="n">sex</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可以觀察一下自動補完的選項，當輸入 <code>kerkerj.</code> 時</p>
+
+<p>後面會出現除了 Man 這個 class 本身提供的變數與方法外，</p>
+
+<p>還有 Person 的變數與方法，這就是因為 Man 繼承自 Person 的關係</p>
+
+<p>Man 裡面覆寫了 init, sayYa 的方法，</p>
+
+<p>原本 sayYa 只會出現一次 &ldquo;YA&rdquo;, 覆寫過後會出現兩次變成 &ldquo;YAYA&rdquo;</p>
+
+<p>另外 Man 再多加了一個 sayYo 的方法</p>
+
+<p>如果父類別的某些方法不想被覆寫，在關鍵字前加上 <code>final</code></p>
+
+<p>就可以防止被覆寫</p>
+
+<hr />
+
+<p>以上是一些 class 和 struct 的特性</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/09/api-d9/">[API-d9] - NVM 與 NPM 使用</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-09T21:46:12+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/10/09/api-d9/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/09/api-d9/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>NVM 與 NPM 使用</h1>
+
+<h2>NVM - Node.js Version Manager</h2>
+
+<h3>安裝</h3>
+
+<p>如果是 Ubuntu 的話必須先要有 <code>build-essential</code> 和 <code>libssl-dev</code> 套件</p>
+
+<p>不過這個我們之前就裝過了，所以直接安裝 NVM 吧~</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ curl https://raw.githubusercontent.com/creationix/nvm/v0.17.2/install.sh | bash
+</span><span class='line'>$ source ~/.bashrc</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>使用 NVM 安裝 node.js</h3>
+
+<p>先前我們有使用 Ubuntu 本身的 apt-get 安裝 Node.js</p>
+
+<p>不過那是被安裝到 /usr/bin/node</p>
+
+<p>有時候要安裝套件需要 sudo 提供管理者權限</p>
+
+<p>非常麻煩，因此我們使用 NVM 來安裝另一個 Node.js</p>
+
+<p>這個 Node.js 的執行檔就任我們使用，不需要提供管理者權限了</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ nvm install 0.10</span></code></pre></td></tr></table></div></figure>
+
+
+<p>nvm 就會安裝 0.10 版本，安裝完後就要使用它：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ nvm use 0.10</span></code></pre></td></tr></table></div></figure>
+
+
+<p>再來我們把 nvm 的 node.js 設定成預設的 node</p>
+
+<p>否則重開機後，node 指令會變回原本系統的 node</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ nvm alias default 0.10</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我們觀察一下現在使用的 node 指令是哪裡來的:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ which node
+</span><span class='line'>/home/vagrant/.nvm/v0.10.32/bin/node</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Good! 他已經被安裝到我們使用者目錄底下了</p>
+
+<p>原本的系統 Node.js 是在 <code>/usr/bin/node</code></p>
+
+<p>如果要切換回系統的 Node.js:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ nvm use system
+</span><span class='line'>Now using system version of node: v0.10.32.
+</span><span class='line'>
+</span><span class='line'>// 看一下現在使用 node 的路徑
+</span><span class='line'>$ which node
+</span><span class='line'>/usr/bin/node</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>NPM - Node.js Package Manager</h2>
+
+<p>NPM 顧名思義就是 node.js 的套件管理系統，</p>
+
+<p>世界上有許許多多的開發者為 Node.js 開發了許許多多的套件，</p>
+
+<p>我們受惠于此，也不用再自己造輪子，拿這些佛心的大大的套件來使用，打造出我們想要的服務，</p>
+
+<p>像我們接下來會使用的 Express 和 Mongodb 的 driver 都是別人寫好開放出來給大家用的！</p>
+
+<p>下面簡單介紹 NPM 的使用方式</p>
+
+<h3>初始化專案資料夾</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ npm init </span></code></pre></td></tr></table></div></figure>
+
+
+<p>終端機會詢問各種問題來幫忙建立 package.json 的檔案</p>
+
+<p>是在資料夾中建立專案前必下的指令</p>
+
+<p>並且，使用 package.json 有個好處</p>
+
+<p>只要將 package.json 給其他人</p>
+
+<p>其他人只需要將 package.json 放到某個資料夾</p>
+
+<p>並下:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ npm install</span></code></pre></td></tr></table></div></figure>
+
+
+<p>就會在該資料夾安裝 package.json 中列出的所有套件</p>
+
+<p>就不需要一個一個尋找及安裝，非常方便！</p>
+
+<h3>安裝套件</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// 安裝全域套件
+</span><span class='line'>$ npm install [套件名稱] -g
+</span><span class='line'>
+</span><span class='line'>// 安裝套件在專案資料夾 
+</span><span class='line'>// 會安裝在目前所在的資料夾，所以要下此指令必須先確認自己是否在專案根目錄
+</span><span class='line'>$ npm install [套件名稱]
+</span><span class='line'>
+</span><span class='line'>// 通常專案資料夾底下都會有一個 package.json 來管理套件相依性
+</span><span class='line'>// 如果在專案資料夾底下下此指令，會將你所安裝的套件加入 package.json 中
+</span><span class='line'>// 一樣也是要先確認自己是否在專案目錄底下
+</span><span class='line'>$ npm install [套件名稱] -save</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>移除套件</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// 移除全域套件
+</span><span class='line'>$ npm uninstall [套件名稱] -g
+</span><span class='line'>
+</span><span class='line'>// 移除在專案資料夾的某個套件 
+</span><span class='line'>// 會移除在目前所在的資料夾某個套件，所以要下此指令必須先確認自己是否在專案根目錄
+</span><span class='line'>$ npm uninstall [套件名稱]
+</span><span class='line'>
+</span><span class='line'>// 通常專案資料夾底下都會有一個 package.json 來管理套件相依性
+</span><span class='line'>// 如果在專案資料夾底下下此指令，會將你所移除的套件從 package.json 中刪除
+</span><span class='line'>// 一樣也是要先確認自己是否在專案目錄底下
+</span><span class='line'>$ npm uninstall [套件名稱] -save</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>列出套件</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// 列出全域套件
+</span><span class='line'>$ npm ls -g
+</span><span class='line'>
+</span><span class='line'>// 列出全域套件詳細資訊
+</span><span class='line'>$ npm ls -gl
+</span><span class='line'>
+</span><span class='line'>// 在專案資料夾底下：
+</span><span class='line'>
+</span><span class='line'>// 列出專案資料夾的套件
+</span><span class='line'>$ npm ls 
+</span><span class='line'>
+</span><span class='line'>// 列出專案資料夾的詳細套件資訊
+</span><span class='line'>$ npm ls -l</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>更新套件</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// 更新全域套件
+</span><span class='line'>$ npm update -g
+</span><span class='line'>
+</span><span class='line'>// 在專案資料夾底下：
+</span><span class='line'>
+</span><span class='line'>// 更新專案套件
+</span><span class='line'>$ npm update </span></code></pre></td></tr></table></div></figure>
+
+
+<h3>搜尋套件</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ npm search [套件名稱]</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>注意!!</h2>
+
+<p>請注意，使用系統 Node.js 的 npm 所安裝的套件，是屬於系統 Node.js 的</p>
+
+<p>切換到使用者目錄底下的 Node.js 時，是不會共用系統 npm 的套件的</p>
+
+<p>請注意這一點，接下來我們都會使用 nvm 的 node.js</p>
+
+<p>我們可以透過以下例子來驗證:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// 使用系統 node.js
+</span><span class='line'>$ nvm use system
+</span><span class='line'>Now using system version of node: v0.10.32.
+</span><span class='line'>
+</span><span class='line'>// 查看 npm 全域套件
+</span><span class='line'>$ npm list -g  
+</span><span class='line'>/usr/lib
+</span><span class='line'>├─┬ express@4.9.5
+</span><span class='line'>│ ├─┬ accepts@1.1.1
+</span><span class='line'>│ │ ├─┬ mime-types@2.0.2
+</span><span class='line'>│ │ │ └── mime-db@1.1.0
+</span><span class='line'>│ │ └── negotiator@0.4.8
+</span><span class='line'>....
+</span><span class='line'>
+</span><span class='line'>// 使用 nvm node.js
+</span><span class='line'>$ nvm use 0.10
+</span><span class='line'>Now using node v0.10.32
+</span><span class='line'>
+</span><span class='line'>// 查看 npm 全域套件
+</span><span class='line'>$ npm list -g 
+</span><span class='line'>/home/vagrant/.nvm/v0.10.32/lib
+</span><span class='line'>└─┬ npm@1.4.28
+</span><span class='line'>  ├── abbrev@1.0.5
+</span><span class='line'>  ├── ansi@0.3.0
+</span><span class='line'>  ├── ansicolors@0.3.2
+</span><span class='line'>  ├── ansistyles@0.1.3
+</span><span class='line'>  ├── archy@0.0.2
+</span><span class='line'>  ├── block-stream@0.0.7
+</span><span class='line'>  ├── char-spinner@1.0.1
+</span><span class='line'>  ├── child-process-close@0.1.1
+</span><span class='line'>  ├── chmodr@0.1.0
+</span><span class='line'>...</span></code></pre></td></tr></table></div></figure>
+
+
+<p>主要差別就在於 列出全域套件時，還會提醒你這些套件裝在哪裡，如果不是裝在使用者目錄底下，</p>
+
+<p>表示現在用的是系統的 Node.js</p>
+
+<p>因此發現自己不對了就快換回來吧，如果系統裝爛了，也可以利用先前打包的 box 還原哦!</p>
+
+<h2>怎麼找套件?</h2>
+
+<p>套件那麼多，我要到哪裡找？</p>
+
+<p>除了根據自己的需求 Google 外，</p>
+
+<p>下面是 Node.js module 的官方網站: <a href="https://nodejsmodules.org/">https://nodejsmodules.org/</a></p>
+
+<p>有做最受歡迎的套件排名，進去瀏覽一下，有時候會發現一些好用的套件哦!</p>
 </div>
   
   
@@ -2077,384 +2801,6 @@ response 則是 server 要回丟給 client 的訊息，<br/>
 </span><span class='line'><span class="c1">// 5 is a prime, also an integer.</span>
 </span></code></pre></td></tr></table></div></figure>
 
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/05/api-d5/">[API-d5] - [Server 番外篇] 建立自己的本機虛擬伺服器 1 - Vagrant + VirtualBox 安裝</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-05T16:40:18+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/10/05/api-d5/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/05/api-d5/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>VirtualBox 是一套虛擬軟體，可以方便幫助我們在現有的作業系統上</p>
-
-<p>模擬另一個作業系統 (如 linux, Ubuntu, CentOS&hellip;)</p>
-
-<p>在虛擬機器裡面所以的一切變動，都不會影響到現有的作業系統，</p>
-
-<p>非常適合拿來做測試使用</p>
-
-<p>由於現在大部份的 Service 除了架設在 Windows Server 外，最大宗的就是 *nix distribution 了</p>
-
-<p>因此這在這個系列文中，也是一定要教大家如何建立起虛擬測試機器，</p>
-
-<p>來模擬真實 Server 環境中，如何架設自己撰寫的 API Service</p>
-
-<h2>VirtualBox</h2>
-
-<p>到 <a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a> 官方網站下載合適的安裝檔案吧!</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-04%2012.56.26.png" alt="p1" /></p>
-
-<p>安裝完成就可以了!</p>
-
-<p>因為我們接下來會使用 Vagrant 這套 commaond line tool 來對 VirtualBox 進行操作</p>
-
-<p>因此只要安裝完 VirtualBox 後就可以不用管他了 XD</p>
-
-<h2>Vagrant</h2>
-
-<p><a href="https://www.vagrantup.com/">Vagrant</a></p>
-
-<p>它可以幫助我們快速的建立一個輕量、可重複使用、並且可以打包起來帶著走的環境</p>
-
-<p>透過編輯一個設定檔，就可以簡單設定該虛擬系統的 *nix 基本設定，如 共享資料夾、網路存取等等，</p>
-
-<p>不需要透過 VirtualBox</p>
-
-<p>通常這套軟體可以應用在團隊開發上：</p>
-
-<p>以網頁開發來說，如果大家的測試環境與版本都不太一樣，例如 apache 或 php 版本不同</p>
-
-<p>有時候會造成團隊溝通的負擔，因此透過 Vagrant 將 server 環境重新建立一套虛擬機器，</p>
-
-<p>並且透過 Vagrant 打包，就可以丟給其他人使用，這樣一來大家的環境都一樣，</p>
-
-<p>就可以避免這個問題，</p>
-
-<p>而且還有一點，Server 的安裝是很累人的，同樣的事情基本上都不會想做第二遍，</p>
-
-<p>因此打包一個乾淨的環境後備份，弄髒了可以隨時快速再把備份拿出來用，非常方便！</p>
-
-<h3>安裝:</h3>
-
-<p>到 <a href="https://www.vagrantup.com/downloads">下載頁面</a> 尋找適合自己的下載並且安裝</p>
-
-<p>安裝完後應該就可以在終端機中使用 vagrant 這個指令了!</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ vagrant -v
-</span><span class='line'>Vagrant 1.6.5</span></code></pre></td></tr></table></div></figure>
-
-
-<p>目前最新的版本應該是 1.6.5</p>
-
-<h3>建立自己的虛擬機器</h3>
-
-<p>首先在自己想要建立虛擬機器的地方先開一個資料夾</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ mkdir ~/ithome/ </span></code></pre></td></tr></table></div></figure>
-
-
-<p>切換到該資料夾</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd ~/ithome</span></code></pre></td></tr></table></div></figure>
-
-
-<p>使用 vagrant 初始化這個資料夾，並且指定我們要使用 Ubuntu 14.04 版本</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ vagrant init ubuntu/trusty64
-</span><span class='line'>A `Vagrantfile` has been placed in this directory. You are now
-</span><span class='line'>ready to `vagrant up` your first virtual environment! Please read
-</span><span class='line'>the comments in the Vagrantfile as well as documentation on
-</span><span class='line'>`vagrantup.com` for more information on using Vagrant.</span></code></pre></td></tr></table></div></figure>
-
-
-<p>如果想要使用別種 *nix 版本可以到這裡找 - <a href="https://vagrantcloud.com/discover/featured">VagrantCloud</a></p>
-
-<p>下完 <code>vagrant init ubuntu/trusty64</code> 指令後，指令告訴你有一個檔案叫做 <code>Vagrantfile</code> 被建立在這個資料夾裡了，</p>
-
-<p>可以使用 <code>vagrant up</code> 來開啟虛擬機器</p>
-
-<p>不過我們先不要下開機指令，我們先來看看 <code>Vagrantfile</code> 的內容，我直接把比較重要的設定說明寫在註解裡面了：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>  ...
-</span><span class='line'>  
-</span><span class='line'>  // 此行是說明要使用哪一個 box ，會到自己的系統裡面尋找，如果沒有的話就會下載一個
-</span><span class='line'>  // 由於我們剛剛是使用 VagrantCloud 找的版本，因此 vagrant 會去找 
-</span><span class='line'>  config.vm.box = "ubuntu/trusty64"
-</span><span class='line'>
-</span><span class='line'>  // 這個是設定網路
-</span><span class='line'>  // 預設是 NAT，也就是如果我們在虛擬機器裝了網頁伺服器，
-</span><span class='line'>  // 必須使用 port forwarding 的方式來讀到虛擬機器裡面的網頁 
-</span><span class='line'>  #config.vm.network "forwarded_port", guest: 80, host: 8080
-</span><span class='line'>
-</span><span class='line'>  // Important! 
-</span><span class='line'>  // 承上，或者我們可以使用一個 private network ip，我們把它開啟註解吧~
-</span><span class='line'>  // 這樣我們開啟虛擬機器時，他的 IP 就會是 192.168.33.10
-</span><span class='line'>  config.vm.network "private_network", ip: "192.168.33.10"
-</span><span class='line'>
-</span><span class='line'>  // 開啟註解的話，就是直接使用 bridge 的方式，如果是使用分享器的話
-</span><span class='line'>  // 虛擬機會到分享器要一個 IP 
-</span><span class='line'>  # config.vm.network "public_network"
-</span><span class='line'>  
-</span><span class='line'>  // 這個是設定共享資料夾
-</span><span class='line'>  // 預設是放 Vagrantfile 的那個資料夾
-</span><span class='line'>  // 在這個資料夾放檔案的話，在虛擬機器裡的 '/vagrant/' 資料夾是可以看到的!!
-</span><span class='line'>  // 如果有想要指定到特殊的資料夾，再編輯此行並開啟註解即可
-</span><span class='line'>  # config.vm.synced_folder "../data", "/vagrant_data"
-</span><span class='line'>
-</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
-
-
-<p>再來就讓它開機吧!</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ vagrant up </span></code></pre></td></tr></table></div></figure>
-
-
-<p>如果沒有下載過 ubuntu 系統的話，會先幫你下載，所以需要等待一些時間</p>
-
-<p>若看到終端機說系統已經建立完成，</p>
-
-<p>就可以連線進去了!</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ vagrant ssh
-</span><span class='line'>.....
-</span><span class='line'>vagrant@vagrant-ubuntu-trusty-64:~$ </span></code></pre></td></tr></table></div></figure>
-
-
-<p>就會發現終端機的 prompt 已經不一樣了，變成 ubuntu-trusty-64 ，表示我們已經進入虛擬機器裡面了</p>
-
-<p>由於今天的內容只會先到這，關於 Ubuntu 的設定是明天，所以記得離開虛擬機器並且幫他關機 XDD</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>// 如果剛剛有進入虛擬機器的話，輸入 exit 離開
-</span><span class='line'>$ exit</span></code></pre></td></tr></table></div></figure>
-
-
-<p>再下關機指令:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ vagrant halt </span></code></pre></td></tr></table></div></figure>
-
-
-<p>虛擬機器就被關起來了!</p>
-
-<p>順帶一提</p>
-
-<p>如果在虛擬機器開機時，需要更改 Vagrantfile 的設定，</p>
-
-<p>改完後虛擬機器必須要重新開啟才會讀到新的設定</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ vagrant reload</span></code></pre></td></tr></table></div></figure>
-
-
-<p>下回待續!!</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/04/swift-d4/">[Swift-d4] - Playground - Optional, ! And ?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-04T18:53:03+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/10/04/swift-d4/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/04/swift-d4/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>Playground - Optional, ! and ?</h1>
-
-<p>今天要來探討 Optional 型別，我認為這塊是初學 Swift 常遇到的問題<br/>
-大家搞不懂 &ldquo;!&rdquo; &ldquo;?&rdquo; 到底在幹什麼，所以今天就來了解一下</p>
-
-<p>在 Swift 中，所有的資料型別都不能賦予 nil<br/>
-也就是以下這件事是不成立的：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="k">var</span> <span class="nl">x</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="s">&quot;test&quot;</span>
-</span><span class='line'><span class="n">x</span> <span class="o">=</span> <span class="nb">nil</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>所以在 Swift 底下，就要使用 Optional 來處理值可能不存在的情況<br/>
-當一個變數 x 被宣告成 Optional 型別時，該變數就會有兩個情況：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="mf">1.</span> <span class="err">有值，等於</span> <span class="n">x</span>
-</span><span class='line'><span class="mf">2.</span> <span class="err">沒有值</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>要宣告一個變數可能為 nil 時的方式是使用問號 &lsquo;?&#8217;：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="c1">// 此時 x = &quot;yaya&quot;</span>
-</span><span class='line'><span class="k">var</span> <span class="nl">x</span><span class="p">:</span> <span class="n">String</span><span class="o">?</span> <span class="o">=</span> <span class="s">&quot;yaya&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// 此時 x 沒有值</span>
-</span><span class='line'><span class="n">x</span> <span class="o">=</span> <span class="nb">nil</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>拿以下程式在 Playground 執行看看：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="k">var</span> <span class="nl">str</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
-</span><span class='line'><span class="n">str</span> <span class="o">=</span> <span class="s">&quot;yaya&quot;</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">var</span> <span class="nl">str2</span><span class="p">:</span> <span class="n">String</span><span class="o">?</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str2</span><span class="p">)</span>
-</span><span class='line'><span class="n">str2</span> <span class="o">=</span> <span class="s">&quot;yaya&quot;</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str2</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>可以看一下 Playground 右邊的輸出框，觀察兩個 string 的差異<br/>
-當 str2 被賦予 Optional 型別後，<br/>
-str2  已經不是單純的 String 型別了，</p>
-
-<p>那如何強制以 String 型別拿到 str2 的資料呢?
-試著在 str2 後面加上驚嘆號，並觀察右方輸出結果:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str2</span><span class="o">!</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>請注意！若要強制取值，一定要確保此 Optional 型別中一定有值，
-否則將會導致執行錯誤，以下是錯誤範例：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="k">var</span> <span class="nl">str2</span><span class="p">:</span> <span class="n">String</span><span class="o">?</span> <span class="o">=</span> <span class="s">&quot;yaya&quot;</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str2</span><span class="p">)</span>
-</span><span class='line'><span class="n">str2</span> <span class="o">=</span> <span class="nb">nil</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str2</span><span class="o">!</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>程式將會在第四行返回錯誤，因此使用驚嘆號強制取值前請先確保 Optional 裡有值。</p>
-
-<p>在 Objective-C 中，nil 是指向一個不存在物件的指標；
-而 Swift 中，nil 是一種非常明確地值 － 他就是代表「不存在」。</p>
-
-<p>在 Playground 中多試試看囉~~</p>
-
-<p>ps. Swift 的 ? 和 Ruby 的 ? 是完全不同意思的XD</p>
 </div>
   
   

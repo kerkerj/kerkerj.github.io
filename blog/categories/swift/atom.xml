@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Swift | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/swift/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-08T13:15:34+08:00</updated>
+  <updated>2014-10-09T21:58:33+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,234 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[Swift-d9] - Playground - Class, Struct]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/09/swift-d9/"/>
+    <updated>2014-10-09T21:46:17+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/09/swift-d9</id>
+    <content type="html"><![CDATA[<h1>Playground - Class, Struct</h1>
+
+<p>再來就是要提重點的東西了!</p>
+
+<p>class 和 struct 是用來建構整個程式重要的東西</p>
+
+<p>兩者的差異在於：class 可以繼承其他 class，但是 struct 無法繼承</p>
+
+<p>以下是宣告方式</p>
+
+<pre><code class="swift">class SomeClass {
+    //...
+}
+
+struct SomeStruct {
+    //...
+}
+</code></pre>
+
+<p>注意，Swift 的 class 和 struct 命名慣例是大寫命名風格 <code>UpperCamelCase</code></p>
+
+<p>而屬性和方法則是 <code>lowerCamelCase</code></p>
+
+<p>例如 <code>increaseCount</code>, <code>addTwoInts</code></p>
+
+<p>舉個例子:</p>
+
+<pre><code>struct Resolution {
+    var width = 0
+    var height = 0
+}
+
+class CustomLabel {
+    var resolution = Resolution()
+    var isLabel = true
+    var name: String?
+}
+</code></pre>
+
+<p>實體化，就可以改變其中的值了</p>
+
+<pre><code>var someResolution = Resolution()
+var someLabel = CustomLabel()
+
+someResolution.width = 100
+someLabel.resolution.height = 200
+</code></pre>
+
+<p>就是一直 <code>點</code> 下去就對了!</p>
+
+<p>Struct 我們也可以直接給定初始值，class 就不能這樣做了~</p>
+
+<pre><code>var someResolution = Resolution(width: 200, height: 300)
+</code></pre>
+
+<p>sttuct 的 Getter 和 Setter 只存在於 computed properties</p>
+
+<p>亦即是必須要被計算過的才能使用 Getter, Setter</p>
+
+<p>以下就直接看別人的例子吧:</p>
+
+<pre><code>struct Point {
+    var x = 0.0, y = 0.0
+}
+struct Size {
+    var width = 0.0, height = 0.0
+}
+struct Rect {
+    var origin = Point()
+    var size = Size()
+    var center: Point {
+    get {
+        let centerX = origin.x + (size.width / 2)
+        let centerY = origin.y + (size.height / 2)
+        return Point(x: centerX, y: centerY)
+    }
+    set(newCenter) {
+        origin.x = newCenter.x - (size.width / 2)
+        origin.y = newCenter.y - (size.height / 2)
+    }
+    }
+}
+var square = Rect(origin: Point(x: 0.0, y: 0.0),
+    size: Size(width: 10.0, height: 10.0))
+let initialSquareCenter = square.center
+square.center = Point(x: 15.0, y: 15.0)
+println("square.origin is now at (\(square.origin.x), \(square.origin.y))")
+</code></pre>
+
+<h3>Struct 和 enum 是一種值型別</h3>
+
+<p>值型別的的例子像是 Int, String &hellip;.</p>
+
+<p>那 struct 和 enum 也是，都是以值來操作的</p>
+
+<h3>Class 是參考型別</h3>
+
+<h2>使用時機</h2>
+
+<p>struct:</p>
+
+<ul>
+<li>用來封裝少量相關的資料</li>
+<li>不需要繼承</li>
+<li>是 copy value 而不是 reference</li>
+</ul>
+
+
+<p>例如：Label 的長寬, 三角形的三個點</p>
+
+<h2>Class 二三事</h2>
+
+<p>礙于篇幅關係，這邊簡單講解一些 class 比較重要的點</p>
+
+<p>通常一個 class 裡面會有一些 variable 與 methods</p>
+
+<p>通常還會有靜態的 variables, methods 或是 建構子 (constructor)</p>
+
+<p>甚至是延遲載入一個變數</p>
+
+<p>下面就簡單寫了一個 class 來說明這幾個部分</p>
+
+<pre><code>class Person {
+
+    var name: String
+    var height: Int!
+
+    // 型別屬性 (靜態變數)
+    class var isAnimal: Bool {
+        return true
+    }
+
+    // 初始化時必定輸入 name, 必須知道初始化時變數所代表的意義
+    init(name: String) {
+        self.name = name
+    }
+
+    // 型別方法 (靜態方法)
+    class func sayHi() -&gt; String {
+        return "Hi!"
+    }
+
+    func sayYa() -&gt; String {
+        return "Ya"
+    }
+
+    final func car(#title: String) -&gt; String{
+        return title
+    }
+
+    lazy var personalizedGreeting: String = {
+        [unowned self] in
+        return "Hello, \(self.name)!"
+    }()
+}
+
+let person = Person(name: "Kerkerj")
+println(person.personalizedGreeting)
+println(person.car(title: "Toyota"))
+println(person.sayYa())
+println(Person.sayHi())
+println(Person.isAnimal)
+</code></pre>
+
+<p><code>self</code> 的意思就代表 class 自己，就字面上來看應該蠻好懂的</p>
+
+<p>通常 <code>lazy</code> 的使用時機在於，</p>
+
+<p>有個值需要被複雜或大量計算時，或是初始化時可能需要大量計算時，</p>
+
+<p>我們可以加入 <code>lazy</code>，使該變數在需要操作時再計算</p>
+
+<p>下面再簡單講一點繼承的東西</p>
+
+<p>直接看例子，我設定了一個 class 稱為 Man，繼承自 Person</p>
+
+<pre><code>class Man: Person {
+    class var sex: String {
+        return "Male"
+    }
+
+    override init(name: String) {
+        super.init(name: name)
+    }
+
+    override func sayYa() -&gt; String {
+        return "YAYA"
+    }
+
+    func sayYo() -&gt; String {
+        return "YO"
+    }
+}
+
+let kerkerj = Man(name: "kerkerj")
+println(kerkerj.name)
+println(kerkerj.sayYa())
+println(kerkerj.sayYo())
+println(Man.sex)
+</code></pre>
+
+<p>可以觀察一下自動補完的選項，當輸入 <code>kerkerj.</code> 時</p>
+
+<p>後面會出現除了 Man 這個 class 本身提供的變數與方法外，</p>
+
+<p>還有 Person 的變數與方法，這就是因為 Man 繼承自 Person 的關係</p>
+
+<p>Man 裡面覆寫了 init, sayYa 的方法，</p>
+
+<p>原本 sayYa 只會出現一次 &ldquo;YA&rdquo;, 覆寫過後會出現兩次變成 &ldquo;YAYA&rdquo;</p>
+
+<p>另外 Man 再多加了一個 sayYo 的方法</p>
+
+<p>如果父類別的某些方法不想被覆寫，在關鍵字前加上 <code>final</code></p>
+
+<p>就可以防止被覆寫</p>
+
+<hr />
+
+<p>以上是一些 class 和 struct 的特性</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[Swift-d8] - Playground - Enumerations]]></title>
@@ -740,82 +968,6 @@ println(description)
 // I'm here
 // 5 is a prime, also an integer.
 </code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[Swift-d4] - Playground - Optional, ! And ?]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/04/swift-d4/"/>
-    <updated>2014-10-04T18:53:03+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/04/swift-d4</id>
-    <content type="html"><![CDATA[<h1>Playground - Optional, ! and ?</h1>
-
-<p>今天要來探討 Optional 型別，我認為這塊是初學 Swift 常遇到的問題<br/>
-大家搞不懂 &ldquo;!&rdquo; &ldquo;?&rdquo; 到底在幹什麼，所以今天就來了解一下</p>
-
-<p>在 Swift 中，所有的資料型別都不能賦予 nil<br/>
-也就是以下這件事是不成立的：</p>
-
-<pre><code class="Swift">var x: String = "test"
-x = nil
-</code></pre>
-
-<p>所以在 Swift 底下，就要使用 Optional 來處理值可能不存在的情況<br/>
-當一個變數 x 被宣告成 Optional 型別時，該變數就會有兩個情況：</p>
-
-<pre><code>1. 有值，等於 x
-2. 沒有值
-</code></pre>
-
-<p>要宣告一個變數可能為 nil 時的方式是使用問號 &lsquo;?&#8217;：</p>
-
-<pre><code>// 此時 x = "yaya"
-var x: String? = "yaya"
-
-// 此時 x 沒有值
-x = nil
-</code></pre>
-
-<p>拿以下程式在 Playground 執行看看：</p>
-
-<pre><code>var str: String = ""
-println(str)
-str = "yaya"
-println(str)
-
-var str2: String?
-println(str2)
-str2 = "yaya"
-println(str2)
-</code></pre>
-
-<p>可以看一下 Playground 右邊的輸出框，觀察兩個 string 的差異<br/>
-當 str2 被賦予 Optional 型別後，<br/>
-str2  已經不是單純的 String 型別了，</p>
-
-<p>那如何強制以 String 型別拿到 str2 的資料呢?
-試著在 str2 後面加上驚嘆號，並觀察右方輸出結果:</p>
-
-<pre><code>println(str2!)
-</code></pre>
-
-<p>請注意！若要強制取值，一定要確保此 Optional 型別中一定有值，
-否則將會導致執行錯誤，以下是錯誤範例：</p>
-
-<pre><code>var str2: String? = "yaya"
-println(str2)
-str2 = nil
-println(str2!)
-</code></pre>
-
-<p>程式將會在第四行返回錯誤，因此使用驚嘆號強制取值前請先確保 Optional 裡有值。</p>
-
-<p>在 Objective-C 中，nil 是指向一個不存在物件的指標；
-而 Swift 中，nil 是一種非常明確地值 － 他就是代表「不存在」。</p>
-
-<p>在 Playground 中多試試看囉~~</p>
-
-<p>ps. Swift 的 ? 和 Ruby 的 ? 是完全不同意思的XD</p>
 ]]></content>
   </entry>
   
