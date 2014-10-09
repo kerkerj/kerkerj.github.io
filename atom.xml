@@ -4,7 +4,7 @@
   <title><![CDATA[kerkerj]]></title>
   <link href="http://kerkerj.github.io/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-09T21:58:33+08:00</updated>
+  <updated>2014-10-10T01:55:50+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -53,7 +53,7 @@ Day6  -  <a href="http://kerkerj.github.io/blog/2014/10/06/api-d6/">[API-d6] - [
 Day7  -  <a href="http://kerkerj.github.io/blog/2014/10/07/api-d7/">[API-d7] - [Server 番外篇] 建立自己的本機虛擬伺服器 3 - 打包環境</a><br/>
 Day8  -  <a href="http://kerkerj.github.io/blog/2014/10/08/api-d8/">[API-d8] - Node.js - Hello World!</a><br/>
 Day9  -  <a href="http://kerkerj.github.io/blog/2014/10/09/api-d9/">[API-d9] - NVM 與 NPM 使用</a><br/>
-Day10 -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day10 -  <a href="http://kerkerj.github.io/blog/2014/10/10/api-d10/">[API-d10] - Express - Hello World!</a><br/>
 Day11 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day12 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day13 -  <a href="http://kerkerj.github.io/">#</a><br/>
@@ -86,7 +86,7 @@ Day6  -  <a href="http://kerkerj.github.io/blog/2014/10/06/swift-d6/">[Swift-d6]
 Day7  -  <a href="http://kerkerj.github.io/blog/2014/10/07/swift-d7/">[Swift-d7] - Playground - Closures</a><br/>
 Day8  -  <a href="http://kerkerj.github.io/blog/2014/10/08/swift-d8/">[Swift-d8] - Playground - Enumerations</a><br/>
 Day9  -  <a href="http://kerkerj.github.io/blog/2014/10/09/swift-d9/">[Swift-d9] - Playground - Class, Struct</a><br/>
-Day10 -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day10 -  <a href="http://kerkerj.github.io/blog/2014/10/10/swift-d10/">[Swift-d10] 延伸閱讀</a><br/>
 Day11 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day12 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day13 -  <a href="http://kerkerj.github.io/">#</a><br/>
@@ -107,6 +107,260 @@ Day27 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day28 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day29 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day30 -  <a href="http://kerkerj.github.io/">#</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Swift-d10] 延伸閱讀]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/10/swift-d10/"/>
+    <updated>2014-10-10T01:50:01+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/10/swift-d10</id>
+    <content type="html"><![CDATA[<p>今天算一算也來到第十天了，</p>
+
+<p>前面講了 8 天的語法，其實會有些枯燥</p>
+
+<p>不過有些語法又很有趣</p>
+
+<p>我不懂 Objective-C，</p>
+
+<p>如果想從 Objectiv-C 轉換到 Swift 的話，最好查查一些比較的文章</p>
+
+<p>最好的文件就是<a href="https://developer.apple.com/library/ios/navigation/#">官方文件</a>了</p>
+
+<p>以 UILabel 為例</p>
+
+<p>官方網站會列出兩種不同<a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UILabel_Class/index.html#//apple_ref/occ/instp/UILabel/text">寫法</a>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="c1">// SWIFT</span>
+</span><span class='line'><span class="k">var</span> <span class="nl">text</span><span class="p">:</span> <span class="n">String</span><span class="o">?</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// OBJECTIVE-C</span>
+</span><span class='line'><span class="k">@property</span><span class="p">(</span><span class="k">nonatomic</span><span class="p">,</span> <span class="k">copy</span><span class="p">)</span> <span class="bp">NSString</span> <span class="o">*</span><span class="n">text</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果要從 Swift 基本概念開始，當然是首推官方的 <a href="https://itunes.apple.com/us/book/the-swift-programming-language/id881256329?mt=11&amp;ls=1">The Swift Programming Language</a></p>
+
+<p>是英文苦手的話，強國人有 <a href="https://www.gitbook.io/book/numbbbbb/-the-swift-programming-language-">翻譯文件</a></p>
+
+<p>這群人非常厲害，發表後沒幾天就翻譯完成了</p>
+
+<p>不過因為技術用語還是以中國為主，因此建議英文優先，或是對照著看</p>
+
+<p>前面幾天都基本介紹前半部而已，屬於一般學習程式語言的基本練習而已</p>
+
+<p>後半部是更詳細的部分，有空的話還是可以多看看~</p>
+
+<p>另外，官方還出了一本 <a href="https://itunes.apple.com/us/book/using-swift-cocoa-objective/id888894773?mt=11">Using Swift with Cocoa ad Objective-C</a></p>
+
+<p>就是在介紹如何使用 Swift 加上 Cocoa framework 開發 App</p>
+
+<p>不過書的內容不多，算入門級，有興趣也可看看這本~</p>
+
+<p>接下來會開始用 Swift 寫簡單的界面</p>
+
+<p>由於筆者從沒寫過 iOS app，因此也是會用大約十天的時間來簡單練習一些常用的 Cocoa Touch framework 的元件</p>
+
+<p>順帶一提前面沒講到的，Objective-C 有個東西叫作 Catagory，在 Swift 裏是 extension</p>
+
+<p>不需要破壞原本的結構，加上一些外掛，讓原本的結構更好用</p>
+
+<p>(好像是個很重要的順帶一提 XD)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[API-d10] - Express - Hello World!]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/10/api-d10/"/>
+    <updated>2014-10-10T01:49:55+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/10/api-d10</id>
+    <content type="html"><![CDATA[<h1>Express - Hello World!</h1>
+
+<p>今天就要來安裝主角之一的 <a href="http://expressjs.com/">Express</a> 了!</p>
+
+<p>一樣開啟虛擬機器我應該是可以不用多說了 XD</p>
+
+<p>先確認自己的 node 是不是 NVM 的 node 喲</p>
+
+<h2>建立專案</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd /vagrant/
+</span><span class='line'>$ mkdir API
+</span><span class='line'>$ cd API/
+</span><span class='line'>$ npm init</span></code></pre></td></tr></table></div></figure>
+
+
+<p>自己輸入專案的相關內容吧，不知道的就直接按 enter 空白丟給他~</p>
+
+<p>就會產生 package.json 了!</p>
+
+<h2>安裝 Express</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// 在專案目錄底下 (/vagrant/API/)
+</span><span class='line'>
+</span><span class='line'>$ npm install express -save</span></code></pre></td></tr></table></div></figure>
+
+
+<p>下 <code>-save</code> 的原因是要將 express 加入 package.json 中</p>
+
+<p>離開虛擬機，其實我們也可以在虛擬機資料夾看到剛剛建立的專案了，</p>
+
+<p>現在開始就可以使用自己喜歡的編輯器來開啟這個專案資料夾，我個人偏好使用 Sublime Text</p>
+
+<p>要執行專案時再回終端機即可</p>
+
+<h2>Express Hello World!</h2>
+
+<p>在 API 資料夾中建立一個 app.js</p>
+
+<p>內容是:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>javascript
+</span><span class='line'>var express = require('express');
+</span><span class='line'>var app = express();
+</span><span class='line'>
+</span><span class='line'>app.get('/', function(req, res){
+</span><span class='line'>  res.send('Hello World');
+</span><span class='line'>});
+</span><span class='line'>
+</span><span class='line'>app.listen(3000, function() {
+</span><span class='line'>    console.log('Listening on port %d', server.address().port);
+</span><span class='line'>});
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>儲存後，回到終端機，將 express 跑起來:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vagrant@vagrant-ubuntu-trusty-64:/vagrant/API$ node app.js
+</span><span class='line'>Listening on port 3000</span></code></pre></td></tr></table></div></figure>
+
+
+<p>開啟瀏覽器，瀏覽 <code>http://192.168.33.10:3000</code> (url 視個人環境而定)</p>
+
+<p>出現 <code>Hello World! Express!</code> 啦～～ 又一個 Hello World 啦~~</p>
+
+<p>是不是有比 Node.js 的範例更簡潔一點呢?</p>
+
+<p>簡單分析一下這段 code :</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// 引入 express module
+</span><span class='line'>var express = require('express');
+</span><span class='line'>
+</span><span class='line'>// 產生一個 express instance - app
+</span><span class='line'>var app = express();
+</span><span class='line'>
+</span><span class='line'>// Express 的重點所在! 稍後解釋
+</span><span class='line'>app.get('/', function(req, res){
+</span><span class='line'>  res.send('Hello World');
+</span><span class='line'>});
+</span><span class='line'>
+</span><span class='line'>// 讓 express server 跑在 port 3000
+</span><span class='line'>app.listen(3000, function() {
+</span><span class='line'>    console.log('Listening on port %d', server.address().port);
+</span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
+
+
+<p>以上概念基本上都和 Node.js 概念差不多</p>
+
+<p>值得一提的是 Express 的 Routing:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>app.get('/', function(req, res){
+</span><span class='line'>  res.send('Hello World');
+</span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
+
+
+<p>最前面有提到 HTTP 的動詞 GET, POST, PUT, DELETE &hellip;</p>
+
+<p>在這邊就必須用上了！</p>
+
+<p>我們可以看一下 express 的 <a href="http://expressjs.com/4x/api.html#router.VERB">API reference</a></p>
+
+<p><code>app.get</code> 的 <code>.get</code> 就是代表 HTTP GET</p>
+
+<p>如果後面接 <code>.post</code> 就是 HTTP POST, 等等都同樣概念</p>
+
+<p><a href="http://expressjs.com/4x/api.html#router.VERB">API reference</a> 中提到，</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>router.VERB(path, [callback...], callback)</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>path</code> 的意思就是要開放給 client 的路由, 透過不同的路由導向不同的動作</p>
+
+<p>中間的 <code>[callback...]</code> 是 middleware 這個之後會再解釋</p>
+
+<p>最後一個 callback 是用來處理 request 及 response</p>
+
+<p>在這個例子中，client 並沒有丟參數，因此不需要對 request 作處理，</p>
+
+<p>而 server 要回應 response</p>
+
+<p>所以使用了 <code>res.send('Hello World');</code> 來回傳資料</p>
+
+<p>是不是很簡單勒!</p>
+
+<h2>專案產生器</h2>
+
+<p>或許有人會使用 <code>express-generator</code> 來產生 expresss 專案目錄</p>
+
+<p>雖然它很方便，一次建立好專案結構，並且安裝一些常用搭配的套件，</p>
+
+<p>但是由於在尚未了解 express 的運作原理，</p>
+
+<p>一開始一次建立完整我認為過快，因此先不建議這樣用，</p>
+
+<p>當然，如果已經很熟練很了解 express 中可以使用的東西了，使用產生器當然是節省時間囉~</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ npm install -g express-generator
+</span><span class='line'>$ express /tmp/foo && cd /tmp/foo</span></code></pre></td></tr></table></div></figure>
+
+
+<p>下一篇會講解如何簡單操作 MongoDB!</p>
 ]]></content>
   </entry>
   
@@ -3179,240 +3433,6 @@ Cocoa framework 是 Apple 爲 Mac OSX 所建立的環境，用來開發 OSX 的�
 只有些許 java/php/ruby 撰寫經驗，<br/>
 選擇 Swift 的原因之一即是語法上手容易，並且有 playground 可以馬上執行撰寫的程式，<br/>
 也因此希望能夠透過學習 Swift ，了解 iOS app 開發架構，實際打造出一款 app！</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[API-d1] - 定義 1 - 什麼是 REST/RESTful?]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/02/api-d1/"/>
-    <updated>2014-10-02T01:02:26+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/02/api-d1</id>
-    <content type="html"><![CDATA[<p>Representational State Transfer，簡稱 <code>REST</code>，<br/>
-它是一種網路架構風格，他並不是一種標準。</p>
-
-<p>而 RESTful 可以這樣子想像:<br/>
-美麗 (Beauty) 的事物可以稱為 Beautiful<br/>
-設計為 REST 的系統就可以稱為 RESTful</p>
-
-<p>以 API 而言，假設我們正在撰寫一組待辦事項的 API，<br/>
-可能會有以下方式來作為 API 的 interface:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>獲取使用者資料     /getAllUsers
-</span><span class='line'>獲取使用者資料     /getUser/1
-</span><span class='line'>新增使用者資料     /createUser
-</span><span class='line'>更新使用者資料     /updateUser/1
-</span><span class='line'>刪除使用者資料     /deleteUser/1</span></code></pre></td></tr></table></div></figure>
-
-
-<p>若是以 REST 風格來開發 RESTful API 的話:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>獲取使用者資料     /GET            /users
-</span><span class='line'>獲取使用者資料     /GET            /user/1
-</span><span class='line'>新增使用者資料     /POST          /user
-</span><span class='line'>更新使用者資料     /PUT             /user/1
-</span><span class='line'>刪除使用者資料     /DELETE      /user/1</span></code></pre></td></tr></table></div></figure>
-
-
-<p>兩者差異是在於 RESTful API 充分地使用了 HTTP protocol (GET/POST/PUT/DELETE)，<br/>
-達到<br/>
-1. 以直觀簡潔的資源 URI<br/>
-2. 並且善用 HTTP Verb<br/>
-3. 達到對資源的操作<br/>
-4. 並使用 Web 所接受的資料類型: JSON, XML, YAML 等，最常見的是 JSON</p>
-
-<p>通常是使用 HTTP, URI, JSON, HTML 這些現有廣泛流行的協議和標準，<br/>
-且使用 HTTP status code 來代表該資源的狀態。</p>
-
-<p>框架中強制使用 REST 風格的最有名的應該就是 Ruby on Rails 了!<br/>
-(不過我們並不會使用 Rails 來開發 API service :P)</p>
-
-<p>p.s. 因為 REST 並非是一種標準，因此有時候也不一定非得要照著 REST 來做，<br/>
-只是在資源的操作面上，可以設計成這類的風格，以達到簡潔易懂，並且可重用。</p>
-
-<p>下一篇會來聊聊 REST 的要求與優點</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Codeigniter on Nginx]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/09/25/codeigniter-on-nginx/"/>
-    <updated>2014-09-25T16:03:24+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/09/25/codeigniter-on-nginx</id>
-    <content type="html"><![CDATA[<p>I use Ubuntu 14.04, Nginx 1.4.6, php5-fpm, Codeigniter 2.2.0</p>
-
-<p>It will remove index.php, and access Codeigniter site normally.</p>
-
-<p>Clean configuration:</p>
-
-<figure class='code'><figcaption><span>&#8220;/etc/nginx/site-enabled/default&#8221;</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
-<span class='line-number'>55</span>
-<span class='line-number'>56</span>
-<span class='line-number'>57</span>
-<span class='line-number'>58</span>
-<span class='line-number'>59</span>
-<span class='line-number'>60</span>
-<span class='line-number'>61</span>
-<span class='line-number'>62</span>
-<span class='line-number'>63</span>
-<span class='line-number'>64</span>
-<span class='line-number'>65</span>
-<span class='line-number'>66</span>
-<span class='line-number'>67</span>
-<span class='line-number'>68</span>
-<span class='line-number'>69</span>
-<span class='line-number'>70</span>
-<span class='line-number'>71</span>
-<span class='line-number'>72</span>
-<span class='line-number'>73</span>
-<span class='line-number'>74</span>
-</pre></td><td class='code'><pre><code class='text'><span class='line'>server {
-</span><span class='line'>
-</span><span class='line'>#&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; START
-</span><span class='line'>        listen 80;
-</span><span class='line'>        listen [::]:80 default_server ipv6only=on;
-</span><span class='line'>
-</span><span class='line'>        root /YOUR/PROJECT/ROOT;
-</span><span class='line'>        index index.html index.htm index.php;
-</span><span class='line'>
-</span><span class='line'>        # Make site accessible from http://localhost/
-</span><span class='line'>        server_name localhost;
-</span><span class='line'>
-</span><span class='line'>        #location ~* .(ico|css|js|gif|jpe?g|png)(?[0-9]+)?$ {
-</span><span class='line'>        #   expires max;
-</span><span class='line'>        #   log_not_found off;
-</span><span class='line'>        #}
-</span><span class='line'>
-</span><span class='line'>        location / {
-</span><span class='line'>                # First attempt to serve request as file, then
-</span><span class='line'>                # as directory, then fall back to displaying a 404.
-</span><span class='line'>                try_files $uri $uri/ /index.php;
-</span><span class='line'>                # Uncomment to enable naxsi on this location
-</span><span class='line'>                # include /etc/nginx/naxsi.rules
-</span><span class='line'>        }
-</span><span class='line'>
-</span><span class='line'>        location ~ .php$ {
-</span><span class='line'>            root           /YOUR/PROJECT/ROOT;
-</span><span class='line'>            try_files $uri =404;
-</span><span class='line'>            fastcgi_pass unix:/var/run/php5-fpm.sock;
-</span><span class='line'>            fastcgi_index  index.php;
-</span><span class='line'>            fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
-</span><span class='line'>            include        fastcgi_params;
-</span><span class='line'>            fastcgi_buffer_size 128k;
-</span><span class='line'>            fastcgi_buffers 256 4k;
-</span><span class='line'>            fastcgi_busy_buffers_size 256k;
-</span><span class='line'>            fastcgi_temp_file_write_size 256k;
-</span><span class='line'>        }
-</span><span class='line'>
-</span><span class='line'>#&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; END
-</span><span class='line'>
-</span><span class='line'>        # Only for nginx-naxsi used with nginx-naxsi-ui : process denied requests
-</span><span class='line'>        #location /RequestDenied {
-</span><span class='line'>        #       proxy_pass http://127.0.0.1:8080;
-</span><span class='line'>
-</span><span class='line'>        #error_page 404 /404.html;
-</span><span class='line'>
-</span><span class='line'>        # redirect server error pages to the static page /50x.html
-</span><span class='line'>        #
-</span><span class='line'>        #error_page 500 502 503 504 /50x.html;
-</span><span class='line'>        #location = /50x.html {
-</span><span class='line'>        #       root /usr/share/nginx/html;
-</span><span class='line'>        #}
-</span><span class='line'>
-</span><span class='line'>        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
-</span><span class='line'>        #
-</span><span class='line'>        #location ~ \.php$ {
-</span><span class='line'>        #       fastcgi_split_path_info ^(.+\.php)(/.+)$;
-</span><span class='line'>        #       # NOTE: You should have &quot;cgi.fix_pathinfo = 0;&quot; in php.ini
-</span><span class='line'>        #
-</span><span class='line'>        #       # With php5-cgi alone:
-</span><span class='line'>        #       fastcgi_pass 127.0.0.1:9000;
-</span><span class='line'>        #       # With php5-fpm:
-</span><span class='line'>        #       fastcgi_pass unix:/var/run/php5-fpm.sock;
-</span><span class='line'>        #       fastcgi_index index.php;
-</span><span class='line'>        #       include fastcgi_params;
-</span><span class='line'>        #}
-</span><span class='line'>
-</span><span class='line'>        # deny access to .htaccess files, if Apache&#39;s document root
-</span><span class='line'>        # concurs with nginx&#39;s one
-</span><span class='line'>        #
-</span><span class='line'>        #location ~ /\.ht {
-</span><span class='line'>        #       deny all;
-</span><span class='line'>        #}
-</span><span class='line'>}
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Codeigniter config:</p>
-
-<figure class='code'><figcaption><span>config.php</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;index_page&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
-</span><span class='line'><span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;uri_protocol&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;REQUEST_URI&#39;</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
 ]]></content>
   </entry>
   

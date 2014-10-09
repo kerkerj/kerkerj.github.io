@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Api | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/api/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-09T21:58:33+08:00</updated>
+  <updated>2014-10-10T01:55:50+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,154 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[API-d10] - Express - Hello World!]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/10/api-d10/"/>
+    <updated>2014-10-10T01:49:55+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/10/api-d10</id>
+    <content type="html"><![CDATA[<h1>Express - Hello World!</h1>
+
+<p>今天就要來安裝主角之一的 <a href="http://expressjs.com/">Express</a> 了!</p>
+
+<p>一樣開啟虛擬機器我應該是可以不用多說了 XD</p>
+
+<p>先確認自己的 node 是不是 NVM 的 node 喲</p>
+
+<h2>建立專案</h2>
+
+<pre><code>$ cd /vagrant/
+$ mkdir API
+$ cd API/
+$ npm init
+</code></pre>
+
+<p>自己輸入專案的相關內容吧，不知道的就直接按 enter 空白丟給他~</p>
+
+<p>就會產生 package.json 了!</p>
+
+<h2>安裝 Express</h2>
+
+<pre><code>// 在專案目錄底下 (/vagrant/API/)
+
+$ npm install express -save
+</code></pre>
+
+<p>下 <code>-save</code> 的原因是要將 express 加入 package.json 中</p>
+
+<p>離開虛擬機，其實我們也可以在虛擬機資料夾看到剛剛建立的專案了，</p>
+
+<p>現在開始就可以使用自己喜歡的編輯器來開啟這個專案資料夾，我個人偏好使用 Sublime Text</p>
+
+<p>要執行專案時再回終端機即可</p>
+
+<h2>Express Hello World!</h2>
+
+<p>在 API 資料夾中建立一個 app.js</p>
+
+<p>內容是:</p>
+
+<pre><code>javascript
+var express = require('express');
+var app = express();
+
+app.get('/', function(req, res){
+  res.send('Hello World');
+});
+
+app.listen(3000, function() {
+    console.log('Listening on port %d', server.address().port);
+});
+</code></pre>
+
+<p>儲存後，回到終端機，將 express 跑起來:</p>
+
+<pre><code>vagrant@vagrant-ubuntu-trusty-64:/vagrant/API$ node app.js
+Listening on port 3000
+</code></pre>
+
+<p>開啟瀏覽器，瀏覽 <code>http://192.168.33.10:3000</code> (url 視個人環境而定)</p>
+
+<p>出現 <code>Hello World! Express!</code> 啦～～ 又一個 Hello World 啦~~</p>
+
+<p>是不是有比 Node.js 的範例更簡潔一點呢?</p>
+
+<p>簡單分析一下這段 code :</p>
+
+<pre><code>// 引入 express module
+var express = require('express');
+
+// 產生一個 express instance - app
+var app = express();
+
+// Express 的重點所在! 稍後解釋
+app.get('/', function(req, res){
+  res.send('Hello World');
+});
+
+// 讓 express server 跑在 port 3000
+app.listen(3000, function() {
+    console.log('Listening on port %d', server.address().port);
+});
+</code></pre>
+
+<p>以上概念基本上都和 Node.js 概念差不多</p>
+
+<p>值得一提的是 Express 的 Routing:</p>
+
+<pre><code>app.get('/', function(req, res){
+  res.send('Hello World');
+});
+</code></pre>
+
+<p>最前面有提到 HTTP 的動詞 GET, POST, PUT, DELETE &hellip;</p>
+
+<p>在這邊就必須用上了！</p>
+
+<p>我們可以看一下 express 的 <a href="http://expressjs.com/4x/api.html#router.VERB">API reference</a></p>
+
+<p><code>app.get</code> 的 <code>.get</code> 就是代表 HTTP GET</p>
+
+<p>如果後面接 <code>.post</code> 就是 HTTP POST, 等等都同樣概念</p>
+
+<p><a href="http://expressjs.com/4x/api.html#router.VERB">API reference</a> 中提到，</p>
+
+<pre><code>router.VERB(path, [callback...], callback)
+</code></pre>
+
+<p><code>path</code> 的意思就是要開放給 client 的路由, 透過不同的路由導向不同的動作</p>
+
+<p>中間的 <code>[callback...]</code> 是 middleware 這個之後會再解釋</p>
+
+<p>最後一個 callback 是用來處理 request 及 response</p>
+
+<p>在這個例子中，client 並沒有丟參數，因此不需要對 request 作處理，</p>
+
+<p>而 server 要回應 response</p>
+
+<p>所以使用了 <code>res.send('Hello World');</code> 來回傳資料</p>
+
+<p>是不是很簡單勒!</p>
+
+<h2>專案產生器</h2>
+
+<p>或許有人會使用 <code>express-generator</code> 來產生 expresss 專案目錄</p>
+
+<p>雖然它很方便，一次建立好專案結構，並且安裝一些常用搭配的套件，</p>
+
+<p>但是由於在尚未了解 express 的運作原理，</p>
+
+<p>一開始一次建立完整我認為過快，因此先不建議這樣用，</p>
+
+<p>當然，如果已經很熟練很了解 express 中可以使用的東西了，使用產生器當然是節省時間囉~</p>
+
+<pre><code>$ npm install -g express-generator
+$ express /tmp/foo &amp;&amp; cd /tmp/foo
+</code></pre>
+
+<p>下一篇會講解如何簡單操作 MongoDB!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[API-d9] - NVM 與 NPM 使用]]></title>
@@ -617,175 +765,6 @@ $ sudo service mongod restart
 </code></pre>
 
 <p>好啦~ 今天就先到這，記得把虛擬機器關起來~</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[API-d5] - [Server 番外篇] 建立自己的本機虛擬伺服器 1 - Vagrant + VirtualBox 安裝]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/05/api-d5/"/>
-    <updated>2014-10-05T16:40:18+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/05/api-d5</id>
-    <content type="html"><![CDATA[<p>VirtualBox 是一套虛擬軟體，可以方便幫助我們在現有的作業系統上</p>
-
-<p>模擬另一個作業系統 (如 linux, Ubuntu, CentOS&hellip;)</p>
-
-<p>在虛擬機器裡面所以的一切變動，都不會影響到現有的作業系統，</p>
-
-<p>非常適合拿來做測試使用</p>
-
-<p>由於現在大部份的 Service 除了架設在 Windows Server 外，最大宗的就是 *nix distribution 了</p>
-
-<p>因此這在這個系列文中，也是一定要教大家如何建立起虛擬測試機器，</p>
-
-<p>來模擬真實 Server 環境中，如何架設自己撰寫的 API Service</p>
-
-<h2>VirtualBox</h2>
-
-<p>到 <a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a> 官方網站下載合適的安裝檔案吧!</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-04%2012.56.26.png" alt="p1" /></p>
-
-<p>安裝完成就可以了!</p>
-
-<p>因為我們接下來會使用 Vagrant 這套 commaond line tool 來對 VirtualBox 進行操作</p>
-
-<p>因此只要安裝完 VirtualBox 後就可以不用管他了 XD</p>
-
-<h2>Vagrant</h2>
-
-<p><a href="https://www.vagrantup.com/">Vagrant</a></p>
-
-<p>它可以幫助我們快速的建立一個輕量、可重複使用、並且可以打包起來帶著走的環境</p>
-
-<p>透過編輯一個設定檔，就可以簡單設定該虛擬系統的 *nix 基本設定，如 共享資料夾、網路存取等等，</p>
-
-<p>不需要透過 VirtualBox</p>
-
-<p>通常這套軟體可以應用在團隊開發上：</p>
-
-<p>以網頁開發來說，如果大家的測試環境與版本都不太一樣，例如 apache 或 php 版本不同</p>
-
-<p>有時候會造成團隊溝通的負擔，因此透過 Vagrant 將 server 環境重新建立一套虛擬機器，</p>
-
-<p>並且透過 Vagrant 打包，就可以丟給其他人使用，這樣一來大家的環境都一樣，</p>
-
-<p>就可以避免這個問題，</p>
-
-<p>而且還有一點，Server 的安裝是很累人的，同樣的事情基本上都不會想做第二遍，</p>
-
-<p>因此打包一個乾淨的環境後備份，弄髒了可以隨時快速再把備份拿出來用，非常方便！</p>
-
-<h3>安裝:</h3>
-
-<p>到 <a href="https://www.vagrantup.com/downloads">下載頁面</a> 尋找適合自己的下載並且安裝</p>
-
-<p>安裝完後應該就可以在終端機中使用 vagrant 這個指令了!</p>
-
-<pre><code>$ vagrant -v
-Vagrant 1.6.5
-</code></pre>
-
-<p>目前最新的版本應該是 1.6.5</p>
-
-<h3>建立自己的虛擬機器</h3>
-
-<p>首先在自己想要建立虛擬機器的地方先開一個資料夾</p>
-
-<pre><code>$ mkdir ~/ithome/ 
-</code></pre>
-
-<p>切換到該資料夾</p>
-
-<pre><code>$ cd ~/ithome
-</code></pre>
-
-<p>使用 vagrant 初始化這個資料夾，並且指定我們要使用 Ubuntu 14.04 版本</p>
-
-<pre><code>$ vagrant init ubuntu/trusty64
-A `Vagrantfile` has been placed in this directory. You are now
-ready to `vagrant up` your first virtual environment! Please read
-the comments in the Vagrantfile as well as documentation on
-`vagrantup.com` for more information on using Vagrant.
-</code></pre>
-
-<p>如果想要使用別種 *nix 版本可以到這裡找 - <a href="https://vagrantcloud.com/discover/featured">VagrantCloud</a></p>
-
-<p>下完 <code>vagrant init ubuntu/trusty64</code> 指令後，指令告訴你有一個檔案叫做 <code>Vagrantfile</code> 被建立在這個資料夾裡了，</p>
-
-<p>可以使用 <code>vagrant up</code> 來開啟虛擬機器</p>
-
-<p>不過我們先不要下開機指令，我們先來看看 <code>Vagrantfile</code> 的內容，我直接把比較重要的設定說明寫在註解裡面了：</p>
-
-<pre><code>  ...
-
-  // 此行是說明要使用哪一個 box ，會到自己的系統裡面尋找，如果沒有的話就會下載一個
-  // 由於我們剛剛是使用 VagrantCloud 找的版本，因此 vagrant 會去找 
-  config.vm.box = "ubuntu/trusty64"
-
-  // 這個是設定網路
-  // 預設是 NAT，也就是如果我們在虛擬機器裝了網頁伺服器，
-  // 必須使用 port forwarding 的方式來讀到虛擬機器裡面的網頁 
-  #config.vm.network "forwarded_port", guest: 80, host: 8080
-
-  // Important! 
-  // 承上，或者我們可以使用一個 private network ip，我們把它開啟註解吧~
-  // 這樣我們開啟虛擬機器時，他的 IP 就會是 192.168.33.10
-  config.vm.network "private_network", ip: "192.168.33.10"
-
-  // 開啟註解的話，就是直接使用 bridge 的方式，如果是使用分享器的話
-  // 虛擬機會到分享器要一個 IP 
-  # config.vm.network "public_network"
-
-  // 這個是設定共享資料夾
-  // 預設是放 Vagrantfile 的那個資料夾
-  // 在這個資料夾放檔案的話，在虛擬機器裡的 '/vagrant/' 資料夾是可以看到的!!
-  // 如果有想要指定到特殊的資料夾，再編輯此行並開啟註解即可
-  # config.vm.synced_folder "../data", "/vagrant_data"
-
-end
-</code></pre>
-
-<p>再來就讓它開機吧!</p>
-
-<pre><code>$ vagrant up 
-</code></pre>
-
-<p>如果沒有下載過 ubuntu 系統的話，會先幫你下載，所以需要等待一些時間</p>
-
-<p>若看到終端機說系統已經建立完成，</p>
-
-<p>就可以連線進去了!</p>
-
-<pre><code>$ vagrant ssh
-.....
-vagrant@vagrant-ubuntu-trusty-64:~$ 
-</code></pre>
-
-<p>就會發現終端機的 prompt 已經不一樣了，變成 ubuntu-trusty-64 ，表示我們已經進入虛擬機器裡面了</p>
-
-<p>由於今天的內容只會先到這，關於 Ubuntu 的設定是明天，所以記得離開虛擬機器並且幫他關機 XDD</p>
-
-<pre><code>// 如果剛剛有進入虛擬機器的話，輸入 exit 離開
-$ exit
-</code></pre>
-
-<p>再下關機指令:</p>
-
-<pre><code>$ vagrant halt 
-</code></pre>
-
-<p>虛擬機器就被關起來了!</p>
-
-<p>順帶一提</p>
-
-<p>如果在虛擬機器開機時，需要更改 Vagrantfile 的設定，</p>
-
-<p>改完後虛擬機器必須要重新開啟才會讀到新的設定</p>
-
-<pre><code>$ vagrant reload
-</code></pre>
-
-<p>下回待續!!</p>
 ]]></content>
   </entry>
   
