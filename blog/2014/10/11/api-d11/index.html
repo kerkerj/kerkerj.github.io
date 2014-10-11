@@ -1,0 +1,431 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>[API-d11] - MongoDB - Hello World! - kerkerj</title>
+  <meta name="author" content="kerkerj">
+
+  
+  <meta name="description" content="cool thing, cool guy">
+  <meta name="keywords" content="restful, api, mongo, node.js">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://kerkerj.github.io/blog/2014/10/11/api-d11">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="kerkerj" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+
+<link href="/favicon.ico" rel="icon">
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='//fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-45583907-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   class="collapse-sidebar sidebar-footer" >
+  <header role="banner"><hgroup>
+  <h1><a href="/">kerkerj</a></h1>
+  
+    <h2>Cool</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+  
+  
+  
+  
+<ul class="subscription">
+  <li><a href="https://github.com/kerkerj" rel="subscribe-github" title="@kerkerj on GitHub">GitHub</a></li>
+</ul>
+  
+  
+  
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:kerkerj.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/notes">Notes</a></li>
+  <li><a href="/mac-app-list">Mac App List</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      
+        <h1 class="entry-title">[API-d11] - MongoDB - Hello World!</h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-11T20:09:08+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>今天先講在 Server 中如何操作 MongoDB</p>
+
+<p>一樣開啟虛擬機，</p>
+
+<p>我們在先前已經有先安裝過 MongoDB 了，因此，在 Ubuntu Server 中預設是開機啟動的</p>
+
+<p>登入虛擬機吧~</p>
+
+<p>登入虛擬機後，我們要進入 MongoDB，必須使用 <code>mongo</code> 這個 MongoDB Shell</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ mongo
+</span><span class='line'>MongoDB shell version: 2.6.4
+</span><span class='line'>connecting to: test
+</span><span class='line'>Welcome to the MongoDB shell.
+</span><span class='line'>For interactive help, type "help".
+</span><span class='line'>For more comprehensive documentation, see
+</span><span class='line'>  http://docs.mongodb.org/
+</span><span class='line'>Questions? Try the support group
+</span><span class='line'>  http://groups.google.com/group/mongodb-user
+</span><span class='line'>&gt;  </span></code></pre></td></tr></table></div></figure>
+
+
+<p>此時會發現輸入指令的地方變成了 <code>&gt;</code> 表示我們已經在 mongodb 裡面了</p>
+
+<p>為什麼不需要帳號密碼即可進入 MongoDB 呢，因為 MongoDB 預設是不需要做登入的</p>
+
+<p>並且加上預設只能由本機存取，也就是說，外部連入的 IP 是進不了 MongoDB 的</p>
+
+<p>這部分後面會再作說明。</p>
+
+<p>傳統的 Table 在 MongoDB 中，稱之為 Collection</p>
+
+<p>一筆 record 在 MongoDB 中，稱之為 document</p>
+
+<p>進入 MongoDB 後，</p>
+
+<p>就可以簡單操作一些指令：</p>
+
+<p>查詢所有的 DB:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&gt; show databases;
+</span><span class='line'>admin  (empty)
+</span><span class='line'>local  0.078GB</span></code></pre></td></tr></table></div></figure>
+
+
+<p>切換 DB</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&gt; use test;</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>use DBNAME</code> 若 DBNAME 不存在於 MongoDB 中的話，</p>
+
+<p>等同於建立一個新的 DB，意思就是我們不需要下 &lsquo;建立 DB&rsquo; 這個指令，</p>
+
+<p>直接 <code>use</code> 就是一個新的 DB 了，不過這個 DB 會直到有 Collection 被新增才算真正的被建立</p>
+
+<p>意即如果我們 use 了一個新的 DB，但是並沒有做任何新增 Collection 的動作就離開，</p>
+
+<p>這個 DB 也不會被建立起來</p>
+
+<p>當我們使用 <code>use DBNAME</code> 進入 DB 後：</p>
+
+<h3>新增 Collection</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&gt; db.createCollection("TestCollection")
+</span><span class='line'>{ "ok" : 1 }</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>CRUD 操作</h3>
+
+<p>此時 Collection &ldquo;TestCollection&rdquo; 就被建立了，
+可以使用:</p>
+
+<h4>新增資料:</h4>
+
+<p>example: <code>db.TestCollection.insert(DATA);</code></p>
+
+<p>DATA 就是 javascript 的 array map</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&gt; db.TestCollection.insert({data: "test_data", num: 2, arr: ["arr1", "arr2", "arr3"]});</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>查詢資料</h4>
+
+<p>example: <code>db.TestCollection.find(WHERE_CONDITION);</code></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&gt; db.TestCollection.find({data: "test_data"});
+</span><span class='line'>{ "_id" : ObjectId("5430497db94bb4afe2f8b387"), "data" : "test_data", "num" : 2, "arr" : [ "arr1", "arr2", "arr3" ] }</span></code></pre></td></tr></table></div></figure>
+
+
+<p>p.s. 每插入一筆資料，MongoDB 預設都會給訂一組 ObjectId</p>
+
+<h4>查詢所有資料</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&gt; db.TestCollection.find();
+</span><span class='line'>{ "_id" : ObjectId("5430497db94bb4afe2f8b387"), "data" : "test_data", "num" : 2, "arr" : [ "arr1", "arr2", "arr3" ] }</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>修改資料</h4>
+
+<p>example: <code>db.TestCollection.update(WHERE_CONDITION, SET);</code></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&gt; db.TestCollection.update({data: "test_data"}, { $set: {num: 3} });
+</span><span class='line'>WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+</span><span class='line'>
+</span><span class='line'>// 查看 num 是否從 2 變 3 了
+</span><span class='line'>&gt; db.TestCollection.find({data: "test_data"});
+</span><span class='line'>{ "_id" : ObjectId("5430497db94bb4afe2f8b387"), "data" : "test_data", "num" : 3, "arr" : [ "arr1", "arr2", "arr3" ] }</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>刪除資料</h4>
+
+<p>exmaple: <code>db.TestCollection.remove(WHERE_CONDITION);</code></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&gt; db.TestCollection.remove({data: "test_data"});</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>刪除 Collection</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&gt; db.TestCollection.drop();</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>查詢有哪些 Collection</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&gt; show collections;</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>砍掉目前所在的整個 DB:</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&gt; use test;
+</span><span class='line'>&gt; db.dropDatabase();
+</span><span class='line'>{ "dropped" : "test", "ok" : 1 }</span></code></pre></td></tr></table></div></figure>
+
+
+<p>tips: 在 mongo shell 裡有自動補完的功能，可以按下 tab 來查看有什麼方法可以用</p>
+
+<p>ctrl-D 離開 Mongo Shell</p>
+
+<p><a href="http://docs.mongodb.org/manual/">MongoDB 官網文件</a>非常詳細，可以多看看</p>
+
+<p>明天會用 Node.js 的 MongoDB driver 來操作 MongoDB!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Authored by <span class="fn">kerkerj</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-11T20:09:08+08:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/api/'>api</a>, <a class='category' href='/blog/categories/mongo/'>mongo</a>, <a class='category' href='/blog/categories/node-dot-js/'>node.js</a>, <a class='category' href='/blog/categories/restful/'>restful</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://kerkerj.github.io/blog/2014/10/11/api-d11/" data-via="jerry54010" data-counturl="http://kerkerj.github.io/blog/2014/10/11/api-d11/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/10/10/swift-d10/" title="Previous Post: [Swift-d10] 延伸閱讀">&laquo; [Swift-d10] 延伸閱讀</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/10/11/swift-d11/" title="Next Post: [Swift-d11] - Basic - Hello World! ViewController">[Swift-d11] - Basic - Hello World! ViewController &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+
+</div>
+
+<aside class="sidebar">
+  
+    
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - kerkerj -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a> | Themed with <a href="https://github.com/lucaslew/whitespace">Whitespace</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'kerkerj-github';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://kerkerj.github.io/blog/2014/10/11/api-d11/';
+        var disqus_url = 'http://kerkerj.github.io/blog/2014/10/11/api-d11/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

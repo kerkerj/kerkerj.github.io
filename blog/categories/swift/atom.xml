@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Swift | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/swift/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-10T01:55:50+08:00</updated>
+  <updated>2014-10-11T20:18:50+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,106 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[Swift-d11] - Basic - Hello World! ViewController]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/11/swift-d11/"/>
+    <updated>2014-10-11T20:09:13+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/11/swift-d11</id>
+    <content type="html"><![CDATA[<p>今天就要來建立一個 Hello World swift app 啦 XD</p>
+
+<p>首先就是開 Xcode 然後開專案囉~~</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.18.22.png" alt="image" /></p>
+
+<p>就看你要存去哪裡啦～</p>
+
+<p>再來就會進到專案本身:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.19.47.png" alt="image" /></p>
+
+<p>我們就看右下角有個地方可以找到 Label 這個選項:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.20.27.png" alt="image" /></p>
+
+<p>把他拉到 Storyboard 的任意位置就可以了~</p>
+
+<p>然後更改 label 的屬性:</p>
+
+<p>先點一下 label 選取後，看右上角</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.21.53.png" alt="image" /></p>
+
+<p>有個地方可以更改它的顯示文字，我們將它改成 HelloWorld!</p>
+
+<p>改完之後，按左上角的 Run! ，我們也可以選擇後面的 target 看是要跑在 i6 或是 i5 上，</p>
+
+<p>按下 Run 後程式就會 deploy 到模擬器上面了！</p>
+
+<p>這就是第一個 Hello World 啦!</p>
+
+<p>完全不用寫程式哦 XDDDDD</p>
+
+<p>不過還是要稍微了解一下運作原理啦~</p>
+
+<p>如果剛剛在編輯 storyboard 的時候，有發現那個 View 的左邊有一個奇怪的箭頭指向 View，那個箭頭的意思其實就是程式進入點的意思，</p>
+
+<p>storyboard 就是在描述程式的走向，像在說故事一樣，從某一頁按了什麼東西跳到哪一頁</p>
+
+<p>其實我一直都沒有很習慣 storyboard 的拉法，還是比較習慣用程式建立物件，將想要的物件用程式擺(憑空想像XD)，但是前面幾個比較屬於練習的小東西都還是會用拉的，比較好懂~</p>
+
+<p>我們剛剛建立的那一頁 Hello world</p>
+
+<p>基本上就是在左邊的 ViewController</p>
+
+<p>那我們試著使用程式來改變 HelloWorld 這個 label 的值吧!</p>
+
+<p>我們首先使用分割視窗的模式</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.33.31.png" alt="image" /></p>
+
+<p>選擇左邊數來第二個按鈕</p>
+
+<p>然後選擇 storyboard 及 ViewController</p>
+
+<p>讓他是照下面那樣排列的</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.34.52.png" alt="image" /></p>
+
+<p>接著在 左邊的 label 上按著 ctrl ，拖曳到右邊的程式碼 class 中，</p>
+
+<p>他就會自動幫你產生一個 storyboard 物件與程式碼的連結，</p>
+
+<p>輸入 label 的變數，我們取名叫 titleLabel</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.37.41.png" alt="image" /></p>
+
+<p>就可以在 viewDidload 中，更改該 label 的值:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.38.13.png" alt="image" /></p>
+
+<pre><code>override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        titleLabel.text = "hi"
+    }
+</code></pre>
+
+<p>在 viewDidload 中，雖然 label 在 storyboard 時已經有初始值 &ldquo;Hello World&rdquo; 了</p>
+
+<p>但是當 app 被 init 起來後，ViewController 也被初始化了，因此就會執行 ViewDidload 的方法，這個時候就會執行到剛剛的 <code>titleLabel.text = "hi"</code></p>
+
+<p>於是就會更改掉 label 的值了</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.41.04.png" alt="image" /></p>
+
+<p>以上就是簡單的 Hello World</p>
+
+<p>明天來拉幾個常用的元件！</p>
+
+<p>p.s. 截圖感謝同事菲力克濕協助幫忙 :D</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[Swift-d10] 延伸閱讀]]></title>
@@ -504,280 +604,6 @@ let strings = numbers.map {
 <p>而處理的方法則是將 Int 的每個位數分別轉換成 String 連接起來再回傳</p>
 
 <p>很方便的方法!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[Swift-d6] - Playground - Function]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/06/swift-d6/"/>
-    <updated>2014-10-06T18:54:13+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/06/swift-d6</id>
-    <content type="html"><![CDATA[<h1>Playground - function</h1>
-
-<p>來看看 Swift 各種 function 的寫法吧!</p>
-
-<p>Swift 使用 <code>func</code> 當作宣告的保留字</p>
-
-<p>GOLANG 的 fu&hellip;. XD</p>
-
-<p>寫 Swift 的 function 會很開心</p>
-
-<h2>基本的</h2>
-
-<pre><code class="swift">func say() {
-    println("Hello!")
-}
-</code></pre>
-
-<h2>有一個回傳值的</h2>
-
-<pre><code class="swift">func say() -&gt; String {
-    return "Hello!"
-}
-</code></pre>
-
-<h2>有多個回傳值的!!! (就是回傳 Tuple)</h2>
-
-<pre><code class="swift">func say() -&gt; (String, Int) {
-    let greeting = "hello"
-    let times = 5
-    return (greeting, times)
-}
-
-say()
-</code></pre>
-
-<h2>有參數的</h2>
-
-<pre><code class="swift">func say(g: String) {
-    println(g)
-}
-
-say("Hello")
-</code></pre>
-
-<p>多個參數</p>
-
-<pre><code class="swift">func say(g: String, times: Int) {
-    for index in 1...times {
-        println(g)
-    }
-}
-
-say("Hello", 3)
-</code></pre>
-
-<h2>有參數的進階版</h2>
-
-<pre><code class="swift">func say(greetings g: String) {
-    println(g)
-}
-
-say("Hello", 3)
-</code></pre>
-
-<p>此時如果同樣使用 <code>say("hello")</code> 會出錯</p>
-
-<p>因為我們剛剛宣告了外部參數名稱</p>
-
-<p>因此需要:</p>
-
-<pre><code class="swift">say(greetings: "hello")
-</code></pre>
-
-<p>這種寫法在必須代入許多參數時，非常好用，會讓程式可讀性變高</p>
-
-<p>另外，方便起見，也可以加上 <code>#</code>，表示外部參數名稱與 func 內部名稱是一樣的</p>
-
-<pre><code class="swift">func say(greetings g: String, #times: Int) {
-    for index in 1...times {
-        println(g)
-    }
-}
-say(greetings: "Hello", times: 3)
-</code></pre>
-
-<p>可以看到第一種寫法和第二種寫法是一樣的功用~</p>
-
-<h2>給參數預設值</h2>
-
-<pre><code class="swift">func say(greetings g: String = "hello") {
-    println(g)
-}
-
-say()
-</code></pre>
-
-<p>如果呼叫 <code>say()</code> 而沒有給定參數時，會直接使用預設值</p>
-
-<h2>常數參數與變數參數</h2>
-
-<p>簡單看一下以下的程式碼</p>
-
-<pre><code class="swift">func say(greetings: String = "hello") {
-    greetings = "\(greetings), welcome!"
-    println(greetings)
-}
-
-let greetings = "Hello!"
-say(greetings: greetings)
-</code></pre>
-
-<p>我們定義了一個常數，代入 say() 裡面，</p>
-
-<p>但是 say function 裡面必須改變代入的值，於是這個時候 Xcode 就會該了</p>
-
-<p>那要怎麼辦呢?</p>
-
-<p>修改成:</p>
-
-<pre><code class="swift">func say(var greetings: String = "hello") {
-    greetings = "\(greetings), welcome!"
-    println(greetings)
-}
-
-let greetings = "Hello!"
-say(greetings: greetings)
-</code></pre>
-
-<p>多加一個 <code>var</code> 宣告，就會 copy 一份傳入，就可以更改值了!</p>
-
-<p>一樣是非常有用的語法!</p>
-
-<h2>輸入輸出函數</h2>
-
-<p>直接看例子</p>
-
-<pre><code class="swift">func swapInt(inout a: Int, inout b: Int) {
-    let tmpA = a
-    a = b
-    b = tmpA
-}
-
-var a = 1
-var b = 2
-
-swap(&amp;a, &amp;b)
-
-println(a)
-println(b)
-</code></pre>
-
-<p>酷吧</p>
-
-<h2>function types 函式型別</h2>
-
-<p>直接看例子</p>
-
-<pre><code class="swift">func addTwoInt(a: Int, b: Int) -&gt; Int {
-    return a + b
-}
-
-func mTwoInt(a: Int, b: Int) -&gt; Int {
-    return a * b
-}
-
-func printHello() {
-    println("Hello World")
-}
-
-var mathFunction: (Int, Int) -&gt; Int = addTwoInt
-
-println("result: \(mathFunction(2, 3))")
-</code></pre>
-
-<p>前面宣告了三個 function ，</p>
-
-<p>而</p>
-
-<pre><code class="swift">var mathFunction: (Int, Int) -&gt; Int = addTwoInt
-</code></pre>
-
-<p>後面的這句的意思是:</p>
-
-<p>我們定義了一個變數叫做 <code>mathFunction</code>，</p>
-
-<p>他的型別是「一個 (Int, Int) 的參數，並且回傳 Int」的 function，</p>
-
-<p>簡單說就是 mathFunction 的型別是一個 Function</p>
-
-<p>並指向 addTwoInt 這個 function</p>
-
-<p>所以上面的例子中，<code>mathFunction</code> 代入的 <code>(2, 3)</code> 會丟給 addTwoInt，</p>
-
-<p>並且最後回傳 Int</p>
-
-<p>有 javascript 的味道:</p>
-
-<pre><code class="javascript">var test = function(a, b) {
-  return a + b;
-};
-
-var add = test;
-
-console.log("result = " + add(2, 3));
-</code></pre>
-
-<h2>function as parameter types</h2>
-
-<p>函式也可以拿來當做參數傳入函式中，</p>
-
-<p>接續上面的例子，加入：</p>
-
-<pre><code>func printResult(mathFunction: (Int, Int) -&gt; Int, a: Int, b: Int )  {
-    println("Result: \(mathFunction(a, b))")
-}
-printResult(mathFunction, 2, 3)
-</code></pre>
-
-<h2>function as return type</h2>
-
-<p>函式也可以拿來當做回傳值</p>
-
-<p>就是在原本的回傳符號 <code>-&gt;</code> 後面代入函式型別</p>
-
-<p>這邊直接借別人的例子來參考吧</p>
-
-<pre><code>// 定義兩個 function 
-func stepForward(input: Int) -&gt; Int {
-    return input + 1
-}
-func stepBackward(input: Int) -&gt; Int {
-    return input - 1
-}
-
-// 再定義一個 function ，透過布林值導往上面不同的 function
-func chooseStepFunction(backwards: Bool) -&gt; (Int) -&gt; Int {
-    return backwards ? stepBackward : stepForward
-}
-
-var currentValue = 3
-
-// 將 chooseStepFunction 指給 moveNearerToZero
-// 所以 moveNearerToZero 現在是一個 function 了!
-let moveNearerToZero = chooseStepFunction(currentValue &gt; 0)
-
-println("Counting to zero:")
-// Counting to zero:
-while currentValue != 0 {
-    println("\(currentValue)... ")
-    currentValue = moveNearerToZero(currentValue)
-}
-println("zero!")
-</code></pre>
-
-<h2>Nested Function</h2>
-
-<p>就是 funciton 中的 function，變數有分 global、local 變數，function 也有</p>
-
-<p>以上面的例子來改寫:</p>
-
-<pre><code>func chooseStepFunction(backwards: Bool) -&gt; (Int) -&gt; Int {
-    func stepForward(input: Int) -&gt; Int { return input + 1 }
-    func stepBackward(input: Int) -&gt; Int { return input - 1 }
-    return backwards ? stepBackward : stepForward
-}
-</code></pre>
 ]]></content>
   </entry>
   

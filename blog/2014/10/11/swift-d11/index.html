@@ -1,0 +1,354 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>[Swift-d11] - Basic - Hello World! ViewController - kerkerj</title>
+  <meta name="author" content="kerkerj">
+
+  
+  <meta name="description" content="cool thing, cool guy">
+  <meta name="keywords" content="swift">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://kerkerj.github.io/blog/2014/10/11/swift-d11">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="kerkerj" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+
+<link href="/favicon.ico" rel="icon">
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='//fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-45583907-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   class="collapse-sidebar sidebar-footer" >
+  <header role="banner"><hgroup>
+  <h1><a href="/">kerkerj</a></h1>
+  
+    <h2>Cool</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+  
+  
+  
+  
+<ul class="subscription">
+  <li><a href="https://github.com/kerkerj" rel="subscribe-github" title="@kerkerj on GitHub">GitHub</a></li>
+</ul>
+  
+  
+  
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:kerkerj.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/notes">Notes</a></li>
+  <li><a href="/mac-app-list">Mac App List</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      
+        <h1 class="entry-title">[Swift-d11] - Basic - Hello World! ViewController</h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-11T20:09:13+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>今天就要來建立一個 Hello World swift app 啦 XD</p>
+
+<p>首先就是開 Xcode 然後開專案囉~~</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.18.22.png" alt="image" /></p>
+
+<p>就看你要存去哪裡啦～</p>
+
+<p>再來就會進到專案本身:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.19.47.png" alt="image" /></p>
+
+<p>我們就看右下角有個地方可以找到 Label 這個選項:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.20.27.png" alt="image" /></p>
+
+<p>把他拉到 Storyboard 的任意位置就可以了~</p>
+
+<p>然後更改 label 的屬性:</p>
+
+<p>先點一下 label 選取後，看右上角</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.21.53.png" alt="image" /></p>
+
+<p>有個地方可以更改它的顯示文字，我們將它改成 HelloWorld!</p>
+
+<p>改完之後，按左上角的 Run! ，我們也可以選擇後面的 target 看是要跑在 i6 或是 i5 上，</p>
+
+<p>按下 Run 後程式就會 deploy 到模擬器上面了！</p>
+
+<p>這就是第一個 Hello World 啦!</p>
+
+<p>完全不用寫程式哦 XDDDDD</p>
+
+<p>不過還是要稍微了解一下運作原理啦~</p>
+
+<p>如果剛剛在編輯 storyboard 的時候，有發現那個 View 的左邊有一個奇怪的箭頭指向 View，那個箭頭的意思其實就是程式進入點的意思，</p>
+
+<p>storyboard 就是在描述程式的走向，像在說故事一樣，從某一頁按了什麼東西跳到哪一頁</p>
+
+<p>其實我一直都沒有很習慣 storyboard 的拉法，還是比較習慣用程式建立物件，將想要的物件用程式擺(憑空想像XD)，但是前面幾個比較屬於練習的小東西都還是會用拉的，比較好懂~</p>
+
+<p>我們剛剛建立的那一頁 Hello world</p>
+
+<p>基本上就是在左邊的 ViewController</p>
+
+<p>那我們試著使用程式來改變 HelloWorld 這個 label 的值吧!</p>
+
+<p>我們首先使用分割視窗的模式</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.33.31.png" alt="image" /></p>
+
+<p>選擇左邊數來第二個按鈕</p>
+
+<p>然後選擇 storyboard 及 ViewController</p>
+
+<p>讓他是照下面那樣排列的</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.34.52.png" alt="image" /></p>
+
+<p>接著在 左邊的 label 上按著 ctrl ，拖曳到右邊的程式碼 class 中，</p>
+
+<p>他就會自動幫你產生一個 storyboard 物件與程式碼的連結，</p>
+
+<p>輸入 label 的變數，我們取名叫 titleLabel</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.37.41.png" alt="image" /></p>
+
+<p>就可以在 viewDidload 中，更改該 label 的值:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.38.13.png" alt="image" /></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>override func viewDidLoad() {
+</span><span class='line'>        super.viewDidLoad()
+</span><span class='line'>        // Do any additional setup after loading the view, typically from a nib.
+</span><span class='line'>        titleLabel.text = "hi"
+</span><span class='line'>    }</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在 viewDidload 中，雖然 label 在 storyboard 時已經有初始值 &ldquo;Hello World&rdquo; 了</p>
+
+<p>但是當 app 被 init 起來後，ViewController 也被初始化了，因此就會執行 ViewDidload 的方法，這個時候就會執行到剛剛的 <code>titleLabel.text = "hi"</code></p>
+
+<p>於是就會更改掉 label 的值了</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.41.04.png" alt="image" /></p>
+
+<p>以上就是簡單的 Hello World</p>
+
+<p>明天來拉幾個常用的元件！</p>
+
+<p>p.s. 截圖感謝同事菲力克濕協助幫忙 :D</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Authored by <span class="fn">kerkerj</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-11T20:09:13+08:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/swift/'>swift</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://kerkerj.github.io/blog/2014/10/11/swift-d11/" data-via="jerry54010" data-counturl="http://kerkerj.github.io/blog/2014/10/11/swift-d11/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/10/11/api-d11/" title="Previous Post: [API-d11] - MongoDB - Hello World!">&laquo; [API-d11] - MongoDB - Hello World!</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/11/01/planning/" title="Next Post: Planning">Planning &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+
+</div>
+
+<aside class="sidebar">
+  
+    
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - kerkerj -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a> | Themed with <a href="https://github.com/lucaslew/whitespace">Whitespace</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'kerkerj-github';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://kerkerj.github.io/blog/2014/10/11/swift-d11/';
+        var disqus_url = 'http://kerkerj.github.io/blog/2014/10/11/swift-d11/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
