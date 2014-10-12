@@ -98,6 +98,386 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2014/10/08/api-d8/">[API-d8] - Node.js - Hello World!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-08T13:04:20+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/10/08/api-d8/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/08/api-d8/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>Node.js - Hello World!</h1>
+
+<p>一樣先開虛擬機哦~</p>
+
+<p>並且開啟終端機連進 server 裡面~</p>
+
+<p>以下是 <a href="http://nodejs.org/">Node.js</a> 官方網站的 web server 程式範例，我稍作小修改：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;http&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;text/plain&#39;</span><span class="p">});</span>
+</span><span class='line'>  <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="s1">&#39;Hello World\n&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}).</span><span class="nx">listen</span><span class="p">(</span><span class="mi">1337</span><span class="p">,</span> <span class="s1">&#39;0.0.0.0&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Server running at http://0.0.0.0:1337/&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我們先在虛擬機的資料夾建立一個子資料夾 &lsquo;HelloWorld&rsquo;</p>
+
+<p>在 HelloWorld 資料夾裡面建立一個 app.js</p>
+
+<p>內容如上，存檔。</p>
+
+<p>使用終端機進入 server :</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="nx">vagrant</span> <span class="nx">ssh</span>
+</span><span class='line'><span class="nx">$</span> <span class="nx">cd</span> <span class="o">/</span><span class="nx">vagrant</span><span class="o">/</span><span class="nx">HelloWorld</span>
+</span><span class='line'><span class="nx">$</span> <span class="nx">node</span> <span class="nx">server</span><span class="p">.</span><span class="nx">js</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>到瀏覽器輸入 <a href="http://192.168.33.10:1337/">http://192.168.33.10:1337/</a></p>
+
+<p>(或者是你的 Vagrantfile 裡面設定的 private IP)</p>
+
+<p>即可看到 Hello World 了！</p>
+
+<p>要關掉 Server 也非常簡單，回到下指令的地方，按下 ctrl + c 即可中斷程式</p>
+
+<h2>分析</h2>
+
+<p>簡單分析一下此段程式：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;http&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>將 http 這個模組引入，並指定給物件 http</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span>
+</span><span class='line'>  <span class="p">...</span>
+</span><span class='line'><span class="p">).</span><span class="nx">listen</span><span class="p">(</span><span class="mi">1337</span><span class="p">,</span> <span class="s1">&#39;0.0.0.0&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>先略過中間的 function 不看，<br/>
+這段 code 的用意即是讓呼叫 http 物件中的 createServer 的方法，
+.listen() 則是設定該 server 要跑在哪個 port、hostname</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;text/plain&#39;</span><span class="p">});</span>
+</span><span class='line'>  <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="s1">&#39;Hello World\n&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上面的 code 則是原本在 .createServer() 裡的，
+我們可以看一下 Node.js 的 API doc <a href="http://nodejs.org/api/http.html#http_http_createserver_requestlistener">關於此方法的部分</a></p>
+
+<p>.createServer() 要帶入的東西其實是一個 requestListener，<br/>
+也就是當 Server 跑起來時，我們開啟瀏覽器，輸入 127.0.0.1:1337 時，<br/>
+Node.js Server 要回丟的東西，因此觀察一下此 listener:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="p">...</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>function 中帶入參數的是 req, res，意即 request, response，<br/>
+request 即是 server 接收到 client 端的訊息，<br/>
+response 則是 server 要回丟給 client 的訊息，<br/>
+由於在此範例中，我們只是要回丟給 client 端一個 hello world 的訊息，
+因此，我們不處理 client 送給 server 的 request，
+我們只需處理要回丟給 client 的訊息，</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;text/plain&#39;</span><span class="p">});</span>
+</span><span class='line'><span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="s1">&#39;Hello World\n&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>寫網頁的開發者應該對一些關鍵字例如 Content-type, text/plain 不陌生，<br/>
+第一行代表回傳給使用者的訊息中，HTTP HEAD 的設定是 http status code 200,
+並且 Content-type 設定為 text/plain</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;text/plain&#39;</span><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>那麼，以下這行 code 的意思即是，此次要回送給使用者的訊息到這裡結束，以 &ldquo;Hello World&rdquo; 作結尾</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="s1">&#39;Hello World\n&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>因此整段 code 看下來，就是一個非常簡單的 http server，</p>
+
+<p><a href="http://192.168.33.10:1337/">http://192.168.33.10:1337/</a> 總是會回傳 Hello World</p>
+
+<p>今天就完成了我們的 Hello World 了!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/07/swift-d7/">[Swift-d7] - Playground - Closures</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-07T19:12:45+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/10/07/swift-d7/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/07/swift-d7/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>閉包表達式語法：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="p">{</span> <span class="p">(</span><span class="n">parameters</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">returnType</span> <span class="k">in</span>
+</span><span class='line'>    <span class="n">statements</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>舉個例子:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="n">multiple</span><span class="p">(</span><span class="nl">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="nl">multiple</span><span class="p">:</span> <span class="n">Int</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">multiple</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">multiple</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="p">{</span> <span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span> <span class="k">in</span>
+</span><span class='line'>    <span class="n">value</span> <span class="o">*</span> <span class="mi">3</span>
+</span><span class='line'><span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在 <code>multiple</code> function 中需要傳入一個 <code>function</code></p>
+
+<p>在這邊我們並沒有另外定義，而是直接使用閉包的方式傳入一個 <code>function</code></p>
+
+<p>這個閉包就符合了上面的定義</p>
+
+<h2>根據上下文判斷型別 (Inferring type from context)</h2>
+
+<p>承上一個例子，我們可以寫得更簡潔一點</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="n">multiple</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="p">{</span> <span class="n">value</span> <span class="k">in</span>
+</span><span class='line'>    <span class="n">value</span> <span class="o">*</span> <span class="mi">3</span>
+</span><span class='line'><span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這是因為 Swift 會根據兩邊的定義來判斷型別，因此可以寫得更簡潔一些</p>
+
+<h3>參數名稱縮寫, 運算子函式</h3>
+
+<p>直接看例子</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="n">biggerThan0</span><span class="p">(</span><span class="nl">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="nl">isBigger</span><span class="p">:</span> <span class="n">Int</span> <span class="o">-&gt;</span> <span class="n">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Bool</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">isBigger</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">biggerThan0</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+</span><span class='line'>    <span class="p">{</span> <span class="err">$</span><span class="mi">0</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">}</span>
+</span><span class='line'><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>尾隨閉包 (trailing closures)</h3>
+
+<p>通常如果閉包太長的話，可以把閉包接在括號後面：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">someFunc</span><span class="p">(</span><span class="nl">closure</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="p">())</span> <span class="p">{</span>
+</span><span class='line'>  <span class="c1">// main</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">someFunc</span><span class="p">({</span>
+</span><span class='line'>  <span class="c1">// closure main</span>
+</span><span class='line'><span class="p">})</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">somFunc</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="c1">// closure main</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>以上面的例子做例子:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">biggerThan0</span><span class="p">(</span><span class="nl">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="nl">isBigger</span><span class="p">:</span> <span class="n">Int</span> <span class="o">-&gt;</span> <span class="n">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Bool</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">isBigger</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">biggerThan0</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span> <span class="err">$</span><span class="mi">0</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果是不需要參數的話，甚至可以把 () 省略掉</p>
+
+<p>這邊直接參考一下別人的例子，是使用 array map 方法</p>
+
+<p>下面要做的事情是</p>
+
+<p>將 [16,58,510] 轉成 [&ldquo;OneSix&rdquo;, &ldquo;FiveEight&rdquo;, &ldquo;FiveOneZero&rdquo;]</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">let</span> <span class="n">digitNames</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>    <span class="mi">0</span><span class="o">:</span> <span class="s">&quot;Zero&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="o">:</span> <span class="s">&quot;One&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="o">:</span> <span class="s">&quot;Two&quot;</span><span class="p">,</span>   <span class="mi">3</span><span class="o">:</span> <span class="s">&quot;Three&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="o">:</span> <span class="s">&quot;Four&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="mi">5</span><span class="o">:</span> <span class="s">&quot;Five&quot;</span><span class="p">,</span> <span class="mi">6</span><span class="o">:</span> <span class="s">&quot;Six&quot;</span><span class="p">,</span> <span class="mi">7</span><span class="o">:</span> <span class="s">&quot;Seven&quot;</span><span class="p">,</span> <span class="mi">8</span><span class="o">:</span> <span class="s">&quot;Eight&quot;</span><span class="p">,</span> <span class="mi">9</span><span class="o">:</span> <span class="s">&quot;Nine&quot;</span>
+</span><span class='line'><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">let</span> <span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">16</span><span class="p">,</span> <span class="mi">58</span><span class="p">,</span> <span class="mi">510</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">let</span> <span class="n">strings</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">.</span><span class="n">map</span> <span class="p">{</span>
+</span><span class='line'>    <span class="p">(</span><span class="k">var</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span> <span class="k">in</span>
+</span><span class='line'>    <span class="k">var</span> <span class="n">output</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+</span><span class='line'>    <span class="k">while</span> <span class="n">number</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">output</span> <span class="o">=</span> <span class="n">digitNames</span><span class="p">[</span><span class="n">number</span> <span class="o">%</span> <span class="mi">10</span><span class="p">]</span><span class="o">!</span> <span class="o">+</span> <span class="n">output</span>
+</span><span class='line'>        <span class="n">number</span> <span class="o">/=</span> <span class="mi">10</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">output</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這個例子中，array 的 map 會用後面接的閉包，接連的處理陣列裡面的元素</p>
+
+<p>所以最後 strings 的陣列就是處理過後的陣列</p>
+
+<p>而處理的方法則是將 Int 的每個位數分別轉換成 String 連接起來再回傳</p>
+
+<p>很方便的方法!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2014/10/07/api-d7/">[API-d7] - [Server 番外篇] 建立自己的本機虛擬伺服器 3 - 打包環境</a></h1>
     
     
@@ -2082,175 +2462,6 @@ Tuple 可以將多個值組合成一個值，例如：</p>
 <p>同時結合 function 這樣就可以多值回傳了！</p>
 
 <p>下一篇會接續今天變數相關的主題~</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/03/api-d3/">[API-d3] - 使用時機與實際 API 參考</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-03T21:07:32+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/10/03/api-d3/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/03/api-d3/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>使用時機與實際 API 參考</h1>
-
-<p>什麼時候需要打造 RESTful API?<br/>
-看看別人的 RESTful API (Instagram/Twitter)</p>
-
-<p>什麼時候需要打造 RESTful API?<br/>
-我認為當有數組資源要被多種不同平台使用時，就需要打造 RESTful API<br/>
-例如，有 Android/ iOS / Web 要對同一 table 做存取時，<br/>
-假設有個 MySQL DB，各個平台都使用各自的 mysql-driver 來直接操作 DB<br/>
-假設有個 A 專案建立了一套書籍管理系統，資料庫裡記錄了大大小小的書籍，<br/>
-而有個新的 B 專案需要使用到書籍的資料，此時 DB 操作的程式碼只能再寫一遍，<br/>
-且各個平台重新撰寫，似乎是不大靠譜。</p>
-
-<p>撰寫 RESTful API 的好處之一即是 RESTful 使用 HTTP 協定，<br/>
-各個平台皆支援，不需要太複雜的程式，只需要使用各個平台的 http-client，<br/>
-各個平台也不需要了解 DB 操作語法，只需要知道 json, xml 習慣的資料格式，  <br/>
-且開發 API 還能夠對各個資源輕易地上 cache 增進反應速度，<br/>
-開發 RESTful API 好處多多，哪天想 Open API 也就不需要再多作處理了～</p>
-
-<p>接著讓我們來看看兩個有名網站的 API 吧！</p>
-
-<p>Instagram: <a href="http://instagram.com/developer/api-console/">http://instagram.com/developer/api-console/</a><br/>
-Twitter: <a href="https://dev.twitter.com/rest/tools/console">https://dev.twitter.com/rest/tools/console</a></p>
-
-<p>很顯然的，我比較喜歡 Instagram 的 API 資源定義與命名方式 :P</p>
-
-<p>下一篇會介紹我接下來會用到的工具箱，暖身結束，要正式開始了!<br/>
-(不好意思前面嘴炮一點 XD)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/02/swift-d2/">[Swift-d2] - 安裝及 Hello World!</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-02T20:19:45+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/10/02/swift-d2/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/02/swift-d2/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>首先，你必須要有一台 Mac。<br/>
-我也不知道要如何用虛擬機 build 一台 Mac VM 出來，<br/>
-所以就是，先買一台 Mac XD</p>
-
-<p>若已經有了 Mac，只要到 Appstore 下載 Xcode 即可，<br/>
-注意是要 Xcode 6.0 以上， Xcode 6 才有支援 Swift ，舊版的 Xcode 5 是無法開發 Swift 的</p>
-
-<p>安裝完 Xcode 後</p>
-
-<p>首先開啓 Xcode<br/>
-選擇 &ldquo;Create a playground&rdquo;<br/>
-<img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-02%2011.24.32.png" alt="p1" /></p>
-
-<p>輸入 Playground 名稱並選擇儲存位置<br/>
-<img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-02%2011.25.13.png" alt="p2" /></p>
-
-<p>就進入了 Playground 了！</p>
-
-<p>可以看到 Xcode 已經預先載入了幾行程式碼了
-來稍微看一下:</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-02%2011.25.26.png" alt="p4" /></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>// Playground - noun: a place where people can play
-</span><span class='line'>
-</span><span class='line'>import UIKit
-</span><span class='line'>
-</span><span class='line'>var str = "Hello, playground"</span></code></pre></td></tr></table></div></figure>
-
-
-<p>第一行，使用了 <code>//</code>，有寫過程式的話一定都知道這是註解 <br/>
-在 Swift 裡面使用 <code>//</code> 及 <code>/* .... */</code> 來註解程式碼</p>
-
-<p>第二行意思則是將 UIKit 引入到 playground 中，<br/>
-借此使用 UIKit 的函示物件等等，目前還都不會用到</p>
-
-<p>第三行的意思則是宣告了一個變數，該變數為一個字串，內容為 &ldquo;Hello World!&rdquo;</p>
-
-<p>在 Playground 中，很有意思的是右邊的灰色區塊，<br/>
-Xcode 會即時顯示該變數的值、型別、以及輸出結果，<br/>
-對於剛入門 Swift 的開發者來說是一個非常好的功能來練習語法，
-也因此未來幾天都會使用 Playground 來練習 Swift 基本語法!</p>
-
-<p>最後當然要不免俗的撰寫最經典的程式 - Hello World!</p>
-
-<p>加入:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>println(str)</span></code></pre></td></tr></table></div></figure>
-
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-02%2011.27.21.png" alt="p5" /></p>
-
-<p>馬上就可以在右邊看到結果囉!</p>
-
-<p><code>println(args)</code> 是 Swift 標準輸出的函示，算是使用率蠻高的一個 method，只要將參數代入即可顯示該參數的內容，<br/>
-有興趣也可以透過 Xcode 的 autocomplete 來看看和 <code>print</code> 有關的 method，<br/>
-例如 <code>print()</code>，可以試試看，有些許不一樣哦!</p>
-
-<p>未來一個禮拜都會來練習一些基本語法!</p>
 </div>
   
   

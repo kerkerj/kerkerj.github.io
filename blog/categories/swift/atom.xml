@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Swift | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/swift/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-11T20:18:50+08:00</updated>
+  <updated>2014-10-12T18:56:09+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,62 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[Swift-d12] - Basic - 基本元件 (Label, Button, UIColor, 文字輸入框)]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/12/swift-d12/"/>
+    <updated>2014-10-12T18:50:20+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/12/swift-d12</id>
+    <content type="html"><![CDATA[<p>今天來放一些基本的元件:</p>
+
+<p>放入一個文字輸入框、文字標簽、按鈕，</p>
+
+<p>在文字框輸入一些字後，按下按鈕後，會在文字標簽顯示剛剛輸入的內容：</p>
+
+<p>首先使用右下角的 Object library 中將上述三種元件拉到 storyborad 中</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-12%2018.37.11.png" alt="image" /></p>
+
+<p>圖中依順序是文字標簽、文字輸入框、按鈕</p>
+
+<p>接著我們要使用到的文件是文字標簽以及文字輸入框，另外要將按鈕加入事件</p>
+
+<p>因此程式的流程是:</p>
+
+<p>按下按鈕後-> 執行按鈕事件
+    -> 抓到文字輸入框的輸入內容
+    -> 將文字標簽的內容改變成文字輸入框的內容</p>
+
+<p>因此先使用昨天的方式，將文字標簽及文字輸入框拉到 ViewController 中以便使用它們，在圖中的程式碼 12, 13 行：</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-12%2018.40.48.png" alt="image" /></p>
+
+<p>這樣我們就可以控制文字標簽的文字以及拿到輸入框的文字了</p>
+
+<p>再來就是最重要的按鈕事件了!</p>
+
+<p>一樣使用 ctrl + 拖曳的方式將按鈕拉到程式碼中，但是這次是要選擇 「IBAction」，是事件的意思:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-12%2018.42.57.png" alt="image" /></p>
+
+<p>接著就會產生出一段 function:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-12%2018.43.05.png" alt="image" /></p>
+
+<p>名為 titleButton, 我們在方法中輸入一行程式碼:</p>
+
+<pre><code class="swift">titleLabel.text = titleField.text
+</code></pre>
+
+<p>意思就是將文字標簽的字改成文字輸入框的文字</p>
+
+<p>接著我們就把程式跑起來吧!</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-12%2018.46.14.png" alt="image" /></p>
+
+<p>在文字框中輸入文字，按下按鈕，標簽就可以變文字了!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[Swift-d11] - Basic - Hello World! ViewController]]></title>
@@ -489,121 +545,6 @@ println(productBarcode.toRaw())
 </code></pre>
 
 <p>這個部分雖然不多，但是很實用</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[Swift-d7] - Playground - Closures]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/07/swift-d7/"/>
-    <updated>2014-10-07T19:12:45+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/07/swift-d7</id>
-    <content type="html"><![CDATA[<p>閉包表達式語法：</p>
-
-<pre><code class="swift">{ (parameters) -&gt; returnType in
-    statements
-}
-</code></pre>
-
-<p>舉個例子:</p>
-
-<pre><code>func multiple(value: Int, multiple: Int -&gt; Int) -&gt; Int {
-    return multiple(value)
-}
-
-multiple(3, { (value) -&gt; Int in
-    value * 3
-})
-</code></pre>
-
-<p>在 <code>multiple</code> function 中需要傳入一個 <code>function</code></p>
-
-<p>在這邊我們並沒有另外定義，而是直接使用閉包的方式傳入一個 <code>function</code></p>
-
-<p>這個閉包就符合了上面的定義</p>
-
-<h2>根據上下文判斷型別 (Inferring type from context)</h2>
-
-<p>承上一個例子，我們可以寫得更簡潔一點</p>
-
-<pre><code>multiple(3, { value in
-    value * 3
-})
-</code></pre>
-
-<p>這是因為 Swift 會根據兩邊的定義來判斷型別，因此可以寫得更簡潔一些</p>
-
-<h3>參數名稱縮寫, 運算子函式</h3>
-
-<p>直接看例子</p>
-
-<pre><code>func biggerThan0(value: Int, isBigger: Int -&gt; Bool) -&gt; Bool {
-    return isBigger(value)
-}
-
-biggerThan0(-1,
-    { $0 &gt; 0 }
-)
-</code></pre>
-
-<h3>尾隨閉包 (trailing closures)</h3>
-
-<p>通常如果閉包太長的話，可以把閉包接在括號後面：</p>
-
-<pre><code>func someFunc(closure: () -&gt; ()) {
-    // main
-}
-
-someFunc({
-    // closure main
-})
-
-somFunc() {
-    // closure main
-}
-</code></pre>
-
-<p>以上面的例子做例子:</p>
-
-<pre><code>func biggerThan0(value: Int, isBigger: Int -&gt; Bool) -&gt; Bool {
-    return isBigger(value)
-}
-
-biggerThan0(-1) { $0 &gt; 0 }
-</code></pre>
-
-<p>如果是不需要參數的話，甚至可以把 () 省略掉</p>
-
-<p>這邊直接參考一下別人的例子，是使用 array map 方法</p>
-
-<p>下面要做的事情是</p>
-
-<p>將 [16,58,510] 轉成 [&ldquo;OneSix&rdquo;, &ldquo;FiveEight&rdquo;, &ldquo;FiveOneZero&rdquo;]</p>
-
-<pre><code>let digitNames = [
-    0: "Zero", 1: "One", 2: "Two",   3: "Three", 4: "Four",
-    5: "Five", 6: "Six", 7: "Seven", 8: "Eight", 9: "Nine"
-]
-
-let numbers = [16, 58, 510]
-
-let strings = numbers.map {
-    (var number) -&gt; String in
-    var output = ""
-    while number &gt; 0 {
-        output = digitNames[number % 10]! + output
-        number /= 10
-    }
-    return output
-}
-</code></pre>
-
-<p>這個例子中，array 的 map 會用後面接的閉包，接連的處理陣列裡面的元素</p>
-
-<p>所以最後 strings 的陣列就是處理過後的陣列</p>
-
-<p>而處理的方法則是將 Int 的每個位數分別轉換成 String 連接起來再回傳</p>
-
-<p>很方便的方法!</p>
 ]]></content>
   </entry>
   

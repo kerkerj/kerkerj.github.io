@@ -161,7 +161,7 @@ Day8  -  <a href="http://kerkerj.github.io/blog/2014/10/08/api-d8/">[API-d8] - N
 Day9  -  <a href="http://kerkerj.github.io/blog/2014/10/09/api-d9/">[API-d9] - NVM 與 NPM 使用</a><br/>
 Day10 -  <a href="http://kerkerj.github.io/blog/2014/10/10/api-d10/">[API-d10] - Express - Hello World!</a><br/>
 Day11 -  <a href="http://kerkerj.github.io/blog/2014/10/11/api-d11/">[API-d11] - MongoDB - Hello World!</a><br/>
-Day12 -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day12 -  <a href="http://kerkerj.github.io/blog/2014/10/12/api-d12/">[API-d12] - MongoDB - Hello World! (Client-side) </a><br/>
 Day13 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day14 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day15 -  <a href="http://kerkerj.github.io/">#</a><br/>
@@ -194,7 +194,7 @@ Day8  -  <a href="http://kerkerj.github.io/blog/2014/10/08/swift-d8/">[Swift-d8]
 Day9  -  <a href="http://kerkerj.github.io/blog/2014/10/09/swift-d9/">[Swift-d9] - Playground - Class, Struct</a><br/>
 Day10 -  <a href="http://kerkerj.github.io/blog/2014/10/10/swift-d10/">[Swift-d10] 延伸閱讀</a><br/>
 Day11 -  <a href="http://kerkerj.github.io/blog/2014/10/11/swift-d11/">[Swift-d11] - Basic - Hello World!</a><br/>
-Day12 -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day12 -  <a href="http://kerkerj.github.io/blog/2014/10/12/swift-d12/">[Swift-d12] - Basic - 基本元件 (Label, Button, UIColor, 文字輸入框)</a><br/>
 Day13 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day14 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day15 -  <a href="http://kerkerj.github.io/">#</a><br/>
@@ -213,6 +213,372 @@ Day27 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day28 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day29 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day30 -  <a href="http://kerkerj.github.io/">#</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/12/swift-d12/">[Swift-d12] - Basic - 基本元件 (Label, Button, UIColor, 文字輸入框)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-12T18:50:20+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/10/12/swift-d12/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/12/swift-d12/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>今天來放一些基本的元件:</p>
+
+<p>放入一個文字輸入框、文字標簽、按鈕，</p>
+
+<p>在文字框輸入一些字後，按下按鈕後，會在文字標簽顯示剛剛輸入的內容：</p>
+
+<p>首先使用右下角的 Object library 中將上述三種元件拉到 storyborad 中</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-12%2018.37.11.png" alt="image" /></p>
+
+<p>圖中依順序是文字標簽、文字輸入框、按鈕</p>
+
+<p>接著我們要使用到的文件是文字標簽以及文字輸入框，另外要將按鈕加入事件</p>
+
+<p>因此程式的流程是:</p>
+
+<p>按下按鈕後-> 執行按鈕事件
+    -> 抓到文字輸入框的輸入內容
+    -> 將文字標簽的內容改變成文字輸入框的內容</p>
+
+<p>因此先使用昨天的方式，將文字標簽及文字輸入框拉到 ViewController 中以便使用它們，在圖中的程式碼 12, 13 行：</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-12%2018.40.48.png" alt="image" /></p>
+
+<p>這樣我們就可以控制文字標簽的文字以及拿到輸入框的文字了</p>
+
+<p>再來就是最重要的按鈕事件了!</p>
+
+<p>一樣使用 ctrl + 拖曳的方式將按鈕拉到程式碼中，但是這次是要選擇 「IBAction」，是事件的意思:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-12%2018.42.57.png" alt="image" /></p>
+
+<p>接著就會產生出一段 function:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-12%2018.43.05.png" alt="image" /></p>
+
+<p>名為 titleButton, 我們在方法中輸入一行程式碼:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="n">titleLabel</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">titleField</span><span class="p">.</span><span class="n">text</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>意思就是將文字標簽的字改成文字輸入框的文字</p>
+
+<p>接著我們就把程式跑起來吧!</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-12%2018.46.14.png" alt="image" /></p>
+
+<p>在文字框中輸入文字，按下按鈕，標簽就可以變文字了!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/12/api-d12/">[API-d12] - MongoDB - Hello World! (Client-side)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-12T18:50:16+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/10/12/api-d12/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/12/api-d12/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>今天要使用 Node.js 的 mongodb driver 來操作 DB</p>
+
+<p>一樣先開啟虛擬機並且登入吧</p>
+
+<p>會使用到的套件是:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">mongodb</span> <span class="o">-&gt;</span> <span class="nx">mongodb</span> <span class="kr">native</span> <span class="nx">driver</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>或許有人有看過 <code>mongoose</code> -> <a href="http://mongoosejs.com/">官網</a></p>
+
+<p>算是 MongoDB 的 ORM，我們在這邊如果有時間的話再簡單了解一下，</p>
+
+<p>現在先使用 native driver 來操作</p>
+
+<p>我們在這邊就不裝全域套件了，裝在 API 專案裡面</p>
+
+<p>並且使用 <code>-save</code> 來將相依性寫入 <code>package.json 裏</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="nx">cd</span> <span class="o">/</span><span class="nx">vagrant</span><span class="o">/</span><span class="nx">API</span><span class="o">/</span>
+</span><span class='line'><span class="nx">$</span> <span class="nx">npm</span> <span class="nx">install</span> <span class="nx">mongodb</span> <span class="o">-</span><span class="nx">save</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>從虛擬機回到電腦的資料夾中，在虛擬機資料夾的 API 資料夾中，</p>
+
+<p>今天我們先不和 express 搭配，因此就是純操作 node.js + mongodb module</p>
+
+<p>新增一個 <code>mongoTest.js</code></p>
+
+<p>我們先來連線到 MongoDB，連線的方式有很多，下面是其中一種方式，</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// 先宣告用的到的東西</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">MongoClient</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;mongodb&#39;</span><span class="p">).</span><span class="nx">MongoClient</span>
+</span><span class='line'>    <span class="p">,</span> <span class="nx">Server</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;mongodb&#39;</span><span class="p">).</span><span class="nx">Server</span>
+</span><span class='line'>    <span class="p">,</span> <span class="nx">options</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">auto_reconnection</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">poolSize</span><span class="o">:</span> <span class="mi">10</span> <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Server 設定</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">mongoClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MongoClient</span><span class="p">(</span><span class="k">new</span> <span class="nx">Server</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">27017</span><span class="p">,</span> <span class="nx">options</span><span class="p">));</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 開啟連線</span>
+</span><span class='line'><span class="nx">mongoClient</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">mongoClient</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">db1</span> <span class="o">=</span> <span class="nx">mongoClient</span><span class="p">.</span><span class="nx">db</span><span class="p">(</span><span class="s2">&quot;testDB&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Connected!&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">mongoClient</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Closed!&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>回到虛擬機執行</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="nx">node</span> <span class="nx">mongoTest</span><span class="p">.</span><span class="nx">js</span>
+</span><span class='line'><span class="nx">Connected</span><span class="o">!</span>
+</span><span class='line'><span class="nx">Closed</span><span class="o">!</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接著用另外一種連接方式，介紹 CRUD 的操作:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">mongoClient</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;mongodb&#39;</span><span class="p">).</span><span class="nx">MongoClient</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">mongoClient</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="s1">&#39;mongodb://localhost:27017/testDB&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">db</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// Data</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">todo1</span> <span class="o">=</span> <span class="p">{</span><span class="nx">todo</span><span class="o">:</span> <span class="s2">&quot;Buy books&quot;</span><span class="p">,</span> <span class="nx">time</span><span class="o">:</span> <span class="s2">&quot;2014/10/11&quot;</span><span class="p">,</span> <span class="nx">who</span><span class="o">:</span> <span class="s2">&quot;myself&quot;</span><span class="p">};</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">todo2</span> <span class="o">=</span> <span class="p">{</span><span class="nx">todo</span><span class="o">:</span> <span class="s2">&quot;Buy milk&quot;</span><span class="p">,</span> <span class="nx">time</span><span class="o">:</span> <span class="s2">&quot;2014/10/15&quot;</span><span class="p">,</span> <span class="nx">who</span><span class="o">:</span> <span class="s2">&quot;brother&quot;</span><span class="p">};</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">todo3</span> <span class="o">=</span> <span class="p">{</span><span class="nx">todo</span><span class="o">:</span> <span class="s2">&quot;Wash cats&quot;</span><span class="p">,</span> <span class="nx">time</span><span class="o">:</span> <span class="s2">&quot;2014/11/21&quot;</span><span class="p">,</span> <span class="nx">who</span><span class="o">:</span> <span class="s2">&quot;myself&quot;</span><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">collection</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">&#39;todoTest&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">where</span> <span class="o">=</span> <span class="p">{</span><span class="nx">todo</span><span class="o">:</span> <span class="s2">&quot;Buy milk&quot;</span><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// 新增資料</span>
+</span><span class='line'>    <span class="nx">collection</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="nx">todo1</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">docs</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">docs</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">collection</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="nx">todo2</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">docs</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">docs</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">collection</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="nx">todo3</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">docs</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">docs</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// 更新資料</span>
+</span><span class='line'>    <span class="nx">collection</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="nx">where</span><span class="p">,</span> <span class="p">{</span> <span class="nx">$set</span><span class="o">:</span> <span class="p">{</span> <span class="nx">time</span><span class="o">:</span> <span class="s2">&quot;2014/12/25&quot;</span><span class="p">}</span> <span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// 刪除某筆資料</span>
+</span><span class='line'>    <span class="nx">collection</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="nx">where</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// 查詢某筆資料</span>
+</span><span class='line'>    <span class="nx">collection</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">where</span><span class="p">).</span><span class="nx">toArray</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">results</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">dir</span><span class="p">(</span><span class="nx">results</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// 查詢所有資料</span>
+</span><span class='line'>    <span class="nx">collection</span><span class="p">.</span><span class="nx">find</span><span class="p">().</span><span class="nx">toArray</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">results</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">dir</span><span class="p">(</span><span class="nx">results</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>請注意，以上操作由於 javascript async 特性的關係，</p>
+
+<p>每個操作是會同時間送出，不同時間回送，看操作的運算時間而定</p>
+
+<p>因此若要依順序性的話，一是使用 callback，二是使用 async.js</p>
+
+<p>後面應該會提到 XD</p>
+
+<p>將這些程式碼存到 js file 裏，將某些行先註解掉，執行看看就可以略知一二了，</p>
+
+<p>可以同時搭配終端機直接到 DB 查看</p>
+
+<p>p.s. 大家可能會覺得這樣的方式很麻煩，MongoDB 有沒有好用的 client 來管理 DB 呢</p>
+
+<p>我推薦 RoboMongo，多平台，且可以直接輸入指令，蠻方便的，</p>
+
+<p>那如果是用我們現在的虛擬機的方式，要如何使用 RoboMongo ？</p>
+
+<p>首先，虛擬機的 DB 必須先開啟外部網路可以連線，</p>
+
+<p>注意! 我們目前並沒有創立使用者帳號密碼，不需要驗證即可進入 DB，這樣的做法只限於 demo, 與虛擬機中使用</p>
+
+<p>正式環境還是必須建立使用者帳號密碼</p>
+
+<p>先進到虛擬機更改 db 設定:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="nx">sudo</span> <span class="nx">nano</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">mongod</span><span class="p">.</span><span class="nx">conf</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>將 bind_ip = 0.0.0.0</p>
+
+<p>按下 ctrl+x 選擇 Y 存檔</p>
+
+<p>重開 mongodb</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="nx">sudo</span> <span class="nx">service</span> <span class="nx">mongod</span> <span class="nx">restart</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>若已經下載過 RoboMongo，開啟並輸入欲連線的 DB 設定：</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-06%2013.56.39.png" alt="" /></p>
+
+<p>就可以連進去管理了!</p>
+
+<p>再次提醒，這樣的做法只限於虛擬機及 demo 中測試</p>
+
+<p>正式環境要嘛建立使用者帳號密碼</p>
+
+<p>要嘛就是讓 DB 只限本機存取，請記住這件事情哦~</p>
 </div>
   
   
@@ -1769,386 +2135,6 @@ Day30 -  <a href="http://kerkerj.github.io/">#</a></p>
 
 
 <p>這個部分雖然不多，但是很實用</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/08/api-d8/">[API-d8] - Node.js - Hello World!</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-08T13:04:20+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/10/08/api-d8/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/08/api-d8/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>Node.js - Hello World!</h1>
-
-<p>一樣先開虛擬機哦~</p>
-
-<p>並且開啟終端機連進 server 裡面~</p>
-
-<p>以下是 <a href="http://nodejs.org/">Node.js</a> 官方網站的 web server 程式範例，我稍作小修改：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;http&#39;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;text/plain&#39;</span><span class="p">});</span>
-</span><span class='line'>  <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="s1">&#39;Hello World\n&#39;</span><span class="p">);</span>
-</span><span class='line'><span class="p">}).</span><span class="nx">listen</span><span class="p">(</span><span class="mi">1337</span><span class="p">,</span> <span class="s1">&#39;0.0.0.0&#39;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Server running at http://0.0.0.0:1337/&#39;</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>我們先在虛擬機的資料夾建立一個子資料夾 &lsquo;HelloWorld&rsquo;</p>
-
-<p>在 HelloWorld 資料夾裡面建立一個 app.js</p>
-
-<p>內容如上，存檔。</p>
-
-<p>使用終端機進入 server :</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="nx">vagrant</span> <span class="nx">ssh</span>
-</span><span class='line'><span class="nx">$</span> <span class="nx">cd</span> <span class="o">/</span><span class="nx">vagrant</span><span class="o">/</span><span class="nx">HelloWorld</span>
-</span><span class='line'><span class="nx">$</span> <span class="nx">node</span> <span class="nx">server</span><span class="p">.</span><span class="nx">js</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>到瀏覽器輸入 <a href="http://192.168.33.10:1337/">http://192.168.33.10:1337/</a></p>
-
-<p>(或者是你的 Vagrantfile 裡面設定的 private IP)</p>
-
-<p>即可看到 Hello World 了！</p>
-
-<p>要關掉 Server 也非常簡單，回到下指令的地方，按下 ctrl + c 即可中斷程式</p>
-
-<h2>分析</h2>
-
-<p>簡單分析一下此段程式：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;http&#39;</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>將 http 這個模組引入，並指定給物件 http</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span>
-</span><span class='line'>  <span class="p">...</span>
-</span><span class='line'><span class="p">).</span><span class="nx">listen</span><span class="p">(</span><span class="mi">1337</span><span class="p">,</span> <span class="s1">&#39;0.0.0.0&#39;</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>先略過中間的 function 不看，<br/>
-這段 code 的用意即是讓呼叫 http 物件中的 createServer 的方法，
-.listen() 則是設定該 server 要跑在哪個 port、hostname</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;text/plain&#39;</span><span class="p">});</span>
-</span><span class='line'>  <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="s1">&#39;Hello World\n&#39;</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>上面的 code 則是原本在 .createServer() 裡的，
-我們可以看一下 Node.js 的 API doc <a href="http://nodejs.org/api/http.html#http_http_createserver_requestlistener">關於此方法的部分</a></p>
-
-<p>.createServer() 要帶入的東西其實是一個 requestListener，<br/>
-也就是當 Server 跑起來時，我們開啟瀏覽器，輸入 127.0.0.1:1337 時，<br/>
-Node.js Server 要回丟的東西，因此觀察一下此 listener:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="p">...</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>function 中帶入參數的是 req, res，意即 request, response，<br/>
-request 即是 server 接收到 client 端的訊息，<br/>
-response 則是 server 要回丟給 client 的訊息，<br/>
-由於在此範例中，我們只是要回丟給 client 端一個 hello world 的訊息，
-因此，我們不處理 client 送給 server 的 request，
-我們只需處理要回丟給 client 的訊息，</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;text/plain&#39;</span><span class="p">});</span>
-</span><span class='line'><span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="s1">&#39;Hello World\n&#39;</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>寫網頁的開發者應該對一些關鍵字例如 Content-type, text/plain 不陌生，<br/>
-第一行代表回傳給使用者的訊息中，HTTP HEAD 的設定是 http status code 200,
-並且 Content-type 設定為 text/plain</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;text/plain&#39;</span><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>那麼，以下這行 code 的意思即是，此次要回送給使用者的訊息到這裡結束，以 &ldquo;Hello World&rdquo; 作結尾</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="s1">&#39;Hello World\n&#39;</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>因此整段 code 看下來，就是一個非常簡單的 http server，</p>
-
-<p><a href="http://192.168.33.10:1337/">http://192.168.33.10:1337/</a> 總是會回傳 Hello World</p>
-
-<p>今天就完成了我們的 Hello World 了!</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/07/swift-d7/">[Swift-d7] - Playground - Closures</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-07T19:12:45+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/10/07/swift-d7/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/07/swift-d7/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>閉包表達式語法：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="p">{</span> <span class="p">(</span><span class="n">parameters</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">returnType</span> <span class="k">in</span>
-</span><span class='line'>    <span class="n">statements</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>舉個例子:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="n">multiple</span><span class="p">(</span><span class="nl">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="nl">multiple</span><span class="p">:</span> <span class="n">Int</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">multiple</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">multiple</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="p">{</span> <span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span> <span class="k">in</span>
-</span><span class='line'>    <span class="n">value</span> <span class="o">*</span> <span class="mi">3</span>
-</span><span class='line'><span class="p">})</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>在 <code>multiple</code> function 中需要傳入一個 <code>function</code></p>
-
-<p>在這邊我們並沒有另外定義，而是直接使用閉包的方式傳入一個 <code>function</code></p>
-
-<p>這個閉包就符合了上面的定義</p>
-
-<h2>根據上下文判斷型別 (Inferring type from context)</h2>
-
-<p>承上一個例子，我們可以寫得更簡潔一點</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="n">multiple</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="p">{</span> <span class="n">value</span> <span class="k">in</span>
-</span><span class='line'>    <span class="n">value</span> <span class="o">*</span> <span class="mi">3</span>
-</span><span class='line'><span class="p">})</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>這是因為 Swift 會根據兩邊的定義來判斷型別，因此可以寫得更簡潔一些</p>
-
-<h3>參數名稱縮寫, 運算子函式</h3>
-
-<p>直接看例子</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="n">biggerThan0</span><span class="p">(</span><span class="nl">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="nl">isBigger</span><span class="p">:</span> <span class="n">Int</span> <span class="o">-&gt;</span> <span class="n">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Bool</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">isBigger</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">biggerThan0</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-</span><span class='line'>    <span class="p">{</span> <span class="err">$</span><span class="mi">0</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">}</span>
-</span><span class='line'><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>尾隨閉包 (trailing closures)</h3>
-
-<p>通常如果閉包太長的話，可以把閉包接在括號後面：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">someFunc</span><span class="p">(</span><span class="nl">closure</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="p">())</span> <span class="p">{</span>
-</span><span class='line'>  <span class="c1">// main</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">someFunc</span><span class="p">({</span>
-</span><span class='line'>  <span class="c1">// closure main</span>
-</span><span class='line'><span class="p">})</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">somFunc</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>  <span class="c1">// closure main</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>以上面的例子做例子:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">biggerThan0</span><span class="p">(</span><span class="nl">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="nl">isBigger</span><span class="p">:</span> <span class="n">Int</span> <span class="o">-&gt;</span> <span class="n">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Bool</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">isBigger</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">biggerThan0</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span> <span class="err">$</span><span class="mi">0</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>如果是不需要參數的話，甚至可以把 () 省略掉</p>
-
-<p>這邊直接參考一下別人的例子，是使用 array map 方法</p>
-
-<p>下面要做的事情是</p>
-
-<p>將 [16,58,510] 轉成 [&ldquo;OneSix&rdquo;, &ldquo;FiveEight&rdquo;, &ldquo;FiveOneZero&rdquo;]</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">let</span> <span class="n">digitNames</span> <span class="o">=</span> <span class="p">[</span>
-</span><span class='line'>    <span class="mi">0</span><span class="o">:</span> <span class="s">&quot;Zero&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="o">:</span> <span class="s">&quot;One&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="o">:</span> <span class="s">&quot;Two&quot;</span><span class="p">,</span>   <span class="mi">3</span><span class="o">:</span> <span class="s">&quot;Three&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="o">:</span> <span class="s">&quot;Four&quot;</span><span class="p">,</span>
-</span><span class='line'>    <span class="mi">5</span><span class="o">:</span> <span class="s">&quot;Five&quot;</span><span class="p">,</span> <span class="mi">6</span><span class="o">:</span> <span class="s">&quot;Six&quot;</span><span class="p">,</span> <span class="mi">7</span><span class="o">:</span> <span class="s">&quot;Seven&quot;</span><span class="p">,</span> <span class="mi">8</span><span class="o">:</span> <span class="s">&quot;Eight&quot;</span><span class="p">,</span> <span class="mi">9</span><span class="o">:</span> <span class="s">&quot;Nine&quot;</span>
-</span><span class='line'><span class="p">]</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">let</span> <span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">16</span><span class="p">,</span> <span class="mi">58</span><span class="p">,</span> <span class="mi">510</span><span class="p">]</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">let</span> <span class="n">strings</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">.</span><span class="n">map</span> <span class="p">{</span>
-</span><span class='line'>    <span class="p">(</span><span class="k">var</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span> <span class="k">in</span>
-</span><span class='line'>    <span class="k">var</span> <span class="n">output</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
-</span><span class='line'>    <span class="k">while</span> <span class="n">number</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
-</span><span class='line'>        <span class="n">output</span> <span class="o">=</span> <span class="n">digitNames</span><span class="p">[</span><span class="n">number</span> <span class="o">%</span> <span class="mi">10</span><span class="p">]</span><span class="o">!</span> <span class="o">+</span> <span class="n">output</span>
-</span><span class='line'>        <span class="n">number</span> <span class="o">/=</span> <span class="mi">10</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">output</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>這個例子中，array 的 map 會用後面接的閉包，接連的處理陣列裡面的元素</p>
-
-<p>所以最後 strings 的陣列就是處理過後的陣列</p>
-
-<p>而處理的方法則是將 Int 的每個位數分別轉換成 String 連接起來再回傳</p>
-
-<p>很方便的方法!</p>
 </div>
   
   

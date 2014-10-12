@@ -98,6 +98,214 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2014/04/16/ubuntu-update-openssl/">[Ubuntu] Update OpenSSL</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-16T11:39:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/04/16/ubuntu-update-openssl/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/04/16/ubuntu-update-openssl/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Easy way:</p>
+
+<ul>
+<li>Below the single command line to compiling and install the last openssl version.</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ curl https://www.openssl.org/source/openssl-1.0.1h.tar.gz | tar xz && cd openssl-1.0.1h && sudo ./config && sudo make && sudo make install</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Replace old openssl binary file by the new one via a symlink.</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo ln -sf /usr/local/ssl/bin/openssl `which openssl`</span></code></pre></td></tr></table></div></figure>
+
+
+<p>how to check version:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ openssl version -b
+</span><span class='line'>built on: Mon Apr  7 20:33:29 UTC 2014
+</span><span class='line'>$ openssl version -a
+</span><span class='line'>OpenSSL 1.0.1 14 Mar 2012
+</span><span class='line'>built on: Mon Apr  7 20:33:29 UTC 2014
+</span><span class='line'>platform: debian-amd64
+</span><span class='line'>options:  bn(64,64) rc4(16x,int) des(idx,cisc,16,int) blowfish(idx)
+</span><span class='line'>compiler: ..........
+</span><span class='line'>OPENSSLDIR: "/usr/lib/ssl"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>from: <a href="http://superuser.com/questions/740930/apt-get-upgrade-openssl-wont-bring-ubuntu-12-04-to-latest-version">http://superuser.com/questions/740930/apt-get-upgrade-openssl-wont-bring-ubuntu-12-04-to-latest-version</a></p>
+
+<p>Hard way:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c">#!/bin/bash</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">###</span>
+</span><span class='line'><span class="c"># Need to upgrade an Ubuntu 13.04 server to use OpenSSL 1.0.1g?</span>
+</span><span class='line'><span class="c"># Read and execute this script :D</span>
+</span><span class='line'><span class="c">###</span>
+</span><span class='line'><span class="c"># License: WTFPL, GPLv3, MIT, whatever; just patch your shit</span>
+</span><span class='line'><span class="c"># http://askubuntu.com/questions/444702/how-to-patch-cve-2014-0160-in-openssl</span>
+</span><span class='line'><span class="c">###</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="o">[[</span> <span class="nv">$EUID</span> -ne 0 <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+</span><span class='line'><span class="k">  </span><span class="nb">echo</span> <span class="s2">&quot;This script must be run as root&quot;</span> 1&gt;<span class="p">&amp;</span>2
+</span><span class='line'>  <span class="nb">exit </span>1
+</span><span class='line'><span class="k">fi</span>
+</span><span class='line'>wget https://www.openssl.org/source/openssl-1.0.1g.tar.gz
+</span><span class='line'>wget https://www.openssl.org/source/openssl-1.0.1g.tar.gz.asc
+</span><span class='line'>
+</span><span class='line'>gpg --recv-key 0xD3577507FA40E9E2
+</span><span class='line'><span class="c"># Dr Stephen Henson</span>
+</span><span class='line'><span class="c"># IMPORTANT! Manually verify that this is the correct key ID:</span>
+</span><span class='line'><span class="c"># http://pgp.mit.edu:11371/pks/lookup?op=vindex&amp;search=0xD3577507FA40E9E2</span>
+</span><span class='line'><span class="c"># https://www.openssl.org/about/</span>
+</span><span class='line'>
+</span><span class='line'>gpg --verify openssl-1.0.1g.tar.gz.asc openssl-1.0.1g.tar.gz
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="o">[[</span> <span class="nv">$?</span> -eq 0 <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+</span><span class='line'><span class="k">  </span>tar xzvf openssl-1.0.1g.tar.gz
+</span><span class='line'>  <span class="nb">cd </span>openssl-1.0.1g <span class="o">&amp;&amp;</span> sudo ./config <span class="o">&amp;&amp;</span> sudo make <span class="o">&amp;&amp;</span> sudo make install
+</span><span class='line'>  <span class="c"># To link the old openssl library to a new version</span>
+</span><span class='line'>  sudo ln -sf /usr/local/ssl/bin/openssl <span class="sb">`</span>which openssl<span class="sb">`</span>
+</span><span class='line'>  <span class="nb">echo</span>
+</span><span class='line'><span class="nb"> echo</span> <span class="s2">&quot;DONE!&quot;</span>
+</span><span class='line'><span class="k">fi</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># eof</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/01/28/php-json-decode-error-by-wrong-json-string-with-quotes/">[PHP] Json_decode Error by Wrong Json String With Quotes</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T06:29:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/01/28/php-json-decode-error-by-wrong-json-string-with-quotes/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/01/28/php-json-decode-error-by-wrong-json-string-with-quotes/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Normal json string:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{"Hey":"There"}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Error json string got from $_POST variable:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{\"Hey\":\"There\"}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This may causes by <code>magic_quotes</code> in <code>php.ini</code>
+Magic is never good in development.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2014/01/09/sublime-text-2-integration-with-rvm-and-rspec/">[Sublime Text 2] Integration With RVM and Rspec</a></h1>
     
     
@@ -849,100 +1057,6 @@ host side: you need ruby environment!</p>
 </span><span class='line'>end
 </span><span class='line'></span></code></pre></td></tr></table></div></figure>
 
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/18/ubuntu-bash-warning-setlocale-lc-ctype-cannot-change-locale/">[Ubuntu] -bash: Warning: Setlocale: LC_CTYPE: Cannot Change Locale</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-18T08:42:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2013/12/18/ubuntu-bash-warning-setlocale-lc-ctype-cannot-change-locale/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2013/12/18/ubuntu-bash-warning-setlocale-lc-ctype-cannot-change-locale/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo locale-gen zh_TW.UTF-8
-</span><span class='line'>$ sudo update-locale LANG=zh_TW.UTF-8</span></code></pre></td></tr></table></div></figure>
-
-
-<p>reload your bash profile</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/18/ruby-pp-to-ruby-as-var-dump-to-php/">[Ruby] PP to Ruby as Var_dump to PHP</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-18T06:46:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2013/12/18/ruby-pp-to-ruby-as-var-dump-to-php/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2013/12/18/ruby-pp-to-ruby-as-var-dump-to-php/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;pp&#39;</span>
-</span><span class='line'><span class="n">pp</span><span class="p">(</span><span class="no">ENV</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<blockquote><p>Usage:
-pp(any_variable)</p></blockquote>
-
-<p>just like <code>var_dump</code> in <code>php</code></p>
 </div>
   
   
