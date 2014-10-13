@@ -4,7 +4,7 @@
   <title><![CDATA[kerkerj]]></title>
   <link href="http://kerkerj.github.io/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-12T18:56:09+08:00</updated>
+  <updated>2014-10-13T23:26:33+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -56,7 +56,7 @@ Day9  -  <a href="http://kerkerj.github.io/blog/2014/10/09/api-d9/">[API-d9] - N
 Day10 -  <a href="http://kerkerj.github.io/blog/2014/10/10/api-d10/">[API-d10] - Express - Hello World!</a><br/>
 Day11 -  <a href="http://kerkerj.github.io/blog/2014/10/11/api-d11/">[API-d11] - MongoDB - Hello World!</a><br/>
 Day12 -  <a href="http://kerkerj.github.io/blog/2014/10/12/api-d12/">[API-d12] - MongoDB - Hello World! (Client-side) </a><br/>
-Day13 -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day13 -  <a href="http://kerkerj.github.io/blog/2014/10/13/api-d13/">[API-d13] - [Javascript 番外篇] Javascript require/ module/ Module Pattern</a><br/>
 Day14 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day15 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day16 -  <a href="http://kerkerj.github.io/">#</a><br/>
@@ -89,7 +89,7 @@ Day9  -  <a href="http://kerkerj.github.io/blog/2014/10/09/swift-d9/">[Swift-d9]
 Day10 -  <a href="http://kerkerj.github.io/blog/2014/10/10/swift-d10/">[Swift-d10] 延伸閱讀</a><br/>
 Day11 -  <a href="http://kerkerj.github.io/blog/2014/10/11/swift-d11/">[Swift-d11] - Basic - Hello World!</a><br/>
 Day12 -  <a href="http://kerkerj.github.io/blog/2014/10/12/swift-d12/">[Swift-d12] - Basic - 基本元件 (Label, Button, UIColor, 文字輸入框)</a><br/>
-Day13 -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day13 -  <a href="http://kerkerj.github.io/blog/2014/10/13/swift-d13/">[Swift-d13] - Basic - Navigation View 1 + ViewController</a><br/>
 Day14 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day15 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day16 -  <a href="http://kerkerj.github.io/">#</a><br/>
@@ -107,6 +107,377 @@ Day27 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day28 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day29 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day30 -  <a href="http://kerkerj.github.io/">#</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Swift-d13] - Basic - Navigation View 1 + ViewController]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/13/swift-d13/"/>
+    <updated>2014-10-13T18:24:21+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/13/swift-d13</id>
+    <content type="html"><![CDATA[<p>今天來試著拉拉看 Navigation View</p>
+
+<p>什麼是 Navigation View?</p>
+
+<p>就是類似下圖的東西:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.07.37.png" alt="image" /></p>
+
+<p>用來控制 View 之間的流程</p>
+
+<p>今天我們繼續使用 storyboard 來簡單拉拉 Navigation View</p>
+
+<p>首先先開一個新 project 吧!</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.09.15.png" alt="image" /></p>
+
+<p>接著我們到 storyboard，選擇 ViewController</p>
+
+<p>再來我們要嵌入 Navigation View</p>
+
+<p>所以要選擇: Edit -> Embed in -> Navigation View</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.10.09.png" alt="image" /></p>
+
+<p>選擇後，就會發現 storyboard 的 layout 改變了</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.11.36.png" alt="image" /></p>
+
+<p>Navigation View 實際上是透過 NavigationController 來控制</p>
+
+<p>原本程式的進入點是 ViewController</p>
+
+<p>由於我們要使用 Navigation View</p>
+
+<p>因此透過 Xcode 將 NavigationController 嵌進去</p>
+
+<p>讓程式進入點變成 NavigationController</p>
+
+<p>再透過 NavigationController 將程式導到 ViewController</p>
+
+<p>接下來我們命名一下 ViewController:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.14.28.png" alt="image" /></p>
+
+<p>然後我們從右下角的 Object library 選擇 Bar Button items 加入</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.14.56.png" alt="image" /></p>
+
+<p>並將該物件拉到 NavigationBar 的右方</p>
+
+<p>接下來我們希望點下 item 按鈕，可以到另外一個 ViewController</p>
+
+<p>因此一樣從右下角的 Object library 拉一個 ViewController 到 storyboard 的空白處</p>
+
+<p>直接拉一個過去就好</p>
+
+<p>所以會長這樣:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.17.30.png" alt="image" /></p>
+
+<p>接著就從 ViewController 的 item 上，按著 ctrl + 拖曳，</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.18.29.png" alt="image" /></p>
+
+<p>往右邊剛剛新增的 ViewController 拉，放開後就會選擇要做的動作，我們選擇 &lsquo;show&rsquo;</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.19.44.png" alt="image" /></p>
+
+<p>為了辨識起見，我們點選第二個 ViewController ，加入 Title:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.22.11.png" alt="image" /></p>
+
+<p>都設定好後，按下執行，應該就可以看到 Navigation View 正常運作了!</p>
+
+<p>按下 item 會到 View2, View2 會自動產生 back 鍵，回到 View1</p>
+
+<p>是不是很方便呢!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[API-d13] - [Javascript 番外篇] Javascript Require/ Module/ Module Pattern]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/13/api-d13/"/>
+    <updated>2014-10-13T18:24:17+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/13/api-d13</id>
+    <content type="html"><![CDATA[<p>接下來幾天會探討 node.js 的特性，由於比較少在寫 js ，因此有錯請指正</p>
+
+<p>在 node.js 裏，要讀取外部模組都是透過 require 和 exports 來做溝通</p>
+
+<p>以下列出這次最簡單 module 的例子</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">//hello.js</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Hello World&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// app.js</span>
+</span><span class='line'><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./hello.js&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Module 也是有 Pattern 的</h2>
+
+<p>第一種: Global (Not so good)</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// foo.js</span>
+</span><span class='line'><span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;foo!&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// app.js</span>
+</span><span class='line'><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./foo.js&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="nx">foo</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>第二種: export an anonymous function</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// foo.js</span>
+</span><span class='line'><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;foo! YA&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// app.js</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">test</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./foo.js&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="nx">test</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>第三種： export a named function</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// bar.js</span>
+</span><span class='line'><span class="nx">exports</span><span class="p">.</span><span class="nx">bar</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;bar&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// app.js</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./bar.js&#39;</span><span class="p">).</span><span class="nx">bar</span><span class="p">;</span>
+</span><span class='line'><span class="nx">bar</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>第四種: exports an anoymous object</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// bar4.js</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">Bar4</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{};</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">Bar4</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">say</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;bar4&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Bar4</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// app.js </span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./bar4.js&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="nx">b</span><span class="p">.</span><span class="nx">say</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>第五種: export a named object</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// bar5.js</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">Bar5</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{};</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">Bar5</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">say</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;bar5&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">exports</span><span class="p">.</span><span class="nx">Bar5</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Bar5</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// app.js</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./bar5.js&#39;</span><span class="p">).</span><span class="nx">Bar5</span><span class="p">;</span>
+</span><span class='line'><span class="nx">b</span><span class="p">.</span><span class="nx">say</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>第六種: export an anonymous prototype</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// cool.js</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">Cool</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{};</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">Cool</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">say</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Cool!&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">Cool</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// app.js</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">Cool</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./cool.js&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">coo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cool</span><span class="p">();</span>
+</span><span class='line'><span class="nx">coo</span><span class="p">.</span><span class="nx">say</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>第七種: export a named prototype</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// ang.js</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">Ang</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{};</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">Ang</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">say</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Ang!&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">exports</span><span class="p">.</span><span class="nx">Ang</span> <span class="o">=</span> <span class="nx">Ang</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// app.js</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">Ang</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./ang.js&#39;</span><span class="p">).</span><span class="nx">Ang</span><span class="p">;</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">wer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Ang</span><span class="p">();</span>
+</span><span class='line'><span class="nx">wer</span><span class="p">.</span><span class="nx">say</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>exports v.s. module.exports</h2>
+
+<p>exports 是 module.exports 的輔助方法</p>
+
+<p>以下有個例子會執行錯誤:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// ya.js</span>
+</span><span class='line'><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="s2">&quot;YA&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="nx">exports</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;My name is kerkerj&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// app.js</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">ya</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./ya.js&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="nx">ya</span><span class="p">.</span><span class="nx">name</span><span class="p">();</span> <span class="nx">TypeError</span><span class="o">:</span> <span class="nx">Cannot</span> <span class="nx">call</span> <span class="nx">method</span> <span class="s1">&#39;name&#39;</span> <span class="nx">of</span> <span class="kc">undefined</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在 ya.js 中 module.exports 有屬性了</p>
+
+<p>因此下面的 export.name 就沒有被加入了</p>
+
+<p>如果 module.exports 沒有任何屬性被加入的話，</p>
+
+<p>exports 若有屬性了，則會交給 module.exports</p>
+
+<p>反之就是剛剛的情況，moduel.exports 已經有屬性了，因此 export.name 就沒有作用了</p>
+
+<p><a href="http://www.hacksparrow.com/node-js-exports-vs-module-exports.html">延伸閱讀</a></p>
+
+<h2>Module as class</h2>
+
+<p>直接看例子吧 XD</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// user.js</span>
+</span><span class='line'><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">age</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="nx">age</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">about</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span><span class="s1">&#39; is &#39;</span><span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">age</span> <span class="o">+</span><span class="s1">&#39; years old&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// app.js</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">User</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./user.js&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">kerkerj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">User</span><span class="p">(</span><span class="s1">&#39;kerkerj&#39;</span><span class="p">,</span> <span class="mi">18</span><span class="p">);</span>
+</span><span class='line'><span class="nx">kerkerj</span><span class="p">.</span><span class="nx">about</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
 ]]></content>
   </entry>
   
@@ -3590,251 +3961,6 @@ str2  已經不是單純的 String 型別了，</p>
 <p>在 Playground 中多試試看囉~~</p>
 
 <p>ps. Swift 的 ? 和 Ruby 的 ? 是完全不同意思的XD</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[API-d4] - 使用技術與工具介紹及原因]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/04/api-d4/"/>
-    <updated>2014-10-04T18:52:58+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/04/api-d4</id>
-    <content type="html"><![CDATA[<h1>使用技術與工具介紹及原因</h1>
-
-<p>終於要開始進入正題了！</p>
-
-<p>在了解 REST/RESTful 後，</p>
-
-<p>就要從無到有 - 從 Server 到 API endpoint 都由自己打造</p>
-
-<p>今天會先來說明接下來會使用到哪些工具及技術</p>
-
-<p>由於筆者使用 Mac ，因此若是有其他平台的使用者可能需要自行找教學</p>
-
-<h2>Server - Ubuntu with Vagrant + VitrualBox</h2>
-
-<p>接下來幾天會先從這個部分開始提起</p>
-
-<p>我們會使用 VirtualBox + Vagrant 的方式來建立自己的虛擬環境</p>
-
-<p>避免一些讀者可能對 Server command line 不熟</p>
-
-<p>這個部分是大家可以跳過的部分，但是我還是會從無到有架起來</p>
-
-<h2>Backend Language - Node.js</h2>
-
-<p>後端語言使用了 Node.js，其實本來有考慮使用 Golang，</p>
-
-<p>但顧及自己的時間&hellip; 還是使用 Node.js，方便快速</p>
-
-<p>這幾年是 Javascript 的時代，</p>
-
-<p>優勝美地似乎也可以支援使用 Javascript 撰寫 <a href="https://github.com/tylergaw/js-osx-app-examples">Automation Tool</a></p>
-
-<p>從前端打到後端甚至到 DB 都可以使用到 Javascript ，</p>
-
-<p>是該來看看 Javascript 的語法特性了 :D</p>
-
-<p>而且 Node.js Event-driven 的特性，可以利用少少的資源提供高效能的服務</p>
-
-<p>同時搭配易用性及社群活躍度，這是我選擇 Node.js 而非選擇 Golang 的原因</p>
-
-<h2>Framework - Express</h2>
-
-<p>我使用了 Node.js 的 web framework - Express</p>
-
-<p>Node.js 之於 Express 可以把它想像成是 Ruby 之於 Sinatra</p>
-
-<p>我使用 Express 方便處理 Route</p>
-
-<p>並且這套 framework 算是 Node.js 裡最具代表性的 framework</p>
-
-<p>學起來也還不錯</p>
-
-<h2>Database - MongoDB</h2>
-
-<p>DB 為了追求簡單快速，我使用了 MongoDB</p>
-
-<p>從 API 到 DB 無縫接軌，簡單的操作模式以及 Schema-free 的特性</p>
-
-<p>應該會讓這整件事情變得更簡單</p>
-
-<h2>Test client - PostMan (chrome extension)</h2>
-
-<p>由於 API 是純粹後端 service，我們使用 Express 並不會使用到樣板語言，</p>
-
-<p>也就是我們並不會撰寫 View (HTML, CSS 等等的語法)</p>
-
-<p>因此除了寫測試外，我們就可以使用這套 Chrome Extension 來對 API 做存取!</p>
-
-<hr />
-
-<p>結束! 接下來幾天會教大家建立自己的虛擬機哦~~</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[Swift-d3] - Playground - 變數與常數, 註解, 基本資料型別]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/03/swift-d3/"/>
-    <updated>2014-10-03T21:07:41+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/03/swift-d3</id>
-    <content type="html"><![CDATA[<h2>變數與常數</h2>
-
-<p>定義一個變數:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="k">var</span> <span class="nl">obj</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>var 是保留字，宣告 obj 是一個變數名稱，冒號後面接資料形態<br/>
-以此例子來說，宣告了一個字串變數叫做 obj，並且初始化為 &ldquo;&rdquo; 空字串</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="k">let</span> <span class="nl">obj</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>let 同樣是用來宣告一個變數，但是宣告此變數後，該變數的值無法被改變，<br/>
-無法被改變的數值其實正正的名字就叫做常數
-以上面的例子來說， 若我們多做一件事:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="k">let</span> <span class="nl">obj</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
-</span><span class='line'><span class="n">obj</span> <span class="o">=</span> <span class="s">&quot;test&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>若我們試圖去更改 obj，讓 obj 從空字串變成 &ldquo;test&rdquo; 時， <br/>
-Xcode 就會報錯，不能更改該值</p>
-
-<p>再來是宣告的變型，其實宣告時不一定要給資料形態，<br/>
-Swift 會自動從後面的值來判斷 x 可能是什麼資料形態，<br/>
-只是由於筆者的習慣，會儘量在後面加上該變數的資料型別</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="k">var</span> <span class="n">x</span> <span class="o">=</span> <span class="s">&quot;test&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>一行內宣告多值：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="k">var</span> <span class="n">x</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="mf">0.0</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>我們就可以在 Playground 裡面試著宣告一些變數看看，並且使用昨天的輸出函式來輸出變數:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="k">var</span> <span class="nl">str</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="s">&quot;測試&quot;</span>
-</span><span class='line'><span class="k">let</span> <span class="nl">fixString</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="s">&quot;fixed&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">var</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="mi">2</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>註解</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="c1">// 單行註解</span>
-</span><span class='line'>
-</span><span class='line'><span class="cm">/*</span>
-</span><span class='line'><span class="cm">多行註解</span>
-</span><span class='line'><span class="cm">多行註解</span>
-</span><span class='line'><span class="cm">多行註解</span>
-</span><span class='line'><span class="cm">*/</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>基本資料型別</h2>
-
-<p>Swift 是一個強型別語言，意即若是以下的程式碼是會出錯的:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="k">var</span> <span class="n">x</span> <span class="o">=</span> <span class="s">&quot;test&quot;</span>
-</span><span class='line'><span class="n">x</span> <span class="o">=</span> <span class="mi">2</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>由於 x 已經被先 Swift 判定是 String 了，後面想指定 Int 資料給 x 就會出錯</p>
-
-<p>Int 整數:
-Swift 提供了 Int 還另外提供了 8, 16, 32, 64 位元的有號和無號整數型別<br/>
-若在 32 位元平台，宣告 Int 的話， Int 的長度和 Int32 是一樣的<br/>
-若在 64 位元平台，宣告 Int 的話， Int 的長度和 Int64 是一樣的</p>
-
-<p>浮點數：
-3.2, 0.0 之類的數字，可以用
-Double - 64 位元浮點數 (至少 15 位數)
-Float - 32 位元浮點數 (至少 6 位數)</p>
-
-<p>布林值：
-true/false</p>
-
-<p>Tuples:
-Tuple 可以將多個值組合成一個值，例如：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="c1">//賦值</span>
-</span><span class='line'><span class="k">let</span> <span class="n">httpSucess</span> <span class="o">=</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s">&quot;Success&quot;</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// 反過來接值</span>
-</span><span class='line'><span class="k">let</span> <span class="p">(</span><span class="n">statusCode</span><span class="p">,</span> <span class="n">statusMessage</span><span class="p">)</span> <span class="o">=</span> <span class="n">httpSucess</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// 若只需要其中一個值，另一個值可以用 _ 代替，但是不能沒有 _ </span>
-</span><span class='line'><span class="k">let</span> <span class="p">(</span><span class="n">statusCode</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="o">=</span> <span class="n">httpSucess</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// 也可以用索引的方式拿值</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">httpSucess</span><span class="mf">.0</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// 宣告 tuples 時也可以直接給予參數一個名稱</span>
-</span><span class='line'><span class="k">let</span> <span class="n">httpSucess</span> <span class="o">=</span> <span class="p">(</span><span class="nl">statusCode</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="nl">statusMessage</span><span class="p">:</span> <span class="s">&quot;Success&quot;</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// 拿值時就可以:</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">httpSucess</span><span class="p">.</span><span class="n">statusCode</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>同時結合 function 這樣就可以多值回傳了！</p>
-
-<p>下一篇會接續今天變數相關的主題~</p>
 ]]></content>
   </entry>
   

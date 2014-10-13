@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Api | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/api/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-12T18:56:09+08:00</updated>
+  <updated>2014-10-13T23:26:33+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,179 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[API-d13] - [Javascript 番外篇] Javascript Require/ Module/ Module Pattern]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/13/api-d13/"/>
+    <updated>2014-10-13T18:24:17+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/13/api-d13</id>
+    <content type="html"><![CDATA[<p>接下來幾天會探討 node.js 的特性，由於比較少在寫 js ，因此有錯請指正</p>
+
+<p>在 node.js 裏，要讀取外部模組都是透過 require 和 exports 來做溝通</p>
+
+<p>以下列出這次最簡單 module 的例子</p>
+
+<pre><code class="javascript">//hello.js
+console.log('Hello World');
+</code></pre>
+
+<pre><code>// app.js
+require('./hello.js');
+</code></pre>
+
+<h2>Module 也是有 Pattern 的</h2>
+
+<p>第一種: Global (Not so good)</p>
+
+<pre><code>// foo.js
+foo = function() {
+    console.log("foo!");
+}
+
+// app.js
+require('./foo.js');
+foo();
+</code></pre>
+
+<p>第二種: export an anonymous function</p>
+
+<pre><code>// foo.js
+module.exports = function() {
+    console.log("foo! YA");
+};
+
+// app.js
+var test = require("./foo.js");
+test();
+</code></pre>
+
+<p>第三種： export a named function</p>
+
+<pre><code>// bar.js
+exports.bar = function() {
+    console.log("bar");
+}
+
+// app.js
+var bar = require('./bar.js').bar;
+bar();
+</code></pre>
+
+<p>第四種: exports an anoymous object</p>
+
+<pre><code>// bar4.js
+var Bar4 = function() {};
+
+Bar4.prototype.say = function() {
+    console.log('bar4');
+};
+
+module.exports = new Bar4();
+
+// app.js 
+var b = require('./bar4.js');
+b.say();
+</code></pre>
+
+<p>第五種: export a named object</p>
+
+<pre><code>// bar5.js
+var Bar5 = function() {};
+
+Bar5.prototype.say = function() {
+    console.log("bar5");
+};
+
+exports.Bar5 = new Bar5();
+
+// app.js
+var b = require('./bar5.js').Bar5;
+b.say();
+</code></pre>
+
+<p>第六種: export an anonymous prototype</p>
+
+<pre><code>// cool.js
+var Cool = function() {};
+
+Cool.prototype.say = function() {
+    console.log('Cool!');
+};
+
+module.exports = Cool;
+
+// app.js
+var Cool = require('./cool.js');
+var coo = new Cool();
+coo.say();
+</code></pre>
+
+<p>第七種: export a named prototype</p>
+
+<pre><code>// ang.js
+var Ang = function () {};
+
+Ang.prototype.say = function () {
+    console.log('Ang!');
+};
+
+exports.Ang = Ang;
+
+// app.js
+var Ang = require('./ang.js').Ang;
+var wer = new Ang();
+wer.say();
+</code></pre>
+
+<h2>exports v.s. module.exports</h2>
+
+<p>exports 是 module.exports 的輔助方法</p>
+
+<p>以下有個例子會執行錯誤:</p>
+
+<pre><code>// ya.js
+module.exports = "YA";
+exports.name = function() {
+    console.log('My name is kerkerj');
+};
+
+// app.js
+var ya = require('./ya.js');
+ya.name(); TypeError: Cannot call method 'name' of undefined
+</code></pre>
+
+<p>在 ya.js 中 module.exports 有屬性了</p>
+
+<p>因此下面的 export.name 就沒有被加入了</p>
+
+<p>如果 module.exports 沒有任何屬性被加入的話，</p>
+
+<p>exports 若有屬性了，則會交給 module.exports</p>
+
+<p>反之就是剛剛的情況，moduel.exports 已經有屬性了，因此 export.name 就沒有作用了</p>
+
+<p><a href="http://www.hacksparrow.com/node-js-exports-vs-module-exports.html">延伸閱讀</a></p>
+
+<h2>Module as class</h2>
+
+<p>直接看例子吧 XD</p>
+
+<pre><code>// user.js
+module.exports = function(name, age) {
+    this.name = name;
+    this.age = age;
+    this.about = function() {
+        console.log(this.name +' is '+ this.age +' years old');
+    };
+};
+
+// app.js
+var User = require('./user.js');
+var kerkerj = new User('kerkerj', 18);
+kerkerj.about(); 
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[API-d12] - MongoDB - Hello World! (Client-side)]]></title>
@@ -700,117 +873,6 @@ $ npm list -g
 <p>下面是 Node.js module 的官方網站: <a href="https://nodejsmodules.org/">https://nodejsmodules.org/</a></p>
 
 <p>有做最受歡迎的套件排名，進去瀏覽一下，有時候會發現一些好用的套件哦!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[API-d8] - Node.js - Hello World!]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/08/api-d8/"/>
-    <updated>2014-10-08T13:04:20+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/08/api-d8</id>
-    <content type="html"><![CDATA[<h1>Node.js - Hello World!</h1>
-
-<p>一樣先開虛擬機哦~</p>
-
-<p>並且開啟終端機連進 server 裡面~</p>
-
-<p>以下是 <a href="http://nodejs.org/">Node.js</a> 官方網站的 web server 程式範例，我稍作小修改：</p>
-
-<pre><code class="javascript">var http = require('http');
-
-http.createServer(function (req, res) {
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('Hello World\n');
-}).listen(1337, '0.0.0.0');
-
-console.log('Server running at http://0.0.0.0:1337/');
-</code></pre>
-
-<p>我們先在虛擬機的資料夾建立一個子資料夾 &lsquo;HelloWorld&rsquo;</p>
-
-<p>在 HelloWorld 資料夾裡面建立一個 app.js</p>
-
-<p>內容如上，存檔。</p>
-
-<p>使用終端機進入 server :</p>
-
-<pre><code>$ vagrant ssh
-$ cd /vagrant/HelloWorld
-$ node server.js
-</code></pre>
-
-<p>到瀏覽器輸入 <a href="http://192.168.33.10:1337/">http://192.168.33.10:1337/</a></p>
-
-<p>(或者是你的 Vagrantfile 裡面設定的 private IP)</p>
-
-<p>即可看到 Hello World 了！</p>
-
-<p>要關掉 Server 也非常簡單，回到下指令的地方，按下 ctrl + c 即可中斷程式</p>
-
-<h2>分析</h2>
-
-<p>簡單分析一下此段程式：</p>
-
-<pre><code class="javascript">var http = require('http');
-</code></pre>
-
-<p>將 http 這個模組引入，並指定給物件 http</p>
-
-<pre><code class="javascript">http.createServer(
-    ...
-).listen(1337, '0.0.0.0');
-</code></pre>
-
-<p>先略過中間的 function 不看，<br/>
-這段 code 的用意即是讓呼叫 http 物件中的 createServer 的方法，
-.listen() 則是設定該 server 要跑在哪個 port、hostname</p>
-
-<pre><code class="javascript">function (req, res) {
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('Hello World\n');
-}
-</code></pre>
-
-<p>上面的 code 則是原本在 .createServer() 裡的，
-我們可以看一下 Node.js 的 API doc <a href="http://nodejs.org/api/http.html#http_http_createserver_requestlistener">關於此方法的部分</a></p>
-
-<p>.createServer() 要帶入的東西其實是一個 requestListener，<br/>
-也就是當 Server 跑起來時，我們開啟瀏覽器，輸入 127.0.0.1:1337 時，<br/>
-Node.js Server 要回丟的東西，因此觀察一下此 listener:</p>
-
-<pre><code class="javascript">function (req, res) {
-    ...
-}
-</code></pre>
-
-<p>function 中帶入參數的是 req, res，意即 request, response，<br/>
-request 即是 server 接收到 client 端的訊息，<br/>
-response 則是 server 要回丟給 client 的訊息，<br/>
-由於在此範例中，我們只是要回丟給 client 端一個 hello world 的訊息，
-因此，我們不處理 client 送給 server 的 request，
-我們只需處理要回丟給 client 的訊息，</p>
-
-<pre><code class="javascript">res.writeHead(200, {'Content-Type': 'text/plain'});
-res.end('Hello World\n');
-</code></pre>
-
-<p>寫網頁的開發者應該對一些關鍵字例如 Content-type, text/plain 不陌生，<br/>
-第一行代表回傳給使用者的訊息中，HTTP HEAD 的設定是 http status code 200,
-並且 Content-type 設定為 text/plain</p>
-
-<pre><code class="javascript">res.writeHead(200, {'Content-Type': 'text/plain'});
-</code></pre>
-
-<p>那麼，以下這行 code 的意思即是，此次要回送給使用者的訊息到這裡結束，以 &ldquo;Hello World&rdquo; 作結尾</p>
-
-<pre><code class="javascript">res.end('Hello World\n');
-</code></pre>
-
-<p>因此整段 code 看下來，就是一個非常簡單的 http server，</p>
-
-<p><a href="http://192.168.33.10:1337/">http://192.168.33.10:1337/</a> 總是會回傳 Hello World</p>
-
-<p>今天就完成了我們的 Hello World 了!</p>
 ]]></content>
   </entry>
   

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Swift | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/swift/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-12T18:56:09+08:00</updated>
+  <updated>2014-10-13T23:26:33+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,91 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[Swift-d13] - Basic - Navigation View 1 + ViewController]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/13/swift-d13/"/>
+    <updated>2014-10-13T18:24:21+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/13/swift-d13</id>
+    <content type="html"><![CDATA[<p>今天來試著拉拉看 Navigation View</p>
+
+<p>什麼是 Navigation View?</p>
+
+<p>就是類似下圖的東西:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.07.37.png" alt="image" /></p>
+
+<p>用來控制 View 之間的流程</p>
+
+<p>今天我們繼續使用 storyboard 來簡單拉拉 Navigation View</p>
+
+<p>首先先開一個新 project 吧!</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.09.15.png" alt="image" /></p>
+
+<p>接著我們到 storyboard，選擇 ViewController</p>
+
+<p>再來我們要嵌入 Navigation View</p>
+
+<p>所以要選擇: Edit -> Embed in -> Navigation View</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.10.09.png" alt="image" /></p>
+
+<p>選擇後，就會發現 storyboard 的 layout 改變了</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.11.36.png" alt="image" /></p>
+
+<p>Navigation View 實際上是透過 NavigationController 來控制</p>
+
+<p>原本程式的進入點是 ViewController</p>
+
+<p>由於我們要使用 Navigation View</p>
+
+<p>因此透過 Xcode 將 NavigationController 嵌進去</p>
+
+<p>讓程式進入點變成 NavigationController</p>
+
+<p>再透過 NavigationController 將程式導到 ViewController</p>
+
+<p>接下來我們命名一下 ViewController:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.14.28.png" alt="image" /></p>
+
+<p>然後我們從右下角的 Object library 選擇 Bar Button items 加入</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.14.56.png" alt="image" /></p>
+
+<p>並將該物件拉到 NavigationBar 的右方</p>
+
+<p>接下來我們希望點下 item 按鈕，可以到另外一個 ViewController</p>
+
+<p>因此一樣從右下角的 Object library 拉一個 ViewController 到 storyboard 的空白處</p>
+
+<p>直接拉一個過去就好</p>
+
+<p>所以會長這樣:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.17.30.png" alt="image" /></p>
+
+<p>接著就從 ViewController 的 item 上，按著 ctrl + 拖曳，</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.18.29.png" alt="image" /></p>
+
+<p>往右邊剛剛新增的 ViewController 拉，放開後就會選擇要做的動作，我們選擇 &lsquo;show&rsquo;</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.19.44.png" alt="image" /></p>
+
+<p>為了辨識起見，我們點選第二個 ViewController ，加入 Title:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.22.11.png" alt="image" /></p>
+
+<p>都設定好後，按下執行，應該就可以看到 Navigation View 正常運作了!</p>
+
+<p>按下 item 會到 View2, View2 會自動產生 back 鍵，回到 View1</p>
+
+<p>是不是很方便呢!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[Swift-d12] - Basic - 基本元件 (Label, Button, UIColor, 文字輸入框)]]></title>
@@ -452,99 +537,6 @@ println(Man.sex)
 <hr />
 
 <p>以上是一些 class 和 struct 的特性</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[Swift-d8] - Playground - Enumerations]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/08/swift-d8/"/>
-    <updated>2014-10-08T13:04:25+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/08/swift-d8</id>
-    <content type="html"><![CDATA[<h1>Playground - Enumerations</h1>
-
-<p>通常會使用來定義一組相關的值</p>
-
-<p>也是很方便的東西</p>
-
-<h2>列舉語法</h2>
-
-<pre><code class="swift">enum SomeEnumeration {
-  // enumeration definition goes here
-}
-</code></pre>
-
-<p>比方說，車子</p>
-
-<pre><code>enum Car {
-    case toyota
-    case benz
-    case BMW
-}
-</code></pre>
-
-<p>也可以這樣寫</p>
-
-<pre><code>enum Car {
-    case toyota, benz, BMW
-}
-</code></pre>
-
-<p>使用:</p>
-
-<pre><code>var car = Car.benz
-</code></pre>
-
-<h2>和 Switch 的搭配</h2>
-
-<pre><code>enum Car {
-    case Toyota, Benz, BMW
-}
-
-var car = Car.Benz
-
-switch car {
-case .Toyota:
-    println("Toyota")
-case .Benz:
-    println("Benz")
-case .BMW:
-    println("BMW")
-}
-</code></pre>
-
-<h2>Associated Values</h2>
-
-<p>以 Barcode 來舉例子</p>
-
-<pre><code>enum Barcode {
-    case UPCA(Int, Int, Int)
-    case QRCode(String)
-}
-
-var productBarcode = Barcode.UPCA(12, 8948, 333)
-</code></pre>
-
-<p>我們可以借此來定義一些結構</p>
-
-<h2>Raw Values</h2>
-
-<p>我們可以先給定預設值：</p>
-
-<pre><code>enum Barcode: String {
-    case UPCA = "upca"
-    case QRCode = "qrcode"
-}
-
-var productBarcode = Barcode.UPCA
-println(productBarcode.toRaw())
-</code></pre>
-
-<p>可以透過 raw value 來找尋</p>
-
-<pre><code>println(Barcode.fromRaw("qrcode"))
-</code></pre>
-
-<p>這個部分雖然不多，但是很實用</p>
 ]]></content>
   </entry>
   
