@@ -1,0 +1,399 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>[API-d14] - [Javascript 番外篇] Javascript Function Scopes 和 Closures - kerkerj</title>
+  <meta name="author" content="kerkerj">
+
+  
+  <meta name="description" content="cool thing, cool guy">
+  <meta name="keywords" content="restful, api, javascript">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://kerkerj.github.io/blog/2014/10/14/api-d14">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="kerkerj" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+
+<link href="/favicon.ico" rel="icon">
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='//fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-45583907-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   class="collapse-sidebar sidebar-footer" >
+  <header role="banner"><hgroup>
+  <h1><a href="/">kerkerj</a></h1>
+  
+    <h2>Cool</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+  
+  
+  
+  
+<ul class="subscription">
+  <li><a href="https://github.com/kerkerj" rel="subscribe-github" title="@kerkerj on GitHub">GitHub</a></li>
+</ul>
+  
+  
+  
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:kerkerj.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/notes">Notes</a></li>
+  <li><a href="/mac-app-list">Mac App List</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      
+        <h1 class="entry-title">[API-d14] - [Javascript 番外篇] Javascript Function Scopes 和 Closures</h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-14T22:40:32+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>這幾天會探討 javascript 的特性，由於比較少在寫 js ，因此有錯請指正</p>
+
+<h2>Scope</h2>
+
+<p>例子:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">hi</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">greetings</span> <span class="o">=</span> <span class="s2">&quot;hi&quot;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Say: &quot;</span> <span class="o">+</span> <span class="nx">greetings</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">function</span> <span class="nx">sayYa</span><span class="p">(</span><span class="nx">newInput</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">greetings</span> <span class="o">=</span> <span class="nx">newInput</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Say: &quot;</span> <span class="o">+</span> <span class="nx">greetings</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">function</span> <span class="nx">sayCool</span><span class="p">(</span><span class="nx">newInput</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="kd">var</span> <span class="nx">cool</span> <span class="o">=</span> <span class="nx">newInput</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Say: &quot;</span> <span class="o">+</span> <span class="nx">cool</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">sayYa</span><span class="p">(</span><span class="s2">&quot;Yo&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">sayCool</span><span class="p">(</span><span class="s2">&quot;Cool&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Say: &quot;</span> <span class="o">+</span> <span class="nx">greetings</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">hi</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>很簡單的概念</p>
+
+<p>greetins 在 sayYa 方法中被覆寫掉了</p>
+
+<p>如果要定義 local 變數必須在 function 裏用 var 定義</p>
+
+<p>例如 sayCool function</p>
+
+<h2>Closure</h2>
+
+<p>例子:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">person</span><span class="p">(){</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="s1">&#39;default&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">greetings</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">name</span> <span class="p">);</span>
+</span><span class='line'>        <span class="p">},</span>
+</span><span class='line'>        <span class="nx">changeName</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">newInput</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nx">name</span> <span class="o">=</span> <span class="nx">newInput</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">me</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">person</span><span class="p">();</span>
+</span><span class='line'><span class="nx">me</span><span class="p">.</span><span class="nx">greetings</span><span class="p">();</span>
+</span><span class='line'><span class="nx">me</span><span class="p">.</span><span class="nx">changeName</span><span class="p">(</span><span class="s2">&quot;kerkerj&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="nx">me</span><span class="p">.</span><span class="nx">greetings</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Self-Executing Anonymous Functions</h2>
+
+<p>使用這種方式通常是避免和其他 js 檔案造成變數混淆</p>
+
+<p>或是初始化</p>
+
+<p>裡面的變數和 function 只被限制在這個範圍內</p>
+
+<p>例子:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">hi</span> <span class="o">=</span> <span class="s1">&#39;Hello&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">function</span> <span class="nx">sayHi</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nx">hi</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="nx">name</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">global</span><span class="p">.</span><span class="nx">greetings</span> <span class="o">=</span> <span class="nx">sayHi</span>
+</span><span class='line'><span class="p">})(</span><span class="nx">global</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">global</span><span class="p">.</span><span class="nx">greetings</span><span class="p">(</span><span class="s2">&quot;kerkerj&quot;</span><span class="p">));</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">hi</span><span class="p">);</span> <span class="c1">// &lt;- 這會失敗</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>必須將 sayHi 指給 global 的某一個變數, 才有辦法使用它</p>
+
+<p>在 node.js 中 global 是全域變數，在瀏覽器中是 window~</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Authored by <span class="fn">kerkerj</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-14T22:40:32+08:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/api/'>api</a>, <a class='category' href='/blog/categories/javascript/'>javascript</a>, <a class='category' href='/blog/categories/restful/'>restful</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://kerkerj.github.io/blog/2014/10/14/api-d14/" data-via="jerry54010" data-counturl="http://kerkerj.github.io/blog/2014/10/14/api-d14/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/10/13/swift-d13/" title="Previous Post: [Swift-d13] - Basic - Navigation View 1 + ViewController">&laquo; [Swift-d13] - Basic - Navigation View 1 + ViewController</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/10/14/swift-d14/" title="Next Post: [Swift-d14] - Basic - Navigation View 2 + ViewController">[Swift-d14] - Basic - Navigation View 2 + ViewController &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+
+</div>
+
+<aside class="sidebar">
+  
+    
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - kerkerj -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a> | Themed with <a href="https://github.com/lucaslew/whitespace">Whitespace</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'kerkerj-github';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://kerkerj.github.io/blog/2014/10/14/api-d14/';
+        var disqus_url = 'http://kerkerj.github.io/blog/2014/10/14/api-d14/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

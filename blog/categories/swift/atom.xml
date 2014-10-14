@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Swift | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/swift/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-13T23:26:33+08:00</updated>
+  <updated>2014-10-14T22:44:56+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,112 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[Swift-d14] - Basic - Navigation View 2 + ViewController]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/14/swift-d14/"/>
+    <updated>2014-10-14T22:40:36+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/14/swift-d14</id>
+    <content type="html"><![CDATA[<p>延續昨天的主題，今天我們要做的事情是：</p>
+
+<ol>
+<li>爲新的 ViewController 實際加入程式碼 (ViewController2.swift)</li>
+<li>加入一個 button 來控制是否前進下一頁或後退</li>
+</ol>
+
+
+<p>我們先新增一個檔案:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.04.30.png" alt="image" /></p>
+
+<p>接著選擇 CocoaTouch Class:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.05.56.png" alt="image" /></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.06.45.png" alt="image" /></p>
+
+<p>回到 storyboard, 選擇第二個 ViewController</p>
+
+<p>並按照下圖，將 Class 指定給 View2Controller</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.07.15.png" alt="image" /></p>
+
+<p>這樣子 storyboard 的 View2 就會指定到 View2Controller 了</p>
+
+<p>我們在 View2Controller 的 viewDidLoad 方法中加入一行程式碼</p>
+
+<p>來驗證他是否有吃到 View2Controller</p>
+
+<pre><code class="swift">self.title = "View2 by me"
+</code></pre>
+
+<p>Run 起來看的話就會是這樣:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.10.52.png" alt="image" /></p>
+
+<p>的確是有吃到程式碼的</p>
+
+<p>再來就是要加入按鈕了:</p>
+
+<p>我們先拉一個 Button 進 View2Controller</p>
+
+<p>並且將該 Button 拉進 View2Controller 的 code</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.11.41.png" alt="image" /></p>
+
+<p>設定該 button 爲 Action, 並且名稱是 &lsquo;backToView&rsquo;</p>
+
+<p>意即我們要讓點下 View2Controller 的 Button 行為為回到上一個 View</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.12.50.png" alt="image" /></p>
+
+<p>另外對 View2 為他加入一個 storyboard ID, View2，等等會用到:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.20.21.png" alt="image" /></p>
+
+<p>View1 同樣也加入一個 Button, 並且也是拉到 View1 的 code 中，</p>
+
+<p>同樣是設定 Action ，action name 定義為 &lsquo;goView2&rsquo;</p>
+
+<p>就是按下 button 後會到 View2</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.13.59.png" alt="image" /></p>
+
+<p>接著我們分別在 ViewController 及 View2Controller 的程式碼中加入以下程式碼:</p>
+
+<p>View1 -</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.15.48.png" alt="image" /></p>
+
+<pre><code class="swift">@IBAction func goView2(sender: AnyObject){
+self.navigationController?.pushViewController(self.storyboard?.instantiateViewControllerWithIdentifier("View2") as View2Controller, animated: true)
+}
+</code></pre>
+
+<p>View2 -</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.15.56.png" alt="image" /></p>
+
+<pre><code class="swift">@IBAction func backToView(sender: AnyObject) {
+    self.navigationController?.popViewControllerAnimated(true)
+}
+</code></pre>
+
+<p>在這邊 Navigation 用到的是 Push, Pop 的概念，使用 View stack</p>
+
+<p>進到下一個 View 時，就 push 欲前往的 View</p>
+
+<p>回到上一個 View 時，就 pop 出上一個 View</p>
+
+<p>在 goView2 中，我們使用到了 storyboard 的 identifier</p>
+
+<p>先讓 storyboard 抓有沒有 identifier 名為 &ldquo;View2&rdquo; 的物件</p>
+
+<p>有的話就抓起來，並且使用 as 轉型成 View2Controller, push 進 stack</p>
+
+<p>做完上述事情後，執行程式碼就可以看到結果囉!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[Swift-d13] - Basic - Navigation View 1 + ViewController]]></title>
@@ -309,234 +415,6 @@ var text: String?
 <p>不需要破壞原本的結構，加上一些外掛，讓原本的結構更好用</p>
 
 <p>(好像是個很重要的順帶一提 XD)</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[Swift-d9] - Playground - Class, Struct]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/09/swift-d9/"/>
-    <updated>2014-10-09T21:46:17+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/09/swift-d9</id>
-    <content type="html"><![CDATA[<h1>Playground - Class, Struct</h1>
-
-<p>再來就是要提重點的東西了!</p>
-
-<p>class 和 struct 是用來建構整個程式重要的東西</p>
-
-<p>兩者的差異在於：class 可以繼承其他 class，但是 struct 無法繼承</p>
-
-<p>以下是宣告方式</p>
-
-<pre><code class="swift">class SomeClass {
-    //...
-}
-
-struct SomeStruct {
-    //...
-}
-</code></pre>
-
-<p>注意，Swift 的 class 和 struct 命名慣例是大寫命名風格 <code>UpperCamelCase</code></p>
-
-<p>而屬性和方法則是 <code>lowerCamelCase</code></p>
-
-<p>例如 <code>increaseCount</code>, <code>addTwoInts</code></p>
-
-<p>舉個例子:</p>
-
-<pre><code>struct Resolution {
-    var width = 0
-    var height = 0
-}
-
-class CustomLabel {
-    var resolution = Resolution()
-    var isLabel = true
-    var name: String?
-}
-</code></pre>
-
-<p>實體化，就可以改變其中的值了</p>
-
-<pre><code>var someResolution = Resolution()
-var someLabel = CustomLabel()
-
-someResolution.width = 100
-someLabel.resolution.height = 200
-</code></pre>
-
-<p>就是一直 <code>點</code> 下去就對了!</p>
-
-<p>Struct 我們也可以直接給定初始值，class 就不能這樣做了~</p>
-
-<pre><code>var someResolution = Resolution(width: 200, height: 300)
-</code></pre>
-
-<p>sttuct 的 Getter 和 Setter 只存在於 computed properties</p>
-
-<p>亦即是必須要被計算過的才能使用 Getter, Setter</p>
-
-<p>以下就直接看別人的例子吧:</p>
-
-<pre><code>struct Point {
-    var x = 0.0, y = 0.0
-}
-struct Size {
-    var width = 0.0, height = 0.0
-}
-struct Rect {
-    var origin = Point()
-    var size = Size()
-    var center: Point {
-    get {
-        let centerX = origin.x + (size.width / 2)
-        let centerY = origin.y + (size.height / 2)
-        return Point(x: centerX, y: centerY)
-    }
-    set(newCenter) {
-        origin.x = newCenter.x - (size.width / 2)
-        origin.y = newCenter.y - (size.height / 2)
-    }
-    }
-}
-var square = Rect(origin: Point(x: 0.0, y: 0.0),
-    size: Size(width: 10.0, height: 10.0))
-let initialSquareCenter = square.center
-square.center = Point(x: 15.0, y: 15.0)
-println("square.origin is now at (\(square.origin.x), \(square.origin.y))")
-</code></pre>
-
-<h3>Struct 和 enum 是一種值型別</h3>
-
-<p>值型別的的例子像是 Int, String &hellip;.</p>
-
-<p>那 struct 和 enum 也是，都是以值來操作的</p>
-
-<h3>Class 是參考型別</h3>
-
-<h2>使用時機</h2>
-
-<p>struct:</p>
-
-<ul>
-<li>用來封裝少量相關的資料</li>
-<li>不需要繼承</li>
-<li>是 copy value 而不是 reference</li>
-</ul>
-
-
-<p>例如：Label 的長寬, 三角形的三個點</p>
-
-<h2>Class 二三事</h2>
-
-<p>礙于篇幅關係，這邊簡單講解一些 class 比較重要的點</p>
-
-<p>通常一個 class 裡面會有一些 variable 與 methods</p>
-
-<p>通常還會有靜態的 variables, methods 或是 建構子 (constructor)</p>
-
-<p>甚至是延遲載入一個變數</p>
-
-<p>下面就簡單寫了一個 class 來說明這幾個部分</p>
-
-<pre><code>class Person {
-
-    var name: String
-    var height: Int!
-
-    // 型別屬性 (靜態變數)
-    class var isAnimal: Bool {
-        return true
-    }
-
-    // 初始化時必定輸入 name, 必須知道初始化時變數所代表的意義
-    init(name: String) {
-        self.name = name
-    }
-
-    // 型別方法 (靜態方法)
-    class func sayHi() -&gt; String {
-        return "Hi!"
-    }
-
-    func sayYa() -&gt; String {
-        return "Ya"
-    }
-
-    final func car(#title: String) -&gt; String{
-        return title
-    }
-
-    lazy var personalizedGreeting: String = {
-        [unowned self] in
-        return "Hello, \(self.name)!"
-    }()
-}
-
-let person = Person(name: "Kerkerj")
-println(person.personalizedGreeting)
-println(person.car(title: "Toyota"))
-println(person.sayYa())
-println(Person.sayHi())
-println(Person.isAnimal)
-</code></pre>
-
-<p><code>self</code> 的意思就代表 class 自己，就字面上來看應該蠻好懂的</p>
-
-<p>通常 <code>lazy</code> 的使用時機在於，</p>
-
-<p>有個值需要被複雜或大量計算時，或是初始化時可能需要大量計算時，</p>
-
-<p>我們可以加入 <code>lazy</code>，使該變數在需要操作時再計算</p>
-
-<p>下面再簡單講一點繼承的東西</p>
-
-<p>直接看例子，我設定了一個 class 稱為 Man，繼承自 Person</p>
-
-<pre><code>class Man: Person {
-    class var sex: String {
-        return "Male"
-    }
-
-    override init(name: String) {
-        super.init(name: name)
-    }
-
-    override func sayYa() -&gt; String {
-        return "YAYA"
-    }
-
-    func sayYo() -&gt; String {
-        return "YO"
-    }
-}
-
-let kerkerj = Man(name: "kerkerj")
-println(kerkerj.name)
-println(kerkerj.sayYa())
-println(kerkerj.sayYo())
-println(Man.sex)
-</code></pre>
-
-<p>可以觀察一下自動補完的選項，當輸入 <code>kerkerj.</code> 時</p>
-
-<p>後面會出現除了 Man 這個 class 本身提供的變數與方法外，</p>
-
-<p>還有 Person 的變數與方法，這就是因為 Man 繼承自 Person 的關係</p>
-
-<p>Man 裡面覆寫了 init, sayYa 的方法，</p>
-
-<p>原本 sayYa 只會出現一次 &ldquo;YA&rdquo;, 覆寫過後會出現兩次變成 &ldquo;YAYA&rdquo;</p>
-
-<p>另外 Man 再多加了一個 sayYo 的方法</p>
-
-<p>如果父類別的某些方法不想被覆寫，在關鍵字前加上 <code>final</code></p>
-
-<p>就可以防止被覆寫</p>
-
-<hr />
-
-<p>以上是一些 class 和 struct 的特性</p>
 ]]></content>
   </entry>
   

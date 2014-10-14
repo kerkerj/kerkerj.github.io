@@ -4,7 +4,7 @@
   <title><![CDATA[kerkerj]]></title>
   <link href="http://kerkerj.github.io/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-13T23:26:33+08:00</updated>
+  <updated>2014-10-14T22:44:56+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -57,7 +57,7 @@ Day10 -  <a href="http://kerkerj.github.io/blog/2014/10/10/api-d10/">[API-d10] -
 Day11 -  <a href="http://kerkerj.github.io/blog/2014/10/11/api-d11/">[API-d11] - MongoDB - Hello World!</a><br/>
 Day12 -  <a href="http://kerkerj.github.io/blog/2014/10/12/api-d12/">[API-d12] - MongoDB - Hello World! (Client-side) </a><br/>
 Day13 -  <a href="http://kerkerj.github.io/blog/2014/10/13/api-d13/">[API-d13] - [Javascript 番外篇] Javascript require/ module/ Module Pattern</a><br/>
-Day14 -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day14 -  <a href="http://kerkerj.github.io/blog/2014/10/14/api-d14/">[API-d14] - [Javascript 番外篇] Javascript function scopes 和 closures</a><br/>
 Day15 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day16 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day17 -  <a href="http://kerkerj.github.io/">#</a><br/>
@@ -90,7 +90,7 @@ Day10 -  <a href="http://kerkerj.github.io/blog/2014/10/10/swift-d10/">[Swift-d1
 Day11 -  <a href="http://kerkerj.github.io/blog/2014/10/11/swift-d11/">[Swift-d11] - Basic - Hello World!</a><br/>
 Day12 -  <a href="http://kerkerj.github.io/blog/2014/10/12/swift-d12/">[Swift-d12] - Basic - 基本元件 (Label, Button, UIColor, 文字輸入框)</a><br/>
 Day13 -  <a href="http://kerkerj.github.io/blog/2014/10/13/swift-d13/">[Swift-d13] - Basic - Navigation View 1 + ViewController</a><br/>
-Day14 -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day14 -  <a href="http://kerkerj.github.io/blog/2014/10/14/swift-d14/">[Swift-d14] - Basic - Navigation View 2 + ViewController</a><br/>
 Day15 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day16 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day17 -  <a href="http://kerkerj.github.io/">#</a><br/>
@@ -107,6 +107,272 @@ Day27 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day28 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day29 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day30 -  <a href="http://kerkerj.github.io/">#</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Swift-d14] - Basic - Navigation View 2 + ViewController]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/14/swift-d14/"/>
+    <updated>2014-10-14T22:40:36+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/14/swift-d14</id>
+    <content type="html"><![CDATA[<p>延續昨天的主題，今天我們要做的事情是：</p>
+
+<ol>
+<li>爲新的 ViewController 實際加入程式碼 (ViewController2.swift)</li>
+<li>加入一個 button 來控制是否前進下一頁或後退</li>
+</ol>
+
+
+<p>我們先新增一個檔案:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.04.30.png" alt="image" /></p>
+
+<p>接著選擇 CocoaTouch Class:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.05.56.png" alt="image" /></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.06.45.png" alt="image" /></p>
+
+<p>回到 storyboard, 選擇第二個 ViewController</p>
+
+<p>並按照下圖，將 Class 指定給 View2Controller</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.07.15.png" alt="image" /></p>
+
+<p>這樣子 storyboard 的 View2 就會指定到 View2Controller 了</p>
+
+<p>我們在 View2Controller 的 viewDidLoad 方法中加入一行程式碼</p>
+
+<p>來驗證他是否有吃到 View2Controller</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="nb">self</span><span class="p">.</span><span class="n">title</span> <span class="o">=</span> <span class="s">&quot;View2 by me&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Run 起來看的話就會是這樣:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.10.52.png" alt="image" /></p>
+
+<p>的確是有吃到程式碼的</p>
+
+<p>再來就是要加入按鈕了:</p>
+
+<p>我們先拉一個 Button 進 View2Controller</p>
+
+<p>並且將該 Button 拉進 View2Controller 的 code</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.11.41.png" alt="image" /></p>
+
+<p>設定該 button 爲 Action, 並且名稱是 &lsquo;backToView&rsquo;</p>
+
+<p>意即我們要讓點下 View2Controller 的 Button 行為為回到上一個 View</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.12.50.png" alt="image" /></p>
+
+<p>另外對 View2 為他加入一個 storyboard ID, View2，等等會用到:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.20.21.png" alt="image" /></p>
+
+<p>View1 同樣也加入一個 Button, 並且也是拉到 View1 的 code 中，</p>
+
+<p>同樣是設定 Action ，action name 定義為 &lsquo;goView2&rsquo;</p>
+
+<p>就是按下 button 後會到 View2</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.13.59.png" alt="image" /></p>
+
+<p>接著我們分別在 ViewController 及 View2Controller 的程式碼中加入以下程式碼:</p>
+
+<p>View1 -</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.15.48.png" alt="image" /></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="p">@</span><span class="kt">IBAction</span> <span class="k">func</span> <span class="n">goView2</span><span class="p">(</span><span class="nl">sender</span><span class="p">:</span> <span class="n">AnyObject</span><span class="p">){</span>
+</span><span class='line'><span class="nb">self</span><span class="p">.</span><span class="n">navigationController</span><span class="o">?</span><span class="p">.</span><span class="n">pushViewController</span><span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">storyboard</span><span class="o">?</span><span class="p">.</span><span class="n">instantiateViewControllerWithIdentifier</span><span class="p">(</span><span class="s">&quot;View2&quot;</span><span class="p">)</span> <span class="kt">as</span> <span class="n">View2Controller</span><span class="p">,</span> <span class="nl">animated</span><span class="p">:</span> <span class="nb">true</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>View2 -</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.15.56.png" alt="image" /></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="p">@</span><span class="kt">IBAction</span> <span class="k">func</span> <span class="n">backToView</span><span class="p">(</span><span class="nl">sender</span><span class="p">:</span> <span class="n">AnyObject</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nb">self</span><span class="p">.</span><span class="n">navigationController</span><span class="o">?</span><span class="p">.</span><span class="n">popViewControllerAnimated</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在這邊 Navigation 用到的是 Push, Pop 的概念，使用 View stack</p>
+
+<p>進到下一個 View 時，就 push 欲前往的 View</p>
+
+<p>回到上一個 View 時，就 pop 出上一個 View</p>
+
+<p>在 goView2 中，我們使用到了 storyboard 的 identifier</p>
+
+<p>先讓 storyboard 抓有沒有 identifier 名為 &ldquo;View2&rdquo; 的物件</p>
+
+<p>有的話就抓起來，並且使用 as 轉型成 View2Controller, push 進 stack</p>
+
+<p>做完上述事情後，執行程式碼就可以看到結果囉!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[API-d14] - [Javascript 番外篇] Javascript Function Scopes 和 Closures]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/14/api-d14/"/>
+    <updated>2014-10-14T22:40:32+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/14/api-d14</id>
+    <content type="html"><![CDATA[<p>這幾天會探討 javascript 的特性，由於比較少在寫 js ，因此有錯請指正</p>
+
+<h2>Scope</h2>
+
+<p>例子:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">hi</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">greetings</span> <span class="o">=</span> <span class="s2">&quot;hi&quot;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Say: &quot;</span> <span class="o">+</span> <span class="nx">greetings</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">function</span> <span class="nx">sayYa</span><span class="p">(</span><span class="nx">newInput</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">greetings</span> <span class="o">=</span> <span class="nx">newInput</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Say: &quot;</span> <span class="o">+</span> <span class="nx">greetings</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">function</span> <span class="nx">sayCool</span><span class="p">(</span><span class="nx">newInput</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="kd">var</span> <span class="nx">cool</span> <span class="o">=</span> <span class="nx">newInput</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Say: &quot;</span> <span class="o">+</span> <span class="nx">cool</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">sayYa</span><span class="p">(</span><span class="s2">&quot;Yo&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">sayCool</span><span class="p">(</span><span class="s2">&quot;Cool&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Say: &quot;</span> <span class="o">+</span> <span class="nx">greetings</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">hi</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>很簡單的概念</p>
+
+<p>greetins 在 sayYa 方法中被覆寫掉了</p>
+
+<p>如果要定義 local 變數必須在 function 裏用 var 定義</p>
+
+<p>例如 sayCool function</p>
+
+<h2>Closure</h2>
+
+<p>例子:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">person</span><span class="p">(){</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="s1">&#39;default&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">greetings</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">name</span> <span class="p">);</span>
+</span><span class='line'>        <span class="p">},</span>
+</span><span class='line'>        <span class="nx">changeName</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">newInput</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nx">name</span> <span class="o">=</span> <span class="nx">newInput</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">me</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">person</span><span class="p">();</span>
+</span><span class='line'><span class="nx">me</span><span class="p">.</span><span class="nx">greetings</span><span class="p">();</span>
+</span><span class='line'><span class="nx">me</span><span class="p">.</span><span class="nx">changeName</span><span class="p">(</span><span class="s2">&quot;kerkerj&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="nx">me</span><span class="p">.</span><span class="nx">greetings</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Self-Executing Anonymous Functions</h2>
+
+<p>使用這種方式通常是避免和其他 js 檔案造成變數混淆</p>
+
+<p>或是初始化</p>
+
+<p>裡面的變數和 function 只被限制在這個範圍內</p>
+
+<p>例子:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">hi</span> <span class="o">=</span> <span class="s1">&#39;Hello&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">function</span> <span class="nx">sayHi</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nx">hi</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="nx">name</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">global</span><span class="p">.</span><span class="nx">greetings</span> <span class="o">=</span> <span class="nx">sayHi</span>
+</span><span class='line'><span class="p">})(</span><span class="nx">global</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">global</span><span class="p">.</span><span class="nx">greetings</span><span class="p">(</span><span class="s2">&quot;kerkerj&quot;</span><span class="p">));</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">hi</span><span class="p">);</span> <span class="c1">// &lt;- 這會失敗</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>必須將 sayHi 指給 global 的某一個變數, 才有辦法使用它</p>
+
+<p>在 node.js 中 global 是全域變數，在瀏覽器中是 window~</p>
 ]]></content>
   </entry>
   
@@ -3643,324 +3909,6 @@ response 則是 server 要回丟給 client 的訊息，<br/>
 </span><span class='line'><span class="c1">// 5 is a prime, also an integer.</span>
 </span></code></pre></td></tr></table></div></figure>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[API-d5] - [Server 番外篇] 建立自己的本機虛擬伺服器 1 - Vagrant + VirtualBox 安裝]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/05/api-d5/"/>
-    <updated>2014-10-05T16:40:18+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/05/api-d5</id>
-    <content type="html"><![CDATA[<p>VirtualBox 是一套虛擬軟體，可以方便幫助我們在現有的作業系統上</p>
-
-<p>模擬另一個作業系統 (如 linux, Ubuntu, CentOS&hellip;)</p>
-
-<p>在虛擬機器裡面所以的一切變動，都不會影響到現有的作業系統，</p>
-
-<p>非常適合拿來做測試使用</p>
-
-<p>由於現在大部份的 Service 除了架設在 Windows Server 外，最大宗的就是 *nix distribution 了</p>
-
-<p>因此這在這個系列文中，也是一定要教大家如何建立起虛擬測試機器，</p>
-
-<p>來模擬真實 Server 環境中，如何架設自己撰寫的 API Service</p>
-
-<h2>VirtualBox</h2>
-
-<p>到 <a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a> 官方網站下載合適的安裝檔案吧!</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-04%2012.56.26.png" alt="p1" /></p>
-
-<p>安裝完成就可以了!</p>
-
-<p>因為我們接下來會使用 Vagrant 這套 commaond line tool 來對 VirtualBox 進行操作</p>
-
-<p>因此只要安裝完 VirtualBox 後就可以不用管他了 XD</p>
-
-<h2>Vagrant</h2>
-
-<p><a href="https://www.vagrantup.com/">Vagrant</a></p>
-
-<p>它可以幫助我們快速的建立一個輕量、可重複使用、並且可以打包起來帶著走的環境</p>
-
-<p>透過編輯一個設定檔，就可以簡單設定該虛擬系統的 *nix 基本設定，如 共享資料夾、網路存取等等，</p>
-
-<p>不需要透過 VirtualBox</p>
-
-<p>通常這套軟體可以應用在團隊開發上：</p>
-
-<p>以網頁開發來說，如果大家的測試環境與版本都不太一樣，例如 apache 或 php 版本不同</p>
-
-<p>有時候會造成團隊溝通的負擔，因此透過 Vagrant 將 server 環境重新建立一套虛擬機器，</p>
-
-<p>並且透過 Vagrant 打包，就可以丟給其他人使用，這樣一來大家的環境都一樣，</p>
-
-<p>就可以避免這個問題，</p>
-
-<p>而且還有一點，Server 的安裝是很累人的，同樣的事情基本上都不會想做第二遍，</p>
-
-<p>因此打包一個乾淨的環境後備份，弄髒了可以隨時快速再把備份拿出來用，非常方便！</p>
-
-<h3>安裝:</h3>
-
-<p>到 <a href="https://www.vagrantup.com/downloads">下載頁面</a> 尋找適合自己的下載並且安裝</p>
-
-<p>安裝完後應該就可以在終端機中使用 vagrant 這個指令了!</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ vagrant -v
-</span><span class='line'>Vagrant 1.6.5</span></code></pre></td></tr></table></div></figure>
-
-
-<p>目前最新的版本應該是 1.6.5</p>
-
-<h3>建立自己的虛擬機器</h3>
-
-<p>首先在自己想要建立虛擬機器的地方先開一個資料夾</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ mkdir ~/ithome/ </span></code></pre></td></tr></table></div></figure>
-
-
-<p>切換到該資料夾</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd ~/ithome</span></code></pre></td></tr></table></div></figure>
-
-
-<p>使用 vagrant 初始化這個資料夾，並且指定我們要使用 Ubuntu 14.04 版本</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ vagrant init ubuntu/trusty64
-</span><span class='line'>A `Vagrantfile` has been placed in this directory. You are now
-</span><span class='line'>ready to `vagrant up` your first virtual environment! Please read
-</span><span class='line'>the comments in the Vagrantfile as well as documentation on
-</span><span class='line'>`vagrantup.com` for more information on using Vagrant.</span></code></pre></td></tr></table></div></figure>
-
-
-<p>如果想要使用別種 *nix 版本可以到這裡找 - <a href="https://vagrantcloud.com/discover/featured">VagrantCloud</a></p>
-
-<p>下完 <code>vagrant init ubuntu/trusty64</code> 指令後，指令告訴你有一個檔案叫做 <code>Vagrantfile</code> 被建立在這個資料夾裡了，</p>
-
-<p>可以使用 <code>vagrant up</code> 來開啟虛擬機器</p>
-
-<p>不過我們先不要下開機指令，我們先來看看 <code>Vagrantfile</code> 的內容，我直接把比較重要的設定說明寫在註解裡面了：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>  ...
-</span><span class='line'>  
-</span><span class='line'>  // 此行是說明要使用哪一個 box ，會到自己的系統裡面尋找，如果沒有的話就會下載一個
-</span><span class='line'>  // 由於我們剛剛是使用 VagrantCloud 找的版本，因此 vagrant 會去找 
-</span><span class='line'>  config.vm.box = "ubuntu/trusty64"
-</span><span class='line'>
-</span><span class='line'>  // 這個是設定網路
-</span><span class='line'>  // 預設是 NAT，也就是如果我們在虛擬機器裝了網頁伺服器，
-</span><span class='line'>  // 必須使用 port forwarding 的方式來讀到虛擬機器裡面的網頁 
-</span><span class='line'>  #config.vm.network "forwarded_port", guest: 80, host: 8080
-</span><span class='line'>
-</span><span class='line'>  // Important! 
-</span><span class='line'>  // 承上，或者我們可以使用一個 private network ip，我們把它開啟註解吧~
-</span><span class='line'>  // 這樣我們開啟虛擬機器時，他的 IP 就會是 192.168.33.10
-</span><span class='line'>  config.vm.network "private_network", ip: "192.168.33.10"
-</span><span class='line'>
-</span><span class='line'>  // 開啟註解的話，就是直接使用 bridge 的方式，如果是使用分享器的話
-</span><span class='line'>  // 虛擬機會到分享器要一個 IP 
-</span><span class='line'>  # config.vm.network "public_network"
-</span><span class='line'>  
-</span><span class='line'>  // 這個是設定共享資料夾
-</span><span class='line'>  // 預設是放 Vagrantfile 的那個資料夾
-</span><span class='line'>  // 在這個資料夾放檔案的話，在虛擬機器裡的 '/vagrant/' 資料夾是可以看到的!!
-</span><span class='line'>  // 如果有想要指定到特殊的資料夾，再編輯此行並開啟註解即可
-</span><span class='line'>  # config.vm.synced_folder "../data", "/vagrant_data"
-</span><span class='line'>
-</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
-
-
-<p>再來就讓它開機吧!</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ vagrant up </span></code></pre></td></tr></table></div></figure>
-
-
-<p>如果沒有下載過 ubuntu 系統的話，會先幫你下載，所以需要等待一些時間</p>
-
-<p>若看到終端機說系統已經建立完成，</p>
-
-<p>就可以連線進去了!</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ vagrant ssh
-</span><span class='line'>.....
-</span><span class='line'>vagrant@vagrant-ubuntu-trusty-64:~$ </span></code></pre></td></tr></table></div></figure>
-
-
-<p>就會發現終端機的 prompt 已經不一樣了，變成 ubuntu-trusty-64 ，表示我們已經進入虛擬機器裡面了</p>
-
-<p>由於今天的內容只會先到這，關於 Ubuntu 的設定是明天，所以記得離開虛擬機器並且幫他關機 XDD</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>// 如果剛剛有進入虛擬機器的話，輸入 exit 離開
-</span><span class='line'>$ exit</span></code></pre></td></tr></table></div></figure>
-
-
-<p>再下關機指令:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ vagrant halt </span></code></pre></td></tr></table></div></figure>
-
-
-<p>虛擬機器就被關起來了!</p>
-
-<p>順帶一提</p>
-
-<p>如果在虛擬機器開機時，需要更改 Vagrantfile 的設定，</p>
-
-<p>改完後虛擬機器必須要重新開啟才會讀到新的設定</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ vagrant reload</span></code></pre></td></tr></table></div></figure>
-
-
-<p>下回待續!!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[Swift-d4] - Playground - Optional, ! And ?]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/04/swift-d4/"/>
-    <updated>2014-10-04T18:53:03+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/04/swift-d4</id>
-    <content type="html"><![CDATA[<h1>Playground - Optional, ! and ?</h1>
-
-<p>今天要來探討 Optional 型別，我認為這塊是初學 Swift 常遇到的問題<br/>
-大家搞不懂 &ldquo;!&rdquo; &ldquo;?&rdquo; 到底在幹什麼，所以今天就來了解一下</p>
-
-<p>在 Swift 中，所有的資料型別都不能賦予 nil<br/>
-也就是以下這件事是不成立的：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="k">var</span> <span class="nl">x</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="s">&quot;test&quot;</span>
-</span><span class='line'><span class="n">x</span> <span class="o">=</span> <span class="nb">nil</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>所以在 Swift 底下，就要使用 Optional 來處理值可能不存在的情況<br/>
-當一個變數 x 被宣告成 Optional 型別時，該變數就會有兩個情況：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="mf">1.</span> <span class="err">有值，等於</span> <span class="n">x</span>
-</span><span class='line'><span class="mf">2.</span> <span class="err">沒有值</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>要宣告一個變數可能為 nil 時的方式是使用問號 &lsquo;?&#8217;：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="c1">// 此時 x = &quot;yaya&quot;</span>
-</span><span class='line'><span class="k">var</span> <span class="nl">x</span><span class="p">:</span> <span class="n">String</span><span class="o">?</span> <span class="o">=</span> <span class="s">&quot;yaya&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// 此時 x 沒有值</span>
-</span><span class='line'><span class="n">x</span> <span class="o">=</span> <span class="nb">nil</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>拿以下程式在 Playground 執行看看：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="k">var</span> <span class="nl">str</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
-</span><span class='line'><span class="n">str</span> <span class="o">=</span> <span class="s">&quot;yaya&quot;</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">var</span> <span class="nl">str2</span><span class="p">:</span> <span class="n">String</span><span class="o">?</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str2</span><span class="p">)</span>
-</span><span class='line'><span class="n">str2</span> <span class="o">=</span> <span class="s">&quot;yaya&quot;</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str2</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>可以看一下 Playground 右邊的輸出框，觀察兩個 string 的差異<br/>
-當 str2 被賦予 Optional 型別後，<br/>
-str2  已經不是單純的 String 型別了，</p>
-
-<p>那如何強制以 String 型別拿到 str2 的資料呢?
-試著在 str2 後面加上驚嘆號，並觀察右方輸出結果:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str2</span><span class="o">!</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>請注意！若要強制取值，一定要確保此 Optional 型別中一定有值，
-否則將會導致執行錯誤，以下是錯誤範例：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="k">var</span> <span class="nl">str2</span><span class="p">:</span> <span class="n">String</span><span class="o">?</span> <span class="o">=</span> <span class="s">&quot;yaya&quot;</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str2</span><span class="p">)</span>
-</span><span class='line'><span class="n">str2</span> <span class="o">=</span> <span class="nb">nil</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str2</span><span class="o">!</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>程式將會在第四行返回錯誤，因此使用驚嘆號強制取值前請先確保 Optional 裡有值。</p>
-
-<p>在 Objective-C 中，nil 是指向一個不存在物件的指標；
-而 Swift 中，nil 是一種非常明確地值 － 他就是代表「不存在」。</p>
-
-<p>在 Playground 中多試試看囉~~</p>
-
-<p>ps. Swift 的 ? 和 Ruby 的 ? 是完全不同意思的XD</p>
 ]]></content>
   </entry>
   

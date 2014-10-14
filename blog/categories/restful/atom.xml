@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Restful | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/restful/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-13T23:26:33+08:00</updated>
+  <updated>2014-10-14T22:44:56+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,102 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[API-d14] - [Javascript 番外篇] Javascript Function Scopes 和 Closures]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/14/api-d14/"/>
+    <updated>2014-10-14T22:40:32+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/14/api-d14</id>
+    <content type="html"><![CDATA[<p>這幾天會探討 javascript 的特性，由於比較少在寫 js ，因此有錯請指正</p>
+
+<h2>Scope</h2>
+
+<p>例子:</p>
+
+<pre><code class="javascript">function hi() {
+    var greetings = "hi";
+
+    console.log("Say: " + greetings);
+
+    function sayYa(newInput) {
+        greetings = newInput;
+        console.log("Say: " + greetings);
+    }
+
+    function sayCool(newInput) {
+        var cool = newInput;
+        console.log("Say: " + cool);
+    }
+
+    sayYa("Yo");
+    sayCool("Cool");
+
+    console.log("Say: " + greetings);
+}
+
+hi();
+</code></pre>
+
+<p>很簡單的概念</p>
+
+<p>greetins 在 sayYa 方法中被覆寫掉了</p>
+
+<p>如果要定義 local 變數必須在 function 裏用 var 定義</p>
+
+<p>例如 sayCool function</p>
+
+<h2>Closure</h2>
+
+<p>例子:</p>
+
+<pre><code>function person(){
+    var name = 'default';
+
+    return {
+        greetings: function() {
+            console.log( name );
+        },
+        changeName: function(newInput) {
+            name = newInput;
+        }
+    };
+}
+
+var me = new person();
+me.greetings();
+me.changeName("kerkerj");
+me.greetings();
+</code></pre>
+
+<h2>Self-Executing Anonymous Functions</h2>
+
+<p>使用這種方式通常是避免和其他 js 檔案造成變數混淆</p>
+
+<p>或是初始化</p>
+
+<p>裡面的變數和 function 只被限制在這個範圍內</p>
+
+<p>例子:</p>
+
+<pre><code>(function(){
+    var hi = 'Hello';
+
+    function sayHi(name){
+        return hi + ' ' + name;
+    }
+
+    global.greetings = sayHi
+})(global);
+
+console.log(global.greetings("kerkerj"));
+console.log(hi); // &lt;- 這會失敗
+</code></pre>
+
+<p>必須將 sayHi 指給 global 的某一個變數, 才有辦法使用它</p>
+
+<p>在 node.js 中 global 是全域變數，在瀏覽器中是 window~</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[API-d13] - [Javascript 番外篇] Javascript Require/ Module/ Module Pattern]]></title>
@@ -646,233 +742,6 @@ $ express /tmp/foo &amp;&amp; cd /tmp/foo
 </code></pre>
 
 <p>下一篇會講解如何簡單操作 MongoDB!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[API-d9] - NVM 與 NPM 使用]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/09/api-d9/"/>
-    <updated>2014-10-09T21:46:12+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/09/api-d9</id>
-    <content type="html"><![CDATA[<h1>NVM 與 NPM 使用</h1>
-
-<h2>NVM - Node.js Version Manager</h2>
-
-<h3>安裝</h3>
-
-<p>如果是 Ubuntu 的話必須先要有 <code>build-essential</code> 和 <code>libssl-dev</code> 套件</p>
-
-<p>不過這個我們之前就裝過了，所以直接安裝 NVM 吧~</p>
-
-<pre><code>$ curl https://raw.githubusercontent.com/creationix/nvm/v0.17.2/install.sh | bash
-$ source ~/.bashrc
-</code></pre>
-
-<h3>使用 NVM 安裝 node.js</h3>
-
-<p>先前我們有使用 Ubuntu 本身的 apt-get 安裝 Node.js</p>
-
-<p>不過那是被安裝到 /usr/bin/node</p>
-
-<p>有時候要安裝套件需要 sudo 提供管理者權限</p>
-
-<p>非常麻煩，因此我們使用 NVM 來安裝另一個 Node.js</p>
-
-<p>這個 Node.js 的執行檔就任我們使用，不需要提供管理者權限了</p>
-
-<pre><code>$ nvm install 0.10
-</code></pre>
-
-<p>nvm 就會安裝 0.10 版本，安裝完後就要使用它：</p>
-
-<pre><code>$ nvm use 0.10
-</code></pre>
-
-<p>再來我們把 nvm 的 node.js 設定成預設的 node</p>
-
-<p>否則重開機後，node 指令會變回原本系統的 node</p>
-
-<pre><code>$ nvm alias default 0.10
-</code></pre>
-
-<p>我們觀察一下現在使用的 node 指令是哪裡來的:</p>
-
-<pre><code>$ which node
-/home/vagrant/.nvm/v0.10.32/bin/node
-</code></pre>
-
-<p>Good! 他已經被安裝到我們使用者目錄底下了</p>
-
-<p>原本的系統 Node.js 是在 <code>/usr/bin/node</code></p>
-
-<p>如果要切換回系統的 Node.js:</p>
-
-<pre><code>$ nvm use system
-Now using system version of node: v0.10.32.
-
-// 看一下現在使用 node 的路徑
-$ which node
-/usr/bin/node
-</code></pre>
-
-<h2>NPM - Node.js Package Manager</h2>
-
-<p>NPM 顧名思義就是 node.js 的套件管理系統，</p>
-
-<p>世界上有許許多多的開發者為 Node.js 開發了許許多多的套件，</p>
-
-<p>我們受惠于此，也不用再自己造輪子，拿這些佛心的大大的套件來使用，打造出我們想要的服務，</p>
-
-<p>像我們接下來會使用的 Express 和 Mongodb 的 driver 都是別人寫好開放出來給大家用的！</p>
-
-<p>下面簡單介紹 NPM 的使用方式</p>
-
-<h3>初始化專案資料夾</h3>
-
-<pre><code>$ npm init 
-</code></pre>
-
-<p>終端機會詢問各種問題來幫忙建立 package.json 的檔案</p>
-
-<p>是在資料夾中建立專案前必下的指令</p>
-
-<p>並且，使用 package.json 有個好處</p>
-
-<p>只要將 package.json 給其他人</p>
-
-<p>其他人只需要將 package.json 放到某個資料夾</p>
-
-<p>並下:</p>
-
-<pre><code>$ npm install
-</code></pre>
-
-<p>就會在該資料夾安裝 package.json 中列出的所有套件</p>
-
-<p>就不需要一個一個尋找及安裝，非常方便！</p>
-
-<h3>安裝套件</h3>
-
-<pre><code>// 安裝全域套件
-$ npm install [套件名稱] -g
-
-// 安裝套件在專案資料夾 
-// 會安裝在目前所在的資料夾，所以要下此指令必須先確認自己是否在專案根目錄
-$ npm install [套件名稱]
-
-// 通常專案資料夾底下都會有一個 package.json 來管理套件相依性
-// 如果在專案資料夾底下下此指令，會將你所安裝的套件加入 package.json 中
-// 一樣也是要先確認自己是否在專案目錄底下
-$ npm install [套件名稱] -save
-</code></pre>
-
-<h3>移除套件</h3>
-
-<pre><code>// 移除全域套件
-$ npm uninstall [套件名稱] -g
-
-// 移除在專案資料夾的某個套件 
-// 會移除在目前所在的資料夾某個套件，所以要下此指令必須先確認自己是否在專案根目錄
-$ npm uninstall [套件名稱]
-
-// 通常專案資料夾底下都會有一個 package.json 來管理套件相依性
-// 如果在專案資料夾底下下此指令，會將你所移除的套件從 package.json 中刪除
-// 一樣也是要先確認自己是否在專案目錄底下
-$ npm uninstall [套件名稱] -save
-</code></pre>
-
-<h3>列出套件</h3>
-
-<pre><code>// 列出全域套件
-$ npm ls -g
-
-// 列出全域套件詳細資訊
-$ npm ls -gl
-
-// 在專案資料夾底下：
-
-// 列出專案資料夾的套件
-$ npm ls 
-
-// 列出專案資料夾的詳細套件資訊
-$ npm ls -l
-</code></pre>
-
-<h3>更新套件</h3>
-
-<pre><code>// 更新全域套件
-$ npm update -g
-
-// 在專案資料夾底下：
-
-// 更新專案套件
-$ npm update 
-</code></pre>
-
-<h3>搜尋套件</h3>
-
-<pre><code>$ npm search [套件名稱]
-</code></pre>
-
-<h2>注意!!</h2>
-
-<p>請注意，使用系統 Node.js 的 npm 所安裝的套件，是屬於系統 Node.js 的</p>
-
-<p>切換到使用者目錄底下的 Node.js 時，是不會共用系統 npm 的套件的</p>
-
-<p>請注意這一點，接下來我們都會使用 nvm 的 node.js</p>
-
-<p>我們可以透過以下例子來驗證:</p>
-
-<pre><code>// 使用系統 node.js
-$ nvm use system
-Now using system version of node: v0.10.32.
-
-// 查看 npm 全域套件
-$ npm list -g  
-/usr/lib
-├─┬ express@4.9.5
-│ ├─┬ accepts@1.1.1
-│ │ ├─┬ mime-types@2.0.2
-│ │ │ └── mime-db@1.1.0
-│ │ └── negotiator@0.4.8
-....
-
-// 使用 nvm node.js
-$ nvm use 0.10
-Now using node v0.10.32
-
-// 查看 npm 全域套件
-$ npm list -g 
-/home/vagrant/.nvm/v0.10.32/lib
-└─┬ npm@1.4.28
-  ├── abbrev@1.0.5
-  ├── ansi@0.3.0
-  ├── ansicolors@0.3.2
-  ├── ansistyles@0.1.3
-  ├── archy@0.0.2
-  ├── block-stream@0.0.7
-  ├── char-spinner@1.0.1
-  ├── child-process-close@0.1.1
-  ├── chmodr@0.1.0
-...
-</code></pre>
-
-<p>主要差別就在於 列出全域套件時，還會提醒你這些套件裝在哪裡，如果不是裝在使用者目錄底下，</p>
-
-<p>表示現在用的是系統的 Node.js</p>
-
-<p>因此發現自己不對了就快換回來吧，如果系統裝爛了，也可以利用先前打包的 box 還原哦!</p>
-
-<h2>怎麼找套件?</h2>
-
-<p>套件那麼多，我要到哪裡找？</p>
-
-<p>除了根據自己的需求 Google 外，</p>
-
-<p>下面是 Node.js module 的官方網站: <a href="https://nodejsmodules.org/">https://nodejsmodules.org/</a></p>
-
-<p>有做最受歡迎的套件排名，進去瀏覽一下，有時候會發現一些好用的套件哦!</p>
 ]]></content>
   </entry>
   
