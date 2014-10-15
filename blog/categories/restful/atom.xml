@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Restful | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/restful/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-14T22:44:56+08:00</updated>
+  <updated>2014-10-15T18:37:51+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,199 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[API-d15] - [Javascript 番外篇] Javascript Callback, Event]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/15/api-d15/"/>
+    <updated>2014-10-15T18:34:37+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/15/api-d15</id>
+    <content type="html"><![CDATA[<p>這幾天會探討 javascript 的特性，由於比較少在寫 js ，因此有錯請指正</p>
+
+<p>javascript 有個特性：event</p>
+
+<p>意思就是說，javascript 中，所有的事情都是由事件驅動的</p>
+
+<p>如果說有寫過 web 前端的話，</p>
+
+<p>其實呼叫 button.click function 時</p>
+
+<p>並不會馬上執行 click 裡面的動作</p>
+
+<p>而是加了一個 click 的 listener</p>
+
+<p>等到 button 被 click 後，才會執行 click 裡面的程式碼</p>
+
+<p>所以寫習慣一般 procedure 的程式會有點不太習慣</p>
+
+<p>舉個 procedure 的例子，下面有五件事想要做：</p>
+
+<pre><code class="javascript">煮飯(); // 10 分鐘
+
+接電話(); // 1 分鐘
+
+吃麵(); // 5 分鐘
+
+丟垃圾(); // 7 分鐘
+</code></pre>
+
+<p>一般的程式會是照順序執行</p>
+
+<p>也就是 煮飯完 -> 接電話 -> 吃麵 -> 丟垃圾</p>
+
+<p>總執行時間 = 23 分鐘</p>
+
+<p>但是如果把這段 code 丟給 javascript 執行的話</p>
+
+<pre><code>煮飯(); // 10 分鐘
+
+接電話(); // 1 分鐘
+
+吃麵(); // 5 分鐘
+
+丟垃圾(); // 7 分鐘
+</code></pre>
+
+<p>就變成同時做煮飯，接電話，吃麵，丟垃圾了！</p>
+
+<p>為了要預防這件事，有些事情還是有順序性的，</p>
+
+<p>因此就要使用到 javascript callback 的特性</p>
+
+<pre><code>煮飯(function() {
+    吃飯(function() {
+        接電話(function() {
+            丟垃圾();
+        });
+    });
+});
+</code></pre>
+
+<p>意思就是煮飯完吃飯，吃完飯接電話，接完電話丟垃圾</p>
+
+<p>以下有一個範例：</p>
+
+<pre><code class="javascript">function wash() {
+    setTimeout(function() {
+        console.log("wash");
+    }, 1000);
+}
+
+function eat() {
+    setTimeout(function() {
+        console.log("eat");
+    }, 5000);
+}
+
+function running() {
+    setTimeout(function() {
+        console.log("running");
+    }, 3000);
+}
+
+function doHouseWork() {
+    wash();
+    eat();
+    running();
+}
+
+doHouseWork();
+</code></pre>
+
+<p>做家事執行了三件事，wash, eat, 和 running</p>
+
+<p>其中每件事都設定不同的完成時間</p>
+
+<p>以 procedure 的程式執行方式來看，在這邊用 ruby 舉例:</p>
+
+<pre><code class="ruby">def wash
+  sleep 1
+  puts "wash"
+end 
+
+def eat
+  sleep 5
+  puts "eat"
+end 
+
+def running 
+  sleep 3
+  puts "running"
+end 
+
+def doHouseWork 
+  wash
+  eat
+  running
+end 
+
+doHouseWork
+</code></pre>
+
+<p>是會 wash 1 秒後，接著 eat 5 秒，再 running 3 秒</p>
+
+<p>所以總共是 9 秒</p>
+
+<p>output 的順序會是:</p>
+
+<pre><code>wash // 1 秒
+eat // 5 秒
+running // 3 秒
+</code></pre>
+
+<p>但是在 javascript 中，output 的順序卻是:</p>
+
+<pre><code>wash // 1 秒
+running // 3 秒
+eat // 5 秒
+</code></pre>
+
+<p>所以總長度是 5 秒</p>
+
+<p>那今天假設想要讓 javascript 有順序性時該怎麼辦?</p>
+
+<p>拿上面的例子作修改的話:</p>
+
+<pre><code class="javascript">function wash(callback) {
+    setTimeout(function() {
+        console.log("wash");
+        callback.call();
+    }, 1000);
+}
+
+function eat(callback) {
+    setTimeout(function() {
+        console.log("eat");
+        callback.call();
+    }, 5000);
+}
+
+function running() {
+    setTimeout(function() {
+        console.log("running");
+    }, 3000);
+}
+
+function doHouseWork(callback) {
+    console.log("doing house work");
+    callback.call();
+}
+
+doHouseWork(function(){
+    wash(function() {
+        eat(function() {
+            running();
+        });
+    });
+});
+</code></pre>
+
+<p>很不錯的特性，但是也要特別對於這種特性作處理</p>
+
+<p>有個 lib 很好用，<code>async.js</code> <a href="https://github.com/caolan/async">來源</a></p>
+
+<p>下回待續!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[API-d14] - [Javascript 番外篇] Javascript Function Scopes 和 Closures]]></title>
@@ -594,154 +787,6 @@ WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
 <p><a href="http://docs.mongodb.org/manual/">MongoDB 官網文件</a>非常詳細，可以多看看</p>
 
 <p>明天會用 Node.js 的 MongoDB driver 來操作 MongoDB!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[API-d10] - Express - Hello World!]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/10/api-d10/"/>
-    <updated>2014-10-10T01:49:55+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/10/api-d10</id>
-    <content type="html"><![CDATA[<h1>Express - Hello World!</h1>
-
-<p>今天就要來安裝主角之一的 <a href="http://expressjs.com/">Express</a> 了!</p>
-
-<p>一樣開啟虛擬機器我應該是可以不用多說了 XD</p>
-
-<p>先確認自己的 node 是不是 NVM 的 node 喲</p>
-
-<h2>建立專案</h2>
-
-<pre><code>$ cd /vagrant/
-$ mkdir API
-$ cd API/
-$ npm init
-</code></pre>
-
-<p>自己輸入專案的相關內容吧，不知道的就直接按 enter 空白丟給他~</p>
-
-<p>就會產生 package.json 了!</p>
-
-<h2>安裝 Express</h2>
-
-<pre><code>// 在專案目錄底下 (/vagrant/API/)
-
-$ npm install express -save
-</code></pre>
-
-<p>下 <code>-save</code> 的原因是要將 express 加入 package.json 中</p>
-
-<p>離開虛擬機，其實我們也可以在虛擬機資料夾看到剛剛建立的專案了，</p>
-
-<p>現在開始就可以使用自己喜歡的編輯器來開啟這個專案資料夾，我個人偏好使用 Sublime Text</p>
-
-<p>要執行專案時再回終端機即可</p>
-
-<h2>Express Hello World!</h2>
-
-<p>在 API 資料夾中建立一個 app.js</p>
-
-<p>內容是:</p>
-
-<pre><code>javascript
-var express = require('express');
-var app = express();
-
-app.get('/', function(req, res){
-  res.send('Hello World');
-});
-
-app.listen(3000, function() {
-    console.log('Listening on port %d', server.address().port);
-});
-</code></pre>
-
-<p>儲存後，回到終端機，將 express 跑起來:</p>
-
-<pre><code>vagrant@vagrant-ubuntu-trusty-64:/vagrant/API$ node app.js
-Listening on port 3000
-</code></pre>
-
-<p>開啟瀏覽器，瀏覽 <code>http://192.168.33.10:3000</code> (url 視個人環境而定)</p>
-
-<p>出現 <code>Hello World! Express!</code> 啦～～ 又一個 Hello World 啦~~</p>
-
-<p>是不是有比 Node.js 的範例更簡潔一點呢?</p>
-
-<p>簡單分析一下這段 code :</p>
-
-<pre><code>// 引入 express module
-var express = require('express');
-
-// 產生一個 express instance - app
-var app = express();
-
-// Express 的重點所在! 稍後解釋
-app.get('/', function(req, res){
-  res.send('Hello World');
-});
-
-// 讓 express server 跑在 port 3000
-app.listen(3000, function() {
-    console.log('Listening on port %d', server.address().port);
-});
-</code></pre>
-
-<p>以上概念基本上都和 Node.js 概念差不多</p>
-
-<p>值得一提的是 Express 的 Routing:</p>
-
-<pre><code>app.get('/', function(req, res){
-  res.send('Hello World');
-});
-</code></pre>
-
-<p>最前面有提到 HTTP 的動詞 GET, POST, PUT, DELETE &hellip;</p>
-
-<p>在這邊就必須用上了！</p>
-
-<p>我們可以看一下 express 的 <a href="http://expressjs.com/4x/api.html#router.VERB">API reference</a></p>
-
-<p><code>app.get</code> 的 <code>.get</code> 就是代表 HTTP GET</p>
-
-<p>如果後面接 <code>.post</code> 就是 HTTP POST, 等等都同樣概念</p>
-
-<p><a href="http://expressjs.com/4x/api.html#router.VERB">API reference</a> 中提到，</p>
-
-<pre><code>router.VERB(path, [callback...], callback)
-</code></pre>
-
-<p><code>path</code> 的意思就是要開放給 client 的路由, 透過不同的路由導向不同的動作</p>
-
-<p>中間的 <code>[callback...]</code> 是 middleware 這個之後會再解釋</p>
-
-<p>最後一個 callback 是用來處理 request 及 response</p>
-
-<p>在這個例子中，client 並沒有丟參數，因此不需要對 request 作處理，</p>
-
-<p>而 server 要回應 response</p>
-
-<p>所以使用了 <code>res.send('Hello World');</code> 來回傳資料</p>
-
-<p>是不是很簡單勒!</p>
-
-<h2>專案產生器</h2>
-
-<p>或許有人會使用 <code>express-generator</code> 來產生 expresss 專案目錄</p>
-
-<p>雖然它很方便，一次建立好專案結構，並且安裝一些常用搭配的套件，</p>
-
-<p>但是由於在尚未了解 express 的運作原理，</p>
-
-<p>一開始一次建立完整我認為過快，因此先不建議這樣用，</p>
-
-<p>當然，如果已經很熟練很了解 express 中可以使用的東西了，使用產生器當然是節省時間囉~</p>
-
-<pre><code>$ npm install -g express-generator
-$ express /tmp/foo &amp;&amp; cd /tmp/foo
-</code></pre>
-
-<p>下一篇會講解如何簡單操作 MongoDB!</p>
 ]]></content>
   </entry>
   
