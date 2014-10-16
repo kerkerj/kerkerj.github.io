@@ -4,7 +4,7 @@
   <title><![CDATA[kerkerj]]></title>
   <link href="http://kerkerj.github.io/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-15T18:37:51+08:00</updated>
+  <updated>2014-10-16T18:44:48+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -59,7 +59,7 @@ Day12 -  <a href="http://kerkerj.github.io/blog/2014/10/12/api-d12/">[API-d12] -
 Day13 -  <a href="http://kerkerj.github.io/blog/2014/10/13/api-d13/">[API-d13] - [Javascript 番外篇] Javascript require/ module/ Module Pattern</a><br/>
 Day14 -  <a href="http://kerkerj.github.io/blog/2014/10/14/api-d14/">[API-d14] - [Javascript 番外篇] Javascript function scopes 和 closures</a><br/>
 Day15 -  <a href="http://kerkerj.github.io/blog/2014/10/15/api-d15/">[API-d15] - [Javascript 番外篇] Javascript callback, event</a><br/>
-Day16 -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day16 -  <a href="http://kerkerj.github.io/blog/2014/10/16/api-d16/">[API-d16] - 實戰開發 - 設定主題及規劃</a><br/>
 Day17 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day18 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day19 -  <a href="http://kerkerj.github.io/">#</a><br/>
@@ -92,7 +92,7 @@ Day12 -  <a href="http://kerkerj.github.io/blog/2014/10/12/swift-d12/">[Swift-d1
 Day13 -  <a href="http://kerkerj.github.io/blog/2014/10/13/swift-d13/">[Swift-d13] - Basic - Navigation View 1 + ViewController</a><br/>
 Day14 -  <a href="http://kerkerj.github.io/blog/2014/10/14/swift-d14/">[Swift-d14] - Basic - Navigation View 2 + ViewController</a><br/>
 Day15 -  <a href="http://kerkerj.github.io/blog/2014/10/15/swift-d15/">[Swift-d15] - Basic - Table View 1 直接給值 datasource, (table view scroll)</a><br/>
-Day16 -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day16 -  <a href="http://kerkerj.github.io/blog/2014/10/16/swift-d16/">[Swift-d16] - Basic - Table View 2 換頁 (delegate)</a><br/>
 Day17 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day18 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day19 -  <a href="http://kerkerj.github.io/">#</a><br/>
@@ -107,6 +107,226 @@ Day27 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day28 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day29 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day30 -  <a href="http://kerkerj.github.io/">#</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Swift-d16] - Basic - Table View 2 換頁 (Delegate)]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/16/swift-d16/"/>
+    <updated>2014-10-16T18:39:45+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/16/swift-d16</id>
+    <content type="html"><![CDATA[<p>昨天我們實際操作了 tableView 的實作，今天要加入換頁</p>
+
+<p>意思就是假設我點了名為 &ldquo;99&rdquo; 的 cell，點擊後會跳轉到另外一頁，同樣顯示 &ldquo;99&rdquo;</p>
+
+<p>所以除了跳頁外，還要加入值的傳遞</p>
+
+<p>首先打開昨天的專案，我們要繼續下去</p>
+
+<p>回到 storyboard 中，昨天我們加入了 dataSource，今天要加入 delegate:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.01.50.png" alt="image" /></p>
+
+<p>回到程式碼中 ViewController.swift</p>
+
+<p>在 class 的宣告再加上 UITableViewDataSource</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">class</span> <span class="nl">ViewController</span><span class="p">:</span> <span class="bp">UIViewController</span><span class="p">,</span> <span class="bp">UITableViewDataSource</span><span class="p">,</span> <span class="bp">UITableViewDelegate</span> <span class="p">{</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>再來就要設計換頁的流程了</p>
+
+<p>回到 storyboard</p>
+
+<p>拉一個新的 ViewController 到空白處</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.04.50.png" alt="image" /></p>
+
+<p>接著點擊左邊的 TableViewCell, 按住 ctrl + 拖曳，拉到剛剛建立的 ViewController 上</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.07.11.png" alt="image" /></p>
+
+<p>選擇 show detail</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.07.44.png" alt="image" /></p>
+
+<p>就會長這樣:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.06.55.png" alt="iamge" /></p>
+
+<p>再來新增一個 ViewController</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.09.15.png" alt="image" /></p>
+
+<p>接著讓新的 storyboard viewcontroller 連接到剛剛新增的 DetailViewController 程式碼</p>
+
+<p>記得先點選 ViewController</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.10.36.png" alt="image" /></p>
+
+<p>在 storyboard 的 DetailViewController 中拉一個 label</p>
+
+<p>並且將該 label 連接到 DetailViewController 的程式碼中</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.13.04.png" alt="image" /></p>
+
+<p>因此 DetailViewController 就會變這樣:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">class</span> <span class="nl">DetailViewController</span><span class="p">:</span> <span class="bp">UIViewController</span> <span class="p">{</span>
+</span><span class='line'>    <span class="p">@</span><span class="kt">IBOutlet</span> <span class="k">var</span> <span class="nl">label</span><span class="p">:</span> <span class="bp">UILabel</span><span class="o">!</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接著再來把 DetailViewController 加入兩行 code:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">class</span> <span class="nl">DetailViewController</span><span class="p">:</span> <span class="bp">UIViewController</span> <span class="p">{</span>
+</span><span class='line'>    <span class="p">@</span><span class="kt">IBOutlet</span> <span class="k">var</span> <span class="nl">label</span><span class="p">:</span> <span class="bp">UILabel</span><span class="o">!</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">var</span> <span class="nl">index</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kr">override</span> <span class="k">func</span> <span class="n">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nb">super</span><span class="p">.</span><span class="n">viewDidLoad</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// Do any additional setup after loading the view.</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">label</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="s">&quot;\(index)&quot;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>新增一個 index 變數，再來就是在 viewDidLoad 時，將該 label 的文字改成 index</p>
+
+<p>這個 index 的值會在 TableView 中傳遞給 DetailViewController</p>
+
+<p>接下來就要改變 index 的值了，回到 ViewController.swift 中</p>
+
+<p>加入以下程式碼:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">tableView</span><span class="p">(</span><span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="o">!</span><span class="p">,</span> <span class="n">didSelectRowAtIndexPath</span> <span class="nl">indexPath</span><span class="p">:</span> <span class="bp">NSIndexPath</span><span class="o">!</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">let</span> <span class="n">cell</span> <span class="o">=</span> <span class="n">tableView</span><span class="p">.</span><span class="n">cellForRowAtIndexPath</span><span class="p">(</span><span class="n">indexPath</span><span class="p">)</span>
+</span><span class='line'>  <span class="nb">self</span><span class="p">.</span><span class="n">performSegueWithIdentifier</span><span class="p">(</span><span class="s">&quot;showDetail&quot;</span><span class="p">,</span> <span class="nl">sender</span><span class="p">:</span> <span class="n">cell</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kr">override</span> <span class="k">func</span> <span class="nf">prepareForSegue</span><span class="p">(</span><span class="nl">segue</span><span class="p">:</span> <span class="bp">UIStoryboardSegue</span><span class="p">,</span> <span class="nl">sender</span><span class="p">:</span> <span class="n">AnyObject</span><span class="o">?</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">segue</span><span class="p">.</span><span class="n">identifier</span> <span class="o">==</span> <span class="s">&quot;showDetail&quot;</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">let</span> <span class="n">indexPath</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">tableSample</span><span class="p">.</span><span class="n">indexPathForSelectedRow</span><span class="p">()</span><span class="o">?</span><span class="p">.</span><span class="n">row</span>
+</span><span class='line'>  <span class="p">((</span><span class="n">segue</span><span class="p">.</span><span class="n">destinationViewController</span><span class="p">)</span> <span class="kt">as</span> <span class="n">DetailViewController</span><span class="p">).</span><span class="n">index</span><span class="o">=</span><span class="n">indexPath</span><span class="o">!</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>大家可能會覺得好奇裡頭有個 identifier 叫做 &lsquo;showDetail&#8217;，這個東西是自己自定的，一定要定，不然在傳遞時會不知道要抓哪個 segue</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.30.24.png" alt="image" /></p>
+
+<p>再來確認一下是否 dataSource 與 delegate 是否都有 reference 到</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.32.38.png" alt="image" /></p>
+
+<p>執行，就可以發現可以點進去了!</p>
+
+<p>不過因為我們還沒有和 NavigationView 做結合，因此要自己做按鈕點回去 XD</p>
+
+<p>在這邊就先不做了，因為明天就可以兩個結合起來了!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[API-d16] - 實戰開發 - 設定主題及規劃]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/16/api-d16/"/>
+    <updated>2014-10-16T18:39:40+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/16/api-d16</id>
+    <content type="html"><![CDATA[<p>接下來我們想要做到的是一個 TODO list 的 RESTful API</p>
+
+<p>並且會先使用 <a href="http://apiary.io/">apiary.io</a> 做規劃</p>
+
+<p>實際看看感覺如何</p>
+
+<p>進入網站後，註冊登入後</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-07%201.04.07.png" alt="image" /></p>
+
+<p>左上角的 dropdown list 選擇 create new API</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-07%201.04.18.png" alt="image" /></p>
+
+<p>產生後下方就會跑出範例文擋</p>
+
+<p>這個網站會透過特定格式的編排自己希望的 API endpoint 及範例回傳值後，產生出一份漂亮的文件</p>
+
+<p>網站中間是模式的選擇</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-07%201.10.33.png" alt="image" /></p>
+
+<p>Documentation 是實際讓其他人看的，Editor 則是編輯模式</p>
+
+<p>我們就稍微簡單規劃一下 TODO List 的 RESTful API 吧!</p>
+
+<p>這是我自己規劃的 <a href="http://docs.todolist7.apiary.io/">文件</a></p>
+
+<p>基本上 route 會長這個樣子:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>TODOs
+</span><span class='line'>GET /user/{user_id}/todos/
+</span><span class='line'>POST /user/{user_id}/todos/
+</span><span class='line'>GET /user/{user_id}/todos/{id}
+</span><span class='line'>PUT /user/{user_id}/todos/{id}
+</span><span class='line'>DELETE /user/{user_id}/todos/{id}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>資料格式也都在該文件整理好了</p>
+
+<p><code>/user/{user_id}/</code> 只是用來辨識是哪個 user 的 todo task data</p>
+
+<p>在這個小 API 不會琢磨在使用者系統的建立，只會專注在操作 todo task data</p>
+
+<p>我們可以直接透過 PostMan 來丟丟看</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-07%201.43.06.png" alt="image" /></p>
+
+<p>我們設定必須要使用 API-key 才能存取 API，比較進階的做法就是使用 Oauth 的方式取得 token 來存取 API</p>
+
+<p>不過在這個小 API 也不會建立一個 Oauth Server，我們簡單使用 API-key 來認證即可</p>
+
+<p>接下來的時間我們就會開始依據規劃好的文件，使用 Node.js + express + mongodb 來實作囉!</p>
 ]]></content>
   </entry>
   
@@ -3254,562 +3474,6 @@ response 則是 server 要回丟給 client 的訊息，<br/>
 <p>而處理的方法則是將 Int 的每個位數分別轉換成 String 連接起來再回傳</p>
 
 <p>很方便的方法!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[API-d7] - [Server 番外篇] 建立自己的本機虛擬伺服器 3 - 打包環境]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/07/api-d7/"/>
-    <updated>2014-10-07T19:12:40+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/07/api-d7</id>
-    <content type="html"><![CDATA[<p>昨天我們已經把一個全新乾淨的環境架起來了</p>
-
-<p>這時候我們不希望因為日後的操作導致 Server 環境髒掉，又要重灌</p>
-
-<p>因此我們今天就來練習一下如何使用 vagrant 打包環境!</p>
-
-<h2>Vagrant 打包</h2>
-
-<p>一樣先進入虛擬機資料夾，先確保虛擬機沒有在運作:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ vagrant status
-</span><span class='line'>Current machine states:
-</span><span class='line'>
-</span><span class='line'>default                   poweroff (virtualbox)
-</span><span class='line'>
-</span><span class='line'>The VM is powered off. To restart the VM, simply run `vagrant up`</span></code></pre></td></tr></table></div></figure>
-
-
-<p>如果是 poweroff 的話，就可以進行接下來的動作，如果是其他狀態的話，就先下關機指令囉</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ vagrant package
-</span><span class='line'>==&gt; default: Clearing any previously set forwarded ports...
-</span><span class='line'>==&gt; default: Exporting VM...
-</span><span class='line'>==&gt; default: Compressing package to: /Users/.../ithome/package.box</span></code></pre></td></tr></table></div></figure>
-
-
-<p>vagrant 就會在虛擬機器資料夾底下建立一個 package.box</p>
-
-<p>這個檔案就是整個伺服器環境的檔案了!</p>
-
-<p>假設今天想要讓團隊成員使用，只要他們都有 VirtualBox + Vagrant 的話，</p>
-
-<p>就可以依循下面的指令步驟將你所做的 box 匯入並使用：</p>
-
-<p>首先我們可以先看看原本所使用的 box 清單:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ vagrant box list
-</span><span class='line'>ubuntu/trusty64                          (virtualbox, 14.04)</span></code></pre></td></tr></table></div></figure>
-
-
-<p>是 <code>ubuntu/trusty64</code> 沒錯！</p>
-
-<p>那麼我們現在想要加入剛剛所製作的 box ，並重新命名：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ vagrant box add my_box package.box
-</span><span class='line'>==&gt; box: Adding box 'my_box' (v0) for provider:
-</span><span class='line'>    box: Downloading: file:///Users/.../ithome/package.box
-</span><span class='line'>==&gt; box: Successfully added box 'my_box' (v0) for 'virtualbox'!</span></code></pre></td></tr></table></div></figure>
-
-
-<p>此時再看看 box 清單:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ vagrant box list
-</span><span class='line'>ubuntu/trusty64                          (virtualbox, 14.04)
-</span><span class='line'>my_box                                   (virtualbox, 0)</span></code></pre></td></tr></table></div></figure>
-
-
-<p>就會多一個了!</p>
-
-<p><code>vagrant box add my_box package.box</code></p>
-
-<p>這個指令的意思是將 <code>package.box</code> 加入 box 清單，並以 my_box 命名</p>
-
-<p><code>package.box</code> 可以是本機路徑，也可以是網址，</p>
-
-<p>如果要分享給團隊成員使用，就可以使用 url 分享，其他人就可以下指令來下載 box 並加入 box list</p>
-
-<p>例如:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ vagrant box add my_box http://my_dropbox.com/package.box</span></code></pre></td></tr></table></div></figure>
-
-
-<p>接著其他人就可以建立自己的虛擬機資料夾，並且到該資料夾中下指令就可以初始化虛擬機器了，例如：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ mkdir ~/my_machine/
-</span><span class='line'>$ cd ~/my_machine/
-</span><span class='line'>$ vagrant init my_box </span></code></pre></td></tr></table></div></figure>
-
-
-<p>超方便的啦～</p>
-
-<p>如果想要從 box list 中刪除不需要的 box，下此指令即可：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ vagrant box remove my_box
-</span><span class='line'>Are you sure you want to remove this box? [y/N] y</span></code></pre></td></tr></table></div></figure>
-
-
-<p>上面只會刪除 box 清單，</p>
-
-<p>如果要刪除虛擬機器資料夾，以及虛擬機器的所有檔案的話，先到虛擬機器資料夾，然後下此指令：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ vagrant destroy
-</span><span class='line'>    default: Are you sure you want to destroy the 'default' VM? [y/N] y</span></code></pre></td></tr></table></div></figure>
-
-
-<p>虛擬機就會被移除，再來只要將該資料夾砍掉即可～ 就恢復成乾乾淨淨的了~</p>
-
-<p>是不是很方便勒~~</p>
-
-<p>接下來我們就會開始先寫寫 Node.js 的 Hello World 囉~</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[Swift-d6] - Playground - Function]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/06/swift-d6/"/>
-    <updated>2014-10-06T18:54:13+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/06/swift-d6</id>
-    <content type="html"><![CDATA[<h1>Playground - function</h1>
-
-<p>來看看 Swift 各種 function 的寫法吧!</p>
-
-<p>Swift 使用 <code>func</code> 當作宣告的保留字</p>
-
-<p>GOLANG 的 fu&hellip;. XD</p>
-
-<p>寫 Swift 的 function 會很開心</p>
-
-<h2>基本的</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">say</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>  <span class="n">println</span><span class="p">(</span><span class="s">&quot;Hello!&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>有一個回傳值的</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="n">say</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">String</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">return</span> <span class="s">&quot;Hello!&quot;</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>有多個回傳值的!!! (就是回傳 Tuple)</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">say</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">let</span> <span class="n">greeting</span> <span class="o">=</span> <span class="s">&quot;hello&quot;</span>
-</span><span class='line'>  <span class="k">let</span> <span class="n">times</span> <span class="o">=</span> <span class="mi">5</span>
-</span><span class='line'>  <span class="k">return</span> <span class="p">(</span><span class="n">greeting</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">say</span><span class="p">()</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>有參數的</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">say</span><span class="p">(</span><span class="nl">g</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="n">println</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">say</span><span class="p">(</span><span class="s">&quot;Hello&quot;</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>多個參數</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">say</span><span class="p">(</span><span class="nl">g</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="nl">times</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">for</span> <span class="n">index</span> <span class="k">in</span> <span class="mf">1.</span><span class="p">..</span><span class="n">times</span> <span class="p">{</span>
-</span><span class='line'>      <span class="n">println</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">say</span><span class="p">(</span><span class="s">&quot;Hello&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>有參數的進階版</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">say</span><span class="p">(</span><span class="n">greetings</span> <span class="nl">g</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="n">println</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">say</span><span class="p">(</span><span class="s">&quot;Hello&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>此時如果同樣使用 <code>say("hello")</code> 會出錯</p>
-
-<p>因為我們剛剛宣告了外部參數名稱</p>
-
-<p>因此需要:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="n">say</span><span class="p">(</span><span class="nl">greetings</span><span class="p">:</span> <span class="s">&quot;hello&quot;</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>這種寫法在必須代入許多參數時，非常好用，會讓程式可讀性變高</p>
-
-<p>另外，方便起見，也可以加上 <code>#</code>，表示外部參數名稱與 func 內部名稱是一樣的</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">say</span><span class="p">(</span><span class="n">greetings</span> <span class="nl">g</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="err">#</span><span class="nl">times</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">for</span> <span class="n">index</span> <span class="k">in</span> <span class="mf">1.</span><span class="p">..</span><span class="n">times</span> <span class="p">{</span>
-</span><span class='line'>        <span class="n">println</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="n">say</span><span class="p">(</span><span class="nl">greetings</span><span class="p">:</span> <span class="s">&quot;Hello&quot;</span><span class="p">,</span> <span class="nl">times</span><span class="p">:</span> <span class="mi">3</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>可以看到第一種寫法和第二種寫法是一樣的功用~</p>
-
-<h2>給參數預設值</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">say</span><span class="p">(</span><span class="n">greetings</span> <span class="nl">g</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="s">&quot;hello&quot;</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="n">println</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">say</span><span class="p">()</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>如果呼叫 <code>say()</code> 而沒有給定參數時，會直接使用預設值</p>
-
-<h2>常數參數與變數參數</h2>
-
-<p>簡單看一下以下的程式碼</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">say</span><span class="p">(</span><span class="nl">greetings</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="s">&quot;hello&quot;</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="n">greetings</span> <span class="o">=</span> <span class="s">&quot;\(greetings), welcome!&quot;</span>
-</span><span class='line'>    <span class="n">println</span><span class="p">(</span><span class="n">greetings</span><span class="p">)</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">let</span> <span class="n">greetings</span> <span class="o">=</span> <span class="s">&quot;Hello!&quot;</span>
-</span><span class='line'><span class="n">say</span><span class="p">(</span><span class="nl">greetings</span><span class="p">:</span> <span class="n">greetings</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>我們定義了一個常數，代入 say() 裡面，</p>
-
-<p>但是 say function 裡面必須改變代入的值，於是這個時候 Xcode 就會該了</p>
-
-<p>那要怎麼辦呢?</p>
-
-<p>修改成:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">say</span><span class="p">(</span><span class="k">var</span> <span class="nl">greetings</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="s">&quot;hello&quot;</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="n">greetings</span> <span class="o">=</span> <span class="s">&quot;\(greetings), welcome!&quot;</span>
-</span><span class='line'>    <span class="n">println</span><span class="p">(</span><span class="n">greetings</span><span class="p">)</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">let</span> <span class="n">greetings</span> <span class="o">=</span> <span class="s">&quot;Hello!&quot;</span>
-</span><span class='line'><span class="n">say</span><span class="p">(</span><span class="nl">greetings</span><span class="p">:</span> <span class="n">greetings</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>多加一個 <code>var</code> 宣告，就會 copy 一份傳入，就可以更改值了!</p>
-
-<p>一樣是非常有用的語法!</p>
-
-<h2>輸入輸出函數</h2>
-
-<p>直接看例子</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">swapInt</span><span class="p">(</span><span class="k">inout</span> <span class="nl">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="k">inout</span> <span class="nl">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">let</span> <span class="n">tmpA</span> <span class="o">=</span> <span class="n">a</span>
-</span><span class='line'>    <span class="n">a</span> <span class="o">=</span> <span class="n">b</span>
-</span><span class='line'>    <span class="n">b</span> <span class="o">=</span> <span class="n">tmpA</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">var</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
-</span><span class='line'><span class="k">var</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">2</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">swap</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>酷吧</p>
-
-<h2>function types 函式型別</h2>
-
-<p>直接看例子</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">addTwoInt</span><span class="p">(</span><span class="nl">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="nl">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">func</span> <span class="n">mTwoInt</span><span class="p">(</span><span class="nl">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="nl">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">func</span> <span class="n">printHello</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>    <span class="n">println</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">var</span> <span class="nl">mathFunction</span><span class="p">:</span> <span class="p">(</span><span class="n">Int</span><span class="p">,</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span> <span class="o">=</span> <span class="n">addTwoInt</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="s">&quot;result: \(mathFunction(2, 3))&quot;</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>前面宣告了三個 function ，</p>
-
-<p>而</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">var</span> <span class="nl">mathFunction</span><span class="p">:</span> <span class="p">(</span><span class="n">Int</span><span class="p">,</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span> <span class="o">=</span> <span class="n">addTwoInt</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>後面的這句的意思是:</p>
-
-<p>我們定義了一個變數叫做 <code>mathFunction</code>，</p>
-
-<p>他的型別是「一個 (Int, Int) 的參數，並且回傳 Int」的 function，</p>
-
-<p>簡單說就是 mathFunction 的型別是一個 Function</p>
-
-<p>並指向 addTwoInt 這個 function</p>
-
-<p>所以上面的例子中，<code>mathFunction</code> 代入的 <code>(2, 3)</code> 會丟給 addTwoInt，</p>
-
-<p>並且最後回傳 Int</p>
-
-<p>有 javascript 的味道:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">test</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">;</span>
-</span><span class='line'><span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">var</span> <span class="nx">add</span> <span class="o">=</span> <span class="nx">test</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;result = &quot;</span> <span class="o">+</span> <span class="nx">add</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">));</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>function as parameter types</h2>
-
-<p>函式也可以拿來當做參數傳入函式中，</p>
-
-<p>接續上面的例子，加入：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">func</span> <span class="nx">printResult</span><span class="p">(</span><span class="nx">mathFunction</span><span class="o">:</span> <span class="p">(</span><span class="nx">Int</span><span class="p">,</span> <span class="nx">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nx">Int</span><span class="p">,</span> <span class="nx">a</span><span class="o">:</span> <span class="nx">Int</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="nx">Int</span> <span class="p">)</span>  <span class="p">{</span>
-</span><span class='line'>    <span class="nx">println</span><span class="p">(</span><span class="s2">&quot;Result: \(mathFunction(a, b))&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="nx">printResult</span><span class="p">(</span><span class="nx">mathFunction</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>function as return type</h2>
-
-<p>函式也可以拿來當做回傳值</p>
-
-<p>就是在原本的回傳符號 <code>-&gt;</code> 後面代入函式型別</p>
-
-<p>這邊直接借別人的例子來參考吧</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// 定義兩個 function </span>
-</span><span class='line'><span class="nx">func</span> <span class="nx">stepForward</span><span class="p">(</span><span class="nx">input</span><span class="o">:</span> <span class="nx">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nx">Int</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="nx">input</span> <span class="o">+</span> <span class="mi">1</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="nx">func</span> <span class="nx">stepBackward</span><span class="p">(</span><span class="nx">input</span><span class="o">:</span> <span class="nx">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nx">Int</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="nx">input</span> <span class="o">-</span> <span class="mi">1</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// 再定義一個 function ，透過布林值導往上面不同的 function</span>
-</span><span class='line'><span class="nx">func</span> <span class="nx">chooseStepFunction</span><span class="p">(</span><span class="nx">backwards</span><span class="o">:</span> <span class="nx">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nx">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nx">Int</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="nx">backwards</span> <span class="o">?</span> <span class="nx">stepBackward</span> <span class="o">:</span> <span class="nx">stepForward</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">var</span> <span class="nx">currentValue</span> <span class="o">=</span> <span class="mi">3</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// 將 chooseStepFunction 指給 moveNearerToZero</span>
-</span><span class='line'><span class="c1">// 所以 moveNearerToZero 現在是一個 function 了!</span>
-</span><span class='line'><span class="kd">let</span> <span class="nx">moveNearerToZero</span> <span class="o">=</span> <span class="nx">chooseStepFunction</span><span class="p">(</span><span class="nx">currentValue</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">println</span><span class="p">(</span><span class="s2">&quot;Counting to zero:&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="c1">// Counting to zero:</span>
-</span><span class='line'><span class="k">while</span> <span class="nx">currentValue</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">println</span><span class="p">(</span><span class="s2">&quot;\(currentValue)... &quot;</span><span class="p">)</span>
-</span><span class='line'>    <span class="nx">currentValue</span> <span class="o">=</span> <span class="nx">moveNearerToZero</span><span class="p">(</span><span class="nx">currentValue</span><span class="p">)</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="nx">println</span><span class="p">(</span><span class="s2">&quot;zero!&quot;</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Nested Function</h2>
-
-<p>就是 funciton 中的 function，變數有分 global、local 變數，function 也有</p>
-
-<p>以上面的例子來改寫:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">func</span> <span class="nx">chooseStepFunction</span><span class="p">(</span><span class="nx">backwards</span><span class="o">:</span> <span class="nx">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nx">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nx">Int</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">func</span> <span class="nx">stepForward</span><span class="p">(</span><span class="nx">input</span><span class="o">:</span> <span class="nx">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nx">Int</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">input</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">}</span>
-</span><span class='line'>    <span class="nx">func</span> <span class="nx">stepBackward</span><span class="p">(</span><span class="nx">input</span><span class="o">:</span> <span class="nx">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nx">Int</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">input</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">}</span>
-</span><span class='line'>    <span class="k">return</span> <span class="nx">backwards</span> <span class="o">?</span> <span class="nx">stepBackward</span> <span class="o">:</span> <span class="nx">stepForward</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
 ]]></content>
   </entry>
   

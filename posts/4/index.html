@@ -98,6 +98,148 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2014/10/02/api-d2/">[API-d2] - 定義 2 - RESTful 的優點與要求</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-02T20:17:24+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/10/02/api-d2/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/02/api-d2/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>承上篇，</p>
+
+<p>RESTful 的優點如下所列:</p>
+
+<pre><code> 1. 瀏覽器即可以作為 client 端
+ 2. 可以更高效地利用 cache 來達到更快的回應速度
+ 3. 界面與資料分離
+ 4. 節省伺服器的計算資源
+ 5. 可重用! web/android/ios 都可以用, 無痛轉換!
+</code></pre>
+
+<p>RESTful 的要求:</p>
+
+<pre><code> 1. client - server 架構  
+ 2. 分層系統  
+ 3. 利用快取機制增加效能  
+      server-side: 在 GET 資源時，若該資源並沒有被變更，就可以利用 cache 機制減少 query，並且加快回應速度  
+      client-side: 透過 client 端 cache 記錄 cache 版本，  
+           若向 server 要求資源時發現 server 最新版與 cache 相同，  
+           則 client 端直接取用本地資源即可，不需要再做一次查詢  
+      省機器運算及流量 = 省錢  
+ 4. 通訊協定具有無狀態性  
+      不能讓兩隻 API 做同一個動作!  
+           假設完成轉賬手續必須先 call A 再 call B 的話，  
+           若做完 A 後斷線導致 B 無法執行，後續要處理 A -&gt; B 的方式會很麻煩  
+      且不應該假設伺服器知道目前的狀態!  
+      因此設計出來的 API 不能有狀態性  
+ 5. 統一界面  
+      使用 HTTP Verb: GET/POST/PUT/DELETE  
+</code></pre>
+
+<p>下一篇會討論什麼時候該打造 RESTful API?  以及看看別人寫的 RESTful API</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/02/swift-d1/">[Swift-d1] - 介紹</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-02T01:37:44+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/10/02/swift-d1/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/02/swift-d1/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Swift 是 2014 年由蘋果公司在其開發者大會 WWDC 上所發佈的程式語言</p>
+
+<p>The Swift Programming Language 一書中提到：</p>
+
+<ol>
+<li>Swift 用來撰寫 iOS 及 Mac OSX 的程式。</li>
+<li>Swift 吸收了 C 和 Objective-C 的優點，使其在設計更具彈性、容易，且撰寫時有更多樂趣。</li>
+<li>Swift 是基於成熟而且倍受喜愛的 Cocoa 和 Cocoa Touch framework，意即 Swift 可以直接使用這些現有的框架</li>
+<li>Swift 兼具編譯語言的性能，以及直譯式語言的特性。</li>
+</ol>
+
+
+<p>** 什麼是 Cocoa/Cocoa Touch framework: <br/>
+Cocoa framework 是 Apple 爲 Mac OSX 所建立的環境，用來開發 OSX 的程式，<br/>
+而 Cocoa Touch framework 則是建立於 Cocoa framework 之上，用來開發 iOS 作業系統程式，<br/>
+此兩種 framework 皆遵循 MVC 軟體架構，開發時必須遵循此架構。</p>
+
+<p>若之前從未接觸過 Objective-C 但又想嘗試開發 iOS app 的話，<br/>
+現在是個入門的好時機，Swift 去除了 Objective-C 的繁瑣語法，<br/>
+且相較於 Objective-C 是個更好入門的程式語言。</p>
+
+<p>對於非 Objective-C 開發者而言，若先前有過程式語言開發經驗的話，語法上手不會太難，<br/>
+只是需要花時間學習 Cocoa/Cocoa Touch framework，但是，都要學習撰寫 iOS app 了，<br/>
+不學 Cocoa/Cocoa Touch framework 應該也說不過去 :D</p>
+
+<p>而對於 Objective-C 開發者而言，由於已經非常熟悉 Cocoa/Cocoa Touch framework 了，<br/>
+在 Swift 使用 Cocoa/Cocoa Touch framework 是幾乎無痛轉換的，因為函式、變數名稱完全一樣，<br/>
+只需要熟悉 Swift 語法，不出一天即可快速上手，也因此 Objectiv-C 開發者也不需過於擔心飯碗被搶走 XD<br/>
+接觸過 Cocoa/Cocoa Touch framework 的開發者來說還是有相當大的優勢的。</p>
+
+<p>由於筆者之前從未接觸過 Objective-C/ Cocoa/ Cocoa Touch framework，<br/>
+只有些許 java/php/ruby 撰寫經驗，<br/>
+選擇 Swift 的原因之一即是語法上手容易，並且有 playground 可以馬上執行撰寫的程式，<br/>
+也因此希望能夠透過學習 Swift ，了解 iOS app 開發架構，實際打造出一款 app！</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2014/10/02/api-d1/">[API-d1] - 定義 1 - 什麼是 REST/RESTful?</a></h1>
     
     
@@ -1247,243 +1389,6 @@ project repo 的路徑，要 deploy 到 server 的哪個目錄等等，<br/>
 
 <p>如果 <code>exit status 0 (successful).</code> <br/>
 那就是成功啦~</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/07/30/install-rails-server-env-with-rbenv-on-ubuntu-14-dot-04/">Install Rails Server Env With Rbenv on Ubuntu 14.04</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-30T11:36:54+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/07/30/install-rails-server-env-with-rbenv-on-ubuntu-14-dot-04/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/07/30/install-rails-server-env-with-rbenv-on-ubuntu-14-dot-04/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>nodejs v0.10.25 (for rails javascript engine)
-</span><span class='line'>
-</span><span class='line'>rbenv 0.4.0-98-g13a474c
-</span><span class='line'>
-</span><span class='line'>ruby 2.1.2p95 (2014-05-08 revision 45877) [x86_64-linux]
-</span><span class='line'>
-</span><span class='line'>Rails 4.1.4
-</span><span class='line'>
-</span><span class='line'>nginx version: nginx/1.6.0
-</span><span class='line'>
-</span><span class='line'>Phusion Passenger version 4.0.48
-</span><span class='line'>
-</span><span class='line'>mysql  Ver 14.14 Distrib 5.5.38, for debian-linux-gnu (x86_64) using readline 6.3
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Installing Ruby &amp; Rails</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get update && sudo apt-get upgrade
-</span><span class='line'>sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties nodejs npm</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Use rbenv</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cd
-</span><span class='line'>git clone git://github.com/sstephenson/rbenv.git .rbenv
-</span><span class='line'>echo 'export PATH="$HOME/.rbenv/bin:$PATH"' &gt;&gt; ~/.bashrc
-</span><span class='line'>echo 'eval "$(rbenv init -)"' &gt;&gt; ~/.bashrc
-</span><span class='line'>exec $SHELL
-</span><span class='line'>
-</span><span class='line'>git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
-</span><span class='line'>echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' &gt;&gt; ~/.bashrc
-</span><span class='line'>exec $SHELL
-</span><span class='line'>
-</span><span class='line'>rbenv install 2.1.2
-</span><span class='line'>exec $SHELL
-</span><span class='line'>
-</span><span class='line'>rbenv global 2.1.2
-</span><span class='line'>ruby -v</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Don&rsquo;t install rdoc when installing gems</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>echo "gem: --no-ri --no-rdoc" &gt; ~/.gemrc</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Install rails</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>gem install rails
-</span><span class='line'>exec $SHELL
-</span><span class='line'>rails -v</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Installing Nginx with passenger</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># Install Phusion's PGP key to verify packages
-</span><span class='line'>gpg --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7
-</span><span class='line'>gpg --armor --export 561F9B9CAC40B2F7 | sudo apt-key add -
-</span><span class='line'>
-</span><span class='line'># Add HTTPS support to APT
-</span><span class='line'>sudo apt-get install apt-transport-https
-</span><span class='line'>
-</span><span class='line'># Add the passenger repository
-</span><span class='line'>sudo sh -c "echo 'deb https://oss-binaries.phusionpassenger.com/apt/passenger trusty main' &gt;&gt; /etc/apt/sources.list.d/passenger.list"
-</span><span class='line'>sudo chown root: /etc/apt/sources.list.d/passenger.list
-</span><span class='line'>sudo chmod 600 /etc/apt/sources.list.d/passenger.list
-</span><span class='line'>sudo apt-get update
-</span><span class='line'>
-</span><span class='line'># Install nginx and passenger
-</span><span class='line'>sudo apt-get install nginx-full passenger</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Edit passenger configuration in <code>/etc/nginx/nginx.conf</code></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>##
-</span><span class='line'># Phusion Passenger
-</span><span class='line'>##
-</span><span class='line'># Uncomment it if you installed ruby-passenger or ruby-passenger-enterprise
-</span><span class='line'>##
-</span><span class='line'>
-</span><span class='line'>passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;
-</span><span class='line'>
-</span><span class='line'>passenger_ruby /usr/bin/ruby; #change this line
-</span><span class='line'>
-</span><span class='line'># passenger_ruby /home/yourpath/.rbenv/shims/ruby; # If you use rbenv
-</span><span class='line'># Use `which ruby`</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Installing MySQL</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get install mysql-server mysql-client libmysqlclient-dev</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Done!</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/07/03/rails-actioncontrollerinvalidauthenticitytoken-when-useing-rails-as-api/">[Rails] ActionController::InvalidAuthenticityToken When Useing Rails4 as API</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-03T04:02:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/07/03/rails-actioncontrollerinvalidauthenticitytoken-when-useing-rails-as-api/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/07/03/rails-actioncontrollerinvalidauthenticitytoken-when-useing-rails-as-api/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>change<br/>
-<code>protect_from_forgery with: :exception</code><br/>
-to<br/>
-<code>protect_from_forgery with: :null_session</code><br/>
-in <code>ApplicationController</code></p>
 </div>
   
   

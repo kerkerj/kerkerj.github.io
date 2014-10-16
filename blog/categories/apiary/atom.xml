@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Apiary | kerkerj]]></title>
+  <link href="http://kerkerj.github.io/blog/categories/apiary/atom.xml" rel="self"/>
+  <link href="http://kerkerj.github.io/"/>
+  <updated>2014-10-16T18:44:48+08:00</updated>
+  <id>http://kerkerj.github.io/</id>
+  <author>
+    <name><![CDATA[kerkerj]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[[API-d16] - 實戰開發 - 設定主題及規劃]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/16/api-d16/"/>
+    <updated>2014-10-16T18:39:40+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/16/api-d16</id>
+    <content type="html"><![CDATA[<p>接下來我們想要做到的是一個 TODO list 的 RESTful API</p>
+
+<p>並且會先使用 <a href="http://apiary.io/">apiary.io</a> 做規劃</p>
+
+<p>實際看看感覺如何</p>
+
+<p>進入網站後，註冊登入後</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-07%201.04.07.png" alt="image" /></p>
+
+<p>左上角的 dropdown list 選擇 create new API</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-07%201.04.18.png" alt="image" /></p>
+
+<p>產生後下方就會跑出範例文擋</p>
+
+<p>這個網站會透過特定格式的編排自己希望的 API endpoint 及範例回傳值後，產生出一份漂亮的文件</p>
+
+<p>網站中間是模式的選擇</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-07%201.10.33.png" alt="image" /></p>
+
+<p>Documentation 是實際讓其他人看的，Editor 則是編輯模式</p>
+
+<p>我們就稍微簡單規劃一下 TODO List 的 RESTful API 吧!</p>
+
+<p>這是我自己規劃的 <a href="http://docs.todolist7.apiary.io/">文件</a></p>
+
+<p>基本上 route 會長這個樣子:</p>
+
+<pre><code>TODOs
+GET /user/{user_id}/todos/
+POST /user/{user_id}/todos/
+GET /user/{user_id}/todos/{id}
+PUT /user/{user_id}/todos/{id}
+DELETE /user/{user_id}/todos/{id}
+</code></pre>
+
+<p>資料格式也都在該文件整理好了</p>
+
+<p><code>/user/{user_id}/</code> 只是用來辨識是哪個 user 的 todo task data</p>
+
+<p>在這個小 API 不會琢磨在使用者系統的建立，只會專注在操作 todo task data</p>
+
+<p>我們可以直接透過 PostMan 來丟丟看</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-07%201.43.06.png" alt="image" /></p>
+
+<p>我們設定必須要使用 API-key 才能存取 API，比較進階的做法就是使用 Oauth 的方式取得 token 來存取 API</p>
+
+<p>不過在這個小 API 也不會建立一個 Oauth Server，我們簡單使用 API-key 來認證即可</p>
+
+<p>接下來的時間我們就會開始依據規劃好的文件，使用 Node.js + express + mongodb 來實作囉!</p>
+]]></content>
+  </entry>
+  
+</feed>

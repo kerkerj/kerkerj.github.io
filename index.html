@@ -165,7 +165,7 @@ Day12 -  <a href="http://kerkerj.github.io/blog/2014/10/12/api-d12/">[API-d12] -
 Day13 -  <a href="http://kerkerj.github.io/blog/2014/10/13/api-d13/">[API-d13] - [Javascript 番外篇] Javascript require/ module/ Module Pattern</a><br/>
 Day14 -  <a href="http://kerkerj.github.io/blog/2014/10/14/api-d14/">[API-d14] - [Javascript 番外篇] Javascript function scopes 和 closures</a><br/>
 Day15 -  <a href="http://kerkerj.github.io/blog/2014/10/15/api-d15/">[API-d15] - [Javascript 番外篇] Javascript callback, event</a><br/>
-Day16 -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day16 -  <a href="http://kerkerj.github.io/blog/2014/10/16/api-d16/">[API-d16] - 實戰開發 - 設定主題及規劃</a><br/>
 Day17 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day18 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day19 -  <a href="http://kerkerj.github.io/">#</a><br/>
@@ -198,7 +198,7 @@ Day12 -  <a href="http://kerkerj.github.io/blog/2014/10/12/swift-d12/">[Swift-d1
 Day13 -  <a href="http://kerkerj.github.io/blog/2014/10/13/swift-d13/">[Swift-d13] - Basic - Navigation View 1 + ViewController</a><br/>
 Day14 -  <a href="http://kerkerj.github.io/blog/2014/10/14/swift-d14/">[Swift-d14] - Basic - Navigation View 2 + ViewController</a><br/>
 Day15 -  <a href="http://kerkerj.github.io/blog/2014/10/15/swift-d15/">[Swift-d15] - Basic - Table View 1 直接給值 datasource, (table view scroll)</a><br/>
-Day16 -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day16 -  <a href="http://kerkerj.github.io/blog/2014/10/16/swift-d16/">[Swift-d16] - Basic - Table View 2 換頁 (delegate)</a><br/>
 Day17 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day18 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day19 -  <a href="http://kerkerj.github.io/">#</a><br/>
@@ -213,6 +213,286 @@ Day27 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day28 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day29 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day30 -  <a href="http://kerkerj.github.io/">#</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/16/swift-d16/">[Swift-d16] - Basic - Table View 2 換頁 (Delegate)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-16T18:39:45+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/10/16/swift-d16/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/16/swift-d16/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>昨天我們實際操作了 tableView 的實作，今天要加入換頁</p>
+
+<p>意思就是假設我點了名為 &ldquo;99&rdquo; 的 cell，點擊後會跳轉到另外一頁，同樣顯示 &ldquo;99&rdquo;</p>
+
+<p>所以除了跳頁外，還要加入值的傳遞</p>
+
+<p>首先打開昨天的專案，我們要繼續下去</p>
+
+<p>回到 storyboard 中，昨天我們加入了 dataSource，今天要加入 delegate:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.01.50.png" alt="image" /></p>
+
+<p>回到程式碼中 ViewController.swift</p>
+
+<p>在 class 的宣告再加上 UITableViewDataSource</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">class</span> <span class="nl">ViewController</span><span class="p">:</span> <span class="bp">UIViewController</span><span class="p">,</span> <span class="bp">UITableViewDataSource</span><span class="p">,</span> <span class="bp">UITableViewDelegate</span> <span class="p">{</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>再來就要設計換頁的流程了</p>
+
+<p>回到 storyboard</p>
+
+<p>拉一個新的 ViewController 到空白處</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.04.50.png" alt="image" /></p>
+
+<p>接著點擊左邊的 TableViewCell, 按住 ctrl + 拖曳，拉到剛剛建立的 ViewController 上</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.07.11.png" alt="image" /></p>
+
+<p>選擇 show detail</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.07.44.png" alt="image" /></p>
+
+<p>就會長這樣:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.06.55.png" alt="iamge" /></p>
+
+<p>再來新增一個 ViewController</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.09.15.png" alt="image" /></p>
+
+<p>接著讓新的 storyboard viewcontroller 連接到剛剛新增的 DetailViewController 程式碼</p>
+
+<p>記得先點選 ViewController</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.10.36.png" alt="image" /></p>
+
+<p>在 storyboard 的 DetailViewController 中拉一個 label</p>
+
+<p>並且將該 label 連接到 DetailViewController 的程式碼中</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.13.04.png" alt="image" /></p>
+
+<p>因此 DetailViewController 就會變這樣:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">class</span> <span class="nl">DetailViewController</span><span class="p">:</span> <span class="bp">UIViewController</span> <span class="p">{</span>
+</span><span class='line'>    <span class="p">@</span><span class="kt">IBOutlet</span> <span class="k">var</span> <span class="nl">label</span><span class="p">:</span> <span class="bp">UILabel</span><span class="o">!</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接著再來把 DetailViewController 加入兩行 code:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">class</span> <span class="nl">DetailViewController</span><span class="p">:</span> <span class="bp">UIViewController</span> <span class="p">{</span>
+</span><span class='line'>    <span class="p">@</span><span class="kt">IBOutlet</span> <span class="k">var</span> <span class="nl">label</span><span class="p">:</span> <span class="bp">UILabel</span><span class="o">!</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">var</span> <span class="nl">index</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kr">override</span> <span class="k">func</span> <span class="n">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nb">super</span><span class="p">.</span><span class="n">viewDidLoad</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// Do any additional setup after loading the view.</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">label</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="s">&quot;\(index)&quot;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>新增一個 index 變數，再來就是在 viewDidLoad 時，將該 label 的文字改成 index</p>
+
+<p>這個 index 的值會在 TableView 中傳遞給 DetailViewController</p>
+
+<p>接下來就要改變 index 的值了，回到 ViewController.swift 中</p>
+
+<p>加入以下程式碼:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">tableView</span><span class="p">(</span><span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="o">!</span><span class="p">,</span> <span class="n">didSelectRowAtIndexPath</span> <span class="nl">indexPath</span><span class="p">:</span> <span class="bp">NSIndexPath</span><span class="o">!</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">let</span> <span class="n">cell</span> <span class="o">=</span> <span class="n">tableView</span><span class="p">.</span><span class="n">cellForRowAtIndexPath</span><span class="p">(</span><span class="n">indexPath</span><span class="p">)</span>
+</span><span class='line'>  <span class="nb">self</span><span class="p">.</span><span class="n">performSegueWithIdentifier</span><span class="p">(</span><span class="s">&quot;showDetail&quot;</span><span class="p">,</span> <span class="nl">sender</span><span class="p">:</span> <span class="n">cell</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kr">override</span> <span class="k">func</span> <span class="nf">prepareForSegue</span><span class="p">(</span><span class="nl">segue</span><span class="p">:</span> <span class="bp">UIStoryboardSegue</span><span class="p">,</span> <span class="nl">sender</span><span class="p">:</span> <span class="n">AnyObject</span><span class="o">?</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">segue</span><span class="p">.</span><span class="n">identifier</span> <span class="o">==</span> <span class="s">&quot;showDetail&quot;</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">let</span> <span class="n">indexPath</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">tableSample</span><span class="p">.</span><span class="n">indexPathForSelectedRow</span><span class="p">()</span><span class="o">?</span><span class="p">.</span><span class="n">row</span>
+</span><span class='line'>  <span class="p">((</span><span class="n">segue</span><span class="p">.</span><span class="n">destinationViewController</span><span class="p">)</span> <span class="kt">as</span> <span class="n">DetailViewController</span><span class="p">).</span><span class="n">index</span><span class="o">=</span><span class="n">indexPath</span><span class="o">!</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>大家可能會覺得好奇裡頭有個 identifier 叫做 &lsquo;showDetail&#8217;，這個東西是自己自定的，一定要定，不然在傳遞時會不知道要抓哪個 segue</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.30.24.png" alt="image" /></p>
+
+<p>再來確認一下是否 dataSource 與 delegate 是否都有 reference 到</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.32.38.png" alt="image" /></p>
+
+<p>執行，就可以發現可以點進去了!</p>
+
+<p>不過因為我們還沒有和 NavigationView 做結合，因此要自己做按鈕點回去 XD</p>
+
+<p>在這邊就先不做了，因為明天就可以兩個結合起來了!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/16/api-d16/">[API-d16] - 實戰開發 - 設定主題及規劃</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-16T18:39:40+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/10/16/api-d16/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/16/api-d16/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>接下來我們想要做到的是一個 TODO list 的 RESTful API</p>
+
+<p>並且會先使用 <a href="http://apiary.io/">apiary.io</a> 做規劃</p>
+
+<p>實際看看感覺如何</p>
+
+<p>進入網站後，註冊登入後</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-07%201.04.07.png" alt="image" /></p>
+
+<p>左上角的 dropdown list 選擇 create new API</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-07%201.04.18.png" alt="image" /></p>
+
+<p>產生後下方就會跑出範例文擋</p>
+
+<p>這個網站會透過特定格式的編排自己希望的 API endpoint 及範例回傳值後，產生出一份漂亮的文件</p>
+
+<p>網站中間是模式的選擇</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-07%201.10.33.png" alt="image" /></p>
+
+<p>Documentation 是實際讓其他人看的，Editor 則是編輯模式</p>
+
+<p>我們就稍微簡單規劃一下 TODO List 的 RESTful API 吧!</p>
+
+<p>這是我自己規劃的 <a href="http://docs.todolist7.apiary.io/">文件</a></p>
+
+<p>基本上 route 會長這個樣子:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>TODOs
+</span><span class='line'>GET /user/{user_id}/todos/
+</span><span class='line'>POST /user/{user_id}/todos/
+</span><span class='line'>GET /user/{user_id}/todos/{id}
+</span><span class='line'>PUT /user/{user_id}/todos/{id}
+</span><span class='line'>DELETE /user/{user_id}/todos/{id}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>資料格式也都在該文件整理好了</p>
+
+<p><code>/user/{user_id}/</code> 只是用來辨識是哪個 user 的 todo task data</p>
+
+<p>在這個小 API 不會琢磨在使用者系統的建立，只會專注在操作 todo task data</p>
+
+<p>我們可以直接透過 PostMan 來丟丟看</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-07%201.43.06.png" alt="image" /></p>
+
+<p>我們設定必須要使用 API-key 才能存取 API，比較進階的做法就是使用 Oauth 的方式取得 token 來存取 API</p>
+
+<p>不過在這個小 API 也不會建立一個 Oauth Server，我們簡單使用 API-key 來認證即可</p>
+
+<p>接下來的時間我們就會開始依據規劃好的文件，使用 Node.js + express + mongodb 來實作囉!</p>
 </div>
   
   
@@ -1656,419 +1936,6 @@ Day30 -  <a href="http://kerkerj.github.io/">#</a></p>
 <p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-12%2018.46.14.png" alt="image" /></p>
 
 <p>在文字框中輸入文字，按下按鈕，標簽就可以變文字了!</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/12/api-d12/">[API-d12] - MongoDB - Hello World! (Client-side)</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-12T18:50:16+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/10/12/api-d12/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/12/api-d12/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>今天要使用 Node.js 的 mongodb driver 來操作 DB</p>
-
-<p>一樣先開啟虛擬機並且登入吧</p>
-
-<p>會使用到的套件是:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">mongodb</span> <span class="o">-&gt;</span> <span class="nx">mongodb</span> <span class="kr">native</span> <span class="nx">driver</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>或許有人有看過 <code>mongoose</code> -> <a href="http://mongoosejs.com/">官網</a></p>
-
-<p>算是 MongoDB 的 ORM，我們在這邊如果有時間的話再簡單了解一下，</p>
-
-<p>現在先使用 native driver 來操作</p>
-
-<p>我們在這邊就不裝全域套件了，裝在 API 專案裡面</p>
-
-<p>並且使用 <code>-save</code> 來將相依性寫入 <code>package.json 裏</code></p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="nx">cd</span> <span class="o">/</span><span class="nx">vagrant</span><span class="o">/</span><span class="nx">API</span><span class="o">/</span>
-</span><span class='line'><span class="nx">$</span> <span class="nx">npm</span> <span class="nx">install</span> <span class="nx">mongodb</span> <span class="o">-</span><span class="nx">save</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p></p>
-
-<p>從虛擬機回到電腦的資料夾中，在虛擬機資料夾的 API 資料夾中，</p>
-
-<p>今天我們先不和 express 搭配，因此就是純操作 node.js + mongodb module</p>
-
-<p>新增一個 <code>mongoTest.js</code></p>
-
-<p>我們先來連線到 MongoDB，連線的方式有很多，下面是其中一種方式，</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// 先宣告用的到的東西</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">MongoClient</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;mongodb&#39;</span><span class="p">).</span><span class="nx">MongoClient</span>
-</span><span class='line'>    <span class="p">,</span> <span class="nx">Server</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;mongodb&#39;</span><span class="p">).</span><span class="nx">Server</span>
-</span><span class='line'>    <span class="p">,</span> <span class="nx">options</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">auto_reconnection</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">poolSize</span><span class="o">:</span> <span class="mi">10</span> <span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// Server 設定</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">mongoClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MongoClient</span><span class="p">(</span><span class="k">new</span> <span class="nx">Server</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">27017</span><span class="p">,</span> <span class="nx">options</span><span class="p">));</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// 開啟連線</span>
-</span><span class='line'><span class="nx">mongoClient</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">mongoClient</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">db1</span> <span class="o">=</span> <span class="nx">mongoClient</span><span class="p">.</span><span class="nx">db</span><span class="p">(</span><span class="s2">&quot;testDB&quot;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Connected!&quot;</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nx">mongoClient</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
-</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Closed!&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>回到虛擬機執行</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="nx">node</span> <span class="nx">mongoTest</span><span class="p">.</span><span class="nx">js</span>
-</span><span class='line'><span class="nx">Connected</span><span class="o">!</span>
-</span><span class='line'><span class="nx">Closed</span><span class="o">!</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>接著用另外一種連接方式，介紹 CRUD 的操作:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">mongoClient</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;mongodb&#39;</span><span class="p">).</span><span class="nx">MongoClient</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">mongoClient</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="s1">&#39;mongodb://localhost:27017/testDB&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">db</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// Data</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">todo1</span> <span class="o">=</span> <span class="p">{</span><span class="nx">todo</span><span class="o">:</span> <span class="s2">&quot;Buy books&quot;</span><span class="p">,</span> <span class="nx">time</span><span class="o">:</span> <span class="s2">&quot;2014/10/11&quot;</span><span class="p">,</span> <span class="nx">who</span><span class="o">:</span> <span class="s2">&quot;myself&quot;</span><span class="p">};</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">todo2</span> <span class="o">=</span> <span class="p">{</span><span class="nx">todo</span><span class="o">:</span> <span class="s2">&quot;Buy milk&quot;</span><span class="p">,</span> <span class="nx">time</span><span class="o">:</span> <span class="s2">&quot;2014/10/15&quot;</span><span class="p">,</span> <span class="nx">who</span><span class="o">:</span> <span class="s2">&quot;brother&quot;</span><span class="p">};</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">todo3</span> <span class="o">=</span> <span class="p">{</span><span class="nx">todo</span><span class="o">:</span> <span class="s2">&quot;Wash cats&quot;</span><span class="p">,</span> <span class="nx">time</span><span class="o">:</span> <span class="s2">&quot;2014/11/21&quot;</span><span class="p">,</span> <span class="nx">who</span><span class="o">:</span> <span class="s2">&quot;myself&quot;</span><span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">collection</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">&#39;todoTest&#39;</span><span class="p">);</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">where</span> <span class="o">=</span> <span class="p">{</span><span class="nx">todo</span><span class="o">:</span> <span class="s2">&quot;Buy milk&quot;</span><span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// 新增資料</span>
-</span><span class='line'>    <span class="nx">collection</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="nx">todo1</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">docs</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">docs</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nx">collection</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="nx">todo2</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">docs</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">docs</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nx">collection</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="nx">todo3</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">docs</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">docs</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// 更新資料</span>
-</span><span class='line'>    <span class="nx">collection</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="nx">where</span><span class="p">,</span> <span class="p">{</span> <span class="nx">$set</span><span class="o">:</span> <span class="p">{</span> <span class="nx">time</span><span class="o">:</span> <span class="s2">&quot;2014/12/25&quot;</span><span class="p">}</span> <span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// 刪除某筆資料</span>
-</span><span class='line'>    <span class="nx">collection</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="nx">where</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// 查詢某筆資料</span>
-</span><span class='line'>    <span class="nx">collection</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">where</span><span class="p">).</span><span class="nx">toArray</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">results</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">dir</span><span class="p">(</span><span class="nx">results</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// 查詢所有資料</span>
-</span><span class='line'>    <span class="nx">collection</span><span class="p">.</span><span class="nx">find</span><span class="p">().</span><span class="nx">toArray</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">results</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">dir</span><span class="p">(</span><span class="nx">results</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">});</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>請注意，以上操作由於 javascript async 特性的關係，</p>
-
-<p>每個操作是會同時間送出，不同時間回送，看操作的運算時間而定</p>
-
-<p>因此若要依順序性的話，一是使用 callback，二是使用 async.js</p>
-
-<p>後面應該會提到 XD</p>
-
-<p>將這些程式碼存到 js file 裏，將某些行先註解掉，執行看看就可以略知一二了，</p>
-
-<p>可以同時搭配終端機直接到 DB 查看</p>
-
-<p>p.s. 大家可能會覺得這樣的方式很麻煩，MongoDB 有沒有好用的 client 來管理 DB 呢</p>
-
-<p>我推薦 RoboMongo，多平台，且可以直接輸入指令，蠻方便的，</p>
-
-<p>那如果是用我們現在的虛擬機的方式，要如何使用 RoboMongo ？</p>
-
-<p>首先，虛擬機的 DB 必須先開啟外部網路可以連線，</p>
-
-<p>注意! 我們目前並沒有創立使用者帳號密碼，不需要驗證即可進入 DB，這樣的做法只限於 demo, 與虛擬機中使用</p>
-
-<p>正式環境還是必須建立使用者帳號密碼</p>
-
-<p>先進到虛擬機更改 db 設定:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="nx">sudo</span> <span class="nx">nano</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">mongod</span><span class="p">.</span><span class="nx">conf</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>將 bind_ip = 0.0.0.0</p>
-
-<p>按下 ctrl+x 選擇 Y 存檔</p>
-
-<p>重開 mongodb</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="nx">sudo</span> <span class="nx">service</span> <span class="nx">mongod</span> <span class="nx">restart</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>若已經下載過 RoboMongo，開啟並輸入欲連線的 DB 設定：</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-06%2013.56.39.png" alt="" /></p>
-
-<p>就可以連進去管理了!</p>
-
-<p>再次提醒，這樣的做法只限於虛擬機及 demo 中測試</p>
-
-<p>正式環境要嘛建立使用者帳號密碼</p>
-
-<p>要嘛就是讓 DB 只限本機存取，請記住這件事情哦~</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/11/swift-d11/">[Swift-d11] - Basic - Hello World! ViewController</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-11T20:09:13+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/10/11/swift-d11/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/11/swift-d11/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>今天就要來建立一個 Hello World swift app 啦 XD</p>
-
-<p>首先就是開 Xcode 然後開專案囉~~</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.18.22.png" alt="image" /></p>
-
-<p>就看你要存去哪裡啦～</p>
-
-<p>再來就會進到專案本身:</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.19.47.png" alt="image" /></p>
-
-<p>我們就看右下角有個地方可以找到 Label 這個選項:</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.20.27.png" alt="image" /></p>
-
-<p>把他拉到 Storyboard 的任意位置就可以了~</p>
-
-<p>然後更改 label 的屬性:</p>
-
-<p>先點一下 label 選取後，看右上角</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.21.53.png" alt="image" /></p>
-
-<p>有個地方可以更改它的顯示文字，我們將它改成 HelloWorld!</p>
-
-<p>改完之後，按左上角的 Run! ，我們也可以選擇後面的 target 看是要跑在 i6 或是 i5 上，</p>
-
-<p>按下 Run 後程式就會 deploy 到模擬器上面了！</p>
-
-<p>這就是第一個 Hello World 啦!</p>
-
-<p>完全不用寫程式哦 XDDDDD</p>
-
-<p>不過還是要稍微了解一下運作原理啦~</p>
-
-<p>如果剛剛在編輯 storyboard 的時候，有發現那個 View 的左邊有一個奇怪的箭頭指向 View，那個箭頭的意思其實就是程式進入點的意思，</p>
-
-<p>storyboard 就是在描述程式的走向，像在說故事一樣，從某一頁按了什麼東西跳到哪一頁</p>
-
-<p>其實我一直都沒有很習慣 storyboard 的拉法，還是比較習慣用程式建立物件，將想要的物件用程式擺(憑空想像XD)，但是前面幾個比較屬於練習的小東西都還是會用拉的，比較好懂~</p>
-
-<p>我們剛剛建立的那一頁 Hello world</p>
-
-<p>基本上就是在左邊的 ViewController</p>
-
-<p>那我們試著使用程式來改變 HelloWorld 這個 label 的值吧!</p>
-
-<p>我們首先使用分割視窗的模式</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.33.31.png" alt="image" /></p>
-
-<p>選擇左邊數來第二個按鈕</p>
-
-<p>然後選擇 storyboard 及 ViewController</p>
-
-<p>讓他是照下面那樣排列的</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.34.52.png" alt="image" /></p>
-
-<p>接著在 左邊的 label 上按著 ctrl ，拖曳到右邊的程式碼 class 中，</p>
-
-<p>他就會自動幫你產生一個 storyboard 物件與程式碼的連結，</p>
-
-<p>輸入 label 的變數，我們取名叫 titleLabel</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.37.41.png" alt="image" /></p>
-
-<p>就可以在 viewDidload 中，更改該 label 的值:</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.38.13.png" alt="image" /></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>override func viewDidLoad() {
-</span><span class='line'>        super.viewDidLoad()
-</span><span class='line'>        // Do any additional setup after loading the view, typically from a nib.
-</span><span class='line'>        titleLabel.text = "hi"
-</span><span class='line'>    }</span></code></pre></td></tr></table></div></figure>
-
-
-<p>在 viewDidload 中，雖然 label 在 storyboard 時已經有初始值 &ldquo;Hello World&rdquo; 了</p>
-
-<p>但是當 app 被 init 起來後，ViewController 也被初始化了，因此就會執行 ViewDidload 的方法，這個時候就會執行到剛剛的 <code>titleLabel.text = "hi"</code></p>
-
-<p>於是就會更改掉 label 的值了</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.41.04.png" alt="image" /></p>
-
-<p>以上就是簡單的 Hello World</p>
-
-<p>明天來拉幾個常用的元件！</p>
-
-<p>p.s. 截圖感謝同事菲力克濕協助幫忙 :D</p>
 </div>
   
   
