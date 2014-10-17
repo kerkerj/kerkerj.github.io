@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Swift | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/swift/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-16T18:44:48+08:00</updated>
+  <updated>2014-10-17T21:24:07+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,144 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[Swift-d17] - Basic - Navigation View + TableView]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/17/swift-d17/"/>
+    <updated>2014-10-17T21:17:03+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/17/swift-d17</id>
+    <content type="html"><![CDATA[<p>今天要把 Navigation View 和 Table View 結合起來!</p>
+
+<p>把 NavigationController 拉進 Storyboard</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2019.47.53.png" alt="image" /></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2019.48.28.png" alt="image" /></p>
+
+<p>將程式進入點指向 NavigationController</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2019.48.28.png" alt="image" /></p>
+
+<p>把原本程式自動產生的 UIViewController 刪除</p>
+
+<p>把自動產生的 TableViewController 刪除!</p>
+
+<p>拉一個新的 UIViewController</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.06.29.png" alt="image" /></p>
+
+<p>將 NavigationController 的 RootViewController 指向新的 ViewController</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.07.20.png" alt="image" /></p>
+
+<p>把 TableView 拉進 ViewController</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.08.48.png" alt="image" /></p>
+
+<p>再將 TableViewCell 拉進 TableView</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.09.16.png" alt="image" /></p>
+
+<p>再點選 ViewController, 到右上角中找尋 Custom Class</p>
+
+<p>將 ViewController.swift 指定給該 ViewController</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.18.11.png" alt="image" /></p>
+
+<p>接著把 UITableView 引進程式碼裡做關聯</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.19.25.png" alt="image" /></p>
+
+<p>再來就是實作 Table 的 data 了</p>
+
+<pre><code class="swift">class ViewController: UIViewController, UITableViewDataSource {
+</code></pre>
+
+<pre><code>class ViewController: UIViewController, UITableViewDataSource {
+
+    @IBOutlet var tableView: UITableView!
+
+    var arr = ["A", "B", "C"]
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {
+        return arr.count;
+    }
+
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell {
+
+        var cell: UITableViewCell? = tableView.dequeueReusableCellWithIdentifier("cell") as? UITableViewCell
+
+        if cell == nil {
+            cell = UITableViewCell(style: UITableViewCellStyle.Default , reuseIdentifier: "cell")
+        }
+        cell!.textLabel?.text = arr[indexPath.row]
+
+        return cell!
+    }
+}
+</code></pre>
+
+<p>code 實作完後，記得拉 dataSource 及 delegate</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.27.19%EF%BC%882%EF%BC%89.png" alt="image" /></p>
+
+<p>執行後就是 TableView + NavigationController 了</p>
+
+<p>接下來就要加入換頁:</p>
+
+<p>到 storyboard 再加入一個 ViewController，並從 tableView 的 cell 中建立連結到新的 ViewController</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.33.35.png" alt="image" /></p>
+
+<p>再來新增一個 DetailViewController, 用來顯示下一頁的資料</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.35.29.png" alt="image" /></p>
+
+<p>記得先去做 class 關聯</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.36.03.png" alt="image" /></p>
+
+<p>再來加入這個 function:</p>
+
+<pre><code>override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showDetail" {
+            let index = self.tableView.indexPathForSelectedRow()?.row
+            ((segue.destinationViewController) as DetailViewController).title = arr[index!]
+        }
+    }
+</code></pre>
+
+<p>回到 storyboard, 點選 UITableView 和 UIView 中間的連線，設定 storyboard 的 identifier</p>
+
+<p>設定為 <code>showDetail</code> 以便和程式一樣</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.37.36.png" alt="image" /></p>
+
+<p>另外回到 Storyboard 中的 TableView, 設定 cell 的 identifier 和程式一樣</p>
+
+<p>以便 reuse</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.47.03.png" alt="image" /></p>
+
+<p>接著都設定完畢後，就可以執行了!</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.49.13.png" alt="image" /></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.49.18.png" alt="image" /></p>
+
+<p>這樣就完成啦!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[Swift-d16] - Basic - Table View 2 換頁 (Delegate)]]></title>
@@ -485,62 +623,6 @@ self.navigationController?.pushViewController(self.storyboard?.instantiateViewCo
 <p>按下 item 會到 View2, View2 會自動產生 back 鍵，回到 View1</p>
 
 <p>是不是很方便呢!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[Swift-d12] - Basic - 基本元件 (Label, Button, UIColor, 文字輸入框)]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/12/swift-d12/"/>
-    <updated>2014-10-12T18:50:20+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/12/swift-d12</id>
-    <content type="html"><![CDATA[<p>今天來放一些基本的元件:</p>
-
-<p>放入一個文字輸入框、文字標簽、按鈕，</p>
-
-<p>在文字框輸入一些字後，按下按鈕後，會在文字標簽顯示剛剛輸入的內容：</p>
-
-<p>首先使用右下角的 Object library 中將上述三種元件拉到 storyborad 中</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-12%2018.37.11.png" alt="image" /></p>
-
-<p>圖中依順序是文字標簽、文字輸入框、按鈕</p>
-
-<p>接著我們要使用到的文件是文字標簽以及文字輸入框，另外要將按鈕加入事件</p>
-
-<p>因此程式的流程是:</p>
-
-<p>按下按鈕後-> 執行按鈕事件
-    -> 抓到文字輸入框的輸入內容
-    -> 將文字標簽的內容改變成文字輸入框的內容</p>
-
-<p>因此先使用昨天的方式，將文字標簽及文字輸入框拉到 ViewController 中以便使用它們，在圖中的程式碼 12, 13 行：</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-12%2018.40.48.png" alt="image" /></p>
-
-<p>這樣我們就可以控制文字標簽的文字以及拿到輸入框的文字了</p>
-
-<p>再來就是最重要的按鈕事件了!</p>
-
-<p>一樣使用 ctrl + 拖曳的方式將按鈕拉到程式碼中，但是這次是要選擇 「IBAction」，是事件的意思:</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-12%2018.42.57.png" alt="image" /></p>
-
-<p>接著就會產生出一段 function:</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-12%2018.43.05.png" alt="image" /></p>
-
-<p>名為 titleButton, 我們在方法中輸入一行程式碼:</p>
-
-<pre><code class="swift">titleLabel.text = titleField.text
-</code></pre>
-
-<p>意思就是將文字標簽的字改成文字輸入框的文字</p>
-
-<p>接著我們就把程式跑起來吧!</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-12%2018.46.14.png" alt="image" /></p>
-
-<p>在文字框中輸入文字，按下按鈕，標簽就可以變文字了!</p>
 ]]></content>
   </entry>
   

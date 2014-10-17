@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Api | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/api/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-16T18:44:48+08:00</updated>
+  <updated>2014-10-17T21:24:07+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,117 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[API-d17] - 實戰開發 - 專案結構]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/17/api-d17/"/>
+    <updated>2014-10-17T21:17:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/17/api-d17</id>
+    <content type="html"><![CDATA[<p>首先我們就在虛擬機的資料夾底下，建立一個專案資料夾吧!</p>
+
+<p>今天會來簡單切割一下我們的專案目錄</p>
+
+<h2>建立新專案目錄:</h2>
+
+<pre><code>$ cd /vagrant/
+$ mkdir TODOAPI
+$ cd TODOAPI
+$ npm init
+// 輸入專案資訊
+$ 
+</code></pre>
+
+<h2>建立專案結構</h2>
+
+<pre><code>/
+| - bin/
+| - routes/
+| - model/
+| - node_modules/
+| - logs/
+| - config/
+| - test/
+| - app.js
+| - package.json
+</code></pre>
+
+<p>分別講解一下各個 folder 的工作:</p>
+
+<h3><code>bin</code></h3>
+
+<p>筆者會在 <code>bin</code> 資料夾底下放一個 <code>server.js</code></p>
+
+<p>這個 <code>server.js</code> 就是會專門用來啟動一個 <code>app.js</code> instance</p>
+
+<h3><code>routes</code></h3>
+
+<p>基本上如果了解 MVC 架構的話，<code>routes</code> 就是 <code>controller</code> 的意思，其實如果讀者本身夠了解的話，這個資料夾也可以改成 <code>controller</code> 也 ok，應該說，其實資料夾怎麼放都是看個人隨意即可，只是若是要模組化的話，筆者會這樣來處理一個專案結構。</p>
+
+<h3><code>model</code></h3>
+
+<p>拿來放資料庫 schema 以及相關的資料庫操作的資料夾</p>
+
+<h3><code>node_modules</code></h3>
+
+<p>這其實是之後安裝的模組會放在這個資料夾裡，在這邊可以先不用建立沒關係</p>
+
+<h3><code>logs</code></h3>
+
+<p>由於我們是建立一個 restful service，因此 log 的記錄也是很重要的，我們把 log 放在這個資料夾裡</p>
+
+<h3><code>configs</code></h3>
+
+<p>我們在這個資料夾裡放置一些專案設定，例如 db 設定或者是 log 的設定等等</p>
+
+<h3><code>test</code></h3>
+
+<p>撰寫測試程式的資料夾~</p>
+
+<h3><code>app.js</code></h3>
+
+<p>程式的進入點，可以想像成 index.php~</p>
+
+<h3><code>package.json</code></h3>
+
+<p>專案的資訊以及相關模組的資訊都會被放在這裡!</p>
+
+<hr />
+
+<p>其實關於專案結構有許多不同的討論，<code>express</code> 也有一個專案自動產生器，不過如果對結構內容不了解而使用產生器的話，很容易變成只知表面不知內部運作，因此我們還是一步一步來，先定義好我們專案的需求結構</p>
+
+<p>另外，因為我們是建立 restful API service，在此並沒有用到 html 頁面，也因此就沒有 <code>view</code> 或 <code>public</code> 這兩個資料夾囉~</p>
+
+<p>延伸閱讀:</p>
+
+<p>我們可以透過觀摩別人的專案來參考他們的專案架構:</p>
+
+<p><a href="http://scotch.io/tutorials/javascript/node-and-angular-to-do-app-application-organization-and-structure">Node and Angular To-Do App: Application Organization and Structure</a></p>
+
+<p><a href="http://stackoverflow.com/questions/18789864/node-js-express-global-modules-best-practices-for-application-structure">node.js &amp; express - global modules &amp; best practices for application structure</a></p>
+
+<p>在 Github 上的討論，非常值得一看: <a href="https://gist.github.com/lancejpollard/1398757">Github discussion</a></p>
+
+<p>後來覺得也可以模仿 rails 的分法:</p>
+
+<pre><code>/
+| - app/
+| - ----controllers/
+| - ----models/
+| - ----views/
+| - ----helpers/
+| - node_modules/
+| - logs/
+| - libs/
+| - public/
+| - config/
+| - test/
+| - server.js
+| - package.json
+</code></pre>
+
+<p>都 OK!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[API-d16] - 實戰開發 - 設定主題及規劃]]></title>
@@ -533,172 +644,6 @@ var User = require('./user.js');
 var kerkerj = new User('kerkerj', 18);
 kerkerj.about(); 
 </code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[API-d12] - MongoDB - Hello World! (Client-side)]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/12/api-d12/"/>
-    <updated>2014-10-12T18:50:16+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/12/api-d12</id>
-    <content type="html"><![CDATA[<p>今天要使用 Node.js 的 mongodb driver 來操作 DB</p>
-
-<p>一樣先開啟虛擬機並且登入吧</p>
-
-<p>會使用到的套件是:</p>
-
-<pre><code class="javascript">mongodb -&gt; mongodb native driver
-</code></pre>
-
-<p>或許有人有看過 <code>mongoose</code> -> <a href="http://mongoosejs.com/">官網</a></p>
-
-<p>算是 MongoDB 的 ORM，我們在這邊如果有時間的話再簡單了解一下，</p>
-
-<p>現在先使用 native driver 來操作</p>
-
-<p>我們在這邊就不裝全域套件了，裝在 API 專案裡面</p>
-
-<p>並且使用 <code>-save</code> 來將相依性寫入 <code>package.json 裏</code></p>
-
-<pre><code>$ cd /vagrant/API/
-$ npm install mongodb -save
-</code></pre>
-
-<p>從虛擬機回到電腦的資料夾中，在虛擬機資料夾的 API 資料夾中，</p>
-
-<p>今天我們先不和 express 搭配，因此就是純操作 node.js + mongodb module</p>
-
-<p>新增一個 <code>mongoTest.js</code></p>
-
-<p>我們先來連線到 MongoDB，連線的方式有很多，下面是其中一種方式，</p>
-
-<pre><code>// 先宣告用的到的東西
-var MongoClient = require('mongodb').MongoClient
-    , Server = require('mongodb').Server
-    , options = { auto_reconnection: true, poolSize: 10 };
-
-// Server 設定
-var mongoClient = new MongoClient(new Server('localhost', 27017, options));
-
-// 開啟連線
-mongoClient.open(function(err, mongoClient) {
-    var db1 = mongoClient.db("testDB");
-
-    if (!err) {
-        console.log("Connected!");
-    }
-
-    mongoClient.close();
-    console.log("Closed!");
-});
-</code></pre>
-
-<p>回到虛擬機執行</p>
-
-<pre><code>$ node mongoTest.js
-Connected!
-Closed!
-</code></pre>
-
-<p>接著用另外一種連接方式，介紹 CRUD 的操作:</p>
-
-<pre><code>var mongoClient = require('mongodb').MongoClient;
-
-mongoClient.connect('mongodb://localhost:27017/testDB', function(err, db) {
-    if(err) throw err;
-
-    // Data
-    var todo1 = {todo: "Buy books", time: "2014/10/11", who: "myself"};
-    var todo2 = {todo: "Buy milk", time: "2014/10/15", who: "brother"};
-    var todo3 = {todo: "Wash cats", time: "2014/11/21", who: "myself"};
-
-    var collection = db.collection('todoTest');
-    var where = {todo: "Buy milk"};
-
-    // 新增資料
-    collection.insert(todo1, function(err, docs) {
-        console.log(docs);
-    });
-
-    collection.insert(todo2, function(err, docs) {
-        console.log(docs);
-    });
-
-    collection.insert(todo3, function(err, docs) {
-        console.log(docs);
-    });
-
-    // 更新資料
-    collection.update(where, { $set: { time: "2014/12/25"} }, function(err) {
-        console.log(err);
-    });
-
-    // 刪除某筆資料
-    collection.remove(where, function(err) {
-        console.log(err);
-    });
-
-    // 查詢某筆資料
-    collection.find(where).toArray(function(err, results) {
-        console.dir(results);
-    });
-
-    // 查詢所有資料
-    collection.find().toArray(function(err, results) {
-        console.dir(results);
-    });
-});
-</code></pre>
-
-<p>請注意，以上操作由於 javascript async 特性的關係，</p>
-
-<p>每個操作是會同時間送出，不同時間回送，看操作的運算時間而定</p>
-
-<p>因此若要依順序性的話，一是使用 callback，二是使用 async.js</p>
-
-<p>後面應該會提到 XD</p>
-
-<p>將這些程式碼存到 js file 裏，將某些行先註解掉，執行看看就可以略知一二了，</p>
-
-<p>可以同時搭配終端機直接到 DB 查看</p>
-
-<p>p.s. 大家可能會覺得這樣的方式很麻煩，MongoDB 有沒有好用的 client 來管理 DB 呢</p>
-
-<p>我推薦 RoboMongo，多平台，且可以直接輸入指令，蠻方便的，</p>
-
-<p>那如果是用我們現在的虛擬機的方式，要如何使用 RoboMongo ？</p>
-
-<p>首先，虛擬機的 DB 必須先開啟外部網路可以連線，</p>
-
-<p>注意! 我們目前並沒有創立使用者帳號密碼，不需要驗證即可進入 DB，這樣的做法只限於 demo, 與虛擬機中使用</p>
-
-<p>正式環境還是必須建立使用者帳號密碼</p>
-
-<p>先進到虛擬機更改 db 設定:</p>
-
-<pre><code>$ sudo nano /etc/mongod.conf
-</code></pre>
-
-<p>將 bind_ip = 0.0.0.0</p>
-
-<p>按下 ctrl+x 選擇 Y 存檔</p>
-
-<p>重開 mongodb</p>
-
-<pre><code>$ sudo service mongod restart
-</code></pre>
-
-<p>若已經下載過 RoboMongo，開啟並輸入欲連線的 DB 設定：</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-06%2013.56.39.png" alt="" /></p>
-
-<p>就可以連進去管理了!</p>
-
-<p>再次提醒，這樣的做法只限於虛擬機及 demo 中測試</p>
-
-<p>正式環境要嘛建立使用者帳號密碼</p>
-
-<p>要嘛就是讓 DB 只限本機存取，請記住這件事情哦~</p>
 ]]></content>
   </entry>
   
