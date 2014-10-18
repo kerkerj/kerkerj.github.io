@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Vagrant | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/vagrant/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-18T18:31:14+08:00</updated>
+  <updated>2014-10-18T18:33:24+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -88,62 +88,36 @@ $sudo apt-get install nginx
 若要更改 Nginx 的網頁目錄，設定檔在 <code>/etc/nginx/</code> 裡，
 通常應該是更改 <code>/etc/nginx/sites-enable/default</code> 裡的 <code>root /usr/share/nginx/www/</code>
 還要將這段 code 解除註解：
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>location ~ .php$ {
-</span><span class='line'>    fastcgi_split_path_info ^(.+.php)(/.+)$;
-</span><span class='line'>    # NOTE: You should have &ldquo;cgi.fix_pathinfo = 0;&rdquo; in php.ini&lt;/p&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;# With php5-cgi alone:
-</span><span class='line'>#fastcgi_pass 127.0.0.1:9000;
-</span><span class='line'># With php5-fpm:
-</span><span class='line'>fastcgi_pass unix:/var/run/php5-fpm.sock;
-</span><span class='line'>fastcgi_index index.php;
-</span><span class='line'>include fastcgi_params;
-</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;p&gt;}
-</span><span class='line'>&lt;code&gt;
-</span><span class='line'>更改後確認一下 `/etc/nginx/nginx.conf` 是否有 `inculde /etc/nginx/sites-enable/*`
-</span><span class='line'>&lt;/code&gt;
-</span><span class='line'>$sudo service nginx start (開始服務)
-</span><span class='line'>&lt;code&gt;
-</span><span class='line'>安裝 php5-fpm
-</span><span class='line'>&lt;/code&gt;
-</span><span class='line'>$sudo apt-get install php5-fpm&lt;br/&gt;
-</span><span class='line'>$sudo vim /etc/php5/fpm/php.ini (找到並更改 cgi.fix_pathinfo = 0 )&lt;br/&gt;
-</span><span class='line'>$sudo vim /etc/php5/fpm/pool.d/www.conf&lt;br/&gt;
-</span><span class='line'>&lt;code&gt;
-</span><span class='line'>找到 `listen = 127.0.0.1:9000`, 換成 `/var/run/php5-fpm.sock`
-</span><span class='line'>寫個 phpinfo(); 的 php 檔放入資料夾
-</span><span class='line'>&lt;/code&gt;
-</span><span class='line'>$sudo service php5-fpm restart (開啟服務)</span></code></pre></td></tr></table></div></figure>
+&#8220;`
+location ~ .php$ {
+    fastcgi_split_path_info ^(.+.php)(/.+)$;
+    # NOTE: You should have &ldquo;cgi.fix_pathinfo = 0;&rdquo; in php.ini</p>
+
+<pre><code># With php5-cgi alone:
+#fastcgi_pass 127.0.0.1:9000;
+# With php5-fpm:
+fastcgi_pass unix:/var/run/php5-fpm.sock;
+fastcgi_index index.php;
+include fastcgi_params;
+</code></pre>
+
+<p>}
+<code>
+更改後確認一下 `/etc/nginx/nginx.conf` 是否有 `inculde /etc/nginx/sites-enable/*`
+</code>
+$sudo service nginx start (開始服務)
+<code>
+安裝 php5-fpm
+</code>
+$sudo apt-get install php5-fpm<br/>
+$sudo vim /etc/php5/fpm/php.ini (找到並更改 cgi.fix_pathinfo = 0 )<br/>
+$sudo vim /etc/php5/fpm/pool.d/www.conf<br/>
+<code>
+找到 `listen = 127.0.0.1:9000`, 換成 `/var/run/php5-fpm.sock`
+寫個 phpinfo(); 的 php 檔放入資料夾
+</code>
+$sudo service php5-fpm restart (開啟服務)
+&#8220;`
 在瀏覽器輸入 localhost:8088 就可以看到 nginx 的頁面，再讀取剛剛寫的 php 應該就成功囉！</p>
 
 <p>安裝 MySQL:
