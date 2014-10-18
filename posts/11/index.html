@@ -98,6 +98,183 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2011/05/06/android-notes/">[Android] 程式開發雜記</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-06T18:13:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2011/05/06/android-notes/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2011/05/06/android-notes/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>最近在寫和Android程式，因此把一些重點筆記下來：</p>
+
+<h1>Android中各種JAVA包的功能描述</h1>
+
+<p>(ref: <a href="http://huenlil.pixnet.net/blog/post/24346240">http://huenlil.pixnet.net/blog/post/24346240</a>)</p>
+
+<p>在Android的應用程序開發中，通常使用的是JAVA語言，除了需要熟悉JAVA語言的基礎知識之外，還需要瞭解Android提供的擴展的JAVA功能。
+在Android中，各種包寫成android.*的方式，重要包的描述如下所示：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>* android.app        ：提供高層的程序模型、提供基本的運行環境
+</span><span class='line'>* android.content    ：包含各種的對設備上的數據進行訪問和發佈的類
+</span><span class='line'>* android.database   ：通過內容提供者瀏覽和操作數據庫
+</span><span class='line'>* android.graphics   ：底層的圖形庫，包含畫布，顏色過濾，點，矩形，可以將他們直接繪製到屏幕上
+</span><span class='line'>* android.location   ：定位和相關服務的類
+</span><span class='line'>* android.media      ：提供一些類管理多種音頻、視頻的媒體接口
+</span><span class='line'>* android.net        ：提供幫助網絡訪問的類，超過通常的java.net.* 接口
+</span><span class='line'>* android.os         ：提供了系統服務、消息傳輸、IPC機制
+</span><span class='line'>* android.opengl     ：提供OpenGL的工具
+</span><span class='line'>* android.provider   ：提供類訪問Android的內容提供者
+</span><span class='line'>* android.telephony  ：提供與撥打電話相關的API交互
+</span><span class='line'>* android.view       ：提供基礎的用戶界面接口框架
+</span><span class='line'>* android.util       ：涉及工具性的方法，例如時間日期的操作
+</span><span class='line'>* android.webkit     ：默認瀏覽器操作接口
+</span><span class='line'>* android.widget     ：包含各種UI元素（大部分是可見的）在應用程序的屏幕中使用</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>Empty Process, Background Process, Service Process, Visible Process, Foreground Process 初探</h1>
+
+<p>(ref: <a href="http://www.gururu.tw/Android-Process-Thread.html">[Android 教學課程] Empty Process , Background Process , Service Process , Visible Process , Foreground Process 初探</a> )</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>* 關於 Android 的應用程式組件 ( Application Components ) 的補充
+</span><span class='line'>* 處理程序 ( Process ) 與執行緒 ( Thread )
+</span><span class='line'>* 空白處理程序 ( Empty Process )
+</span><span class='line'>* 背景處理程序 ( Background Process )
+</span><span class='line'>* Service 處理程序 ( Service process )
+</span><span class='line'>* 可視處理程序 ( Visible Process )
+</span><span class='line'>* 前景處理程序 ( Foreground process ) </span></code></pre></td></tr></table></div></figure>
+
+
+<h1>Activity , Fragment , Service , Broadcast receiver , Content provider 與 Intent 初探</h1>
+
+<p>( ref: <a href="http://www.gururu.tw/Android-Activity-Fragment-Service-Broadcast-receiver-Content-provider-Intent.html">[Android 教學課程] Activity , Fragment , Service , Broadcast receiver , Content provider 與 Intent 初探</a> )</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>* 什麼是 Activity？  Activity ：它負責前端使用者介面處理。
+</span><span class='line'>* 什麼是 Fragment？   Fragment ：它在一個具分割畫面( Multi-Pane )的 Activity 應用程式組件之中，負責分割畫面的部份區段或部份行為。
+</span><span class='line'>* 什麼是 Service?  Service ：它負責後端程式運算。
+</span><span class='line'>* 什麼是 Content provider？   Content provider ：它負責應用程式之間資料共享的任務。
+</span><span class='line'>* 什麼是 Broadcast receivers？    Broadcast receivers ：此應用程式組件的中文譯名，多半會翻成廣播接收者或者廣播接收器。</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>手機截圖：</h1>
+
+<p>(ref:<a href="http://www.eprice.com.tw/mobile/talk/124/4483653/">【教學】Android 手機截圖：一點都不難</a>)</p>
+
+<p>若有裝Android SDK 的話 (一般開發者應該都會裝吧XD)，直接開 Android SDK 的目錄 /tools/ddms.bat，執行此批次檔就可以囉 (使用時不要將該dos畫面關閉), 此時手機必須連接上網路，並設定USB偵錯，
+要截圖時只要到 device/capture screen 即可</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/05/02/ubuntu-1104-dropbox/">[Ubuntu] 11.04 Dropbox 啟動問題</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-02T09:53:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2011/05/02/ubuntu-1104-dropbox/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2011/05/02/ubuntu-1104-dropbox/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>我從 Dropbox 上下載 for Ubuntu 的套件，安裝完後，設定的頁面卻遲遲不出來，這真是非常的詭異，所以就查了解決方法。 <br/>
+<a href="http://www.webupd8.org/2011/03/get-dropbox-appindicator-to-work-in.html#more">http://www.webupd8.org/2011/03/get-dropbox-appindicator-to-work-in.html#more</a></p>
+
+<p>1.一樣也是先去下載<br/>
+2.然後執行以下指令（一行一行)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$cd  
+</span><span class='line'>$wget http://webupd8.googlecode.com/files/fixdropbox  
+</span><span class='line'>$chmod +x fixdropbox  
+</span><span class='line'>$./fixdropbox  </span></code></pre></td></tr></table></div></figure>
+
+
+<p>應該就可以了，如果要多作設定再：<code>gedit ~/.dropbox.sh</code><br/>
+好像有什麼秒數的東西設定吧~~</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2011/01/26/php-db/">[PHP] 簡單的資料庫連結</a></h1>
     
     

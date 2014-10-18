@@ -4,7 +4,7 @@
   <title><![CDATA[kerkerj]]></title>
   <link href="http://kerkerj.github.io/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-17T21:23:11+08:00</updated>
+  <updated>2014-10-18T18:31:14+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -61,7 +61,7 @@ Day14 -  <a href="http://kerkerj.github.io/blog/2014/10/14/api-d14/">[API-d14] -
 Day15 -  <a href="http://kerkerj.github.io/blog/2014/10/15/api-d15/">[API-d15] - [Javascript 番外篇] Javascript callback, event</a><br/>
 Day16 -  <a href="http://kerkerj.github.io/blog/2014/10/16/api-d16/">[API-d16] - 實戰開發 - 設定主題及規劃</a><br/>
 Day17 -  <a href="http://kerkerj.github.io/blog/2014/10/17/api-d17/">[API-d17] - 實戰開發 - 專案結構</a><br/>
-Day18 -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day18 -  <a href="http://kerkerj.github.io/blog/2014/10/18/api-d18/">[API-d18] - 實戰開發 - 套件模組</a><br/>
 Day19 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day20 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day21 -  <a href="http://kerkerj.github.io/">#</a><br/>
@@ -94,7 +94,7 @@ Day14 -  <a href="http://kerkerj.github.io/blog/2014/10/14/swift-d14/">[Swift-d1
 Day15 -  <a href="http://kerkerj.github.io/blog/2014/10/15/swift-d15/">[Swift-d15] - Basic - Table View 1 直接給值 datasource, (table view scroll)</a><br/>
 Day16 -  <a href="http://kerkerj.github.io/blog/2014/10/16/swift-d16/">[Swift-d16] - Basic - Table View 2 換頁 (delegate)</a><br/>
 Day17 -  <a href="http://kerkerj.github.io/blog/2014/10/17/swift-d17/">[Swift-d17] - Basic - Navigation View + TableView</a><br/>
-Day18 -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day18 -  <a href="http://kerkerj.github.io/blog/2014/10/18/swift-d18/">[Swift-d18] - Basic - Customize TableViewCell</a><br/>
 Day19 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day20 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day21 -  <a href="http://kerkerj.github.io/">#</a><br/>
@@ -107,6 +107,452 @@ Day27 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day28 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day29 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day30 -  <a href="http://kerkerj.github.io/">#</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Swift-d18] - Basic - Customize TableViewCell]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/18/swift-d18/"/>
+    <updated>2014-10-18T18:28:23+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/18/swift-d18</id>
+    <content type="html"><![CDATA[<p>今天的主題延續昨天的 Navigation + TableView</p>
+
+<p>我們要來客製化 TableViewCell</p>
+
+<p>通常 TableView 可以被拿來做很多事情，不僅只是像是 ListView 而已</p>
+
+<p>而 TableViewCell 可以做更深度的切版，排列元素</p>
+
+<p>因此自定 TableViewCell 是一件算是還蠻重要的事情</p>
+
+<p>下面的 Code 是延續昨天的專案</p>
+
+<p>我先把已更改過的程式碼貼上來:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>import UIKit
+</span><span class='line'>
+</span><span class='line'>class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+</span><span class='line'>    
+</span><span class='line'>    @IBOutlet var tableView: UITableView!
+</span><span class='line'>    
+</span><span class='line'>    var arr = ["A", "B", "C"]
+</span><span class='line'>    
+</span><span class='line'>    override func viewDidLoad() {
+</span><span class='line'>        super.viewDidLoad()
+</span><span class='line'>        // Do any additional setup after loading the view, typically from a nib.
+</span><span class='line'>    }
+</span><span class='line'>
+</span><span class='line'>    override func didReceiveMemoryWarning() {
+</span><span class='line'>        super.didReceiveMemoryWarning()
+</span><span class='line'>        // Dispose of any resources that can be recreated.
+</span><span class='line'>    }
+</span><span class='line'>    
+</span><span class='line'>    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {
+</span><span class='line'>        return arr.count;
+</span><span class='line'>    }
+</span><span class='line'>    
+</span><span class='line'>    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell {
+</span><span class='line'>        var cell: CustomTableViewCell? = tableView.dequeueReusableCellWithIdentifier("cell") as CustomTableViewCell?
+</span><span class='line'>        
+</span><span class='line'>        if cell == nil {
+</span><span class='line'>            var objects = NSBundle.mainBundle().loadNibNamed("CustomTableViewCell", owner: self, options: nil)
+</span><span class='line'>            cell = objects[0] as? CustomTableViewCell
+</span><span class='line'>        }
+</span><span class='line'>        
+</span><span class='line'>        cell!.textLabel?.text = arr[indexPath.row]
+</span><span class='line'>        
+</span><span class='line'>        return cell!
+</span><span class='line'>    }
+</span><span class='line'>    
+</span><span class='line'>    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+</span><span class='line'>        var detailViewController = DetailViewController()
+</span><span class='line'>        detailViewController.title = arr[indexPath.row]
+</span><span class='line'>        self.navigationController?.pushViewController(detailViewController, animated: true)
+</span><span class='line'>    }
+</span><span class='line'>    
+</span><span class='line'>    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -&gt; CGFloat {
+</span><span class='line'>        return 165.0
+</span><span class='line'>    }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>今天要新增一個檔案, 我們就稱之為 CustomTableViewCell</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.36.49.png" alt="image" /></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.37.37.png" alt="image" /></p>
+
+<p>就會出現一份 .swift 檔案以及 .xib 檔案了</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.38.06.png" alt="image" /></p>
+
+<p>接下來我們簡單編輯 .xib 檔案，將背景顏色換成其他顏色，以及將它的長度拉高</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.39.49.png" alt="image" /></p>
+
+<p>這樣其實就很簡單地完成了一個小客製化的 TableViewCell 了</p>
+
+<p>那我們要怎麼讓原本的 TableView 吃到這個 TableViewCell 呢?</p>
+
+<p>看以下的 function:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell {
+</span><span class='line'>  var cell: CustomTableViewCell? = tableView.dequeueReusableCellWithIdentifier("cell") as CustomTableViewCell?
+</span><span class='line'>        
+</span><span class='line'>  if cell == nil {
+</span><span class='line'>      var objects = NSBundle.mainBundle().loadNibNamed("CustomTableViewCell", owner: self, options: nil)
+</span><span class='line'>      cell = objects[0] as? CustomTableViewCell
+</span><span class='line'>  }
+</span><span class='line'>        
+</span><span class='line'>  cell!.textLabel?.text = arr[indexPath.row]
+</span><span class='line'>        
+</span><span class='line'>  return cell!
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我們將 cell 的類別更改成了 CustomTableViewCell</p>
+
+<p>直接使用剛剛產生的 .swift 類別來產生新的 TableViewCell</p>
+
+<p>並且如果 cell == nil ，則會將 Nib 載入</p>
+
+<p>最後設定該 textLabel ，返回 cell</p>
+
+<p>若使用最一開始的程式碼 apply changes</p>
+
+<p>執行！</p>
+
+<p>應該就可以看到成果了!</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2012.01.35.png" alt="image" /></p>
+
+<p>p.s. 這篇可能實作上會有 bug (我寫的), 就先跳過吧 XD</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[API-d18] - 實戰開發 - 套件模組]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/18/api-d18/"/>
+    <updated>2014-10-18T18:28:19+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/18/api-d18</id>
+    <content type="html"><![CDATA[<h2>會使用到的套件:</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>主體:
+</span><span class='line'>express - web framework
+</span><span class='line'>body-parser - parse request body
+</span><span class='line'>
+</span><span class='line'>測試相關:
+</span><span class='line'>mocha - test framework
+</span><span class='line'>mocha-mongoose - 用來和 mocha 和 mongoose 中間做介接的套件
+</span><span class='line'>superagent - 拿它來丟 http request
+</span><span class='line'>validator - 用來驗證某個物件是否為某個型別
+</span><span class='line'>expect.js - 類似 BDD 的語法，用來寫測試的
+</span><span class='line'>debug - debug package
+</span><span class='line'>
+</span><span class='line'>DB 相關:
+</span><span class='line'>mongoose - mongodb orm
+</span><span class='line'>mongodb - mongodb native driver
+</span><span class='line'>
+</span><span class='line'>開發相關:
+</span><span class='line'>nodemon - detect file change and restart server
+</span><span class='line'>
+</span><span class='line'>生產環境相關:
+</span><span class='line'>log4js - 記錄 request log</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這是我的 package.json, 可以複製到專案目錄，然後下 <code>npm install</code></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{
+</span><span class='line'>  "name": "TODOAPI",
+</span><span class='line'>  "version": "1.0.0",
+</span><span class='line'>  "description": "",
+</span><span class='line'>  "main": "app.js",
+</span><span class='line'>  "scripts": {
+</span><span class='line'>    "start": "node ./bin/server.js env=development",
+</span><span class='line'>    "test": "./node_modules/mocha/bin/mocha",
+</span><span class='line'>    "test-detail": "./node_modules/mocha/bin/mocha --reporter list",
+</span><span class='line'>    "stop": "pkill -lf server.js"
+</span><span class='line'>  },
+</span><span class='line'>  "author": "kerkerj",
+</span><span class='line'>  "license": "ISC",
+</span><span class='line'>  "dependencies": {
+</span><span class='line'>    "body-parser": "^1.9.0",
+</span><span class='line'>    "debug": "^2.0.0",
+</span><span class='line'>    "expect.js": "^0.3.1",
+</span><span class='line'>    "express": "^4.9.5",
+</span><span class='line'>    "log4js": "^0.6.21",
+</span><span class='line'>    "mocha": "^1.21.4",
+</span><span class='line'>    "mocha-mongoose": "^1.0.1",
+</span><span class='line'>    "mongodb": "^1.4.19",
+</span><span class='line'>    "mongoose": "^3.8.17",
+</span><span class='line'>    "superagent": "^0.20.0",
+</span><span class='line'>    "validator": "^3.19.1"
+</span><span class='line'>  }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>安裝套件，及全域套件 mocha</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// in project folder
+</span><span class='line'>$ npm install express body-parser mocha mocha-mongoose superagent validator expect.js debug mongoose mongodb log4js -save 
+</span><span class='line'>$ npm install -g nodemon</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>各個套件簡單設定</h2>
+
+<p>接下來會針對一些套件作說明，但是由於可能有些人不懂整個專案的運作，因此下面看看就好，之後實作上有問題可以再回來看。</p>
+
+<h2>Nodemon 的作用</h2>
+
+<p>範例:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ nodemon ./bin/server.js
+</span><span class='line'>...</span></code></pre></td></tr></table></div></figure>
+
+
+<p>就可以放著不管它了~ 只要檔案有變動，就會自動重開 server</p>
+
+<h2>使用 logger - log4js</h2>
+
+<p>設定 logger - log4js, 並將 log 寫入到 logs/access.log 裏</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// Set logger
+</span><span class='line'>var log4js = require('log4js');
+</span><span class='line'>log4js.configure({
+</span><span class='line'>    appenders: [
+</span><span class='line'>        { type: 'console' }, //控制台輸出
+</span><span class='line'>        {
+</span><span class='line'>            type: 'file', //文件輸出
+</span><span class='line'>            filename: 'logs/access.log',
+</span><span class='line'>            maxLogSize: 20000000, // 20 MB
+</span><span class='line'>            backups: 10,
+</span><span class='line'>            category: 'normal'
+</span><span class='line'>        }
+</span><span class='line'>    ],
+</span><span class='line'>    replaceConsole: true
+</span><span class='line'>});
+</span><span class='line'>
+</span><span class='line'>var logger = log4js.getLogger('normal');
+</span><span class='line'>logger.setLevel('INFO');
+</span><span class='line'>
+</span><span class='line'>app.use(log4js.connectLogger(logger, {level: 'auto', format:':method :url'}));</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="http://blog.fens.me/nodejs-log4js/">node log4s</a></p>
+
+<h2>使用 body-parser 處理 request 的資料</h2>
+
+<p>加入 middleware</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>app.use( bodyParser.json() );
+</span><span class='line'>app.use( bodyParser.urlencoded({ extended: true }) );</span></code></pre></td></tr></table></div></figure>
+
+
+<p>需要加入 { extended: true/false }, 否則會 warning:</p>
+
+<p>body-parser deprecated undefined extended: provide extended</p>
+
+<p>如果要接收 json request</p>
+
+<p>client 端在 Header 中必須先設定 &ldquo;Content-type: applciation/json&rdquo;</p>
+
+<p>才能夠在 router 中使用 <code>req.body</code> 拿到 json 值</p>
+
+<h2>測試套件</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mocha - 專案
+</span><span class='line'>expect.js - 專案
+</span><span class='line'>superagent - 專案</span></code></pre></td></tr></table></div></figure>
+
+
+<p>測試流程 -</p>
+
+<p>先跑 server 起來，透過自動化程式自動丟 request 給 server，測試結束</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ npm start
+</span><span class='line'>$ mocha
+</span><span class='line'>$ npm stop</span></code></pre></td></tr></table></div></figure>
+
+
+<p>所以必須先在 package.json 中設定好 script</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{
+</span><span class='line'>  (...)
+</span><span class='line'>  "scripts": {
+</span><span class='line'>      "start": "node ./bin/server.js",
+</span><span class='line'>      "test": "mocha",
+</span><span class='line'>      "stop": "pkill -lf server.js"
+</span><span class='line'>  },
+</span><span class='line'>  (...)
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>由於我將啟動 server 的 script 放在 bin 資料夾裡，因此</p>
+
+<p><code>npm start</code> 的 script 就會執行:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>node ./bin/server.js</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>npm stop</code> 的話，用到了 *nix 的指令，會先到 process list 中找到和 server.js 有關的 process，然後 kill process (<code>pkill</code>)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pkill -lf server.js</span></code></pre></td></tr></table></div></figure>
+
+
+<p>跑測試的話，直接下 <code>mocha</code>，在這邊我們也丟一個 script 指定給 <code>npm test</code></p>
+
+<p>下 <code>npm test</code> 就是等同於下 <code>mocha</code></p>
+
+<p>上面只是大致上講解一下每個套件如何用，接下來我們會以實際的例子來說明</p>
 ]]></content>
   </entry>
   
@@ -3019,464 +3465,6 @@ Day30 -  <a href="http://kerkerj.github.io/">#</a></p>
 <hr />
 
 <p>以上是一些 class 和 struct 的特性</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[API-d9] - NVM 與 NPM 使用]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/09/api-d9/"/>
-    <updated>2014-10-09T21:46:12+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/09/api-d9</id>
-    <content type="html"><![CDATA[<h1>NVM 與 NPM 使用</h1>
-
-<h2>NVM - Node.js Version Manager</h2>
-
-<h3>安裝</h3>
-
-<p>如果是 Ubuntu 的話必須先要有 <code>build-essential</code> 和 <code>libssl-dev</code> 套件</p>
-
-<p>不過這個我們之前就裝過了，所以直接安裝 NVM 吧~</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ curl https://raw.githubusercontent.com/creationix/nvm/v0.17.2/install.sh | bash
-</span><span class='line'>$ source ~/.bashrc</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>使用 NVM 安裝 node.js</h3>
-
-<p>先前我們有使用 Ubuntu 本身的 apt-get 安裝 Node.js</p>
-
-<p>不過那是被安裝到 /usr/bin/node</p>
-
-<p>有時候要安裝套件需要 sudo 提供管理者權限</p>
-
-<p>非常麻煩，因此我們使用 NVM 來安裝另一個 Node.js</p>
-
-<p>這個 Node.js 的執行檔就任我們使用，不需要提供管理者權限了</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ nvm install 0.10</span></code></pre></td></tr></table></div></figure>
-
-
-<p>nvm 就會安裝 0.10 版本，安裝完後就要使用它：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ nvm use 0.10</span></code></pre></td></tr></table></div></figure>
-
-
-<p>再來我們把 nvm 的 node.js 設定成預設的 node</p>
-
-<p>否則重開機後，node 指令會變回原本系統的 node</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ nvm alias default 0.10</span></code></pre></td></tr></table></div></figure>
-
-
-<p>我們觀察一下現在使用的 node 指令是哪裡來的:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ which node
-</span><span class='line'>/home/vagrant/.nvm/v0.10.32/bin/node</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Good! 他已經被安裝到我們使用者目錄底下了</p>
-
-<p>原本的系統 Node.js 是在 <code>/usr/bin/node</code></p>
-
-<p>如果要切換回系統的 Node.js:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ nvm use system
-</span><span class='line'>Now using system version of node: v0.10.32.
-</span><span class='line'>
-</span><span class='line'>// 看一下現在使用 node 的路徑
-</span><span class='line'>$ which node
-</span><span class='line'>/usr/bin/node</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>NPM - Node.js Package Manager</h2>
-
-<p>NPM 顧名思義就是 node.js 的套件管理系統，</p>
-
-<p>世界上有許許多多的開發者為 Node.js 開發了許許多多的套件，</p>
-
-<p>我們受惠于此，也不用再自己造輪子，拿這些佛心的大大的套件來使用，打造出我們想要的服務，</p>
-
-<p>像我們接下來會使用的 Express 和 Mongodb 的 driver 都是別人寫好開放出來給大家用的！</p>
-
-<p>下面簡單介紹 NPM 的使用方式</p>
-
-<h3>初始化專案資料夾</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ npm init </span></code></pre></td></tr></table></div></figure>
-
-
-<p>終端機會詢問各種問題來幫忙建立 package.json 的檔案</p>
-
-<p>是在資料夾中建立專案前必下的指令</p>
-
-<p>並且，使用 package.json 有個好處</p>
-
-<p>只要將 package.json 給其他人</p>
-
-<p>其他人只需要將 package.json 放到某個資料夾</p>
-
-<p>並下:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ npm install</span></code></pre></td></tr></table></div></figure>
-
-
-<p>就會在該資料夾安裝 package.json 中列出的所有套件</p>
-
-<p>就不需要一個一個尋找及安裝，非常方便！</p>
-
-<h3>安裝套件</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>// 安裝全域套件
-</span><span class='line'>$ npm install [套件名稱] -g
-</span><span class='line'>
-</span><span class='line'>// 安裝套件在專案資料夾 
-</span><span class='line'>// 會安裝在目前所在的資料夾，所以要下此指令必須先確認自己是否在專案根目錄
-</span><span class='line'>$ npm install [套件名稱]
-</span><span class='line'>
-</span><span class='line'>// 通常專案資料夾底下都會有一個 package.json 來管理套件相依性
-</span><span class='line'>// 如果在專案資料夾底下下此指令，會將你所安裝的套件加入 package.json 中
-</span><span class='line'>// 一樣也是要先確認自己是否在專案目錄底下
-</span><span class='line'>$ npm install [套件名稱] -save</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>移除套件</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>// 移除全域套件
-</span><span class='line'>$ npm uninstall [套件名稱] -g
-</span><span class='line'>
-</span><span class='line'>// 移除在專案資料夾的某個套件 
-</span><span class='line'>// 會移除在目前所在的資料夾某個套件，所以要下此指令必須先確認自己是否在專案根目錄
-</span><span class='line'>$ npm uninstall [套件名稱]
-</span><span class='line'>
-</span><span class='line'>// 通常專案資料夾底下都會有一個 package.json 來管理套件相依性
-</span><span class='line'>// 如果在專案資料夾底下下此指令，會將你所移除的套件從 package.json 中刪除
-</span><span class='line'>// 一樣也是要先確認自己是否在專案目錄底下
-</span><span class='line'>$ npm uninstall [套件名稱] -save</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>列出套件</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>// 列出全域套件
-</span><span class='line'>$ npm ls -g
-</span><span class='line'>
-</span><span class='line'>// 列出全域套件詳細資訊
-</span><span class='line'>$ npm ls -gl
-</span><span class='line'>
-</span><span class='line'>// 在專案資料夾底下：
-</span><span class='line'>
-</span><span class='line'>// 列出專案資料夾的套件
-</span><span class='line'>$ npm ls 
-</span><span class='line'>
-</span><span class='line'>// 列出專案資料夾的詳細套件資訊
-</span><span class='line'>$ npm ls -l</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>更新套件</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>// 更新全域套件
-</span><span class='line'>$ npm update -g
-</span><span class='line'>
-</span><span class='line'>// 在專案資料夾底下：
-</span><span class='line'>
-</span><span class='line'>// 更新專案套件
-</span><span class='line'>$ npm update </span></code></pre></td></tr></table></div></figure>
-
-
-<h3>搜尋套件</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ npm search [套件名稱]</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>注意!!</h2>
-
-<p>請注意，使用系統 Node.js 的 npm 所安裝的套件，是屬於系統 Node.js 的</p>
-
-<p>切換到使用者目錄底下的 Node.js 時，是不會共用系統 npm 的套件的</p>
-
-<p>請注意這一點，接下來我們都會使用 nvm 的 node.js</p>
-
-<p>我們可以透過以下例子來驗證:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>// 使用系統 node.js
-</span><span class='line'>$ nvm use system
-</span><span class='line'>Now using system version of node: v0.10.32.
-</span><span class='line'>
-</span><span class='line'>// 查看 npm 全域套件
-</span><span class='line'>$ npm list -g  
-</span><span class='line'>/usr/lib
-</span><span class='line'>├─┬ express@4.9.5
-</span><span class='line'>│ ├─┬ accepts@1.1.1
-</span><span class='line'>│ │ ├─┬ mime-types@2.0.2
-</span><span class='line'>│ │ │ └── mime-db@1.1.0
-</span><span class='line'>│ │ └── negotiator@0.4.8
-</span><span class='line'>....
-</span><span class='line'>
-</span><span class='line'>// 使用 nvm node.js
-</span><span class='line'>$ nvm use 0.10
-</span><span class='line'>Now using node v0.10.32
-</span><span class='line'>
-</span><span class='line'>// 查看 npm 全域套件
-</span><span class='line'>$ npm list -g 
-</span><span class='line'>/home/vagrant/.nvm/v0.10.32/lib
-</span><span class='line'>└─┬ npm@1.4.28
-</span><span class='line'>  ├── abbrev@1.0.5
-</span><span class='line'>  ├── ansi@0.3.0
-</span><span class='line'>  ├── ansicolors@0.3.2
-</span><span class='line'>  ├── ansistyles@0.1.3
-</span><span class='line'>  ├── archy@0.0.2
-</span><span class='line'>  ├── block-stream@0.0.7
-</span><span class='line'>  ├── char-spinner@1.0.1
-</span><span class='line'>  ├── child-process-close@0.1.1
-</span><span class='line'>  ├── chmodr@0.1.0
-</span><span class='line'>...</span></code></pre></td></tr></table></div></figure>
-
-
-<p>主要差別就在於 列出全域套件時，還會提醒你這些套件裝在哪裡，如果不是裝在使用者目錄底下，</p>
-
-<p>表示現在用的是系統的 Node.js</p>
-
-<p>因此發現自己不對了就快換回來吧，如果系統裝爛了，也可以利用先前打包的 box 還原哦!</p>
-
-<h2>怎麼找套件?</h2>
-
-<p>套件那麼多，我要到哪裡找？</p>
-
-<p>除了根據自己的需求 Google 外，</p>
-
-<p>下面是 Node.js module 的官方網站: <a href="https://nodejsmodules.org/">https://nodejsmodules.org/</a></p>
-
-<p>有做最受歡迎的套件排名，進去瀏覽一下，有時候會發現一些好用的套件哦!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[Swift-d8] - Playground - Enumerations]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/08/swift-d8/"/>
-    <updated>2014-10-08T13:04:25+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/08/swift-d8</id>
-    <content type="html"><![CDATA[<h1>Playground - Enumerations</h1>
-
-<p>通常會使用來定義一組相關的值</p>
-
-<p>也是很方便的東西</p>
-
-<h2>列舉語法</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">enum</span> <span class="n">SomeEnumeration</span> <span class="p">{</span>
-</span><span class='line'>  <span class="c1">// enumeration definition goes here</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>比方說，車子</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">enum</span> <span class="n">Car</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">case</span> <span class="n">toyota</span>
-</span><span class='line'>  <span class="k">case</span> <span class="n">benz</span>
-</span><span class='line'>  <span class="k">case</span> <span class="n">BMW</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>也可以這樣寫</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">enum</span> <span class="n">Car</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">case</span> <span class="n">toyota</span><span class="p">,</span> <span class="n">benz</span><span class="p">,</span> <span class="n">BMW</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>使用:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">var</span> <span class="n">car</span> <span class="o">=</span> <span class="n">Car</span><span class="p">.</span><span class="n">benz</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>和 Switch 的搭配</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">enum</span> <span class="n">Car</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">case</span> <span class="n">Toyota</span><span class="p">,</span> <span class="n">Benz</span><span class="p">,</span> <span class="n">BMW</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">var</span> <span class="n">car</span> <span class="o">=</span> <span class="n">Car</span><span class="p">.</span><span class="n">Benz</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">switch</span> <span class="n">car</span> <span class="p">{</span>
-</span><span class='line'><span class="k">case</span> <span class="p">.</span><span class="nl">Toyota</span><span class="p">:</span>
-</span><span class='line'>    <span class="n">println</span><span class="p">(</span><span class="s">&quot;Toyota&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="k">case</span> <span class="p">.</span><span class="nl">Benz</span><span class="p">:</span>
-</span><span class='line'>    <span class="n">println</span><span class="p">(</span><span class="s">&quot;Benz&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="k">case</span> <span class="p">.</span><span class="nl">BMW</span><span class="p">:</span>
-</span><span class='line'>    <span class="n">println</span><span class="p">(</span><span class="s">&quot;BMW&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Associated Values</h2>
-
-<p>以 Barcode 來舉例子</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">enum</span> <span class="n">Barcode</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">case</span> <span class="n">UPCA</span><span class="p">(</span><span class="n">Int</span><span class="p">,</span> <span class="n">Int</span><span class="p">,</span> <span class="n">Int</span><span class="p">)</span>
-</span><span class='line'>    <span class="k">case</span> <span class="n">QRCode</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">var</span> <span class="n">productBarcode</span> <span class="o">=</span> <span class="n">Barcode</span><span class="p">.</span><span class="n">UPCA</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8948</span><span class="p">,</span> <span class="mi">333</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>我們可以借此來定義一些結構</p>
-
-<h2>Raw Values</h2>
-
-<p>我們可以先給定預設值：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">enum</span> <span class="nl">Barcode</span><span class="p">:</span> <span class="n">String</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">case</span> <span class="n">UPCA</span> <span class="o">=</span> <span class="s">&quot;upca&quot;</span>
-</span><span class='line'>    <span class="k">case</span> <span class="n">QRCode</span> <span class="o">=</span> <span class="s">&quot;qrcode&quot;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">var</span> <span class="n">productBarcode</span> <span class="o">=</span> <span class="n">Barcode</span><span class="p">.</span><span class="n">UPCA</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">productBarcode</span><span class="p">.</span><span class="n">toRaw</span><span class="p">())</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>可以透過 raw value 來找尋</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">Barcode</span><span class="p">.</span><span class="n">fromRaw</span><span class="p">(</span><span class="s">&quot;qrcode&quot;</span><span class="p">))</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>這個部分雖然不多，但是很實用</p>
 ]]></content>
   </entry>
   

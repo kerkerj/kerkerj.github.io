@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Api | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/api/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-17T21:24:07+08:00</updated>
+  <updated>2014-10-18T18:31:14+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,183 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[API-d18] - 實戰開發 - 套件模組]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/18/api-d18/"/>
+    <updated>2014-10-18T18:28:19+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/18/api-d18</id>
+    <content type="html"><![CDATA[<h2>會使用到的套件:</h2>
+
+<pre><code>主體:
+express - web framework
+body-parser - parse request body
+
+測試相關:
+mocha - test framework
+mocha-mongoose - 用來和 mocha 和 mongoose 中間做介接的套件
+superagent - 拿它來丟 http request
+validator - 用來驗證某個物件是否為某個型別
+expect.js - 類似 BDD 的語法，用來寫測試的
+debug - debug package
+
+DB 相關:
+mongoose - mongodb orm
+mongodb - mongodb native driver
+
+開發相關:
+nodemon - detect file change and restart server
+
+生產環境相關:
+log4js - 記錄 request log
+</code></pre>
+
+<p>這是我的 package.json, 可以複製到專案目錄，然後下 <code>npm install</code></p>
+
+<pre><code>{
+  "name": "TODOAPI",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node ./bin/server.js env=development",
+    "test": "./node_modules/mocha/bin/mocha",
+    "test-detail": "./node_modules/mocha/bin/mocha --reporter list",
+    "stop": "pkill -lf server.js"
+  },
+  "author": "kerkerj",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.9.0",
+    "debug": "^2.0.0",
+    "expect.js": "^0.3.1",
+    "express": "^4.9.5",
+    "log4js": "^0.6.21",
+    "mocha": "^1.21.4",
+    "mocha-mongoose": "^1.0.1",
+    "mongodb": "^1.4.19",
+    "mongoose": "^3.8.17",
+    "superagent": "^0.20.0",
+    "validator": "^3.19.1"
+  }
+}
+</code></pre>
+
+<h2>安裝套件，及全域套件 mocha</h2>
+
+<pre><code>// in project folder
+$ npm install express body-parser mocha mocha-mongoose superagent validator expect.js debug mongoose mongodb log4js -save 
+$ npm install -g nodemon
+</code></pre>
+
+<h2>各個套件簡單設定</h2>
+
+<p>接下來會針對一些套件作說明，但是由於可能有些人不懂整個專案的運作，因此下面看看就好，之後實作上有問題可以再回來看。</p>
+
+<h2>Nodemon 的作用</h2>
+
+<p>範例:</p>
+
+<pre><code>$ nodemon ./bin/server.js
+...
+</code></pre>
+
+<p>就可以放著不管它了~ 只要檔案有變動，就會自動重開 server</p>
+
+<h2>使用 logger - log4js</h2>
+
+<p>設定 logger - log4js, 並將 log 寫入到 logs/access.log 裏</p>
+
+<pre><code>// Set logger
+var log4js = require('log4js');
+log4js.configure({
+    appenders: [
+        { type: 'console' }, //控制台輸出
+        {
+            type: 'file', //文件輸出
+            filename: 'logs/access.log',
+            maxLogSize: 20000000, // 20 MB
+            backups: 10,
+            category: 'normal'
+        }
+    ],
+    replaceConsole: true
+});
+
+var logger = log4js.getLogger('normal');
+logger.setLevel('INFO');
+
+app.use(log4js.connectLogger(logger, {level: 'auto', format:':method :url'}));
+</code></pre>
+
+<p><a href="http://blog.fens.me/nodejs-log4js/">node log4s</a></p>
+
+<h2>使用 body-parser 處理 request 的資料</h2>
+
+<p>加入 middleware</p>
+
+<pre><code>app.use( bodyParser.json() );
+app.use( bodyParser.urlencoded({ extended: true }) );
+</code></pre>
+
+<p>需要加入 { extended: true/false }, 否則會 warning:</p>
+
+<p>body-parser deprecated undefined extended: provide extended</p>
+
+<p>如果要接收 json request</p>
+
+<p>client 端在 Header 中必須先設定 &ldquo;Content-type: applciation/json&rdquo;</p>
+
+<p>才能夠在 router 中使用 <code>req.body</code> 拿到 json 值</p>
+
+<h2>測試套件</h2>
+
+<pre><code>mocha - 專案
+expect.js - 專案
+superagent - 專案
+</code></pre>
+
+<p>測試流程 -</p>
+
+<p>先跑 server 起來，透過自動化程式自動丟 request 給 server，測試結束</p>
+
+<pre><code>$ npm start
+$ mocha
+$ npm stop
+</code></pre>
+
+<p>所以必須先在 package.json 中設定好 script</p>
+
+<pre><code>{
+    (...)
+    "scripts": {
+      "start": "node ./bin/server.js",
+      "test": "mocha",
+      "stop": "pkill -lf server.js"
+  },
+  (...)
+}
+</code></pre>
+
+<p>由於我將啟動 server 的 script 放在 bin 資料夾裡，因此</p>
+
+<p><code>npm start</code> 的 script 就會執行:</p>
+
+<pre><code>node ./bin/server.js
+</code></pre>
+
+<p><code>npm stop</code> 的話，用到了 *nix 的指令，會先到 process list 中找到和 server.js 有關的 process，然後 kill process (<code>pkill</code>)</p>
+
+<pre><code>pkill -lf server.js
+</code></pre>
+
+<p>跑測試的話，直接下 <code>mocha</code>，在這邊我們也丟一個 script 指定給 <code>npm test</code></p>
+
+<p>下 <code>npm test</code> 就是等同於下 <code>mocha</code></p>
+
+<p>上面只是大致上講解一下每個套件如何用，接下來我們會以實際的例子來說明</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[API-d17] - 實戰開發 - 專案結構]]></title>
@@ -471,179 +648,6 @@ console.log(hi); // &lt;- 這會失敗
 <p>必須將 sayHi 指給 global 的某一個變數, 才有辦法使用它</p>
 
 <p>在 node.js 中 global 是全域變數，在瀏覽器中是 window~</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[API-d13] - [Javascript 番外篇] Javascript Require/ Module/ Module Pattern]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/13/api-d13/"/>
-    <updated>2014-10-13T18:24:17+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/13/api-d13</id>
-    <content type="html"><![CDATA[<p>接下來幾天會探討 node.js 的特性，由於比較少在寫 js ，因此有錯請指正</p>
-
-<p>在 node.js 裏，要讀取外部模組都是透過 require 和 exports 來做溝通</p>
-
-<p>以下列出這次最簡單 module 的例子</p>
-
-<pre><code class="javascript">//hello.js
-console.log('Hello World');
-</code></pre>
-
-<pre><code>// app.js
-require('./hello.js');
-</code></pre>
-
-<h2>Module 也是有 Pattern 的</h2>
-
-<p>第一種: Global (Not so good)</p>
-
-<pre><code>// foo.js
-foo = function() {
-    console.log("foo!");
-}
-
-// app.js
-require('./foo.js');
-foo();
-</code></pre>
-
-<p>第二種: export an anonymous function</p>
-
-<pre><code>// foo.js
-module.exports = function() {
-    console.log("foo! YA");
-};
-
-// app.js
-var test = require("./foo.js");
-test();
-</code></pre>
-
-<p>第三種： export a named function</p>
-
-<pre><code>// bar.js
-exports.bar = function() {
-    console.log("bar");
-}
-
-// app.js
-var bar = require('./bar.js').bar;
-bar();
-</code></pre>
-
-<p>第四種: exports an anoymous object</p>
-
-<pre><code>// bar4.js
-var Bar4 = function() {};
-
-Bar4.prototype.say = function() {
-    console.log('bar4');
-};
-
-module.exports = new Bar4();
-
-// app.js 
-var b = require('./bar4.js');
-b.say();
-</code></pre>
-
-<p>第五種: export a named object</p>
-
-<pre><code>// bar5.js
-var Bar5 = function() {};
-
-Bar5.prototype.say = function() {
-    console.log("bar5");
-};
-
-exports.Bar5 = new Bar5();
-
-// app.js
-var b = require('./bar5.js').Bar5;
-b.say();
-</code></pre>
-
-<p>第六種: export an anonymous prototype</p>
-
-<pre><code>// cool.js
-var Cool = function() {};
-
-Cool.prototype.say = function() {
-    console.log('Cool!');
-};
-
-module.exports = Cool;
-
-// app.js
-var Cool = require('./cool.js');
-var coo = new Cool();
-coo.say();
-</code></pre>
-
-<p>第七種: export a named prototype</p>
-
-<pre><code>// ang.js
-var Ang = function () {};
-
-Ang.prototype.say = function () {
-    console.log('Ang!');
-};
-
-exports.Ang = Ang;
-
-// app.js
-var Ang = require('./ang.js').Ang;
-var wer = new Ang();
-wer.say();
-</code></pre>
-
-<h2>exports v.s. module.exports</h2>
-
-<p>exports 是 module.exports 的輔助方法</p>
-
-<p>以下有個例子會執行錯誤:</p>
-
-<pre><code>// ya.js
-module.exports = "YA";
-exports.name = function() {
-    console.log('My name is kerkerj');
-};
-
-// app.js
-var ya = require('./ya.js');
-ya.name(); TypeError: Cannot call method 'name' of undefined
-</code></pre>
-
-<p>在 ya.js 中 module.exports 有屬性了</p>
-
-<p>因此下面的 export.name 就沒有被加入了</p>
-
-<p>如果 module.exports 沒有任何屬性被加入的話，</p>
-
-<p>exports 若有屬性了，則會交給 module.exports</p>
-
-<p>反之就是剛剛的情況，moduel.exports 已經有屬性了，因此 export.name 就沒有作用了</p>
-
-<p><a href="http://www.hacksparrow.com/node-js-exports-vs-module-exports.html">延伸閱讀</a></p>
-
-<h2>Module as class</h2>
-
-<p>直接看例子吧 XD</p>
-
-<pre><code>// user.js
-module.exports = function(name, age) {
-    this.name = name;
-    this.age = age;
-    this.about = function() {
-        console.log(this.name +' is '+ this.age +' years old');
-    };
-};
-
-// app.js
-var User = require('./user.js');
-var kerkerj = new User('kerkerj', 18);
-kerkerj.about(); 
-</code></pre>
 ]]></content>
   </entry>
   

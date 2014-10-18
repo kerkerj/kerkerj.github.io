@@ -98,6 +98,311 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2014/10/04/api-d4/">[API-d4] - 使用技術與工具介紹及原因</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-04T18:52:58+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/10/04/api-d4/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/04/api-d4/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>使用技術與工具介紹及原因</h1>
+
+<p>終於要開始進入正題了！</p>
+
+<p>在了解 REST/RESTful 後，</p>
+
+<p>就要從無到有 - 從 Server 到 API endpoint 都由自己打造</p>
+
+<p>今天會先來說明接下來會使用到哪些工具及技術</p>
+
+<p>由於筆者使用 Mac ，因此若是有其他平台的使用者可能需要自行找教學</p>
+
+<h2>Server - Ubuntu with Vagrant + VitrualBox</h2>
+
+<p>接下來幾天會先從這個部分開始提起</p>
+
+<p>我們會使用 VirtualBox + Vagrant 的方式來建立自己的虛擬環境</p>
+
+<p>避免一些讀者可能對 Server command line 不熟</p>
+
+<p>這個部分是大家可以跳過的部分，但是我還是會從無到有架起來</p>
+
+<h2>Backend Language - Node.js</h2>
+
+<p>後端語言使用了 Node.js，其實本來有考慮使用 Golang，</p>
+
+<p>但顧及自己的時間&hellip; 還是使用 Node.js，方便快速</p>
+
+<p>這幾年是 Javascript 的時代，</p>
+
+<p>優勝美地似乎也可以支援使用 Javascript 撰寫 <a href="https://github.com/tylergaw/js-osx-app-examples">Automation Tool</a></p>
+
+<p>從前端打到後端甚至到 DB 都可以使用到 Javascript ，</p>
+
+<p>是該來看看 Javascript 的語法特性了 :D</p>
+
+<p>而且 Node.js Event-driven 的特性，可以利用少少的資源提供高效能的服務</p>
+
+<p>同時搭配易用性及社群活躍度，這是我選擇 Node.js 而非選擇 Golang 的原因</p>
+
+<h2>Framework - Express</h2>
+
+<p>我使用了 Node.js 的 web framework - Express</p>
+
+<p>Node.js 之於 Express 可以把它想像成是 Ruby 之於 Sinatra</p>
+
+<p>我使用 Express 方便處理 Route</p>
+
+<p>並且這套 framework 算是 Node.js 裡最具代表性的 framework</p>
+
+<p>學起來也還不錯</p>
+
+<h2>Database - MongoDB</h2>
+
+<p>DB 為了追求簡單快速，我使用了 MongoDB</p>
+
+<p>從 API 到 DB 無縫接軌，簡單的操作模式以及 Schema-free 的特性</p>
+
+<p>應該會讓這整件事情變得更簡單</p>
+
+<h2>Test client - PostMan (chrome extension)</h2>
+
+<p>由於 API 是純粹後端 service，我們使用 Express 並不會使用到樣板語言，</p>
+
+<p>也就是我們並不會撰寫 View (HTML, CSS 等等的語法)</p>
+
+<p>因此除了寫測試外，我們就可以使用這套 Chrome Extension 來對 API 做存取!</p>
+
+<hr />
+
+<p>結束! 接下來幾天會教大家建立自己的虛擬機哦~~</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/03/swift-d3/">[Swift-d3] - Playground - 變數與常數, 註解, 基本資料型別</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-03T21:07:41+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/10/03/swift-d3/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/03/swift-d3/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>變數與常數</h2>
+
+<p>定義一個變數:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="k">var</span> <span class="nl">obj</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>var 是保留字，宣告 obj 是一個變數名稱，冒號後面接資料形態<br/>
+以此例子來說，宣告了一個字串變數叫做 obj，並且初始化為 &ldquo;&rdquo; 空字串</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="k">let</span> <span class="nl">obj</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>let 同樣是用來宣告一個變數，但是宣告此變數後，該變數的值無法被改變，<br/>
+無法被改變的數值其實正正的名字就叫做常數
+以上面的例子來說， 若我們多做一件事:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="k">let</span> <span class="nl">obj</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+</span><span class='line'><span class="n">obj</span> <span class="o">=</span> <span class="s">&quot;test&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>若我們試圖去更改 obj，讓 obj 從空字串變成 &ldquo;test&rdquo; 時， <br/>
+Xcode 就會報錯，不能更改該值</p>
+
+<p>再來是宣告的變型，其實宣告時不一定要給資料形態，<br/>
+Swift 會自動從後面的值來判斷 x 可能是什麼資料形態，<br/>
+只是由於筆者的習慣，會儘量在後面加上該變數的資料型別</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="k">var</span> <span class="n">x</span> <span class="o">=</span> <span class="s">&quot;test&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>一行內宣告多值：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="k">var</span> <span class="n">x</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="mf">0.0</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我們就可以在 Playground 裡面試著宣告一些變數看看，並且使用昨天的輸出函式來輸出變數:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="k">var</span> <span class="nl">str</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="s">&quot;測試&quot;</span>
+</span><span class='line'><span class="k">let</span> <span class="nl">fixString</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="s">&quot;fixed&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">var</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="mi">2</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>註解</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="c1">// 單行註解</span>
+</span><span class='line'>
+</span><span class='line'><span class="cm">/*</span>
+</span><span class='line'><span class="cm">多行註解</span>
+</span><span class='line'><span class="cm">多行註解</span>
+</span><span class='line'><span class="cm">多行註解</span>
+</span><span class='line'><span class="cm">*/</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>基本資料型別</h2>
+
+<p>Swift 是一個強型別語言，意即若是以下的程式碼是會出錯的:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="k">var</span> <span class="n">x</span> <span class="o">=</span> <span class="s">&quot;test&quot;</span>
+</span><span class='line'><span class="n">x</span> <span class="o">=</span> <span class="mi">2</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>由於 x 已經被先 Swift 判定是 String 了，後面想指定 Int 資料給 x 就會出錯</p>
+
+<p>Int 整數:
+Swift 提供了 Int 還另外提供了 8, 16, 32, 64 位元的有號和無號整數型別<br/>
+若在 32 位元平台，宣告 Int 的話， Int 的長度和 Int32 是一樣的<br/>
+若在 64 位元平台，宣告 Int 的話， Int 的長度和 Int64 是一樣的</p>
+
+<p>浮點數：
+3.2, 0.0 之類的數字，可以用
+Double - 64 位元浮點數 (至少 15 位數)
+Float - 32 位元浮點數 (至少 6 位數)</p>
+
+<p>布林值：
+true/false</p>
+
+<p>Tuples:
+Tuple 可以將多個值組合成一個值，例如：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="c1">//賦值</span>
+</span><span class='line'><span class="k">let</span> <span class="n">httpSucess</span> <span class="o">=</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s">&quot;Success&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 反過來接值</span>
+</span><span class='line'><span class="k">let</span> <span class="p">(</span><span class="n">statusCode</span><span class="p">,</span> <span class="n">statusMessage</span><span class="p">)</span> <span class="o">=</span> <span class="n">httpSucess</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 若只需要其中一個值，另一個值可以用 _ 代替，但是不能沒有 _ </span>
+</span><span class='line'><span class="k">let</span> <span class="p">(</span><span class="n">statusCode</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="o">=</span> <span class="n">httpSucess</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 也可以用索引的方式拿值</span>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">httpSucess</span><span class="mf">.0</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 宣告 tuples 時也可以直接給予參數一個名稱</span>
+</span><span class='line'><span class="k">let</span> <span class="n">httpSucess</span> <span class="o">=</span> <span class="p">(</span><span class="nl">statusCode</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="nl">statusMessage</span><span class="p">:</span> <span class="s">&quot;Success&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 拿值時就可以:</span>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">httpSucess</span><span class="p">.</span><span class="n">statusCode</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>同時結合 function 這樣就可以多值回傳了！</p>
+
+<p>下一篇會接續今天變數相關的主題~</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2014/10/03/api-d3/">[API-d3] - 使用時機與實際 API 參考</a></h1>
     
     
@@ -873,176 +1178,6 @@ coroutine v.s. non-coroutine<br/>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>git rm --cached &lt;file&gt;</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/08/06/emoji-data-in-mysql/">Emoji Data in MySQL</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-06T18:17:59+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/08/06/emoji-data-in-mysql/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/08/06/emoji-data-in-mysql/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Supported MySQL 5.5, 5.6.</p>
-
-<p>First, MySQL should set DB and table to utf8mb4.</p>
-
-<p>utf8 - 3 byte characters</p>
-
-<p>utf8mb4 - 4 byte characters</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">ALTER</span> <span class="k">DATABASE</span> <span class="n">my_database</span> <span class="k">DEFAULT</span> <span class="nb">CHARACTER</span> <span class="k">SET</span> <span class="n">utf8mb4</span> <span class="k">COLLATE</span> <span class="n">utf8mb4_general_ci</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">my_table</span> <span class="k">DEFAULT</span> <span class="nb">CHARACTER</span> <span class="k">SET</span> <span class="n">utf8mb4</span> <span class="k">COLLATE</span> <span class="n">utf8mb4_unicode_ci</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">my_column</span> <span class="n">CHANGE</span> <span class="n">my_column</span> <span class="n">my_column</span> <span class="nb">TEXT</span> <span class="nb">CHARACTER</span> <span class="k">SET</span> <span class="n">utf8mb4</span> <span class="k">COLLATE</span> <span class="n">utf8mb4_unicode_ci</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Then, when inserting data or selecting data, execute this statement first:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="c1">--Execute this statement first</span>
-</span><span class='line'><span class="k">SET</span> <span class="k">NAMES</span> <span class="n">utf8mb4</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">--then insert or select</span>
-</span><span class='line'><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">my_table</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/08/06/writing-lua-on-mac/">Writing Lua on Mac</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-06T01:36:57+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/08/06/writing-lua-on-mac/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/08/06/writing-lua-on-mac/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>Install lua on mac</h2>
-
-<p>I&rsquo;m not sure that whether Lua is built on mac originally.</p>
-
-<p><span style="color:red;">(Ok, tested on Mac OSX 10.9, there is Lua in it.)</span></p>
-
-<p>So I installed Lua via <a href="http://brew.sh/">Homebrew</a>.</p>
-
-<p>Install homebrew (optional)</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Install Lua by homebrew</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>brew install lua</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Writing Lua</h2>
-
-<p>You can use command: <code>lua</code> to interact with lua. (just like <code>php -a</code> or <code>irb</code>)</p>
-
-<figure class='code'><figcaption><span>hello.lua</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='lua'><span class='line'><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">Hello World&quot;</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><figcaption><span>fact.lua</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='lua'><span class='line'><span class="k">function</span> <span class="nf">fact</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-</span><span class='line'>  <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">then</span>
-</span><span class='line'>      <span class="k">return</span> <span class="mi">1</span>
-</span><span class='line'>  <span class="k">else</span>
-</span><span class='line'>      <span class="k">return</span> <span class="n">n</span> <span class="o">*</span> <span class="n">fact</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">enter a number:&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="n">num</span> <span class="o">=</span> <span class="nb">io.read</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">*number&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="nb">print</span><span class="p">(</span><span class="n">fact</span><span class="p">(</span><span class="n">num</span><span class="p">))</span>
-</span><span class='line'>      
-</span></code></pre></td></tr></table></div></figure>
-
-
 
 </div>
   

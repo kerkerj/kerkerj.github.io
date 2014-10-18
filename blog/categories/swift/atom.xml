@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Swift | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/swift/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-17T21:24:07+08:00</updated>
+  <updated>2014-10-18T18:31:14+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,126 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[Swift-d18] - Basic - Customize TableViewCell]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/18/swift-d18/"/>
+    <updated>2014-10-18T18:28:23+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/18/swift-d18</id>
+    <content type="html"><![CDATA[<p>今天的主題延續昨天的 Navigation + TableView</p>
+
+<p>我們要來客製化 TableViewCell</p>
+
+<p>通常 TableView 可以被拿來做很多事情，不僅只是像是 ListView 而已</p>
+
+<p>而 TableViewCell 可以做更深度的切版，排列元素</p>
+
+<p>因此自定 TableViewCell 是一件算是還蠻重要的事情</p>
+
+<p>下面的 Code 是延續昨天的專案</p>
+
+<p>我先把已更改過的程式碼貼上來:</p>
+
+<pre><code>import UIKit
+
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+
+    @IBOutlet var tableView: UITableView!
+
+    var arr = ["A", "B", "C"]
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {
+        return arr.count;
+    }
+
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell {
+        var cell: CustomTableViewCell? = tableView.dequeueReusableCellWithIdentifier("cell") as CustomTableViewCell?
+
+        if cell == nil {
+            var objects = NSBundle.mainBundle().loadNibNamed("CustomTableViewCell", owner: self, options: nil)
+            cell = objects[0] as? CustomTableViewCell
+        }
+
+        cell!.textLabel?.text = arr[indexPath.row]
+
+        return cell!
+    }
+
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        var detailViewController = DetailViewController()
+        detailViewController.title = arr[indexPath.row]
+        self.navigationController?.pushViewController(detailViewController, animated: true)
+    }
+
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -&gt; CGFloat {
+        return 165.0
+    }
+}
+</code></pre>
+
+<p>今天要新增一個檔案, 我們就稱之為 CustomTableViewCell</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.36.49.png" alt="image" /></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.37.37.png" alt="image" /></p>
+
+<p>就會出現一份 .swift 檔案以及 .xib 檔案了</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.38.06.png" alt="image" /></p>
+
+<p>接下來我們簡單編輯 .xib 檔案，將背景顏色換成其他顏色，以及將它的長度拉高</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.39.49.png" alt="image" /></p>
+
+<p>這樣其實就很簡單地完成了一個小客製化的 TableViewCell 了</p>
+
+<p>那我們要怎麼讓原本的 TableView 吃到這個 TableViewCell 呢?</p>
+
+<p>看以下的 function:</p>
+
+<pre><code>func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell {
+    var cell: CustomTableViewCell? = tableView.dequeueReusableCellWithIdentifier("cell") as CustomTableViewCell?
+
+    if cell == nil {
+        var objects = NSBundle.mainBundle().loadNibNamed("CustomTableViewCell", owner: self, options: nil)
+        cell = objects[0] as? CustomTableViewCell
+    }
+
+    cell!.textLabel?.text = arr[indexPath.row]
+
+    return cell!
+}
+</code></pre>
+
+<p>我們將 cell 的類別更改成了 CustomTableViewCell</p>
+
+<p>直接使用剛剛產生的 .swift 類別來產生新的 TableViewCell</p>
+
+<p>並且如果 cell == nil ，則會將 Nib 載入</p>
+
+<p>最後設定該 textLabel ，返回 cell</p>
+
+<p>若使用最一開始的程式碼 apply changes</p>
+
+<p>執行！</p>
+
+<p>應該就可以看到成果了!</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2012.01.35.png" alt="image" /></p>
+
+<p>p.s. 這篇可能實作上會有 bug (我寫的), 就先跳過吧 XD</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[Swift-d17] - Basic - Navigation View + TableView]]></title>
@@ -538,91 +658,6 @@ self.navigationController?.pushViewController(self.storyboard?.instantiateViewCo
 <p>有的話就抓起來，並且使用 as 轉型成 View2Controller, push 進 stack</p>
 
 <p>做完上述事情後，執行程式碼就可以看到結果囉!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[Swift-d13] - Basic - Navigation View 1 + ViewController]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/13/swift-d13/"/>
-    <updated>2014-10-13T18:24:21+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/13/swift-d13</id>
-    <content type="html"><![CDATA[<p>今天來試著拉拉看 Navigation View</p>
-
-<p>什麼是 Navigation View?</p>
-
-<p>就是類似下圖的東西:</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.07.37.png" alt="image" /></p>
-
-<p>用來控制 View 之間的流程</p>
-
-<p>今天我們繼續使用 storyboard 來簡單拉拉 Navigation View</p>
-
-<p>首先先開一個新 project 吧!</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.09.15.png" alt="image" /></p>
-
-<p>接著我們到 storyboard，選擇 ViewController</p>
-
-<p>再來我們要嵌入 Navigation View</p>
-
-<p>所以要選擇: Edit -> Embed in -> Navigation View</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.10.09.png" alt="image" /></p>
-
-<p>選擇後，就會發現 storyboard 的 layout 改變了</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.11.36.png" alt="image" /></p>
-
-<p>Navigation View 實際上是透過 NavigationController 來控制</p>
-
-<p>原本程式的進入點是 ViewController</p>
-
-<p>由於我們要使用 Navigation View</p>
-
-<p>因此透過 Xcode 將 NavigationController 嵌進去</p>
-
-<p>讓程式進入點變成 NavigationController</p>
-
-<p>再透過 NavigationController 將程式導到 ViewController</p>
-
-<p>接下來我們命名一下 ViewController:</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.14.28.png" alt="image" /></p>
-
-<p>然後我們從右下角的 Object library 選擇 Bar Button items 加入</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.14.56.png" alt="image" /></p>
-
-<p>並將該物件拉到 NavigationBar 的右方</p>
-
-<p>接下來我們希望點下 item 按鈕，可以到另外一個 ViewController</p>
-
-<p>因此一樣從右下角的 Object library 拉一個 ViewController 到 storyboard 的空白處</p>
-
-<p>直接拉一個過去就好</p>
-
-<p>所以會長這樣:</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.17.30.png" alt="image" /></p>
-
-<p>接著就從 ViewController 的 item 上，按著 ctrl + 拖曳，</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.18.29.png" alt="image" /></p>
-
-<p>往右邊剛剛新增的 ViewController 拉，放開後就會選擇要做的動作，我們選擇 &lsquo;show&rsquo;</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.19.44.png" alt="image" /></p>
-
-<p>為了辨識起見，我們點選第二個 ViewController ，加入 Title:</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.22.11.png" alt="image" /></p>
-
-<p>都設定好後，按下執行，應該就可以看到 Navigation View 正常運作了!</p>
-
-<p>按下 item 會到 View2, View2 會自動產生 back 鍵，回到 View1</p>
-
-<p>是不是很方便呢!</p>
 ]]></content>
   </entry>
   

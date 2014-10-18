@@ -1,0 +1,518 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>[API-d18] - 實戰開發 - 套件模組 - kerkerj</title>
+  <meta name="author" content="kerkerj">
+
+  
+  <meta name="description" content="cool thing, cool guy">
+  <meta name="keywords" content="restful, api, nodejs, express, npm, mongodb, mongoose, mocha superagent, validator, expect.js">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://kerkerj.github.io/blog/2014/10/18/api-d18">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="kerkerj" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+
+<link href="/favicon.ico" rel="icon">
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='//fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-45583907-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   class="collapse-sidebar sidebar-footer" >
+  <header role="banner"><hgroup>
+  <h1><a href="/">kerkerj</a></h1>
+  
+    <h2>Cool</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+  
+  
+  
+  
+<ul class="subscription">
+  <li><a href="https://github.com/kerkerj" rel="subscribe-github" title="@kerkerj on GitHub">GitHub</a></li>
+</ul>
+  
+  
+  
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:kerkerj.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/notes">Notes</a></li>
+  <li><a href="/mac-app-list">Mac App List</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      
+        <h1 class="entry-title">[API-d18] - 實戰開發 - 套件模組</h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-18T18:28:19+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>會使用到的套件:</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>主體:
+</span><span class='line'>express - web framework
+</span><span class='line'>body-parser - parse request body
+</span><span class='line'>
+</span><span class='line'>測試相關:
+</span><span class='line'>mocha - test framework
+</span><span class='line'>mocha-mongoose - 用來和 mocha 和 mongoose 中間做介接的套件
+</span><span class='line'>superagent - 拿它來丟 http request
+</span><span class='line'>validator - 用來驗證某個物件是否為某個型別
+</span><span class='line'>expect.js - 類似 BDD 的語法，用來寫測試的
+</span><span class='line'>debug - debug package
+</span><span class='line'>
+</span><span class='line'>DB 相關:
+</span><span class='line'>mongoose - mongodb orm
+</span><span class='line'>mongodb - mongodb native driver
+</span><span class='line'>
+</span><span class='line'>開發相關:
+</span><span class='line'>nodemon - detect file change and restart server
+</span><span class='line'>
+</span><span class='line'>生產環境相關:
+</span><span class='line'>log4js - 記錄 request log</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這是我的 package.json, 可以複製到專案目錄，然後下 <code>npm install</code></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{
+</span><span class='line'>  "name": "TODOAPI",
+</span><span class='line'>  "version": "1.0.0",
+</span><span class='line'>  "description": "",
+</span><span class='line'>  "main": "app.js",
+</span><span class='line'>  "scripts": {
+</span><span class='line'>    "start": "node ./bin/server.js env=development",
+</span><span class='line'>    "test": "./node_modules/mocha/bin/mocha",
+</span><span class='line'>    "test-detail": "./node_modules/mocha/bin/mocha --reporter list",
+</span><span class='line'>    "stop": "pkill -lf server.js"
+</span><span class='line'>  },
+</span><span class='line'>  "author": "kerkerj",
+</span><span class='line'>  "license": "ISC",
+</span><span class='line'>  "dependencies": {
+</span><span class='line'>    "body-parser": "^1.9.0",
+</span><span class='line'>    "debug": "^2.0.0",
+</span><span class='line'>    "expect.js": "^0.3.1",
+</span><span class='line'>    "express": "^4.9.5",
+</span><span class='line'>    "log4js": "^0.6.21",
+</span><span class='line'>    "mocha": "^1.21.4",
+</span><span class='line'>    "mocha-mongoose": "^1.0.1",
+</span><span class='line'>    "mongodb": "^1.4.19",
+</span><span class='line'>    "mongoose": "^3.8.17",
+</span><span class='line'>    "superagent": "^0.20.0",
+</span><span class='line'>    "validator": "^3.19.1"
+</span><span class='line'>  }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>安裝套件，及全域套件 mocha</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// in project folder
+</span><span class='line'>$ npm install express body-parser mocha mocha-mongoose superagent validator expect.js debug mongoose mongodb log4js -save 
+</span><span class='line'>$ npm install -g nodemon</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>各個套件簡單設定</h2>
+
+<p>接下來會針對一些套件作說明，但是由於可能有些人不懂整個專案的運作，因此下面看看就好，之後實作上有問題可以再回來看。</p>
+
+<h2>Nodemon 的作用</h2>
+
+<p>範例:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ nodemon ./bin/server.js
+</span><span class='line'>...</span></code></pre></td></tr></table></div></figure>
+
+
+<p>就可以放著不管它了~ 只要檔案有變動，就會自動重開 server</p>
+
+<h2>使用 logger - log4js</h2>
+
+<p>設定 logger - log4js, 並將 log 寫入到 logs/access.log 裏</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// Set logger
+</span><span class='line'>var log4js = require('log4js');
+</span><span class='line'>log4js.configure({
+</span><span class='line'>    appenders: [
+</span><span class='line'>        { type: 'console' }, //控制台輸出
+</span><span class='line'>        {
+</span><span class='line'>            type: 'file', //文件輸出
+</span><span class='line'>            filename: 'logs/access.log',
+</span><span class='line'>            maxLogSize: 20000000, // 20 MB
+</span><span class='line'>            backups: 10,
+</span><span class='line'>            category: 'normal'
+</span><span class='line'>        }
+</span><span class='line'>    ],
+</span><span class='line'>    replaceConsole: true
+</span><span class='line'>});
+</span><span class='line'>
+</span><span class='line'>var logger = log4js.getLogger('normal');
+</span><span class='line'>logger.setLevel('INFO');
+</span><span class='line'>
+</span><span class='line'>app.use(log4js.connectLogger(logger, {level: 'auto', format:':method :url'}));</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="http://blog.fens.me/nodejs-log4js/">node log4s</a></p>
+
+<h2>使用 body-parser 處理 request 的資料</h2>
+
+<p>加入 middleware</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>app.use( bodyParser.json() );
+</span><span class='line'>app.use( bodyParser.urlencoded({ extended: true }) );</span></code></pre></td></tr></table></div></figure>
+
+
+<p>需要加入 { extended: true/false }, 否則會 warning:</p>
+
+<p>body-parser deprecated undefined extended: provide extended</p>
+
+<p>如果要接收 json request</p>
+
+<p>client 端在 Header 中必須先設定 &ldquo;Content-type: applciation/json&rdquo;</p>
+
+<p>才能夠在 router 中使用 <code>req.body</code> 拿到 json 值</p>
+
+<h2>測試套件</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mocha - 專案
+</span><span class='line'>expect.js - 專案
+</span><span class='line'>superagent - 專案</span></code></pre></td></tr></table></div></figure>
+
+
+<p>測試流程 -</p>
+
+<p>先跑 server 起來，透過自動化程式自動丟 request 給 server，測試結束</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ npm start
+</span><span class='line'>$ mocha
+</span><span class='line'>$ npm stop</span></code></pre></td></tr></table></div></figure>
+
+
+<p>所以必須先在 package.json 中設定好 script</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{
+</span><span class='line'>  (...)
+</span><span class='line'>  "scripts": {
+</span><span class='line'>      "start": "node ./bin/server.js",
+</span><span class='line'>      "test": "mocha",
+</span><span class='line'>      "stop": "pkill -lf server.js"
+</span><span class='line'>  },
+</span><span class='line'>  (...)
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>由於我將啟動 server 的 script 放在 bin 資料夾裡，因此</p>
+
+<p><code>npm start</code> 的 script 就會執行:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>node ./bin/server.js</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>npm stop</code> 的話，用到了 *nix 的指令，會先到 process list 中找到和 server.js 有關的 process，然後 kill process (<code>pkill</code>)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pkill -lf server.js</span></code></pre></td></tr></table></div></figure>
+
+
+<p>跑測試的話，直接下 <code>mocha</code>，在這邊我們也丟一個 script 指定給 <code>npm test</code></p>
+
+<p>下 <code>npm test</code> 就是等同於下 <code>mocha</code></p>
+
+<p>上面只是大致上講解一下每個套件如何用，接下來我們會以實際的例子來說明</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Authored by <span class="fn">kerkerj</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-18T18:28:19+08:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/api/'>api</a>, <a class='category' href='/blog/categories/expect-dot-js/'>expect.js</a>, <a class='category' href='/blog/categories/express/'>express</a>, <a class='category' href='/blog/categories/mocha-superagent/'>mocha superagent</a>, <a class='category' href='/blog/categories/mongodb/'>mongodb</a>, <a class='category' href='/blog/categories/mongoose/'>mongoose</a>, <a class='category' href='/blog/categories/nodejs/'>nodejs</a>, <a class='category' href='/blog/categories/npm/'>npm</a>, <a class='category' href='/blog/categories/restful/'>restful</a>, <a class='category' href='/blog/categories/validator/'>validator</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://kerkerj.github.io/blog/2014/10/18/api-d18/" data-via="jerry54010" data-counturl="http://kerkerj.github.io/blog/2014/10/18/api-d18/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/10/17/swift-d17/" title="Previous Post: [Swift-d17] - Basic - Navigation View + TableView">&laquo; [Swift-d17] - Basic - Navigation View + TableView</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/10/18/swift-d18/" title="Next Post: [Swift-d18] - Basic - Customize TableViewCell">[Swift-d18] - Basic - Customize TableViewCell &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+
+</div>
+
+<aside class="sidebar">
+  
+    
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - kerkerj -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a> | Themed with <a href="https://github.com/lucaslew/whitespace">Whitespace</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'kerkerj-github';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://kerkerj.github.io/blog/2014/10/18/api-d18/';
+        var disqus_url = 'http://kerkerj.github.io/blog/2014/10/18/api-d18/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

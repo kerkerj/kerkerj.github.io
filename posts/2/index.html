@@ -98,6 +98,301 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2014/10/14/api-d14/">[API-d14] - [Javascript 番外篇] Javascript Function Scopes 和 Closures</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-14T22:40:32+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/10/14/api-d14/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/14/api-d14/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>這幾天會探討 javascript 的特性，由於比較少在寫 js ，因此有錯請指正</p>
+
+<h2>Scope</h2>
+
+<p>例子:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">hi</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">greetings</span> <span class="o">=</span> <span class="s2">&quot;hi&quot;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Say: &quot;</span> <span class="o">+</span> <span class="nx">greetings</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">function</span> <span class="nx">sayYa</span><span class="p">(</span><span class="nx">newInput</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">greetings</span> <span class="o">=</span> <span class="nx">newInput</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Say: &quot;</span> <span class="o">+</span> <span class="nx">greetings</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">function</span> <span class="nx">sayCool</span><span class="p">(</span><span class="nx">newInput</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="kd">var</span> <span class="nx">cool</span> <span class="o">=</span> <span class="nx">newInput</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Say: &quot;</span> <span class="o">+</span> <span class="nx">cool</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">sayYa</span><span class="p">(</span><span class="s2">&quot;Yo&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">sayCool</span><span class="p">(</span><span class="s2">&quot;Cool&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Say: &quot;</span> <span class="o">+</span> <span class="nx">greetings</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">hi</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>很簡單的概念</p>
+
+<p>greetins 在 sayYa 方法中被覆寫掉了</p>
+
+<p>如果要定義 local 變數必須在 function 裏用 var 定義</p>
+
+<p>例如 sayCool function</p>
+
+<h2>Closure</h2>
+
+<p>例子:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">person</span><span class="p">(){</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="s1">&#39;default&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">greetings</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">name</span> <span class="p">);</span>
+</span><span class='line'>        <span class="p">},</span>
+</span><span class='line'>        <span class="nx">changeName</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">newInput</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nx">name</span> <span class="o">=</span> <span class="nx">newInput</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">me</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">person</span><span class="p">();</span>
+</span><span class='line'><span class="nx">me</span><span class="p">.</span><span class="nx">greetings</span><span class="p">();</span>
+</span><span class='line'><span class="nx">me</span><span class="p">.</span><span class="nx">changeName</span><span class="p">(</span><span class="s2">&quot;kerkerj&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="nx">me</span><span class="p">.</span><span class="nx">greetings</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Self-Executing Anonymous Functions</h2>
+
+<p>使用這種方式通常是避免和其他 js 檔案造成變數混淆</p>
+
+<p>或是初始化</p>
+
+<p>裡面的變數和 function 只被限制在這個範圍內</p>
+
+<p>例子:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">hi</span> <span class="o">=</span> <span class="s1">&#39;Hello&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">function</span> <span class="nx">sayHi</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nx">hi</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="nx">name</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">global</span><span class="p">.</span><span class="nx">greetings</span> <span class="o">=</span> <span class="nx">sayHi</span>
+</span><span class='line'><span class="p">})(</span><span class="nx">global</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">global</span><span class="p">.</span><span class="nx">greetings</span><span class="p">(</span><span class="s2">&quot;kerkerj&quot;</span><span class="p">));</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">hi</span><span class="p">);</span> <span class="c1">// &lt;- 這會失敗</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>必須將 sayHi 指給 global 的某一個變數, 才有辦法使用它</p>
+
+<p>在 node.js 中 global 是全域變數，在瀏覽器中是 window~</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/13/swift-d13/">[Swift-d13] - Basic - Navigation View 1 + ViewController</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-13T18:24:21+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/10/13/swift-d13/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/13/swift-d13/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>今天來試著拉拉看 Navigation View</p>
+
+<p>什麼是 Navigation View?</p>
+
+<p>就是類似下圖的東西:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.07.37.png" alt="image" /></p>
+
+<p>用來控制 View 之間的流程</p>
+
+<p>今天我們繼續使用 storyboard 來簡單拉拉 Navigation View</p>
+
+<p>首先先開一個新 project 吧!</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.09.15.png" alt="image" /></p>
+
+<p>接著我們到 storyboard，選擇 ViewController</p>
+
+<p>再來我們要嵌入 Navigation View</p>
+
+<p>所以要選擇: Edit -> Embed in -> Navigation View</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.10.09.png" alt="image" /></p>
+
+<p>選擇後，就會發現 storyboard 的 layout 改變了</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.11.36.png" alt="image" /></p>
+
+<p>Navigation View 實際上是透過 NavigationController 來控制</p>
+
+<p>原本程式的進入點是 ViewController</p>
+
+<p>由於我們要使用 Navigation View</p>
+
+<p>因此透過 Xcode 將 NavigationController 嵌進去</p>
+
+<p>讓程式進入點變成 NavigationController</p>
+
+<p>再透過 NavigationController 將程式導到 ViewController</p>
+
+<p>接下來我們命名一下 ViewController:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.14.28.png" alt="image" /></p>
+
+<p>然後我們從右下角的 Object library 選擇 Bar Button items 加入</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.14.56.png" alt="image" /></p>
+
+<p>並將該物件拉到 NavigationBar 的右方</p>
+
+<p>接下來我們希望點下 item 按鈕，可以到另外一個 ViewController</p>
+
+<p>因此一樣從右下角的 Object library 拉一個 ViewController 到 storyboard 的空白處</p>
+
+<p>直接拉一個過去就好</p>
+
+<p>所以會長這樣:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.17.30.png" alt="image" /></p>
+
+<p>接著就從 ViewController 的 item 上，按著 ctrl + 拖曳，</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.18.29.png" alt="image" /></p>
+
+<p>往右邊剛剛新增的 ViewController 拉，放開後就會選擇要做的動作，我們選擇 &lsquo;show&rsquo;</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.19.44.png" alt="image" /></p>
+
+<p>為了辨識起見，我們點選第二個 ViewController ，加入 Title:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.22.11.png" alt="image" /></p>
+
+<p>都設定好後，按下執行，應該就可以看到 Navigation View 正常運作了!</p>
+
+<p>按下 item 會到 View2, View2 會自動產生 back 鍵，回到 View1</p>
+
+<p>是不是很方便呢!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2014/10/13/api-d13/">[API-d13] - [Javascript 番外篇] Javascript Require/ Module/ Module Pattern</a></h1>
     
     
@@ -1806,524 +2101,6 @@
 <hr />
 
 <p>以上是一些 class 和 struct 的特性</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/09/api-d9/">[API-d9] - NVM 與 NPM 使用</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-09T21:46:12+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/10/09/api-d9/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/09/api-d9/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>NVM 與 NPM 使用</h1>
-
-<h2>NVM - Node.js Version Manager</h2>
-
-<h3>安裝</h3>
-
-<p>如果是 Ubuntu 的話必須先要有 <code>build-essential</code> 和 <code>libssl-dev</code> 套件</p>
-
-<p>不過這個我們之前就裝過了，所以直接安裝 NVM 吧~</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ curl https://raw.githubusercontent.com/creationix/nvm/v0.17.2/install.sh | bash
-</span><span class='line'>$ source ~/.bashrc</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>使用 NVM 安裝 node.js</h3>
-
-<p>先前我們有使用 Ubuntu 本身的 apt-get 安裝 Node.js</p>
-
-<p>不過那是被安裝到 /usr/bin/node</p>
-
-<p>有時候要安裝套件需要 sudo 提供管理者權限</p>
-
-<p>非常麻煩，因此我們使用 NVM 來安裝另一個 Node.js</p>
-
-<p>這個 Node.js 的執行檔就任我們使用，不需要提供管理者權限了</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ nvm install 0.10</span></code></pre></td></tr></table></div></figure>
-
-
-<p>nvm 就會安裝 0.10 版本，安裝完後就要使用它：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ nvm use 0.10</span></code></pre></td></tr></table></div></figure>
-
-
-<p>再來我們把 nvm 的 node.js 設定成預設的 node</p>
-
-<p>否則重開機後，node 指令會變回原本系統的 node</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ nvm alias default 0.10</span></code></pre></td></tr></table></div></figure>
-
-
-<p>我們觀察一下現在使用的 node 指令是哪裡來的:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ which node
-</span><span class='line'>/home/vagrant/.nvm/v0.10.32/bin/node</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Good! 他已經被安裝到我們使用者目錄底下了</p>
-
-<p>原本的系統 Node.js 是在 <code>/usr/bin/node</code></p>
-
-<p>如果要切換回系統的 Node.js:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ nvm use system
-</span><span class='line'>Now using system version of node: v0.10.32.
-</span><span class='line'>
-</span><span class='line'>// 看一下現在使用 node 的路徑
-</span><span class='line'>$ which node
-</span><span class='line'>/usr/bin/node</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>NPM - Node.js Package Manager</h2>
-
-<p>NPM 顧名思義就是 node.js 的套件管理系統，</p>
-
-<p>世界上有許許多多的開發者為 Node.js 開發了許許多多的套件，</p>
-
-<p>我們受惠于此，也不用再自己造輪子，拿這些佛心的大大的套件來使用，打造出我們想要的服務，</p>
-
-<p>像我們接下來會使用的 Express 和 Mongodb 的 driver 都是別人寫好開放出來給大家用的！</p>
-
-<p>下面簡單介紹 NPM 的使用方式</p>
-
-<h3>初始化專案資料夾</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ npm init </span></code></pre></td></tr></table></div></figure>
-
-
-<p>終端機會詢問各種問題來幫忙建立 package.json 的檔案</p>
-
-<p>是在資料夾中建立專案前必下的指令</p>
-
-<p>並且，使用 package.json 有個好處</p>
-
-<p>只要將 package.json 給其他人</p>
-
-<p>其他人只需要將 package.json 放到某個資料夾</p>
-
-<p>並下:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ npm install</span></code></pre></td></tr></table></div></figure>
-
-
-<p>就會在該資料夾安裝 package.json 中列出的所有套件</p>
-
-<p>就不需要一個一個尋找及安裝，非常方便！</p>
-
-<h3>安裝套件</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>// 安裝全域套件
-</span><span class='line'>$ npm install [套件名稱] -g
-</span><span class='line'>
-</span><span class='line'>// 安裝套件在專案資料夾 
-</span><span class='line'>// 會安裝在目前所在的資料夾，所以要下此指令必須先確認自己是否在專案根目錄
-</span><span class='line'>$ npm install [套件名稱]
-</span><span class='line'>
-</span><span class='line'>// 通常專案資料夾底下都會有一個 package.json 來管理套件相依性
-</span><span class='line'>// 如果在專案資料夾底下下此指令，會將你所安裝的套件加入 package.json 中
-</span><span class='line'>// 一樣也是要先確認自己是否在專案目錄底下
-</span><span class='line'>$ npm install [套件名稱] -save</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>移除套件</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>// 移除全域套件
-</span><span class='line'>$ npm uninstall [套件名稱] -g
-</span><span class='line'>
-</span><span class='line'>// 移除在專案資料夾的某個套件 
-</span><span class='line'>// 會移除在目前所在的資料夾某個套件，所以要下此指令必須先確認自己是否在專案根目錄
-</span><span class='line'>$ npm uninstall [套件名稱]
-</span><span class='line'>
-</span><span class='line'>// 通常專案資料夾底下都會有一個 package.json 來管理套件相依性
-</span><span class='line'>// 如果在專案資料夾底下下此指令，會將你所移除的套件從 package.json 中刪除
-</span><span class='line'>// 一樣也是要先確認自己是否在專案目錄底下
-</span><span class='line'>$ npm uninstall [套件名稱] -save</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>列出套件</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>// 列出全域套件
-</span><span class='line'>$ npm ls -g
-</span><span class='line'>
-</span><span class='line'>// 列出全域套件詳細資訊
-</span><span class='line'>$ npm ls -gl
-</span><span class='line'>
-</span><span class='line'>// 在專案資料夾底下：
-</span><span class='line'>
-</span><span class='line'>// 列出專案資料夾的套件
-</span><span class='line'>$ npm ls 
-</span><span class='line'>
-</span><span class='line'>// 列出專案資料夾的詳細套件資訊
-</span><span class='line'>$ npm ls -l</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>更新套件</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>// 更新全域套件
-</span><span class='line'>$ npm update -g
-</span><span class='line'>
-</span><span class='line'>// 在專案資料夾底下：
-</span><span class='line'>
-</span><span class='line'>// 更新專案套件
-</span><span class='line'>$ npm update </span></code></pre></td></tr></table></div></figure>
-
-
-<h3>搜尋套件</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ npm search [套件名稱]</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>注意!!</h2>
-
-<p>請注意，使用系統 Node.js 的 npm 所安裝的套件，是屬於系統 Node.js 的</p>
-
-<p>切換到使用者目錄底下的 Node.js 時，是不會共用系統 npm 的套件的</p>
-
-<p>請注意這一點，接下來我們都會使用 nvm 的 node.js</p>
-
-<p>我們可以透過以下例子來驗證:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>// 使用系統 node.js
-</span><span class='line'>$ nvm use system
-</span><span class='line'>Now using system version of node: v0.10.32.
-</span><span class='line'>
-</span><span class='line'>// 查看 npm 全域套件
-</span><span class='line'>$ npm list -g  
-</span><span class='line'>/usr/lib
-</span><span class='line'>├─┬ express@4.9.5
-</span><span class='line'>│ ├─┬ accepts@1.1.1
-</span><span class='line'>│ │ ├─┬ mime-types@2.0.2
-</span><span class='line'>│ │ │ └── mime-db@1.1.0
-</span><span class='line'>│ │ └── negotiator@0.4.8
-</span><span class='line'>....
-</span><span class='line'>
-</span><span class='line'>// 使用 nvm node.js
-</span><span class='line'>$ nvm use 0.10
-</span><span class='line'>Now using node v0.10.32
-</span><span class='line'>
-</span><span class='line'>// 查看 npm 全域套件
-</span><span class='line'>$ npm list -g 
-</span><span class='line'>/home/vagrant/.nvm/v0.10.32/lib
-</span><span class='line'>└─┬ npm@1.4.28
-</span><span class='line'>  ├── abbrev@1.0.5
-</span><span class='line'>  ├── ansi@0.3.0
-</span><span class='line'>  ├── ansicolors@0.3.2
-</span><span class='line'>  ├── ansistyles@0.1.3
-</span><span class='line'>  ├── archy@0.0.2
-</span><span class='line'>  ├── block-stream@0.0.7
-</span><span class='line'>  ├── char-spinner@1.0.1
-</span><span class='line'>  ├── child-process-close@0.1.1
-</span><span class='line'>  ├── chmodr@0.1.0
-</span><span class='line'>...</span></code></pre></td></tr></table></div></figure>
-
-
-<p>主要差別就在於 列出全域套件時，還會提醒你這些套件裝在哪裡，如果不是裝在使用者目錄底下，</p>
-
-<p>表示現在用的是系統的 Node.js</p>
-
-<p>因此發現自己不對了就快換回來吧，如果系統裝爛了，也可以利用先前打包的 box 還原哦!</p>
-
-<h2>怎麼找套件?</h2>
-
-<p>套件那麼多，我要到哪裡找？</p>
-
-<p>除了根據自己的需求 Google 外，</p>
-
-<p>下面是 Node.js module 的官方網站: <a href="https://nodejsmodules.org/">https://nodejsmodules.org/</a></p>
-
-<p>有做最受歡迎的套件排名，進去瀏覽一下，有時候會發現一些好用的套件哦!</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/08/swift-d8/">[Swift-d8] - Playground - Enumerations</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-08T13:04:25+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/10/08/swift-d8/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/08/swift-d8/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>Playground - Enumerations</h1>
-
-<p>通常會使用來定義一組相關的值</p>
-
-<p>也是很方便的東西</p>
-
-<h2>列舉語法</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">enum</span> <span class="n">SomeEnumeration</span> <span class="p">{</span>
-</span><span class='line'>  <span class="c1">// enumeration definition goes here</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>比方說，車子</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">enum</span> <span class="n">Car</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">case</span> <span class="n">toyota</span>
-</span><span class='line'>  <span class="k">case</span> <span class="n">benz</span>
-</span><span class='line'>  <span class="k">case</span> <span class="n">BMW</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>也可以這樣寫</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">enum</span> <span class="n">Car</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">case</span> <span class="n">toyota</span><span class="p">,</span> <span class="n">benz</span><span class="p">,</span> <span class="n">BMW</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>使用:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">var</span> <span class="n">car</span> <span class="o">=</span> <span class="n">Car</span><span class="p">.</span><span class="n">benz</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>和 Switch 的搭配</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">enum</span> <span class="n">Car</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">case</span> <span class="n">Toyota</span><span class="p">,</span> <span class="n">Benz</span><span class="p">,</span> <span class="n">BMW</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">var</span> <span class="n">car</span> <span class="o">=</span> <span class="n">Car</span><span class="p">.</span><span class="n">Benz</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">switch</span> <span class="n">car</span> <span class="p">{</span>
-</span><span class='line'><span class="k">case</span> <span class="p">.</span><span class="nl">Toyota</span><span class="p">:</span>
-</span><span class='line'>    <span class="n">println</span><span class="p">(</span><span class="s">&quot;Toyota&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="k">case</span> <span class="p">.</span><span class="nl">Benz</span><span class="p">:</span>
-</span><span class='line'>    <span class="n">println</span><span class="p">(</span><span class="s">&quot;Benz&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="k">case</span> <span class="p">.</span><span class="nl">BMW</span><span class="p">:</span>
-</span><span class='line'>    <span class="n">println</span><span class="p">(</span><span class="s">&quot;BMW&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Associated Values</h2>
-
-<p>以 Barcode 來舉例子</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">enum</span> <span class="n">Barcode</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">case</span> <span class="n">UPCA</span><span class="p">(</span><span class="n">Int</span><span class="p">,</span> <span class="n">Int</span><span class="p">,</span> <span class="n">Int</span><span class="p">)</span>
-</span><span class='line'>    <span class="k">case</span> <span class="n">QRCode</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">var</span> <span class="n">productBarcode</span> <span class="o">=</span> <span class="n">Barcode</span><span class="p">.</span><span class="n">UPCA</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8948</span><span class="p">,</span> <span class="mi">333</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>我們可以借此來定義一些結構</p>
-
-<h2>Raw Values</h2>
-
-<p>我們可以先給定預設值：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">enum</span> <span class="nl">Barcode</span><span class="p">:</span> <span class="n">String</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">case</span> <span class="n">UPCA</span> <span class="o">=</span> <span class="s">&quot;upca&quot;</span>
-</span><span class='line'>    <span class="k">case</span> <span class="n">QRCode</span> <span class="o">=</span> <span class="s">&quot;qrcode&quot;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">var</span> <span class="n">productBarcode</span> <span class="o">=</span> <span class="n">Barcode</span><span class="p">.</span><span class="n">UPCA</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">productBarcode</span><span class="p">.</span><span class="n">toRaw</span><span class="p">())</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>可以透過 raw value 來找尋</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">Barcode</span><span class="p">.</span><span class="n">fromRaw</span><span class="p">(</span><span class="s">&quot;qrcode&quot;</span><span class="p">))</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>這個部分雖然不多，但是很實用</p>
 </div>
   
   
