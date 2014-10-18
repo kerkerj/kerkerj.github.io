@@ -98,6 +98,141 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2014/10/04/swift-d4/">[Swift-d4] - Playground - Optional, ! And ?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-04T18:53:03+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/10/04/swift-d4/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/04/swift-d4/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>Playground - Optional, ! and ?</h1>
+
+<p>今天要來探討 Optional 型別，我認為這塊是初學 Swift 常遇到的問題<br/>
+大家搞不懂 &ldquo;!&rdquo; &ldquo;?&rdquo; 到底在幹什麼，所以今天就來了解一下</p>
+
+<p>在 Swift 中，所有的資料型別都不能賦予 nil<br/>
+也就是以下這件事是不成立的：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="k">var</span> <span class="nl">x</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="s">&quot;test&quot;</span>
+</span><span class='line'><span class="n">x</span> <span class="o">=</span> <span class="nb">nil</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>所以在 Swift 底下，就要使用 Optional 來處理值可能不存在的情況<br/>
+當一個變數 x 被宣告成 Optional 型別時，該變數就會有兩個情況：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="mf">1.</span> <span class="err">有值，等於</span> <span class="n">x</span>
+</span><span class='line'><span class="mf">2.</span> <span class="err">沒有值</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>要宣告一個變數可能為 nil 時的方式是使用問號 &lsquo;?&#8217;：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="c1">// 此時 x = &quot;yaya&quot;</span>
+</span><span class='line'><span class="k">var</span> <span class="nl">x</span><span class="p">:</span> <span class="n">String</span><span class="o">?</span> <span class="o">=</span> <span class="s">&quot;yaya&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 此時 x 沒有值</span>
+</span><span class='line'><span class="n">x</span> <span class="o">=</span> <span class="nb">nil</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>拿以下程式在 Playground 執行看看：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="k">var</span> <span class="nl">str</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
+</span><span class='line'><span class="n">str</span> <span class="o">=</span> <span class="s">&quot;yaya&quot;</span>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">var</span> <span class="nl">str2</span><span class="p">:</span> <span class="n">String</span><span class="o">?</span>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str2</span><span class="p">)</span>
+</span><span class='line'><span class="n">str2</span> <span class="o">=</span> <span class="s">&quot;yaya&quot;</span>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str2</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可以看一下 Playground 右邊的輸出框，觀察兩個 string 的差異<br/>
+當 str2 被賦予 Optional 型別後，<br/>
+str2  已經不是單純的 String 型別了，</p>
+
+<p>那如何強制以 String 型別拿到 str2 的資料呢?
+試著在 str2 後面加上驚嘆號，並觀察右方輸出結果:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str2</span><span class="o">!</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>請注意！若要強制取值，一定要確保此 Optional 型別中一定有值，
+否則將會導致執行錯誤，以下是錯誤範例：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='Swift'><span class='line'><span class="k">var</span> <span class="nl">str2</span><span class="p">:</span> <span class="n">String</span><span class="o">?</span> <span class="o">=</span> <span class="s">&quot;yaya&quot;</span>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str2</span><span class="p">)</span>
+</span><span class='line'><span class="n">str2</span> <span class="o">=</span> <span class="nb">nil</span>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">str2</span><span class="o">!</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>程式將會在第四行返回錯誤，因此使用驚嘆號強制取值前請先確保 Optional 裡有值。</p>
+
+<p>在 Objective-C 中，nil 是指向一個不存在物件的指標；
+而 Swift 中，nil 是一種非常明確地值 － 他就是代表「不存在」。</p>
+
+<p>在 Playground 中多試試看囉~~</p>
+
+<p>ps. Swift 的 ? 和 Ruby 的 ? 是完全不同意思的XD</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2014/10/04/api-d4/">[API-d4] - 使用技術與工具介紹及原因</a></h1>
     
     
@@ -1132,53 +1267,6 @@ coroutine v.s. non-coroutine<br/>
 但通常以當前需求而言，其實也不需要 over-design<br/>
 只要選擇拿手的，能夠快速方便的開發出雛形，<br/>
 我想等到真的快要 10000 per/second request 時，再來煩惱更進一步的架構吧</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/08/15/add-tracked-file-to-gitignore/">Add Tracked File to .gitignore</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-15T18:27:30+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/08/15/add-tracked-file-to-gitignore/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/08/15/add-tracked-file-to-gitignore/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git update-index --assume-unchanged &lt;file&gt;</span></code></pre></td></tr></table></div></figure>
-
-
-<p>If there&rsquo;s a remote server, also do:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git rm --cached &lt;file&gt;</span></code></pre></td></tr></table></div></figure>
-
 </div>
   
   

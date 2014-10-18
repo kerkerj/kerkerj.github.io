@@ -98,6 +98,88 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2013/11/13/mac-osx-slow-opening-terminal-windows/">[Mac OSX] Slow-Opening Terminal Windows</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-13T07:34:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/11/13/mac-osx-slow-opening-terminal-windows/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2013/11/13/mac-osx-slow-opening-terminal-windows/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>最近在開 mac 的 iTerm.app 或者是內建的終端機都覺得卡卡的，
+之前以為是 .bashrc 載入太多東西導致的，所以把一些掛載的 bin 目錄都註解掉，
+但是還是沒解決，心想不對勁，就順手 google 了一下&hellip;</p>
+
+<p>我執行了下列語法：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ time /usr/libexec/path_helper
+</span><span class='line'>PATH="/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/ABC/android-sdks/platform-tools:/Users/ABC/android-sdks/tools:/Application/Vagrant/bin"; export PATH;
+</span><span class='line'>
+</span><span class='line'>real  0m0.043s
+</span><span class='line'>user  0m0.001s
+</span><span class='line'>sys   0m0.002s</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接著我把 <code>PATH</code> 的內容寫進 <code>.bash_profile</code>，問題竟然就解決了&hellip;
+速度飛快～～</p>
+
+<p>後來看到一篇 <a href="http://www.joshstaiger.org/archives/2005/07/bash_profile_vs.html">.bash_profile vs.bashrc</a>
+雖然大家都知道 <code>.bash_profile</code> 是在登入時執行（即是輸入帳號密碼時），
+而 <code>.bashrc</code> 是在系統內非登入狀態時開啟 prompt 時執行，
+但是！！ Mac OSX 是個例外～是個例外～是個例外～&hellip;&hellip;.=.=</p>
+
+<blockquote><p>Mac OS X — an exception
+An exception to the terminal window guidelines is Mac OS X&rsquo;s Terminal.app, which runs a login shell by default for each new terminal window, calling .bash_profile instead of .bashrc. Other GUI terminal emulators may do the same, but most tend not to.</p></blockquote>
+
+<p>所以通常解決方法是在 <code>.bash_profile</code> 寫入以下 script:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>if [ -f ~/.bashrc ]; then
+</span><span class='line'>  source ~/.bashrc
+</span><span class='line'>fi</span></code></pre></td></tr></table></div></figure>
+
+
+<p>不過我之前就這樣做了，這次成功的方式是直接在 <code>.bash_profile</code> 寫入 PATH 路徑&hellip;
+猜想應該是在 <code>.bash_profile</code> 預先讀取而加快速度的
+如果把原本的 <code>.bashrc</code> 的 <code>PATH</code> 註解掉都移到 <code>.bash_profile</code> 會再稍快一些</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2013/10/22/vagrant-vagrant-nginx-php5-fpm/">[Vagrant] 使用 Vagrant 安裝 Nginx, Php5-fpm, MySQL</a></h1>
     
     
@@ -983,64 +1065,6 @@ swap           : 5GB<br/>
 1,2,3. 接著就重複上面的1,2,3點。<br/>
 4.鍵盤拆了以後就可以看見鍵盤下面有一大塊不鏽鋼板，一樣有螺絲固定，將螺絲拆了以後拿下不鏽鋼板就可以看見硬碟了。<br/>
 5.硬碟也有螺絲固定，螺絲拆了後就可以換硬碟。</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/04/12/blogger/">[Blogger] 隱藏上方的導覽列</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-04-12T15:04:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2012/04/12/blogger/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2012/04/12/blogger/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://3.bp.blogspot.com/-6NS8ZaUvZSU/T4bsGpypOdI/AAAAAAAAC4g/UDJ0EXX5jRs/s1600/%E6%9C%AA%E5%91%BD%E5%90%8D.png"><img src="http://3.bp.blogspot.com/-6NS8ZaUvZSU/T4bsGpypOdI/AAAAAAAAC4g/UDJ0EXX5jRs/s1600/%E6%9C%AA%E5%91%BD%E5%90%8D.png" alt="" /></a></p>
-
-<p>新版的Blogger佈景沒有導覽列，
-不過應該大部分的人都還是使用舊版的佈景，
-如果不是使用自訂佈景的話，內建佈景中上方總是有條導覽列，
-我個人是覺得醜醜的想把它拿掉，所以就找了一下資料，
-先到這邊：
-<a href="http://1.bp.blogspot.com/-yR92RTCKlOM/T4bsH2GoQqI/AAAAAAAAC4w/be5bK2vK3-Q/s1600/%E6%9C%AA%E5%91%BD%E5%90%8D3.png"><img src="http://1.bp.blogspot.com/-yR92RTCKlOM/T4bsH2GoQqI/AAAAAAAAC4w/be5bK2vK3-Q/s640/%E6%9C%AA%E5%91%BD%E5%90%8D3.png" alt="" /></a></p>
-
-<p>改的方法有幾種：
-1.直接使用 css 的 <code>display:none;</code> 語法把導覽列隱藏，在 <code>&lt;head&gt;</code> 標籤下加入
-    <code>.Navbar {visibility:hidden;display:none;}</code>
-  有個缺點，雖然導覽列不見了，但是導覽列的區塊還是會留著。
-2.改變整個 body 的位置，將 body 往上移約 40px，產生導覽列看不見的錯覺XD (我個人使用這種)
-    <code>body {margin: -40px 0 0 0;}</code></p>
-
-<p>最後，導覽列不見了很棒，但是沒辦法方便的登入，怎麼辦？
-<a href="http://4.bp.blogspot.com/--oXdMgP1MrA/T4bsHAKWbVI/AAAAAAAAC4k/_mXM7x55s6c/s1600/%E6%9C%AA%E5%91%BD%E5%90%8D2.png"><img src="http://4.bp.blogspot.com/--oXdMgP1MrA/T4bsHAKWbVI/AAAAAAAAC4k/_mXM7x55s6c/s640/%E6%9C%AA%E5%91%BD%E5%90%8D2.png" alt="" /></a></p>
-
-<p>加入個 POWER BY BLOGGER 吧，按下去就可以登入了XD</p>
 </div>
   
   

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Swift | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/swift/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-18T18:33:24+08:00</updated>
+  <updated>2014-10-19T00:55:20+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,42 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Swift - Push/Pop Views Delay]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/19/swift-push-slash-pop-views-delay/"/>
+    <updated>2014-10-19T00:33:11+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/19/swift-push-slash-pop-views-delay</id>
+    <content type="html"><![CDATA[<p>請大家先看看下面的小短片，注意一下過場動畫的流暢度</p>
+
+<p>一開始是沒有加過場動畫，後來改程式碼變成有過場動畫</p>
+
+<p><a href="http://www.youtube.com/watch?feature=player_embedded&v=dqxDFv-iieU
+" target="_blank"><img src="http://img.youtube.com/vi/dqxDFv-iieU/0.jpg"
+alt="IMAGE ALT TEXT HERE" width="420" height="315" border="10" /></a></p>
+
+<p><a href="https://www.youtube.com/watch?v=dqxDFv-iieU">direct link</a></p>
+
+<p>後來發現給一個預設的 backgroundColor 後就不會發生殘影的問題了</p>
+
+<p>是因為 push 的 view 沒有 backgroundColor</p>
+
+<p>和同事討論後發現:</p>
+
+<p><a href="https://developer.apple.com/library/IOs/documentation/UIKit/Reference/UIView_Class/index.html#//apple_ref/occ/instp/UIView/backgroundColor">Apple Developer Reference</a></p>
+
+<p>UIView 的 backgroundColor 的 default 值是 null!</p>
+
+<blockquote><p>Discussion
+Changes to this property can be animated. The default value is nil, which results in a transparent background color.</p></blockquote>
+
+<p>所以是這個原因導致在轉場的時候有殘影</p>
+
+<p>不過切換 View 時 target view 沒有 backgroundColor 的情況應該比較少吧&hellip;(?)</p>
+
+<p>剛好在寫鐵人賽的 app 想先把流程弄出來時遇到了這個雷 XD</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[Swift-d18] - Basic - Customize TableViewCell]]></title>
@@ -552,112 +588,6 @@ func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexP
 <p>應該就會長這樣子喲:</p>
 
 <p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%202.56.47.png" alt="image" /></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[Swift-d14] - Basic - Navigation View 2 + ViewController]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/14/swift-d14/"/>
-    <updated>2014-10-14T22:40:36+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/14/swift-d14</id>
-    <content type="html"><![CDATA[<p>延續昨天的主題，今天我們要做的事情是：</p>
-
-<ol>
-<li>爲新的 ViewController 實際加入程式碼 (ViewController2.swift)</li>
-<li>加入一個 button 來控制是否前進下一頁或後退</li>
-</ol>
-
-
-<p>我們先新增一個檔案:</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.04.30.png" alt="image" /></p>
-
-<p>接著選擇 CocoaTouch Class:</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.05.56.png" alt="image" /></p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.06.45.png" alt="image" /></p>
-
-<p>回到 storyboard, 選擇第二個 ViewController</p>
-
-<p>並按照下圖，將 Class 指定給 View2Controller</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.07.15.png" alt="image" /></p>
-
-<p>這樣子 storyboard 的 View2 就會指定到 View2Controller 了</p>
-
-<p>我們在 View2Controller 的 viewDidLoad 方法中加入一行程式碼</p>
-
-<p>來驗證他是否有吃到 View2Controller</p>
-
-<pre><code class="swift">self.title = "View2 by me"
-</code></pre>
-
-<p>Run 起來看的話就會是這樣:</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.10.52.png" alt="image" /></p>
-
-<p>的確是有吃到程式碼的</p>
-
-<p>再來就是要加入按鈕了:</p>
-
-<p>我們先拉一個 Button 進 View2Controller</p>
-
-<p>並且將該 Button 拉進 View2Controller 的 code</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.11.41.png" alt="image" /></p>
-
-<p>設定該 button 爲 Action, 並且名稱是 &lsquo;backToView&rsquo;</p>
-
-<p>意即我們要讓點下 View2Controller 的 Button 行為為回到上一個 View</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.12.50.png" alt="image" /></p>
-
-<p>另外對 View2 為他加入一個 storyboard ID, View2，等等會用到:</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.20.21.png" alt="image" /></p>
-
-<p>View1 同樣也加入一個 Button, 並且也是拉到 View1 的 code 中，</p>
-
-<p>同樣是設定 Action ，action name 定義為 &lsquo;goView2&rsquo;</p>
-
-<p>就是按下 button 後會到 View2</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.13.59.png" alt="image" /></p>
-
-<p>接著我們分別在 ViewController 及 View2Controller 的程式碼中加入以下程式碼:</p>
-
-<p>View1 -</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.15.48.png" alt="image" /></p>
-
-<pre><code class="swift">@IBAction func goView2(sender: AnyObject){
-self.navigationController?.pushViewController(self.storyboard?.instantiateViewControllerWithIdentifier("View2") as View2Controller, animated: true)
-}
-</code></pre>
-
-<p>View2 -</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.15.56.png" alt="image" /></p>
-
-<pre><code class="swift">@IBAction func backToView(sender: AnyObject) {
-    self.navigationController?.popViewControllerAnimated(true)
-}
-</code></pre>
-
-<p>在這邊 Navigation 用到的是 Push, Pop 的概念，使用 View stack</p>
-
-<p>進到下一個 View 時，就 push 欲前往的 View</p>
-
-<p>回到上一個 View 時，就 pop 出上一個 View</p>
-
-<p>在 goView2 中，我們使用到了 storyboard 的 identifier</p>
-
-<p>先讓 storyboard 抓有沒有 identifier 名為 &ldquo;View2&rdquo; 的物件</p>
-
-<p>有的話就抓起來，並且使用 as 轉型成 View2Controller, push 進 stack</p>
-
-<p>做完上述事情後，執行程式碼就可以看到結果囉!</p>
 ]]></content>
   </entry>
   

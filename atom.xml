@@ -4,7 +4,7 @@
   <title><![CDATA[kerkerj]]></title>
   <link href="http://kerkerj.github.io/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-18T18:32:51+08:00</updated>
+  <updated>2014-10-19T00:55:20+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -107,6 +107,42 @@ Day27 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day28 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day29 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day30 -  <a href="http://kerkerj.github.io/">#</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Swift - Push/Pop Views Delay]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/19/swift-push-slash-pop-views-delay/"/>
+    <updated>2014-10-19T00:33:11+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/19/swift-push-slash-pop-views-delay</id>
+    <content type="html"><![CDATA[<p>請大家先看看下面的小短片，注意一下過場動畫的流暢度</p>
+
+<p>一開始是沒有加過場動畫，後來改程式碼變成有過場動畫</p>
+
+<p><a href="http://www.youtube.com/watch?feature=player_embedded&v=dqxDFv-iieU
+" target="_blank"><img src="http://img.youtube.com/vi/dqxDFv-iieU/0.jpg"
+alt="IMAGE ALT TEXT HERE" width="420" height="315" border="10" /></a></p>
+
+<p><a href="https://www.youtube.com/watch?v=dqxDFv-iieU">direct link</a></p>
+
+<p>後來發現給一個預設的 backgroundColor 後就不會發生殘影的問題了</p>
+
+<p>是因為 push 的 view 沒有 backgroundColor</p>
+
+<p>和同事討論後發現:</p>
+
+<p><a href="https://developer.apple.com/library/IOs/documentation/UIKit/Reference/UIView_Class/index.html#//apple_ref/occ/instp/UIView/backgroundColor">Apple Developer Reference</a></p>
+
+<p>UIView 的 backgroundColor 的 default 值是 null!</p>
+
+<blockquote><p>Discussion
+Changes to this property can be animated. The default value is nil, which results in a transparent background color.</p></blockquote>
+
+<p>所以是這個原因導致在轉場的時候有殘影</p>
+
+<p>不過切換 View 時 target view 沒有 backgroundColor 的情況應該比較少吧&hellip;(?)</p>
+
+<p>剛好在寫鐵人賽的 app 想先把流程弄出來時遇到了這個雷 XD</p>
 ]]></content>
   </entry>
   
@@ -3120,353 +3156,6 @@ Day30 -  <a href="http://kerkerj.github.io/">#</a></p>
 
 
 <p>下一篇會講解如何簡單操作 MongoDB!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[Swift-d9] - Playground - Class, Struct]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/09/swift-d9/"/>
-    <updated>2014-10-09T21:46:17+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/09/swift-d9</id>
-    <content type="html"><![CDATA[<h1>Playground - Class, Struct</h1>
-
-<p>再來就是要提重點的東西了!</p>
-
-<p>class 和 struct 是用來建構整個程式重要的東西</p>
-
-<p>兩者的差異在於：class 可以繼承其他 class，但是 struct 無法繼承</p>
-
-<p>以下是宣告方式</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">class</span> <span class="n">SomeClass</span> <span class="p">{</span>
-</span><span class='line'>  <span class="c1">//...</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">struct</span> <span class="n">SomeStruct</span> <span class="p">{</span>
-</span><span class='line'>  <span class="c1">//...</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>注意，Swift 的 class 和 struct 命名慣例是大寫命名風格 <code>UpperCamelCase</code></p>
-
-<p>而屬性和方法則是 <code>lowerCamelCase</code></p>
-
-<p>例如 <code>increaseCount</code>, <code>addTwoInts</code></p>
-
-<p>舉個例子:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">struct</span> <span class="n">Resolution</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">var</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span class='line'>  <span class="k">var</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">class</span> <span class="n">CustomLabel</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">var</span> <span class="n">resolution</span> <span class="o">=</span> <span class="n">Resolution</span><span class="p">()</span>
-</span><span class='line'>  <span class="k">var</span> <span class="n">isLabel</span> <span class="o">=</span> <span class="nb">true</span>
-</span><span class='line'>  <span class="k">var</span> <span class="nl">name</span><span class="p">:</span> <span class="n">String</span><span class="o">?</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>實體化，就可以改變其中的值了</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">var</span> <span class="n">someResolution</span> <span class="o">=</span> <span class="n">Resolution</span><span class="p">()</span>
-</span><span class='line'><span class="k">var</span> <span class="n">someLabel</span> <span class="o">=</span> <span class="n">CustomLabel</span><span class="p">()</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">someResolution</span><span class="p">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">100</span>
-</span><span class='line'><span class="n">someLabel</span><span class="p">.</span><span class="n">resolution</span><span class="p">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">200</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>就是一直 <code>點</code> 下去就對了!</p>
-
-<p>Struct 我們也可以直接給定初始值，class 就不能這樣做了~</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">var</span> <span class="n">someResolution</span> <span class="o">=</span> <span class="n">Resolution</span><span class="p">(</span><span class="nl">width</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="nl">height</span><span class="p">:</span> <span class="mi">300</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>sttuct 的 Getter 和 Setter 只存在於 computed properties</p>
-
-<p>亦即是必須要被計算過的才能使用 Getter, Setter</p>
-
-<p>以下就直接看別人的例子吧:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">struct</span> <span class="n">Point</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">var</span> <span class="n">x</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mf">0.0</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="k">struct</span> <span class="n">Size</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">var</span> <span class="n">width</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mf">0.0</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="k">struct</span> <span class="n">Rect</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">var</span> <span class="n">origin</span> <span class="o">=</span> <span class="n">Point</span><span class="p">()</span>
-</span><span class='line'>    <span class="k">var</span> <span class="n">size</span> <span class="o">=</span> <span class="n">Size</span><span class="p">()</span>
-</span><span class='line'>    <span class="k">var</span> <span class="nl">center</span><span class="p">:</span> <span class="n">Point</span> <span class="p">{</span>
-</span><span class='line'>    <span class="kr">get</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">let</span> <span class="n">centerX</span> <span class="o">=</span> <span class="n">origin</span><span class="p">.</span><span class="n">x</span> <span class="o">+</span> <span class="p">(</span><span class="n">size</span><span class="p">.</span><span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
-</span><span class='line'>        <span class="k">let</span> <span class="n">centerY</span> <span class="o">=</span> <span class="n">origin</span><span class="p">.</span><span class="n">y</span> <span class="o">+</span> <span class="p">(</span><span class="n">size</span><span class="p">.</span><span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="nl">x</span><span class="p">:</span> <span class="n">centerX</span><span class="p">,</span> <span class="nl">y</span><span class="p">:</span> <span class="n">centerY</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="kr">set</span><span class="p">(</span><span class="n">newCenter</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="n">origin</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">newCenter</span><span class="p">.</span><span class="n">x</span> <span class="o">-</span> <span class="p">(</span><span class="n">size</span><span class="p">.</span><span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">origin</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">newCenter</span><span class="p">.</span><span class="n">y</span> <span class="o">-</span> <span class="p">(</span><span class="n">size</span><span class="p">.</span><span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="k">var</span> <span class="n">square</span> <span class="o">=</span> <span class="n">Rect</span><span class="p">(</span><span class="nl">origin</span><span class="p">:</span> <span class="n">Point</span><span class="p">(</span><span class="nl">x</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="nl">y</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">),</span>
-</span><span class='line'>    <span class="nl">size</span><span class="p">:</span> <span class="n">Size</span><span class="p">(</span><span class="nl">width</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">,</span> <span class="nl">height</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">))</span>
-</span><span class='line'><span class="k">let</span> <span class="n">initialSquareCenter</span> <span class="o">=</span> <span class="n">square</span><span class="p">.</span><span class="n">center</span>
-</span><span class='line'><span class="n">square</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="nl">x</span><span class="p">:</span> <span class="mf">15.0</span><span class="p">,</span> <span class="nl">y</span><span class="p">:</span> <span class="mf">15.0</span><span class="p">)</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="s">&quot;square.origin is now at (\(square.origin.x), \(square.origin.y))&quot;</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>Struct 和 enum 是一種值型別</h3>
-
-<p>值型別的的例子像是 Int, String &hellip;.</p>
-
-<p>那 struct 和 enum 也是，都是以值來操作的</p>
-
-<h3>Class 是參考型別</h3>
-
-<h2>使用時機</h2>
-
-<p>struct:</p>
-
-<ul>
-<li>用來封裝少量相關的資料</li>
-<li>不需要繼承</li>
-<li>是 copy value 而不是 reference</li>
-</ul>
-
-
-<p>例如：Label 的長寬, 三角形的三個點</p>
-
-<h2>Class 二三事</h2>
-
-<p>礙于篇幅關係，這邊簡單講解一些 class 比較重要的點</p>
-
-<p>通常一個 class 裡面會有一些 variable 與 methods</p>
-
-<p>通常還會有靜態的 variables, methods 或是 建構子 (constructor)</p>
-
-<p>甚至是延遲載入一個變數</p>
-
-<p>下面就簡單寫了一個 class 來說明這幾個部分</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">class</span> <span class="n">Person</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">var</span> <span class="nl">name</span><span class="p">:</span> <span class="n">String</span>
-</span><span class='line'>    <span class="k">var</span> <span class="nl">height</span><span class="p">:</span> <span class="n">Int</span><span class="o">!</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// 型別屬性 (靜態變數)</span>
-</span><span class='line'>    <span class="k">class</span> <span class="k">var</span> <span class="nl">isAnimal</span><span class="p">:</span> <span class="n">Bool</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="nb">true</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// 初始化時必定輸入 name, 必須知道初始化時變數所代表的意義</span>
-</span><span class='line'>    <span class="k">init</span><span class="p">(</span><span class="nl">name</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// 型別方法 (靜態方法)</span>
-</span><span class='line'>    <span class="k">class</span> <span class="k">func</span> <span class="n">sayHi</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">String</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="s">&quot;Hi!&quot;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">func</span> <span class="n">sayYa</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">String</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="s">&quot;Ya&quot;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">final</span> <span class="k">func</span> <span class="n">car</span><span class="p">(</span><span class="err">#</span><span class="nl">title</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">title</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">lazy</span> <span class="k">var</span> <span class="nl">personalizedGreeting</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="p">{</span>
-</span><span class='line'>        <span class="p">[</span><span class="kr">unowned</span> <span class="nb">self</span><span class="p">]</span> <span class="k">in</span>
-</span><span class='line'>        <span class="k">return</span> <span class="s">&quot;Hello, \(self.name)!&quot;</span>
-</span><span class='line'>    <span class="p">}()</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">let</span> <span class="n">person</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="nl">name</span><span class="p">:</span> <span class="s">&quot;Kerkerj&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">person</span><span class="p">.</span><span class="n">personalizedGreeting</span><span class="p">)</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">person</span><span class="p">.</span><span class="n">car</span><span class="p">(</span><span class="nl">title</span><span class="p">:</span> <span class="s">&quot;Toyota&quot;</span><span class="p">))</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">person</span><span class="p">.</span><span class="n">sayYa</span><span class="p">())</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">Person</span><span class="p">.</span><span class="n">sayHi</span><span class="p">())</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">Person</span><span class="p">.</span><span class="n">isAnimal</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><code>self</code> 的意思就代表 class 自己，就字面上來看應該蠻好懂的</p>
-
-<p>通常 <code>lazy</code> 的使用時機在於，</p>
-
-<p>有個值需要被複雜或大量計算時，或是初始化時可能需要大量計算時，</p>
-
-<p>我們可以加入 <code>lazy</code>，使該變數在需要操作時再計算</p>
-
-<p>下面再簡單講一點繼承的東西</p>
-
-<p>直接看例子，我設定了一個 class 稱為 Man，繼承自 Person</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">class</span> <span class="nl">Man</span><span class="p">:</span> <span class="n">Person</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">class</span> <span class="k">var</span> <span class="nl">sex</span><span class="p">:</span> <span class="n">String</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="s">&quot;Male&quot;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kr">override</span> <span class="k">init</span><span class="p">(</span><span class="nl">name</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nb">super</span><span class="p">.</span><span class="k">init</span><span class="p">(</span><span class="nl">name</span><span class="p">:</span> <span class="n">name</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kr">override</span> <span class="k">func</span> <span class="n">sayYa</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">String</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="s">&quot;YAYA&quot;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">func</span> <span class="n">sayYo</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">String</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="s">&quot;YO&quot;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">let</span> <span class="n">kerkerj</span> <span class="o">=</span> <span class="n">Man</span><span class="p">(</span><span class="nl">name</span><span class="p">:</span> <span class="s">&quot;kerkerj&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">kerkerj</span><span class="p">.</span><span class="n">name</span><span class="p">)</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">kerkerj</span><span class="p">.</span><span class="n">sayYa</span><span class="p">())</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">kerkerj</span><span class="p">.</span><span class="n">sayYo</span><span class="p">())</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">Man</span><span class="p">.</span><span class="n">sex</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>可以觀察一下自動補完的選項，當輸入 <code>kerkerj.</code> 時</p>
-
-<p>後面會出現除了 Man 這個 class 本身提供的變數與方法外，</p>
-
-<p>還有 Person 的變數與方法，這就是因為 Man 繼承自 Person 的關係</p>
-
-<p>Man 裡面覆寫了 init, sayYa 的方法，</p>
-
-<p>原本 sayYa 只會出現一次 &ldquo;YA&rdquo;, 覆寫過後會出現兩次變成 &ldquo;YAYA&rdquo;</p>
-
-<p>另外 Man 再多加了一個 sayYo 的方法</p>
-
-<p>如果父類別的某些方法不想被覆寫，在關鍵字前加上 <code>final</code></p>
-
-<p>就可以防止被覆寫</p>
-
-<hr />
-
-<p>以上是一些 class 和 struct 的特性</p>
 ]]></content>
   </entry>
   
