@@ -1,0 +1,446 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>[Swift-d19] - Basic - 橋接第三方 Objc Library - Reachability and Bridge.h - kerkerj</title>
+  <meta name="author" content="kerkerj">
+
+  
+  <meta name="description" content="cool thing, cool guy">
+  <meta name="keywords" content="swift, bridge">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://kerkerj.github.io/blog/2014/10/19/swift-d19">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="kerkerj" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+
+<link href="/favicon.ico" rel="icon">
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='//fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-45583907-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   class="collapse-sidebar sidebar-footer" >
+  <header role="banner"><hgroup>
+  <h1><a href="/">kerkerj</a></h1>
+  
+    <h2>Cool</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+  
+  
+  
+  
+<ul class="subscription">
+  <li><a href="https://github.com/kerkerj" rel="subscribe-github" title="@kerkerj on GitHub">GitHub</a></li>
+</ul>
+  
+  
+  
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:kerkerj.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/notes">Notes</a></li>
+  <li><a href="/mac-app-list">Mac App List</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      
+        <h1 class="entry-title">[Swift-d19] - Basic - 橋接第三方 Objc Library - Reachability and Bridge.h</h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-19T21:19:28+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>本日專案的 <a href="https://github.com/kerkerj/ithome-BridgeObjcDemo">Github link</a></p>
+
+<p>由於 Swift 剛推出不到一年</p>
+
+<p>有許多的 third-party library 一定還沒轉換成 Swift</p>
+
+<p>或者是作者沒心力轉會成 Swift</p>
+
+<p>但是有些套件非常方便，那在 Swift 要怎麼使用 Objective-C 的套件呢?</p>
+
+<p>Xcode 有提供橋接的方式，非常好用</p>
+
+<p>接下來就介紹一下如何使用吧!</p>
+
+<p>以下的例子是一個叫做 <code>Reachability</code> 的套件</p>
+
+<p>它可以簡單地幫我們判斷是否有網路連線 3g or wifi 之類的</p>
+
+<p>所以我們先下載這個套件吧!</p>
+
+<p><a href="https://github.com/tonymillion/Reachability">https://github.com/tonymillion/Reachability</a></p>
+
+<p>下載解壓縮後</p>
+
+<p>將 .h 和 .m 檔拖曳進 Xcode 專案中</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2014.27.17.png" alt="image" /></p>
+
+<p>接下來 Xcode 就會問一個非常重要的問題!:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2014.26.24.png" alt="image" /></p>
+
+<p>是否要建立橋接的 .h 檔案!</p>
+
+<p>當然是選擇建立囉~</p>
+
+<p>此時的專案結構就會變成這樣:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2014.26.38.png" alt="image" /></p>
+
+<p>再來編輯 bridge-header.h 檔</p>
+
+<p>將想要橋接的 objc 套件 import 進去</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="cp">#import &quot;Reachability.h&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這樣我們就可以在 Swift 中直接使用該套件的類別與方法了!</p>
+
+<p>接下來就讓我們試試看!</p>
+
+<p>在 ViewController 中加入以下程式碼:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="c1">//</span>
+</span><span class='line'><span class="c1">//  ViewController.swift</span>
+</span><span class='line'><span class="c1">//  BridgeObjcDemo</span>
+</span><span class='line'><span class="c1">//</span>
+</span><span class='line'><span class="c1">//  Created by Jerry Huang on 2014/10/18.</span>
+</span><span class='line'><span class="c1">//  Copyright (c) 2014年 kerkerj. All rights reserved.</span>
+</span><span class='line'><span class="c1">//</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">import</span> <span class="n">UIKit</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nl">ViewController</span><span class="p">:</span> <span class="bp">UIViewController</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kr">override</span> <span class="k">func</span> <span class="n">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nb">super</span><span class="p">.</span><span class="n">viewDidLoad</span><span class="p">()</span>
+</span><span class='line'>        <span class="c1">// Do any additional setup after loading the view, typically from a nib.</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">var</span> <span class="n">isConnected</span> <span class="o">=</span> <span class="n">checkNetworkConnection</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">let</span> <span class="n">alert</span> <span class="o">=</span> <span class="bp">UIAlertView</span><span class="p">()</span>
+</span><span class='line'>        <span class="n">alert</span><span class="p">.</span><span class="n">title</span> <span class="o">=</span> <span class="s">&quot;Network Connection&quot;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">if</span> <span class="n">isConnected</span> <span class="p">{</span>
+</span><span class='line'>            <span class="n">alert</span><span class="p">.</span><span class="n">message</span> <span class="o">=</span> <span class="s">&quot;You&#39;re online!&quot;</span>
+</span><span class='line'>        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>            <span class="n">alert</span><span class="p">.</span><span class="n">message</span> <span class="o">=</span> <span class="s">&quot;You&#39;re offline!&quot;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">alert</span><span class="p">.</span><span class="n">addButtonWithTitle</span><span class="p">(</span><span class="s">&quot;OK&quot;</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">alert</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kr">override</span> <span class="k">func</span> <span class="n">didReceiveMemoryWarning</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nb">super</span><span class="p">.</span><span class="n">didReceiveMemoryWarning</span><span class="p">()</span>
+</span><span class='line'>        <span class="c1">// Dispose of any resources that can be recreated.</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">func</span> <span class="n">checkNetworkConnection</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Bool</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">let</span> <span class="nl">reachability</span><span class="p">:</span> <span class="n">Reachability</span> <span class="o">=</span> <span class="n">Reachability</span><span class="p">.</span><span class="n">reachabilityForInternetConnection</span><span class="p">()</span>
+</span><span class='line'>        <span class="k">let</span> <span class="nl">networkStatus</span><span class="p">:</span> <span class="n">NetworkStatus</span> <span class="o">=</span> <span class="n">reachability</span><span class="p">.</span><span class="n">currentReachabilityStatus</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">println</span><span class="p">(</span><span class="n">networkStatus</span><span class="p">.</span><span class="n">toRaw</span><span class="p">())</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">switch</span> <span class="p">(</span><span class="n">networkStatus</span><span class="p">.</span><span class="n">toRaw</span><span class="p">())</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
+</span><span class='line'>            <span class="n">println</span><span class="p">(</span><span class="s">&quot;[Network Status]: NotReachable&quot;</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+</span><span class='line'>            <span class="n">println</span><span class="p">(</span><span class="s">&quot;[Network Status]: ReachableViaWWAN&quot;</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+</span><span class='line'>            <span class="n">println</span><span class="p">(</span><span class="s">&quot;[Network Status]: ReachableViaWiFi&quot;</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">default</span><span class="o">:</span>
+</span><span class='line'>            <span class="k">break</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">return</span> <span class="n">networkStatus</span><span class="p">.</span><span class="n">toRaw</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>簡單的說，我們寫了一個方法，使用 Reachability 偵測網路連線</p>
+
+<p>在 ViewDidLoad 時，偵測是否有網路連線</p>
+
+<p>跳一個 Alert 會告訴你是有連線還是沒有連線</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2014.42.45.png" alt="image" /></p>
+
+<p>不過在這邊，我不曉得如何讓模擬器關掉連線，</p>
+
+<p>所以沒辦法提供 offline 的圖</p>
+
+<p>但是我實際安裝到手機後，將 wifi 功能關掉後的確是有跳出 offline 的</p>
+
+<p>哈哈 雖然說沒圖沒真相但是&hellip;XD</p>
+
+<p>橋接第三方套件就是那麼簡單! :D</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Authored by <span class="fn">kerkerj</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-19T21:19:28+08:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/bridge/'>bridge</a>, <a class='category' href='/blog/categories/swift/'>swift</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://kerkerj.github.io/blog/2014/10/19/swift-d19/" data-via="jerry54010" data-counturl="http://kerkerj.github.io/blog/2014/10/19/swift-d19/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/10/19/api-d19/" title="Previous Post: [API-d19] - 實戰開發 - index & route & http status code">&laquo; [API-d19] - 實戰開發 - index & route & http status code</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/11/01/planning/" title="Next Post: Planning">Planning &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+
+</div>
+
+<aside class="sidebar">
+  
+    
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - kerkerj -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a> | Themed with <a href="https://github.com/lucaslew/whitespace">Whitespace</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'kerkerj-github';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://kerkerj.github.io/blog/2014/10/19/swift-d19/';
+        var disqus_url = 'http://kerkerj.github.io/blog/2014/10/19/swift-d19/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

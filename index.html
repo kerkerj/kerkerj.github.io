@@ -168,7 +168,7 @@ Day15 -  <a href="http://kerkerj.github.io/blog/2014/10/15/api-d15/">[API-d15] -
 Day16 -  <a href="http://kerkerj.github.io/blog/2014/10/16/api-d16/">[API-d16] - 實戰開發 - 設定主題及規劃</a><br/>
 Day17 -  <a href="http://kerkerj.github.io/blog/2014/10/17/api-d17/">[API-d17] - 實戰開發 - 專案結構</a><br/>
 Day18 -  <a href="http://kerkerj.github.io/blog/2014/10/18/api-d18/">[API-d18] - 實戰開發 - 套件模組</a><br/>
-Day19 -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day19 -  <a href="http://kerkerj.github.io/blog/2014/10/19/api-d19/">[API-d19] - 實戰開發 - index &amp; route &amp; http status code</a><br/>
 Day20 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day21 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day22 -  <a href="http://kerkerj.github.io/">#</a><br/>
@@ -201,7 +201,7 @@ Day15 -  <a href="http://kerkerj.github.io/blog/2014/10/15/swift-d15/">[Swift-d1
 Day16 -  <a href="http://kerkerj.github.io/blog/2014/10/16/swift-d16/">[Swift-d16] - Basic - Table View 2 換頁 (delegate)</a><br/>
 Day17 -  <a href="http://kerkerj.github.io/blog/2014/10/17/swift-d17/">[Swift-d17] - Basic - Navigation View + TableView</a><br/>
 Day18 -  <a href="http://kerkerj.github.io/blog/2014/10/18/swift-d18/">[Swift-d18] - Basic - Customize TableViewCell</a><br/>
-Day19 -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day19 -  <a href="http://kerkerj.github.io/blog/2014/10/19/swift-d19/">[Swift-d19] - Basic - 橋接第三方 Objc library - Reachability and Bridge.h</a><br/>
 Day20 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day21 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day22 -  <a href="http://kerkerj.github.io/">#</a><br/>
@@ -213,6 +213,564 @@ Day27 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day28 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day29 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day30 -  <a href="http://kerkerj.github.io/">#</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/19/swift-d19/">[Swift-d19] - Basic - 橋接第三方 Objc Library - Reachability and Bridge.h</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-19T21:19:28+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/10/19/swift-d19/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/19/swift-d19/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>本日專案的 <a href="https://github.com/kerkerj/ithome-BridgeObjcDemo">Github link</a></p>
+
+<p>由於 Swift 剛推出不到一年</p>
+
+<p>有許多的 third-party library 一定還沒轉換成 Swift</p>
+
+<p>或者是作者沒心力轉會成 Swift</p>
+
+<p>但是有些套件非常方便，那在 Swift 要怎麼使用 Objective-C 的套件呢?</p>
+
+<p>Xcode 有提供橋接的方式，非常好用</p>
+
+<p>接下來就介紹一下如何使用吧!</p>
+
+<p>以下的例子是一個叫做 <code>Reachability</code> 的套件</p>
+
+<p>它可以簡單地幫我們判斷是否有網路連線 3g or wifi 之類的</p>
+
+<p>所以我們先下載這個套件吧!</p>
+
+<p><a href="https://github.com/tonymillion/Reachability">https://github.com/tonymillion/Reachability</a></p>
+
+<p>下載解壓縮後</p>
+
+<p>將 .h 和 .m 檔拖曳進 Xcode 專案中</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2014.27.17.png" alt="image" /></p>
+
+<p>接下來 Xcode 就會問一個非常重要的問題!:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2014.26.24.png" alt="image" /></p>
+
+<p>是否要建立橋接的 .h 檔案!</p>
+
+<p>當然是選擇建立囉~</p>
+
+<p>此時的專案結構就會變成這樣:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2014.26.38.png" alt="image" /></p>
+
+<p>再來編輯 bridge-header.h 檔</p>
+
+<p>將想要橋接的 objc 套件 import 進去</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="cp">#import &quot;Reachability.h&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這樣我們就可以在 Swift 中直接使用該套件的類別與方法了!</p>
+
+<p>接下來就讓我們試試看!</p>
+
+<p>在 ViewController 中加入以下程式碼:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="c1">//</span>
+</span><span class='line'><span class="c1">//  ViewController.swift</span>
+</span><span class='line'><span class="c1">//  BridgeObjcDemo</span>
+</span><span class='line'><span class="c1">//</span>
+</span><span class='line'><span class="c1">//  Created by Jerry Huang on 2014/10/18.</span>
+</span><span class='line'><span class="c1">//  Copyright (c) 2014年 kerkerj. All rights reserved.</span>
+</span><span class='line'><span class="c1">//</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">import</span> <span class="n">UIKit</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nl">ViewController</span><span class="p">:</span> <span class="bp">UIViewController</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kr">override</span> <span class="k">func</span> <span class="n">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nb">super</span><span class="p">.</span><span class="n">viewDidLoad</span><span class="p">()</span>
+</span><span class='line'>        <span class="c1">// Do any additional setup after loading the view, typically from a nib.</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">var</span> <span class="n">isConnected</span> <span class="o">=</span> <span class="n">checkNetworkConnection</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">let</span> <span class="n">alert</span> <span class="o">=</span> <span class="bp">UIAlertView</span><span class="p">()</span>
+</span><span class='line'>        <span class="n">alert</span><span class="p">.</span><span class="n">title</span> <span class="o">=</span> <span class="s">&quot;Network Connection&quot;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">if</span> <span class="n">isConnected</span> <span class="p">{</span>
+</span><span class='line'>            <span class="n">alert</span><span class="p">.</span><span class="n">message</span> <span class="o">=</span> <span class="s">&quot;You&#39;re online!&quot;</span>
+</span><span class='line'>        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>            <span class="n">alert</span><span class="p">.</span><span class="n">message</span> <span class="o">=</span> <span class="s">&quot;You&#39;re offline!&quot;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">alert</span><span class="p">.</span><span class="n">addButtonWithTitle</span><span class="p">(</span><span class="s">&quot;OK&quot;</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">alert</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kr">override</span> <span class="k">func</span> <span class="n">didReceiveMemoryWarning</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nb">super</span><span class="p">.</span><span class="n">didReceiveMemoryWarning</span><span class="p">()</span>
+</span><span class='line'>        <span class="c1">// Dispose of any resources that can be recreated.</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">func</span> <span class="n">checkNetworkConnection</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Bool</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">let</span> <span class="nl">reachability</span><span class="p">:</span> <span class="n">Reachability</span> <span class="o">=</span> <span class="n">Reachability</span><span class="p">.</span><span class="n">reachabilityForInternetConnection</span><span class="p">()</span>
+</span><span class='line'>        <span class="k">let</span> <span class="nl">networkStatus</span><span class="p">:</span> <span class="n">NetworkStatus</span> <span class="o">=</span> <span class="n">reachability</span><span class="p">.</span><span class="n">currentReachabilityStatus</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">println</span><span class="p">(</span><span class="n">networkStatus</span><span class="p">.</span><span class="n">toRaw</span><span class="p">())</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">switch</span> <span class="p">(</span><span class="n">networkStatus</span><span class="p">.</span><span class="n">toRaw</span><span class="p">())</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
+</span><span class='line'>            <span class="n">println</span><span class="p">(</span><span class="s">&quot;[Network Status]: NotReachable&quot;</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+</span><span class='line'>            <span class="n">println</span><span class="p">(</span><span class="s">&quot;[Network Status]: ReachableViaWWAN&quot;</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+</span><span class='line'>            <span class="n">println</span><span class="p">(</span><span class="s">&quot;[Network Status]: ReachableViaWiFi&quot;</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">default</span><span class="o">:</span>
+</span><span class='line'>            <span class="k">break</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">return</span> <span class="n">networkStatus</span><span class="p">.</span><span class="n">toRaw</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>簡單的說，我們寫了一個方法，使用 Reachability 偵測網路連線</p>
+
+<p>在 ViewDidLoad 時，偵測是否有網路連線</p>
+
+<p>跳一個 Alert 會告訴你是有連線還是沒有連線</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2014.42.45.png" alt="image" /></p>
+
+<p>不過在這邊，我不曉得如何讓模擬器關掉連線，</p>
+
+<p>所以沒辦法提供 offline 的圖</p>
+
+<p>但是我實際安裝到手機後，將 wifi 功能關掉後的確是有跳出 offline 的</p>
+
+<p>哈哈 雖然說沒圖沒真相但是&hellip;XD</p>
+
+<p>橋接第三方套件就是那麼簡單! :D</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/19/api-d19/">[API-d19] - 實戰開發 - Index & Route & Http Status Code</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-19T21:19:24+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/10/19/api-d19/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/19/api-d19/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day19">Github 參考</a></p>
+
+<p>昨天先把專案目錄初始化，裝完該裝的套件後</p>
+
+<p>在 routes 中加入一個 index.js 檔案</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;express&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">router</span> <span class="o">=</span> <span class="nx">express</span><span class="p">.</span><span class="nx">Router</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">router</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">200</span><span class="p">).</span><span class="nx">json</span><span class="p">({</span> <span class="nx">greetings</span><span class="o">:</span> <span class="s2">&quot;hello world!&quot;</span><span class="p">});</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">router</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>建立一個 <code>app.js</code> 在專案根目錄中:</p>
+
+<p>app.js</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;express&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">index</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./routes/index&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Set routers</span>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="nx">index</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">app</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然後在 bin 資料夾建立一個 server.js:</p>
+
+<p>bin/server.js:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">debug</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;debug&#39;</span><span class="p">)(</span><span class="s1">&#39;TODOAPI&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../app&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;port&#39;</span><span class="p">,</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">PORT</span> <span class="o">||</span> <span class="mi">3000</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;port&#39;</span><span class="p">),</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;Express server listening on port &#39;</span> <span class="o">+</span> <span class="nx">server</span><span class="p">.</span><span class="nx">address</span><span class="p">().</span><span class="nx">port</span><span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>並且在 package.json 中修改並加入:</p>
+
+<p>加入 <code>start</code> : <code>"start": "node ./bin/server.js",</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="s2">&quot;scripts&quot;</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>    <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="s2">&quot;node ./bin/server.js&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;test&quot;</span><span class="o">:</span> <span class="s2">&quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;</span>
+</span><span class='line'>  <span class="p">},</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這樣我們就可以透過 <code>npm start</code> 來啟動 server 了!</p>
+
+<p>試著啟動看看 <code>npm start</code></p>
+
+<p>到網址列輸入 <code>http://localhost:3000/</code></p>
+
+<p>就可以看到 <code>{"greetings":"hello world!"}</code> 了!</p>
+
+<p>我們從本文的後面往回看：其實就是一個 request 會經過的地方:</p>
+
+<p>當我們下了 <code>npm start</code>，npm 會搜尋 package.json 中有沒有 <code>start</code> 指令</p>
+
+<p>若有的話就會執行他所設定的指令 <code>node ./bin/server.js</code></p>
+
+<p>這樣就會執行 server.js 了</p>
+
+<p>我們再看一下 server.js，講解在底下的註解:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// 使用嚴格模式</span>
+</span><span class='line'><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 加入 debugger</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">debug</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;debug&#39;</span><span class="p">)(</span><span class="s1">&#39;TODOAPI&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 將我們寫的 app.js 引入，建立一個 app instance</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../app&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 設定 app instance 的 port, 若環境變數有設定的話就使用環境變數的值</span>
+</span><span class='line'><span class="c1">// 沒有設定環境變數的話則是 3000</span>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;port&#39;</span><span class="p">,</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">PORT</span> <span class="o">||</span> <span class="mi">3000</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 啟動 server，讓 server 監聽剛剛上一行所設定的 port，</span>
+</span><span class='line'><span class="c1">// 並且使用 debugger</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;port&#39;</span><span class="p">),</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;Express server listening on port &#39;</span> <span class="o">+</span> <span class="nx">server</span><span class="p">.</span><span class="nx">address</span><span class="p">().</span><span class="nx">port</span><span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>既然 server.js 啟動了一個 app.js 的 instance</p>
+
+<p>那我們就要來看一下 app.js</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// 引入 express 模組</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;express&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 初始化一個 express instance</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 將 route 引入</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">index</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./routes/index&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 設定若有 request 進到 http://localhost:3000/ 時，</span>
+</span><span class='line'><span class="c1">// 交給 routes/index.js 來作後續處理</span>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="nx">index</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">最後這一行是這個檔案</span> <span class="kr">export</span> <span class="err">成一個模組</span>
+</span><span class='line'><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">app</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>那現在我們了解到了，如果有一個要求打進了 <code>http://localhost:3000/</code></p>
+
+<p>它會將該要求轉發給 routes/index.js 來作處理</p>
+
+<p>因此我們再進到 index.js 看看內容</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// 使用嚴格模式</span>
+</span><span class='line'><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 引入 express 模組</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;express&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 在這邊我們要使用 express 模組中的 Router</span>
+</span><span class='line'><span class="c1">// 因為在 app.js 中，若是使用 app.use(&#39;/&#39;, index)</span>
+</span><span class='line'><span class="c1">// 該 index 物件必須是一個 Router 物件，</span>
+</span><span class='line'><span class="c1">// 因此在這邊我們才會這樣寫</span>
+</span><span class='line'><span class="c1">// 於是 router 就是一個 express 的 router 物件了</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">router</span> <span class="o">=</span> <span class="nx">express</span><span class="p">.</span><span class="nx">Router</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 設定該  router 有哪些路徑要來聽</span>
+</span><span class='line'><span class="c1">// 在這邊我們設定當有 request 進到 根目錄，</span>
+</span><span class='line'><span class="c1">// 且是使用 GET 方法時，我們的回覆是:</span>
+</span><span class='line'><span class="c1">// HTTP status code 爲 200</span>
+</span><span class='line'><span class="c1">// 回傳的資料為 json 格式，傳入的內容是一個 javascript 物件</span>
+</span><span class='line'><span class="c1">// .json 方法會幫我們轉成 json 格式回傳給使用者</span>
+</span><span class='line'><span class="nx">router</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">200</span><span class="p">).</span><span class="nx">json</span><span class="p">({</span> <span class="nx">greetings</span><span class="o">:</span> <span class="s2">&quot;hello world!&quot;</span><span class="p">});</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 最後將這個檔案 export 成一個 router 模組</span>
+</span><span class='line'><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">router</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>所以透過這樣的方式我們就了解到了一個 request 是如何在模組化後的程式奔跑遊走</p>
+
+<p>另外要特別提到的是 http status code</p>
+
+<p>http status code 其實是一個非常好讓 client 知道這次 API request 發生什麼事的資料，充分利用 HTTP 協議所定義的狀態碼</p>
+
+<p>我們有時候瀏覽網頁會看到: 404 Not found! 或是 500 Internal Server Error</p>
+
+<p>這就是 HTTP status code</p>
+
+<p>那我們可以透過定義好回傳的 http status code 來代表此次 request 的狀態</p>
+
+<p>例如：</p>
+
+<p>client 端輸入的 API 網址錯誤了</p>
+
+<p>我們就回傳 status code: 404</p>
+
+<p>如果是不小心 server 的 code 寫錯了，導致該次 request 完全讓 server 死掉了，</p>
+
+<p>那就可以回傳 500 interanl server error</p>
+
+<p>因此在做 error handling 時，請定義好 status code，他一定會有幫助的!</p>
+
+<p>常用的 status code:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="mi">200</span> <span class="o">-</span> <span class="nx">Success</span>
+</span><span class='line'><span class="mi">201</span> <span class="o">-</span> <span class="nx">Created</span>
+</span><span class='line'><span class="mi">400</span> <span class="o">-</span> <span class="nx">Bad</span> <span class="nx">request</span>
+</span><span class='line'><span class="mi">401</span> <span class="o">-</span> <span class="nx">Unauthorized</span>
+</span><span class='line'><span class="mi">403</span> <span class="o">-</span> <span class="nx">Forbidden</span>
+</span><span class='line'><span class="mi">404</span> <span class="o">-</span> <span class="nx">Not</span> <span class="nx">found</span>
+</span><span class='line'><span class="mi">500</span> <span class="o">-</span> <span class="nx">Internal</span> <span class="nx">Server</span> <span class="nb">Error</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>詳細還可以參考: <a href="http://zh.wikipedia.org/wiki/HTTP%E7%8A%B6%E6%80%81%E7%A0%81">HTTP status code</a></p>
+
+<p><a href="http://www.restapitutorial.com/httpstatuscodes.html">其他教學</a></p>
 </div>
   
   
@@ -1450,604 +2008,6 @@ Changes to this property can be animated. The default value is nil, which result
 <p>不過在這個小 API 也不會建立一個 Oauth Server，我們簡單使用 API-key 來認證即可</p>
 
 <p>接下來的時間我們就會開始依據規劃好的文件，使用 Node.js + express + mongodb 來實作囉!</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/15/swift-d15/">[Swift-d15] - Basic - Table View 1 直接給值 Datasource, (Table View Scroll)</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-15T18:34:40+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/10/15/swift-d15/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/15/swift-d15/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>今天要來練習新的東西 - TableView</p>
-
-<p>據同事說明，TableView 是最常用到的 View 之一</p>
-
-<p>在我們的實戰開發中也會用到 TableView</p>
-
-<p>因此今天就先簡單的來建立出單頁純顯示資料的 TableView</p>
-
-<p>TableView 的概念大概是如下圖:</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%202.30.44.png" alt="image" /></p>
-
-<p>長得有點像 ListView 但是每一行又可以多切開，放一些東西</p>
-
-<p>每一行都稱之為一個 TableViewCell</p>
-
-<p>今天就來要簡單寫一個資料已經預先定義好，並且會顯示在 view 上面的 TableView</p>
-
-<p>要進行下去之前當然就先開一個新的練習專案囉</p>
-
-<p>開啟完專案後，首先第一件事情就是進 storyboard</p>
-
-<p>選擇 TableView 拉進 storyboard 裏</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%202.34.28.png" alt="image" /></p>
-
-<p>接著再選擇 TableViewCell 拉進 TableView 中</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%202.35.16.png" alt="image" /></p>
-
-<p>透過此圖，我們了解到可以打開 storyboard 的 tree 來看看它們之間的關係</p>
-
-<p>下面此步驟很重要，資料的連接就靠這條線:</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%202.38.16.png" alt="image" /></p>
-
-<p>先選取 TableView (可以使用階層樹或是點擊 storyboard)，然後選擇右方的 connection inspector (右上角的最右邊的那一個按鈕)</p>
-
-<p>裡頭有個 dataSource 以及 delegate</p>
-
-<p>我們先按住 dataSource 右邊的空心圓按鈕，拖曳拉到 storyboard 中的 ViewController，如上圖所示</p>
-
-<p>這樣子等等在程式碼中產生的資料才會有和 storyboard 的 UI 做連結</p>
-
-<p>最後一個和 storyboard 相關的操作是將 storyboard 的 TableView 和 程式碼做連結，好方便我們在程式碼中對 storyborad 的 TableView 做操作</p>
-
-<p>之前就有做過類似的事情了，就是按著 ctrl + 拖曳拉進程式碼中：</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%202.42.32.png" alt="image" /></p>
-
-<p>給他個名稱：</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%202.44.57.png" alt="image" /></p>
-
-<p>這時候的程式應該會長這樣:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">import</span> <span class="n">UIKit</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">class</span> <span class="nl">ViewController</span><span class="p">:</span> <span class="bp">UIViewController</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="p">@</span><span class="kt">IBOutlet</span> <span class="k">var</span> <span class="nl">tableSample</span><span class="p">:</span> <span class="bp">UITableView</span><span class="o">!</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kr">override</span> <span class="k">func</span> <span class="n">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nb">super</span><span class="p">.</span><span class="n">viewDidLoad</span><span class="p">()</span>
-</span><span class='line'>        <span class="c1">// Do any additional setup after loading the view, typically from a nib.</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kr">override</span> <span class="k">func</span> <span class="n">didReceiveMemoryWarning</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nb">super</span><span class="p">.</span><span class="n">didReceiveMemoryWarning</span><span class="p">()</span>
-</span><span class='line'>        <span class="c1">// Dispose of any resources that can be recreated.</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>再來就是程式的部分了</p>
-
-<p>先直接貼出 ViewController 的程式碼:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">import</span> <span class="n">UIKit</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">class</span> <span class="nl">ViewController</span><span class="p">:</span> <span class="bp">UIViewController</span><span class="p">,</span> <span class="bp">UITableViewDataSource</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="p">@</span><span class="kt">IBOutlet</span> <span class="k">var</span> <span class="nl">tableSample</span><span class="p">:</span> <span class="bp">UITableView</span><span class="o">!</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">var</span> <span class="nl">items</span><span class="p">:</span> <span class="p">[</span><span class="n">String</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kr">override</span> <span class="k">func</span> <span class="n">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nb">super</span><span class="p">.</span><span class="n">viewDidLoad</span><span class="p">()</span>
-</span><span class='line'>        <span class="c1">// Do any additional setup after loading the view, typically from a nib.</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">for</span> <span class="k">var</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">100</span> <span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
-</span><span class='line'>            <span class="n">items</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;\(i)&quot;</span><span class="p">)</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">tableSample</span><span class="p">.</span><span class="n">registerClass</span><span class="p">(</span><span class="bp">UITableViewCell</span><span class="p">.</span><span class="nb">self</span><span class="p">,</span> <span class="nl">forCellReuseIdentifier</span><span class="p">:</span> <span class="s">&quot;cell&quot;</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kr">override</span> <span class="k">func</span> <span class="n">didReceiveMemoryWarning</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nb">super</span><span class="p">.</span><span class="n">didReceiveMemoryWarning</span><span class="p">()</span>
-</span><span class='line'>        <span class="c1">// Dispose of any resources that can be recreated.</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">func</span> <span class="n">tableView</span><span class="p">(</span><span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="p">,</span> <span class="n">numberOfRowsInSection</span> <span class="nl">section</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="nb">self</span><span class="p">.</span><span class="n">items</span><span class="p">.</span><span class="n">count</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">func</span> <span class="n">tableView</span><span class="p">(</span><span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="p">,</span> <span class="n">cellForRowAtIndexPath</span> <span class="nl">indexPath</span><span class="p">:</span> <span class="bp">NSIndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">UITableViewCell</span><span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">var</span> <span class="nl">cell</span><span class="p">:</span> <span class="bp">UITableViewCell</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">tableSample</span><span class="p">.</span><span class="n">dequeueReusableCellWithIdentifier</span><span class="p">(</span><span class="s">&quot;cell&quot;</span><span class="p">)</span> <span class="kt">as</span> <span class="bp">UITableViewCell</span>
-</span><span class='line'>        <span class="n">cell</span><span class="p">.</span><span class="n">textLabel</span><span class="o">?</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">items</span><span class="p">[</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">]</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">return</span> <span class="n">cell</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>這中間了幾件事:</p>
-
-<p>viewDidload 產生一個 0 ~ 100 的陣列，並且向 tableSample 註冊了一個 cell 物件，並且設定該物件的 identifier 為 &ldquo;cell&rdquo;</p>
-
-<p>接著下面兩個 function 是實作顯示資料以及資料行數的部分:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="n">tableView</span><span class="p">(</span><span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="p">,</span> <span class="n">numberOfRowsInSection</span> <span class="nl">section</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">return</span> <span class="nb">self</span><span class="p">.</span><span class="n">items</span><span class="p">.</span><span class="n">count</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">func</span> <span class="n">tableView</span><span class="p">(</span><span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="p">,</span> <span class="n">cellForRowAtIndexPath</span> <span class="nl">indexPath</span><span class="p">:</span> <span class="bp">NSIndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">UITableViewCell</span><span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">var</span> <span class="nl">cell</span><span class="p">:</span> <span class="bp">UITableViewCell</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">tableSample</span><span class="p">.</span><span class="n">dequeueReusableCellWithIdentifier</span><span class="p">(</span><span class="s">&quot;cell&quot;</span><span class="p">)</span> <span class="kt">as</span> <span class="bp">UITableViewCell</span>
-</span><span class='line'>  <span class="n">cell</span><span class="p">.</span><span class="n">textLabel</span><span class="o">?</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">items</span><span class="p">[</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">]</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">return</span> <span class="n">cell</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>第一個 tableView 的方法是回傳這個 tableView 的資料有多少筆</p>
-
-<p>第二個 tableView 則是根據每一行的值，產生一個 cell，將陣列值丟進該 cell 的文字，並且回傳</p>
-
-<p>這樣理論上就會顯示 0 ~ 100 個 cell，裡面的值分別是依據順序而顯示號碼</p>
-
-<p>注意在程式的 class 那一行</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">class</span> <span class="nl">ViewController</span><span class="p">:</span> <span class="bp">UIViewController</span><span class="p">,</span> <span class="bp">UITableViewDataSource</span> <span class="p">{</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>有多一個 UITableViewDataSource, 因為我們要將資料丟到 UITableView 中，因此需要使用繼承該類別</p>
-
-<p>等明天我們要做換頁功能時，就要加入其他的類別了</p>
-
-<p>程式撰寫好後，執行看看吧!</p>
-
-<p>應該就會長這樣子喲:</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%202.56.47.png" alt="image" /></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/15/api-d15/">[API-d15] - [Javascript 番外篇] Javascript Callback, Event</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-15T18:34:37+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/10/15/api-d15/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/15/api-d15/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>這幾天會探討 javascript 的特性，由於比較少在寫 js ，因此有錯請指正</p>
-
-<p>javascript 有個特性：event</p>
-
-<p>意思就是說，javascript 中，所有的事情都是由事件驅動的</p>
-
-<p>如果說有寫過 web 前端的話，</p>
-
-<p>其實呼叫 button.click function 時</p>
-
-<p>並不會馬上執行 click 裡面的動作</p>
-
-<p>而是加了一個 click 的 listener</p>
-
-<p>等到 button 被 click 後，才會執行 click 裡面的程式碼</p>
-
-<p>所以寫習慣一般 procedure 的程式會有點不太習慣</p>
-
-<p>舉個 procedure 的例子，下面有五件事想要做：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="err">煮飯</span><span class="p">();</span> <span class="c1">// 10 分鐘</span>
-</span><span class='line'>
-</span><span class='line'><span class="err">接電話</span><span class="p">();</span> <span class="c1">// 1 分鐘</span>
-</span><span class='line'>
-</span><span class='line'><span class="err">吃麵</span><span class="p">();</span> <span class="c1">// 5 分鐘</span>
-</span><span class='line'>
-</span><span class='line'><span class="err">丟垃圾</span><span class="p">();</span> <span class="c1">// 7 分鐘</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>一般的程式會是照順序執行</p>
-
-<p>也就是 煮飯完 -> 接電話 -> 吃麵 -> 丟垃圾</p>
-
-<p>總執行時間 = 23 分鐘</p>
-
-<p>但是如果把這段 code 丟給 javascript 執行的話</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="err">煮飯</span><span class="p">();</span> <span class="c1">// 10 分鐘</span>
-</span><span class='line'>
-</span><span class='line'><span class="err">接電話</span><span class="p">();</span> <span class="c1">// 1 分鐘</span>
-</span><span class='line'>
-</span><span class='line'><span class="err">吃麵</span><span class="p">();</span> <span class="c1">// 5 分鐘</span>
-</span><span class='line'>
-</span><span class='line'><span class="err">丟垃圾</span><span class="p">();</span> <span class="c1">// 7 分鐘</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>就變成同時做煮飯，接電話，吃麵，丟垃圾了！</p>
-
-<p>為了要預防這件事，有些事情還是有順序性的，</p>
-
-<p>因此就要使用到 javascript callback 的特性</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="err">煮飯</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>  <span class="err">吃飯</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>      <span class="err">接電話</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>          <span class="err">丟垃圾</span><span class="p">();</span>
-</span><span class='line'>      <span class="p">});</span>
-</span><span class='line'>  <span class="p">});</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>意思就是煮飯完吃飯，吃完飯接電話，接完電話丟垃圾</p>
-
-<p>以下有一個範例：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">wash</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;wash&quot;</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">function</span> <span class="nx">eat</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;eat&quot;</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">},</span> <span class="mi">5000</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">function</span> <span class="nx">running</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;running&quot;</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">},</span> <span class="mi">3000</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">function</span> <span class="nx">doHouseWork</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">wash</span><span class="p">();</span>
-</span><span class='line'>    <span class="nx">eat</span><span class="p">();</span>
-</span><span class='line'>    <span class="nx">running</span><span class="p">();</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">doHouseWork</span><span class="p">();</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>做家事執行了三件事，wash, eat, 和 running</p>
-
-<p>其中每件事都設定不同的完成時間</p>
-
-<p>以 procedure 的程式執行方式來看，在這邊用 ruby 舉例:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">wash</span>
-</span><span class='line'>  <span class="nb">sleep</span> <span class="mi">1</span>
-</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;wash&quot;</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">def</span> <span class="nf">eat</span>
-</span><span class='line'>  <span class="nb">sleep</span> <span class="mi">5</span>
-</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;eat&quot;</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">def</span> <span class="nf">running</span>
-</span><span class='line'>  <span class="nb">sleep</span> <span class="mi">3</span>
-</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;running&quot;</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">def</span> <span class="nf">doHouseWork</span>
-</span><span class='line'>  <span class="n">wash</span>
-</span><span class='line'>  <span class="n">eat</span>
-</span><span class='line'>  <span class="n">running</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">doHouseWork</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>是會 wash 1 秒後，接著 eat 5 秒，再 running 3 秒</p>
-
-<p>所以總共是 9 秒</p>
-
-<p>output 的順序會是:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">wash</span> <span class="sr">//</span> <span class="mi">1</span> <span class="err">秒</span>
-</span><span class='line'><span class="n">eat</span> <span class="sr">//</span> <span class="mi">5</span> <span class="err">秒</span>
-</span><span class='line'><span class="n">running</span> <span class="sr">//</span> <span class="mi">3</span> <span class="err">秒</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>但是在 javascript 中，output 的順序卻是:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">wash</span> <span class="sr">//</span> <span class="mi">1</span> <span class="err">秒</span>
-</span><span class='line'><span class="n">running</span> <span class="sr">//</span> <span class="mi">3</span> <span class="err">秒</span>
-</span><span class='line'><span class="n">eat</span> <span class="sr">//</span> <span class="mi">5</span> <span class="err">秒</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>所以總長度是 5 秒</p>
-
-<p>那今天假設想要讓 javascript 有順序性時該怎麼辦?</p>
-
-<p>拿上面的例子作修改的話:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">wash</span><span class="p">(</span><span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;wash&quot;</span><span class="p">);</span>
-</span><span class='line'>        <span class="nx">callback</span><span class="p">.</span><span class="nx">call</span><span class="p">();</span>
-</span><span class='line'>    <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">function</span> <span class="nx">eat</span><span class="p">(</span><span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;eat&quot;</span><span class="p">);</span>
-</span><span class='line'>        <span class="nx">callback</span><span class="p">.</span><span class="nx">call</span><span class="p">();</span>
-</span><span class='line'>    <span class="p">},</span> <span class="mi">5000</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">function</span> <span class="nx">running</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;running&quot;</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">},</span> <span class="mi">3000</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">function</span> <span class="nx">doHouseWork</span><span class="p">(</span><span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;doing house work&quot;</span><span class="p">);</span>
-</span><span class='line'>    <span class="nx">callback</span><span class="p">.</span><span class="nx">call</span><span class="p">();</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">doHouseWork</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>    <span class="nx">wash</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">eat</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>            <span class="nx">running</span><span class="p">();</span>
-</span><span class='line'>        <span class="p">});</span>
-</span><span class='line'>    <span class="p">});</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>很不錯的特性，但是也要特別對於這種特性作處理</p>
-
-<p>有個 lib 很好用，<code>async.js</code> <a href="https://github.com/caolan/async">來源</a></p>
-
-<p>下回待續!</p>
 </div>
   
   

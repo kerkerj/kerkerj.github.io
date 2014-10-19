@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Nodejs | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/nodejs/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-19T00:55:20+08:00</updated>
+  <updated>2014-10-19T21:24:10+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,202 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[API-d19] - 實戰開發 - Index & Route & Http Status Code]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/19/api-d19/"/>
+    <updated>2014-10-19T21:19:24+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/19/api-d19</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day19">Github 參考</a></p>
+
+<p>昨天先把專案目錄初始化，裝完該裝的套件後</p>
+
+<p>在 routes 中加入一個 index.js 檔案</p>
+
+<pre><code class="javascript">'use strict';
+
+var express = require('express');
+var router = express.Router();
+
+router.get('/', function(req, res) {
+    res.status(200).json({ greetings: "hello world!"});
+});
+
+module.exports = router;
+</code></pre>
+
+<p>建立一個 <code>app.js</code> 在專案根目錄中:</p>
+
+<p>app.js</p>
+
+<pre><code>var express = require('express');
+var app = express();
+var index = require('./routes/index');
+
+// Set routers
+app.use('/', index);
+
+module.exports = app;
+</code></pre>
+
+<p>然後在 bin 資料夾建立一個 server.js:</p>
+
+<p>bin/server.js:</p>
+
+<pre><code>'use strict';
+
+var debug = require('debug')('TODOAPI');
+var app = require('../app');
+
+app.set('port', process.env.PORT || 3000);
+
+var server = app.listen(app.get('port'), function() {
+    debug('Express server listening on port ' + server.address().port);
+});
+</code></pre>
+
+<p>並且在 package.json 中修改並加入:</p>
+
+<p>加入 <code>start</code> : <code>"start": "node ./bin/server.js",</code></p>
+
+<pre><code>"scripts": {
+    "start": "node ./bin/server.js",
+    "test": "echo \"Error: no test specified\" &amp;&amp; exit 1"
+  },
+</code></pre>
+
+<p>這樣我們就可以透過 <code>npm start</code> 來啟動 server 了!</p>
+
+<p>試著啟動看看 <code>npm start</code></p>
+
+<p>到網址列輸入 <code>http://localhost:3000/</code></p>
+
+<p>就可以看到 <code>{"greetings":"hello world!"}</code> 了!</p>
+
+<p>我們從本文的後面往回看：其實就是一個 request 會經過的地方:</p>
+
+<p>當我們下了 <code>npm start</code>，npm 會搜尋 package.json 中有沒有 <code>start</code> 指令</p>
+
+<p>若有的話就會執行他所設定的指令 <code>node ./bin/server.js</code></p>
+
+<p>這樣就會執行 server.js 了</p>
+
+<p>我們再看一下 server.js，講解在底下的註解:</p>
+
+<pre><code>// 使用嚴格模式
+'use strict';
+
+// 加入 debugger
+var debug = require('debug')('TODOAPI');
+
+// 將我們寫的 app.js 引入，建立一個 app instance
+var app = require('../app');
+
+// 設定 app instance 的 port, 若環境變數有設定的話就使用環境變數的值
+// 沒有設定環境變數的話則是 3000
+app.set('port', process.env.PORT || 3000);
+
+// 啟動 server，讓 server 監聽剛剛上一行所設定的 port，
+// 並且使用 debugger
+var server = app.listen(app.get('port'), function() {
+    debug('Express server listening on port ' + server.address().port);
+});
+</code></pre>
+
+<p>既然 server.js 啟動了一個 app.js 的 instance</p>
+
+<p>那我們就要來看一下 app.js</p>
+
+<pre><code>// 引入 express 模組
+var express = require('express');
+
+// 初始化一個 express instance
+var app = express();
+
+// 將 route 引入
+var index = require('./routes/index');
+
+// 設定若有 request 進到 http://localhost:3000/ 時，
+// 交給 routes/index.js 來作後續處理
+app.use('/', index);
+
+最後這一行是這個檔案 export 成一個模組
+module.exports = app;
+</code></pre>
+
+<p>那現在我們了解到了，如果有一個要求打進了 <code>http://localhost:3000/</code></p>
+
+<p>它會將該要求轉發給 routes/index.js 來作處理</p>
+
+<p>因此我們再進到 index.js 看看內容</p>
+
+<pre><code>// 使用嚴格模式
+'use strict';
+
+// 引入 express 模組
+var express = require('express');
+
+// 在這邊我們要使用 express 模組中的 Router
+// 因為在 app.js 中，若是使用 app.use('/', index)
+// 該 index 物件必須是一個 Router 物件，
+// 因此在這邊我們才會這樣寫
+// 於是 router 就是一個 express 的 router 物件了
+var router = express.Router();
+
+// 設定該  router 有哪些路徑要來聽
+// 在這邊我們設定當有 request 進到 根目錄，
+// 且是使用 GET 方法時，我們的回覆是:
+// HTTP status code 爲 200
+// 回傳的資料為 json 格式，傳入的內容是一個 javascript 物件
+// .json 方法會幫我們轉成 json 格式回傳給使用者
+router.get('/', function(req, res) {
+    res.status(200).json({ greetings: "hello world!"});
+});
+
+// 最後將這個檔案 export 成一個 router 模組
+module.exports = router;
+</code></pre>
+
+<p>所以透過這樣的方式我們就了解到了一個 request 是如何在模組化後的程式奔跑遊走</p>
+
+<p>另外要特別提到的是 http status code</p>
+
+<p>http status code 其實是一個非常好讓 client 知道這次 API request 發生什麼事的資料，充分利用 HTTP 協議所定義的狀態碼</p>
+
+<p>我們有時候瀏覽網頁會看到: 404 Not found! 或是 500 Internal Server Error</p>
+
+<p>這就是 HTTP status code</p>
+
+<p>那我們可以透過定義好回傳的 http status code 來代表此次 request 的狀態</p>
+
+<p>例如：</p>
+
+<p>client 端輸入的 API 網址錯誤了</p>
+
+<p>我們就回傳 status code: 404</p>
+
+<p>如果是不小心 server 的 code 寫錯了，導致該次 request 完全讓 server 死掉了，</p>
+
+<p>那就可以回傳 500 interanl server error</p>
+
+<p>因此在做 error handling 時，請定義好 status code，他一定會有幫助的!</p>
+
+<p>常用的 status code:</p>
+
+<pre><code>200 - Success
+201 - Created
+400 - Bad request
+401 - Unauthorized
+403 - Forbidden
+404 - Not found
+500 - Internal Server Error
+</code></pre>
+
+<p>詳細還可以參考: <a href="http://zh.wikipedia.org/wiki/HTTP%E7%8A%B6%E6%80%81%E7%A0%81">HTTP status code</a></p>
+
+<p><a href="http://www.restapitutorial.com/httpstatuscodes.html">其他教學</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[API-d18] - 實戰開發 - 套件模組]]></title>
@@ -612,117 +808,6 @@ $ express /tmp/foo &amp;&amp; cd /tmp/foo
 </code></pre>
 
 <p>下一篇會講解如何簡單操作 MongoDB!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[API-d8] - Node.js - Hello World!]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/08/api-d8/"/>
-    <updated>2014-10-08T13:04:20+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/08/api-d8</id>
-    <content type="html"><![CDATA[<h1>Node.js - Hello World!</h1>
-
-<p>一樣先開虛擬機哦~</p>
-
-<p>並且開啟終端機連進 server 裡面~</p>
-
-<p>以下是 <a href="http://nodejs.org/">Node.js</a> 官方網站的 web server 程式範例，我稍作小修改：</p>
-
-<pre><code class="javascript">var http = require('http');
-
-http.createServer(function (req, res) {
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('Hello World\n');
-}).listen(1337, '0.0.0.0');
-
-console.log('Server running at http://0.0.0.0:1337/');
-</code></pre>
-
-<p>我們先在虛擬機的資料夾建立一個子資料夾 &lsquo;HelloWorld&rsquo;</p>
-
-<p>在 HelloWorld 資料夾裡面建立一個 app.js</p>
-
-<p>內容如上，存檔。</p>
-
-<p>使用終端機進入 server :</p>
-
-<pre><code>$ vagrant ssh
-$ cd /vagrant/HelloWorld
-$ node server.js
-</code></pre>
-
-<p>到瀏覽器輸入 <a href="http://192.168.33.10:1337/">http://192.168.33.10:1337/</a></p>
-
-<p>(或者是你的 Vagrantfile 裡面設定的 private IP)</p>
-
-<p>即可看到 Hello World 了！</p>
-
-<p>要關掉 Server 也非常簡單，回到下指令的地方，按下 ctrl + c 即可中斷程式</p>
-
-<h2>分析</h2>
-
-<p>簡單分析一下此段程式：</p>
-
-<pre><code class="javascript">var http = require('http');
-</code></pre>
-
-<p>將 http 這個模組引入，並指定給物件 http</p>
-
-<pre><code class="javascript">http.createServer(
-    ...
-).listen(1337, '0.0.0.0');
-</code></pre>
-
-<p>先略過中間的 function 不看，<br/>
-這段 code 的用意即是讓呼叫 http 物件中的 createServer 的方法，
-.listen() 則是設定該 server 要跑在哪個 port、hostname</p>
-
-<pre><code class="javascript">function (req, res) {
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('Hello World\n');
-}
-</code></pre>
-
-<p>上面的 code 則是原本在 .createServer() 裡的，
-我們可以看一下 Node.js 的 API doc <a href="http://nodejs.org/api/http.html#http_http_createserver_requestlistener">關於此方法的部分</a></p>
-
-<p>.createServer() 要帶入的東西其實是一個 requestListener，<br/>
-也就是當 Server 跑起來時，我們開啟瀏覽器，輸入 127.0.0.1:1337 時，<br/>
-Node.js Server 要回丟的東西，因此觀察一下此 listener:</p>
-
-<pre><code class="javascript">function (req, res) {
-    ...
-}
-</code></pre>
-
-<p>function 中帶入參數的是 req, res，意即 request, response，<br/>
-request 即是 server 接收到 client 端的訊息，<br/>
-response 則是 server 要回丟給 client 的訊息，<br/>
-由於在此範例中，我們只是要回丟給 client 端一個 hello world 的訊息，
-因此，我們不處理 client 送給 server 的 request，
-我們只需處理要回丟給 client 的訊息，</p>
-
-<pre><code class="javascript">res.writeHead(200, {'Content-Type': 'text/plain'});
-res.end('Hello World\n');
-</code></pre>
-
-<p>寫網頁的開發者應該對一些關鍵字例如 Content-type, text/plain 不陌生，<br/>
-第一行代表回傳給使用者的訊息中，HTTP HEAD 的設定是 http status code 200,
-並且 Content-type 設定為 text/plain</p>
-
-<pre><code class="javascript">res.writeHead(200, {'Content-Type': 'text/plain'});
-</code></pre>
-
-<p>那麼，以下這行 code 的意思即是，此次要回送給使用者的訊息到這裡結束，以 &ldquo;Hello World&rdquo; 作結尾</p>
-
-<pre><code class="javascript">res.end('Hello World\n');
-</code></pre>
-
-<p>因此整段 code 看下來，就是一個非常簡單的 http server，</p>
-
-<p><a href="http://192.168.33.10:1337/">http://192.168.33.10:1337/</a> 總是會回傳 Hello World</p>
-
-<p>今天就完成了我們的 Hello World 了!</p>
 ]]></content>
   </entry>
   
