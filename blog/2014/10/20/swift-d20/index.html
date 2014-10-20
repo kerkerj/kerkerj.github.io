@@ -1,0 +1,396 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>[Swift-d20] - Basic - 捨棄 Storyboard 使用純程式碼 的方式撰寫 ViewController - kerkerj</title>
+  <meta name="author" content="kerkerj">
+
+  
+  <meta name="description" content="cool thing, cool guy">
+  <meta name="keywords" content="swift">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://kerkerj.github.io/blog/2014/10/20/swift-d20">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="kerkerj" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+
+<link href="/favicon.ico" rel="icon">
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='//fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-45583907-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   class="collapse-sidebar sidebar-footer" >
+  <header role="banner"><hgroup>
+  <h1><a href="/">kerkerj</a></h1>
+  
+    <h2>Cool</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+  
+  
+  
+  
+<ul class="subscription">
+  <li><a href="https://github.com/kerkerj" rel="subscribe-github" title="@kerkerj on GitHub">GitHub</a></li>
+</ul>
+  
+  
+  
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:kerkerj.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/notes">Notes</a></li>
+  <li><a href="/mac-app-list">Mac App List</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      
+        <h1 class="entry-title">[Swift-d20] - Basic - 捨棄 Storyboard 使用純程式碼 的方式撰寫 ViewController</h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-20T18:46:16+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>今天專案的 <a href="https://github.com/kerkerj/ithome-NoStoryboardDemo">Github link</a></p>
+
+<p>其實哦</p>
+
+<p>寫 Swift 也有幾個禮拜了</p>
+
+<p>我一直覺得使用 Interface Builder 的確很方便</p>
+
+<p>但是在程式面與視覺面之間的溝通常常會漏東漏西的</p>
+
+<p>比方說如果要設定 reusable identifier 時</p>
+
+<p>除了程式裡面的字串要設定以外，還要再到 storyboard 裡設定同樣的字串</p>
+
+<p>一個簡單的小程式可能不超過 20 個 View 的情況下</p>
+
+<p>還可以這樣做，當程式長得非常大的時候，好像就很難注意到這件事，</p>
+
+<p>而且 View 太多 storyboard 就會開始變慢&hellip;.</p>
+
+<p>因此今天要來試著在 Swift 中</p>
+
+<p>如何不用 Storyboard，來打造我們的程式</p>
+
+<p>(當然 xib/nib 還是會用到，只是我們單純捨棄 storyboard，用程式來控制流程)</p>
+
+<p>首先，一樣先建立一個測試專案</p>
+
+<p>接著我們要動到的程式碼是 AppDelegate.swift:</p>
+
+<p>編輯它:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="p">@</span><span class="n">UIApplicationMain</span>
+</span><span class='line'><span class="k">class</span> <span class="nl">AppDelegate</span><span class="p">:</span> <span class="bp">UIResponder</span><span class="p">,</span> <span class="bp">UIApplicationDelegate</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">var</span> <span class="nl">window</span><span class="p">:</span> <span class="bp">UIWindow</span><span class="o">?</span>
+</span><span class='line'>    <span class="k">var</span> <span class="nl">viewController</span><span class="p">:</span> <span class="n">ViewController</span><span class="o">?</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">func</span> <span class="n">application</span><span class="p">(</span><span class="nl">application</span><span class="p">:</span> <span class="bp">UIApplication</span><span class="p">,</span> <span class="n">didFinishLaunchingWithOptions</span> <span class="nl">launchOptions</span><span class="p">:</span> <span class="p">[</span><span class="nl">NSObject</span><span class="p">:</span> <span class="n">AnyObject</span><span class="p">]</span><span class="o">?</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Bool</span> <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// Override point for customization after application launch.</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">viewController</span> <span class="o">=</span> <span class="n">ViewController</span><span class="p">()</span>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">viewController</span><span class="o">?</span><span class="p">.</span><span class="n">view</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="bp">UIColor</span><span class="p">.</span><span class="n">redColor</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">window</span> <span class="o">=</span> <span class="bp">UIWindow</span><span class="p">(</span><span class="nl">frame</span><span class="p">:</span> <span class="bp">UIScreen</span><span class="p">.</span><span class="n">mainScreen</span><span class="p">().</span><span class="n">bounds</span><span class="p">)</span>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">window</span><span class="o">?</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="bp">UIColor</span><span class="p">.</span><span class="n">whiteColor</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">window</span><span class="o">?</span><span class="p">.</span><span class="n">rootViewController</span> <span class="o">=</span> <span class="n">viewController</span>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">window</span><span class="o">?</span><span class="p">.</span><span class="n">makeKeyAndVisible</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">return</span> <span class="nb">true</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>其實這段程式碼，就是在做 storyboard 的 &ldquo;進入點&rdquo; 這件事</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">var</span> <span class="nl">viewController</span><span class="p">:</span> <span class="n">ViewController</span><span class="o">?</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我們用專案建立時產生的 ViewController 建立了一個物件</p>
+
+<p>並在 application launch 的時候，將該 ViewController 建立起來，設定他的背景顏色為紅色</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="nb">self</span><span class="p">.</span><span class="n">viewController</span> <span class="o">=</span> <span class="n">ViewController</span><span class="p">()</span>
+</span><span class='line'><span class="nb">self</span><span class="p">.</span><span class="n">viewController</span><span class="o">?</span><span class="p">.</span><span class="n">view</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="bp">UIColor</span><span class="p">.</span><span class="n">redColor</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>另外對 window 做一些設定</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="nb">self</span><span class="p">.</span><span class="n">window</span> <span class="o">=</span> <span class="bp">UIWindow</span><span class="p">(</span><span class="nl">frame</span><span class="p">:</span> <span class="bp">UIScreen</span><span class="p">.</span><span class="n">mainScreen</span><span class="p">().</span><span class="n">bounds</span><span class="p">)</span>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">window</span><span class="o">?</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="bp">UIColor</span><span class="p">.</span><span class="n">whiteColor</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>設定他 Screen 大小 (根據手機解析度而定)
+並設定 window 的背景顏色為白色</p>
+
+<p>接著是最重要的設定:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="nb">self</span><span class="p">.</span><span class="n">window</span><span class="o">?</span><span class="p">.</span><span class="n">rootViewController</span> <span class="o">=</span> <span class="n">viewController</span>
+</span><span class='line'><span class="nb">self</span><span class="p">.</span><span class="n">window</span><span class="o">?</span><span class="p">.</span><span class="n">makeKeyAndVisible</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我們要讓 viewController 指定為是這個 window 的 rootViewController</p>
+
+<p>並且 makeKeyAndVisible</p>
+
+<p>這樣就完成手動設定進入點的程式了</p>
+
+<p>再來我們就可以大膽一點，把 Storyboard 砍掉啦!</p>
+
+<p>接著執行程式，就可以看到一片紅色了!!!</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2015.10.21.png" alt="image" /></p>
+
+<p>是不是很簡單!</p>
+
+<p>如果要 NavigationController 也可以直接設定!</p>
+
+<p>接下來的實戰開發專案就會以不使用 Storyboard 的方式開發</p>
+
+<p>增加程式碼可讀性 :P</p>
+
+<p>老是貼圖也很累 XDDDD</p>
+
+<p>接下來就要用 Swift 寫一個 TODOList APP 囉!</p>
+
+<p>並且實際接上隔壁棚的 Restful API XD</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Authored by <span class="fn">kerkerj</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-20T18:46:16+08:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/swift/'>swift</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://kerkerj.github.io/blog/2014/10/20/swift-d20/" data-via="jerry54010" data-counturl="http://kerkerj.github.io/blog/2014/10/20/swift-d20/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/10/20/api-d20/" title="Previous Post: [API-d20] - 實戰開發 - Routes 2, get params and request data">&laquo; [API-d20] - 實戰開發 - Routes 2, get params and request data</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/11/01/planning/" title="Next Post: Planning">Planning &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+
+</div>
+
+<aside class="sidebar">
+  
+    
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - kerkerj -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a> | Themed with <a href="https://github.com/lucaslew/whitespace">Whitespace</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'kerkerj-github';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://kerkerj.github.io/blog/2014/10/20/swift-d20/';
+        var disqus_url = 'http://kerkerj.github.io/blog/2014/10/20/swift-d20/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

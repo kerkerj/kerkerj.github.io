@@ -98,6 +98,180 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2014/07/03/rails-actioncontrollerinvalidauthenticitytoken-when-useing-rails-as-api/">[Rails] ActionController::InvalidAuthenticityToken When Useing Rails4 as API</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-03T04:02:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/07/03/rails-actioncontrollerinvalidauthenticitytoken-when-useing-rails-as-api/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/07/03/rails-actioncontrollerinvalidauthenticitytoken-when-useing-rails-as-api/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>change<br/>
+<code>protect_from_forgery with: :exception</code><br/>
+to<br/>
+<code>protect_from_forgery with: :null_session</code><br/>
+in <code>ApplicationController</code></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/06/19/apache-ssl/">[Apache] SSL (Self-signed & Purchased Version)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-19T02:32:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/06/19/apache-ssl/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/06/19/apache-ssl/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>[Self-signed]</h2>
+
+<hr />
+
+<ol>
+<li>Generate a host key:</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo ssh-keygen -f host.key</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>Generate a certificate request file</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo openssl req -new -key host.key -out request.csr</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Type what you want:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  Country Name (2 letter code) [AU]:TW
+</span><span class='line'>  State or Province Name (full name) [Some-State]:Taiwan
+</span><span class='line'>  Locality Name (eg, city) []:Taipei
+</span><span class='line'>  Organization Name (eg, company) [Internet Widgits Pty Ltd]:
+</span><span class='line'>  Organizational Unit Name (eg, section) []:
+</span><span class='line'>  Common Name (e.g. server FQDN or YOUR name) []:
+</span><span class='line'>  Email Address []:
+</span><span class='line'>  
+</span><span class='line'>  Please enter the following 'extra' attributes
+</span><span class='line'>  to be sent with your certificate request
+</span><span class='line'>  A challenge password []:
+</span><span class='line'>  An optional company name []:</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li><p>Create the SSL certificate
+<code>sudo openssl x509 -req -days 365 -in request.csr -signkey host.key -out server.crt</code></p>
+
+<p>  Create a nopass&#8217; key (optional)
+  <code>openssl rsa -in host.key -out host.nopass.key</code></p></li>
+<li><p>Configure Apache
+<code>LoadModule ssl_module libexec/apache2/mod_ssl.so</code></p></li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>SSLEngine on 
+</span><span class='line'>SSLCertificateFile "/etc/apache2/ssl/server.crt"
+</span><span class='line'>SSLCertificateKeyFile "/etc/apache2/ssl/host.nopass.key"</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apachectl configtest 
+</span><span class='line'>sudo apachectl restart </span></code></pre></td></tr></table></div></figure>
+
+
+<p>p.s. enable mods: <code>sudo a2enmod ssl</code>
+enable sites: <code>sudo a2ensite default-ssl</code></p>
+
+<h2>[Purchased (Symantec)]</h2>
+
+<hr />
+
+<p>[<a href="http://www.symantec.com/tv/products/details.jsp?vid=1452855338001">http://www.symantec.com/tv/products/details.jsp?vid=1452855338001</a>]</p>
+
+<object id="flashObj" width="640" height="360" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,47,0"><param name="movie" value="http://c.brightcove.com/services/viewer/federated_f9?isVid=1&isUI=1" /><param name="bgcolor" value="#FFFFFF" /><param name="flashVars" value="videoId=1452855338001&linkBaseURL=http%3A%2F%2Fwww.symantec.com%2Ftv%2Fproducts%2Fdetails.jsp%3Fvid%3D1452855338001&playerID=1170996384001&playerKey=AQ~~,AAAABuIiy9k~,I8BhasVwr9yry4vRRPOpsSrBvwjFZ03K&domain=embed&dynamicStreaming=true" /><param name="base" value="http://admin.brightcove.com" /><param name="seamlesstabbing" value="false" /><param name="allowFullScreen" value="true" /><param name="swLiveConnect" value="true" /><param name="allowScriptAccess" value="always" /><embed src="http://c.brightcove.com/services/viewer/federated_f9?isVid=1&isUI=1" bgcolor="#FFFFFF" flashVars="videoId=1452855338001&linkBaseURL=http%3A%2F%2Fwww.symantec.com%2Ftv%2Fproducts%2Fdetails.jsp%3Fvid%3D1452855338001&playerID=1170996384001&playerKey=AQ~~,AAAABuIiy9k~,I8BhasVwr9yry4vRRPOpsSrBvwjFZ03K&domain=embed&dynamicStreaming=true" base="http://admin.brightcove.com" name="flashObj" width="640" height="360" seamlesstabbing="false" type="application/x-shockwave-flash" allowFullScreen="true" allowScriptAccess="always" swLiveConnect="true" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"></embed></object>
+
+
+
+
+<object id="flashObj" width="640" height="360" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,47,0"><param name="movie" value="http://c.brightcove.com/services/viewer/federated_f9?isVid=1&isUI=1" /><param name="bgcolor" value="#FFFFFF" /><param name="flashVars" value="videoId=1452855338001&linkBaseURL=http%3A%2F%2Fwww.symantec.com%2Ftv%2Fproducts%2Fdetails.jsp%3Fvid%3D1452855338001&playerID=1170996384001&playerKey=AQ~~,AAAABuIiy9k~,I8BhasVwr9yry4vRRPOpsSrBvwjFZ03K&domain=embed&dynamicStreaming=true" /><param name="base" value="http://admin.brightcove.com" /><param name="seamlesstabbing" value="false" /><param name="allowFullScreen" value="true" /><param name="swLiveConnect" value="true" /><param name="allowScriptAccess" value="always" /><embed src="http://c.brightcove.com/services/viewer/federated_f9?isVid=1&isUI=1" bgcolor="#FFFFFF" flashVars="videoId=1452855338001&linkBaseURL=http%3A%2F%2Fwww.symantec.com%2Ftv%2Fproducts%2Fdetails.jsp%3Fvid%3D1452855338001&playerID=1170996384001&playerKey=AQ~~,AAAABuIiy9k~,I8BhasVwr9yry4vRRPOpsSrBvwjFZ03K&domain=embed&dynamicStreaming=true" base="http://admin.brightcove.com" name="flashObj" width="640" height="360" seamlesstabbing="false" type="application/x-shockwave-flash" allowFullScreen="true" allowScriptAccess="always" swLiveConnect="true" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"></embed></object>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2014/06/16/mac-update-openssl-on-mac/">[Mac] Update Openssl on Mac</a></h1>
     
     
@@ -604,123 +778,6 @@ Magic is never good in development.</p>
 
 
 <p><a href="http://rubenlaguna.com/wp/2012/12/07/sublime-text-2-rvm-rspec-take-2/">http://rubenlaguna.com/wp/2012/12/07/sublime-text-2-rvm-rspec-take-2/</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/01/02/rails-put-vs-patch/">[Rails] PUT v.s. PATCH</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-02T07:39:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/01/02/rails-put-vs-patch/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/01/02/rails-put-vs-patch/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>According to rails convention,</p>
-
-<p>PUT is used for updating an existing resource</p>
-
-<p>POST is used for creating a new resource</p>
-
-<p>In rails 4, PUT has been changed to PATCH to avoid confusion.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'> posts GET    /posts(.:format)                            {:action=&gt;"index", :controller=&gt;"posts"}
-</span><span class='line'>      POST   /posts(.:format)                            {:action=&gt;"create", :controller=&gt;"posts"}
-</span><span class='line'> new_post GET    /posts/new(.:format)                        {:action=&gt;"new", :controller=&gt;"posts"}
-</span><span class='line'>edit_post GET    /posts/:id/edit(.:format)                   {:action=&gt;"edit", :controller=&gt;"posts"}
-</span><span class='line'> post GET    /posts/:id(.:format)                        {:action=&gt;"show", :controller=&gt;"posts"}
-</span><span class='line'>      PUT    /posts/:id(.:format)                        {:action=&gt;"update", :controller=&gt;"posts"}
-</span><span class='line'>      DELETE /posts/:id(.:format)                        {:action=&gt;"destroy", :controller=&gt;"posts"}
-</span><span class='line'></span></code></pre></td></tr></table></div></figure>
-
-
-<p>延伸閱讀：ihower - <a href="http://ihower.tw/blog/archives/6483">HTTP Verbs: 談 POST, PUT 和 PATCH 的應用</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/01/02/rails-list-of-rails-model-type-mysql/">[Rails] List of Rails Model Type (MySQL)</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-02T07:38:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/01/02/rails-list-of-rails-model-type-mysql/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/01/02/rails-list-of-rails-model-type-mysql/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>:binary<br/>
-:boolean<br/>
-:date<br/>
-:datetime<br/>
-:decimal<br/>
-:float<br/>
-:integer<br/>
-:primary_key<br/>
-:string<br/>
-:text<br/>
-:time<br/>
-:timestamp</p>
-
-<p><a href="http://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters/TableDefinition.html#method-i-column">http://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters/TableDefinition.html#method-i-column</a></p>
 </div>
   
   

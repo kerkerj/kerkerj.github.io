@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Nodejs | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/nodejs/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-19T21:24:10+08:00</updated>
+  <updated>2014-10-20T18:50:22+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,245 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[API-d20] - 實戰開發 - Routes 2, Get Params and Request Data]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/20/api-d20/"/>
+    <updated>2014-10-20T18:46:12+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/20/api-d20</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day20">Github 參考</a></p>
+
+<p>接著我們要根據我們開之前寫好的 <a href="http://docs.todolist7.apiary.io/">文件</a> 來開發:</p>
+
+<p>要有下列 routes</p>
+
+<pre><code class="javascript">TODOs
+GET /user/{user_id}/todos/
+POST /user/{user_id}/todos/
+GET /user/{user_id}/todos/{id}
+PUT /user/{user_id}/todos/{id}
+DELETE /user/{user_id}/todos/{id}
+</code></pre>
+
+<p>這樣的需求其實可以用 namespace 實作，不過我們偷懶一點，直接指向 /user 就好</p>
+
+<p>所以在 app.js 加入</p>
+
+<pre><code>var users = require('./routes/users');
+app.use('/user', users);
+</code></pre>
+
+<p>所以會變這樣:</p>
+
+<pre><code>var express = require('express');
+var app = express();
+
+// Set routers
+var index = require('./routes/index');
+var users = require('./routes/users');
+
+app.use('/', index);
+app.use('/user', users);
+
+module.exports = app;
+</code></pre>
+
+<p>不過看起來我們缺少 routes/users.js，所以我們也來新增一個</p>
+
+<p>routes/users.js 內容如下</p>
+
+<pre><code>'use strict';
+
+var express = require('express');
+var router = express.Router();
+
+router.get('/', function(req, res) {
+
+});
+
+router.post('/', function(req, res) {
+
+});
+
+router.get('/', function(req, res) {
+
+});
+
+router.put('/', function(req, res) {
+
+});
+
+router.delete('/', function(req, res) {
+
+});
+
+module.exports = router;
+</code></pre>
+
+<p>好像有那麼一點符合我們要的 routes 了</p>
+
+<p>我們在把每個詳細的 uri 加入</p>
+
+<p>在這邊要注意</p>
+
+<p>因為我們在 app.js 中把 uers.js 加入了 (&lsquo;/users&rsquo;, users)</p>
+
+<p>這個 route</p>
+
+<p>因此在 users.js 中設定的所有 route 都是接在 <code>/users/</code> 後面的</p>
+
+<p>要注意哦</p>
+
+<p>修改後的檔案:</p>
+
+<pre><code>'use strict';
+
+var express = require('express');
+var router = express.Router();
+
+// Get todo list
+router.get('/:user_id/todos', function(req, res) {
+    res.status(200).json( {success: "GET lists"} );
+});
+
+// Create a todo task
+router.post('/:user_id/todos', function(req, res) {
+    res.status(200).json( {success: "POST"} );
+});
+
+// Get a todo task
+router.get('/:user_id/todos/:todo_id', function(req, res) {
+    res.status(200).json( {success: "GET 1 task"} );
+});
+
+// Update a todo task
+router.put('/:user_id/todos/:todo_id', function(req, res) {
+    res.status(200).json( {success: "PUT"} );
+});
+
+// Delete a todo task
+router.delete('/:user_id/todos/:todo_id', function(req, res) {
+    res.status(200).json( {success: "DELETE"} );
+});
+
+module.exports = router;```
+</code></pre>
+
+<p>將 server 重啟，試著對這些網址丟丟看</p>
+
+<p>這時候使用瀏覽器應該就沒辦法丟 GET 以外的要求了對吧?</p>
+
+<p>此時 chrome extension - POSTMAN 就該上場啦！</p>
+
+<p>打開 POSTMAN 就可以送以下的 request 囉!</p>
+
+<pre><code>GET http://localhost:3000/user/kerkerj/todos  
+POST http://localhost:3000/user/kerkerj/todos  
+GET http://localhost:3000/user/kerkerj/todos/1  
+PUT http://localhost:3000/user/kerkerj/todos/1  
+DELETE http://localhost:3000/user/kerkerj/todos/1  
+</code></pre>
+
+<p>因為剛剛程式裡面都只讓他回傳 success，因此還沒有太大的作用，</p>
+
+<p>不過已經有感覺了對吧!! XD</p>
+
+<h2>Get params from url</h2>
+
+<p>我們現在先針對以下這段程式碼作進一步的改寫:</p>
+
+<pre><code>// Get a todo task
+router.get('/:user_id/todos/:todo_id', function(req, res) {
+    res.status(200).json( 
+        { 
+            success: "GET 1 task", 
+            user: req.params.user_id,
+            todo_id: req.params.todo_id
+        } );
+});
+</code></pre>
+
+<p>存檔並打開 server，存取 <a href="http://localhost:3000/user/test/todos/1">http://localhost:3000/user/test/todos/1</a></p>
+
+<p>就可以看到回傳值是:</p>
+
+<pre><code>{
+    "success": "GET 1 task",
+    "user": "kerkerj",
+    "todo_id": "1"
+}
+</code></pre>
+
+<p>所以又學到一招了!</p>
+
+<p>先設定想要抓哪一段網址，例如:</p>
+
+<p><code>/:user_id/todos/:todo_id</code></p>
+
+<p>前面有加冒號的就是這段網址是要被抓成一個參數</p>
+
+<p>而冒號後面接的就是之後在下面要使用到的名字</p>
+
+<p>要接網址的參數的拿法 - req.params.{???}</p>
+
+<p>例如:</p>
+
+<p>req.params.user_id</p>
+
+<p>req.params.todo_id</p>
+
+<p>拿到了網址的參數，就可以對資料庫做進一步的查詢</p>
+
+<h2>Get request data</h2>
+
+<p>那要怎麼拿到 request 的 data 呢?</p>
+
+<p>他並不存在于網址列上啊?</p>
+
+<p>這時候就要加入 <code>body-parser</code> 了!</p>
+
+<p>他會在接收到 request 時，幫我們做過處理後，再傳到每個 request 該去的 router 裏</p>
+
+<p>在 app.js 中加入</p>
+
+<pre><code>// 最上面
+var bodyParser = require('body-parser');
+
+// 加在 router 前面，切記!!
+app.use( bodyParser.json() );
+app.use( bodyParser.urlencoded({ extended: true }) );
+
+app.use('/', index);
+app.use('/user', users);
+</code></pre>
+
+<p>接著在 users.js 中的 POST 區塊中加入兩行:</p>
+
+<pre><code>// Create a todo task
+router.post('/:user_id/todos', function(req, res) {
+    var data = req.body;
+
+    res.status(200).json( {success: data } );
+});
+</code></pre>
+
+<p>開啓 server, 用下圖的方式對 server 做 request:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-09%2023.00.10.png" alt="image" /></p>
+
+<p>記得要加入 header -</p>
+
+<p>Content-Type - application/json</p>
+
+<p>Data 要選擇 raw data - 使用自己寫的 json 格式</p>
+
+<p>就可以看到下面的回傳格式了!</p>
+
+<p>透過拿到 url params 以及 request data</p>
+
+<p>我們就可以使用這些資料來對資料庫做存取了!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[API-d19] - 實戰開發 - Index & Route & Http Status Code]]></title>
@@ -660,154 +899,6 @@ mongoClient.connect('mongodb://localhost:27017/testDB', function(err, db) {
 <p>正式環境要嘛建立使用者帳號密碼</p>
 
 <p>要嘛就是讓 DB 只限本機存取，請記住這件事情哦~</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[API-d10] - Express - Hello World!]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/10/api-d10/"/>
-    <updated>2014-10-10T01:49:55+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/10/api-d10</id>
-    <content type="html"><![CDATA[<h1>Express - Hello World!</h1>
-
-<p>今天就要來安裝主角之一的 <a href="http://expressjs.com/">Express</a> 了!</p>
-
-<p>一樣開啟虛擬機器我應該是可以不用多說了 XD</p>
-
-<p>先確認自己的 node 是不是 NVM 的 node 喲</p>
-
-<h2>建立專案</h2>
-
-<pre><code>$ cd /vagrant/
-$ mkdir API
-$ cd API/
-$ npm init
-</code></pre>
-
-<p>自己輸入專案的相關內容吧，不知道的就直接按 enter 空白丟給他~</p>
-
-<p>就會產生 package.json 了!</p>
-
-<h2>安裝 Express</h2>
-
-<pre><code>// 在專案目錄底下 (/vagrant/API/)
-
-$ npm install express -save
-</code></pre>
-
-<p>下 <code>-save</code> 的原因是要將 express 加入 package.json 中</p>
-
-<p>離開虛擬機，其實我們也可以在虛擬機資料夾看到剛剛建立的專案了，</p>
-
-<p>現在開始就可以使用自己喜歡的編輯器來開啟這個專案資料夾，我個人偏好使用 Sublime Text</p>
-
-<p>要執行專案時再回終端機即可</p>
-
-<h2>Express Hello World!</h2>
-
-<p>在 API 資料夾中建立一個 app.js</p>
-
-<p>內容是:</p>
-
-<pre><code>javascript
-var express = require('express');
-var app = express();
-
-app.get('/', function(req, res){
-  res.send('Hello World');
-});
-
-app.listen(3000, function() {
-    console.log('Listening on port %d', server.address().port);
-});
-</code></pre>
-
-<p>儲存後，回到終端機，將 express 跑起來:</p>
-
-<pre><code>vagrant@vagrant-ubuntu-trusty-64:/vagrant/API$ node app.js
-Listening on port 3000
-</code></pre>
-
-<p>開啟瀏覽器，瀏覽 <code>http://192.168.33.10:3000</code> (url 視個人環境而定)</p>
-
-<p>出現 <code>Hello World! Express!</code> 啦～～ 又一個 Hello World 啦~~</p>
-
-<p>是不是有比 Node.js 的範例更簡潔一點呢?</p>
-
-<p>簡單分析一下這段 code :</p>
-
-<pre><code>// 引入 express module
-var express = require('express');
-
-// 產生一個 express instance - app
-var app = express();
-
-// Express 的重點所在! 稍後解釋
-app.get('/', function(req, res){
-  res.send('Hello World');
-});
-
-// 讓 express server 跑在 port 3000
-app.listen(3000, function() {
-    console.log('Listening on port %d', server.address().port);
-});
-</code></pre>
-
-<p>以上概念基本上都和 Node.js 概念差不多</p>
-
-<p>值得一提的是 Express 的 Routing:</p>
-
-<pre><code>app.get('/', function(req, res){
-  res.send('Hello World');
-});
-</code></pre>
-
-<p>最前面有提到 HTTP 的動詞 GET, POST, PUT, DELETE &hellip;</p>
-
-<p>在這邊就必須用上了！</p>
-
-<p>我們可以看一下 express 的 <a href="http://expressjs.com/4x/api.html#router.VERB">API reference</a></p>
-
-<p><code>app.get</code> 的 <code>.get</code> 就是代表 HTTP GET</p>
-
-<p>如果後面接 <code>.post</code> 就是 HTTP POST, 等等都同樣概念</p>
-
-<p><a href="http://expressjs.com/4x/api.html#router.VERB">API reference</a> 中提到，</p>
-
-<pre><code>router.VERB(path, [callback...], callback)
-</code></pre>
-
-<p><code>path</code> 的意思就是要開放給 client 的路由, 透過不同的路由導向不同的動作</p>
-
-<p>中間的 <code>[callback...]</code> 是 middleware 這個之後會再解釋</p>
-
-<p>最後一個 callback 是用來處理 request 及 response</p>
-
-<p>在這個例子中，client 並沒有丟參數，因此不需要對 request 作處理，</p>
-
-<p>而 server 要回應 response</p>
-
-<p>所以使用了 <code>res.send('Hello World');</code> 來回傳資料</p>
-
-<p>是不是很簡單勒!</p>
-
-<h2>專案產生器</h2>
-
-<p>或許有人會使用 <code>express-generator</code> 來產生 expresss 專案目錄</p>
-
-<p>雖然它很方便，一次建立好專案結構，並且安裝一些常用搭配的套件，</p>
-
-<p>但是由於在尚未了解 express 的運作原理，</p>
-
-<p>一開始一次建立完整我認為過快，因此先不建議這樣用，</p>
-
-<p>當然，如果已經很熟練很了解 express 中可以使用的東西了，使用產生器當然是節省時間囉~</p>
-
-<pre><code>$ npm install -g express-generator
-$ express /tmp/foo &amp;&amp; cd /tmp/foo
-</code></pre>
-
-<p>下一篇會講解如何簡單操作 MongoDB!</p>
 ]]></content>
   </entry>
   

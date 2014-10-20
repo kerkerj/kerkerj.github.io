@@ -4,7 +4,7 @@
   <title><![CDATA[kerkerj]]></title>
   <link href="http://kerkerj.github.io/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-19T21:24:10+08:00</updated>
+  <updated>2014-10-20T18:50:22+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -63,7 +63,7 @@ Day16 -  <a href="http://kerkerj.github.io/blog/2014/10/16/api-d16/">[API-d16] -
 Day17 -  <a href="http://kerkerj.github.io/blog/2014/10/17/api-d17/">[API-d17] - 實戰開發 - 專案結構</a><br/>
 Day18 -  <a href="http://kerkerj.github.io/blog/2014/10/18/api-d18/">[API-d18] - 實戰開發 - 套件模組</a><br/>
 Day19 -  <a href="http://kerkerj.github.io/blog/2014/10/19/api-d19/">[API-d19] - 實戰開發 - index &amp; route &amp; http status code</a><br/>
-Day20 -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day20 -  <a href="http://kerkerj.github.io/blog/2014/10/20/api-d20/">[API-d20] - 實戰開發 - Routes 2, get params and request data</a><br/>
 Day21 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day22 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day23 -  <a href="http://kerkerj.github.io/">#</a><br/>
@@ -96,7 +96,7 @@ Day16 -  <a href="http://kerkerj.github.io/blog/2014/10/16/swift-d16/">[Swift-d1
 Day17 -  <a href="http://kerkerj.github.io/blog/2014/10/17/swift-d17/">[Swift-d17] - Basic - Navigation View + TableView</a><br/>
 Day18 -  <a href="http://kerkerj.github.io/blog/2014/10/18/swift-d18/">[Swift-d18] - Basic - Customize TableViewCell</a><br/>
 Day19 -  <a href="http://kerkerj.github.io/blog/2014/10/19/swift-d19/">[Swift-d19] - Basic - 橋接第三方 Objc library - Reachability and Bridge.h</a><br/>
-Day20 -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day20 -  <a href="http://kerkerj.github.io/blog/2014/10/20/swift-d20/">[Swift-d20] - Basic - 捨棄 Storyboard 使用純程式碼 的方式撰寫 ViewController</a><br/>
 Day21 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day22 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day23 -  <a href="http://kerkerj.github.io/">#</a><br/>
@@ -107,6 +107,512 @@ Day27 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day28 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day29 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day30 -  <a href="http://kerkerj.github.io/">#</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Swift-d20] - Basic - 捨棄 Storyboard 使用純程式碼 的方式撰寫 ViewController]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/20/swift-d20/"/>
+    <updated>2014-10-20T18:46:16+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/20/swift-d20</id>
+    <content type="html"><![CDATA[<p>今天專案的 <a href="https://github.com/kerkerj/ithome-NoStoryboardDemo">Github link</a></p>
+
+<p>其實哦</p>
+
+<p>寫 Swift 也有幾個禮拜了</p>
+
+<p>我一直覺得使用 Interface Builder 的確很方便</p>
+
+<p>但是在程式面與視覺面之間的溝通常常會漏東漏西的</p>
+
+<p>比方說如果要設定 reusable identifier 時</p>
+
+<p>除了程式裡面的字串要設定以外，還要再到 storyboard 裡設定同樣的字串</p>
+
+<p>一個簡單的小程式可能不超過 20 個 View 的情況下</p>
+
+<p>還可以這樣做，當程式長得非常大的時候，好像就很難注意到這件事，</p>
+
+<p>而且 View 太多 storyboard 就會開始變慢&hellip;.</p>
+
+<p>因此今天要來試著在 Swift 中</p>
+
+<p>如何不用 Storyboard，來打造我們的程式</p>
+
+<p>(當然 xib/nib 還是會用到，只是我們單純捨棄 storyboard，用程式來控制流程)</p>
+
+<p>首先，一樣先建立一個測試專案</p>
+
+<p>接著我們要動到的程式碼是 AppDelegate.swift:</p>
+
+<p>編輯它:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="p">@</span><span class="n">UIApplicationMain</span>
+</span><span class='line'><span class="k">class</span> <span class="nl">AppDelegate</span><span class="p">:</span> <span class="bp">UIResponder</span><span class="p">,</span> <span class="bp">UIApplicationDelegate</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">var</span> <span class="nl">window</span><span class="p">:</span> <span class="bp">UIWindow</span><span class="o">?</span>
+</span><span class='line'>    <span class="k">var</span> <span class="nl">viewController</span><span class="p">:</span> <span class="n">ViewController</span><span class="o">?</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">func</span> <span class="n">application</span><span class="p">(</span><span class="nl">application</span><span class="p">:</span> <span class="bp">UIApplication</span><span class="p">,</span> <span class="n">didFinishLaunchingWithOptions</span> <span class="nl">launchOptions</span><span class="p">:</span> <span class="p">[</span><span class="nl">NSObject</span><span class="p">:</span> <span class="n">AnyObject</span><span class="p">]</span><span class="o">?</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Bool</span> <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// Override point for customization after application launch.</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">viewController</span> <span class="o">=</span> <span class="n">ViewController</span><span class="p">()</span>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">viewController</span><span class="o">?</span><span class="p">.</span><span class="n">view</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="bp">UIColor</span><span class="p">.</span><span class="n">redColor</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">window</span> <span class="o">=</span> <span class="bp">UIWindow</span><span class="p">(</span><span class="nl">frame</span><span class="p">:</span> <span class="bp">UIScreen</span><span class="p">.</span><span class="n">mainScreen</span><span class="p">().</span><span class="n">bounds</span><span class="p">)</span>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">window</span><span class="o">?</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="bp">UIColor</span><span class="p">.</span><span class="n">whiteColor</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">window</span><span class="o">?</span><span class="p">.</span><span class="n">rootViewController</span> <span class="o">=</span> <span class="n">viewController</span>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">window</span><span class="o">?</span><span class="p">.</span><span class="n">makeKeyAndVisible</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">return</span> <span class="nb">true</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>其實這段程式碼，就是在做 storyboard 的 &ldquo;進入點&rdquo; 這件事</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">var</span> <span class="nl">viewController</span><span class="p">:</span> <span class="n">ViewController</span><span class="o">?</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我們用專案建立時產生的 ViewController 建立了一個物件</p>
+
+<p>並在 application launch 的時候，將該 ViewController 建立起來，設定他的背景顏色為紅色</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="nb">self</span><span class="p">.</span><span class="n">viewController</span> <span class="o">=</span> <span class="n">ViewController</span><span class="p">()</span>
+</span><span class='line'><span class="nb">self</span><span class="p">.</span><span class="n">viewController</span><span class="o">?</span><span class="p">.</span><span class="n">view</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="bp">UIColor</span><span class="p">.</span><span class="n">redColor</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>另外對 window 做一些設定</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="nb">self</span><span class="p">.</span><span class="n">window</span> <span class="o">=</span> <span class="bp">UIWindow</span><span class="p">(</span><span class="nl">frame</span><span class="p">:</span> <span class="bp">UIScreen</span><span class="p">.</span><span class="n">mainScreen</span><span class="p">().</span><span class="n">bounds</span><span class="p">)</span>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">window</span><span class="o">?</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="bp">UIColor</span><span class="p">.</span><span class="n">whiteColor</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>設定他 Screen 大小 (根據手機解析度而定)
+並設定 window 的背景顏色為白色</p>
+
+<p>接著是最重要的設定:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="nb">self</span><span class="p">.</span><span class="n">window</span><span class="o">?</span><span class="p">.</span><span class="n">rootViewController</span> <span class="o">=</span> <span class="n">viewController</span>
+</span><span class='line'><span class="nb">self</span><span class="p">.</span><span class="n">window</span><span class="o">?</span><span class="p">.</span><span class="n">makeKeyAndVisible</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我們要讓 viewController 指定為是這個 window 的 rootViewController</p>
+
+<p>並且 makeKeyAndVisible</p>
+
+<p>這樣就完成手動設定進入點的程式了</p>
+
+<p>再來我們就可以大膽一點，把 Storyboard 砍掉啦!</p>
+
+<p>接著執行程式，就可以看到一片紅色了!!!</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2015.10.21.png" alt="image" /></p>
+
+<p>是不是很簡單!</p>
+
+<p>如果要 NavigationController 也可以直接設定!</p>
+
+<p>接下來的實戰開發專案就會以不使用 Storyboard 的方式開發</p>
+
+<p>增加程式碼可讀性 :P</p>
+
+<p>老是貼圖也很累 XDDDD</p>
+
+<p>接下來就要用 Swift 寫一個 TODOList APP 囉!</p>
+
+<p>並且實際接上隔壁棚的 Restful API XD</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[API-d20] - 實戰開發 - Routes 2, Get Params and Request Data]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/20/api-d20/"/>
+    <updated>2014-10-20T18:46:12+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/20/api-d20</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day20">Github 參考</a></p>
+
+<p>接著我們要根據我們開之前寫好的 <a href="http://docs.todolist7.apiary.io/">文件</a> 來開發:</p>
+
+<p>要有下列 routes</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">TODOs</span>
+</span><span class='line'><span class="nx">GET</span> <span class="o">/</span><span class="nx">user</span><span class="o">/</span><span class="p">{</span><span class="nx">user_id</span><span class="p">}</span><span class="o">/</span><span class="nx">todos</span><span class="o">/</span>
+</span><span class='line'><span class="nx">POST</span> <span class="o">/</span><span class="nx">user</span><span class="o">/</span><span class="p">{</span><span class="nx">user_id</span><span class="p">}</span><span class="o">/</span><span class="nx">todos</span><span class="o">/</span>
+</span><span class='line'><span class="nx">GET</span> <span class="o">/</span><span class="nx">user</span><span class="o">/</span><span class="p">{</span><span class="nx">user_id</span><span class="p">}</span><span class="o">/</span><span class="nx">todos</span><span class="o">/</span><span class="p">{</span><span class="nx">id</span><span class="p">}</span>
+</span><span class='line'><span class="nx">PUT</span> <span class="o">/</span><span class="nx">user</span><span class="o">/</span><span class="p">{</span><span class="nx">user_id</span><span class="p">}</span><span class="o">/</span><span class="nx">todos</span><span class="o">/</span><span class="p">{</span><span class="nx">id</span><span class="p">}</span>
+</span><span class='line'><span class="nx">DELETE</span> <span class="o">/</span><span class="nx">user</span><span class="o">/</span><span class="p">{</span><span class="nx">user_id</span><span class="p">}</span><span class="o">/</span><span class="nx">todos</span><span class="o">/</span><span class="p">{</span><span class="nx">id</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這樣的需求其實可以用 namespace 實作，不過我們偷懶一點，直接指向 /user 就好</p>
+
+<p>所以在 app.js 加入</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">users</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./routes/users&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;/user&#39;</span><span class="p">,</span> <span class="nx">users</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>所以會變這樣:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;express&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Set routers</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">index</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./routes/index&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">users</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./routes/users&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="nx">index</span><span class="p">);</span>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;/user&#39;</span><span class="p">,</span> <span class="nx">users</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">app</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>不過看起來我們缺少 routes/users.js，所以我們也來新增一個</p>
+
+<p>routes/users.js 內容如下</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;express&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">router</span> <span class="o">=</span> <span class="nx">express</span><span class="p">.</span><span class="nx">Router</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">router</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">router</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">router</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">router</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">router</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">router</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>好像有那麼一點符合我們要的 routes 了</p>
+
+<p>我們在把每個詳細的 uri 加入</p>
+
+<p>在這邊要注意</p>
+
+<p>因為我們在 app.js 中把 uers.js 加入了 (&lsquo;/users&rsquo;, users)</p>
+
+<p>這個 route</p>
+
+<p>因此在 users.js 中設定的所有 route 都是接在 <code>/users/</code> 後面的</p>
+
+<p>要注意哦</p>
+
+<p>修改後的檔案:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;express&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">router</span> <span class="o">=</span> <span class="nx">express</span><span class="p">.</span><span class="nx">Router</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Get todo list</span>
+</span><span class='line'><span class="nx">router</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/:user_id/todos&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">200</span><span class="p">).</span><span class="nx">json</span><span class="p">(</span> <span class="p">{</span><span class="nx">success</span><span class="o">:</span> <span class="s2">&quot;GET lists&quot;</span><span class="p">}</span> <span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Create a todo task</span>
+</span><span class='line'><span class="nx">router</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/:user_id/todos&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">200</span><span class="p">).</span><span class="nx">json</span><span class="p">(</span> <span class="p">{</span><span class="nx">success</span><span class="o">:</span> <span class="s2">&quot;POST&quot;</span><span class="p">}</span> <span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Get a todo task</span>
+</span><span class='line'><span class="nx">router</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/:user_id/todos/:todo_id&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">200</span><span class="p">).</span><span class="nx">json</span><span class="p">(</span> <span class="p">{</span><span class="nx">success</span><span class="o">:</span> <span class="s2">&quot;GET 1 task&quot;</span><span class="p">}</span> <span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Update a todo task</span>
+</span><span class='line'><span class="nx">router</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="s1">&#39;/:user_id/todos/:todo_id&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">200</span><span class="p">).</span><span class="nx">json</span><span class="p">(</span> <span class="p">{</span><span class="nx">success</span><span class="o">:</span> <span class="s2">&quot;PUT&quot;</span><span class="p">}</span> <span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Delete a todo task</span>
+</span><span class='line'><span class="nx">router</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="s1">&#39;/:user_id/todos/:todo_id&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">200</span><span class="p">).</span><span class="nx">json</span><span class="p">(</span> <span class="p">{</span><span class="nx">success</span><span class="o">:</span> <span class="s2">&quot;DELETE&quot;</span><span class="p">}</span> <span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">router</span><span class="p">;</span><span class="err">```</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>將 server 重啟，試著對這些網址丟丟看</p>
+
+<p>這時候使用瀏覽器應該就沒辦法丟 GET 以外的要求了對吧?</p>
+
+<p>此時 chrome extension - POSTMAN 就該上場啦！</p>
+
+<p>打開 POSTMAN 就可以送以下的 request 囉!</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">GET</span> <span class="nx">http</span><span class="o">:</span><span class="c1">//localhost:3000/user/kerkerj/todos  </span>
+</span><span class='line'><span class="nx">POST</span> <span class="nx">http</span><span class="o">:</span><span class="c1">//localhost:3000/user/kerkerj/todos  </span>
+</span><span class='line'><span class="nx">GET</span> <span class="nx">http</span><span class="o">:</span><span class="c1">//localhost:3000/user/kerkerj/todos/1  </span>
+</span><span class='line'><span class="nx">PUT</span> <span class="nx">http</span><span class="o">:</span><span class="c1">//localhost:3000/user/kerkerj/todos/1  </span>
+</span><span class='line'><span class="nx">DELETE</span> <span class="nx">http</span><span class="o">:</span><span class="c1">//localhost:3000/user/kerkerj/todos/1  </span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>因為剛剛程式裡面都只讓他回傳 success，因此還沒有太大的作用，</p>
+
+<p>不過已經有感覺了對吧!! XD</p>
+
+<h2>Get params from url</h2>
+
+<p>我們現在先針對以下這段程式碼作進一步的改寫:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Get a todo task</span>
+</span><span class='line'><span class="nx">router</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/:user_id/todos/:todo_id&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">200</span><span class="p">).</span><span class="nx">json</span><span class="p">(</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>          <span class="nx">success</span><span class="o">:</span> <span class="s2">&quot;GET 1 task&quot;</span><span class="p">,</span>
+</span><span class='line'>          <span class="nx">user</span><span class="o">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">user_id</span><span class="p">,</span>
+</span><span class='line'>          <span class="nx">todo_id</span><span class="o">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">todo_id</span>
+</span><span class='line'>      <span class="p">}</span> <span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>存檔並打開 server，存取 <a href="http://localhost:3000/user/test/todos/1">http://localhost:3000/user/test/todos/1</a></p>
+
+<p>就可以看到回傳值是:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="s2">&quot;success&quot;</span><span class="o">:</span> <span class="s2">&quot;GET 1 task&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;user&quot;</span><span class="o">:</span> <span class="s2">&quot;kerkerj&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;todo_id&quot;</span><span class="o">:</span> <span class="s2">&quot;1&quot;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>所以又學到一招了!</p>
+
+<p>先設定想要抓哪一段網址，例如:</p>
+
+<p><code>/:user_id/todos/:todo_id</code></p>
+
+<p>前面有加冒號的就是這段網址是要被抓成一個參數</p>
+
+<p>而冒號後面接的就是之後在下面要使用到的名字</p>
+
+<p>要接網址的參數的拿法 - req.params.{???}</p>
+
+<p>例如:</p>
+
+<p>req.params.user_id</p>
+
+<p>req.params.todo_id</p>
+
+<p>拿到了網址的參數，就可以對資料庫做進一步的查詢</p>
+
+<h2>Get request data</h2>
+
+<p>那要怎麼拿到 request 的 data 呢?</p>
+
+<p>他並不存在于網址列上啊?</p>
+
+<p>這時候就要加入 <code>body-parser</code> 了!</p>
+
+<p>他會在接收到 request 時，幫我們做過處理後，再傳到每個 request 該去的 router 裏</p>
+
+<p>在 app.js 中加入</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// 最上面</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">bodyParser</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;body-parser&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 加在 router 前面，切記!!</span>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span> <span class="nx">bodyParser</span><span class="p">.</span><span class="nx">json</span><span class="p">()</span> <span class="p">);</span>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span> <span class="nx">bodyParser</span><span class="p">.</span><span class="nx">urlencoded</span><span class="p">({</span> <span class="nx">extended</span><span class="o">:</span> <span class="kc">true</span> <span class="p">})</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="nx">index</span><span class="p">);</span>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;/user&#39;</span><span class="p">,</span> <span class="nx">users</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接著在 users.js 中的 POST 區塊中加入兩行:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Create a todo task</span>
+</span><span class='line'><span class="nx">router</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/:user_id/todos&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">200</span><span class="p">).</span><span class="nx">json</span><span class="p">(</span> <span class="p">{</span><span class="nx">success</span><span class="o">:</span> <span class="nx">data</span> <span class="p">}</span> <span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>開啓 server, 用下圖的方式對 server 做 request:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-09%2023.00.10.png" alt="image" /></p>
+
+<p>記得要加入 header -</p>
+
+<p>Content-Type - application/json</p>
+
+<p>Data 要選擇 raw data - 使用自己寫的 json 格式</p>
+
+<p>就可以看到下面的回傳格式了!</p>
+
+<p>透過拿到 url params 以及 request data</p>
+
+<p>我們就可以使用這些資料來對資料庫做存取了!</p>
 ]]></content>
   </entry>
   
@@ -3113,293 +3619,6 @@ Changes to this property can be animated. The default value is nil, which result
 <p>正式環境要嘛建立使用者帳號密碼</p>
 
 <p>要嘛就是讓 DB 只限本機存取，請記住這件事情哦~</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[Swift-d11] - Basic - Hello World! ViewController]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/11/swift-d11/"/>
-    <updated>2014-10-11T20:09:13+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/11/swift-d11</id>
-    <content type="html"><![CDATA[<p>今天就要來建立一個 Hello World swift app 啦 XD</p>
-
-<p>首先就是開 Xcode 然後開專案囉~~</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.18.22.png" alt="image" /></p>
-
-<p>就看你要存去哪裡啦～</p>
-
-<p>再來就會進到專案本身:</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.19.47.png" alt="image" /></p>
-
-<p>我們就看右下角有個地方可以找到 Label 這個選項:</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.20.27.png" alt="image" /></p>
-
-<p>把他拉到 Storyboard 的任意位置就可以了~</p>
-
-<p>然後更改 label 的屬性:</p>
-
-<p>先點一下 label 選取後，看右上角</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.21.53.png" alt="image" /></p>
-
-<p>有個地方可以更改它的顯示文字，我們將它改成 HelloWorld!</p>
-
-<p>改完之後，按左上角的 Run! ，我們也可以選擇後面的 target 看是要跑在 i6 或是 i5 上，</p>
-
-<p>按下 Run 後程式就會 deploy 到模擬器上面了！</p>
-
-<p>這就是第一個 Hello World 啦!</p>
-
-<p>完全不用寫程式哦 XDDDDD</p>
-
-<p>不過還是要稍微了解一下運作原理啦~</p>
-
-<p>如果剛剛在編輯 storyboard 的時候，有發現那個 View 的左邊有一個奇怪的箭頭指向 View，那個箭頭的意思其實就是程式進入點的意思，</p>
-
-<p>storyboard 就是在描述程式的走向，像在說故事一樣，從某一頁按了什麼東西跳到哪一頁</p>
-
-<p>其實我一直都沒有很習慣 storyboard 的拉法，還是比較習慣用程式建立物件，將想要的物件用程式擺(憑空想像XD)，但是前面幾個比較屬於練習的小東西都還是會用拉的，比較好懂~</p>
-
-<p>我們剛剛建立的那一頁 Hello world</p>
-
-<p>基本上就是在左邊的 ViewController</p>
-
-<p>那我們試著使用程式來改變 HelloWorld 這個 label 的值吧!</p>
-
-<p>我們首先使用分割視窗的模式</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.33.31.png" alt="image" /></p>
-
-<p>選擇左邊數來第二個按鈕</p>
-
-<p>然後選擇 storyboard 及 ViewController</p>
-
-<p>讓他是照下面那樣排列的</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.34.52.png" alt="image" /></p>
-
-<p>接著在 左邊的 label 上按著 ctrl ，拖曳到右邊的程式碼 class 中，</p>
-
-<p>他就會自動幫你產生一個 storyboard 物件與程式碼的連結，</p>
-
-<p>輸入 label 的變數，我們取名叫 titleLabel</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.37.41.png" alt="image" /></p>
-
-<p>就可以在 viewDidload 中，更改該 label 的值:</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.38.13.png" alt="image" /></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>override func viewDidLoad() {
-</span><span class='line'>        super.viewDidLoad()
-</span><span class='line'>        // Do any additional setup after loading the view, typically from a nib.
-</span><span class='line'>        titleLabel.text = "hi"
-</span><span class='line'>    }</span></code></pre></td></tr></table></div></figure>
-
-
-<p>在 viewDidload 中，雖然 label 在 storyboard 時已經有初始值 &ldquo;Hello World&rdquo; 了</p>
-
-<p>但是當 app 被 init 起來後，ViewController 也被初始化了，因此就會執行 ViewDidload 的方法，這個時候就會執行到剛剛的 <code>titleLabel.text = "hi"</code></p>
-
-<p>於是就會更改掉 label 的值了</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.41.04.png" alt="image" /></p>
-
-<p>以上就是簡單的 Hello World</p>
-
-<p>明天來拉幾個常用的元件！</p>
-
-<p>p.s. 截圖感謝同事菲力克濕協助幫忙 :D</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[API-d11] - MongoDB - Hello World!]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/11/api-d11/"/>
-    <updated>2014-10-11T20:09:08+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/11/api-d11</id>
-    <content type="html"><![CDATA[<p>今天先講在 Server 中如何操作 MongoDB</p>
-
-<p>一樣開啟虛擬機，</p>
-
-<p>我們在先前已經有先安裝過 MongoDB 了，因此，在 Ubuntu Server 中預設是開機啟動的</p>
-
-<p>登入虛擬機吧~</p>
-
-<p>登入虛擬機後，我們要進入 MongoDB，必須使用 <code>mongo</code> 這個 MongoDB Shell</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ mongo
-</span><span class='line'>MongoDB shell version: 2.6.4
-</span><span class='line'>connecting to: test
-</span><span class='line'>Welcome to the MongoDB shell.
-</span><span class='line'>For interactive help, type "help".
-</span><span class='line'>For more comprehensive documentation, see
-</span><span class='line'>  http://docs.mongodb.org/
-</span><span class='line'>Questions? Try the support group
-</span><span class='line'>  http://groups.google.com/group/mongodb-user
-</span><span class='line'>&gt;  </span></code></pre></td></tr></table></div></figure>
-
-
-<p>此時會發現輸入指令的地方變成了 <code>&gt;</code> 表示我們已經在 mongodb 裡面了</p>
-
-<p>為什麼不需要帳號密碼即可進入 MongoDB 呢，因為 MongoDB 預設是不需要做登入的</p>
-
-<p>並且加上預設只能由本機存取，也就是說，外部連入的 IP 是進不了 MongoDB 的</p>
-
-<p>這部分後面會再作說明。</p>
-
-<p>傳統的 Table 在 MongoDB 中，稱之為 Collection</p>
-
-<p>一筆 record 在 MongoDB 中，稱之為 document</p>
-
-<p>進入 MongoDB 後，</p>
-
-<p>就可以簡單操作一些指令：</p>
-
-<p>查詢所有的 DB:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&gt; show databases;
-</span><span class='line'>admin  (empty)
-</span><span class='line'>local  0.078GB</span></code></pre></td></tr></table></div></figure>
-
-
-<p>切換 DB</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&gt; use test;</span></code></pre></td></tr></table></div></figure>
-
-
-<p><code>use DBNAME</code> 若 DBNAME 不存在於 MongoDB 中的話，</p>
-
-<p>等同於建立一個新的 DB，意思就是我們不需要下 &lsquo;建立 DB&rsquo; 這個指令，</p>
-
-<p>直接 <code>use</code> 就是一個新的 DB 了，不過這個 DB 會直到有 Collection 被新增才算真正的被建立</p>
-
-<p>意即如果我們 use 了一個新的 DB，但是並沒有做任何新增 Collection 的動作就離開，</p>
-
-<p>這個 DB 也不會被建立起來</p>
-
-<p>當我們使用 <code>use DBNAME</code> 進入 DB 後：</p>
-
-<h3>新增 Collection</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&gt; db.createCollection("TestCollection")
-</span><span class='line'>{ "ok" : 1 }</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>CRUD 操作</h3>
-
-<p>此時 Collection &ldquo;TestCollection&rdquo; 就被建立了，
-可以使用:</p>
-
-<h4>新增資料:</h4>
-
-<p>example: <code>db.TestCollection.insert(DATA);</code></p>
-
-<p>DATA 就是 javascript 的 array map</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&gt; db.TestCollection.insert({data: "test_data", num: 2, arr: ["arr1", "arr2", "arr3"]});</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>查詢資料</h4>
-
-<p>example: <code>db.TestCollection.find(WHERE_CONDITION);</code></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&gt; db.TestCollection.find({data: "test_data"});
-</span><span class='line'>{ "_id" : ObjectId("5430497db94bb4afe2f8b387"), "data" : "test_data", "num" : 2, "arr" : [ "arr1", "arr2", "arr3" ] }</span></code></pre></td></tr></table></div></figure>
-
-
-<p>p.s. 每插入一筆資料，MongoDB 預設都會給訂一組 ObjectId</p>
-
-<h4>查詢所有資料</h4>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&gt; db.TestCollection.find();
-</span><span class='line'>{ "_id" : ObjectId("5430497db94bb4afe2f8b387"), "data" : "test_data", "num" : 2, "arr" : [ "arr1", "arr2", "arr3" ] }</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>修改資料</h4>
-
-<p>example: <code>db.TestCollection.update(WHERE_CONDITION, SET);</code></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&gt; db.TestCollection.update({data: "test_data"}, { $set: {num: 3} });
-</span><span class='line'>WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
-</span><span class='line'>
-</span><span class='line'>// 查看 num 是否從 2 變 3 了
-</span><span class='line'>&gt; db.TestCollection.find({data: "test_data"});
-</span><span class='line'>{ "_id" : ObjectId("5430497db94bb4afe2f8b387"), "data" : "test_data", "num" : 3, "arr" : [ "arr1", "arr2", "arr3" ] }</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>刪除資料</h4>
-
-<p>exmaple: <code>db.TestCollection.remove(WHERE_CONDITION);</code></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&gt; db.TestCollection.remove({data: "test_data"});</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>刪除 Collection</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&gt; db.TestCollection.drop();</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>查詢有哪些 Collection</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&gt; show collections;</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>砍掉目前所在的整個 DB:</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&gt; use test;
-</span><span class='line'>&gt; db.dropDatabase();
-</span><span class='line'>{ "dropped" : "test", "ok" : 1 }</span></code></pre></td></tr></table></div></figure>
-
-
-<p>tips: 在 mongo shell 裡有自動補完的功能，可以按下 tab 來查看有什麼方法可以用</p>
-
-<p>ctrl-D 離開 Mongo Shell</p>
-
-<p><a href="http://docs.mongodb.org/manual/">MongoDB 官網文件</a>非常詳細，可以多看看</p>
-
-<p>明天會用 Node.js 的 MongoDB driver 來操作 MongoDB!</p>
 ]]></content>
   </entry>
   
