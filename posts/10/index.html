@@ -98,6 +98,104 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2012/01/31/php-get-current-time/">[PHP] 取得目前時間</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-31T16:14:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2012/01/31/php-get-current-time/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2012/01/31/php-get-current-time/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>很簡單，也很常忘，所以記下來 Orz</p>
+
+<p><code>$now =date("Y-m-d H:i:s",time());</code></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/01/31/php-uploadfile-limit/">[PHP] 上傳檔案的限制</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-31T16:12:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2012/01/31/php-uploadfile-limit/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2012/01/31/php-uploadfile-limit/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>php.ini</p>
+
+<ol>
+<li><p>max_execution_time
+Script執行時間上限(單位：秒)</p></li>
+<li><p>max_input_time
+Script處理資料時間上限(單位：秒)</p></li>
+<li><p>memory_limit
+系統記憶體 (要比4,5大</p></li>
+<li><p>post_max_size
+表單的POST發送量</p></li>
+<li><p>upload_max_filesize
+單次上傳檔案容量</p></li>
+<li><p>default_socket_timeout
+Socket無回應斷線時間(單位：秒)</p></li>
+<li><p>mysql.connect_timeout
+無回應斷線時間(單位：秒；-1代表不斷線一直等)</p></li>
+</ol>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2011/12/20/codeigniter-remove-indexphp/">[Codeigniter] Remove index.php & 圖片無法讀取問題</a></h1>
     
     
@@ -615,139 +713,6 @@ Arch linux wiki 上關於 KDE 的頁面是正體中文
 
 
 <p>style/Theme.NoTitleBar</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/06/01/java-hex-string-byte-array/">[Java] Hex String & Byte Array 轉換</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-06-01T15:23:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2011/06/01/java-hex-string-byte-array/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2011/06/01/java-hex-string-byte-array/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="n">String</span> <span class="nf">toHexString</span><span class="o">(</span><span class="kt">byte</span><span class="o">[]</span> <span class="n">in</span><span class="o">){</span>
-</span><span class='line'>  <span class="n">BigInteger</span> <span class="n">temp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BigInteger</span><span class="o">(</span><span class="n">in</span><span class="o">);</span>
-</span><span class='line'>  <span class="k">return</span> <span class="n">temp</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="mi">16</span><span class="o">);</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="kt">byte</span><span class="o">[]</span> <span class="nf">fromHexString</span><span class="o">(</span><span class="n">String</span> <span class="n">in</span><span class="o">){</span>
-</span><span class='line'>  <span class="n">BigInteger</span> <span class="n">temp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BigInteger</span><span class="o">(</span><span class="n">in</span><span class="o">,</span> <span class="mi">16</span><span class="o">);</span>
-</span><span class='line'>  <span class="k">return</span> <span class="n">temp</span><span class="o">.</span><span class="na">toByteArray</span><span class="o">();</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>文章參考<a href="http://ranger1976.blogspot.com/2008/07/hex-string-to-byte-array-and-reverse.html">自此</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/05/31/gridbaglayout/">[Java] GridBagLayout</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-05-31T18:22:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2011/05/31/gridbaglayout/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2011/05/31/gridbaglayout/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>只有連結，因為看連結就好了，圖解很累ＸＤ
-<a href="http://1.bp.blogspot.com/-xUK4YkIFTj8/TeUxjstgvoI/AAAAAAAAA0M/CqwnFrzUJQg/s1600/gridlayout.jpg"><img src="http://1.bp.blogspot.com/-xUK4YkIFTj8/TeUxjstgvoI/AAAAAAAAA0M/CqwnFrzUJQg/s1600/gridlayout.jpg" alt="" /></a>
-(圖片來源：<a href="http://blog.csdn.net/dmgactive/archive/2009/06/28/4304567.aspx">http://blog.csdn.net/dmgactive/archive/2009/06/28/4304567.aspx</a> )<br/>
-<a href="http://download.oracle.com/javase/tutorial/uiswing/layout/gridbag.html">http://download.oracle.com/javase/tutorial/uiswing/layout/gridbag.html</a>
-<a href="http://felixcic.blogspot.com/2010/11/gridbaglayout.html">http://felixcic.blogspot.com/2010/11/gridbaglayout.html</a>
-<a href="http://home.so-net.net.tw/idealist/Java/AWT/GridBagLayout.html">http://home.so-net.net.tw/idealist/Java/AWT/GridBagLayout.html</a></p>
-
-<p>大致上是設定以下參數</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kt">int</span> <span class="n">anchor</span>
-</span><span class='line'><span class="kd">public</span> <span class="kt">int</span> <span class="n">fill</span>
-</span><span class='line'><span class="kd">public</span> <span class="n">gridheight</span>
-</span><span class='line'><span class="n">Public</span> <span class="n">gridweight</span>
-</span><span class='line'><span class="kd">public</span> <span class="n">girdx</span>
-</span><span class='line'><span class="kd">public</span> <span class="n">gridy</span>
-</span><span class='line'><span class="kd">public</span> <span class="n">Insets</span> <span class="n">insets</span>
-</span><span class='line'><span class="kd">public</span> <span class="kt">int</span> <span class="n">ipadx</span>
-</span><span class='line'><span class="kd">public</span> <span class="kt">int</span> <span class="n">ipady</span>
-</span><span class='line'><span class="kd">public</span> <span class="kt">double</span> <span class="n">weightx</span>
-</span><span class='line'><span class="kd">public</span> <span class="kt">double</span> <span class="n">weighty</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>大概是這樣</p>
 </div>
   
   

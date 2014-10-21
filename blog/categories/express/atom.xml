@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Express | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/express/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-20T18:50:22+08:00</updated>
+  <updated>2014-10-21T19:13:02+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,148 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[API-d21] - 實戰開發 - 新增 TODO Task API With Mongoose]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/21/api-d21/"/>
+    <updated>2014-10-21T18:58:06+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/21/api-d21</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day21">Github 參考</a></p>
+
+<p>昨天我們了解了如何拿 url params 以及 request data</p>
+
+<p>今天我們就來使用他，對資料庫做存取</p>
+
+<p>由於使用到資料庫，因此我們要加入資料庫的 driver</p>
+
+<p>我們用的是 <code>mongoose</code> 套件</p>
+
+<p>app.js:</p>
+
+<pre><code class="javascript">// 在最上方加入
+var mongoose = require('mongoose');
+
+// 在某個地方連接資料庫
+var db_uri = "mongodb://192.168.33.10:27017/TODOs";
+mongoose.connect(db_uri);
+</code></pre>
+
+<p>在這邊我是使用了虛擬機的 DB，因此是 <code>mongodb://192.168.33.10:27017/TODOs</code></p>
+
+<p>DB 的名稱為 <code>TODOs</code></p>
+
+<p>這樣在程式一跑起來時，就會連接資料庫了!</p>
+
+<p>再來我們就要設定在對資料庫做 CRUD 時，所需要做的事情</p>
+
+<p>首先我們先要定義 schema，</p>
+
+<p>雖然 mongodb 是 schema-free，但是官方文件也有提到最好還是有固定的 schema 避免記憶體 allocate 時出現問題，而程式撰寫時邏輯也不會因此而過於複雜</p>
+
+<p>這時候我們就需要 model 資料夾了，在 model 資料夾中新增一個 todos.js</p>
+
+<p>裡面要放的就是 todo task 的 schema</p>
+
+<p>內容如下:</p>
+
+<p>models/todos.js:</p>
+
+<pre><code>'use strict';
+
+var mongoose = require('mongoose');
+
+// Define our todo schema
+var TODOschema   = new mongoose.Schema({
+    user_id: String,
+    content: String,
+    created_at: Date,
+    updated_at: Date
+});
+
+// Export the Mongoose model
+module.exports = mongoose.model('TODO', TODOschema);
+</code></pre>
+
+<p>我們定義了幾個東西 user_id, content, created_at, updated_at</p>
+
+<p>其實 ObjectID 中已經有包含建立資訊了，其實 created_at 是可以省略掉的，不過在這邊還是加一下</p>
+
+<p>注意下面這行:</p>
+
+<pre><code>module.exports = mongoose.model('TODO', TODOschema);
+</code></pre>
+
+<p>&lsquo;TODO&rsquo; 在這邊是 Collection (RDBMS 中的 table) 的名稱</p>
+
+<p>在 mongoose 中，會自動複數化，所以在 Mongodb 中的 Collection name 會變成 &lsquo;todos&rsquo; ，</p>
+
+<p>雖然只是小小的一行，但是蠻重要的</p>
+
+<p>最後將這個 model exports 成一個 mongoose.model 物件</p>
+
+<p>那我們什麼時候會用到這個 model 物件呢?</p>
+
+<p>就是在 routes/user.js 中，</p>
+
+<p>routes/users.js:</p>
+
+<pre><code>var TODO = require('../models/todos');
+</code></pre>
+
+<p>這樣在 users.js 中就可以使用 TODO 這個物件了!</p>
+
+<p>我們先試著編輯 POST 的 route，拿到 POST 資料後，將資料轉成 TODO 的物件，存到 mongodb 裏</p>
+
+<p>以下是 routes/users.js 中的 post 程式碼段</p>
+
+<p>簡單來說就是先抓到 uri 的參數以及 post data</p>
+
+<p>並且使用 models/todos.js 的 model 新建立一個 todo 物件</p>
+
+<p>並將該物件用 post data 初始化，</p>
+
+<p>初始化完後就執行寫入 DB 的行為, 若寫入成功則回傳 201 + data</p>
+
+<p>失敗則回傳 400 bad request</p>
+
+<pre><code>// Create a todo task
+router.post('/:user_id/todos', function(req, res) {
+    var user_id = req.params.user_id;
+    var data = req.body;
+
+    // insert to db
+    var todo = new TODO();
+    todo.user_id = user_id;
+    todo.content = data.content;
+    todo.created_at = Date.now();
+    todo.updated_at = Date.now();
+
+    todo.save(function (err) {
+        if (err) {
+            res.status(400).json(
+                { error: "insert db error" }
+            );
+        } else {
+            res.status(201).json(
+                todo
+            );
+        }
+    });
+});
+</code></pre>
+
+<p>試著執行伺服器看看，並且使用 POSTMAN 丟 request 如下:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.54.57.png" alt="image" /></p>
+
+<p>POST 的 raw data</p>
+
+<pre><code>{ "content": "buy milk" }
+</code></pre>
+
+<p>於是就完成了一個 POST 新增 TODO 的 API 了！</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[API-d20] - 實戰開發 - Routes 2, Get Params and Request Data]]></title>
@@ -733,154 +875,6 @@ $
 </code></pre>
 
 <p>都 OK!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[API-d10] - Express - Hello World!]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/10/api-d10/"/>
-    <updated>2014-10-10T01:49:55+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/10/api-d10</id>
-    <content type="html"><![CDATA[<h1>Express - Hello World!</h1>
-
-<p>今天就要來安裝主角之一的 <a href="http://expressjs.com/">Express</a> 了!</p>
-
-<p>一樣開啟虛擬機器我應該是可以不用多說了 XD</p>
-
-<p>先確認自己的 node 是不是 NVM 的 node 喲</p>
-
-<h2>建立專案</h2>
-
-<pre><code>$ cd /vagrant/
-$ mkdir API
-$ cd API/
-$ npm init
-</code></pre>
-
-<p>自己輸入專案的相關內容吧，不知道的就直接按 enter 空白丟給他~</p>
-
-<p>就會產生 package.json 了!</p>
-
-<h2>安裝 Express</h2>
-
-<pre><code>// 在專案目錄底下 (/vagrant/API/)
-
-$ npm install express -save
-</code></pre>
-
-<p>下 <code>-save</code> 的原因是要將 express 加入 package.json 中</p>
-
-<p>離開虛擬機，其實我們也可以在虛擬機資料夾看到剛剛建立的專案了，</p>
-
-<p>現在開始就可以使用自己喜歡的編輯器來開啟這個專案資料夾，我個人偏好使用 Sublime Text</p>
-
-<p>要執行專案時再回終端機即可</p>
-
-<h2>Express Hello World!</h2>
-
-<p>在 API 資料夾中建立一個 app.js</p>
-
-<p>內容是:</p>
-
-<pre><code>javascript
-var express = require('express');
-var app = express();
-
-app.get('/', function(req, res){
-  res.send('Hello World');
-});
-
-app.listen(3000, function() {
-    console.log('Listening on port %d', server.address().port);
-});
-</code></pre>
-
-<p>儲存後，回到終端機，將 express 跑起來:</p>
-
-<pre><code>vagrant@vagrant-ubuntu-trusty-64:/vagrant/API$ node app.js
-Listening on port 3000
-</code></pre>
-
-<p>開啟瀏覽器，瀏覽 <code>http://192.168.33.10:3000</code> (url 視個人環境而定)</p>
-
-<p>出現 <code>Hello World! Express!</code> 啦～～ 又一個 Hello World 啦~~</p>
-
-<p>是不是有比 Node.js 的範例更簡潔一點呢?</p>
-
-<p>簡單分析一下這段 code :</p>
-
-<pre><code>// 引入 express module
-var express = require('express');
-
-// 產生一個 express instance - app
-var app = express();
-
-// Express 的重點所在! 稍後解釋
-app.get('/', function(req, res){
-  res.send('Hello World');
-});
-
-// 讓 express server 跑在 port 3000
-app.listen(3000, function() {
-    console.log('Listening on port %d', server.address().port);
-});
-</code></pre>
-
-<p>以上概念基本上都和 Node.js 概念差不多</p>
-
-<p>值得一提的是 Express 的 Routing:</p>
-
-<pre><code>app.get('/', function(req, res){
-  res.send('Hello World');
-});
-</code></pre>
-
-<p>最前面有提到 HTTP 的動詞 GET, POST, PUT, DELETE &hellip;</p>
-
-<p>在這邊就必須用上了！</p>
-
-<p>我們可以看一下 express 的 <a href="http://expressjs.com/4x/api.html#router.VERB">API reference</a></p>
-
-<p><code>app.get</code> 的 <code>.get</code> 就是代表 HTTP GET</p>
-
-<p>如果後面接 <code>.post</code> 就是 HTTP POST, 等等都同樣概念</p>
-
-<p><a href="http://expressjs.com/4x/api.html#router.VERB">API reference</a> 中提到，</p>
-
-<pre><code>router.VERB(path, [callback...], callback)
-</code></pre>
-
-<p><code>path</code> 的意思就是要開放給 client 的路由, 透過不同的路由導向不同的動作</p>
-
-<p>中間的 <code>[callback...]</code> 是 middleware 這個之後會再解釋</p>
-
-<p>最後一個 callback 是用來處理 request 及 response</p>
-
-<p>在這個例子中，client 並沒有丟參數，因此不需要對 request 作處理，</p>
-
-<p>而 server 要回應 response</p>
-
-<p>所以使用了 <code>res.send('Hello World');</code> 來回傳資料</p>
-
-<p>是不是很簡單勒!</p>
-
-<h2>專案產生器</h2>
-
-<p>或許有人會使用 <code>express-generator</code> 來產生 expresss 專案目錄</p>
-
-<p>雖然它很方便，一次建立好專案結構，並且安裝一些常用搭配的套件，</p>
-
-<p>但是由於在尚未了解 express 的運作原理，</p>
-
-<p>一開始一次建立完整我認為過快，因此先不建議這樣用，</p>
-
-<p>當然，如果已經很熟練很了解 express 中可以使用的東西了，使用產生器當然是節省時間囉~</p>
-
-<pre><code>$ npm install -g express-generator
-$ express /tmp/foo &amp;&amp; cd /tmp/foo
-</code></pre>
-
-<p>下一篇會講解如何簡單操作 MongoDB!</p>
 ]]></content>
   </entry>
   

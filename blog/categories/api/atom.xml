@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Api | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/api/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-20T18:50:22+08:00</updated>
+  <updated>2014-10-21T19:13:02+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,148 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[API-d21] - 實戰開發 - 新增 TODO Task API With Mongoose]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/21/api-d21/"/>
+    <updated>2014-10-21T18:58:06+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/21/api-d21</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day21">Github 參考</a></p>
+
+<p>昨天我們了解了如何拿 url params 以及 request data</p>
+
+<p>今天我們就來使用他，對資料庫做存取</p>
+
+<p>由於使用到資料庫，因此我們要加入資料庫的 driver</p>
+
+<p>我們用的是 <code>mongoose</code> 套件</p>
+
+<p>app.js:</p>
+
+<pre><code class="javascript">// 在最上方加入
+var mongoose = require('mongoose');
+
+// 在某個地方連接資料庫
+var db_uri = "mongodb://192.168.33.10:27017/TODOs";
+mongoose.connect(db_uri);
+</code></pre>
+
+<p>在這邊我是使用了虛擬機的 DB，因此是 <code>mongodb://192.168.33.10:27017/TODOs</code></p>
+
+<p>DB 的名稱為 <code>TODOs</code></p>
+
+<p>這樣在程式一跑起來時，就會連接資料庫了!</p>
+
+<p>再來我們就要設定在對資料庫做 CRUD 時，所需要做的事情</p>
+
+<p>首先我們先要定義 schema，</p>
+
+<p>雖然 mongodb 是 schema-free，但是官方文件也有提到最好還是有固定的 schema 避免記憶體 allocate 時出現問題，而程式撰寫時邏輯也不會因此而過於複雜</p>
+
+<p>這時候我們就需要 model 資料夾了，在 model 資料夾中新增一個 todos.js</p>
+
+<p>裡面要放的就是 todo task 的 schema</p>
+
+<p>內容如下:</p>
+
+<p>models/todos.js:</p>
+
+<pre><code>'use strict';
+
+var mongoose = require('mongoose');
+
+// Define our todo schema
+var TODOschema   = new mongoose.Schema({
+    user_id: String,
+    content: String,
+    created_at: Date,
+    updated_at: Date
+});
+
+// Export the Mongoose model
+module.exports = mongoose.model('TODO', TODOschema);
+</code></pre>
+
+<p>我們定義了幾個東西 user_id, content, created_at, updated_at</p>
+
+<p>其實 ObjectID 中已經有包含建立資訊了，其實 created_at 是可以省略掉的，不過在這邊還是加一下</p>
+
+<p>注意下面這行:</p>
+
+<pre><code>module.exports = mongoose.model('TODO', TODOschema);
+</code></pre>
+
+<p>&lsquo;TODO&rsquo; 在這邊是 Collection (RDBMS 中的 table) 的名稱</p>
+
+<p>在 mongoose 中，會自動複數化，所以在 Mongodb 中的 Collection name 會變成 &lsquo;todos&rsquo; ，</p>
+
+<p>雖然只是小小的一行，但是蠻重要的</p>
+
+<p>最後將這個 model exports 成一個 mongoose.model 物件</p>
+
+<p>那我們什麼時候會用到這個 model 物件呢?</p>
+
+<p>就是在 routes/user.js 中，</p>
+
+<p>routes/users.js:</p>
+
+<pre><code>var TODO = require('../models/todos');
+</code></pre>
+
+<p>這樣在 users.js 中就可以使用 TODO 這個物件了!</p>
+
+<p>我們先試著編輯 POST 的 route，拿到 POST 資料後，將資料轉成 TODO 的物件，存到 mongodb 裏</p>
+
+<p>以下是 routes/users.js 中的 post 程式碼段</p>
+
+<p>簡單來說就是先抓到 uri 的參數以及 post data</p>
+
+<p>並且使用 models/todos.js 的 model 新建立一個 todo 物件</p>
+
+<p>並將該物件用 post data 初始化，</p>
+
+<p>初始化完後就執行寫入 DB 的行為, 若寫入成功則回傳 201 + data</p>
+
+<p>失敗則回傳 400 bad request</p>
+
+<pre><code>// Create a todo task
+router.post('/:user_id/todos', function(req, res) {
+    var user_id = req.params.user_id;
+    var data = req.body;
+
+    // insert to db
+    var todo = new TODO();
+    todo.user_id = user_id;
+    todo.content = data.content;
+    todo.created_at = Date.now();
+    todo.updated_at = Date.now();
+
+    todo.save(function (err) {
+        if (err) {
+            res.status(400).json(
+                { error: "insert db error" }
+            );
+        } else {
+            res.status(201).json(
+                todo
+            );
+        }
+    });
+});
+</code></pre>
+
+<p>試著執行伺服器看看，並且使用 POSTMAN 丟 request 如下:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.54.57.png" alt="image" /></p>
+
+<p>POST 的 raw data</p>
+
+<pre><code>{ "content": "buy milk" }
+</code></pre>
+
+<p>於是就完成了一個 POST 新增 TODO 的 API 了！</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[API-d20] - 實戰開發 - Routes 2, Get Params and Request Data]]></title>
@@ -733,67 +875,6 @@ $
 </code></pre>
 
 <p>都 OK!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[API-d16] - 實戰開發 - 設定主題及規劃]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/16/api-d16/"/>
-    <updated>2014-10-16T18:39:40+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/16/api-d16</id>
-    <content type="html"><![CDATA[<p>接下來我們想要做到的是一個 TODO list 的 RESTful API</p>
-
-<p>並且會先使用 <a href="http://apiary.io/">apiary.io</a> 做規劃</p>
-
-<p>實際看看感覺如何</p>
-
-<p>進入網站後，註冊登入後</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-07%201.04.07.png" alt="image" /></p>
-
-<p>左上角的 dropdown list 選擇 create new API</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-07%201.04.18.png" alt="image" /></p>
-
-<p>產生後下方就會跑出範例文擋</p>
-
-<p>這個網站會透過特定格式的編排自己希望的 API endpoint 及範例回傳值後，產生出一份漂亮的文件</p>
-
-<p>網站中間是模式的選擇</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-07%201.10.33.png" alt="image" /></p>
-
-<p>Documentation 是實際讓其他人看的，Editor 則是編輯模式</p>
-
-<p>我們就稍微簡單規劃一下 TODO List 的 RESTful API 吧!</p>
-
-<p>這是我自己規劃的 <a href="http://docs.todolist7.apiary.io/">文件</a></p>
-
-<p>基本上 route 會長這個樣子:</p>
-
-<pre><code>TODOs
-GET /user/{user_id}/todos/
-POST /user/{user_id}/todos/
-GET /user/{user_id}/todos/{id}
-PUT /user/{user_id}/todos/{id}
-DELETE /user/{user_id}/todos/{id}
-</code></pre>
-
-<p>資料格式也都在該文件整理好了</p>
-
-<p><code>/user/{user_id}/</code> 只是用來辨識是哪個 user 的 todo task data</p>
-
-<p>在這個小 API 不會琢磨在使用者系統的建立，只會專注在操作 todo task data</p>
-
-<p>我們可以直接透過 PostMan 來丟丟看</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-07%201.43.06.png" alt="image" /></p>
-
-<p>我們設定必須要使用 API-key 才能存取 API，比較進階的做法就是使用 Oauth 的方式取得 token 來存取 API</p>
-
-<p>不過在這個小 API 也不會建立一個 Oauth Server，我們簡單使用 API-key 來認證即可</p>
-
-<p>接下來的時間我們就會開始依據規劃好的文件，使用 Node.js + express + mongodb 來實作囉!</p>
 ]]></content>
   </entry>
   

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Swift | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/swift/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-20T18:50:22+08:00</updated>
+  <updated>2014-10-21T19:13:02+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,102 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[Swift-d21] - 實戰開發 - TODOList - 前置設定]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/21/swift-d21/"/>
+    <updated>2014-10-21T18:58:10+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/21/swift-d21</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day21">Github link</a></p>
+
+<p>首先在開始寫這隻 app 前，</p>
+
+<p>我們要先定義好程式大致上的流程</p>
+
+<p>基本上接下來的程式碼都不會用到 storyboard</p>
+
+<p>只會用到程式 + xib</p>
+
+<p>程式的流程大致上是使用 Navigation controller 來控制 view 的轉換</p>
+
+<p>第一頁 - tableView 顯示 todo items list</p>
+
+<p><img src="http://goo.gl/RKH85d" alt="image" /></p>
+
+<p>點進子項目可以觀看內容，進到子頁後可以編輯，</p>
+
+<p>編輯後就即可存檔</p>
+
+<p>新增項目則在主頁的右上角 &ldquo;Add&rdquo; 可以新增</p>
+
+<p>我們會先從建立假的資料開始，也就是我會先刻出程式的流程</p>
+
+<p>先不接 API</p>
+
+<p>實際寫出運作流程後，再加上 API 操作的部分</p>
+
+<p>因此今天的進度就先開一個新專案，將基本的 Navigation + tableView 建立起來吧:</p>
+
+<p>首先建立一個新專案</p>
+
+<p>再來到 project settings</p>
+
+<p>將 Main Interface 及 Launch Screen file 拿掉</p>
+
+<p>並將 deploy target 設成 7.1 (反正用到的程式碼都一樣~ 沒有特別使用 8.0 的 lib)</p>
+
+<p>設定 device orientation - 只限定直的</p>
+
+<p><img src="http://goo.gl/xQ6m25" alt="image" /></p>
+
+<p>接著就來編輯 AppDelegate.swift</p>
+
+<p>建立一個 NavigationController + ViewController</p>
+
+<pre><code class="swift">@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+
+    var window: UIWindow?
+    var navigationController: UINavigationController?
+    var viewController: ViewController?
+
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -&gt; Bool {
+        // Override point for customization after application launch.
+
+        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        self.window?.backgroundColor = UIColor.whiteColor()
+
+        self.viewController = ViewController()
+        self.viewController?.title = "TODO List"
+
+        self.navigationController = UINavigationController(rootViewController: self.viewController!)
+
+        self.window?.makeKeyAndVisible()
+        self.window?.rootViewController = navigationController
+
+        return true
+    }
+</code></pre>
+
+<p>就是之前有用到的程式碼，稍作改寫</p>
+
+<p>再來到 ViewController 中, 將背景色稍改一些</p>
+
+<pre><code>override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+
+        self.view.backgroundColor = UIColor.yellowColor()
+    }
+</code></pre>
+
+<p>最後將 storyboard 以及 launchScreen.xib 刪掉</p>
+
+<p>執行程式，就 OK 囉！</p>
+
+<p><img src="http://goo.gl/n1T0zv" alt="image" /></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[Swift-d20] - Basic - 捨棄 Storyboard 使用純程式碼 的方式撰寫 ViewController]]></title>
@@ -418,144 +514,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 <p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2012.01.35.png" alt="image" /></p>
 
 <p>p.s. 這篇可能實作上會有 bug (我寫的), 就先跳過吧 XD</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[Swift-d17] - Basic - Navigation View + TableView]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/17/swift-d17/"/>
-    <updated>2014-10-17T21:17:03+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/17/swift-d17</id>
-    <content type="html"><![CDATA[<p>今天要把 Navigation View 和 Table View 結合起來!</p>
-
-<p>把 NavigationController 拉進 Storyboard</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2019.47.53.png" alt="image" /></p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2019.48.28.png" alt="image" /></p>
-
-<p>將程式進入點指向 NavigationController</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2019.48.28.png" alt="image" /></p>
-
-<p>把原本程式自動產生的 UIViewController 刪除</p>
-
-<p>把自動產生的 TableViewController 刪除!</p>
-
-<p>拉一個新的 UIViewController</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.06.29.png" alt="image" /></p>
-
-<p>將 NavigationController 的 RootViewController 指向新的 ViewController</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.07.20.png" alt="image" /></p>
-
-<p>把 TableView 拉進 ViewController</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.08.48.png" alt="image" /></p>
-
-<p>再將 TableViewCell 拉進 TableView</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.09.16.png" alt="image" /></p>
-
-<p>再點選 ViewController, 到右上角中找尋 Custom Class</p>
-
-<p>將 ViewController.swift 指定給該 ViewController</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.18.11.png" alt="image" /></p>
-
-<p>接著把 UITableView 引進程式碼裡做關聯</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.19.25.png" alt="image" /></p>
-
-<p>再來就是實作 Table 的 data 了</p>
-
-<pre><code class="swift">class ViewController: UIViewController, UITableViewDataSource {
-</code></pre>
-
-<pre><code>class ViewController: UIViewController, UITableViewDataSource {
-
-    @IBOutlet var tableView: UITableView!
-
-    var arr = ["A", "B", "C"]
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {
-        return arr.count;
-    }
-
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell {
-
-        var cell: UITableViewCell? = tableView.dequeueReusableCellWithIdentifier("cell") as? UITableViewCell
-
-        if cell == nil {
-            cell = UITableViewCell(style: UITableViewCellStyle.Default , reuseIdentifier: "cell")
-        }
-        cell!.textLabel?.text = arr[indexPath.row]
-
-        return cell!
-    }
-}
-</code></pre>
-
-<p>code 實作完後，記得拉 dataSource 及 delegate</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.27.19%EF%BC%882%EF%BC%89.png" alt="image" /></p>
-
-<p>執行後就是 TableView + NavigationController 了</p>
-
-<p>接下來就要加入換頁:</p>
-
-<p>到 storyboard 再加入一個 ViewController，並從 tableView 的 cell 中建立連結到新的 ViewController</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.33.35.png" alt="image" /></p>
-
-<p>再來新增一個 DetailViewController, 用來顯示下一頁的資料</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.35.29.png" alt="image" /></p>
-
-<p>記得先去做 class 關聯</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.36.03.png" alt="image" /></p>
-
-<p>再來加入這個 function:</p>
-
-<pre><code>override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showDetail" {
-            let index = self.tableView.indexPathForSelectedRow()?.row
-            ((segue.destinationViewController) as DetailViewController).title = arr[index!]
-        }
-    }
-</code></pre>
-
-<p>回到 storyboard, 點選 UITableView 和 UIView 中間的連線，設定 storyboard 的 identifier</p>
-
-<p>設定為 <code>showDetail</code> 以便和程式一樣</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.37.36.png" alt="image" /></p>
-
-<p>另外回到 Storyboard 中的 TableView, 設定 cell 的 identifier 和程式一樣</p>
-
-<p>以便 reuse</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.47.03.png" alt="image" /></p>
-
-<p>接著都設定完畢後，就可以執行了!</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.49.13.png" alt="image" /></p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.49.18.png" alt="image" /></p>
-
-<p>這樣就完成啦!</p>
 ]]></content>
   </entry>
   
