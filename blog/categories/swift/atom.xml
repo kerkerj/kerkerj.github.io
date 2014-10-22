@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Swift | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/swift/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-21T19:14:02+08:00</updated>
+  <updated>2014-10-22T19:20:30+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,102 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[Swift-d22] - 實戰開發 - TODOList - Show View 1]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/22/swift-d22/"/>
+    <updated>2014-10-22T19:13:04+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/22/swift-d22</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day22">Github link</a></p>
+
+<p>接著我們要讓主頁顯示一些假資料:</p>
+
+<p>由於我們未來接的 api 的資料會是 todo_id + content</p>
+
+<p>因此我們先產生一個 dictionary array 來存放我們的假資料</p>
+
+<pre><code class="swift">var fakeData = [[String:String]]()
+fakeData = [
+    ["id": "1", "content": "A"],
+    ["id": "2", "content": "B"],
+    ["id": "3", "content": "C"],
+]
+</code></pre>
+
+<p>再來對主頁的 controller 新增 tableView 上去</p>
+
+<p>並且對 UITableView 加入 delegate 以及 datasource</p>
+
+<pre><code>import UIKit
+
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+
+    var fakeData = [[String:String]]()
+    var tableView: UITableView?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+
+        fakeData = [["1": "A"], ["2": "B"], ["3": "C"]]
+        self.view.backgroundColor = UIColor.yellowColor()
+
+        self.tableView = UITableView(frame: self.view.frame)
+        self.tableView?.delegate = self
+        self.tableView?.dataSource = self
+
+        self.view.addSubview(self.tableView!)
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+
+}
+</code></pre>
+
+<p>此時編譯器就會要求實作 UITableViewDataSource, UITableViewDelegate 的 methods</p>
+
+<p>實作完就可以讓 TableView 顯示資料, 這我們之前也都有提到過了~</p>
+
+<p>在這邊我們也同時使用自訂的 CustomTableViewCell, 簡單對 cell 改個顏色，雖然沒什麼多大用處 XD</p>
+
+<pre><code>    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {
+        return self.fakeData.count
+    }
+
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell {
+        var cell: CustomTableViewCell? = tableView.dequeueReusableCellWithIdentifier("CustomCell") as? CustomTableViewCell
+
+        if cell == nil {
+            var objects = NSBundle.mainBundle().loadNibNamed("CustomTableViewCell", owner: self, options: nil)
+            cell = objects[0] as? CustomTableViewCell
+        }
+
+        cell!.textLabel?.text = (self.fakeData[indexPath.row])["content"]
+
+        return cell!
+    }
+</code></pre>
+
+<p><img src="http://goo.gl/8Zis9p" alt="image" /></p>
+
+<p>不過可以看到有小瑕疵，就是選取後他並不會回覆成原本的模樣</p>
+
+<p>因此加入 tableView didSelectRowAtIndexPath:</p>
+
+<pre><code>    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+
+        // 回復非選取狀態
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+</code></pre>
+
+<p>明天就會提到換頁以及刪除的作法!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[Swift-d21] - 實戰開發 - TODOList - 前置設定]]></title>
@@ -394,126 +490,6 @@ Changes to this property can be animated. The default value is nil, which result
 <p>不過切換 View 時 target view 沒有 backgroundColor 的情況應該比較少吧&hellip;(?)</p>
 
 <p>剛好在寫鐵人賽的 app 想先把流程弄出來時遇到了這個雷 XD</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[Swift-d18] - Basic - Customize TableViewCell]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/18/swift-d18/"/>
-    <updated>2014-10-18T18:28:23+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/18/swift-d18</id>
-    <content type="html"><![CDATA[<p>今天的主題延續昨天的 Navigation + TableView</p>
-
-<p>我們要來客製化 TableViewCell</p>
-
-<p>通常 TableView 可以被拿來做很多事情，不僅只是像是 ListView 而已</p>
-
-<p>而 TableViewCell 可以做更深度的切版，排列元素</p>
-
-<p>因此自定 TableViewCell 是一件算是還蠻重要的事情</p>
-
-<p>下面的 Code 是延續昨天的專案</p>
-
-<p>我先把已更改過的程式碼貼上來:</p>
-
-<pre><code class="swift">import UIKit
-
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
-    @IBOutlet var tableView: UITableView!
-
-    var arr = ["A", "B", "C"]
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {
-        return arr.count;
-    }
-
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell {
-        var cell: CustomTableViewCell? = tableView.dequeueReusableCellWithIdentifier("cell") as CustomTableViewCell?
-
-        if cell == nil {
-            var objects = NSBundle.mainBundle().loadNibNamed("CustomTableViewCell", owner: self, options: nil)
-            cell = objects[0] as? CustomTableViewCell
-        }
-
-        cell!.textLabel?.text = arr[indexPath.row]
-
-        return cell!
-    }
-
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var detailViewController = DetailViewController()
-        detailViewController.title = arr[indexPath.row]
-        self.navigationController?.pushViewController(detailViewController, animated: true)
-    }
-
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -&gt; CGFloat {
-        return 165.0
-    }
-}
-</code></pre>
-
-<p>今天要新增一個檔案, 我們就稱之為 CustomTableViewCell</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.36.49.png" alt="image" /></p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.37.37.png" alt="image" /></p>
-
-<p>就會出現一份 .swift 檔案以及 .xib 檔案了</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.38.06.png" alt="image" /></p>
-
-<p>接下來我們簡單編輯 .xib 檔案，將背景顏色換成其他顏色，以及將它的長度拉高</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.39.49.png" alt="image" /></p>
-
-<p>這樣其實就很簡單地完成了一個小客製化的 TableViewCell 了</p>
-
-<p>那我們要怎麼讓原本的 TableView 吃到這個 TableViewCell 呢?</p>
-
-<p>看以下的 function:</p>
-
-<pre><code>func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell {
-    var cell: CustomTableViewCell? = tableView.dequeueReusableCellWithIdentifier("cell") as CustomTableViewCell?
-
-    if cell == nil {
-        var objects = NSBundle.mainBundle().loadNibNamed("CustomTableViewCell", owner: self, options: nil)
-        cell = objects[0] as? CustomTableViewCell
-    }
-
-    cell!.textLabel?.text = arr[indexPath.row]
-
-    return cell!
-}
-</code></pre>
-
-<p>我們將 cell 的類別更改成了 CustomTableViewCell</p>
-
-<p>直接使用剛剛產生的 .swift 類別來產生新的 TableViewCell</p>
-
-<p>並且如果 cell == nil ，則會將 Nib 載入</p>
-
-<p>最後設定該 textLabel ，返回 cell</p>
-
-<p>若使用最一開始的程式碼 apply changes</p>
-
-<p>執行！</p>
-
-<p>應該就可以看到成果了!</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2012.01.35.png" alt="image" /></p>
-
-<p>p.s. 這篇可能實作上會有 bug (我寫的), 就先跳過吧 XD</p>
 ]]></content>
   </entry>
   

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Restful | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/restful/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-21T19:14:02+08:00</updated>
+  <updated>2014-10-22T19:20:30+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,122 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[API-d22] - 實戰開發 - 讀取 TODO Task API With Mongoose]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/22/api-d22/"/>
+    <updated>2014-10-22T19:13:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/22/api-d22</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day22">Github 參考</a></p>
+
+<p>如果有使用 MongoDB client 的話就可以搭配使用會比較有感覺</p>
+
+<p>Mac 我是使用 Robomongo，算很好上手~</p>
+
+<p>今天要來實作讀取的部分</p>
+
+<p>讀取有分兩種，一種是讀取 list</p>
+
+<p>另一種是讀取特定某個 todo task，今天兩種都會實作</p>
+
+<p>首先我們先實作 get todo list</p>
+
+<p>因為若要拿到特定的 todo task，需要 todo task 的 id</p>
+
+<p>而我們現在還不曉得 todo task 的 id 是多少，我們只知道 user_id</p>
+
+<p>因此就先從 list 下手</p>
+
+<p>routes/users.js:</p>
+
+<pre><code class="javascript">// Get todo list
+router.get('/:user_id/todos', function(req, res) {
+    var user_id = req.params.user_id;
+
+    TODO.find(
+        {user_id: user_id},
+        function (err, results) {
+            if (err) {
+                res.status(400).json(
+                    { error: "can not find data" }
+                );
+            } else {
+                res.status(200).json(
+                    results
+                );
+            }
+        }
+    );
+});
+</code></pre>
+
+<p>上面程式碼的意思是，先抓到 uri 的 user_id</p>
+
+<p>再來就直接進 db 找，find() 的第一個參數為:</p>
+
+<pre><code>{user_id: user_id},
+</code></pre>
+
+<p>可以想像成是 SQL 語法中的 WHERE 條件</p>
+
+<pre><code>SELECT * WHERE user_id = 'user_id' FROM todos
+</code></pre>
+
+<p>而 callback 則是針對 error 或 results 作處理</p>
+
+<p>試著將 server 跑起來，然後使用 POSTMAN 丟 GET request 試試看</p>
+
+<p>如果沒有資料，就利用昨天實作的 POST API 新增幾個吧！</p>
+
+<p>記得 url 中輸入的 user_id 要在 DB 中有該 user 的資料才找的到資料哦</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%203.17.08.png" alt="images" /></p>
+
+<p>如此一來就有 task id 了!</p>
+
+<p>再來就來實作讀取特定 id 的 task API 吧!</p>
+
+<p>程式碼如下</p>
+
+<p>routes/user.js:</p>
+
+<pre><code>// Get a todo task
+router.get('/:user_id/todos/:todo_id', function(req, res) {
+    var user_id = req.params.user_id;
+    var todo_id = req.params.todo_id;
+
+    TODO.find(
+        { _id: todo_id, user_id: user_id},
+        function (err, results) {
+            if (err) {
+                res.status(400).json(
+                    { error: "can not find data" }
+                );
+            } else {
+                res.status(200).json(
+                    results[0]
+                );
+            }
+        }
+    );
+});
+</code></pre>
+
+<p>這次更簡單了，user_id 及 todo_id 都是從 url 上取值</p>
+
+<p>接著一樣使用 where 條件，將值帶入找資料</p>
+
+<p>最後交給 callback 處理回傳值</p>
+
+<p>將 server 跑起來，試著先從todo list 複製某一筆 _id 的值</p>
+
+<p>丟到 url 中試試看</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%203.21.51.png" alt="image" /></p>
+
+<p>如此一來，讀取特定 task 的 API 也完成囉!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[API-d21] - 實戰開發 - 新增 TODO Task API With Mongoose]]></title>
@@ -679,67 +795,6 @@ $
 </code></pre>
 
 <p>都 OK!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[API-d16] - 實戰開發 - 設定主題及規劃]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/16/api-d16/"/>
-    <updated>2014-10-16T18:39:40+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/16/api-d16</id>
-    <content type="html"><![CDATA[<p>接下來我們想要做到的是一個 TODO list 的 RESTful API</p>
-
-<p>並且會先使用 <a href="http://apiary.io/">apiary.io</a> 做規劃</p>
-
-<p>實際看看感覺如何</p>
-
-<p>進入網站後，註冊登入後</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-07%201.04.07.png" alt="image" /></p>
-
-<p>左上角的 dropdown list 選擇 create new API</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-07%201.04.18.png" alt="image" /></p>
-
-<p>產生後下方就會跑出範例文擋</p>
-
-<p>這個網站會透過特定格式的編排自己希望的 API endpoint 及範例回傳值後，產生出一份漂亮的文件</p>
-
-<p>網站中間是模式的選擇</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-07%201.10.33.png" alt="image" /></p>
-
-<p>Documentation 是實際讓其他人看的，Editor 則是編輯模式</p>
-
-<p>我們就稍微簡單規劃一下 TODO List 的 RESTful API 吧!</p>
-
-<p>這是我自己規劃的 <a href="http://docs.todolist7.apiary.io/">文件</a></p>
-
-<p>基本上 route 會長這個樣子:</p>
-
-<pre><code>TODOs
-GET /user/{user_id}/todos/
-POST /user/{user_id}/todos/
-GET /user/{user_id}/todos/{id}
-PUT /user/{user_id}/todos/{id}
-DELETE /user/{user_id}/todos/{id}
-</code></pre>
-
-<p>資料格式也都在該文件整理好了</p>
-
-<p><code>/user/{user_id}/</code> 只是用來辨識是哪個 user 的 todo task data</p>
-
-<p>在這個小 API 不會琢磨在使用者系統的建立，只會專注在操作 todo task data</p>
-
-<p>我們可以直接透過 PostMan 來丟丟看</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-07%201.43.06.png" alt="image" /></p>
-
-<p>我們設定必須要使用 API-key 才能存取 API，比較進階的做法就是使用 Oauth 的方式取得 token 來存取 API</p>
-
-<p>不過在這個小 API 也不會建立一個 Oauth Server，我們簡單使用 API-key 來認證即可</p>
-
-<p>接下來的時間我們就會開始依據規劃好的文件，使用 Node.js + express + mongodb 來實作囉!</p>
 ]]></content>
   </entry>
   

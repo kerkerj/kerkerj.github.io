@@ -171,7 +171,7 @@ Day18 -  <a href="http://kerkerj.github.io/blog/2014/10/18/api-d18/">[API-d18] -
 Day19 -  <a href="http://kerkerj.github.io/blog/2014/10/19/api-d19/">[API-d19] - 實戰開發 - index &amp; route &amp; http status code</a><br/>
 Day20 -  <a href="http://kerkerj.github.io/blog/2014/10/20/api-d20/">[API-d20] - 實戰開發 - Routes 2, get params and request data</a><br/>
 Day21 -  <a href="http://kerkerj.github.io/blog/2014/10/21/api-d21/">[API-d21] - 實戰開發 - 新增 TODO task API with mongoose</a><br/>
-Day22 -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day22 -  <a href="http://kerkerj.github.io/blog/2014/10/22/api-d22/">[API-d22] - 實戰開發 - 讀取 TODO task API with mongoose</a><br/>
 Day23 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day24 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day25 -  <a href="http://kerkerj.github.io/">#</a><br/>
@@ -204,7 +204,7 @@ Day18 -  <a href="http://kerkerj.github.io/blog/2014/10/18/swift-d18/">[Swift-d1
 Day19 -  <a href="http://kerkerj.github.io/blog/2014/10/19/swift-d19/">[Swift-d19] - Basic - 橋接第三方 Objc library - Reachability and Bridge.h</a><br/>
 Day20 -  <a href="http://kerkerj.github.io/blog/2014/10/20/swift-d20/">[Swift-d20] - Basic - 捨棄 Storyboard 使用純程式碼 的方式撰寫 ViewController</a><br/>
 Day21 -  <a href="http://kerkerj.github.io/blog/2014/10/21/swift-d21/">[Swift-d21] - 實戰開發 - TODOList - 前置設定</a><br/>
-Day22 -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day22 -  <a href="http://kerkerj.github.io/blog/2014/10/22/swift-d22/">[Swift-d22] - 實戰開發 - TODOList - Show View 1</a><br/>
 Day23 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day24 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day25 -  <a href="http://kerkerj.github.io/">#</a><br/>
@@ -213,6 +213,382 @@ Day27 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day28 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day29 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day30 -  <a href="http://kerkerj.github.io/">#</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/22/swift-d22/">[Swift-d22] - 實戰開發 - TODOList - Show View 1</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-22T19:13:04+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/10/22/swift-d22/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/22/swift-d22/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day22">Github link</a></p>
+
+<p>接著我們要讓主頁顯示一些假資料:</p>
+
+<p>由於我們未來接的 api 的資料會是 todo_id + content</p>
+
+<p>因此我們先產生一個 dictionary array 來存放我們的假資料</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">var</span> <span class="n">fakeData</span> <span class="o">=</span> <span class="p">[[</span><span class="nl">String</span><span class="p">:</span><span class="n">String</span><span class="p">]]()</span>
+</span><span class='line'><span class="n">fakeData</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>  <span class="p">[</span><span class="s">&quot;id&quot;</span><span class="o">:</span> <span class="s">&quot;1&quot;</span><span class="p">,</span> <span class="s">&quot;content&quot;</span><span class="o">:</span> <span class="s">&quot;A&quot;</span><span class="p">],</span>
+</span><span class='line'>  <span class="p">[</span><span class="s">&quot;id&quot;</span><span class="o">:</span> <span class="s">&quot;2&quot;</span><span class="p">,</span> <span class="s">&quot;content&quot;</span><span class="o">:</span> <span class="s">&quot;B&quot;</span><span class="p">],</span>
+</span><span class='line'>  <span class="p">[</span><span class="s">&quot;id&quot;</span><span class="o">:</span> <span class="s">&quot;3&quot;</span><span class="p">,</span> <span class="s">&quot;content&quot;</span><span class="o">:</span> <span class="s">&quot;C&quot;</span><span class="p">],</span>
+</span><span class='line'><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>再來對主頁的 controller 新增 tableView 上去</p>
+
+<p>並且對 UITableView 加入 delegate 以及 datasource</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">import</span> <span class="n">UIKit</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nl">ViewController</span><span class="p">:</span> <span class="bp">UIViewController</span><span class="p">,</span> <span class="bp">UITableViewDataSource</span><span class="p">,</span> <span class="bp">UITableViewDelegate</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">var</span> <span class="n">fakeData</span> <span class="o">=</span> <span class="p">[[</span><span class="nl">String</span><span class="p">:</span><span class="n">String</span><span class="p">]]()</span>
+</span><span class='line'>    <span class="k">var</span> <span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="o">?</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kr">override</span> <span class="k">func</span> <span class="n">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nb">super</span><span class="p">.</span><span class="n">viewDidLoad</span><span class="p">()</span>
+</span><span class='line'>        <span class="c1">// Do any additional setup after loading the view, typically from a nib.</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">fakeData</span> <span class="o">=</span> <span class="p">[[</span><span class="s">&quot;1&quot;</span><span class="o">:</span> <span class="s">&quot;A&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s">&quot;2&quot;</span><span class="o">:</span> <span class="s">&quot;B&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s">&quot;3&quot;</span><span class="o">:</span> <span class="s">&quot;C&quot;</span><span class="p">]]</span>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">view</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="bp">UIColor</span><span class="p">.</span><span class="n">yellowColor</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">tableView</span> <span class="o">=</span> <span class="bp">UITableView</span><span class="p">(</span><span class="nl">frame</span><span class="p">:</span> <span class="nb">self</span><span class="p">.</span><span class="n">view</span><span class="p">.</span><span class="n">frame</span><span class="p">)</span>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">tableView</span><span class="o">?</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="nb">self</span>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">tableView</span><span class="o">?</span><span class="p">.</span><span class="n">dataSource</span> <span class="o">=</span> <span class="nb">self</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">view</span><span class="p">.</span><span class="n">addSubview</span><span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">tableView</span><span class="o">!</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kr">override</span> <span class="k">func</span> <span class="n">didReceiveMemoryWarning</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nb">super</span><span class="p">.</span><span class="n">didReceiveMemoryWarning</span><span class="p">()</span>
+</span><span class='line'>        <span class="c1">// Dispose of any resources that can be recreated.</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>此時編譯器就會要求實作 UITableViewDataSource, UITableViewDelegate 的 methods</p>
+
+<p>實作完就可以讓 TableView 顯示資料, 這我們之前也都有提到過了~</p>
+
+<p>在這邊我們也同時使用自訂的 CustomTableViewCell, 簡單對 cell 改個顏色，雖然沒什麼多大用處 XD</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="n">tableView</span><span class="p">(</span><span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="p">,</span> <span class="n">numberOfRowsInSection</span> <span class="nl">section</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nb">self</span><span class="p">.</span><span class="n">fakeData</span><span class="p">.</span><span class="n">count</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">func</span> <span class="n">tableView</span><span class="p">(</span><span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="p">,</span> <span class="n">cellForRowAtIndexPath</span> <span class="nl">indexPath</span><span class="p">:</span> <span class="bp">NSIndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">UITableViewCell</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">var</span> <span class="nl">cell</span><span class="p">:</span> <span class="n">CustomTableViewCell</span><span class="o">?</span> <span class="o">=</span> <span class="n">tableView</span><span class="p">.</span><span class="n">dequeueReusableCellWithIdentifier</span><span class="p">(</span><span class="s">&quot;CustomCell&quot;</span><span class="p">)</span> <span class="kt">as</span><span class="o">?</span> <span class="n">CustomTableViewCell</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="n">cell</span> <span class="o">==</span> <span class="nb">nil</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">var</span> <span class="n">objects</span> <span class="o">=</span> <span class="bp">NSBundle</span><span class="p">.</span><span class="n">mainBundle</span><span class="p">().</span><span class="n">loadNibNamed</span><span class="p">(</span><span class="s">&quot;CustomTableViewCell&quot;</span><span class="p">,</span> <span class="nl">owner</span><span class="p">:</span> <span class="nb">self</span><span class="p">,</span> <span class="nl">options</span><span class="p">:</span> <span class="nb">nil</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">cell</span> <span class="o">=</span> <span class="n">objects</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="kt">as</span><span class="o">?</span> <span class="n">CustomTableViewCell</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">cell</span><span class="o">!</span><span class="p">.</span><span class="n">textLabel</span><span class="o">?</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">fakeData</span><span class="p">[</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">])[</span><span class="s">&quot;content&quot;</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">cell</span><span class="o">!</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img src="http://goo.gl/8Zis9p" alt="image" /></p>
+
+<p>不過可以看到有小瑕疵，就是選取後他並不會回覆成原本的模樣</p>
+
+<p>因此加入 tableView didSelectRowAtIndexPath:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">tableView</span><span class="p">(</span><span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="p">,</span> <span class="n">didSelectRowAtIndexPath</span> <span class="nl">indexPath</span><span class="p">:</span> <span class="bp">NSIndexPath</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// 回復非選取狀態</span>
+</span><span class='line'>    <span class="n">tableView</span><span class="p">.</span><span class="n">deselectRowAtIndexPath</span><span class="p">(</span><span class="n">indexPath</span><span class="p">,</span> <span class="nl">animated</span><span class="p">:</span> <span class="nb">true</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>明天就會提到換頁以及刪除的作法!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/22/api-d22/">[API-d22] - 實戰開發 - 讀取 TODO Task API With Mongoose</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-22T19:13:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/10/22/api-d22/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/22/api-d22/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day22">Github 參考</a></p>
+
+<p>如果有使用 MongoDB client 的話就可以搭配使用會比較有感覺</p>
+
+<p>Mac 我是使用 Robomongo，算很好上手~</p>
+
+<p>今天要來實作讀取的部分</p>
+
+<p>讀取有分兩種，一種是讀取 list</p>
+
+<p>另一種是讀取特定某個 todo task，今天兩種都會實作</p>
+
+<p>首先我們先實作 get todo list</p>
+
+<p>因為若要拿到特定的 todo task，需要 todo task 的 id</p>
+
+<p>而我們現在還不曉得 todo task 的 id 是多少，我們只知道 user_id</p>
+
+<p>因此就先從 list 下手</p>
+
+<p>routes/users.js:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Get todo list</span>
+</span><span class='line'><span class="nx">router</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/:user_id/todos&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">user_id</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">user_id</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">TODO</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span>
+</span><span class='line'>        <span class="p">{</span><span class="nx">user_id</span><span class="o">:</span> <span class="nx">user_id</span><span class="p">},</span>
+</span><span class='line'>        <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">results</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">400</span><span class="p">).</span><span class="nx">json</span><span class="p">(</span>
+</span><span class='line'>                    <span class="p">{</span> <span class="nx">error</span><span class="o">:</span> <span class="s2">&quot;can not find data&quot;</span> <span class="p">}</span>
+</span><span class='line'>                <span class="p">);</span>
+</span><span class='line'>            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>                <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">200</span><span class="p">).</span><span class="nx">json</span><span class="p">(</span>
+</span><span class='line'>                    <span class="nx">results</span>
+</span><span class='line'>                <span class="p">);</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上面程式碼的意思是，先抓到 uri 的 user_id</p>
+
+<p>再來就直接進 db 找，find() 的第一個參數為:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span><span class="nx">user_id</span><span class="o">:</span> <span class="nx">user_id</span><span class="p">},</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可以想像成是 SQL 語法中的 WHERE 條件</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">SELECT</span> <span class="o">*</span> <span class="nx">WHERE</span> <span class="nx">user_id</span> <span class="o">=</span> <span class="s1">&#39;user_id&#39;</span> <span class="nx">FROM</span> <span class="nx">todos</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>而 callback 則是針對 error 或 results 作處理</p>
+
+<p>試著將 server 跑起來，然後使用 POSTMAN 丟 GET request 試試看</p>
+
+<p>如果沒有資料，就利用昨天實作的 POST API 新增幾個吧！</p>
+
+<p>記得 url 中輸入的 user_id 要在 DB 中有該 user 的資料才找的到資料哦</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%203.17.08.png" alt="images" /></p>
+
+<p>如此一來就有 task id 了!</p>
+
+<p>再來就來實作讀取特定 id 的 task API 吧!</p>
+
+<p>程式碼如下</p>
+
+<p>routes/user.js:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Get a todo task</span>
+</span><span class='line'><span class="nx">router</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/:user_id/todos/:todo_id&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">user_id</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">user_id</span><span class="p">;</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">todo_id</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">todo_id</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">TODO</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span>
+</span><span class='line'>        <span class="p">{</span> <span class="nx">_id</span><span class="o">:</span> <span class="nx">todo_id</span><span class="p">,</span> <span class="nx">user_id</span><span class="o">:</span> <span class="nx">user_id</span><span class="p">},</span>
+</span><span class='line'>        <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">results</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">400</span><span class="p">).</span><span class="nx">json</span><span class="p">(</span>
+</span><span class='line'>                    <span class="p">{</span> <span class="nx">error</span><span class="o">:</span> <span class="s2">&quot;can not find data&quot;</span> <span class="p">}</span>
+</span><span class='line'>                <span class="p">);</span>
+</span><span class='line'>            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>                <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">200</span><span class="p">).</span><span class="nx">json</span><span class="p">(</span>
+</span><span class='line'>                    <span class="nx">results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span><span class='line'>                <span class="p">);</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這次更簡單了，user_id 及 todo_id 都是從 url 上取值</p>
+
+<p>接著一樣使用 where 條件，將值帶入找資料</p>
+
+<p>最後交給 callback 處理回傳值</p>
+
+<p>將 server 跑起來，試著先從todo list 複製某一筆 _id 的值</p>
+
+<p>丟到 url 中試試看</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%203.21.51.png" alt="image" /></p>
+
+<p>如此一來，讀取特定 task 的 API 也完成囉!</p>
 </div>
   
   
@@ -1785,514 +2161,6 @@ Changes to this property can be animated. The default value is nil, which result
 <p>不過切換 View 時 target view 沒有 backgroundColor 的情況應該比較少吧&hellip;(?)</p>
 
 <p>剛好在寫鐵人賽的 app 想先把流程弄出來時遇到了這個雷 XD</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/18/swift-d18/">[Swift-d18] - Basic - Customize TableViewCell</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-18T18:28:23+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/10/18/swift-d18/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/18/swift-d18/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>今天的主題延續昨天的 Navigation + TableView</p>
-
-<p>我們要來客製化 TableViewCell</p>
-
-<p>通常 TableView 可以被拿來做很多事情，不僅只是像是 ListView 而已</p>
-
-<p>而 TableViewCell 可以做更深度的切版，排列元素</p>
-
-<p>因此自定 TableViewCell 是一件算是還蠻重要的事情</p>
-
-<p>下面的 Code 是延續昨天的專案</p>
-
-<p>我先把已更改過的程式碼貼上來:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">import</span> <span class="n">UIKit</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">class</span> <span class="nl">ViewController</span><span class="p">:</span> <span class="bp">UIViewController</span><span class="p">,</span> <span class="bp">UITableViewDataSource</span><span class="p">,</span> <span class="bp">UITableViewDelegate</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="p">@</span><span class="kt">IBOutlet</span> <span class="k">var</span> <span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="o">!</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">var</span> <span class="n">arr</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;A&quot;</span><span class="p">,</span> <span class="s">&quot;B&quot;</span><span class="p">,</span> <span class="s">&quot;C&quot;</span><span class="p">]</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kr">override</span> <span class="k">func</span> <span class="n">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nb">super</span><span class="p">.</span><span class="n">viewDidLoad</span><span class="p">()</span>
-</span><span class='line'>        <span class="c1">// Do any additional setup after loading the view, typically from a nib.</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kr">override</span> <span class="k">func</span> <span class="n">didReceiveMemoryWarning</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nb">super</span><span class="p">.</span><span class="n">didReceiveMemoryWarning</span><span class="p">()</span>
-</span><span class='line'>        <span class="c1">// Dispose of any resources that can be recreated.</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">func</span> <span class="n">tableView</span><span class="p">(</span><span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="p">,</span> <span class="n">numberOfRowsInSection</span> <span class="nl">section</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">arr</span><span class="p">.</span><span class="n">count</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">func</span> <span class="n">tableView</span><span class="p">(</span><span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="p">,</span> <span class="n">cellForRowAtIndexPath</span> <span class="nl">indexPath</span><span class="p">:</span> <span class="bp">NSIndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">UITableViewCell</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">var</span> <span class="nl">cell</span><span class="p">:</span> <span class="n">CustomTableViewCell</span><span class="o">?</span> <span class="o">=</span> <span class="n">tableView</span><span class="p">.</span><span class="n">dequeueReusableCellWithIdentifier</span><span class="p">(</span><span class="s">&quot;cell&quot;</span><span class="p">)</span> <span class="kt">as</span> <span class="n">CustomTableViewCell</span><span class="o">?</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">if</span> <span class="n">cell</span> <span class="o">==</span> <span class="nb">nil</span> <span class="p">{</span>
-</span><span class='line'>            <span class="k">var</span> <span class="n">objects</span> <span class="o">=</span> <span class="bp">NSBundle</span><span class="p">.</span><span class="n">mainBundle</span><span class="p">().</span><span class="n">loadNibNamed</span><span class="p">(</span><span class="s">&quot;CustomTableViewCell&quot;</span><span class="p">,</span> <span class="nl">owner</span><span class="p">:</span> <span class="nb">self</span><span class="p">,</span> <span class="nl">options</span><span class="p">:</span> <span class="nb">nil</span><span class="p">)</span>
-</span><span class='line'>            <span class="n">cell</span> <span class="o">=</span> <span class="n">objects</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="kt">as</span><span class="o">?</span> <span class="n">CustomTableViewCell</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">cell</span><span class="o">!</span><span class="p">.</span><span class="n">textLabel</span><span class="o">?</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">]</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">return</span> <span class="n">cell</span><span class="o">!</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">func</span> <span class="n">tableView</span><span class="p">(</span><span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="p">,</span> <span class="n">didSelectRowAtIndexPath</span> <span class="nl">indexPath</span><span class="p">:</span> <span class="bp">NSIndexPath</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">var</span> <span class="n">detailViewController</span> <span class="o">=</span> <span class="n">DetailViewController</span><span class="p">()</span>
-</span><span class='line'>        <span class="n">detailViewController</span><span class="p">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">]</span>
-</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">navigationController</span><span class="o">?</span><span class="p">.</span><span class="n">pushViewController</span><span class="p">(</span><span class="n">detailViewController</span><span class="p">,</span> <span class="nl">animated</span><span class="p">:</span> <span class="nb">true</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">func</span> <span class="n">tableView</span><span class="p">(</span><span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="p">,</span> <span class="n">heightForRowAtIndexPath</span> <span class="nl">indexPath</span><span class="p">:</span> <span class="bp">NSIndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CGFloat</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="mf">165.0</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>今天要新增一個檔案, 我們就稱之為 CustomTableViewCell</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.36.49.png" alt="image" /></p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.37.37.png" alt="image" /></p>
-
-<p>就會出現一份 .swift 檔案以及 .xib 檔案了</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.38.06.png" alt="image" /></p>
-
-<p>接下來我們簡單編輯 .xib 檔案，將背景顏色換成其他顏色，以及將它的長度拉高</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.39.49.png" alt="image" /></p>
-
-<p>這樣其實就很簡單地完成了一個小客製化的 TableViewCell 了</p>
-
-<p>那我們要怎麼讓原本的 TableView 吃到這個 TableViewCell 呢?</p>
-
-<p>看以下的 function:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="n">tableView</span><span class="p">(</span><span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="p">,</span> <span class="n">cellForRowAtIndexPath</span> <span class="nl">indexPath</span><span class="p">:</span> <span class="bp">NSIndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">UITableViewCell</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">var</span> <span class="nl">cell</span><span class="p">:</span> <span class="n">CustomTableViewCell</span><span class="o">?</span> <span class="o">=</span> <span class="n">tableView</span><span class="p">.</span><span class="n">dequeueReusableCellWithIdentifier</span><span class="p">(</span><span class="s">&quot;cell&quot;</span><span class="p">)</span> <span class="kt">as</span> <span class="n">CustomTableViewCell</span><span class="o">?</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">if</span> <span class="n">cell</span> <span class="o">==</span> <span class="nb">nil</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">var</span> <span class="n">objects</span> <span class="o">=</span> <span class="bp">NSBundle</span><span class="p">.</span><span class="n">mainBundle</span><span class="p">().</span><span class="n">loadNibNamed</span><span class="p">(</span><span class="s">&quot;CustomTableViewCell&quot;</span><span class="p">,</span> <span class="nl">owner</span><span class="p">:</span> <span class="nb">self</span><span class="p">,</span> <span class="nl">options</span><span class="p">:</span> <span class="nb">nil</span><span class="p">)</span>
-</span><span class='line'>      <span class="n">cell</span> <span class="o">=</span> <span class="n">objects</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="kt">as</span><span class="o">?</span> <span class="n">CustomTableViewCell</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">cell</span><span class="o">!</span><span class="p">.</span><span class="n">textLabel</span><span class="o">?</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">]</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">return</span> <span class="n">cell</span><span class="o">!</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>我們將 cell 的類別更改成了 CustomTableViewCell</p>
-
-<p>直接使用剛剛產生的 .swift 類別來產生新的 TableViewCell</p>
-
-<p>並且如果 cell == nil ，則會將 Nib 載入</p>
-
-<p>最後設定該 textLabel ，返回 cell</p>
-
-<p>若使用最一開始的程式碼 apply changes</p>
-
-<p>執行！</p>
-
-<p>應該就可以看到成果了!</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2012.01.35.png" alt="image" /></p>
-
-<p>p.s. 這篇可能實作上會有 bug (我寫的), 就先跳過吧 XD</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/18/api-d18/">[API-d18] - 實戰開發 - 套件模組</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-18T18:28:19+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/10/18/api-d18/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/18/api-d18/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>會使用到的套件:</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>主體:
-</span><span class='line'>express - web framework
-</span><span class='line'>body-parser - parse request body
-</span><span class='line'>
-</span><span class='line'>測試相關:
-</span><span class='line'>mocha - test framework
-</span><span class='line'>mocha-mongoose - 用來和 mocha 和 mongoose 中間做介接的套件
-</span><span class='line'>superagent - 拿它來丟 http request
-</span><span class='line'>validator - 用來驗證某個物件是否為某個型別
-</span><span class='line'>expect.js - 類似 BDD 的語法，用來寫測試的
-</span><span class='line'>debug - debug package
-</span><span class='line'>
-</span><span class='line'>DB 相關:
-</span><span class='line'>mongoose - mongodb orm
-</span><span class='line'>mongodb - mongodb native driver
-</span><span class='line'>
-</span><span class='line'>開發相關:
-</span><span class='line'>nodemon - detect file change and restart server
-</span><span class='line'>
-</span><span class='line'>生產環境相關:
-</span><span class='line'>log4js - 記錄 request log</span></code></pre></td></tr></table></div></figure>
-
-
-<p>這是我的 package.json, 可以複製到專案目錄，然後下 <code>npm install</code></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>{
-</span><span class='line'>  "name": "TODOAPI",
-</span><span class='line'>  "version": "1.0.0",
-</span><span class='line'>  "description": "",
-</span><span class='line'>  "main": "app.js",
-</span><span class='line'>  "scripts": {
-</span><span class='line'>    "start": "node ./bin/server.js env=development",
-</span><span class='line'>    "test": "./node_modules/mocha/bin/mocha",
-</span><span class='line'>    "test-detail": "./node_modules/mocha/bin/mocha --reporter list",
-</span><span class='line'>    "stop": "pkill -lf server.js"
-</span><span class='line'>  },
-</span><span class='line'>  "author": "kerkerj",
-</span><span class='line'>  "license": "ISC",
-</span><span class='line'>  "dependencies": {
-</span><span class='line'>    "body-parser": "^1.9.0",
-</span><span class='line'>    "debug": "^2.0.0",
-</span><span class='line'>    "expect.js": "^0.3.1",
-</span><span class='line'>    "express": "^4.9.5",
-</span><span class='line'>    "log4js": "^0.6.21",
-</span><span class='line'>    "mocha": "^1.21.4",
-</span><span class='line'>    "mocha-mongoose": "^1.0.1",
-</span><span class='line'>    "mongodb": "^1.4.19",
-</span><span class='line'>    "mongoose": "^3.8.17",
-</span><span class='line'>    "superagent": "^0.20.0",
-</span><span class='line'>    "validator": "^3.19.1"
-</span><span class='line'>  }
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>安裝套件，及全域套件 mocha</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>// in project folder
-</span><span class='line'>$ npm install express body-parser mocha mocha-mongoose superagent validator expect.js debug mongoose mongodb log4js -save 
-</span><span class='line'>$ npm install -g nodemon</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>各個套件簡單設定</h2>
-
-<p>接下來會針對一些套件作說明，但是由於可能有些人不懂整個專案的運作，因此下面看看就好，之後實作上有問題可以再回來看。</p>
-
-<h2>Nodemon 的作用</h2>
-
-<p>範例:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ nodemon ./bin/server.js
-</span><span class='line'>...</span></code></pre></td></tr></table></div></figure>
-
-
-<p>就可以放著不管它了~ 只要檔案有變動，就會自動重開 server</p>
-
-<h2>使用 logger - log4js</h2>
-
-<p>設定 logger - log4js, 並將 log 寫入到 logs/access.log 裏</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>// Set logger
-</span><span class='line'>var log4js = require('log4js');
-</span><span class='line'>log4js.configure({
-</span><span class='line'>    appenders: [
-</span><span class='line'>        { type: 'console' }, //控制台輸出
-</span><span class='line'>        {
-</span><span class='line'>            type: 'file', //文件輸出
-</span><span class='line'>            filename: 'logs/access.log',
-</span><span class='line'>            maxLogSize: 20000000, // 20 MB
-</span><span class='line'>            backups: 10,
-</span><span class='line'>            category: 'normal'
-</span><span class='line'>        }
-</span><span class='line'>    ],
-</span><span class='line'>    replaceConsole: true
-</span><span class='line'>});
-</span><span class='line'>
-</span><span class='line'>var logger = log4js.getLogger('normal');
-</span><span class='line'>logger.setLevel('INFO');
-</span><span class='line'>
-</span><span class='line'>app.use(log4js.connectLogger(logger, {level: 'auto', format:':method :url'}));</span></code></pre></td></tr></table></div></figure>
-
-
-<p><a href="http://blog.fens.me/nodejs-log4js/">node log4s</a></p>
-
-<h2>使用 body-parser 處理 request 的資料</h2>
-
-<p>加入 middleware</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>app.use( bodyParser.json() );
-</span><span class='line'>app.use( bodyParser.urlencoded({ extended: true }) );</span></code></pre></td></tr></table></div></figure>
-
-
-<p>需要加入 { extended: true/false }, 否則會 warning:</p>
-
-<p>body-parser deprecated undefined extended: provide extended</p>
-
-<p>如果要接收 json request</p>
-
-<p>client 端在 Header 中必須先設定 &ldquo;Content-type: applciation/json&rdquo;</p>
-
-<p>才能夠在 router 中使用 <code>req.body</code> 拿到 json 值</p>
-
-<h2>測試套件</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>mocha - 專案
-</span><span class='line'>expect.js - 專案
-</span><span class='line'>superagent - 專案</span></code></pre></td></tr></table></div></figure>
-
-
-<p>測試流程 -</p>
-
-<p>先跑 server 起來，透過自動化程式自動丟 request 給 server，測試結束</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ npm start
-</span><span class='line'>$ mocha
-</span><span class='line'>$ npm stop</span></code></pre></td></tr></table></div></figure>
-
-
-<p>所以必須先在 package.json 中設定好 script</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>{
-</span><span class='line'>  (...)
-</span><span class='line'>  "scripts": {
-</span><span class='line'>      "start": "node ./bin/server.js",
-</span><span class='line'>      "test": "mocha",
-</span><span class='line'>      "stop": "pkill -lf server.js"
-</span><span class='line'>  },
-</span><span class='line'>  (...)
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
-
-
-<p>由於我將啟動 server 的 script 放在 bin 資料夾裡，因此</p>
-
-<p><code>npm start</code> 的 script 就會執行:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>node ./bin/server.js</span></code></pre></td></tr></table></div></figure>
-
-
-<p><code>npm stop</code> 的話，用到了 *nix 的指令，會先到 process list 中找到和 server.js 有關的 process，然後 kill process (<code>pkill</code>)</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>pkill -lf server.js</span></code></pre></td></tr></table></div></figure>
-
-
-<p>跑測試的話，直接下 <code>mocha</code>，在這邊我們也丟一個 script 指定給 <code>npm test</code></p>
-
-<p>下 <code>npm test</code> 就是等同於下 <code>mocha</code></p>
-
-<p>上面只是大致上講解一下每個套件如何用，接下來我們會以實際的例子來說明</p>
 </div>
   
   

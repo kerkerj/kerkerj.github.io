@@ -98,6 +98,159 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2013/12/19/vagrant-use-knife-solo-to-deploy-a-new-vm/">[Vagrant] Use Knife-solo to Deploy a New VM</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-19T10:47:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/12/19/vagrant-use-knife-solo-to-deploy-a-new-vm/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2013/12/19/vagrant-use-knife-solo-to-deploy-a-new-vm/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>My own computer: host side
+My VM: guest side</p>
+
+<p>knife-solo is a tool for Chef.
+host side: you need ruby environment!</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ gem install knife-solo</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The only thing you need to install is just knife-solo by ruby!</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ knife configure -r . --defaults (產生預設設定檔，內容為空)
+</span><span class='line'>$ knife cookbook create "package"
+</span><span class='line'>$ knife solo bootstrap vagrant@ip.address (bootstrap = prepare + cook, only for the first time)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>加入菜單：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ knife cookbook create nginx</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在 cookbooks/nginx/recipes/default.rb 裡最少要加入
+<code>package 'nginx'</code> 也就是套件名稱
+其他內容可以自己加
+例如：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>package 'nginx'
+</span><span class='line'>
+</span><span class='line'>service 'nginx' do
+</span><span class='line'>    supports [:status, :restart, :reload]
+</span><span class='line'>      action :start
+</span><span class='line'>end
+</span><span class='line'>
+</span><span class='line'>directory "/vagrant/demo" do
+</span><span class='line'>end
+</span><span class='line'>
+</span><span class='line'>file "/vagrant/index.php" do
+</span><span class='line'>    content "&lt;?php phpinfo(); ?&gt;"
+</span><span class='line'>end
+</span><span class='line'>
+</span><span class='line'>template "/etc/nginx/sites-enabled/default" do
+</span><span class='line'>    source 'default.erb'
+</span><span class='line'>      notifies :restart, 'service[nginx]', :immediately
+</span><span class='line'>end
+</span><span class='line'></span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/18/ubuntu-bash-warning-setlocale-lc-ctype-cannot-change-locale/">[Ubuntu] -bash: Warning: Setlocale: LC_CTYPE: Cannot Change Locale</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-18T08:42:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/12/18/ubuntu-bash-warning-setlocale-lc-ctype-cannot-change-locale/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2013/12/18/ubuntu-bash-warning-setlocale-lc-ctype-cannot-change-locale/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo locale-gen zh_TW.UTF-8
+</span><span class='line'>$ sudo update-locale LANG=zh_TW.UTF-8</span></code></pre></td></tr></table></div></figure>
+
+
+<p>reload your bash profile</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2013/12/18/ruby-pp-to-ruby-as-var-dump-to-php/">[Ruby] PP to Ruby as Var_dump to PHP</a></h1>
     
     
@@ -733,97 +886,6 @@ An exception to the terminal window guidelines is Mac OS X&rsquo;s Terminal.app,
 <p>p.s.s.有亂入用到的指令記一下：dpkg &ndash;get-selections 列出已安裝的 package
 另外提供一下我在研究 Vagrant 的筆記，很亂超級亂，但是有些東西沒有寫在 blog 裡~
 <a href="https://www.evernote.com/shard/s81/sh/91ccf490-d9cd-468e-943a-d57c79d052f4/71e0a682b024c6e97fd8c79b90f89f67">Evernote by kerkerj</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/06/12/android-ui-update-2/">[Android] Thread 處理 UI Update (2)</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-06-12T17:32:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2012/06/12/android-ui-update-2/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2012/06/12/android-ui-update-2/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>這是第一篇: [[Android] thread 處理 UI update]</p>
-
-<p>在那之後自己在寫一些東西時也用到 runOnUiThread<br/>
-不過有別的方法可以不用像 runOnUiThread 寫的比較雜亂<br/>
-那就是用 AsyncTask , 剛剛自己也順手寫了一個 Test 放在 Github 上<br/>
-我覺得使用 AsyncTask 可以不用處理 thread, 而且寫法上比較清楚~</p>
-
-<script src="https://gist.github.com/kerkerj/7367244.js"></script>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/06/12/php-checkbox-checkuncheck-all/">[PHP] Checkbox Check/uncheck All</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-06-12T17:23:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2012/06/12/php-checkbox-checkuncheck-all/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2012/06/12/php-checkbox-checkuncheck-all/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>今天在做 checkbox 時, 想做全選/取消全選
-多使用一個 checkbox, 若勾選則是全選, 再點一次則全不選
-於是就產生了這段 code&hellip;</p>
-
-<iframe style="width: 100%; height: 300px" src="http://jsfiddle.net/jerry54010/tmJXb/4/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
-
 </div>
   
   

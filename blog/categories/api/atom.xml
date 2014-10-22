@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Api | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/api/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-21T19:14:02+08:00</updated>
+  <updated>2014-10-22T19:20:30+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,122 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[API-d22] - 實戰開發 - 讀取 TODO Task API With Mongoose]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/22/api-d22/"/>
+    <updated>2014-10-22T19:13:00+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/22/api-d22</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day22">Github 參考</a></p>
+
+<p>如果有使用 MongoDB client 的話就可以搭配使用會比較有感覺</p>
+
+<p>Mac 我是使用 Robomongo，算很好上手~</p>
+
+<p>今天要來實作讀取的部分</p>
+
+<p>讀取有分兩種，一種是讀取 list</p>
+
+<p>另一種是讀取特定某個 todo task，今天兩種都會實作</p>
+
+<p>首先我們先實作 get todo list</p>
+
+<p>因為若要拿到特定的 todo task，需要 todo task 的 id</p>
+
+<p>而我們現在還不曉得 todo task 的 id 是多少，我們只知道 user_id</p>
+
+<p>因此就先從 list 下手</p>
+
+<p>routes/users.js:</p>
+
+<pre><code class="javascript">// Get todo list
+router.get('/:user_id/todos', function(req, res) {
+    var user_id = req.params.user_id;
+
+    TODO.find(
+        {user_id: user_id},
+        function (err, results) {
+            if (err) {
+                res.status(400).json(
+                    { error: "can not find data" }
+                );
+            } else {
+                res.status(200).json(
+                    results
+                );
+            }
+        }
+    );
+});
+</code></pre>
+
+<p>上面程式碼的意思是，先抓到 uri 的 user_id</p>
+
+<p>再來就直接進 db 找，find() 的第一個參數為:</p>
+
+<pre><code>{user_id: user_id},
+</code></pre>
+
+<p>可以想像成是 SQL 語法中的 WHERE 條件</p>
+
+<pre><code>SELECT * WHERE user_id = 'user_id' FROM todos
+</code></pre>
+
+<p>而 callback 則是針對 error 或 results 作處理</p>
+
+<p>試著將 server 跑起來，然後使用 POSTMAN 丟 GET request 試試看</p>
+
+<p>如果沒有資料，就利用昨天實作的 POST API 新增幾個吧！</p>
+
+<p>記得 url 中輸入的 user_id 要在 DB 中有該 user 的資料才找的到資料哦</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%203.17.08.png" alt="images" /></p>
+
+<p>如此一來就有 task id 了!</p>
+
+<p>再來就來實作讀取特定 id 的 task API 吧!</p>
+
+<p>程式碼如下</p>
+
+<p>routes/user.js:</p>
+
+<pre><code>// Get a todo task
+router.get('/:user_id/todos/:todo_id', function(req, res) {
+    var user_id = req.params.user_id;
+    var todo_id = req.params.todo_id;
+
+    TODO.find(
+        { _id: todo_id, user_id: user_id},
+        function (err, results) {
+            if (err) {
+                res.status(400).json(
+                    { error: "can not find data" }
+                );
+            } else {
+                res.status(200).json(
+                    results[0]
+                );
+            }
+        }
+    );
+});
+</code></pre>
+
+<p>這次更簡單了，user_id 及 todo_id 都是從 url 上取值</p>
+
+<p>接著一樣使用 where 條件，將值帶入找資料</p>
+
+<p>最後交給 callback 處理回傳值</p>
+
+<p>將 server 跑起來，試著先從todo list 複製某一筆 _id 的值</p>
+
+<p>丟到 url 中試試看</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%203.21.51.png" alt="image" /></p>
+
+<p>如此一來，讀取特定 task 的 API 也完成囉!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[API-d21] - 實戰開發 - 新增 TODO Task API With Mongoose]]></title>
@@ -764,117 +880,6 @@ $ npm stop
 <p>下 <code>npm test</code> 就是等同於下 <code>mocha</code></p>
 
 <p>上面只是大致上講解一下每個套件如何用，接下來我們會以實際的例子來說明</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[API-d17] - 實戰開發 - 專案結構]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/17/api-d17/"/>
-    <updated>2014-10-17T21:17:00+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/17/api-d17</id>
-    <content type="html"><![CDATA[<p>首先我們就在虛擬機的資料夾底下，建立一個專案資料夾吧!</p>
-
-<p>今天會來簡單切割一下我們的專案目錄</p>
-
-<h2>建立新專案目錄:</h2>
-
-<pre><code>$ cd /vagrant/
-$ mkdir TODOAPI
-$ cd TODOAPI
-$ npm init
-// 輸入專案資訊
-$ 
-</code></pre>
-
-<h2>建立專案結構</h2>
-
-<pre><code>/
-| - bin/
-| - routes/
-| - model/
-| - node_modules/
-| - logs/
-| - config/
-| - test/
-| - app.js
-| - package.json
-</code></pre>
-
-<p>分別講解一下各個 folder 的工作:</p>
-
-<h3><code>bin</code></h3>
-
-<p>筆者會在 <code>bin</code> 資料夾底下放一個 <code>server.js</code></p>
-
-<p>這個 <code>server.js</code> 就是會專門用來啟動一個 <code>app.js</code> instance</p>
-
-<h3><code>routes</code></h3>
-
-<p>基本上如果了解 MVC 架構的話，<code>routes</code> 就是 <code>controller</code> 的意思，其實如果讀者本身夠了解的話，這個資料夾也可以改成 <code>controller</code> 也 ok，應該說，其實資料夾怎麼放都是看個人隨意即可，只是若是要模組化的話，筆者會這樣來處理一個專案結構。</p>
-
-<h3><code>model</code></h3>
-
-<p>拿來放資料庫 schema 以及相關的資料庫操作的資料夾</p>
-
-<h3><code>node_modules</code></h3>
-
-<p>這其實是之後安裝的模組會放在這個資料夾裡，在這邊可以先不用建立沒關係</p>
-
-<h3><code>logs</code></h3>
-
-<p>由於我們是建立一個 restful service，因此 log 的記錄也是很重要的，我們把 log 放在這個資料夾裡</p>
-
-<h3><code>configs</code></h3>
-
-<p>我們在這個資料夾裡放置一些專案設定，例如 db 設定或者是 log 的設定等等</p>
-
-<h3><code>test</code></h3>
-
-<p>撰寫測試程式的資料夾~</p>
-
-<h3><code>app.js</code></h3>
-
-<p>程式的進入點，可以想像成 index.php~</p>
-
-<h3><code>package.json</code></h3>
-
-<p>專案的資訊以及相關模組的資訊都會被放在這裡!</p>
-
-<hr />
-
-<p>其實關於專案結構有許多不同的討論，<code>express</code> 也有一個專案自動產生器，不過如果對結構內容不了解而使用產生器的話，很容易變成只知表面不知內部運作，因此我們還是一步一步來，先定義好我們專案的需求結構</p>
-
-<p>另外，因為我們是建立 restful API service，在此並沒有用到 html 頁面，也因此就沒有 <code>view</code> 或 <code>public</code> 這兩個資料夾囉~</p>
-
-<p>延伸閱讀:</p>
-
-<p>我們可以透過觀摩別人的專案來參考他們的專案架構:</p>
-
-<p><a href="http://scotch.io/tutorials/javascript/node-and-angular-to-do-app-application-organization-and-structure">Node and Angular To-Do App: Application Organization and Structure</a></p>
-
-<p><a href="http://stackoverflow.com/questions/18789864/node-js-express-global-modules-best-practices-for-application-structure">node.js &amp; express - global modules &amp; best practices for application structure</a></p>
-
-<p>在 Github 上的討論，非常值得一看: <a href="https://gist.github.com/lancejpollard/1398757">Github discussion</a></p>
-
-<p>後來覺得也可以模仿 rails 的分法:</p>
-
-<pre><code>/
-| - app/
-| - ----controllers/
-| - ----models/
-| - ----views/
-| - ----helpers/
-| - node_modules/
-| - logs/
-| - libs/
-| - public/
-| - config/
-| - test/
-| - server.js
-| - package.json
-</code></pre>
-
-<p>都 OK!</p>
 ]]></content>
   </entry>
   
