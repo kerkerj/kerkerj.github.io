@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Express | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/express/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-22T19:20:30+08:00</updated>
+  <updated>2014-10-23T15:04:15+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,95 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[API-d23] - 實戰開發 - 修改 TODO Task API With Mongoose]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/23/api-d23/"/>
+    <updated>2014-10-23T14:59:33+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/23/api-d23</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day23">Github 參考</a></p>
+
+<p>接上篇，我們已經可以拿到 todo list 了</p>
+
+<p>也可以拿到特定的 todo task</p>
+
+<p>再來我們就可以編輯特定的 todo task 了對吧?</p>
+
+<p>不囉唆直接進入程式碼</p>
+
+<p>routes/users.js</p>
+
+<pre><code class="javascript">// Update a todo task
+router.put('/:user_id/todos/:todo_id', function(req, res) {
+    var user_id = req.params.user_id;
+    var todo_id = req.params.todo_id;
+    var data = req.body;
+
+    TODO.update(
+        { _id: todo_id, user_id: user_id },
+        { $set: { content: data.content } },
+        function (err, num, raw, results) {
+            if (err) {
+                res.status(400).json(
+                    { error: "update data error" }
+                );
+            } else {
+                TODO.find({ _id: todo_id, user_id: user_id }, function (err, results) {
+                    res.status(201).json(
+                        results[0]
+                    );
+                });
+            }
+        }
+    );
+});
+</code></pre>
+
+<p>這次拿資料要拿三組: user_id, todo_id, 以及 data from req.body</p>
+
+<pre><code>var user_id = req.params.user_id;
+var todo_id = req.params.todo_id;
+var data = req.body;
+</code></pre>
+
+<p>body 的資料很簡單，就是欲修改的 content 的資料:</p>
+
+<pre><code>{ "content": "想修改的資料" }
+</code></pre>
+
+<p>再來，除了是使用 .update 方法以及同樣要下 WHERE 參數外， .update 方法還多了一個參數:</p>
+
+<pre><code>{ _id: todo_id, user_id: user_id },
+{ $set: { content: data.content } },
+</code></pre>
+
+<p>$set 的意思等同於 SQL 語法中的 SET</p>
+
+<p>如果沒有加 $set 變成下面這樣:</p>
+
+<pre><code>{ _id: todo_id, user_id: user_id },
+{ content: data.content } ,
+</code></pre>
+
+<p>整個資料就會被洗掉，變成只有 <code>{ content: data.content }</code></p>
+
+<p>因此有沒有加 $set 差很多哦</p>
+
+<p>後面一樣是 callback 的處理</p>
+
+<p>都寫好後，實際開 POSTMAN 試試看吧!</p>
+
+<p>記得要使用 <code>PUT</code> 來丟 request</p>
+
+<p>例子如下，我把原本的 buy milk 改成 buy milk and banana</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%203.31.57.png" alt="image" /></p>
+
+<p>這樣離完成 API 就不遠啦!</p>
+
+<p>明天就稍微休息一下吧 XD</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[API-d22] - 實戰開發 - 讀取 TODO Task API With Mongoose]]></title>
@@ -703,183 +792,6 @@ module.exports = router;
 <p>詳細還可以參考: <a href="http://zh.wikipedia.org/wiki/HTTP%E7%8A%B6%E6%80%81%E7%A0%81">HTTP status code</a></p>
 
 <p><a href="http://www.restapitutorial.com/httpstatuscodes.html">其他教學</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[API-d18] - 實戰開發 - 套件模組]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/18/api-d18/"/>
-    <updated>2014-10-18T18:28:19+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/18/api-d18</id>
-    <content type="html"><![CDATA[<h2>會使用到的套件:</h2>
-
-<pre><code>主體:
-express - web framework
-body-parser - parse request body
-
-測試相關:
-mocha - test framework
-mocha-mongoose - 用來和 mocha 和 mongoose 中間做介接的套件
-superagent - 拿它來丟 http request
-validator - 用來驗證某個物件是否為某個型別
-expect.js - 類似 BDD 的語法，用來寫測試的
-debug - debug package
-
-DB 相關:
-mongoose - mongodb orm
-mongodb - mongodb native driver
-
-開發相關:
-nodemon - detect file change and restart server
-
-生產環境相關:
-log4js - 記錄 request log
-</code></pre>
-
-<p>這是我的 package.json, 可以複製到專案目錄，然後下 <code>npm install</code></p>
-
-<pre><code>{
-  "name": "TODOAPI",
-  "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
-  "scripts": {
-    "start": "node ./bin/server.js env=development",
-    "test": "./node_modules/mocha/bin/mocha",
-    "test-detail": "./node_modules/mocha/bin/mocha --reporter list",
-    "stop": "pkill -lf server.js"
-  },
-  "author": "kerkerj",
-  "license": "ISC",
-  "dependencies": {
-    "body-parser": "^1.9.0",
-    "debug": "^2.0.0",
-    "expect.js": "^0.3.1",
-    "express": "^4.9.5",
-    "log4js": "^0.6.21",
-    "mocha": "^1.21.4",
-    "mocha-mongoose": "^1.0.1",
-    "mongodb": "^1.4.19",
-    "mongoose": "^3.8.17",
-    "superagent": "^0.20.0",
-    "validator": "^3.19.1"
-  }
-}
-</code></pre>
-
-<h2>安裝套件，及全域套件 mocha</h2>
-
-<pre><code>// in project folder
-$ npm install express body-parser mocha mocha-mongoose superagent validator expect.js debug mongoose mongodb log4js -save 
-$ npm install -g nodemon
-</code></pre>
-
-<h2>各個套件簡單設定</h2>
-
-<p>接下來會針對一些套件作說明，但是由於可能有些人不懂整個專案的運作，因此下面看看就好，之後實作上有問題可以再回來看。</p>
-
-<h2>Nodemon 的作用</h2>
-
-<p>範例:</p>
-
-<pre><code>$ nodemon ./bin/server.js
-...
-</code></pre>
-
-<p>就可以放著不管它了~ 只要檔案有變動，就會自動重開 server</p>
-
-<h2>使用 logger - log4js</h2>
-
-<p>設定 logger - log4js, 並將 log 寫入到 logs/access.log 裏</p>
-
-<pre><code>// Set logger
-var log4js = require('log4js');
-log4js.configure({
-    appenders: [
-        { type: 'console' }, //控制台輸出
-        {
-            type: 'file', //文件輸出
-            filename: 'logs/access.log',
-            maxLogSize: 20000000, // 20 MB
-            backups: 10,
-            category: 'normal'
-        }
-    ],
-    replaceConsole: true
-});
-
-var logger = log4js.getLogger('normal');
-logger.setLevel('INFO');
-
-app.use(log4js.connectLogger(logger, {level: 'auto', format:':method :url'}));
-</code></pre>
-
-<p><a href="http://blog.fens.me/nodejs-log4js/">node log4s</a></p>
-
-<h2>使用 body-parser 處理 request 的資料</h2>
-
-<p>加入 middleware</p>
-
-<pre><code>app.use( bodyParser.json() );
-app.use( bodyParser.urlencoded({ extended: true }) );
-</code></pre>
-
-<p>需要加入 { extended: true/false }, 否則會 warning:</p>
-
-<p>body-parser deprecated undefined extended: provide extended</p>
-
-<p>如果要接收 json request</p>
-
-<p>client 端在 Header 中必須先設定 &ldquo;Content-type: applciation/json&rdquo;</p>
-
-<p>才能夠在 router 中使用 <code>req.body</code> 拿到 json 值</p>
-
-<h2>測試套件</h2>
-
-<pre><code>mocha - 專案
-expect.js - 專案
-superagent - 專案
-</code></pre>
-
-<p>測試流程 -</p>
-
-<p>先跑 server 起來，透過自動化程式自動丟 request 給 server，測試結束</p>
-
-<pre><code>$ npm start
-$ mocha
-$ npm stop
-</code></pre>
-
-<p>所以必須先在 package.json 中設定好 script</p>
-
-<pre><code>{
-    (...)
-    "scripts": {
-      "start": "node ./bin/server.js",
-      "test": "mocha",
-      "stop": "pkill -lf server.js"
-  },
-  (...)
-}
-</code></pre>
-
-<p>由於我將啟動 server 的 script 放在 bin 資料夾裡，因此</p>
-
-<p><code>npm start</code> 的 script 就會執行:</p>
-
-<pre><code>node ./bin/server.js
-</code></pre>
-
-<p><code>npm stop</code> 的話，用到了 *nix 的指令，會先到 process list 中找到和 server.js 有關的 process，然後 kill process (<code>pkill</code>)</p>
-
-<pre><code>pkill -lf server.js
-</code></pre>
-
-<p>跑測試的話，直接下 <code>mocha</code>，在這邊我們也丟一個 script 指定給 <code>npm test</code></p>
-
-<p>下 <code>npm test</code> 就是等同於下 <code>mocha</code></p>
-
-<p>上面只是大致上講解一下每個套件如何用，接下來我們會以實際的例子來說明</p>
 ]]></content>
   </entry>
   

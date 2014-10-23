@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Restful | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/restful/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-22T19:20:30+08:00</updated>
+  <updated>2014-10-23T15:04:15+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,95 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[API-d23] - 實戰開發 - 修改 TODO Task API With Mongoose]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/23/api-d23/"/>
+    <updated>2014-10-23T14:59:33+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/23/api-d23</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day23">Github 參考</a></p>
+
+<p>接上篇，我們已經可以拿到 todo list 了</p>
+
+<p>也可以拿到特定的 todo task</p>
+
+<p>再來我們就可以編輯特定的 todo task 了對吧?</p>
+
+<p>不囉唆直接進入程式碼</p>
+
+<p>routes/users.js</p>
+
+<pre><code class="javascript">// Update a todo task
+router.put('/:user_id/todos/:todo_id', function(req, res) {
+    var user_id = req.params.user_id;
+    var todo_id = req.params.todo_id;
+    var data = req.body;
+
+    TODO.update(
+        { _id: todo_id, user_id: user_id },
+        { $set: { content: data.content } },
+        function (err, num, raw, results) {
+            if (err) {
+                res.status(400).json(
+                    { error: "update data error" }
+                );
+            } else {
+                TODO.find({ _id: todo_id, user_id: user_id }, function (err, results) {
+                    res.status(201).json(
+                        results[0]
+                    );
+                });
+            }
+        }
+    );
+});
+</code></pre>
+
+<p>這次拿資料要拿三組: user_id, todo_id, 以及 data from req.body</p>
+
+<pre><code>var user_id = req.params.user_id;
+var todo_id = req.params.todo_id;
+var data = req.body;
+</code></pre>
+
+<p>body 的資料很簡單，就是欲修改的 content 的資料:</p>
+
+<pre><code>{ "content": "想修改的資料" }
+</code></pre>
+
+<p>再來，除了是使用 .update 方法以及同樣要下 WHERE 參數外， .update 方法還多了一個參數:</p>
+
+<pre><code>{ _id: todo_id, user_id: user_id },
+{ $set: { content: data.content } },
+</code></pre>
+
+<p>$set 的意思等同於 SQL 語法中的 SET</p>
+
+<p>如果沒有加 $set 變成下面這樣:</p>
+
+<pre><code>{ _id: todo_id, user_id: user_id },
+{ content: data.content } ,
+</code></pre>
+
+<p>整個資料就會被洗掉，變成只有 <code>{ content: data.content }</code></p>
+
+<p>因此有沒有加 $set 差很多哦</p>
+
+<p>後面一樣是 callback 的處理</p>
+
+<p>都寫好後，實際開 POSTMAN 試試看吧!</p>
+
+<p>記得要使用 <code>PUT</code> 來丟 request</p>
+
+<p>例子如下，我把原本的 buy milk 改成 buy milk and banana</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%203.31.57.png" alt="image" /></p>
+
+<p>這樣離完成 API 就不遠啦!</p>
+
+<p>明天就稍微休息一下吧 XD</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[API-d22] - 實戰開發 - 讀取 TODO Task API With Mongoose]]></title>
@@ -684,117 +773,6 @@ $ npm stop
 <p>下 <code>npm test</code> 就是等同於下 <code>mocha</code></p>
 
 <p>上面只是大致上講解一下每個套件如何用，接下來我們會以實際的例子來說明</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[API-d17] - 實戰開發 - 專案結構]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/17/api-d17/"/>
-    <updated>2014-10-17T21:17:00+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/17/api-d17</id>
-    <content type="html"><![CDATA[<p>首先我們就在虛擬機的資料夾底下，建立一個專案資料夾吧!</p>
-
-<p>今天會來簡單切割一下我們的專案目錄</p>
-
-<h2>建立新專案目錄:</h2>
-
-<pre><code>$ cd /vagrant/
-$ mkdir TODOAPI
-$ cd TODOAPI
-$ npm init
-// 輸入專案資訊
-$ 
-</code></pre>
-
-<h2>建立專案結構</h2>
-
-<pre><code>/
-| - bin/
-| - routes/
-| - model/
-| - node_modules/
-| - logs/
-| - config/
-| - test/
-| - app.js
-| - package.json
-</code></pre>
-
-<p>分別講解一下各個 folder 的工作:</p>
-
-<h3><code>bin</code></h3>
-
-<p>筆者會在 <code>bin</code> 資料夾底下放一個 <code>server.js</code></p>
-
-<p>這個 <code>server.js</code> 就是會專門用來啟動一個 <code>app.js</code> instance</p>
-
-<h3><code>routes</code></h3>
-
-<p>基本上如果了解 MVC 架構的話，<code>routes</code> 就是 <code>controller</code> 的意思，其實如果讀者本身夠了解的話，這個資料夾也可以改成 <code>controller</code> 也 ok，應該說，其實資料夾怎麼放都是看個人隨意即可，只是若是要模組化的話，筆者會這樣來處理一個專案結構。</p>
-
-<h3><code>model</code></h3>
-
-<p>拿來放資料庫 schema 以及相關的資料庫操作的資料夾</p>
-
-<h3><code>node_modules</code></h3>
-
-<p>這其實是之後安裝的模組會放在這個資料夾裡，在這邊可以先不用建立沒關係</p>
-
-<h3><code>logs</code></h3>
-
-<p>由於我們是建立一個 restful service，因此 log 的記錄也是很重要的，我們把 log 放在這個資料夾裡</p>
-
-<h3><code>configs</code></h3>
-
-<p>我們在這個資料夾裡放置一些專案設定，例如 db 設定或者是 log 的設定等等</p>
-
-<h3><code>test</code></h3>
-
-<p>撰寫測試程式的資料夾~</p>
-
-<h3><code>app.js</code></h3>
-
-<p>程式的進入點，可以想像成 index.php~</p>
-
-<h3><code>package.json</code></h3>
-
-<p>專案的資訊以及相關模組的資訊都會被放在這裡!</p>
-
-<hr />
-
-<p>其實關於專案結構有許多不同的討論，<code>express</code> 也有一個專案自動產生器，不過如果對結構內容不了解而使用產生器的話，很容易變成只知表面不知內部運作，因此我們還是一步一步來，先定義好我們專案的需求結構</p>
-
-<p>另外，因為我們是建立 restful API service，在此並沒有用到 html 頁面，也因此就沒有 <code>view</code> 或 <code>public</code> 這兩個資料夾囉~</p>
-
-<p>延伸閱讀:</p>
-
-<p>我們可以透過觀摩別人的專案來參考他們的專案架構:</p>
-
-<p><a href="http://scotch.io/tutorials/javascript/node-and-angular-to-do-app-application-organization-and-structure">Node and Angular To-Do App: Application Organization and Structure</a></p>
-
-<p><a href="http://stackoverflow.com/questions/18789864/node-js-express-global-modules-best-practices-for-application-structure">node.js &amp; express - global modules &amp; best practices for application structure</a></p>
-
-<p>在 Github 上的討論，非常值得一看: <a href="https://gist.github.com/lancejpollard/1398757">Github discussion</a></p>
-
-<p>後來覺得也可以模仿 rails 的分法:</p>
-
-<pre><code>/
-| - app/
-| - ----controllers/
-| - ----models/
-| - ----views/
-| - ----helpers/
-| - node_modules/
-| - logs/
-| - libs/
-| - public/
-| - config/
-| - test/
-| - server.js
-| - package.json
-</code></pre>
-
-<p>都 OK!</p>
 ]]></content>
   </entry>
   

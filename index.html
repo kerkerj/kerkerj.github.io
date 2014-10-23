@@ -172,7 +172,7 @@ Day19 -  <a href="http://kerkerj.github.io/blog/2014/10/19/api-d19/">[API-d19] -
 Day20 -  <a href="http://kerkerj.github.io/blog/2014/10/20/api-d20/">[API-d20] - 實戰開發 - Routes 2, get params and request data</a><br/>
 Day21 -  <a href="http://kerkerj.github.io/blog/2014/10/21/api-d21/">[API-d21] - 實戰開發 - 新增 TODO task API with mongoose</a><br/>
 Day22 -  <a href="http://kerkerj.github.io/blog/2014/10/22/api-d22/">[API-d22] - 實戰開發 - 讀取 TODO task API with mongoose</a><br/>
-Day23 -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day23 -  <a href="http://kerkerj.github.io/blog/2014/10/23/api-d23/">[API-d23] - 實戰開發 - 修改 TODO task API with mongoose</a><br/>
 Day24 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day25 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day26 -  <a href="http://kerkerj.github.io/">#</a><br/>
@@ -205,7 +205,7 @@ Day19 -  <a href="http://kerkerj.github.io/blog/2014/10/19/swift-d19/">[Swift-d1
 Day20 -  <a href="http://kerkerj.github.io/blog/2014/10/20/swift-d20/">[Swift-d20] - Basic - 捨棄 Storyboard 使用純程式碼 的方式撰寫 ViewController</a><br/>
 Day21 -  <a href="http://kerkerj.github.io/blog/2014/10/21/swift-d21/">[Swift-d21] - 實戰開發 - TODOList - 前置設定</a><br/>
 Day22 -  <a href="http://kerkerj.github.io/blog/2014/10/22/swift-d22/">[Swift-d22] - 實戰開發 - TODOList - Show View 1</a><br/>
-Day23 -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day23 -  <a href="http://kerkerj.github.io/blog/2014/10/23/swift-d23/">[Swift-d23] - 實戰開發 - TODOList - Show View 2, Delete View</a><br/>
 Day24 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day25 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day26 -  <a href="http://kerkerj.github.io/">#</a><br/>
@@ -213,6 +213,319 @@ Day27 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day28 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day29 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day30 -  <a href="http://kerkerj.github.io/">#</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/23/swift-d23/">[Swift-d23] - 實戰開發 - TODOList - Show View 2, Delete View</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-23T14:59:37+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/10/23/swift-d23/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/23/swift-d23/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day23">Github link</a></p>
+
+<p>延續昨天，接下來要做換頁</p>
+
+<p>因此我們必須先新建立一個 ShowViewController, 以及他的 xib</p>
+
+<p>接著我們在 xib 拉幾個元件: 兩個 label, 一個用來顯示目前的 index, 另一個則是顯示內容</p>
+
+<p>拉好後，將這兩個元件設定連結到 ShowViewController.swift</p>
+
+<p><img src="http://goo.gl/XPjBik" alt="image" /></p>
+
+<p>另外多在 ShowViewController 中放兩個變數</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>var index: Int!
+</span><span class='line'>var content: String!</span></code></pre></td></tr></table></div></figure>
+
+
+<p>回到 ViewController, 到 tableView didSelectRowAtIndexPath 中</p>
+
+<p>因為 didSelectRowAtIndexPath 的意思就是當 cell 被選取時要做什麼事情</p>
+
+<p>因此當 cell 被選取時，我們就要讓他跳到下一頁，並且是使用 ShowViewController 來顯示資料</p>
+
+<p>因此修改此方法:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+</span><span class='line'>    var showViewController = ShowViewController(nibName: "ShowViewController", bundle: nil)
+</span><span class='line'>    showViewController.index = indexPath.row
+</span><span class='line'>    showViewController.content = fakeData[indexPath.row]["content"]
+</span><span class='line'>    
+</span><span class='line'>    // 回復非選取狀態
+</span><span class='line'>    tableView.deselectRowAtIndexPath(indexPath, animated: true)
+</span><span class='line'>    self.navigationController?.pushViewController(showViewController, animated: true)
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>最後在 ShowViewController 中的 viewDidLoad 加入:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>    indexLabel.text = "\(index)"
+</span><span class='line'>    contentLabel.text = content</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這樣一來在 ShowViewController 被建立時，顯示的 label 就會將上一個 view 設定的 index, content 的值顯示出來了</p>
+
+<p>執行看看!</p>
+
+<p><img src="http://goo.gl/Uib0IA" alt="image" /></p>
+
+<p>這樣 Show 的部分就完成了!</p>
+
+<p>接著我們回到主頁</p>
+
+<p>要來建立將 cell 向左滑可以刪除的事件，這是 iOS 內建的事件，</p>
+
+<p>因此建立方法也很簡單:</p>
+
+<p>一樣是覆寫 tableView 的方法</p>
+
+<p>要讓 tableView 可以編輯 row - canEditRowAtIndexPath</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -&gt; Bool {
+</span><span class='line'>    return true
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>按下確認刪除後的行為 - 我們在這邊實際上是刪除 fakeData 的值</p>
+
+<p>所以只要 App 重開後就又會回到三筆資料了</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+</span><span class='line'>
+</span><span class='line'>    self.fakeData.removeAtIndex(indexPath.row)
+</span><span class='line'>    
+</span><span class='line'>    dispatch_async(dispatch_get_main_queue(), {
+</span><span class='line'>        // must be "tableView!" not "tableView?"
+</span><span class='line'>        self.tableView!.reloadData()
+</span><span class='line'>    })
+</span><span class='line'>
+</span><span class='line'>    let alert = UIAlertView()
+</span><span class='line'>    alert.title = "Alert"
+</span><span class='line'>    alert.message = "Deleted!"
+</span><span class='line'>    alert.addButtonWithTitle("Ok")
+</span><span class='line'>    alert.show()
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這樣我們就有顯示單筆以及顯示多筆還有刪除可以用了!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/23/api-d23/">[API-d23] - 實戰開發 - 修改 TODO Task API With Mongoose</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-23T14:59:33+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/10/23/api-d23/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/23/api-d23/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day23">Github 參考</a></p>
+
+<p>接上篇，我們已經可以拿到 todo list 了</p>
+
+<p>也可以拿到特定的 todo task</p>
+
+<p>再來我們就可以編輯特定的 todo task 了對吧?</p>
+
+<p>不囉唆直接進入程式碼</p>
+
+<p>routes/users.js</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Update a todo task</span>
+</span><span class='line'><span class="nx">router</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="s1">&#39;/:user_id/todos/:todo_id&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">user_id</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">user_id</span><span class="p">;</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">todo_id</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">todo_id</span><span class="p">;</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">TODO</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span>
+</span><span class='line'>        <span class="p">{</span> <span class="nx">_id</span><span class="o">:</span> <span class="nx">todo_id</span><span class="p">,</span> <span class="nx">user_id</span><span class="o">:</span> <span class="nx">user_id</span> <span class="p">},</span>
+</span><span class='line'>        <span class="p">{</span> <span class="nx">$set</span><span class="o">:</span> <span class="p">{</span> <span class="nx">content</span><span class="o">:</span> <span class="nx">data</span><span class="p">.</span><span class="nx">content</span> <span class="p">}</span> <span class="p">},</span>
+</span><span class='line'>        <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">num</span><span class="p">,</span> <span class="nx">raw</span><span class="p">,</span> <span class="nx">results</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">400</span><span class="p">).</span><span class="nx">json</span><span class="p">(</span>
+</span><span class='line'>                    <span class="p">{</span> <span class="nx">error</span><span class="o">:</span> <span class="s2">&quot;update data error&quot;</span> <span class="p">}</span>
+</span><span class='line'>                <span class="p">);</span>
+</span><span class='line'>            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>                <span class="nx">TODO</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span> <span class="nx">_id</span><span class="o">:</span> <span class="nx">todo_id</span><span class="p">,</span> <span class="nx">user_id</span><span class="o">:</span> <span class="nx">user_id</span> <span class="p">},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">results</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">201</span><span class="p">).</span><span class="nx">json</span><span class="p">(</span>
+</span><span class='line'>                        <span class="nx">results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span><span class='line'>                    <span class="p">);</span>
+</span><span class='line'>                <span class="p">});</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這次拿資料要拿三組: user_id, todo_id, 以及 data from req.body</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">user_id</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">user_id</span><span class="p">;</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">todo_id</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">todo_id</span><span class="p">;</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>body 的資料很簡單，就是欲修改的 content 的資料:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span> <span class="s2">&quot;content&quot;</span><span class="o">:</span> <span class="s2">&quot;想修改的資料&quot;</span> <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>再來，除了是使用 .update 方法以及同樣要下 WHERE 參數外， .update 方法還多了一個參數:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span> <span class="nx">_id</span><span class="o">:</span> <span class="nx">todo_id</span><span class="p">,</span> <span class="nx">user_id</span><span class="o">:</span> <span class="nx">user_id</span> <span class="p">},</span>
+</span><span class='line'><span class="p">{</span> <span class="nx">$set</span><span class="o">:</span> <span class="p">{</span> <span class="nx">content</span><span class="o">:</span> <span class="nx">data</span><span class="p">.</span><span class="nx">content</span> <span class="p">}</span> <span class="p">},</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>$set 的意思等同於 SQL 語法中的 SET</p>
+
+<p>如果沒有加 $set 變成下面這樣:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span> <span class="nx">_id</span><span class="o">:</span> <span class="nx">todo_id</span><span class="p">,</span> <span class="nx">user_id</span><span class="o">:</span> <span class="nx">user_id</span> <span class="p">},</span>
+</span><span class='line'><span class="p">{</span> <span class="nx">content</span><span class="o">:</span> <span class="nx">data</span><span class="p">.</span><span class="nx">content</span> <span class="p">}</span> <span class="p">,</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>整個資料就會被洗掉，變成只有 <code>{ content: data.content }</code></p>
+
+<p>因此有沒有加 $set 差很多哦</p>
+
+<p>後面一樣是 callback 的處理</p>
+
+<p>都寫好後，實際開 POSTMAN 試試看吧!</p>
+
+<p>記得要使用 <code>PUT</code> 來丟 request</p>
+
+<p>例子如下，我把原本的 buy milk 改成 buy milk and banana</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%203.31.57.png" alt="image" /></p>
+
+<p>這樣離完成 API 就不遠啦!</p>
+
+<p>明天就稍微休息一下吧 XD</p>
 </div>
   
   
@@ -1764,403 +2077,6 @@ Day30 -  <a href="http://kerkerj.github.io/">#</a></p>
 <p>哈哈 雖然說沒圖沒真相但是&hellip;XD</p>
 
 <p>橋接第三方套件就是那麼簡單! :D</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/19/api-d19/">[API-d19] - 實戰開發 - Index & Route & Http Status Code</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-19T21:19:24+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/10/19/api-d19/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/19/api-d19/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day19">Github 參考</a></p>
-
-<p>昨天先把專案目錄初始化，裝完該裝的套件後</p>
-
-<p>在 routes 中加入一個 index.js 檔案</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;express&#39;</span><span class="p">);</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">router</span> <span class="o">=</span> <span class="nx">express</span><span class="p">.</span><span class="nx">Router</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">router</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">200</span><span class="p">).</span><span class="nx">json</span><span class="p">({</span> <span class="nx">greetings</span><span class="o">:</span> <span class="s2">&quot;hello world!&quot;</span><span class="p">});</span>
-</span><span class='line'><span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">router</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>建立一個 <code>app.js</code> 在專案根目錄中:</p>
-
-<p>app.js</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;express&#39;</span><span class="p">);</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">index</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./routes/index&#39;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// Set routers</span>
-</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="nx">index</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">app</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>然後在 bin 資料夾建立一個 server.js:</p>
-
-<p>bin/server.js:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">var</span> <span class="nx">debug</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;debug&#39;</span><span class="p">)(</span><span class="s1">&#39;TODOAPI&#39;</span><span class="p">);</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../app&#39;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;port&#39;</span><span class="p">,</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">PORT</span> <span class="o">||</span> <span class="mi">3000</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">var</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;port&#39;</span><span class="p">),</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;Express server listening on port &#39;</span> <span class="o">+</span> <span class="nx">server</span><span class="p">.</span><span class="nx">address</span><span class="p">().</span><span class="nx">port</span><span class="p">);</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>並且在 package.json 中修改並加入:</p>
-
-<p>加入 <code>start</code> : <code>"start": "node ./bin/server.js",</code></p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="s2">&quot;scripts&quot;</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>    <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="s2">&quot;node ./bin/server.js&quot;</span><span class="p">,</span>
-</span><span class='line'>    <span class="s2">&quot;test&quot;</span><span class="o">:</span> <span class="s2">&quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;</span>
-</span><span class='line'>  <span class="p">},</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>這樣我們就可以透過 <code>npm start</code> 來啟動 server 了!</p>
-
-<p>試著啟動看看 <code>npm start</code></p>
-
-<p>到網址列輸入 <code>http://localhost:3000/</code></p>
-
-<p>就可以看到 <code>{"greetings":"hello world!"}</code> 了!</p>
-
-<p>我們從本文的後面往回看：其實就是一個 request 會經過的地方:</p>
-
-<p>當我們下了 <code>npm start</code>，npm 會搜尋 package.json 中有沒有 <code>start</code> 指令</p>
-
-<p>若有的話就會執行他所設定的指令 <code>node ./bin/server.js</code></p>
-
-<p>這樣就會執行 server.js 了</p>
-
-<p>我們再看一下 server.js，講解在底下的註解:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// 使用嚴格模式</span>
-</span><span class='line'><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// 加入 debugger</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">debug</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;debug&#39;</span><span class="p">)(</span><span class="s1">&#39;TODOAPI&#39;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// 將我們寫的 app.js 引入，建立一個 app instance</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../app&#39;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// 設定 app instance 的 port, 若環境變數有設定的話就使用環境變數的值</span>
-</span><span class='line'><span class="c1">// 沒有設定環境變數的話則是 3000</span>
-</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;port&#39;</span><span class="p">,</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">PORT</span> <span class="o">||</span> <span class="mi">3000</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// 啟動 server，讓 server 監聽剛剛上一行所設定的 port，</span>
-</span><span class='line'><span class="c1">// 並且使用 debugger</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;port&#39;</span><span class="p">),</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;Express server listening on port &#39;</span> <span class="o">+</span> <span class="nx">server</span><span class="p">.</span><span class="nx">address</span><span class="p">().</span><span class="nx">port</span><span class="p">);</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>既然 server.js 啟動了一個 app.js 的 instance</p>
-
-<p>那我們就要來看一下 app.js</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// 引入 express 模組</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;express&#39;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// 初始化一個 express instance</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// 將 route 引入</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">index</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./routes/index&#39;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// 設定若有 request 進到 http://localhost:3000/ 時，</span>
-</span><span class='line'><span class="c1">// 交給 routes/index.js 來作後續處理</span>
-</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="nx">index</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="err">最後這一行是這個檔案</span> <span class="kr">export</span> <span class="err">成一個模組</span>
-</span><span class='line'><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">app</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>那現在我們了解到了，如果有一個要求打進了 <code>http://localhost:3000/</code></p>
-
-<p>它會將該要求轉發給 routes/index.js 來作處理</p>
-
-<p>因此我們再進到 index.js 看看內容</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// 使用嚴格模式</span>
-</span><span class='line'><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// 引入 express 模組</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;express&#39;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// 在這邊我們要使用 express 模組中的 Router</span>
-</span><span class='line'><span class="c1">// 因為在 app.js 中，若是使用 app.use(&#39;/&#39;, index)</span>
-</span><span class='line'><span class="c1">// 該 index 物件必須是一個 Router 物件，</span>
-</span><span class='line'><span class="c1">// 因此在這邊我們才會這樣寫</span>
-</span><span class='line'><span class="c1">// 於是 router 就是一個 express 的 router 物件了</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">router</span> <span class="o">=</span> <span class="nx">express</span><span class="p">.</span><span class="nx">Router</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// 設定該  router 有哪些路徑要來聽</span>
-</span><span class='line'><span class="c1">// 在這邊我們設定當有 request 進到 根目錄，</span>
-</span><span class='line'><span class="c1">// 且是使用 GET 方法時，我們的回覆是:</span>
-</span><span class='line'><span class="c1">// HTTP status code 爲 200</span>
-</span><span class='line'><span class="c1">// 回傳的資料為 json 格式，傳入的內容是一個 javascript 物件</span>
-</span><span class='line'><span class="c1">// .json 方法會幫我們轉成 json 格式回傳給使用者</span>
-</span><span class='line'><span class="nx">router</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">200</span><span class="p">).</span><span class="nx">json</span><span class="p">({</span> <span class="nx">greetings</span><span class="o">:</span> <span class="s2">&quot;hello world!&quot;</span><span class="p">});</span>
-</span><span class='line'><span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// 最後將這個檔案 export 成一個 router 模組</span>
-</span><span class='line'><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">router</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>所以透過這樣的方式我們就了解到了一個 request 是如何在模組化後的程式奔跑遊走</p>
-
-<p>另外要特別提到的是 http status code</p>
-
-<p>http status code 其實是一個非常好讓 client 知道這次 API request 發生什麼事的資料，充分利用 HTTP 協議所定義的狀態碼</p>
-
-<p>我們有時候瀏覽網頁會看到: 404 Not found! 或是 500 Internal Server Error</p>
-
-<p>這就是 HTTP status code</p>
-
-<p>那我們可以透過定義好回傳的 http status code 來代表此次 request 的狀態</p>
-
-<p>例如：</p>
-
-<p>client 端輸入的 API 網址錯誤了</p>
-
-<p>我們就回傳 status code: 404</p>
-
-<p>如果是不小心 server 的 code 寫錯了，導致該次 request 完全讓 server 死掉了，</p>
-
-<p>那就可以回傳 500 interanl server error</p>
-
-<p>因此在做 error handling 時，請定義好 status code，他一定會有幫助的!</p>
-
-<p>常用的 status code:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="mi">200</span> <span class="o">-</span> <span class="nx">Success</span>
-</span><span class='line'><span class="mi">201</span> <span class="o">-</span> <span class="nx">Created</span>
-</span><span class='line'><span class="mi">400</span> <span class="o">-</span> <span class="nx">Bad</span> <span class="nx">request</span>
-</span><span class='line'><span class="mi">401</span> <span class="o">-</span> <span class="nx">Unauthorized</span>
-</span><span class='line'><span class="mi">403</span> <span class="o">-</span> <span class="nx">Forbidden</span>
-</span><span class='line'><span class="mi">404</span> <span class="o">-</span> <span class="nx">Not</span> <span class="nx">found</span>
-</span><span class='line'><span class="mi">500</span> <span class="o">-</span> <span class="nx">Internal</span> <span class="nx">Server</span> <span class="nb">Error</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>詳細還可以參考: <a href="http://zh.wikipedia.org/wiki/HTTP%E7%8A%B6%E6%80%81%E7%A0%81">HTTP status code</a></p>
-
-<p><a href="http://www.restapitutorial.com/httpstatuscodes.html">其他教學</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/19/swift-push-slash-pop-views-delay/">Swift - Push/Pop Views Delay</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-19T00:33:11+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/10/19/swift-push-slash-pop-views-delay/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/19/swift-push-slash-pop-views-delay/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>請大家先看看下面的小短片，注意一下過場動畫的流暢度</p>
-
-<p>一開始是沒有加過場動畫，後來改程式碼變成有過場動畫</p>
-
-<p><a href="http://www.youtube.com/watch?feature=player_embedded&v=dqxDFv-iieU
-" target="_blank"><img src="http://img.youtube.com/vi/dqxDFv-iieU/0.jpg"
-alt="IMAGE ALT TEXT HERE" width="420" height="315" border="10" /></a></p>
-
-<p><a href="https://www.youtube.com/watch?v=dqxDFv-iieU">direct link</a></p>
-
-<p>後來發現給一個預設的 backgroundColor 後就不會發生殘影的問題了</p>
-
-<p>是因為 push 的 view 沒有 backgroundColor</p>
-
-<p>和同事討論後發現:</p>
-
-<p><a href="https://developer.apple.com/library/IOs/documentation/UIKit/Reference/UIView_Class/index.html#//apple_ref/occ/instp/UIView/backgroundColor">Apple Developer Reference</a></p>
-
-<p>UIView 的 backgroundColor 的 default 值是 null!</p>
-
-<blockquote><p>Discussion
-Changes to this property can be animated. The default value is nil, which results in a transparent background color.</p></blockquote>
-
-<p>所以是這個原因導致在轉場的時候有殘影</p>
-
-<p>不過切換 View 時 target view 沒有 backgroundColor 的情況應該比較少吧&hellip;(?)</p>
-
-<p>剛好在寫鐵人賽的 app 想先把流程弄出來時遇到了這個雷 XD</p>
 </div>
   
   

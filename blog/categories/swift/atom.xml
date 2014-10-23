@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Swift | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/swift/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-22T19:20:30+08:00</updated>
+  <updated>2014-10-23T15:04:15+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,102 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[Swift-d23] - 實戰開發 - TODOList - Show View 2, Delete View]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/23/swift-d23/"/>
+    <updated>2014-10-23T14:59:37+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/23/swift-d23</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day23">Github link</a></p>
+
+<p>延續昨天，接下來要做換頁</p>
+
+<p>因此我們必須先新建立一個 ShowViewController, 以及他的 xib</p>
+
+<p>接著我們在 xib 拉幾個元件: 兩個 label, 一個用來顯示目前的 index, 另一個則是顯示內容</p>
+
+<p>拉好後，將這兩個元件設定連結到 ShowViewController.swift</p>
+
+<p><img src="http://goo.gl/XPjBik" alt="image" /></p>
+
+<p>另外多在 ShowViewController 中放兩個變數</p>
+
+<pre><code>var index: Int!
+var content: String!
+</code></pre>
+
+<p>回到 ViewController, 到 tableView didSelectRowAtIndexPath 中</p>
+
+<p>因為 didSelectRowAtIndexPath 的意思就是當 cell 被選取時要做什麼事情</p>
+
+<p>因此當 cell 被選取時，我們就要讓他跳到下一頁，並且是使用 ShowViewController 來顯示資料</p>
+
+<p>因此修改此方法:</p>
+
+<pre><code>    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        var showViewController = ShowViewController(nibName: "ShowViewController", bundle: nil)
+        showViewController.index = indexPath.row
+        showViewController.content = fakeData[indexPath.row]["content"]
+
+        // 回復非選取狀態
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        self.navigationController?.pushViewController(showViewController, animated: true)
+    }
+</code></pre>
+
+<p>最後在 ShowViewController 中的 viewDidLoad 加入:</p>
+
+<pre><code>        indexLabel.text = "\(index)"
+        contentLabel.text = content
+</code></pre>
+
+<p>這樣一來在 ShowViewController 被建立時，顯示的 label 就會將上一個 view 設定的 index, content 的值顯示出來了</p>
+
+<p>執行看看!</p>
+
+<p><img src="http://goo.gl/Uib0IA" alt="image" /></p>
+
+<p>這樣 Show 的部分就完成了!</p>
+
+<p>接著我們回到主頁</p>
+
+<p>要來建立將 cell 向左滑可以刪除的事件，這是 iOS 內建的事件，</p>
+
+<p>因此建立方法也很簡單:</p>
+
+<p>一樣是覆寫 tableView 的方法</p>
+
+<p>要讓 tableView 可以編輯 row - canEditRowAtIndexPath</p>
+
+<pre><code>    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -&gt; Bool {
+        return true
+    }
+</code></pre>
+
+<p>按下確認刪除後的行為 - 我們在這邊實際上是刪除 fakeData 的值</p>
+
+<p>所以只要 App 重開後就又會回到三筆資料了</p>
+
+<pre><code>    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+
+        self.fakeData.removeAtIndex(indexPath.row)
+
+        dispatch_async(dispatch_get_main_queue(), {
+            // must be "tableView!" not "tableView?"
+            self.tableView!.reloadData()
+        })
+
+        let alert = UIAlertView()
+        alert.title = "Alert"
+        alert.message = "Deleted!"
+        alert.addButtonWithTitle("Ok")
+        alert.show()
+    }
+</code></pre>
+
+<p>這樣我們就有顯示單筆以及顯示多筆還有刪除可以用了!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[Swift-d22] - 實戰開發 - TODOList - Show View 1]]></title>
@@ -454,42 +550,6 @@ class ViewController: UIViewController {
 <p>哈哈 雖然說沒圖沒真相但是&hellip;XD</p>
 
 <p>橋接第三方套件就是那麼簡單! :D</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Swift - Push/Pop Views Delay]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/19/swift-push-slash-pop-views-delay/"/>
-    <updated>2014-10-19T00:33:11+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/19/swift-push-slash-pop-views-delay</id>
-    <content type="html"><![CDATA[<p>請大家先看看下面的小短片，注意一下過場動畫的流暢度</p>
-
-<p>一開始是沒有加過場動畫，後來改程式碼變成有過場動畫</p>
-
-<p><a href="http://www.youtube.com/watch?feature=player_embedded&v=dqxDFv-iieU
-" target="_blank"><img src="http://img.youtube.com/vi/dqxDFv-iieU/0.jpg"
-alt="IMAGE ALT TEXT HERE" width="420" height="315" border="10" /></a></p>
-
-<p><a href="https://www.youtube.com/watch?v=dqxDFv-iieU">direct link</a></p>
-
-<p>後來發現給一個預設的 backgroundColor 後就不會發生殘影的問題了</p>
-
-<p>是因為 push 的 view 沒有 backgroundColor</p>
-
-<p>和同事討論後發現:</p>
-
-<p><a href="https://developer.apple.com/library/IOs/documentation/UIKit/Reference/UIView_Class/index.html#//apple_ref/occ/instp/UIView/backgroundColor">Apple Developer Reference</a></p>
-
-<p>UIView 的 backgroundColor 的 default 值是 null!</p>
-
-<blockquote><p>Discussion
-Changes to this property can be animated. The default value is nil, which results in a transparent background color.</p></blockquote>
-
-<p>所以是這個原因導致在轉場的時候有殘影</p>
-
-<p>不過切換 View 時 target view 沒有 backgroundColor 的情況應該比較少吧&hellip;(?)</p>
-
-<p>剛好在寫鐵人賽的 app 想先把流程弄出來時遇到了這個雷 XD</p>
 ]]></content>
   </entry>
   
