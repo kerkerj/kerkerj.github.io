@@ -98,6 +98,693 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2014/10/05/swift-d5/">[Swift-d5] - Playground - Array, Dictionary, Controll Flow</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-05T16:40:23+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/10/05/swift-d5/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/05/swift-d5/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>Array</h2>
+
+<h3>宣告</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="c1">// var VARIABLE_NAME: [TYPE] = .....</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">var</span> <span class="nl">fruits</span><span class="p">:</span> <span class="p">[</span><span class="n">String</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;apple&quot;</span><span class="p">,</span> <span class="s">&quot;banana&quot;</span><span class="p">]</span>
+</span><span class='line'><span class="k">var</span> <span class="nl">nums</span><span class="p">:</span> <span class="p">[</span><span class="n">Int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 或是讓 Swift 自行判斷類型:</span>
+</span><span class='line'><span class="k">var</span> <span class="n">fruits</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;apple&quot;</span><span class="p">,</span> <span class="s">&quot;banana&quot;</span><span class="p">]</span>
+</span><span class='line'><span class="k">var</span> <span class="n">nums</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 初始化:</span>
+</span><span class='line'><span class="k">var</span> <span class="n">cars</span> <span class="o">=</span> <span class="p">[</span><span class="n">String</span><span class="p">]()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ps. Beta 版時的寫法是 <code>var fruits: String[]</code></p>
+
+<p>現在已經變成了 <code>var fruits: [String]</code></p>
+
+<h3>操作</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="c1">// 判斷該陣列是否有值，回傳 true 或 false</span>
+</span><span class='line'><span class="n">fruits</span><span class="p">.</span><span class="n">isEmpty</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 增加元素</span>
+</span><span class='line'><span class="n">fruits</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;watermelon&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="n">fruits</span> <span class="o">+=</span> <span class="p">[</span><span class="s">&quot;lemon&quot;</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 取值 </span>
+</span><span class='line'><span class="n">fruits</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span><span class='line'><span class="n">fruits</span><span class="p">[</span><span class="mf">0.</span><span class="p">.</span><span class="mf">.2</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 刪除值 - 將 apple 移除，banana 會自動補上</span>
+</span><span class='line'><span class="n">fruits</span><span class="p">.</span><span class="n">removeAtIndex</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span><span class='line'><span class="n">fruits</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 兩個陣列合併 (必須相同類別 e.g. String)</span>
+</span><span class='line'><span class="n">fruits</span> <span class="o">+</span> <span class="n">cars</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 陣列元素數量</span>
+</span><span class='line'><span class="n">fruits</span><span class="p">.</span><span class="n">count</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Dictionary</h2>
+
+<h3>宣告</h3>
+
+<p>由於 Dictionary 是 key/value 為一組 (pair)，</p>
+
+<p>因此宣告時必須宣告 key 和 value 分別是哪種型別</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">var</span> <span class="nl">httpStatus</span><span class="p">:</span> <span class="n">Dictionary</span><span class="o">&lt;</span><span class="n">Int</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">Dictionary</span><span class="o">&lt;</span><span class="n">Int</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">var</span> <span class="nl">httpStatus</span><span class="p">:</span> <span class="n">Dictionary</span><span class="o">&lt;</span><span class="n">Int</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">[</span><span class="mi">200</span><span class="o">:</span> <span class="s">&quot;Success&quot;</span><span class="p">,</span> <span class="mi">404</span><span class="o">:</span> <span class="s">&quot;Not found&quot;</span><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>操作</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="c1">// 一樣有 isEmpty 方法</span>
+</span><span class='line'><span class="n">httpStatus</span><span class="p">.</span><span class="n">isEmpty</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 取值</span>
+</span><span class='line'><span class="n">httpStatus</span><span class="p">[</span><span class="mi">200</span><span class="p">]</span> <span class="c1">// = &quot;Success&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 加入值</span>
+</span><span class='line'><span class="n">httpStatus</span><span class="p">[</span><span class="mi">500</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;Internal Server Error&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 修改值</span>
+</span><span class='line'><span class="n">httpStatus</span><span class="p">[</span><span class="mi">200</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;True&quot;</span>
+</span><span class='line'><span class="n">httpStatus</span><span class="p">.</span><span class="n">updateValue</span><span class="p">(</span><span class="s">&quot;internal server error&quot;</span><span class="p">,</span> <span class="nl">forKey</span><span class="p">:</span> <span class="mi">500</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 刪除值</span>
+</span><span class='line'><span class="n">httpStatus</span><span class="p">.</span><span class="n">removeValueForKey</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 字典元素數量</span>
+</span><span class='line'><span class="n">httpStatus</span><span class="p">.</span><span class="n">count</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Controll Flow</h2>
+
+<h3>For loop</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">for</span> <span class="n">fruit</span> <span class="k">in</span> <span class="n">fruits</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">println</span><span class="p">(</span><span class="n">fruit</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">for</span> <span class="k">var</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="n">fruits</span><span class="p">.</span><span class="n">count</span><span class="p">;</span> <span class="o">++</span><span class="n">index</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">println</span><span class="p">(</span><span class="n">fruits</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>While</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">var</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'><span class="k">while</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="n">fruits</span><span class="p">.</span><span class="n">count</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">println</span><span class="p">(</span><span class="n">fruits</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+</span><span class='line'>    <span class="n">index</span><span class="o">++</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Do-while</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">var</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'><span class="k">do</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">println</span><span class="p">(</span><span class="n">fruits</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+</span><span class='line'>  <span class="n">index</span><span class="o">++</span>
+</span><span class='line'><span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">index</span> <span class="o">&lt;</span> <span class="n">fruits</span><span class="p">.</span><span class="n">count</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>If</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">var</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">5566</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">5566</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">println</span><span class="p">(</span><span class="s">&quot;5566 不能亡&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">5566</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">println</span><span class="p">(</span><span class="s">&quot;5566 不能亡&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">println</span><span class="p">(</span><span class="s">&quot;You are not 5566&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">5566</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">println</span><span class="p">(</span><span class="s">&quot;5566 不能亡&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="mi">5566</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">println</span><span class="p">(</span><span class="s">&quot;You are less than 5566&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">println</span><span class="p">(</span><span class="s">&quot;You are bigger than 5566&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Switch</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">var</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">switch</span> <span class="n">index</span> <span class="p">{</span>
+</span><span class='line'><span class="k">case</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span>
+</span><span class='line'>  <span class="n">println</span><span class="p">(</span><span class="s">&quot;small&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="k">case</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">11</span>
+</span><span class='line'>  <span class="n">println</span><span class="p">(</span><span class="s">&quot;big&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="k">default</span><span class="o">:</span>
+</span><span class='line'>  <span class="n">println</span><span class="p">(</span><span class="s">&quot;others&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>引入 Tuple</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">let</span> <span class="n">httpStatus</span> <span class="o">=</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s">&quot;Success&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">switch</span> <span class="n">httpStatus</span> <span class="p">{</span>
+</span><span class='line'><span class="k">case</span> <span class="p">(</span><span class="k">let</span> <span class="n">statusCode</span><span class="p">,</span> <span class="s">&quot;Error&quot;</span><span class="p">)</span><span class="o">:</span>
+</span><span class='line'>    <span class="n">println</span><span class="p">(</span><span class="s">&quot;(\(statusCode)) is Error&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="k">case</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="k">let</span> <span class="n">msg</span><span class="p">)</span><span class="o">:</span>
+</span><span class='line'>    <span class="n">println</span><span class="p">(</span><span class="s">&quot;(\(msg))&#39;s statusCode is 200&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Switch - break, continue, fallthrough</h2>
+
+<h3>Continue</h3>
+
+<p>continue 會使該次的 loop 停止，並繼續執行下一個 loop</p>
+
+<p>continue 不存在於單一的 switch, 只會在 loop 裡的 switch 語句時才能使用</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">var</span> <span class="n">fruits</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;apple&quot;</span><span class="p">,</span> <span class="s">&quot;banana&quot;</span><span class="p">,</span> <span class="s">&quot;lemon&quot;</span><span class="p">,</span> <span class="s">&quot;waterlemon&quot;</span><span class="p">,</span> <span class="s">&quot;orange&quot;</span><span class="p">]</span>
+</span><span class='line'><span class="k">for</span> <span class="n">fruit</span> <span class="k">in</span> <span class="n">fruits</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">println</span><span class="p">(</span><span class="s">&quot;Start&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">switch</span> <span class="n">fruit</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">case</span> <span class="s">&quot;banana&quot;</span><span class="o">:</span>
+</span><span class='line'>        <span class="k">continue</span>
+</span><span class='line'>    <span class="k">default</span><span class="o">:</span>
+</span><span class='line'>        <span class="n">println</span><span class="p">(</span><span class="n">fruit</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">println</span><span class="p">(</span><span class="s">&quot;End&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Start 和 End 理論上都要被印五次，</p>
+
+<p>但是加入了 continue 後，banana case 當次 loop 的 End 就沒有被執行了</p>
+
+<h3>Break</h3>
+
+<p>通常是用在不想處理某個 case 或，特別想要處理時 (?) 反之嘛 XD</p>
+
+<p>當使用了 break，會立即中斷 switch 程式碼的執行，並且跳到 switch 區塊程式碼結束的大括號後 (}) 的第一行程式</p>
+
+<p>暫時想不到什麼好例子&hellip;.</p>
+
+<p>先借別人的例子來用吧:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">let</span> <span class="nl">numberSymbol</span><span class="p">:</span> <span class="n">Character</span> <span class="o">=</span> <span class="s">&quot;三&quot;</span>  <span class="c1">// 簡體中文裡的數字 3</span>
+</span><span class='line'><span class="k">var</span> <span class="nl">possibleIntegerValue</span><span class="p">:</span> <span class="n">Int</span><span class="o">?</span>
+</span><span class='line'><span class="k">switch</span> <span class="n">numberSymbol</span> <span class="p">{</span>
+</span><span class='line'><span class="k">case</span> <span class="s">&quot;1&quot;</span><span class="p">,</span> <span class="s">&quot;١&quot;</span><span class="p">,</span> <span class="s">&quot;一&quot;</span><span class="p">,</span> <span class="s">&quot;๑&quot;</span><span class="o">:</span>
+</span><span class='line'>    <span class="n">possibleIntegerValue</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span class='line'><span class="k">case</span> <span class="s">&quot;2&quot;</span><span class="p">,</span> <span class="s">&quot;٢&quot;</span><span class="p">,</span> <span class="s">&quot;二&quot;</span><span class="p">,</span> <span class="s">&quot;๒&quot;</span><span class="o">:</span>
+</span><span class='line'>    <span class="n">possibleIntegerValue</span> <span class="o">=</span> <span class="mi">2</span>
+</span><span class='line'><span class="k">case</span> <span class="s">&quot;3&quot;</span><span class="p">,</span> <span class="s">&quot;٣&quot;</span><span class="p">,</span> <span class="s">&quot;三&quot;</span><span class="p">,</span> <span class="s">&quot;๓&quot;</span><span class="o">:</span>
+</span><span class='line'>    <span class="n">possibleIntegerValue</span> <span class="o">=</span> <span class="mi">3</span>
+</span><span class='line'><span class="k">case</span> <span class="s">&quot;4&quot;</span><span class="p">,</span> <span class="s">&quot;٤&quot;</span><span class="p">,</span> <span class="s">&quot;四&quot;</span><span class="p">,</span> <span class="s">&quot;๔&quot;</span><span class="o">:</span>
+</span><span class='line'>    <span class="n">possibleIntegerValue</span> <span class="o">=</span> <span class="mi">4</span>
+</span><span class='line'><span class="k">default</span><span class="o">:</span>
+</span><span class='line'>    <span class="k">break</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">if</span> <span class="k">let</span> <span class="n">integerValue</span> <span class="o">=</span> <span class="n">possibleIntegerValue</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">println</span><span class="p">(</span><span class="s">&quot;The integer value of \(numberSymbol) is \(integerValue).&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">println</span><span class="p">(</span><span class="s">&quot;An integer value could not be found for \(numberSymbol).&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="c1">// 輸出 &quot;The integer value of 三 is 3.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Fallthrough</h3>
+
+<p>在 Swift 中，掃到第一個符合的 case 後，就會中斷 switch 的執行了，避免掉入一些 case 處理的錯誤</p>
+
+<p>而 fallthrough, 很有趣, 宣告後，會讓 switch 繼續掃下一個 case</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">let</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">5</span>
+</span><span class='line'><span class="k">var</span> <span class="n">description</span> <span class="o">=</span> <span class="s">&quot;\(num) is&quot;</span>
+</span><span class='line'><span class="k">switch</span> <span class="n">num</span> <span class="p">{</span>
+</span><span class='line'><span class="k">case</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">19</span><span class="o">:</span>
+</span><span class='line'>    <span class="n">description</span> <span class="o">+=</span> <span class="s">&quot; a prime, also&quot;</span>
+</span><span class='line'>    <span class="k">fallthrough</span>
+</span><span class='line'><span class="k">case</span> <span class="mi">5</span><span class="o">:</span>
+</span><span class='line'>    <span class="n">println</span><span class="p">(</span><span class="s">&quot;I&#39;m here&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="k">default</span><span class="o">:</span>
+</span><span class='line'>    <span class="n">description</span> <span class="o">+=</span> <span class="s">&quot; an integer.&quot;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">description</span><span class="p">)</span>
+</span><span class='line'><span class="c1">// I&#39;m here</span>
+</span><span class='line'><span class="c1">// 5 is a prime, also an integer.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/05/api-d5/">[API-d5] - [Server 番外篇] 建立自己的本機虛擬伺服器 1 - Vagrant + VirtualBox 安裝</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-05T16:40:18+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/10/05/api-d5/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/05/api-d5/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>VirtualBox 是一套虛擬軟體，可以方便幫助我們在現有的作業系統上</p>
+
+<p>模擬另一個作業系統 (如 linux, Ubuntu, CentOS&hellip;)</p>
+
+<p>在虛擬機器裡面所以的一切變動，都不會影響到現有的作業系統，</p>
+
+<p>非常適合拿來做測試使用</p>
+
+<p>由於現在大部份的 Service 除了架設在 Windows Server 外，最大宗的就是 *nix distribution 了</p>
+
+<p>因此這在這個系列文中，也是一定要教大家如何建立起虛擬測試機器，</p>
+
+<p>來模擬真實 Server 環境中，如何架設自己撰寫的 API Service</p>
+
+<h2>VirtualBox</h2>
+
+<p>到 <a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a> 官方網站下載合適的安裝檔案吧!</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-04%2012.56.26.png" alt="p1" /></p>
+
+<p>安裝完成就可以了!</p>
+
+<p>因為我們接下來會使用 Vagrant 這套 commaond line tool 來對 VirtualBox 進行操作</p>
+
+<p>因此只要安裝完 VirtualBox 後就可以不用管他了 XD</p>
+
+<h2>Vagrant</h2>
+
+<p><a href="https://www.vagrantup.com/">Vagrant</a></p>
+
+<p>它可以幫助我們快速的建立一個輕量、可重複使用、並且可以打包起來帶著走的環境</p>
+
+<p>透過編輯一個設定檔，就可以簡單設定該虛擬系統的 *nix 基本設定，如 共享資料夾、網路存取等等，</p>
+
+<p>不需要透過 VirtualBox</p>
+
+<p>通常這套軟體可以應用在團隊開發上：</p>
+
+<p>以網頁開發來說，如果大家的測試環境與版本都不太一樣，例如 apache 或 php 版本不同</p>
+
+<p>有時候會造成團隊溝通的負擔，因此透過 Vagrant 將 server 環境重新建立一套虛擬機器，</p>
+
+<p>並且透過 Vagrant 打包，就可以丟給其他人使用，這樣一來大家的環境都一樣，</p>
+
+<p>就可以避免這個問題，</p>
+
+<p>而且還有一點，Server 的安裝是很累人的，同樣的事情基本上都不會想做第二遍，</p>
+
+<p>因此打包一個乾淨的環境後備份，弄髒了可以隨時快速再把備份拿出來用，非常方便！</p>
+
+<h3>安裝:</h3>
+
+<p>到 <a href="https://www.vagrantup.com/downloads">下載頁面</a> 尋找適合自己的下載並且安裝</p>
+
+<p>安裝完後應該就可以在終端機中使用 vagrant 這個指令了!</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ vagrant -v
+</span><span class='line'>Vagrant 1.6.5</span></code></pre></td></tr></table></div></figure>
+
+
+<p>目前最新的版本應該是 1.6.5</p>
+
+<h3>建立自己的虛擬機器</h3>
+
+<p>首先在自己想要建立虛擬機器的地方先開一個資料夾</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ mkdir ~/ithome/ </span></code></pre></td></tr></table></div></figure>
+
+
+<p>切換到該資料夾</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd ~/ithome</span></code></pre></td></tr></table></div></figure>
+
+
+<p>使用 vagrant 初始化這個資料夾，並且指定我們要使用 Ubuntu 14.04 版本</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ vagrant init ubuntu/trusty64
+</span><span class='line'>A `Vagrantfile` has been placed in this directory. You are now
+</span><span class='line'>ready to `vagrant up` your first virtual environment! Please read
+</span><span class='line'>the comments in the Vagrantfile as well as documentation on
+</span><span class='line'>`vagrantup.com` for more information on using Vagrant.</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果想要使用別種 *nix 版本可以到這裡找 - <a href="https://vagrantcloud.com/discover/featured">VagrantCloud</a></p>
+
+<p>下完 <code>vagrant init ubuntu/trusty64</code> 指令後，指令告訴你有一個檔案叫做 <code>Vagrantfile</code> 被建立在這個資料夾裡了，</p>
+
+<p>可以使用 <code>vagrant up</code> 來開啟虛擬機器</p>
+
+<p>不過我們先不要下開機指令，我們先來看看 <code>Vagrantfile</code> 的內容，我直接把比較重要的設定說明寫在註解裡面了：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  ...
+</span><span class='line'>  
+</span><span class='line'>  // 此行是說明要使用哪一個 box ，會到自己的系統裡面尋找，如果沒有的話就會下載一個
+</span><span class='line'>  // 由於我們剛剛是使用 VagrantCloud 找的版本，因此 vagrant 會去找 
+</span><span class='line'>  config.vm.box = "ubuntu/trusty64"
+</span><span class='line'>
+</span><span class='line'>  // 這個是設定網路
+</span><span class='line'>  // 預設是 NAT，也就是如果我們在虛擬機器裝了網頁伺服器，
+</span><span class='line'>  // 必須使用 port forwarding 的方式來讀到虛擬機器裡面的網頁 
+</span><span class='line'>  #config.vm.network "forwarded_port", guest: 80, host: 8080
+</span><span class='line'>
+</span><span class='line'>  // Important! 
+</span><span class='line'>  // 承上，或者我們可以使用一個 private network ip，我們把它開啟註解吧~
+</span><span class='line'>  // 這樣我們開啟虛擬機器時，他的 IP 就會是 192.168.33.10
+</span><span class='line'>  config.vm.network "private_network", ip: "192.168.33.10"
+</span><span class='line'>
+</span><span class='line'>  // 開啟註解的話，就是直接使用 bridge 的方式，如果是使用分享器的話
+</span><span class='line'>  // 虛擬機會到分享器要一個 IP 
+</span><span class='line'>  # config.vm.network "public_network"
+</span><span class='line'>  
+</span><span class='line'>  // 這個是設定共享資料夾
+</span><span class='line'>  // 預設是放 Vagrantfile 的那個資料夾
+</span><span class='line'>  // 在這個資料夾放檔案的話，在虛擬機器裡的 '/vagrant/' 資料夾是可以看到的!!
+</span><span class='line'>  // 如果有想要指定到特殊的資料夾，再編輯此行並開啟註解即可
+</span><span class='line'>  # config.vm.synced_folder "../data", "/vagrant_data"
+</span><span class='line'>
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>再來就讓它開機吧!</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ vagrant up </span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果沒有下載過 ubuntu 系統的話，會先幫你下載，所以需要等待一些時間</p>
+
+<p>若看到終端機說系統已經建立完成，</p>
+
+<p>就可以連線進去了!</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ vagrant ssh
+</span><span class='line'>.....
+</span><span class='line'>vagrant@vagrant-ubuntu-trusty-64:~$ </span></code></pre></td></tr></table></div></figure>
+
+
+<p>就會發現終端機的 prompt 已經不一樣了，變成 ubuntu-trusty-64 ，表示我們已經進入虛擬機器裡面了</p>
+
+<p>由於今天的內容只會先到這，關於 Ubuntu 的設定是明天，所以記得離開虛擬機器並且幫他關機 XDD</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// 如果剛剛有進入虛擬機器的話，輸入 exit 離開
+</span><span class='line'>$ exit</span></code></pre></td></tr></table></div></figure>
+
+
+<p>再下關機指令:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ vagrant halt </span></code></pre></td></tr></table></div></figure>
+
+
+<p>虛擬機器就被關起來了!</p>
+
+<p>順帶一提</p>
+
+<p>如果在虛擬機器開機時，需要更改 Vagrantfile 的設定，</p>
+
+<p>改完後虛擬機器必須要重新開啟才會讀到新的設定</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ vagrant reload</span></code></pre></td></tr></table></div></figure>
+
+
+<p>下回待續!!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2014/10/04/swift-d4/">[Swift-d4] - Playground - Optional, ! And ?</a></h1>
     
     
@@ -928,345 +1615,6 @@ Cocoa framework 是 Apple 爲 Mac OSX 所建立的環境，用來開發 OSX 的�
 只是在資源的操作面上，可以設計成這類的風格，以達到簡潔易懂，並且可重用。</p>
 
 <p>下一篇會來聊聊 REST 的要求與優點</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/09/25/codeigniter-on-nginx/">Codeigniter on Nginx</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-09-25T16:03:24+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/09/25/codeigniter-on-nginx/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/09/25/codeigniter-on-nginx/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I use Ubuntu 14.04, Nginx 1.4.6, php5-fpm, Codeigniter 2.2.0</p>
-
-<p>It will remove index.php, and access Codeigniter site normally.</p>
-
-<p>Clean configuration:</p>
-
-<figure class='code'><figcaption><span>&#8220;/etc/nginx/site-enabled/default&#8221;</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
-<span class='line-number'>55</span>
-<span class='line-number'>56</span>
-<span class='line-number'>57</span>
-<span class='line-number'>58</span>
-<span class='line-number'>59</span>
-<span class='line-number'>60</span>
-<span class='line-number'>61</span>
-<span class='line-number'>62</span>
-<span class='line-number'>63</span>
-<span class='line-number'>64</span>
-<span class='line-number'>65</span>
-<span class='line-number'>66</span>
-<span class='line-number'>67</span>
-<span class='line-number'>68</span>
-<span class='line-number'>69</span>
-<span class='line-number'>70</span>
-<span class='line-number'>71</span>
-<span class='line-number'>72</span>
-<span class='line-number'>73</span>
-<span class='line-number'>74</span>
-</pre></td><td class='code'><pre><code class='text'><span class='line'>server {
-</span><span class='line'>
-</span><span class='line'>#&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; START
-</span><span class='line'>        listen 80;
-</span><span class='line'>        listen [::]:80 default_server ipv6only=on;
-</span><span class='line'>
-</span><span class='line'>        root /YOUR/PROJECT/ROOT;
-</span><span class='line'>        index index.html index.htm index.php;
-</span><span class='line'>
-</span><span class='line'>        # Make site accessible from http://localhost/
-</span><span class='line'>        server_name localhost;
-</span><span class='line'>
-</span><span class='line'>        #location ~* .(ico|css|js|gif|jpe?g|png)(?[0-9]+)?$ {
-</span><span class='line'>        #   expires max;
-</span><span class='line'>        #   log_not_found off;
-</span><span class='line'>        #}
-</span><span class='line'>
-</span><span class='line'>        location / {
-</span><span class='line'>                # First attempt to serve request as file, then
-</span><span class='line'>                # as directory, then fall back to displaying a 404.
-</span><span class='line'>                try_files $uri $uri/ /index.php;
-</span><span class='line'>                # Uncomment to enable naxsi on this location
-</span><span class='line'>                # include /etc/nginx/naxsi.rules
-</span><span class='line'>        }
-</span><span class='line'>
-</span><span class='line'>        location ~ .php$ {
-</span><span class='line'>            root           /YOUR/PROJECT/ROOT;
-</span><span class='line'>            try_files $uri =404;
-</span><span class='line'>            fastcgi_pass unix:/var/run/php5-fpm.sock;
-</span><span class='line'>            fastcgi_index  index.php;
-</span><span class='line'>            fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
-</span><span class='line'>            include        fastcgi_params;
-</span><span class='line'>            fastcgi_buffer_size 128k;
-</span><span class='line'>            fastcgi_buffers 256 4k;
-</span><span class='line'>            fastcgi_busy_buffers_size 256k;
-</span><span class='line'>            fastcgi_temp_file_write_size 256k;
-</span><span class='line'>        }
-</span><span class='line'>
-</span><span class='line'>#&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; END
-</span><span class='line'>
-</span><span class='line'>        # Only for nginx-naxsi used with nginx-naxsi-ui : process denied requests
-</span><span class='line'>        #location /RequestDenied {
-</span><span class='line'>        #       proxy_pass http://127.0.0.1:8080;
-</span><span class='line'>
-</span><span class='line'>        #error_page 404 /404.html;
-</span><span class='line'>
-</span><span class='line'>        # redirect server error pages to the static page /50x.html
-</span><span class='line'>        #
-</span><span class='line'>        #error_page 500 502 503 504 /50x.html;
-</span><span class='line'>        #location = /50x.html {
-</span><span class='line'>        #       root /usr/share/nginx/html;
-</span><span class='line'>        #}
-</span><span class='line'>
-</span><span class='line'>        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
-</span><span class='line'>        #
-</span><span class='line'>        #location ~ \.php$ {
-</span><span class='line'>        #       fastcgi_split_path_info ^(.+\.php)(/.+)$;
-</span><span class='line'>        #       # NOTE: You should have &quot;cgi.fix_pathinfo = 0;&quot; in php.ini
-</span><span class='line'>        #
-</span><span class='line'>        #       # With php5-cgi alone:
-</span><span class='line'>        #       fastcgi_pass 127.0.0.1:9000;
-</span><span class='line'>        #       # With php5-fpm:
-</span><span class='line'>        #       fastcgi_pass unix:/var/run/php5-fpm.sock;
-</span><span class='line'>        #       fastcgi_index index.php;
-</span><span class='line'>        #       include fastcgi_params;
-</span><span class='line'>        #}
-</span><span class='line'>
-</span><span class='line'>        # deny access to .htaccess files, if Apache&#39;s document root
-</span><span class='line'>        # concurs with nginx&#39;s one
-</span><span class='line'>        #
-</span><span class='line'>        #location ~ /\.ht {
-</span><span class='line'>        #       deny all;
-</span><span class='line'>        #}
-</span><span class='line'>}
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Codeigniter config:</p>
-
-<figure class='code'><figcaption><span>config.php</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;index_page&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
-</span><span class='line'><span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;uri_protocol&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;REQUEST_URI&#39;</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/08/18/event-driven-i-slash-o-models-and-coroutine/">Event-driven I/O Models and Coroutine Notes</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-18T23:19:51+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/08/18/event-driven-i-slash-o-models-and-coroutine/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/08/18/event-driven-i-slash-o-models-and-coroutine/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>Event-driven I/O model</h2>
-
-<p>首先，聽到 Event-driven 是從 <a href="http://nodejs.org/">Node.js</a> 得知，</p>
-
-<blockquote><p>Node.js® is a platform built on <a href="http://code.google.com/p/v8/">Chrome&rsquo;s JavaScript runtime</a> for easily building fast, scalable network applications.</p>
-
-<p>Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient, perfect for data-intensive real-time applications that run across distributed devices.</p></blockquote>
-
-<p>其實剛聽到這詞會有點陌生，我們可以先從 Victor 所寫的文章開始讀起:
-<a href="http://blog.ez2learn.com/2010/07/17/talk-about-coroutine-and-gevent/">淺談coroutine與gevent</a></p>
-
-<p>裡面提到了幾種網路模型：</p>
-
-<blockquote><ol>
-<li>阻塞式單一行程</li>
-<li>阻塞式多行程</li>
-<li>阻塞式多行程多執行序</li>
-<li>非阻塞式事件驅動</li>
-<li>非阻塞式 coroutine</li>
-</ol>
-</blockquote>
-
-<p>以下是各語言 event-driven 的 model<br/>
-(Node.js 就不列出了，本身就是 event-driven 設計)</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Event-driven model:
-</span><span class='line'>* Ruby    -&gt; [Eventmachine](http://rubyeventmachine.com/)  
-</span><span class='line'>          -&gt; [Celluloid::IO](https://github.com/celluloid/celluloid-io)   
-</span><span class='line'>          -&gt; [Thin Server](http://code.macournoyer.com/thin)   
-</span><span class='line'>* Python  -&gt; [Twisted](https://twistedmatrix.com/trac/)  
-</span><span class='line'>          -&gt; [Tornado](http://www.tornadoweb.org/en/stable)   
-</span><span class='line'>* Perl     -&gt; [Perl Object Environment (POE)](http://poe.perl.org)    
-</span><span class='line'>* PHP     -&gt; [REACT](http://reactphp.org) </span></code></pre></td></tr></table></div></figure>
-
-
-<p></p>
-
-<p>以 Ruby 建構 API Service 的話，可以使用 Sinatra + Eventmachine + thin proxy + Nginx 的 Solution:<br/>
-<a href="http://recipes.sinatrarb.com/p/embed/event-machine">Embedding Sinatra within EventMachine</a></p>
-
-<p>延伸閱讀: <br/>
-<a href="https://www.igvita.com/2008/05/27/ruby-eventmachine-the-speed-demon/">2008 - Eventmachine and Reactor pattern</a> <br/>
-<a href="http://developwithstyle.com/articles/2012/05/23/lessons-learnt-from-building-a-rest-based-api/">2012 - Lessons Learnt From Building a REST API</a><br/>
-<a href="https://docs.google.com/document/d/1dU-juYN25FMXdp6Ju62KAIT_0tuuZAPEgZkj-aT6kPQ/edit#heading=h.lafes4uxj2b0">年份未知 - 針對各 framework 進行評測 Event Driven I/O Web Application Server Analysis</a><br/>
-<a href="http://blog.sina.com.cn/s/blog_704b6af70100py9n.html">Twisted 教程</a></p>
-
-<h4>Reactor 模型</h4>
-
-<p>Node.js 處理 concurrency 是 Reactor mode<br/>
-Ruby 的 Goliath framework 也是 Reactor mode<br/>
-Golang, Erlang 是 CSP (communicating sequential process)</p>
-
-<p>現在比較流行的是 event-driven 的 Reactor mode, e.g. Node.js, Goliath<br/>
-但是 Node.js 比較令人詬病的是 code 難維護，太多層層的 callback 會擾亂邏輯<br/>
-畢竟線性處理比較符合人類思維 <br/>
-而 Ruby 使用 Fiber 以避免寫出過多的 callback<br/>
-Python 的 Twisted 也已經存在好一陣子，穩定發展中</p>
-
-<p>不過以 Node.js 典型的應用的確是 proxy, API server<br/>
-因此我們可以參考 Node.js 的特性，使用其他語言來達到同樣的效果<br/>
-那就是 event-driven</p>
-
-<h2>Coroutine Programming</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>* Golang - goroutine (native) 
-</span><span class='line'>* Python - [gevent](http://www.gevent.org/)  
-</span><span class='line'>* Ruby - Fiber (native)   
-</span><span class='line'>* Lua   </span></code></pre></td></tr></table></div></figure>
-
-
-<p>延伸閱讀:<br/>
-<a href="http://www.bigfastblog.com/">Ruby 的 eventmachine 相關討論</a><br/>
-<a href="http://www.blogjava.net/killme2008/archive/2010/03/11/315158.html">Ruby Fiber 指南</a><br/>
-<a href="http://electronic-blue.herokuapp.com/blog/2012/06/coroutine-an-introduction/">2012 - Lua - Coroutine introduction</a><br/>
-<a href="https://www.igvita.com/2009/05/13/fibers-cooperative-scheduling-in-ruby/">2009 - Fibers &amp; Cooperative Scheduling in Ruby</a><br/>
-<a href="http://www.blogjava.net/killme2008/archive/2010/03/02/314264.html">2010 - Lua、LuaJIT Coroutine和Ruby Fiber的切換效率對比</a></p>
-
-<hr />
-
-<p>建構 API Service 考慮到的除了 Server 以外，<br/>
-語言的特性通常也必須考慮進去，例如<br/>
-sync v.s. async<br/>
-coroutine v.s. non-coroutine<br/>
-但通常以當前需求而言，其實也不需要 over-design<br/>
-只要選擇拿手的，能夠快速方便的開發出雛形，<br/>
-我想等到真的快要 10000 per/second request 時，再來煩惱更進一步的架構吧</p>
 </div>
   
   

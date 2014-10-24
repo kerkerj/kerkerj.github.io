@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Nodejs | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/nodejs/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-23T15:04:15+08:00</updated>
+  <updated>2014-10-24T20:47:09+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,67 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[API-d24] - 實戰開發 - 刪除 TODO Task API With Mongoose]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/24/api-d24/"/>
+    <updated>2014-10-24T20:42:36+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/24/api-d24</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day24">Github 參考</a></p>
+
+<p>還記得昨天說要偷懶一下嗎 XD</p>
+
+<p>因為刪除真的很簡單!</p>
+
+<p>我們前面走過了新增、修改、讀取了</p>
+
+<p>刪除？哪有什麼困難的呢! XD</p>
+
+<p>直接看 code 吧!</p>
+
+<p>routes/users.js:</p>
+
+<pre><code class="javascript">// Delete a todo task
+router.delete('/:user_id/todos/:todo_id', function(req, res) {
+    var user_id = req.params.user_id;
+    var todo_id = req.params.todo_id;
+
+    TODO.remove(
+        { _id: todo_id, user_id: user_id },
+        function (err) {
+            if (err) {
+                res.status(400).json(
+                    { error: "delete data error"}
+                );
+            } else {
+                res.status(201).json(
+                    { success: "true" }
+                );
+            }
+        }
+    );
+});
+</code></pre>
+
+<p>非常的簡單!</p>
+
+<p>先抓到 user_id, todo_id 後</p>
+
+<p>使用 .remove 的方法，下 WHERE 條件，並在 callback 作處理</p>
+
+<p>就完成了!</p>
+
+<p>試試看吧!</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%203.39.09.png" alt="image" /></p>
+
+<p>是不是非常的簡單呢！</p>
+
+<p>我們已經完成 CRUD API 操作了！</p>
+
+<p>接下來幾天會稍作一些細節上的處理!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[API-d23] - 實戰開發 - 修改 TODO Task API With Mongoose]]></title>
@@ -596,202 +657,6 @@ router.post('/:user_id/todos', function(req, res) {
 <p>透過拿到 url params 以及 request data</p>
 
 <p>我們就可以使用這些資料來對資料庫做存取了!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[API-d19] - 實戰開發 - Index & Route & Http Status Code]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/19/api-d19/"/>
-    <updated>2014-10-19T21:19:24+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/19/api-d19</id>
-    <content type="html"><![CDATA[<p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day19">Github 參考</a></p>
-
-<p>昨天先把專案目錄初始化，裝完該裝的套件後</p>
-
-<p>在 routes 中加入一個 index.js 檔案</p>
-
-<pre><code class="javascript">'use strict';
-
-var express = require('express');
-var router = express.Router();
-
-router.get('/', function(req, res) {
-    res.status(200).json({ greetings: "hello world!"});
-});
-
-module.exports = router;
-</code></pre>
-
-<p>建立一個 <code>app.js</code> 在專案根目錄中:</p>
-
-<p>app.js</p>
-
-<pre><code>var express = require('express');
-var app = express();
-var index = require('./routes/index');
-
-// Set routers
-app.use('/', index);
-
-module.exports = app;
-</code></pre>
-
-<p>然後在 bin 資料夾建立一個 server.js:</p>
-
-<p>bin/server.js:</p>
-
-<pre><code>'use strict';
-
-var debug = require('debug')('TODOAPI');
-var app = require('../app');
-
-app.set('port', process.env.PORT || 3000);
-
-var server = app.listen(app.get('port'), function() {
-    debug('Express server listening on port ' + server.address().port);
-});
-</code></pre>
-
-<p>並且在 package.json 中修改並加入:</p>
-
-<p>加入 <code>start</code> : <code>"start": "node ./bin/server.js",</code></p>
-
-<pre><code>"scripts": {
-    "start": "node ./bin/server.js",
-    "test": "echo \"Error: no test specified\" &amp;&amp; exit 1"
-  },
-</code></pre>
-
-<p>這樣我們就可以透過 <code>npm start</code> 來啟動 server 了!</p>
-
-<p>試著啟動看看 <code>npm start</code></p>
-
-<p>到網址列輸入 <code>http://localhost:3000/</code></p>
-
-<p>就可以看到 <code>{"greetings":"hello world!"}</code> 了!</p>
-
-<p>我們從本文的後面往回看：其實就是一個 request 會經過的地方:</p>
-
-<p>當我們下了 <code>npm start</code>，npm 會搜尋 package.json 中有沒有 <code>start</code> 指令</p>
-
-<p>若有的話就會執行他所設定的指令 <code>node ./bin/server.js</code></p>
-
-<p>這樣就會執行 server.js 了</p>
-
-<p>我們再看一下 server.js，講解在底下的註解:</p>
-
-<pre><code>// 使用嚴格模式
-'use strict';
-
-// 加入 debugger
-var debug = require('debug')('TODOAPI');
-
-// 將我們寫的 app.js 引入，建立一個 app instance
-var app = require('../app');
-
-// 設定 app instance 的 port, 若環境變數有設定的話就使用環境變數的值
-// 沒有設定環境變數的話則是 3000
-app.set('port', process.env.PORT || 3000);
-
-// 啟動 server，讓 server 監聽剛剛上一行所設定的 port，
-// 並且使用 debugger
-var server = app.listen(app.get('port'), function() {
-    debug('Express server listening on port ' + server.address().port);
-});
-</code></pre>
-
-<p>既然 server.js 啟動了一個 app.js 的 instance</p>
-
-<p>那我們就要來看一下 app.js</p>
-
-<pre><code>// 引入 express 模組
-var express = require('express');
-
-// 初始化一個 express instance
-var app = express();
-
-// 將 route 引入
-var index = require('./routes/index');
-
-// 設定若有 request 進到 http://localhost:3000/ 時，
-// 交給 routes/index.js 來作後續處理
-app.use('/', index);
-
-最後這一行是這個檔案 export 成一個模組
-module.exports = app;
-</code></pre>
-
-<p>那現在我們了解到了，如果有一個要求打進了 <code>http://localhost:3000/</code></p>
-
-<p>它會將該要求轉發給 routes/index.js 來作處理</p>
-
-<p>因此我們再進到 index.js 看看內容</p>
-
-<pre><code>// 使用嚴格模式
-'use strict';
-
-// 引入 express 模組
-var express = require('express');
-
-// 在這邊我們要使用 express 模組中的 Router
-// 因為在 app.js 中，若是使用 app.use('/', index)
-// 該 index 物件必須是一個 Router 物件，
-// 因此在這邊我們才會這樣寫
-// 於是 router 就是一個 express 的 router 物件了
-var router = express.Router();
-
-// 設定該  router 有哪些路徑要來聽
-// 在這邊我們設定當有 request 進到 根目錄，
-// 且是使用 GET 方法時，我們的回覆是:
-// HTTP status code 爲 200
-// 回傳的資料為 json 格式，傳入的內容是一個 javascript 物件
-// .json 方法會幫我們轉成 json 格式回傳給使用者
-router.get('/', function(req, res) {
-    res.status(200).json({ greetings: "hello world!"});
-});
-
-// 最後將這個檔案 export 成一個 router 模組
-module.exports = router;
-</code></pre>
-
-<p>所以透過這樣的方式我們就了解到了一個 request 是如何在模組化後的程式奔跑遊走</p>
-
-<p>另外要特別提到的是 http status code</p>
-
-<p>http status code 其實是一個非常好讓 client 知道這次 API request 發生什麼事的資料，充分利用 HTTP 協議所定義的狀態碼</p>
-
-<p>我們有時候瀏覽網頁會看到: 404 Not found! 或是 500 Internal Server Error</p>
-
-<p>這就是 HTTP status code</p>
-
-<p>那我們可以透過定義好回傳的 http status code 來代表此次 request 的狀態</p>
-
-<p>例如：</p>
-
-<p>client 端輸入的 API 網址錯誤了</p>
-
-<p>我們就回傳 status code: 404</p>
-
-<p>如果是不小心 server 的 code 寫錯了，導致該次 request 完全讓 server 死掉了，</p>
-
-<p>那就可以回傳 500 interanl server error</p>
-
-<p>因此在做 error handling 時，請定義好 status code，他一定會有幫助的!</p>
-
-<p>常用的 status code:</p>
-
-<pre><code>200 - Success
-201 - Created
-400 - Bad request
-401 - Unauthorized
-403 - Forbidden
-404 - Not found
-500 - Internal Server Error
-</code></pre>
-
-<p>詳細還可以參考: <a href="http://zh.wikipedia.org/wiki/HTTP%E7%8A%B6%E6%80%81%E7%A0%81">HTTP status code</a></p>
-
-<p><a href="http://www.restapitutorial.com/httpstatuscodes.html">其他教學</a></p>
 ]]></content>
   </entry>
   
