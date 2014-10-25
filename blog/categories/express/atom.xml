@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Express | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/express/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-24T20:47:09+08:00</updated>
+  <updated>2014-10-25T21:53:44+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,66 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[API-day25] - 實戰開發 - 處理 404 & 500]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/25/api-day25/"/>
+    <updated>2014-10-25T21:46:35+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/25/api-day25</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day25">Github 參考</a></p>
+
+<p>不知道大家在用 POSTMAN 對前幾天寫的 API 丟 request 有沒有遇過類似下面的情況:</p>
+
+<pre><code class="javascript">Cannot GET /user/kerkerj/todoss
+</code></pre>
+
+<p>通常是丟錯網址時會出現的，或是 code 沒寫好會出現 500 error</p>
+
+<p>這些情況是有辦法接到的，今天我們希望能夠接到後，將 message 轉成 json 格式吐回給 client</p>
+
+<p>因此程式碼如下</p>
+
+<p>app.js</p>
+
+<pre><code class="javascript">// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    res.status(404).jsonp({error: "Not Found"});
+    next();
+});
+
+// catch 500
+app.use(function(err, req, res, next) {
+            res.status(err.status || 500).json({error: err.message});
+});
+</code></pre>
+
+<p>基本上這兩段 code 的意思就是加入了兩個 middleware</p>
+
+<p>如果進來的 request 是屬於 404 or 500 就會回傳 json 格式</p>
+
+<p>並且依錯誤碼不同而回傳不同的訊息</p>
+
+<p>試著將 server 跑起來</p>
+
+<p>亂丟 request 看看</p>
+
+<p>原本應該會是</p>
+
+<pre><code>Cannot GET /user/kerkerj/todoss
+</code></pre>
+
+<p>就會變成了 json</p>
+
+<pre><code>{
+    "error": "Not Found"
+}
+</code></pre>
+
+<p>這樣一來, client 程式也就能夠統一接收 json 回傳，而不會因為莫名的字串導致解析錯誤而 crash 了!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[API-d24] - 實戰開發 - 刪除 TODO Task API With Mongoose]]></title>
@@ -418,245 +478,6 @@ router.post('/:user_id/todos', function(req, res) {
 </code></pre>
 
 <p>於是就完成了一個 POST 新增 TODO 的 API 了！</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[API-d20] - 實戰開發 - Routes 2, Get Params and Request Data]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/20/api-d20/"/>
-    <updated>2014-10-20T18:46:12+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/20/api-d20</id>
-    <content type="html"><![CDATA[<p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day20">Github 參考</a></p>
-
-<p>接著我們要根據我們開之前寫好的 <a href="http://docs.todolist7.apiary.io/">文件</a> 來開發:</p>
-
-<p>要有下列 routes</p>
-
-<pre><code class="javascript">TODOs
-GET /user/{user_id}/todos/
-POST /user/{user_id}/todos/
-GET /user/{user_id}/todos/{id}
-PUT /user/{user_id}/todos/{id}
-DELETE /user/{user_id}/todos/{id}
-</code></pre>
-
-<p>這樣的需求其實可以用 namespace 實作，不過我們偷懶一點，直接指向 /user 就好</p>
-
-<p>所以在 app.js 加入</p>
-
-<pre><code>var users = require('./routes/users');
-app.use('/user', users);
-</code></pre>
-
-<p>所以會變這樣:</p>
-
-<pre><code>var express = require('express');
-var app = express();
-
-// Set routers
-var index = require('./routes/index');
-var users = require('./routes/users');
-
-app.use('/', index);
-app.use('/user', users);
-
-module.exports = app;
-</code></pre>
-
-<p>不過看起來我們缺少 routes/users.js，所以我們也來新增一個</p>
-
-<p>routes/users.js 內容如下</p>
-
-<pre><code>'use strict';
-
-var express = require('express');
-var router = express.Router();
-
-router.get('/', function(req, res) {
-
-});
-
-router.post('/', function(req, res) {
-
-});
-
-router.get('/', function(req, res) {
-
-});
-
-router.put('/', function(req, res) {
-
-});
-
-router.delete('/', function(req, res) {
-
-});
-
-module.exports = router;
-</code></pre>
-
-<p>好像有那麼一點符合我們要的 routes 了</p>
-
-<p>我們在把每個詳細的 uri 加入</p>
-
-<p>在這邊要注意</p>
-
-<p>因為我們在 app.js 中把 uers.js 加入了 (&lsquo;/users&rsquo;, users)</p>
-
-<p>這個 route</p>
-
-<p>因此在 users.js 中設定的所有 route 都是接在 <code>/users/</code> 後面的</p>
-
-<p>要注意哦</p>
-
-<p>修改後的檔案:</p>
-
-<pre><code>'use strict';
-
-var express = require('express');
-var router = express.Router();
-
-// Get todo list
-router.get('/:user_id/todos', function(req, res) {
-    res.status(200).json( {success: "GET lists"} );
-});
-
-// Create a todo task
-router.post('/:user_id/todos', function(req, res) {
-    res.status(200).json( {success: "POST"} );
-});
-
-// Get a todo task
-router.get('/:user_id/todos/:todo_id', function(req, res) {
-    res.status(200).json( {success: "GET 1 task"} );
-});
-
-// Update a todo task
-router.put('/:user_id/todos/:todo_id', function(req, res) {
-    res.status(200).json( {success: "PUT"} );
-});
-
-// Delete a todo task
-router.delete('/:user_id/todos/:todo_id', function(req, res) {
-    res.status(200).json( {success: "DELETE"} );
-});
-
-module.exports = router;```
-</code></pre>
-
-<p>將 server 重啟，試著對這些網址丟丟看</p>
-
-<p>這時候使用瀏覽器應該就沒辦法丟 GET 以外的要求了對吧?</p>
-
-<p>此時 chrome extension - POSTMAN 就該上場啦！</p>
-
-<p>打開 POSTMAN 就可以送以下的 request 囉!</p>
-
-<pre><code>GET http://localhost:3000/user/kerkerj/todos  
-POST http://localhost:3000/user/kerkerj/todos  
-GET http://localhost:3000/user/kerkerj/todos/1  
-PUT http://localhost:3000/user/kerkerj/todos/1  
-DELETE http://localhost:3000/user/kerkerj/todos/1  
-</code></pre>
-
-<p>因為剛剛程式裡面都只讓他回傳 success，因此還沒有太大的作用，</p>
-
-<p>不過已經有感覺了對吧!! XD</p>
-
-<h2>Get params from url</h2>
-
-<p>我們現在先針對以下這段程式碼作進一步的改寫:</p>
-
-<pre><code>// Get a todo task
-router.get('/:user_id/todos/:todo_id', function(req, res) {
-    res.status(200).json( 
-        { 
-            success: "GET 1 task", 
-            user: req.params.user_id,
-            todo_id: req.params.todo_id
-        } );
-});
-</code></pre>
-
-<p>存檔並打開 server，存取 <a href="http://localhost:3000/user/test/todos/1">http://localhost:3000/user/test/todos/1</a></p>
-
-<p>就可以看到回傳值是:</p>
-
-<pre><code>{
-    "success": "GET 1 task",
-    "user": "kerkerj",
-    "todo_id": "1"
-}
-</code></pre>
-
-<p>所以又學到一招了!</p>
-
-<p>先設定想要抓哪一段網址，例如:</p>
-
-<p><code>/:user_id/todos/:todo_id</code></p>
-
-<p>前面有加冒號的就是這段網址是要被抓成一個參數</p>
-
-<p>而冒號後面接的就是之後在下面要使用到的名字</p>
-
-<p>要接網址的參數的拿法 - req.params.{???}</p>
-
-<p>例如:</p>
-
-<p>req.params.user_id</p>
-
-<p>req.params.todo_id</p>
-
-<p>拿到了網址的參數，就可以對資料庫做進一步的查詢</p>
-
-<h2>Get request data</h2>
-
-<p>那要怎麼拿到 request 的 data 呢?</p>
-
-<p>他並不存在于網址列上啊?</p>
-
-<p>這時候就要加入 <code>body-parser</code> 了!</p>
-
-<p>他會在接收到 request 時，幫我們做過處理後，再傳到每個 request 該去的 router 裏</p>
-
-<p>在 app.js 中加入</p>
-
-<pre><code>// 最上面
-var bodyParser = require('body-parser');
-
-// 加在 router 前面，切記!!
-app.use( bodyParser.json() );
-app.use( bodyParser.urlencoded({ extended: true }) );
-
-app.use('/', index);
-app.use('/user', users);
-</code></pre>
-
-<p>接著在 users.js 中的 POST 區塊中加入兩行:</p>
-
-<pre><code>// Create a todo task
-router.post('/:user_id/todos', function(req, res) {
-    var data = req.body;
-
-    res.status(200).json( {success: data } );
-});
-</code></pre>
-
-<p>開啓 server, 用下圖的方式對 server 做 request:</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-09%2023.00.10.png" alt="image" /></p>
-
-<p>記得要加入 header -</p>
-
-<p>Content-Type - application/json</p>
-
-<p>Data 要選擇 raw data - 使用自己寫的 json 格式</p>
-
-<p>就可以看到下面的回傳格式了!</p>
-
-<p>透過拿到 url params 以及 request data</p>
-
-<p>我們就可以使用這些資料來對資料庫做存取了!</p>
 ]]></content>
   </entry>
   

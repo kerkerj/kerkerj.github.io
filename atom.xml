@@ -4,7 +4,7 @@
   <title><![CDATA[kerkerj]]></title>
   <link href="http://kerkerj.github.io/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-24T20:47:09+08:00</updated>
+  <updated>2014-10-25T21:53:14+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -68,7 +68,7 @@ Day21 -  <a href="http://kerkerj.github.io/blog/2014/10/21/api-d21/">[API-d21] -
 Day22 -  <a href="http://kerkerj.github.io/blog/2014/10/22/api-d22/">[API-d22] - 實戰開發 - 讀取 TODO task API with mongoose</a><br/>
 Day23 -  <a href="http://kerkerj.github.io/blog/2014/10/23/api-d23/">[API-d23] - 實戰開發 - 修改 TODO task API with mongoose</a><br/>
 Day24 -  <a href="http://kerkerj.github.io/blog/2014/10/24/api-d24/">[API-d24] - 實戰開發 - 刪除 TODO task API with mongoose</a><br/>
-Day25 -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day25 -  <a href="http://kerkerj.github.io/blog/2014/10/25/api-d25/">[API-day25] - 實戰開發 - 處理 404 &amp; 500</a><br/>
 Day26 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day27 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day28 -  <a href="http://kerkerj.github.io/">#</a><br/>
@@ -101,12 +101,239 @@ Day21 -  <a href="http://kerkerj.github.io/blog/2014/10/21/swift-d21/">[Swift-d2
 Day22 -  <a href="http://kerkerj.github.io/blog/2014/10/22/swift-d22/">[Swift-d22] - 實戰開發 - TODOList - Show View 1</a><br/>
 Day23 -  <a href="http://kerkerj.github.io/blog/2014/10/23/swift-d23/">[Swift-d23] - 實戰開發 - TODOList - Show View 2, Delete View</a><br/>
 Day24 -  <a href="http://kerkerj.github.io/blog/2014/10/24/swift-d24/">[Swift-d24] - 實戰開發 - TODOList - Create View</a><br/>
-Day25 -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day25 -  <a href="http://kerkerj.github.io/blog/2014/10/25/swift-d25/">[Swift-day25] - 實戰開發 - TODOList - Update View</a><br/>
 Day26 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day27 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day28 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day29 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day30 -  <a href="http://kerkerj.github.io/">#</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Swift-day25] - 實戰開發 - TODOList - Update View]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/25/swift-day25/"/>
+    <updated>2014-10-25T21:46:40+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/25/swift-day25</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day27">Github link</a></p>
+
+<p>(忘了是放在哪個 branch 了 Orz)</p>
+
+<p>接下來就要進到最後一個 Update View 了!</p>
+
+<p>什麼時候會進到 Update View 呢？</p>
+
+<p>是在顯示單筆 TODO 的時候的右上方按鈕:</p>
+
+<p><img src="http://goo.gl/tNOyRs" alt="image" /></p>
+
+<p>我們今天只會實作 view 的部分, fakeData 就不實作了</p>
+
+<p>因為接下來就要直接接 API 啦</p>
+
+<p>也不需要更新 fakeData 了 :P</p>
+
+<p>要加入 Edit 這個按鈕</p>
+
+<p>要到 ShowViewController, 加入 UIBarButtonItem</p>
+
+<p>並且讓其吃到一個方法，可以讓 Navigation 往下一個 View 前進:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">var</span> <span class="kt">id</span><span class="o">:</span> <span class="n">String</span><span class="o">!</span>
+</span><span class='line'>
+</span><span class='line'><span class="kr">override</span> <span class="k">func</span> <span class="n">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nb">super</span><span class="p">.</span><span class="n">viewDidLoad</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">indexLabel</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="s">&quot;\(index)&quot;</span>
+</span><span class='line'>        <span class="n">contentLabel</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">content</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">navigationItem</span><span class="p">.</span><span class="n">rightBarButtonItem</span> <span class="o">=</span> <span class="bp">UIBarButtonItem</span><span class="p">(</span><span class="nl">title</span><span class="p">:</span> <span class="s">&quot;Edit&quot;</span><span class="p">,</span> <span class="nl">style</span><span class="p">:</span> <span class="n">UIBarButtonItemStyle</span><span class="p">.</span><span class="n">Bordered</span><span class="p">,</span> <span class="nl">target</span><span class="p">:</span> <span class="nb">self</span><span class="p">,</span> <span class="nl">action</span><span class="p">:</span> <span class="n">Selector</span><span class="p">(</span><span class="s">&quot;editTodo&quot;</span><span class="p">))</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>p.s. 先前忘記加了 id, 現在補回來 XD</p>
+
+<p>先新增一個 Edit 按鈕後</p>
+
+<p>並實作 editTodo</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">editTodo</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">var</span> <span class="n">editViewContronller</span> <span class="o">=</span> <span class="n">UpdateViewController</span><span class="p">(</span><span class="nl">nibName</span><span class="p">:</span> <span class="s">&quot;UpdateViewController&quot;</span><span class="p">,</span> <span class="nl">bundle</span><span class="p">:</span> <span class="nb">nil</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">editViewContronller</span><span class="p">.</span><span class="n">from</span> <span class="o">=</span> <span class="s">&quot;edit&quot;</span>
+</span><span class='line'>        <span class="n">editViewContronller</span><span class="p">.</span><span class="n">content</span> <span class="o">=</span> <span class="n">content</span>
+</span><span class='line'>        <span class="n">editViewContronller</span><span class="p">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">index</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">navigationController</span><span class="o">?</span><span class="p">.</span><span class="n">pushViewController</span><span class="p">(</span><span class="n">editViewContronller</span><span class="p">,</span> <span class="nl">animated</span><span class="p">:</span> <span class="nb">true</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>由於要先指定資料</p>
+
+<p>因此再到 UpdateViewController 中再加入兩個參數</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">var</span> <span class="nl">index</span><span class="p">:</span> <span class="n">Int</span><span class="o">!</span>
+</span><span class='line'><span class="k">var</span> <span class="nl">content</span><span class="p">:</span> <span class="n">String</span><span class="o">!</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>最後在 UpdateController 的 viewDidLoad 中, 加入 add or edit 的判斷</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="kr">override</span> <span class="k">func</span> <span class="nf">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nb">super</span><span class="p">.</span><span class="n">viewDidLoad</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">navigationItem</span><span class="p">.</span><span class="n">rightBarButtonItem</span> <span class="o">=</span> <span class="bp">UIBarButtonItem</span><span class="p">(</span><span class="nl">title</span><span class="p">:</span> <span class="s">&quot;Save&quot;</span><span class="p">,</span> <span class="nl">style</span><span class="p">:</span> <span class="n">UIBarButtonItemStyle</span><span class="p">.</span><span class="n">Done</span><span class="p">,</span> <span class="nl">target</span><span class="p">:</span> <span class="nb">self</span><span class="p">,</span> <span class="nl">action</span><span class="p">:</span> <span class="n">Selector</span><span class="p">(</span><span class="s">&quot;save&quot;</span><span class="p">))</span>
+</span><span class='line'>          
+</span><span class='line'>        <span class="k">if</span> <span class="nb">self</span><span class="p">.</span><span class="n">from</span> <span class="o">==</span> <span class="s">&quot;edit&quot;</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nb">self</span><span class="p">.</span><span class="n">textField</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">content</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這時候先前設定的 &ldquo;from&rdquo; 參數就很有用了~</p>
+
+<p>就可以根據是從 add 的 view 來的或者是 edit 的 view 來的</p>
+
+<p>以便判定要不要 append 舊資料上去</p>
+
+<p>此外，也因為如此</p>
+
+<p>所以 UpdateViewController 的 save 方法也要判斷</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'>    <span class="k">if</span> <span class="n">from</span> <span class="o">==</span> <span class="s">&quot;add&quot;</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">delegate</span><span class="p">.</span><span class="n">addData</span><span class="p">(</span><span class="s">&quot;g6&quot;</span><span class="p">,</span> <span class="nl">content</span><span class="p">:</span> <span class="nb">self</span><span class="p">.</span><span class="n">textField</span><span class="p">.</span><span class="n">text</span><span class="p">)</span>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">navigationController</span><span class="o">?</span><span class="p">.</span><span class="n">popToRootViewControllerAnimated</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="n">from</span> <span class="o">==</span> <span class="s">&quot;edit&quot;</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">println</span><span class="p">(</span><span class="s">&quot;Save edited data&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>不過因為今天我們不做資料更新</p>
+
+<p>因此流程面大致上到此告一個段落</p>
+
+<p>接下來就要串 API 了!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[API-day25] - 實戰開發 - 處理 404 & 500]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/25/api-day25/"/>
+    <updated>2014-10-25T21:46:35+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/25/api-day25</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day25">Github 參考</a></p>
+
+<p>不知道大家在用 POSTMAN 對前幾天寫的 API 丟 request 有沒有遇過類似下面的情況:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">Cannot</span> <span class="nx">GET</span> <span class="o">/</span><span class="nx">user</span><span class="o">/</span><span class="nx">kerkerj</span><span class="o">/</span><span class="nx">todoss</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>通常是丟錯網址時會出現的，或是 code 沒寫好會出現 500 error</p>
+
+<p>這些情況是有辦法接到的，今天我們希望能夠接到後，將 message 轉成 json 格式吐回給 client</p>
+
+<p>因此程式碼如下</p>
+
+<p>app.js</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// catch 404 and forward to error handler</span>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">err</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;Not Found&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">err</span><span class="p">.</span><span class="nx">status</span> <span class="o">=</span> <span class="mi">404</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">404</span><span class="p">).</span><span class="nx">jsonp</span><span class="p">({</span><span class="nx">error</span><span class="o">:</span> <span class="s2">&quot;Not Found&quot;</span><span class="p">});</span>
+</span><span class='line'>    <span class="nx">next</span><span class="p">();</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// catch 500</span>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">status</span> <span class="o">||</span> <span class="mi">500</span><span class="p">).</span><span class="nx">json</span><span class="p">({</span><span class="nx">error</span><span class="o">:</span> <span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">});</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>基本上這兩段 code 的意思就是加入了兩個 middleware</p>
+
+<p>如果進來的 request 是屬於 404 or 500 就會回傳 json 格式</p>
+
+<p>並且依錯誤碼不同而回傳不同的訊息</p>
+
+<p>試著將 server 跑起來</p>
+
+<p>亂丟 request 看看</p>
+
+<p>原本應該會是</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">Cannot</span> <span class="nx">GET</span> <span class="o">/</span><span class="nx">user</span><span class="o">/</span><span class="nx">kerkerj</span><span class="o">/</span><span class="nx">todoss</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>就會變成了 json</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="s2">&quot;error&quot;</span><span class="o">:</span> <span class="s2">&quot;Not Found&quot;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這樣一來, client 程式也就能夠統一接收 json 回傳，而不會因為莫名的字串導致解析錯誤而 crash 了!</p>
 ]]></content>
   </entry>
   
@@ -3106,226 +3333,6 @@ Changes to this property can be animated. The default value is nil, which result
 
 
 <p>都 OK!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[Swift-d16] - Basic - Table View 2 換頁 (Delegate)]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/16/swift-d16/"/>
-    <updated>2014-10-16T18:39:45+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/16/swift-d16</id>
-    <content type="html"><![CDATA[<p>昨天我們實際操作了 tableView 的實作，今天要加入換頁</p>
-
-<p>意思就是假設我點了名為 &ldquo;99&rdquo; 的 cell，點擊後會跳轉到另外一頁，同樣顯示 &ldquo;99&rdquo;</p>
-
-<p>所以除了跳頁外，還要加入值的傳遞</p>
-
-<p>首先打開昨天的專案，我們要繼續下去</p>
-
-<p>回到 storyboard 中，昨天我們加入了 dataSource，今天要加入 delegate:</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.01.50.png" alt="image" /></p>
-
-<p>回到程式碼中 ViewController.swift</p>
-
-<p>在 class 的宣告再加上 UITableViewDataSource</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">class</span> <span class="nl">ViewController</span><span class="p">:</span> <span class="bp">UIViewController</span><span class="p">,</span> <span class="bp">UITableViewDataSource</span><span class="p">,</span> <span class="bp">UITableViewDelegate</span> <span class="p">{</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>再來就要設計換頁的流程了</p>
-
-<p>回到 storyboard</p>
-
-<p>拉一個新的 ViewController 到空白處</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.04.50.png" alt="image" /></p>
-
-<p>接著點擊左邊的 TableViewCell, 按住 ctrl + 拖曳，拉到剛剛建立的 ViewController 上</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.07.11.png" alt="image" /></p>
-
-<p>選擇 show detail</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.07.44.png" alt="image" /></p>
-
-<p>就會長這樣:</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.06.55.png" alt="iamge" /></p>
-
-<p>再來新增一個 ViewController</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.09.15.png" alt="image" /></p>
-
-<p>接著讓新的 storyboard viewcontroller 連接到剛剛新增的 DetailViewController 程式碼</p>
-
-<p>記得先點選 ViewController</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.10.36.png" alt="image" /></p>
-
-<p>在 storyboard 的 DetailViewController 中拉一個 label</p>
-
-<p>並且將該 label 連接到 DetailViewController 的程式碼中</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.13.04.png" alt="image" /></p>
-
-<p>因此 DetailViewController 就會變這樣:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">class</span> <span class="nl">DetailViewController</span><span class="p">:</span> <span class="bp">UIViewController</span> <span class="p">{</span>
-</span><span class='line'>    <span class="p">@</span><span class="kt">IBOutlet</span> <span class="k">var</span> <span class="nl">label</span><span class="p">:</span> <span class="bp">UILabel</span><span class="o">!</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>接著再來把 DetailViewController 加入兩行 code:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">class</span> <span class="nl">DetailViewController</span><span class="p">:</span> <span class="bp">UIViewController</span> <span class="p">{</span>
-</span><span class='line'>    <span class="p">@</span><span class="kt">IBOutlet</span> <span class="k">var</span> <span class="nl">label</span><span class="p">:</span> <span class="bp">UILabel</span><span class="o">!</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">var</span> <span class="nl">index</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kr">override</span> <span class="k">func</span> <span class="n">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nb">super</span><span class="p">.</span><span class="n">viewDidLoad</span><span class="p">()</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="c1">// Do any additional setup after loading the view.</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">label</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="s">&quot;\(index)&quot;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>新增一個 index 變數，再來就是在 viewDidLoad 時，將該 label 的文字改成 index</p>
-
-<p>這個 index 的值會在 TableView 中傳遞給 DetailViewController</p>
-
-<p>接下來就要改變 index 的值了，回到 ViewController.swift 中</p>
-
-<p>加入以下程式碼:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">tableView</span><span class="p">(</span><span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="o">!</span><span class="p">,</span> <span class="n">didSelectRowAtIndexPath</span> <span class="nl">indexPath</span><span class="p">:</span> <span class="bp">NSIndexPath</span><span class="o">!</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">let</span> <span class="n">cell</span> <span class="o">=</span> <span class="n">tableView</span><span class="p">.</span><span class="n">cellForRowAtIndexPath</span><span class="p">(</span><span class="n">indexPath</span><span class="p">)</span>
-</span><span class='line'>  <span class="nb">self</span><span class="p">.</span><span class="n">performSegueWithIdentifier</span><span class="p">(</span><span class="s">&quot;showDetail&quot;</span><span class="p">,</span> <span class="nl">sender</span><span class="p">:</span> <span class="n">cell</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kr">override</span> <span class="k">func</span> <span class="nf">prepareForSegue</span><span class="p">(</span><span class="nl">segue</span><span class="p">:</span> <span class="bp">UIStoryboardSegue</span><span class="p">,</span> <span class="nl">sender</span><span class="p">:</span> <span class="n">AnyObject</span><span class="o">?</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">if</span> <span class="n">segue</span><span class="p">.</span><span class="n">identifier</span> <span class="o">==</span> <span class="s">&quot;showDetail&quot;</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">let</span> <span class="n">indexPath</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">tableSample</span><span class="p">.</span><span class="n">indexPathForSelectedRow</span><span class="p">()</span><span class="o">?</span><span class="p">.</span><span class="n">row</span>
-</span><span class='line'>  <span class="p">((</span><span class="n">segue</span><span class="p">.</span><span class="n">destinationViewController</span><span class="p">)</span> <span class="kt">as</span> <span class="n">DetailViewController</span><span class="p">).</span><span class="n">index</span><span class="o">=</span><span class="n">indexPath</span><span class="o">!</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>大家可能會覺得好奇裡頭有個 identifier 叫做 &lsquo;showDetail&#8217;，這個東西是自己自定的，一定要定，不然在傳遞時會不知道要抓哪個 segue</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.30.24.png" alt="image" /></p>
-
-<p>再來確認一下是否 dataSource 與 delegate 是否都有 reference 到</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.32.38.png" alt="image" /></p>
-
-<p>執行，就可以發現可以點進去了!</p>
-
-<p>不過因為我們還沒有和 NavigationView 做結合，因此要自己做按鈕點回去 XD</p>
-
-<p>在這邊就先不做了，因為明天就可以兩個結合起來了!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[API-d16] - 實戰開發 - 設定主題及規劃]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/16/api-d16/"/>
-    <updated>2014-10-16T18:39:40+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/16/api-d16</id>
-    <content type="html"><![CDATA[<p>接下來我們想要做到的是一個 TODO list 的 RESTful API</p>
-
-<p>並且會先使用 <a href="http://apiary.io/">apiary.io</a> 做規劃</p>
-
-<p>實際看看感覺如何</p>
-
-<p>進入網站後，註冊登入後</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-07%201.04.07.png" alt="image" /></p>
-
-<p>左上角的 dropdown list 選擇 create new API</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-07%201.04.18.png" alt="image" /></p>
-
-<p>產生後下方就會跑出範例文擋</p>
-
-<p>這個網站會透過特定格式的編排自己希望的 API endpoint 及範例回傳值後，產生出一份漂亮的文件</p>
-
-<p>網站中間是模式的選擇</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-07%201.10.33.png" alt="image" /></p>
-
-<p>Documentation 是實際讓其他人看的，Editor 則是編輯模式</p>
-
-<p>我們就稍微簡單規劃一下 TODO List 的 RESTful API 吧!</p>
-
-<p>這是我自己規劃的 <a href="http://docs.todolist7.apiary.io/">文件</a></p>
-
-<p>基本上 route 會長這個樣子:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>TODOs
-</span><span class='line'>GET /user/{user_id}/todos/
-</span><span class='line'>POST /user/{user_id}/todos/
-</span><span class='line'>GET /user/{user_id}/todos/{id}
-</span><span class='line'>PUT /user/{user_id}/todos/{id}
-</span><span class='line'>DELETE /user/{user_id}/todos/{id}</span></code></pre></td></tr></table></div></figure>
-
-
-<p>資料格式也都在該文件整理好了</p>
-
-<p><code>/user/{user_id}/</code> 只是用來辨識是哪個 user 的 todo task data</p>
-
-<p>在這個小 API 不會琢磨在使用者系統的建立，只會專注在操作 todo task data</p>
-
-<p>我們可以直接透過 PostMan 來丟丟看</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-07%201.43.06.png" alt="image" /></p>
-
-<p>我們設定必須要使用 API-key 才能存取 API，比較進階的做法就是使用 Oauth 的方式取得 token 來存取 API</p>
-
-<p>不過在這個小 API 也不會建立一個 Oauth Server，我們簡單使用 API-key 來認證即可</p>
-
-<p>接下來的時間我們就會開始依據規劃好的文件，使用 Node.js + express + mongodb 來實作囉!</p>
 ]]></content>
   </entry>
   
