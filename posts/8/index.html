@@ -98,6 +98,120 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2014/01/28/php-json-decode-error-by-wrong-json-string-with-quotes/">[PHP] Json_decode Error by Wrong Json String With Quotes</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T06:29:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/01/28/php-json-decode-error-by-wrong-json-string-with-quotes/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/01/28/php-json-decode-error-by-wrong-json-string-with-quotes/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Normal json string:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{"Hey":"There"}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Error json string got from $_POST variable:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{\"Hey\":\"There\"}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This may causes by <code>magic_quotes</code> in <code>php.ini</code>
+Magic is never good in development.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/01/09/sublime-text-2-integration-with-rvm-and-rspec/">[Sublime Text 2] Integration With RVM and Rspec</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-09T02:17:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/01/09/sublime-text-2-integration-with-rvm-and-rspec/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/01/09/sublime-text-2-integration-with-rvm-and-rspec/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ruby:</p>
+
+<p><code>~/Library/Application\ Support/Sublime\ Text\ 2/Packages/Ruby/Ruby.sublime-build</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='json'><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="nt">&quot;env&quot;</span><span class="p">:{</span>
+</span><span class='line'>      <span class="nt">&quot;PATH&quot;</span><span class="p">:</span><span class="s2">&quot;${HOME}/.rvm/bin:${PATH}&quot;</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nt">&quot;cmd&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;rvm-auto-ruby&quot;</span><span class="p">,</span> <span class="s2">&quot;$file&quot;</span><span class="p">],</span>
+</span><span class='line'>  <span class="nt">&quot;file_regex&quot;</span><span class="p">:</span> <span class="s2">&quot;^(...*?):([0-9]*):?([0-9]*)&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nt">&quot;selector&quot;</span><span class="p">:</span> <span class="s2">&quot;source.ruby&quot;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="http://rubenlaguna.com/wp/2012/12/07/sublime-text-2-rvm-rspec-take-2/">http://rubenlaguna.com/wp/2012/12/07/sublime-text-2-rvm-rspec-take-2/</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2014/01/02/rails-put-vs-patch/">[Rails] PUT v.s. PATCH</a></h1>
     
     
@@ -832,121 +946,6 @@ host side: you need ruby environment!</p>
 
 
 <p>reload your bash profile</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/18/ruby-pp-to-ruby-as-var-dump-to-php/">[Ruby] PP to Ruby as Var_dump to PHP</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-18T06:46:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2013/12/18/ruby-pp-to-ruby-as-var-dump-to-php/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2013/12/18/ruby-pp-to-ruby-as-var-dump-to-php/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;pp&#39;</span>
-</span><span class='line'><span class="n">pp</span><span class="p">(</span><span class="no">ENV</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<blockquote><p>Usage:
-pp(any_variable)</p></blockquote>
-
-<p>just like <code>var_dump</code> in <code>php</code></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/16/codeigniter-use-markdown-as-library/">[Codeigniter] Use Markdown as Library</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-16T07:01:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2013/12/16/codeigniter-use-markdown-as-library/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2013/12/16/codeigniter-use-markdown-as-library/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="https://github.com/erusev/parsedown">https://github.com/erusev/parsedown</a></p>
-
-<p>download the Parsedown.php
-and put it into Library folder
-then edit autoload.php</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$autoload['libraries'] = array('Parsedown');</span></code></pre></td></tr></table></div></figure>
-
-
-<p>then in the view php for tests:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$text = 'Hello **Parsedown**!';
-</span><span class='line'>$result = Parsedown::instance()-&gt;parse($text);
-</span><span class='line'>echo $result;</span></code></pre></td></tr></table></div></figure>
-
-
-<p>No need to require or include the file.
-If you want to load a file with path, you can use the function called file_get_contents:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>file_get_contents('./markdown/test.md',true); (true: enable path)</span></code></pre></td></tr></table></div></figure>
-
-
-
 </div>
   
   

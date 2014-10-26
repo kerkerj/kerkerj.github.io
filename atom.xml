@@ -4,7 +4,7 @@
   <title><![CDATA[kerkerj]]></title>
   <link href="http://kerkerj.github.io/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-25T22:03:32+08:00</updated>
+  <updated>2014-10-26T23:18:49+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -69,7 +69,7 @@ Day22 -  <a href="http://kerkerj.github.io/blog/2014/10/22/api-d22/">[API-d22] -
 Day23 -  <a href="http://kerkerj.github.io/blog/2014/10/23/api-d23/">[API-d23] - 實戰開發 - 修改 TODO task API with mongoose</a><br/>
 Day24 -  <a href="http://kerkerj.github.io/blog/2014/10/24/api-d24/">[API-d24] - 實戰開發 - 刪除 TODO task API with mongoose</a><br/>
 Day25 -  <a href="http://kerkerj.github.io/blog/2014/10/25/api-day25/">[API-day25] - 實戰開發 - 處理 404 &amp; 500</a><br/>
-Day26 -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day26 -  <a href="http://kerkerj.github.io/blog/2014/10/26/api-d26/">[API-d26] - 實戰開發 - API-key</a><br/>
 Day27 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day28 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day29 -  <a href="http://kerkerj.github.io/">#</a><br/>
@@ -102,11 +102,262 @@ Day22 -  <a href="http://kerkerj.github.io/blog/2014/10/22/swift-d22/">[Swift-d2
 Day23 -  <a href="http://kerkerj.github.io/blog/2014/10/23/swift-d23/">[Swift-d23] - 實戰開發 - TODOList - Show View 2, Delete View</a><br/>
 Day24 -  <a href="http://kerkerj.github.io/blog/2014/10/24/swift-d24/">[Swift-d24] - 實戰開發 - TODOList - Create View</a><br/>
 Day25 -  <a href="http://kerkerj.github.io/blog/2014/10/25/swift-day25/">[Swift-day25] - 實戰開發 - TODOList - Update View</a><br/>
-Day26 -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day26 -  <a href="http://kerkerj.github.io/blog/2014/10/26/swift-d26/">[Swift-d26] - 實戰開發 - TODOList - API 前置資料準備</a><br/>
 Day27 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day28 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day29 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day30 -  <a href="http://kerkerj.github.io/">#</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Swift-d26] - 實戰開發 - TODOList - API 前置資料準備]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/26/swift-d26/"/>
+    <updated>2014-10-26T23:04:09+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/26/swift-d26</id>
+    <content type="html"><![CDATA[<p>接下來是要串 <a href="http://ithelp.ithome.com.tw/ironman7/app/profile/20091343/dev">隔壁棚的 API</a> XD</p>
+
+<p>從前幾天的 APP 組成</p>
+
+<p>我們所需要的資料大概會是以下幾種:</p>
+
+<ul>
+<li>GET todo list</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="n">GET</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//192.168.1.158:3000/user/kerkerj/todos</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">return</span><span class="o">:</span>
+</span><span class='line'><span class="p">[</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="s">&quot;_id&quot;</span><span class="o">:</span> <span class="s">&quot;54441f64d84f1ea412db855c&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s">&quot;updated_at&quot;</span><span class="o">:</span> <span class="s">&quot;2014-10-19T20:30:28.797Z&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s">&quot;created_at&quot;</span><span class="o">:</span> <span class="s">&quot;2014-10-19T20:30:28.797Z&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s">&quot;content&quot;</span><span class="o">:</span> <span class="s">&quot;task11syy&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s">&quot;user_id&quot;</span><span class="o">:</span> <span class="s">&quot;kerkerj&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s">&quot;__v&quot;</span><span class="o">:</span> <span class="mi">0</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="s">&quot;_id&quot;</span><span class="o">:</span> <span class="s">&quot;54441f6fd84f1ea412db855e&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s">&quot;updated_at&quot;</span><span class="o">:</span> <span class="s">&quot;2014-10-19T20:30:39.957Z&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s">&quot;created_at&quot;</span><span class="o">:</span> <span class="s">&quot;2014-10-19T20:30:39.957Z&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s">&quot;content&quot;</span><span class="o">:</span> <span class="s">&quot;task13&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s">&quot;user_id&quot;</span><span class="o">:</span> <span class="s">&quot;kerkerj&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s">&quot;__v&quot;</span><span class="o">:</span> <span class="mi">0</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Get a todo task</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="n">GET</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//192.168.1.158:3000/user/kerkerj/todos/54441f64d84f1ea412db855c</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">return</span><span class="o">:</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>        <span class="s">&quot;_id&quot;</span><span class="o">:</span> <span class="s">&quot;54441f64d84f1ea412db855c&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s">&quot;updated_at&quot;</span><span class="o">:</span> <span class="s">&quot;2014-10-19T20:30:28.797Z&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s">&quot;created_at&quot;</span><span class="o">:</span> <span class="s">&quot;2014-10-19T20:30:28.797Z&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s">&quot;content&quot;</span><span class="o">:</span> <span class="s">&quot;task11syy&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s">&quot;user_id&quot;</span><span class="o">:</span> <span class="s">&quot;kerkerj&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s">&quot;__v&quot;</span><span class="o">:</span> <span class="mi">0</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Add a todo task</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="n">POST</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//192.168.1.158:3000/user/kerkerj/todos/</span>
+</span><span class='line'><span class="nl">data</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;content&quot;</span><span class="o">:</span> <span class="s">&quot;your data&quot;</span><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">return</span><span class="o">:</span> <span class="n">the</span> <span class="n">data</span> <span class="n">you</span> <span class="n">sent</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Update a todo task</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="n">PUT</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//192.168.1.158:3000/user/kerkerj/todos/</span>
+</span><span class='line'><span class="nl">data</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;content&quot;</span><span class="o">:</span> <span class="s">&quot;your data&quot;</span><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">return</span><span class="o">:</span> <span class="n">the</span> <span class="n">data</span> <span class="n">you</span> <span class="n">sent</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Delete a todo task</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="n">DELETE</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//192.168.1.158:3000/user/kerkerj/todos/54441f64d84f1ea412db855c</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">return</span>
+</span><span class='line'><span class="p">{</span><span class="s">&quot;success&quot;</span><span class="o">:</span> <span class="s">&quot;true&quot;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>從以上資料可以知道</p>
+
+<p>最重要的欄位就是 _id, user_id, content</p>
+
+<p>user_id 我們在 app 中就直接寫死了</p>
+
+<p>所以最重要的就是 content 及 _id</p>
+
+<p>今天先允許我偷懶一下，明天就要開始寫 api utility 給 swift 用</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[API-d26] - 實戰開發 - API-key]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/26/api-d26/"/>
+    <updated>2014-10-26T23:04:04+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/26/api-d26</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day26">Github 參考</a></p>
+
+<p>假設今天我們的 API 上線了，可能就會面臨到一些問題，</p>
+
+<p>例如說，任何人都可以存取我們的 API</p>
+
+<p>當然我們不希望任何人都可以存取，</p>
+
+<p>因此我們必須加一點驗證機制在裡面，</p>
+
+<p>其中一種做法是使用 Oauth token</p>
+
+<p>在拿 API 資料前，先向 Oauth server 要一個 token</p>
+
+<p>Oauth Server 認可身份後即會核發一個 token 給 client 端</p>
+
+<p>該 token 具有時效性，6 mins ~ 30 min 不等，看怎麼實作</p>
+
+<p>接著 client 端就拿該組 token 以及 API url 對 resources server 丟 request</p>
+
+<p>其實我們現在在做的 API server 就是一個 resources server</p>
+
+<p>因為我們提供資源</p>
+
+<p>而 resources server 就會先認 token，</p>
+
+<p>確保該 token 的時效性以及正確性，以及該 token 可存取的資源範圍</p>
+
+<p>確認無誤後再回送正確的資料</p>
+
+<p>不過在這邊我們並沒有要實作 Oauth Server</p>
+
+<p>單純以一個 resources server 而言，只要認 token 是否正確</p>
+
+<p>因此我們在這邊用 API-Key 實作即可，簡單的服務只要不被猜到就好</p>
+
+<p>程式碼如下，記得加在 router 前面</p>
+
+<p>app.js:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Set Header Check</span>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">api_key</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;API-Key&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">api_key</span> <span class="o">!=</span> <span class="s2">&quot;55665566&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">401</span><span class="p">).</span><span class="nx">send</span><span class="p">({</span> <span class="nx">error</span><span class="o">:</span> <span class="s2">&quot;Unauthorized&quot;</span><span class="p">});</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">next</span><span class="p">();</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>一樣是 middleware 的概念</p>
+
+<p>不過是會預先作處理</p>
+
+<p>我們接收到 request 後，分析它的 header 中是否有 <code>API-Key</code> 這個欄位</p>
+
+<p>若有的話，確認他的值是否為 <code>55665566</code></p>
+
+<p>若不是的話，回傳 401 Unauthorized</p>
+
+<p>若正確則繼續走下一個 middleware</p>
+
+<p>這樣就可以做一道簡單的防線了</p>
+
+<p>若加了這道防線</p>
+
+<p>在使用 POSTMAN 做 request 時，必須加入自定 header</p>
+
+<p>沒加入的話:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%204.11.59.png" alt="image" /></p>
+
+<p>有加入的話:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%204.12.18.png" alt="image" /></p>
+
+<p>是不是很簡單呢!</p>
 ]]></content>
   </entry>
   
@@ -3010,329 +3261,6 @@ Changes to this property can be animated. The default value is nil, which result
 <p>下 <code>npm test</code> 就是等同於下 <code>mocha</code></p>
 
 <p>上面只是大致上講解一下每個套件如何用，接下來我們會以實際的例子來說明</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[Swift-d17] - Basic - Navigation View + TableView]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/17/swift-d17/"/>
-    <updated>2014-10-17T21:17:03+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/17/swift-d17</id>
-    <content type="html"><![CDATA[<p>今天要把 Navigation View 和 Table View 結合起來!</p>
-
-<p>把 NavigationController 拉進 Storyboard</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2019.47.53.png" alt="image" /></p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2019.48.28.png" alt="image" /></p>
-
-<p>將程式進入點指向 NavigationController</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2019.48.28.png" alt="image" /></p>
-
-<p>把原本程式自動產生的 UIViewController 刪除</p>
-
-<p>把自動產生的 TableViewController 刪除!</p>
-
-<p>拉一個新的 UIViewController</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.06.29.png" alt="image" /></p>
-
-<p>將 NavigationController 的 RootViewController 指向新的 ViewController</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.07.20.png" alt="image" /></p>
-
-<p>把 TableView 拉進 ViewController</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.08.48.png" alt="image" /></p>
-
-<p>再將 TableViewCell 拉進 TableView</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.09.16.png" alt="image" /></p>
-
-<p>再點選 ViewController, 到右上角中找尋 Custom Class</p>
-
-<p>將 ViewController.swift 指定給該 ViewController</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.18.11.png" alt="image" /></p>
-
-<p>接著把 UITableView 引進程式碼裡做關聯</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.19.25.png" alt="image" /></p>
-
-<p>再來就是實作 Table 的 data 了</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">class</span> <span class="nl">ViewController</span><span class="p">:</span> <span class="bp">UIViewController</span><span class="p">,</span> <span class="bp">UITableViewDataSource</span> <span class="p">{</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">class</span> <span class="nl">ViewController</span><span class="p">:</span> <span class="bp">UIViewController</span><span class="p">,</span> <span class="bp">UITableViewDataSource</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="p">@</span><span class="kt">IBOutlet</span> <span class="k">var</span> <span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="o">!</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">var</span> <span class="n">arr</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;A&quot;</span><span class="p">,</span> <span class="s">&quot;B&quot;</span><span class="p">,</span> <span class="s">&quot;C&quot;</span><span class="p">]</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kr">override</span> <span class="k">func</span> <span class="n">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nb">super</span><span class="p">.</span><span class="n">viewDidLoad</span><span class="p">()</span>
-</span><span class='line'>        <span class="c1">// Do any additional setup after loading the view, typically from a nib.</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kr">override</span> <span class="k">func</span> <span class="n">didReceiveMemoryWarning</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nb">super</span><span class="p">.</span><span class="n">didReceiveMemoryWarning</span><span class="p">()</span>
-</span><span class='line'>        <span class="c1">// Dispose of any resources that can be recreated.</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">func</span> <span class="n">tableView</span><span class="p">(</span><span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="p">,</span> <span class="n">numberOfRowsInSection</span> <span class="nl">section</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">arr</span><span class="p">.</span><span class="n">count</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">func</span> <span class="n">tableView</span><span class="p">(</span><span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="p">,</span> <span class="n">cellForRowAtIndexPath</span> <span class="nl">indexPath</span><span class="p">:</span> <span class="bp">NSIndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">UITableViewCell</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">var</span> <span class="nl">cell</span><span class="p">:</span> <span class="bp">UITableViewCell</span><span class="o">?</span> <span class="o">=</span> <span class="n">tableView</span><span class="p">.</span><span class="n">dequeueReusableCellWithIdentifier</span><span class="p">(</span><span class="s">&quot;cell&quot;</span><span class="p">)</span> <span class="kt">as</span><span class="o">?</span> <span class="bp">UITableViewCell</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">if</span> <span class="n">cell</span> <span class="o">==</span> <span class="nb">nil</span> <span class="p">{</span>
-</span><span class='line'>            <span class="n">cell</span> <span class="o">=</span> <span class="bp">UITableViewCell</span><span class="p">(</span><span class="nl">style</span><span class="p">:</span> <span class="n">UITableViewCellStyle</span><span class="p">.</span><span class="n">Default</span> <span class="p">,</span> <span class="nl">reuseIdentifier</span><span class="p">:</span> <span class="s">&quot;cell&quot;</span><span class="p">)</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>        <span class="n">cell</span><span class="o">!</span><span class="p">.</span><span class="n">textLabel</span><span class="o">?</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">]</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">return</span> <span class="n">cell</span><span class="o">!</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>code 實作完後，記得拉 dataSource 及 delegate</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.27.19%EF%BC%882%EF%BC%89.png" alt="image" /></p>
-
-<p>執行後就是 TableView + NavigationController 了</p>
-
-<p>接下來就要加入換頁:</p>
-
-<p>到 storyboard 再加入一個 ViewController，並從 tableView 的 cell 中建立連結到新的 ViewController</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.33.35.png" alt="image" /></p>
-
-<p>再來新增一個 DetailViewController, 用來顯示下一頁的資料</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.35.29.png" alt="image" /></p>
-
-<p>記得先去做 class 關聯</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.36.03.png" alt="image" /></p>
-
-<p>再來加入這個 function:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="kr">override</span> <span class="k">func</span> <span class="nf">prepareForSegue</span><span class="p">(</span><span class="nl">segue</span><span class="p">:</span> <span class="bp">UIStoryboardSegue</span><span class="p">,</span> <span class="nl">sender</span><span class="p">:</span> <span class="n">AnyObject</span><span class="o">?</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">if</span> <span class="n">segue</span><span class="p">.</span><span class="n">identifier</span> <span class="o">==</span> <span class="s">&quot;showDetail&quot;</span> <span class="p">{</span>
-</span><span class='line'>            <span class="k">let</span> <span class="n">index</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">tableView</span><span class="p">.</span><span class="n">indexPathForSelectedRow</span><span class="p">()</span><span class="o">?</span><span class="p">.</span><span class="n">row</span>
-</span><span class='line'>            <span class="p">((</span><span class="n">segue</span><span class="p">.</span><span class="n">destinationViewController</span><span class="p">)</span> <span class="kt">as</span> <span class="n">DetailViewController</span><span class="p">).</span><span class="n">title</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">index</span><span class="o">!</span><span class="p">]</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>    <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>回到 storyboard, 點選 UITableView 和 UIView 中間的連線，設定 storyboard 的 identifier</p>
-
-<p>設定為 <code>showDetail</code> 以便和程式一樣</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.37.36.png" alt="image" /></p>
-
-<p>另外回到 Storyboard 中的 TableView, 設定 cell 的 identifier 和程式一樣</p>
-
-<p>以便 reuse</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.47.03.png" alt="image" /></p>
-
-<p>接著都設定完畢後，就可以執行了!</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.49.13.png" alt="image" /></p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.49.18.png" alt="image" /></p>
-
-<p>這樣就完成啦!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[API-d17] - 實戰開發 - 專案結構]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/17/api-d17/"/>
-    <updated>2014-10-17T21:17:00+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/17/api-d17</id>
-    <content type="html"><![CDATA[<p>首先我們就在虛擬機的資料夾底下，建立一個專案資料夾吧!</p>
-
-<p>今天會來簡單切割一下我們的專案目錄</p>
-
-<h2>建立新專案目錄:</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd /vagrant/
-</span><span class='line'>$ mkdir TODOAPI
-</span><span class='line'>$ cd TODOAPI
-</span><span class='line'>$ npm init
-</span><span class='line'>// 輸入專案資訊
-</span><span class='line'>$ </span></code></pre></td></tr></table></div></figure>
-
-
-<h2>建立專案結構</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>/
-</span><span class='line'>| - bin/
-</span><span class='line'>| - routes/
-</span><span class='line'>| - model/
-</span><span class='line'>| - node_modules/
-</span><span class='line'>| - logs/
-</span><span class='line'>| - config/
-</span><span class='line'>| - test/
-</span><span class='line'>| - app.js
-</span><span class='line'>| - package.json</span></code></pre></td></tr></table></div></figure>
-
-
-<p>分別講解一下各個 folder 的工作:</p>
-
-<h3><code>bin</code></h3>
-
-<p>筆者會在 <code>bin</code> 資料夾底下放一個 <code>server.js</code></p>
-
-<p>這個 <code>server.js</code> 就是會專門用來啟動一個 <code>app.js</code> instance</p>
-
-<h3><code>routes</code></h3>
-
-<p>基本上如果了解 MVC 架構的話，<code>routes</code> 就是 <code>controller</code> 的意思，其實如果讀者本身夠了解的話，這個資料夾也可以改成 <code>controller</code> 也 ok，應該說，其實資料夾怎麼放都是看個人隨意即可，只是若是要模組化的話，筆者會這樣來處理一個專案結構。</p>
-
-<h3><code>model</code></h3>
-
-<p>拿來放資料庫 schema 以及相關的資料庫操作的資料夾</p>
-
-<h3><code>node_modules</code></h3>
-
-<p>這其實是之後安裝的模組會放在這個資料夾裡，在這邊可以先不用建立沒關係</p>
-
-<h3><code>logs</code></h3>
-
-<p>由於我們是建立一個 restful service，因此 log 的記錄也是很重要的，我們把 log 放在這個資料夾裡</p>
-
-<h3><code>configs</code></h3>
-
-<p>我們在這個資料夾裡放置一些專案設定，例如 db 設定或者是 log 的設定等等</p>
-
-<h3><code>test</code></h3>
-
-<p>撰寫測試程式的資料夾~</p>
-
-<h3><code>app.js</code></h3>
-
-<p>程式的進入點，可以想像成 index.php~</p>
-
-<h3><code>package.json</code></h3>
-
-<p>專案的資訊以及相關模組的資訊都會被放在這裡!</p>
-
-<hr />
-
-<p>其實關於專案結構有許多不同的討論，<code>express</code> 也有一個專案自動產生器，不過如果對結構內容不了解而使用產生器的話，很容易變成只知表面不知內部運作，因此我們還是一步一步來，先定義好我們專案的需求結構</p>
-
-<p>另外，因為我們是建立 restful API service，在此並沒有用到 html 頁面，也因此就沒有 <code>view</code> 或 <code>public</code> 這兩個資料夾囉~</p>
-
-<p>延伸閱讀:</p>
-
-<p>我們可以透過觀摩別人的專案來參考他們的專案架構:</p>
-
-<p><a href="http://scotch.io/tutorials/javascript/node-and-angular-to-do-app-application-organization-and-structure">Node and Angular To-Do App: Application Organization and Structure</a></p>
-
-<p><a href="http://stackoverflow.com/questions/18789864/node-js-express-global-modules-best-practices-for-application-structure">node.js &amp; express - global modules &amp; best practices for application structure</a></p>
-
-<p>在 Github 上的討論，非常值得一看: <a href="https://gist.github.com/lancejpollard/1398757">Github discussion</a></p>
-
-<p>後來覺得也可以模仿 rails 的分法:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>/
-</span><span class='line'>| - app/
-</span><span class='line'>| - ----controllers/
-</span><span class='line'>| - ----models/
-</span><span class='line'>| - ----views/
-</span><span class='line'>| - ----helpers/
-</span><span class='line'>| - node_modules/
-</span><span class='line'>| - logs/
-</span><span class='line'>| - libs/
-</span><span class='line'>| - public/
-</span><span class='line'>| - config/
-</span><span class='line'>| - test/
-</span><span class='line'>| - server.js
-</span><span class='line'>| - package.json</span></code></pre></td></tr></table></div></figure>
-
-
-<p>都 OK!</p>
 ]]></content>
   </entry>
   

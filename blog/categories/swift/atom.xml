@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Swift | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/swift/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-25T22:03:32+08:00</updated>
+  <updated>2014-10-26T23:18:49+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,108 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[Swift-d26] - 實戰開發 - TODOList - API 前置資料準備]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/26/swift-d26/"/>
+    <updated>2014-10-26T23:04:09+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/26/swift-d26</id>
+    <content type="html"><![CDATA[<p>接下來是要串 <a href="http://ithelp.ithome.com.tw/ironman7/app/profile/20091343/dev">隔壁棚的 API</a> XD</p>
+
+<p>從前幾天的 APP 組成</p>
+
+<p>我們所需要的資料大概會是以下幾種:</p>
+
+<ul>
+<li>GET todo list</li>
+</ul>
+
+
+<pre><code class="swift">GET http://192.168.1.158:3000/user/kerkerj/todos
+
+return:
+[
+    {
+        "_id": "54441f64d84f1ea412db855c",
+        "updated_at": "2014-10-19T20:30:28.797Z",
+        "created_at": "2014-10-19T20:30:28.797Z",
+        "content": "task11syy",
+        "user_id": "kerkerj",
+        "__v": 0
+    },
+    {
+        "_id": "54441f6fd84f1ea412db855e",
+        "updated_at": "2014-10-19T20:30:39.957Z",
+        "created_at": "2014-10-19T20:30:39.957Z",
+        "content": "task13",
+        "user_id": "kerkerj",
+        "__v": 0
+    }
+]
+</code></pre>
+
+<ul>
+<li>Get a todo task</li>
+</ul>
+
+
+<pre><code>GET http://192.168.1.158:3000/user/kerkerj/todos/54441f64d84f1ea412db855c
+
+return:
+{
+        "_id": "54441f64d84f1ea412db855c",
+        "updated_at": "2014-10-19T20:30:28.797Z",
+        "created_at": "2014-10-19T20:30:28.797Z",
+        "content": "task11syy",
+        "user_id": "kerkerj",
+        "__v": 0
+}
+</code></pre>
+
+<ul>
+<li>Add a todo task</li>
+</ul>
+
+
+<pre><code>POST http://192.168.1.158:3000/user/kerkerj/todos/
+data: {"content": "your data"}
+
+return: the data you sent
+</code></pre>
+
+<ul>
+<li>Update a todo task</li>
+</ul>
+
+
+<pre><code>PUT http://192.168.1.158:3000/user/kerkerj/todos/
+data: {"content": "your data"}
+
+return: the data you sent
+</code></pre>
+
+<ul>
+<li>Delete a todo task</li>
+</ul>
+
+
+<pre><code>DELETE http://192.168.1.158:3000/user/kerkerj/todos/54441f64d84f1ea412db855c
+
+return 
+{"success": "true"}
+</code></pre>
+
+<p>從以上資料可以知道</p>
+
+<p>最重要的欄位就是 _id, user_id, content</p>
+
+<p>user_id 我們在 app 中就直接寫死了</p>
+
+<p>所以最重要的就是 content 及 _id</p>
+
+<p>今天先允許我偷懶一下，明天就要開始寫 api utility 給 swift 用</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[Swift-day25] - 實戰開發 - TODOList - Update View]]></title>
@@ -462,102 +564,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 </code></pre>
 
 <p>明天就會提到換頁以及刪除的作法!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[Swift-d21] - 實戰開發 - TODOList - 前置設定]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/21/swift-d21/"/>
-    <updated>2014-10-21T18:58:10+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/21/swift-d21</id>
-    <content type="html"><![CDATA[<p><a href="https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day21">Github link</a></p>
-
-<p>首先在開始寫這隻 app 前，</p>
-
-<p>我們要先定義好程式大致上的流程</p>
-
-<p>基本上接下來的程式碼都不會用到 storyboard</p>
-
-<p>只會用到程式 + xib</p>
-
-<p>程式的流程大致上是使用 Navigation controller 來控制 view 的轉換</p>
-
-<p>第一頁 - tableView 顯示 todo items list</p>
-
-<p><img src="http://goo.gl/RKH85d" alt="image" /></p>
-
-<p>點進子項目可以觀看內容，進到子頁後可以編輯，</p>
-
-<p>編輯後就即可存檔</p>
-
-<p>新增項目則在主頁的右上角 &ldquo;Add&rdquo; 可以新增</p>
-
-<p>我們會先從建立假的資料開始，也就是我會先刻出程式的流程</p>
-
-<p>先不接 API</p>
-
-<p>實際寫出運作流程後，再加上 API 操作的部分</p>
-
-<p>因此今天的進度就先開一個新專案，將基本的 Navigation + tableView 建立起來吧:</p>
-
-<p>首先建立一個新專案</p>
-
-<p>再來到 project settings</p>
-
-<p>將 Main Interface 及 Launch Screen file 拿掉</p>
-
-<p>並將 deploy target 設成 7.1 (反正用到的程式碼都一樣~ 沒有特別使用 8.0 的 lib)</p>
-
-<p>設定 device orientation - 只限定直的</p>
-
-<p><img src="http://goo.gl/xQ6m25" alt="image" /></p>
-
-<p>接著就來編輯 AppDelegate.swift</p>
-
-<p>建立一個 NavigationController + ViewController</p>
-
-<pre><code class="swift">@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    var window: UIWindow?
-    var navigationController: UINavigationController?
-    var viewController: ViewController?
-
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -&gt; Bool {
-        // Override point for customization after application launch.
-
-        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        self.window?.backgroundColor = UIColor.whiteColor()
-
-        self.viewController = ViewController()
-        self.viewController?.title = "TODO List"
-
-        self.navigationController = UINavigationController(rootViewController: self.viewController!)
-
-        self.window?.makeKeyAndVisible()
-        self.window?.rootViewController = navigationController
-
-        return true
-    }
-</code></pre>
-
-<p>就是之前有用到的程式碼，稍作改寫</p>
-
-<p>再來到 ViewController 中, 將背景色稍改一些</p>
-
-<pre><code>override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-
-        self.view.backgroundColor = UIColor.yellowColor()
-    }
-</code></pre>
-
-<p>最後將 storyboard 以及 launchScreen.xib 刪掉</p>
-
-<p>執行程式，就 OK 囉！</p>
-
-<p><img src="http://goo.gl/n1T0zv" alt="image" /></p>
 ]]></content>
   </entry>
   

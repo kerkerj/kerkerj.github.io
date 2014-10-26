@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Restful | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/restful/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-25T22:03:32+08:00</updated>
+  <updated>2014-10-26T23:18:49+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,94 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[API-d26] - 實戰開發 - API-key]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/26/api-d26/"/>
+    <updated>2014-10-26T23:04:04+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/26/api-d26</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day26">Github 參考</a></p>
+
+<p>假設今天我們的 API 上線了，可能就會面臨到一些問題，</p>
+
+<p>例如說，任何人都可以存取我們的 API</p>
+
+<p>當然我們不希望任何人都可以存取，</p>
+
+<p>因此我們必須加一點驗證機制在裡面，</p>
+
+<p>其中一種做法是使用 Oauth token</p>
+
+<p>在拿 API 資料前，先向 Oauth server 要一個 token</p>
+
+<p>Oauth Server 認可身份後即會核發一個 token 給 client 端</p>
+
+<p>該 token 具有時效性，6 mins ~ 30 min 不等，看怎麼實作</p>
+
+<p>接著 client 端就拿該組 token 以及 API url 對 resources server 丟 request</p>
+
+<p>其實我們現在在做的 API server 就是一個 resources server</p>
+
+<p>因為我們提供資源</p>
+
+<p>而 resources server 就會先認 token，</p>
+
+<p>確保該 token 的時效性以及正確性，以及該 token 可存取的資源範圍</p>
+
+<p>確認無誤後再回送正確的資料</p>
+
+<p>不過在這邊我們並沒有要實作 Oauth Server</p>
+
+<p>單純以一個 resources server 而言，只要認 token 是否正確</p>
+
+<p>因此我們在這邊用 API-Key 實作即可，簡單的服務只要不被猜到就好</p>
+
+<p>程式碼如下，記得加在 router 前面</p>
+
+<p>app.js:</p>
+
+<pre><code class="javascript">// Set Header Check
+app.use( function(req, res, next) {
+    var api_key = req.get('API-Key');
+
+    if (api_key != "55665566") {
+        res.status(401).send({ error: "Unauthorized"});
+    }
+    else {
+        next();
+    }
+});
+</code></pre>
+
+<p>一樣是 middleware 的概念</p>
+
+<p>不過是會預先作處理</p>
+
+<p>我們接收到 request 後，分析它的 header 中是否有 <code>API-Key</code> 這個欄位</p>
+
+<p>若有的話，確認他的值是否為 <code>55665566</code></p>
+
+<p>若不是的話，回傳 401 Unauthorized</p>
+
+<p>若正確則繼續走下一個 middleware</p>
+
+<p>這樣就可以做一道簡單的防線了</p>
+
+<p>若加了這道防線</p>
+
+<p>在使用 POSTMAN 做 request 時，必須加入自定 header</p>
+
+<p>沒加入的話:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%204.11.59.png" alt="image" /></p>
+
+<p>有加入的話:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%204.12.18.png" alt="image" /></p>
+
+<p>是不是很簡單呢!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[API-day25] - 實戰開發 - 處理 404 & 500]]></title>
@@ -336,148 +424,6 @@ router.get('/:user_id/todos/:todo_id', function(req, res) {
 <p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%203.21.51.png" alt="image" /></p>
 
 <p>如此一來，讀取特定 task 的 API 也完成囉!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[API-d21] - 實戰開發 - 新增 TODO Task API With Mongoose]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/21/api-d21/"/>
-    <updated>2014-10-21T18:58:06+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/21/api-d21</id>
-    <content type="html"><![CDATA[<p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day21">Github 參考</a></p>
-
-<p>昨天我們了解了如何拿 url params 以及 request data</p>
-
-<p>今天我們就來使用他，對資料庫做存取</p>
-
-<p>由於使用到資料庫，因此我們要加入資料庫的 driver</p>
-
-<p>我們用的是 <code>mongoose</code> 套件</p>
-
-<p>app.js:</p>
-
-<pre><code class="javascript">// 在最上方加入
-var mongoose = require('mongoose');
-
-// 在某個地方連接資料庫
-var db_uri = "mongodb://192.168.33.10:27017/TODOs";
-mongoose.connect(db_uri);
-</code></pre>
-
-<p>在這邊我是使用了虛擬機的 DB，因此是 <code>mongodb://192.168.33.10:27017/TODOs</code></p>
-
-<p>DB 的名稱為 <code>TODOs</code></p>
-
-<p>這樣在程式一跑起來時，就會連接資料庫了!</p>
-
-<p>再來我們就要設定在對資料庫做 CRUD 時，所需要做的事情</p>
-
-<p>首先我們先要定義 schema，</p>
-
-<p>雖然 mongodb 是 schema-free，但是官方文件也有提到最好還是有固定的 schema 避免記憶體 allocate 時出現問題，而程式撰寫時邏輯也不會因此而過於複雜</p>
-
-<p>這時候我們就需要 model 資料夾了，在 model 資料夾中新增一個 todos.js</p>
-
-<p>裡面要放的就是 todo task 的 schema</p>
-
-<p>內容如下:</p>
-
-<p>models/todos.js:</p>
-
-<pre><code>'use strict';
-
-var mongoose = require('mongoose');
-
-// Define our todo schema
-var TODOschema   = new mongoose.Schema({
-    user_id: String,
-    content: String,
-    created_at: Date,
-    updated_at: Date
-});
-
-// Export the Mongoose model
-module.exports = mongoose.model('TODO', TODOschema);
-</code></pre>
-
-<p>我們定義了幾個東西 user_id, content, created_at, updated_at</p>
-
-<p>其實 ObjectID 中已經有包含建立資訊了，其實 created_at 是可以省略掉的，不過在這邊還是加一下</p>
-
-<p>注意下面這行:</p>
-
-<pre><code>module.exports = mongoose.model('TODO', TODOschema);
-</code></pre>
-
-<p>&lsquo;TODO&rsquo; 在這邊是 Collection (RDBMS 中的 table) 的名稱</p>
-
-<p>在 mongoose 中，會自動複數化，所以在 Mongodb 中的 Collection name 會變成 &lsquo;todos&rsquo; ，</p>
-
-<p>雖然只是小小的一行，但是蠻重要的</p>
-
-<p>最後將這個 model exports 成一個 mongoose.model 物件</p>
-
-<p>那我們什麼時候會用到這個 model 物件呢?</p>
-
-<p>就是在 routes/user.js 中，</p>
-
-<p>routes/users.js:</p>
-
-<pre><code>var TODO = require('../models/todos');
-</code></pre>
-
-<p>這樣在 users.js 中就可以使用 TODO 這個物件了!</p>
-
-<p>我們先試著編輯 POST 的 route，拿到 POST 資料後，將資料轉成 TODO 的物件，存到 mongodb 裏</p>
-
-<p>以下是 routes/users.js 中的 post 程式碼段</p>
-
-<p>簡單來說就是先抓到 uri 的參數以及 post data</p>
-
-<p>並且使用 models/todos.js 的 model 新建立一個 todo 物件</p>
-
-<p>並將該物件用 post data 初始化，</p>
-
-<p>初始化完後就執行寫入 DB 的行為, 若寫入成功則回傳 201 + data</p>
-
-<p>失敗則回傳 400 bad request</p>
-
-<pre><code>// Create a todo task
-router.post('/:user_id/todos', function(req, res) {
-    var user_id = req.params.user_id;
-    var data = req.body;
-
-    // insert to db
-    var todo = new TODO();
-    todo.user_id = user_id;
-    todo.content = data.content;
-    todo.created_at = Date.now();
-    todo.updated_at = Date.now();
-
-    todo.save(function (err) {
-        if (err) {
-            res.status(400).json(
-                { error: "insert db error" }
-            );
-        } else {
-            res.status(201).json(
-                todo
-            );
-        }
-    });
-});
-</code></pre>
-
-<p>試著執行伺服器看看，並且使用 POSTMAN 丟 request 如下:</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.54.57.png" alt="image" /></p>
-
-<p>POST 的 raw data</p>
-
-<pre><code>{ "content": "buy milk" }
-</code></pre>
-
-<p>於是就完成了一個 POST 新增 TODO 的 API 了！</p>
 ]]></content>
   </entry>
   
