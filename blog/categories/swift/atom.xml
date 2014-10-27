@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Swift | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/swift/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-26T23:18:49+08:00</updated>
+  <updated>2014-10-27T23:12:36+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,166 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[Swift-d27] - 實戰開發 - TODOList - API 2 讀取清單資料]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/27/swift-d27/"/>
+    <updated>2014-10-27T23:00:04+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/27/swift-d27</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day27">Github link</a></p>
+
+<p>(某一天把兩天份的 commit 在一起了忘了開 branch 了&hellip;)</p>
+
+<p>接下來就要來寫 api utility 了</p>
+
+<p>我們先開一個 swift 檔案 <code>RestApi.swift</code></p>
+
+<pre><code class="swift">import Foundation
+
+class RestApi {
+    var API_key = "55665566"
+    var getListUrl = NSURL(string: "http://192.168.1.158:3000/user/kerkerj/todos")
+}
+</code></pre>
+
+<p>先做好前置設定，因為 API 有上簡單的小鎖，因此要先寫起來</p>
+
+<p>還有 request 的網址</p>
+
+<p>以下是 get list 的範例:</p>
+
+<pre><code>func getTodoList(completionHandler: ((NSArray!, NSError!) -&gt; Void)!) {
+        var session = NSURLSession.sharedSession()
+
+        var request = NSMutableURLRequest(URL: self.getListUrl!)
+        request.HTTPMethod = "GET"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue(self.API_key, forHTTPHeaderField: "API-Key")
+
+        let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -&gt; Void in
+            if (error != nil) {
+                return completionHandler(nil, error)
+            }
+
+            var error: NSError?
+            let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &amp;error) as NSArray
+
+            if (error != nil) {
+                return completionHandler(nil, error)
+            } else {
+                return completionHandler(json, nil)
+            }
+        })
+
+        task.resume()
+    }
+</code></pre>
+
+<p>我們使用內建的 NSURLSession.sharedSession 以及 NSMutableURLRequest 來建立 request</p>
+
+<p>裡面就是設定一些 header 以及 API-Key</p>
+
+<p>另外在資料回來後，return callback</p>
+
+<p>在這邊有 async，寫隔壁棚的 api 回過頭來看這個感覺很熟悉 XD</p>
+
+<p>設定好 API 後</p>
+
+<p>回到顯示 todo 清單的主頁程式碼</p>
+
+<p>由於我們希望能夠在 view 每次被呼叫時，都可以對 API server 做存取</p>
+
+<p>因此必須要將 getTodoList 寫在該方法裏</p>
+
+<p>該方法為 override func viewWillAppear(animated: Bool) {}</p>
+
+<p>先建立一個 api 物件</p>
+
+<pre><code>var api: RestApi = RestApi()
+</code></pre>
+
+<p>將原本的假資料刪除或註解, 不過資料物件名稱就繼續用 fakeData XD</p>
+
+<pre><code>//        fakeData = [
+//            ["id": "1", "content": "A"],
+//            ["id": "2", "content": "B"],
+//            ["id": "3", "content": "C"],
+//        ]
+</code></pre>
+
+<p>接著在 ViewController override 一個 viewWillAppear 的方法</p>
+
+<pre><code>override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+
+        api.getTodoList({data, error -&gt; Void in
+            if error != nil {
+                dispatch_async(dispatch_get_main_queue(), {
+                    let alert = UIAlertView()
+                    alert.title = "Yoooooooooooooooo"
+                    alert.message = "Get list faild, maybe check your network: \(error)"
+                    alert.addButtonWithTitle("ok")
+                    alert.delegate = self
+                    alert.show()
+                    println(error)
+                })
+            }
+
+            if (data != nil) {
+
+                var tmpArr = [[String: String]]()
+
+                for item in data {
+                    var _id = item["_id"] as String
+                    var content = item["content"] as String
+                    var dic = [String: String]()
+
+                    dic["_id"] = _id
+                    dic["content"] = content
+
+                    tmpArr.append(dic)
+                }
+
+                self.arr = tmpArr
+
+                println(self.arr)
+
+                dispatch_async(dispatch_get_main_queue(), {
+                    // must be "tableView!" not "tableView?"
+                    self.tableView!.reloadData()
+                })
+
+            }
+        })
+
+        dispatch_async(dispatch_get_main_queue(), {
+            // must be "tableView!" not "tableView?"
+            self.tableView!.reloadData()
+        })
+    }
+</code></pre>
+
+<p>以上方法都是 async 的方式</p>
+
+<p>只要網路錯誤，就會直接跳一個 alert</p>
+
+<p>若有資料的話就 parse</p>
+
+<p>一併轉換成原本定義的 [[String: String]] 中</p>
+
+<p>執行看看吧!</p>
+
+<p>很明顯每次切回主頁時 api console 都會跳一行 request~</p>
+
+<p>如果使用 sync 的方式就會卡很久! 而且更新 UI 還會 crash XD</p>
+
+<p>我覺得這部分是需要好好去做處理的，在這邊的程式碼只是簡單 demo</p>
+
+<p>並沒有考慮到太多 :P</p>
+
+<p>明天繼續!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[Swift-d26] - 實戰開發 - TODOList - API 前置資料準備]]></title>
@@ -468,102 +628,6 @@ var content: String!
 </code></pre>
 
 <p>這樣我們就有顯示單筆以及顯示多筆還有刪除可以用了!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[Swift-d22] - 實戰開發 - TODOList - Show View 1]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/22/swift-d22/"/>
-    <updated>2014-10-22T19:13:04+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/22/swift-d22</id>
-    <content type="html"><![CDATA[<p><a href="https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day22">Github link</a></p>
-
-<p>接著我們要讓主頁顯示一些假資料:</p>
-
-<p>由於我們未來接的 api 的資料會是 todo_id + content</p>
-
-<p>因此我們先產生一個 dictionary array 來存放我們的假資料</p>
-
-<pre><code class="swift">var fakeData = [[String:String]]()
-fakeData = [
-    ["id": "1", "content": "A"],
-    ["id": "2", "content": "B"],
-    ["id": "3", "content": "C"],
-]
-</code></pre>
-
-<p>再來對主頁的 controller 新增 tableView 上去</p>
-
-<p>並且對 UITableView 加入 delegate 以及 datasource</p>
-
-<pre><code>import UIKit
-
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
-    var fakeData = [[String:String]]()
-    var tableView: UITableView?
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-
-        fakeData = [["1": "A"], ["2": "B"], ["3": "C"]]
-        self.view.backgroundColor = UIColor.yellowColor()
-
-        self.tableView = UITableView(frame: self.view.frame)
-        self.tableView?.delegate = self
-        self.tableView?.dataSource = self
-
-        self.view.addSubview(self.tableView!)
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
-}
-</code></pre>
-
-<p>此時編譯器就會要求實作 UITableViewDataSource, UITableViewDelegate 的 methods</p>
-
-<p>實作完就可以讓 TableView 顯示資料, 這我們之前也都有提到過了~</p>
-
-<p>在這邊我們也同時使用自訂的 CustomTableViewCell, 簡單對 cell 改個顏色，雖然沒什麼多大用處 XD</p>
-
-<pre><code>    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {
-        return self.fakeData.count
-    }
-
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell {
-        var cell: CustomTableViewCell? = tableView.dequeueReusableCellWithIdentifier("CustomCell") as? CustomTableViewCell
-
-        if cell == nil {
-            var objects = NSBundle.mainBundle().loadNibNamed("CustomTableViewCell", owner: self, options: nil)
-            cell = objects[0] as? CustomTableViewCell
-        }
-
-        cell!.textLabel?.text = (self.fakeData[indexPath.row])["content"]
-
-        return cell!
-    }
-</code></pre>
-
-<p><img src="http://goo.gl/8Zis9p" alt="image" /></p>
-
-<p>不過可以看到有小瑕疵，就是選取後他並不會回覆成原本的模樣</p>
-
-<p>因此加入 tableView didSelectRowAtIndexPath:</p>
-
-<pre><code>    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-
-        // 回復非選取狀態
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-    }
-</code></pre>
-
-<p>明天就會提到換頁以及刪除的作法!</p>
 ]]></content>
   </entry>
   
