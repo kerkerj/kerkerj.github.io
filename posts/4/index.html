@@ -98,6 +98,332 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2014/10/14/swift-d14/">[Swift-d14] - Basic - Navigation View 2 + ViewController</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-14T22:40:36+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/10/14/swift-d14/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/14/swift-d14/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>延續昨天的主題，今天我們要做的事情是：</p>
+
+<ol>
+<li>爲新的 ViewController 實際加入程式碼 (ViewController2.swift)</li>
+<li>加入一個 button 來控制是否前進下一頁或後退</li>
+</ol>
+
+
+<p>我們先新增一個檔案:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.04.30.png" alt="image" /></p>
+
+<p>接著選擇 CocoaTouch Class:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.05.56.png" alt="image" /></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.06.45.png" alt="image" /></p>
+
+<p>回到 storyboard, 選擇第二個 ViewController</p>
+
+<p>並按照下圖，將 Class 指定給 View2Controller</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.07.15.png" alt="image" /></p>
+
+<p>這樣子 storyboard 的 View2 就會指定到 View2Controller 了</p>
+
+<p>我們在 View2Controller 的 viewDidLoad 方法中加入一行程式碼</p>
+
+<p>來驗證他是否有吃到 View2Controller</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="nb">self</span><span class="p">.</span><span class="n">title</span> <span class="o">=</span> <span class="s">&quot;View2 by me&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Run 起來看的話就會是這樣:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.10.52.png" alt="image" /></p>
+
+<p>的確是有吃到程式碼的</p>
+
+<p>再來就是要加入按鈕了:</p>
+
+<p>我們先拉一個 Button 進 View2Controller</p>
+
+<p>並且將該 Button 拉進 View2Controller 的 code</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.11.41.png" alt="image" /></p>
+
+<p>設定該 button 爲 Action, 並且名稱是 &lsquo;backToView&rsquo;</p>
+
+<p>意即我們要讓點下 View2Controller 的 Button 行為為回到上一個 View</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.12.50.png" alt="image" /></p>
+
+<p>另外對 View2 為他加入一個 storyboard ID, View2，等等會用到:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.20.21.png" alt="image" /></p>
+
+<p>View1 同樣也加入一個 Button, 並且也是拉到 View1 的 code 中，</p>
+
+<p>同樣是設定 Action ，action name 定義為 &lsquo;goView2&rsquo;</p>
+
+<p>就是按下 button 後會到 View2</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.13.59.png" alt="image" /></p>
+
+<p>接著我們分別在 ViewController 及 View2Controller 的程式碼中加入以下程式碼:</p>
+
+<p>View1 -</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.15.48.png" alt="image" /></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="p">@</span><span class="kt">IBAction</span> <span class="k">func</span> <span class="n">goView2</span><span class="p">(</span><span class="nl">sender</span><span class="p">:</span> <span class="n">AnyObject</span><span class="p">){</span>
+</span><span class='line'><span class="nb">self</span><span class="p">.</span><span class="n">navigationController</span><span class="o">?</span><span class="p">.</span><span class="n">pushViewController</span><span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">storyboard</span><span class="o">?</span><span class="p">.</span><span class="n">instantiateViewControllerWithIdentifier</span><span class="p">(</span><span class="s">&quot;View2&quot;</span><span class="p">)</span> <span class="kt">as</span> <span class="n">View2Controller</span><span class="p">,</span> <span class="nl">animated</span><span class="p">:</span> <span class="nb">true</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>View2 -</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.15.56.png" alt="image" /></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="p">@</span><span class="kt">IBAction</span> <span class="k">func</span> <span class="n">backToView</span><span class="p">(</span><span class="nl">sender</span><span class="p">:</span> <span class="n">AnyObject</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nb">self</span><span class="p">.</span><span class="n">navigationController</span><span class="o">?</span><span class="p">.</span><span class="n">popViewControllerAnimated</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在這邊 Navigation 用到的是 Push, Pop 的概念，使用 View stack</p>
+
+<p>進到下一個 View 時，就 push 欲前往的 View</p>
+
+<p>回到上一個 View 時，就 pop 出上一個 View</p>
+
+<p>在 goView2 中，我們使用到了 storyboard 的 identifier</p>
+
+<p>先讓 storyboard 抓有沒有 identifier 名為 &ldquo;View2&rdquo; 的物件</p>
+
+<p>有的話就抓起來，並且使用 as 轉型成 View2Controller, push 進 stack</p>
+
+<p>做完上述事情後，執行程式碼就可以看到結果囉!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/14/api-d14/">[API-d14] - [Javascript 番外篇] Javascript Function Scopes 和 Closures</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-14T22:40:32+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/10/14/api-d14/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/14/api-d14/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>這幾天會探討 javascript 的特性，由於比較少在寫 js ，因此有錯請指正</p>
+
+<h2>Scope</h2>
+
+<p>例子:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">hi</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">greetings</span> <span class="o">=</span> <span class="s2">&quot;hi&quot;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Say: &quot;</span> <span class="o">+</span> <span class="nx">greetings</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">function</span> <span class="nx">sayYa</span><span class="p">(</span><span class="nx">newInput</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">greetings</span> <span class="o">=</span> <span class="nx">newInput</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Say: &quot;</span> <span class="o">+</span> <span class="nx">greetings</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">function</span> <span class="nx">sayCool</span><span class="p">(</span><span class="nx">newInput</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="kd">var</span> <span class="nx">cool</span> <span class="o">=</span> <span class="nx">newInput</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Say: &quot;</span> <span class="o">+</span> <span class="nx">cool</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">sayYa</span><span class="p">(</span><span class="s2">&quot;Yo&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">sayCool</span><span class="p">(</span><span class="s2">&quot;Cool&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Say: &quot;</span> <span class="o">+</span> <span class="nx">greetings</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">hi</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>很簡單的概念</p>
+
+<p>greetins 在 sayYa 方法中被覆寫掉了</p>
+
+<p>如果要定義 local 變數必須在 function 裏用 var 定義</p>
+
+<p>例如 sayCool function</p>
+
+<h2>Closure</h2>
+
+<p>例子:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">person</span><span class="p">(){</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="s1">&#39;default&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">greetings</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">name</span> <span class="p">);</span>
+</span><span class='line'>        <span class="p">},</span>
+</span><span class='line'>        <span class="nx">changeName</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">newInput</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nx">name</span> <span class="o">=</span> <span class="nx">newInput</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">me</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">person</span><span class="p">();</span>
+</span><span class='line'><span class="nx">me</span><span class="p">.</span><span class="nx">greetings</span><span class="p">();</span>
+</span><span class='line'><span class="nx">me</span><span class="p">.</span><span class="nx">changeName</span><span class="p">(</span><span class="s2">&quot;kerkerj&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="nx">me</span><span class="p">.</span><span class="nx">greetings</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Self-Executing Anonymous Functions</h2>
+
+<p>使用這種方式通常是避免和其他 js 檔案造成變數混淆</p>
+
+<p>或是初始化</p>
+
+<p>裡面的變數和 function 只被限制在這個範圍內</p>
+
+<p>例子:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">hi</span> <span class="o">=</span> <span class="s1">&#39;Hello&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">function</span> <span class="nx">sayHi</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nx">hi</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="nx">name</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">global</span><span class="p">.</span><span class="nx">greetings</span> <span class="o">=</span> <span class="nx">sayHi</span>
+</span><span class='line'><span class="p">})(</span><span class="nx">global</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">global</span><span class="p">.</span><span class="nx">greetings</span><span class="p">(</span><span class="s2">&quot;kerkerj&quot;</span><span class="p">));</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">hi</span><span class="p">);</span> <span class="c1">// &lt;- 這會失敗</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>必須將 sayHi 指給 global 的某一個變數, 才有辦法使用它</p>
+
+<p>在 node.js 中 global 是全域變數，在瀏覽器中是 window~</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2014/10/13/swift-d13/">[Swift-d13] - Basic - Navigation View 1 + ViewController</a></h1>
     
     
@@ -1544,730 +1870,6 @@
 
 
 <p>下一篇會講解如何簡單操作 MongoDB!</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/09/swift-d9/">[Swift-d9] - Playground - Class, Struct</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-09T21:46:17+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/10/09/swift-d9/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/09/swift-d9/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>Playground - Class, Struct</h1>
-
-<p>再來就是要提重點的東西了!</p>
-
-<p>class 和 struct 是用來建構整個程式重要的東西</p>
-
-<p>兩者的差異在於：class 可以繼承其他 class，但是 struct 無法繼承</p>
-
-<p>以下是宣告方式</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">class</span> <span class="n">SomeClass</span> <span class="p">{</span>
-</span><span class='line'>  <span class="c1">//...</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">struct</span> <span class="n">SomeStruct</span> <span class="p">{</span>
-</span><span class='line'>  <span class="c1">//...</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>注意，Swift 的 class 和 struct 命名慣例是大寫命名風格 <code>UpperCamelCase</code></p>
-
-<p>而屬性和方法則是 <code>lowerCamelCase</code></p>
-
-<p>例如 <code>increaseCount</code>, <code>addTwoInts</code></p>
-
-<p>舉個例子:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">struct</span> <span class="n">Resolution</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">var</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span class='line'>  <span class="k">var</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">class</span> <span class="n">CustomLabel</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">var</span> <span class="n">resolution</span> <span class="o">=</span> <span class="n">Resolution</span><span class="p">()</span>
-</span><span class='line'>  <span class="k">var</span> <span class="n">isLabel</span> <span class="o">=</span> <span class="nb">true</span>
-</span><span class='line'>  <span class="k">var</span> <span class="nl">name</span><span class="p">:</span> <span class="n">String</span><span class="o">?</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>實體化，就可以改變其中的值了</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">var</span> <span class="n">someResolution</span> <span class="o">=</span> <span class="n">Resolution</span><span class="p">()</span>
-</span><span class='line'><span class="k">var</span> <span class="n">someLabel</span> <span class="o">=</span> <span class="n">CustomLabel</span><span class="p">()</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">someResolution</span><span class="p">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">100</span>
-</span><span class='line'><span class="n">someLabel</span><span class="p">.</span><span class="n">resolution</span><span class="p">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">200</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>就是一直 <code>點</code> 下去就對了!</p>
-
-<p>Struct 我們也可以直接給定初始值，class 就不能這樣做了~</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">var</span> <span class="n">someResolution</span> <span class="o">=</span> <span class="n">Resolution</span><span class="p">(</span><span class="nl">width</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="nl">height</span><span class="p">:</span> <span class="mi">300</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>sttuct 的 Getter 和 Setter 只存在於 computed properties</p>
-
-<p>亦即是必須要被計算過的才能使用 Getter, Setter</p>
-
-<p>以下就直接看別人的例子吧:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">struct</span> <span class="n">Point</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">var</span> <span class="n">x</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mf">0.0</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="k">struct</span> <span class="n">Size</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">var</span> <span class="n">width</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mf">0.0</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="k">struct</span> <span class="n">Rect</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">var</span> <span class="n">origin</span> <span class="o">=</span> <span class="n">Point</span><span class="p">()</span>
-</span><span class='line'>    <span class="k">var</span> <span class="n">size</span> <span class="o">=</span> <span class="n">Size</span><span class="p">()</span>
-</span><span class='line'>    <span class="k">var</span> <span class="nl">center</span><span class="p">:</span> <span class="n">Point</span> <span class="p">{</span>
-</span><span class='line'>    <span class="kr">get</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">let</span> <span class="n">centerX</span> <span class="o">=</span> <span class="n">origin</span><span class="p">.</span><span class="n">x</span> <span class="o">+</span> <span class="p">(</span><span class="n">size</span><span class="p">.</span><span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
-</span><span class='line'>        <span class="k">let</span> <span class="n">centerY</span> <span class="o">=</span> <span class="n">origin</span><span class="p">.</span><span class="n">y</span> <span class="o">+</span> <span class="p">(</span><span class="n">size</span><span class="p">.</span><span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="nl">x</span><span class="p">:</span> <span class="n">centerX</span><span class="p">,</span> <span class="nl">y</span><span class="p">:</span> <span class="n">centerY</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="kr">set</span><span class="p">(</span><span class="n">newCenter</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="n">origin</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">newCenter</span><span class="p">.</span><span class="n">x</span> <span class="o">-</span> <span class="p">(</span><span class="n">size</span><span class="p">.</span><span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">origin</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">newCenter</span><span class="p">.</span><span class="n">y</span> <span class="o">-</span> <span class="p">(</span><span class="n">size</span><span class="p">.</span><span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="k">var</span> <span class="n">square</span> <span class="o">=</span> <span class="n">Rect</span><span class="p">(</span><span class="nl">origin</span><span class="p">:</span> <span class="n">Point</span><span class="p">(</span><span class="nl">x</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="nl">y</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">),</span>
-</span><span class='line'>    <span class="nl">size</span><span class="p">:</span> <span class="n">Size</span><span class="p">(</span><span class="nl">width</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">,</span> <span class="nl">height</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">))</span>
-</span><span class='line'><span class="k">let</span> <span class="n">initialSquareCenter</span> <span class="o">=</span> <span class="n">square</span><span class="p">.</span><span class="n">center</span>
-</span><span class='line'><span class="n">square</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="nl">x</span><span class="p">:</span> <span class="mf">15.0</span><span class="p">,</span> <span class="nl">y</span><span class="p">:</span> <span class="mf">15.0</span><span class="p">)</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="s">&quot;square.origin is now at (\(square.origin.x), \(square.origin.y))&quot;</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>Struct 和 enum 是一種值型別</h3>
-
-<p>值型別的的例子像是 Int, String &hellip;.</p>
-
-<p>那 struct 和 enum 也是，都是以值來操作的</p>
-
-<h3>Class 是參考型別</h3>
-
-<h2>使用時機</h2>
-
-<p>struct:</p>
-
-<ul>
-<li>用來封裝少量相關的資料</li>
-<li>不需要繼承</li>
-<li>是 copy value 而不是 reference</li>
-</ul>
-
-
-<p>例如：Label 的長寬, 三角形的三個點</p>
-
-<h2>Class 二三事</h2>
-
-<p>礙于篇幅關係，這邊簡單講解一些 class 比較重要的點</p>
-
-<p>通常一個 class 裡面會有一些 variable 與 methods</p>
-
-<p>通常還會有靜態的 variables, methods 或是 建構子 (constructor)</p>
-
-<p>甚至是延遲載入一個變數</p>
-
-<p>下面就簡單寫了一個 class 來說明這幾個部分</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">class</span> <span class="n">Person</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">var</span> <span class="nl">name</span><span class="p">:</span> <span class="n">String</span>
-</span><span class='line'>    <span class="k">var</span> <span class="nl">height</span><span class="p">:</span> <span class="n">Int</span><span class="o">!</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// 型別屬性 (靜態變數)</span>
-</span><span class='line'>    <span class="k">class</span> <span class="k">var</span> <span class="nl">isAnimal</span><span class="p">:</span> <span class="n">Bool</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="nb">true</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// 初始化時必定輸入 name, 必須知道初始化時變數所代表的意義</span>
-</span><span class='line'>    <span class="k">init</span><span class="p">(</span><span class="nl">name</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// 型別方法 (靜態方法)</span>
-</span><span class='line'>    <span class="k">class</span> <span class="k">func</span> <span class="n">sayHi</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">String</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="s">&quot;Hi!&quot;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">func</span> <span class="n">sayYa</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">String</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="s">&quot;Ya&quot;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">final</span> <span class="k">func</span> <span class="n">car</span><span class="p">(</span><span class="err">#</span><span class="nl">title</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="p">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">title</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">lazy</span> <span class="k">var</span> <span class="nl">personalizedGreeting</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="p">{</span>
-</span><span class='line'>        <span class="p">[</span><span class="kr">unowned</span> <span class="nb">self</span><span class="p">]</span> <span class="k">in</span>
-</span><span class='line'>        <span class="k">return</span> <span class="s">&quot;Hello, \(self.name)!&quot;</span>
-</span><span class='line'>    <span class="p">}()</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">let</span> <span class="n">person</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="nl">name</span><span class="p">:</span> <span class="s">&quot;Kerkerj&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">person</span><span class="p">.</span><span class="n">personalizedGreeting</span><span class="p">)</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">person</span><span class="p">.</span><span class="n">car</span><span class="p">(</span><span class="nl">title</span><span class="p">:</span> <span class="s">&quot;Toyota&quot;</span><span class="p">))</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">person</span><span class="p">.</span><span class="n">sayYa</span><span class="p">())</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">Person</span><span class="p">.</span><span class="n">sayHi</span><span class="p">())</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">Person</span><span class="p">.</span><span class="n">isAnimal</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><code>self</code> 的意思就代表 class 自己，就字面上來看應該蠻好懂的</p>
-
-<p>通常 <code>lazy</code> 的使用時機在於，</p>
-
-<p>有個值需要被複雜或大量計算時，或是初始化時可能需要大量計算時，</p>
-
-<p>我們可以加入 <code>lazy</code>，使該變數在需要操作時再計算</p>
-
-<p>下面再簡單講一點繼承的東西</p>
-
-<p>直接看例子，我設定了一個 class 稱為 Man，繼承自 Person</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">class</span> <span class="nl">Man</span><span class="p">:</span> <span class="n">Person</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">class</span> <span class="k">var</span> <span class="nl">sex</span><span class="p">:</span> <span class="n">String</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="s">&quot;Male&quot;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kr">override</span> <span class="k">init</span><span class="p">(</span><span class="nl">name</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nb">super</span><span class="p">.</span><span class="k">init</span><span class="p">(</span><span class="nl">name</span><span class="p">:</span> <span class="n">name</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kr">override</span> <span class="k">func</span> <span class="n">sayYa</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">String</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="s">&quot;YAYA&quot;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">func</span> <span class="n">sayYo</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">String</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="s">&quot;YO&quot;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">let</span> <span class="n">kerkerj</span> <span class="o">=</span> <span class="n">Man</span><span class="p">(</span><span class="nl">name</span><span class="p">:</span> <span class="s">&quot;kerkerj&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">kerkerj</span><span class="p">.</span><span class="n">name</span><span class="p">)</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">kerkerj</span><span class="p">.</span><span class="n">sayYa</span><span class="p">())</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">kerkerj</span><span class="p">.</span><span class="n">sayYo</span><span class="p">())</span>
-</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">Man</span><span class="p">.</span><span class="n">sex</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>可以觀察一下自動補完的選項，當輸入 <code>kerkerj.</code> 時</p>
-
-<p>後面會出現除了 Man 這個 class 本身提供的變數與方法外，</p>
-
-<p>還有 Person 的變數與方法，這就是因為 Man 繼承自 Person 的關係</p>
-
-<p>Man 裡面覆寫了 init, sayYa 的方法，</p>
-
-<p>原本 sayYa 只會出現一次 &ldquo;YA&rdquo;, 覆寫過後會出現兩次變成 &ldquo;YAYA&rdquo;</p>
-
-<p>另外 Man 再多加了一個 sayYo 的方法</p>
-
-<p>如果父類別的某些方法不想被覆寫，在關鍵字前加上 <code>final</code></p>
-
-<p>就可以防止被覆寫</p>
-
-<hr />
-
-<p>以上是一些 class 和 struct 的特性</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/09/api-d9/">[API-d9] - NVM 與 NPM 使用</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-09T21:46:12+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/10/09/api-d9/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/09/api-d9/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>NVM 與 NPM 使用</h1>
-
-<h2>NVM - Node.js Version Manager</h2>
-
-<h3>安裝</h3>
-
-<p>如果是 Ubuntu 的話必須先要有 <code>build-essential</code> 和 <code>libssl-dev</code> 套件</p>
-
-<p>不過這個我們之前就裝過了，所以直接安裝 NVM 吧~</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ curl https://raw.githubusercontent.com/creationix/nvm/v0.17.2/install.sh | bash
-</span><span class='line'>$ source ~/.bashrc</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>使用 NVM 安裝 node.js</h3>
-
-<p>先前我們有使用 Ubuntu 本身的 apt-get 安裝 Node.js</p>
-
-<p>不過那是被安裝到 /usr/bin/node</p>
-
-<p>有時候要安裝套件需要 sudo 提供管理者權限</p>
-
-<p>非常麻煩，因此我們使用 NVM 來安裝另一個 Node.js</p>
-
-<p>這個 Node.js 的執行檔就任我們使用，不需要提供管理者權限了</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ nvm install 0.10</span></code></pre></td></tr></table></div></figure>
-
-
-<p>nvm 就會安裝 0.10 版本，安裝完後就要使用它：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ nvm use 0.10</span></code></pre></td></tr></table></div></figure>
-
-
-<p>再來我們把 nvm 的 node.js 設定成預設的 node</p>
-
-<p>否則重開機後，node 指令會變回原本系統的 node</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ nvm alias default 0.10</span></code></pre></td></tr></table></div></figure>
-
-
-<p>我們觀察一下現在使用的 node 指令是哪裡來的:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ which node
-</span><span class='line'>/home/vagrant/.nvm/v0.10.32/bin/node</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Good! 他已經被安裝到我們使用者目錄底下了</p>
-
-<p>原本的系統 Node.js 是在 <code>/usr/bin/node</code></p>
-
-<p>如果要切換回系統的 Node.js:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ nvm use system
-</span><span class='line'>Now using system version of node: v0.10.32.
-</span><span class='line'>
-</span><span class='line'>// 看一下現在使用 node 的路徑
-</span><span class='line'>$ which node
-</span><span class='line'>/usr/bin/node</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>NPM - Node.js Package Manager</h2>
-
-<p>NPM 顧名思義就是 node.js 的套件管理系統，</p>
-
-<p>世界上有許許多多的開發者為 Node.js 開發了許許多多的套件，</p>
-
-<p>我們受惠于此，也不用再自己造輪子，拿這些佛心的大大的套件來使用，打造出我們想要的服務，</p>
-
-<p>像我們接下來會使用的 Express 和 Mongodb 的 driver 都是別人寫好開放出來給大家用的！</p>
-
-<p>下面簡單介紹 NPM 的使用方式</p>
-
-<h3>初始化專案資料夾</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ npm init </span></code></pre></td></tr></table></div></figure>
-
-
-<p>終端機會詢問各種問題來幫忙建立 package.json 的檔案</p>
-
-<p>是在資料夾中建立專案前必下的指令</p>
-
-<p>並且，使用 package.json 有個好處</p>
-
-<p>只要將 package.json 給其他人</p>
-
-<p>其他人只需要將 package.json 放到某個資料夾</p>
-
-<p>並下:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ npm install</span></code></pre></td></tr></table></div></figure>
-
-
-<p>就會在該資料夾安裝 package.json 中列出的所有套件</p>
-
-<p>就不需要一個一個尋找及安裝，非常方便！</p>
-
-<h3>安裝套件</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>// 安裝全域套件
-</span><span class='line'>$ npm install [套件名稱] -g
-</span><span class='line'>
-</span><span class='line'>// 安裝套件在專案資料夾 
-</span><span class='line'>// 會安裝在目前所在的資料夾，所以要下此指令必須先確認自己是否在專案根目錄
-</span><span class='line'>$ npm install [套件名稱]
-</span><span class='line'>
-</span><span class='line'>// 通常專案資料夾底下都會有一個 package.json 來管理套件相依性
-</span><span class='line'>// 如果在專案資料夾底下下此指令，會將你所安裝的套件加入 package.json 中
-</span><span class='line'>// 一樣也是要先確認自己是否在專案目錄底下
-</span><span class='line'>$ npm install [套件名稱] -save</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>移除套件</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>// 移除全域套件
-</span><span class='line'>$ npm uninstall [套件名稱] -g
-</span><span class='line'>
-</span><span class='line'>// 移除在專案資料夾的某個套件 
-</span><span class='line'>// 會移除在目前所在的資料夾某個套件，所以要下此指令必須先確認自己是否在專案根目錄
-</span><span class='line'>$ npm uninstall [套件名稱]
-</span><span class='line'>
-</span><span class='line'>// 通常專案資料夾底下都會有一個 package.json 來管理套件相依性
-</span><span class='line'>// 如果在專案資料夾底下下此指令，會將你所移除的套件從 package.json 中刪除
-</span><span class='line'>// 一樣也是要先確認自己是否在專案目錄底下
-</span><span class='line'>$ npm uninstall [套件名稱] -save</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>列出套件</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>// 列出全域套件
-</span><span class='line'>$ npm ls -g
-</span><span class='line'>
-</span><span class='line'>// 列出全域套件詳細資訊
-</span><span class='line'>$ npm ls -gl
-</span><span class='line'>
-</span><span class='line'>// 在專案資料夾底下：
-</span><span class='line'>
-</span><span class='line'>// 列出專案資料夾的套件
-</span><span class='line'>$ npm ls 
-</span><span class='line'>
-</span><span class='line'>// 列出專案資料夾的詳細套件資訊
-</span><span class='line'>$ npm ls -l</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>更新套件</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>// 更新全域套件
-</span><span class='line'>$ npm update -g
-</span><span class='line'>
-</span><span class='line'>// 在專案資料夾底下：
-</span><span class='line'>
-</span><span class='line'>// 更新專案套件
-</span><span class='line'>$ npm update </span></code></pre></td></tr></table></div></figure>
-
-
-<h3>搜尋套件</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ npm search [套件名稱]</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>注意!!</h2>
-
-<p>請注意，使用系統 Node.js 的 npm 所安裝的套件，是屬於系統 Node.js 的</p>
-
-<p>切換到使用者目錄底下的 Node.js 時，是不會共用系統 npm 的套件的</p>
-
-<p>請注意這一點，接下來我們都會使用 nvm 的 node.js</p>
-
-<p>我們可以透過以下例子來驗證:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>// 使用系統 node.js
-</span><span class='line'>$ nvm use system
-</span><span class='line'>Now using system version of node: v0.10.32.
-</span><span class='line'>
-</span><span class='line'>// 查看 npm 全域套件
-</span><span class='line'>$ npm list -g  
-</span><span class='line'>/usr/lib
-</span><span class='line'>├─┬ express@4.9.5
-</span><span class='line'>│ ├─┬ accepts@1.1.1
-</span><span class='line'>│ │ ├─┬ mime-types@2.0.2
-</span><span class='line'>│ │ │ └── mime-db@1.1.0
-</span><span class='line'>│ │ └── negotiator@0.4.8
-</span><span class='line'>....
-</span><span class='line'>
-</span><span class='line'>// 使用 nvm node.js
-</span><span class='line'>$ nvm use 0.10
-</span><span class='line'>Now using node v0.10.32
-</span><span class='line'>
-</span><span class='line'>// 查看 npm 全域套件
-</span><span class='line'>$ npm list -g 
-</span><span class='line'>/home/vagrant/.nvm/v0.10.32/lib
-</span><span class='line'>└─┬ npm@1.4.28
-</span><span class='line'>  ├── abbrev@1.0.5
-</span><span class='line'>  ├── ansi@0.3.0
-</span><span class='line'>  ├── ansicolors@0.3.2
-</span><span class='line'>  ├── ansistyles@0.1.3
-</span><span class='line'>  ├── archy@0.0.2
-</span><span class='line'>  ├── block-stream@0.0.7
-</span><span class='line'>  ├── char-spinner@1.0.1
-</span><span class='line'>  ├── child-process-close@0.1.1
-</span><span class='line'>  ├── chmodr@0.1.0
-</span><span class='line'>...</span></code></pre></td></tr></table></div></figure>
-
-
-<p>主要差別就在於 列出全域套件時，還會提醒你這些套件裝在哪裡，如果不是裝在使用者目錄底下，</p>
-
-<p>表示現在用的是系統的 Node.js</p>
-
-<p>因此發現自己不對了就快換回來吧，如果系統裝爛了，也可以利用先前打包的 box 還原哦!</p>
-
-<h2>怎麼找套件?</h2>
-
-<p>套件那麼多，我要到哪裡找？</p>
-
-<p>除了根據自己的需求 Google 外，</p>
-
-<p>下面是 Node.js module 的官方網站: <a href="https://nodejsmodules.org/">https://nodejsmodules.org/</a></p>
-
-<p>有做最受歡迎的套件排名，進去瀏覽一下，有時候會發現一些好用的套件哦!</p>
 </div>
   
   

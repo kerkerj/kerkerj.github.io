@@ -177,7 +177,7 @@ Day24 -  <a href="http://kerkerj.github.io/blog/2014/10/24/api-d24/">[API-d24] -
 Day25 -  <a href="http://kerkerj.github.io/blog/2014/10/25/api-day25/">[API-day25] - 實戰開發 - 處理 404 &amp; 500</a><br/>
 Day26 -  <a href="http://kerkerj.github.io/blog/2014/10/26/api-d26/">[API-d26] - 實戰開發 - API-key</a><br/>
 Day27 -  <a href="http://kerkerj.github.io/blog/2014/10/27/api-d27/">[API-d27] - 實戰開發 - log 處理 及 config (db, apikey)</a><br/>
-Day28 -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day28 -  <a href="http://kerkerj.github.io/blog/2014/10/28/api-d28/">[API-d28] - 實戰開發 - 發佈 - forever</a><br/>
 Day29 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day30 -  <a href="http://kerkerj.github.io/">#</a></p>
 
@@ -210,9 +210,552 @@ Day24 -  <a href="http://kerkerj.github.io/blog/2014/10/24/swift-d24/">[Swift-d2
 Day25 -  <a href="http://kerkerj.github.io/blog/2014/10/25/swift-day25/">[Swift-day25] - 實戰開發 - TODOList - Update View</a><br/>
 Day26 -  <a href="http://kerkerj.github.io/blog/2014/10/26/swift-d26/">[Swift-d26] - 實戰開發 - TODOList - API 前置資料準備</a><br/>
 Day27 -  <a href="http://kerkerj.github.io/blog/2014/10/27/swift-d27/">[Swift-d27] - 實戰開發 - TODOList - API 2 讀取清單資料</a><br/>
-Day28 -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day28 -  <a href="http://kerkerj.github.io/blog/2014/10/28/swift-d28/">[Swift-d28] - 實戰開發 - TODOList - API 3 新增與更新</a><br/>
 Day29 -  <a href="http://kerkerj.github.io/">#</a><br/>
 Day30 -  <a href="http://kerkerj.github.io/">#</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/28/swift-d28/">[Swift-d28] - 實戰開發 - TODOList - API 3 新增與更新</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-28T17:26:52+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/10/28/swift-d28/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/28/swift-d28/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="day28">Github link</a></p>
+
+<p>昨天做了 get list</p>
+
+<p>今天就來做 新增和儲存吧!</p>
+
+<p>可能有人會問說，那讀取一筆 todo 的 API 呢?</p>
+
+<p>因為在這邊資料量少，所有的東西都可以從最外層的 list 拿到</p>
+
+<p>所以雖然有換頁的動作，但是節省流量可以不需要實做這件事</p>
+
+<p>在實際開發中也會如此，case by case，有些情況一次拿完回來處理最好</p>
+
+<p>不過有些則不是~</p>
+
+<p>離題了，</p>
+
+<p>以下是新增 todo 的程式碼:</p>
+
+<p>先到 RestApi.swift 新增 post function</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">addTodoList</span><span class="p">(</span><span class="nl">completionHandler</span><span class="p">:</span> <span class="p">((</span><span class="bp">NSDictionary</span><span class="o">!</span><span class="p">,</span> <span class="bp">NSError</span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Void</span><span class="p">)</span><span class="o">!</span><span class="p">,</span> <span class="nl">content</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">var</span> <span class="n">session</span> <span class="o">=</span> <span class="bp">NSURLSession</span><span class="p">.</span><span class="n">sharedSession</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">var</span> <span class="n">request</span> <span class="o">=</span> <span class="bp">NSMutableURLRequest</span><span class="p">(</span><span class="nl">URL</span><span class="p">:</span> <span class="nb">self</span><span class="p">.</span><span class="n">addTodoUrl</span><span class="o">!</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">request</span><span class="p">.</span><span class="n">HTTPMethod</span> <span class="o">=</span> <span class="s">&quot;POST&quot;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">var</span> <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;content&quot;</span><span class="o">:</span> <span class="n">content</span><span class="p">]</span> <span class="kt">as</span> <span class="n">Dictionary</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">var</span> <span class="nl">err</span><span class="p">:</span> <span class="bp">NSError</span><span class="o">?</span>
+</span><span class='line'>        <span class="n">request</span><span class="p">.</span><span class="n">HTTPBody</span> <span class="o">=</span> <span class="bp">NSJSONSerialization</span><span class="p">.</span><span class="n">dataWithJSONObject</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="nl">options</span><span class="p">:</span> <span class="nb">nil</span><span class="p">,</span> <span class="nl">error</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">err</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">request</span><span class="p">.</span><span class="n">addValue</span><span class="p">(</span><span class="s">&quot;application/json&quot;</span><span class="p">,</span> <span class="nl">forHTTPHeaderField</span><span class="p">:</span> <span class="s">&quot;Content-Type&quot;</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">request</span><span class="p">.</span><span class="n">addValue</span><span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">API_key</span><span class="p">,</span> <span class="nl">forHTTPHeaderField</span><span class="p">:</span> <span class="s">&quot;API-Key&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">let</span> <span class="n">task</span> <span class="o">=</span> <span class="n">session</span><span class="p">.</span><span class="n">dataTaskWithRequest</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="nl">completionHandler</span><span class="p">:</span> <span class="p">{</span><span class="n">data</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">error</span> <span class="o">-&gt;</span> <span class="n">Void</span> <span class="k">in</span>
+</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="n">error</span> <span class="o">!=</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                <span class="k">return</span> <span class="n">completionHandler</span><span class="p">(</span><span class="nb">nil</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="k">var</span> <span class="nl">error</span><span class="p">:</span> <span class="bp">NSError</span><span class="o">?</span>
+</span><span class='line'>            <span class="k">let</span> <span class="n">json</span> <span class="o">=</span> <span class="bp">NSJSONSerialization</span><span class="p">.</span><span class="n">JSONObjectWithData</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nl">options</span><span class="p">:</span> <span class="n">NSJSONReadingOptions</span><span class="p">.</span><span class="n">MutableContainers</span><span class="p">,</span> <span class="nl">error</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">error</span><span class="p">)</span> <span class="kt">as</span> <span class="bp">NSDictionary</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="n">error</span> <span class="o">!=</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                <span class="k">return</span> <span class="n">completionHandler</span><span class="p">(</span><span class="nb">nil</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+</span><span class='line'>            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>                <span class="k">return</span> <span class="n">completionHandler</span><span class="p">(</span><span class="n">json</span><span class="p">,</span> <span class="nb">nil</span><span class="p">)</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>        <span class="p">})</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">task</span><span class="p">.</span><span class="n">resume</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>再來就是在程式中呼叫這隻 API 囉! 我們會在 UpdateViewController 中做這件事</p>
+
+<p>因為這隻 controler 處理了 &ldquo;Add&rdquo; 和 &ldquo;Update&rdquo; 兩件事</p>
+
+<p>在 save() 這個 function 裡面修改成:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="c1">// 記得 class 中先產生一個 api 物件</span>
+</span><span class='line'><span class="k">var</span> <span class="n">api</span> <span class="o">=</span> <span class="n">RestApi</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">func</span> <span class="n">save</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="n">from</span> <span class="o">==</span> <span class="s">&quot;add&quot;</span> <span class="p">{</span>
+</span><span class='line'>            <span class="n">api</span><span class="p">.</span><span class="n">addTodoList</span><span class="p">({</span><span class="n">data</span><span class="p">,</span> <span class="n">error</span> <span class="o">-&gt;</span> <span class="n">Void</span> <span class="k">in</span>
+</span><span class='line'>                <span class="k">if</span> <span class="n">data</span> <span class="o">==</span> <span class="nb">nil</span> <span class="p">{</span>
+</span><span class='line'>                    <span class="n">println</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+</span><span class='line'>                <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>                <span class="n">dispatch_async</span><span class="p">(</span><span class="n">dispatch_get_main_queue</span><span class="p">(),</span> <span class="p">{</span>
+</span><span class='line'>                    <span class="n">println</span><span class="p">(</span><span class="s">&quot;done&quot;</span><span class="p">)</span>
+</span><span class='line'>                    <span class="nb">self</span><span class="p">.</span><span class="n">navigationController</span><span class="o">?</span><span class="p">.</span><span class="n">popToRootViewControllerAnimated</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
+</span><span class='line'>                <span class="p">})</span>
+</span><span class='line'>            <span class="p">},</span> <span class="nl">content</span><span class="p">:</span> <span class="nb">self</span><span class="p">.</span><span class="n">textField</span><span class="p">.</span><span class="n">text</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="n">from</span> <span class="o">==</span> <span class="s">&quot;edit&quot;</span> <span class="p">{</span>
+</span><span class='line'>            <span class="n">println</span><span class="p">(</span><span class="s">&quot;Save edited data&quot;</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>打開執行就可以新增 todo 了!</p>
+
+<p>&ldquo;Update&rdquo; 的行為和新增一樣</p>
+
+<p>先到 RestApi class 加入 update 的方法:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">updateTodoList</span><span class="p">(</span><span class="nl">completionHandler</span><span class="p">:</span> <span class="p">((</span><span class="bp">NSDictionary</span><span class="o">!</span><span class="p">,</span> <span class="bp">NSError</span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Void</span><span class="p">)</span><span class="o">!</span><span class="p">,</span> <span class="nl">content</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="nl">todoId</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">var</span> <span class="n">session</span> <span class="o">=</span> <span class="bp">NSURLSession</span><span class="p">.</span><span class="n">sharedSession</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">var</span> <span class="n">request</span> <span class="o">=</span> <span class="bp">NSMutableURLRequest</span><span class="p">(</span><span class="nl">URL</span><span class="p">:</span> <span class="bp">NSURL</span><span class="p">(</span><span class="nl">string</span><span class="p">:</span> <span class="s">&quot;http://192.168.1.158:3000/user/kerkerj/todos/\(todoId)&quot;</span><span class="p">)</span><span class="o">!</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">request</span><span class="p">.</span><span class="n">HTTPMethod</span> <span class="o">=</span> <span class="s">&quot;PUT&quot;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">var</span> <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;content&quot;</span><span class="o">:</span> <span class="n">content</span><span class="p">]</span> <span class="kt">as</span> <span class="n">Dictionary</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">var</span> <span class="nl">err</span><span class="p">:</span> <span class="bp">NSError</span><span class="o">?</span>
+</span><span class='line'>        <span class="n">request</span><span class="p">.</span><span class="n">HTTPBody</span> <span class="o">=</span> <span class="bp">NSJSONSerialization</span><span class="p">.</span><span class="n">dataWithJSONObject</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="nl">options</span><span class="p">:</span> <span class="nb">nil</span><span class="p">,</span> <span class="nl">error</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">err</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">request</span><span class="p">.</span><span class="n">addValue</span><span class="p">(</span><span class="s">&quot;application/json&quot;</span><span class="p">,</span> <span class="nl">forHTTPHeaderField</span><span class="p">:</span> <span class="s">&quot;Content-Type&quot;</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">request</span><span class="p">.</span><span class="n">addValue</span><span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">API_key</span><span class="p">,</span> <span class="nl">forHTTPHeaderField</span><span class="p">:</span> <span class="s">&quot;API-Key&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">let</span> <span class="n">task</span> <span class="o">=</span> <span class="n">session</span><span class="p">.</span><span class="n">dataTaskWithRequest</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="nl">completionHandler</span><span class="p">:</span> <span class="p">{</span><span class="n">data</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">error</span> <span class="o">-&gt;</span> <span class="n">Void</span> <span class="k">in</span>
+</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="n">error</span> <span class="o">!=</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                <span class="k">return</span> <span class="n">completionHandler</span><span class="p">(</span><span class="nb">nil</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="k">var</span> <span class="nl">error</span><span class="p">:</span> <span class="bp">NSError</span><span class="o">?</span>
+</span><span class='line'>            <span class="k">let</span> <span class="n">json</span> <span class="o">=</span> <span class="bp">NSJSONSerialization</span><span class="p">.</span><span class="n">JSONObjectWithData</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nl">options</span><span class="p">:</span> <span class="n">NSJSONReadingOptions</span><span class="p">.</span><span class="n">MutableContainers</span><span class="p">,</span> <span class="nl">error</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">error</span><span class="p">)</span> <span class="kt">as</span> <span class="bp">NSDictionary</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="n">error</span> <span class="o">!=</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                <span class="k">return</span> <span class="n">completionHandler</span><span class="p">(</span><span class="nb">nil</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+</span><span class='line'>            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>                <span class="k">return</span> <span class="n">completionHandler</span><span class="p">(</span><span class="n">json</span><span class="p">,</span> <span class="nb">nil</span><span class="p">)</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>        <span class="p">})</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">task</span><span class="p">.</span><span class="n">resume</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>再到剛剛的 UpdateViewController ，把 save() 的另外一個 &ldquo;edit&rdquo; 的區塊改成下面的程式碼</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">else</span> <span class="k">if</span> <span class="n">from</span> <span class="o">==</span> <span class="s">&quot;edit&quot;</span> <span class="p">{</span>
+</span><span class='line'>            <span class="n">println</span><span class="p">(</span><span class="s">&quot;Save edited data&quot;</span><span class="p">)</span>
+</span><span class='line'>            <span class="n">api</span><span class="p">.</span><span class="n">updateTodoList</span><span class="p">({</span><span class="n">data</span><span class="p">,</span> <span class="n">error</span> <span class="o">-&gt;</span> <span class="n">Void</span> <span class="k">in</span>
+</span><span class='line'>                <span class="k">if</span> <span class="n">data</span> <span class="o">==</span> <span class="nb">nil</span> <span class="p">{</span>
+</span><span class='line'>                    <span class="n">println</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+</span><span class='line'>                <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>                <span class="n">dispatch_async</span><span class="p">(</span><span class="n">dispatch_get_main_queue</span><span class="p">(),</span> <span class="p">{</span>
+</span><span class='line'>                    <span class="n">println</span><span class="p">(</span><span class="s">&quot;done&quot;</span><span class="p">)</span>
+</span><span class='line'>                    <span class="nb">self</span><span class="p">.</span><span class="n">navigationController</span><span class="o">!</span><span class="p">.</span><span class="n">popToRootViewControllerAnimated</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
+</span><span class='line'>                <span class="p">})</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="p">},</span> <span class="nl">content</span><span class="p">:</span> <span class="nb">self</span><span class="p">.</span><span class="n">textField</span><span class="p">.</span><span class="n">text</span><span class="p">,</span> <span class="nl">todoId</span><span class="p">:</span> <span class="nb">self</span><span class="p">.</span><span class="n">index</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>所以整個 save() 會長這樣:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">save</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="n">from</span> <span class="o">==</span> <span class="s">&quot;add&quot;</span> <span class="p">{</span>
+</span><span class='line'>            <span class="n">api</span><span class="p">.</span><span class="n">addTodoList</span><span class="p">({</span><span class="n">data</span><span class="p">,</span> <span class="n">error</span> <span class="o">-&gt;</span> <span class="n">Void</span> <span class="k">in</span>
+</span><span class='line'>                <span class="k">if</span> <span class="n">data</span> <span class="o">==</span> <span class="nb">nil</span> <span class="p">{</span>
+</span><span class='line'>                    <span class="n">println</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+</span><span class='line'>                <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>                <span class="n">dispatch_async</span><span class="p">(</span><span class="n">dispatch_get_main_queue</span><span class="p">(),</span> <span class="p">{</span>
+</span><span class='line'>                    <span class="n">println</span><span class="p">(</span><span class="s">&quot;done&quot;</span><span class="p">)</span>
+</span><span class='line'>                    <span class="nb">self</span><span class="p">.</span><span class="n">navigationController</span><span class="o">?</span><span class="p">.</span><span class="n">popToRootViewControllerAnimated</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
+</span><span class='line'>                <span class="p">})</span>
+</span><span class='line'>            <span class="p">},</span> <span class="nl">content</span><span class="p">:</span> <span class="nb">self</span><span class="p">.</span><span class="n">textField</span><span class="p">.</span><span class="n">text</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="n">from</span> <span class="o">==</span> <span class="s">&quot;edit&quot;</span> <span class="p">{</span>
+</span><span class='line'>            <span class="n">println</span><span class="p">(</span><span class="s">&quot;Save edited data&quot;</span><span class="p">)</span>
+</span><span class='line'>            <span class="n">api</span><span class="p">.</span><span class="n">updateTodoList</span><span class="p">({</span><span class="n">data</span><span class="p">,</span> <span class="n">error</span> <span class="o">-&gt;</span> <span class="n">Void</span> <span class="k">in</span>
+</span><span class='line'>                <span class="k">if</span> <span class="n">data</span> <span class="o">==</span> <span class="nb">nil</span> <span class="p">{</span>
+</span><span class='line'>                    <span class="n">println</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+</span><span class='line'>                <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>                <span class="n">dispatch_async</span><span class="p">(</span><span class="n">dispatch_get_main_queue</span><span class="p">(),</span> <span class="p">{</span>
+</span><span class='line'>                    <span class="n">println</span><span class="p">(</span><span class="s">&quot;done&quot;</span><span class="p">)</span>
+</span><span class='line'>                    <span class="nb">self</span><span class="p">.</span><span class="n">navigationController</span><span class="o">!</span><span class="p">.</span><span class="n">popToRootViewControllerAnimated</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
+</span><span class='line'>                <span class="p">})</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="p">},</span> <span class="nl">content</span><span class="p">:</span> <span class="nb">self</span><span class="p">.</span><span class="n">textField</span><span class="p">.</span><span class="n">text</span><span class="p">,</span> <span class="nl">todoId</span><span class="p">:</span> <span class="nb">self</span><span class="p">.</span><span class="kt">id</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在這邊要再修改一個之前的 bug Orz</p>
+
+<p>由於我們要更新的時候，必須要使用到該筆資料的 object id</p>
+
+<p>我們之前在 view 中傳遞的都是 content，都沒有 id，因此要加進去</p>
+
+<p>首先要先改的地方是</p>
+
+<p>ViewController 中的</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="n">showViewController</span><span class="p">.</span><span class="kt">id</span> <span class="o">=</span> <span class="n">fakeData</span><span class="p">[</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">][</span><span class="s">&quot;id&quot;</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 改成:</span>
+</span><span class='line'><span class="n">showViewController</span><span class="p">.</span><span class="kt">id</span> <span class="o">=</span> <span class="n">fakeData</span><span class="p">[</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">][</span><span class="s">&quot;_id&quot;</span><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>因為在 mongodb 中 object id 的名字是 _id</p>
+
+<p>再來要在 ShowViewController 中加入一個把 id 傳到 UpdateViewController</p>
+
+<p>在 ShowViewController 中的 editTODO() 加入:</p>
+
+<p>(因為之前 showView 就已經有拿到 id 了，只是先前的欄位寫錯，加上沒有將 id pass 到 UpdateViewControler 才會發生這種事 XD)</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="n">editViewContronller</span><span class="p">.</span><span class="kt">id</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="kt">id</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>應該只有改這樣，最後執行看看</p>
+
+<p>就發現可以編輯成功囉!</p>
+
+<p>快結束啦!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/28/api-d28/">[API-d28] - 實戰開發 - 發佈 - Forever</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-28T17:26:47+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/10/28/api-d28/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/28/api-d28/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day28">Github 參考</a></p>
+
+<p>接下來兩天要講 deploy 的部分</p>
+
+<p>由於 deploy 的 script 其實非常的麻煩，因此我們就不提 deploy 的 script 了</p>
+
+<p>我們只專注在 server 上需要什麼東西</p>
+
+<p>今天要來看看 <code>forever</code> 這個套件</p>
+
+<p>這個套件可以幫助 nodejs 的 server 遇上無預警的 server 掛掉時</p>
+
+<p>會幫你自動重新啟動 nodejs 的 server</p>
+
+<p>也就是說</p>
+
+<p>假設說 nodejs 寫的 server 某個 route 有問題，</p>
+
+<p>送 request 後會因為某些因素造成 server error 造成程式碼 crash 時</p>
+
+<p>forever 的 monitor 會偵測到，並幫你自動重啟 server</p>
+
+<p>至少不會造成其他正常存取 server 的使用者遭遇到 server down 的問題</p>
+
+<p>這個套件可以選擇裝在 global 或是 project</p>
+
+<p>在這邊我是選擇裝成 global</p>
+
+<p>進到虛擬機</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="nx">npm</span> <span class="nx">install</span> <span class="o">-</span><span class="nx">g</span> <span class="nx">forever</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>p.s. 如果遇到問題，試著跑下面的指令看看?</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="nx">sudo</span> <span class="nx">chown</span> <span class="nx">vagrant</span><span class="o">:</span><span class="nx">vagrant</span> <span class="o">-</span><span class="nx">R</span> <span class="o">~</span><span class="sr">/.npm/</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接下來我們就可以使用 <code>forever</code> 這個指令了!</p>
+
+<p>原本我們要啟動 server 的話</p>
+
+<p>是要下:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="nx">npm</span> <span class="nx">start</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>同義於:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="nx">node</span> <span class="p">.</span><span class="o">/</span><span class="nx">bin</span><span class="o">/</span><span class="nx">server</span><span class="p">.</span><span class="nx">js</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果要改用 <code>forever</code> 的話:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// 記得先到專案根目錄</span>
+</span><span class='line'><span class="nx">$</span> <span class="nx">forever</span> <span class="nx">start</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">server</span><span class="p">.</span><span class="nx">js</span>
+</span><span class='line'><span class="nx">warn</span><span class="o">:</span>    <span class="o">--</span><span class="nx">minUptime</span> <span class="nx">not</span> <span class="nx">set</span><span class="p">.</span> <span class="nx">Defaulting</span> <span class="nx">to</span><span class="o">:</span> <span class="mi">1000</span><span class="nx">ms</span>
+</span><span class='line'><span class="nx">warn</span><span class="o">:</span>    <span class="o">--</span><span class="nx">spinSleepTime</span> <span class="nx">not</span> <span class="nx">set</span><span class="p">.</span> <span class="nx">Your</span> <span class="nx">script</span> <span class="nx">will</span> <span class="nx">exit</span> <span class="k">if</span> <span class="nx">it</span> <span class="nx">does</span> <span class="nx">not</span> <span class="nx">stay</span> <span class="nx">up</span> <span class="k">for</span> <span class="nx">at</span> <span class="nx">least</span> <span class="mi">1000</span><span class="nx">ms</span>
+</span><span class='line'><span class="nx">info</span><span class="o">:</span>    <span class="nx">Forever</span> <span class="nx">processing</span> <span class="nx">file</span><span class="o">:</span> <span class="p">.</span><span class="o">/</span><span class="nx">bin</span><span class="o">/</span><span class="nx">server</span><span class="p">.</span><span class="nx">js</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然後就會被丟到背景執行了</p>
+
+<p>那要怎麼知道我的 server 有跑起來呢?</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="nx">forever</span> <span class="nx">list</span>
+</span><span class='line'><span class="nx">info</span><span class="o">:</span>    <span class="nx">Forever</span> <span class="nx">processes</span> <span class="nx">running</span>
+</span><span class='line'><span class="nx">data</span><span class="o">:</span>        <span class="nx">uid</span>  <span class="nx">command</span>                              <span class="nx">script</span>        <span class="nx">forever</span> <span class="nx">pid</span>   <span class="nx">logfile</span>                         <span class="nx">uptime</span>
+</span><span class='line'><span class="nx">data</span><span class="o">:</span>    <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="mi">6</span><span class="nx">qhd</span> <span class="o">/</span><span class="nx">home</span><span class="o">/</span><span class="nx">vagrant</span><span class="o">/</span><span class="p">.</span><span class="nx">nvm</span><span class="o">/</span><span class="nx">v0</span><span class="p">.</span><span class="mf">10.32</span><span class="o">/</span><span class="nx">bin</span><span class="o">/</span><span class="nx">node</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">server</span><span class="p">.</span><span class="nx">js</span> <span class="mi">13746</span>   <span class="mi">13748</span> <span class="o">/</span><span class="nx">home</span><span class="o">/</span><span class="nx">vagrant</span><span class="o">/</span><span class="p">.</span><span class="nx">forever</span><span class="o">/</span><span class="mi">6</span><span class="nx">qhd</span><span class="p">.</span><span class="nx">log</span> <span class="mi">0</span><span class="o">:</span><span class="mi">0</span><span class="o">:</span><span class="mi">0</span><span class="o">:</span><span class="mf">47.743</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>就會列出相關資訊以及 forever 自己的 log file 位置</p>
+
+<p>要關閉的話:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="nx">forever</span> <span class="nx">stop</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">server</span><span class="p">.</span><span class="nx">js</span>
+</span><span class='line'><span class="nx">info</span><span class="o">:</span>    <span class="nx">Forever</span> <span class="nx">stopped</span> <span class="nx">process</span><span class="o">:</span>
+</span><span class='line'><span class="nx">data</span><span class="o">:</span>        <span class="nx">uid</span>  <span class="nx">command</span>                              <span class="nx">script</span>        <span class="nx">forever</span> <span class="nx">pid</span>   <span class="nx">logfile</span>                         <span class="nx">uptime</span>
+</span><span class='line'><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="mi">6</span><span class="nx">qhd</span> <span class="o">/</span><span class="nx">home</span><span class="o">/</span><span class="nx">vagrant</span><span class="o">/</span><span class="p">.</span><span class="nx">nvm</span><span class="o">/</span><span class="nx">v0</span><span class="p">.</span><span class="mf">10.32</span><span class="o">/</span><span class="nx">bin</span><span class="o">/</span><span class="nx">node</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">server</span><span class="p">.</span><span class="nx">js</span> <span class="mi">13746</span>   <span class="mi">14061</span> <span class="o">/</span><span class="nx">home</span><span class="o">/</span><span class="nx">vagrant</span><span class="o">/</span><span class="p">.</span><span class="nx">forever</span><span class="o">/</span><span class="mi">6</span><span class="nx">qhd</span><span class="p">.</span><span class="nx">log</span> <span class="mi">0</span><span class="o">:</span><span class="mi">0</span><span class="o">:</span><span class="mi">0</span><span class="o">:</span><span class="mf">6.595</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>bin/server.js</code> 也可以替換成 forever uid 或 pid</p>
+
+<p>如果要重開的話</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="nx">forever</span> <span class="nx">restart</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">server</span><span class="p">.</span><span class="nx">js</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>超簡單!</p>
+
+<p>這樣就可以不用擔心 server 突然掛掉了&hellip;.嗎?</p>
+
+<p>錯，還是必須要監控 server 狀態</p>
+
+<p>畢竟，<code>forever</code> 也是會有 bug 的</p>
+
+<p>所以自己的 server 自己顧</p>
+
+<p>真正應用在 production 環境還是必須要監控的</p>
+
+<p>今天就分享到這啦!</p>
 </div>
   
   
@@ -1524,275 +2067,6 @@ Day30 -  <a href="http://kerkerj.github.io/">#</a></p>
 
 
 <p>執行起來就可以增加資料到 fakeData 了!</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/24/api-d24/">[API-d24] - 實戰開發 - 刪除 TODO Task API With Mongoose</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-24T20:42:36+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/10/24/api-d24/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/24/api-d24/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day24">Github 參考</a></p>
-
-<p>還記得昨天說要偷懶一下嗎 XD</p>
-
-<p>因為刪除真的很簡單!</p>
-
-<p>我們前面走過了新增、修改、讀取了</p>
-
-<p>刪除？哪有什麼困難的呢! XD</p>
-
-<p>直接看 code 吧!</p>
-
-<p>routes/users.js:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Delete a todo task</span>
-</span><span class='line'><span class="nx">router</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="s1">&#39;/:user_id/todos/:todo_id&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">user_id</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">user_id</span><span class="p">;</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">todo_id</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">todo_id</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nx">TODO</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span>
-</span><span class='line'>        <span class="p">{</span> <span class="nx">_id</span><span class="o">:</span> <span class="nx">todo_id</span><span class="p">,</span> <span class="nx">user_id</span><span class="o">:</span> <span class="nx">user_id</span> <span class="p">},</span>
-</span><span class='line'>        <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>                <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">400</span><span class="p">).</span><span class="nx">json</span><span class="p">(</span>
-</span><span class='line'>                    <span class="p">{</span> <span class="nx">error</span><span class="o">:</span> <span class="s2">&quot;delete data error&quot;</span><span class="p">}</span>
-</span><span class='line'>                <span class="p">);</span>
-</span><span class='line'>            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span><span class='line'>                <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">201</span><span class="p">).</span><span class="nx">json</span><span class="p">(</span>
-</span><span class='line'>                    <span class="p">{</span> <span class="nx">success</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span> <span class="p">}</span>
-</span><span class='line'>                <span class="p">);</span>
-</span><span class='line'>            <span class="p">}</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>    <span class="p">);</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>非常的簡單!</p>
-
-<p>先抓到 user_id, todo_id 後</p>
-
-<p>使用 .remove 的方法，下 WHERE 條件，並在 callback 作處理</p>
-
-<p>就完成了!</p>
-
-<p>試試看吧!</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%203.39.09.png" alt="image" /></p>
-
-<p>是不是非常的簡單呢！</p>
-
-<p>我們已經完成 CRUD API 操作了！</p>
-
-<p>接下來幾天會稍作一些細節上的處理!</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/23/swift-d23/">[Swift-d23] - 實戰開發 - TODOList - Show View 2, Delete View</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-23T14:59:37+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/10/23/swift-d23/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/23/swift-d23/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day23">Github link</a></p>
-
-<p>延續昨天，接下來要做換頁</p>
-
-<p>因此我們必須先新建立一個 ShowViewController, 以及他的 xib</p>
-
-<p>接著我們在 xib 拉幾個元件: 兩個 label, 一個用來顯示目前的 index, 另一個則是顯示內容</p>
-
-<p>拉好後，將這兩個元件設定連結到 ShowViewController.swift</p>
-
-<p><img src="http://goo.gl/XPjBik" alt="image" /></p>
-
-<p>另外多在 ShowViewController 中放兩個變數</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>var index: Int!
-</span><span class='line'>var content: String!</span></code></pre></td></tr></table></div></figure>
-
-
-<p>回到 ViewController, 到 tableView didSelectRowAtIndexPath 中</p>
-
-<p>因為 didSelectRowAtIndexPath 的意思就是當 cell 被選取時要做什麼事情</p>
-
-<p>因此當 cell 被選取時，我們就要讓他跳到下一頁，並且是使用 ShowViewController 來顯示資料</p>
-
-<p>因此修改此方法:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-</span><span class='line'>    var showViewController = ShowViewController(nibName: "ShowViewController", bundle: nil)
-</span><span class='line'>    showViewController.index = indexPath.row
-</span><span class='line'>    showViewController.content = fakeData[indexPath.row]["content"]
-</span><span class='line'>    
-</span><span class='line'>    // 回復非選取狀態
-</span><span class='line'>    tableView.deselectRowAtIndexPath(indexPath, animated: true)
-</span><span class='line'>    self.navigationController?.pushViewController(showViewController, animated: true)
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
-
-
-<p>最後在 ShowViewController 中的 viewDidLoad 加入:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>    indexLabel.text = "\(index)"
-</span><span class='line'>    contentLabel.text = content</span></code></pre></td></tr></table></div></figure>
-
-
-<p>這樣一來在 ShowViewController 被建立時，顯示的 label 就會將上一個 view 設定的 index, content 的值顯示出來了</p>
-
-<p>執行看看!</p>
-
-<p><img src="http://goo.gl/Uib0IA" alt="image" /></p>
-
-<p>這樣 Show 的部分就完成了!</p>
-
-<p>接著我們回到主頁</p>
-
-<p>要來建立將 cell 向左滑可以刪除的事件，這是 iOS 內建的事件，</p>
-
-<p>因此建立方法也很簡單:</p>
-
-<p>一樣是覆寫 tableView 的方法</p>
-
-<p>要讓 tableView 可以編輯 row - canEditRowAtIndexPath</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -&gt; Bool {
-</span><span class='line'>    return true
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
-
-
-<p>按下確認刪除後的行為 - 我們在這邊實際上是刪除 fakeData 的值</p>
-
-<p>所以只要 App 重開後就又會回到三筆資料了</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-</span><span class='line'>
-</span><span class='line'>    self.fakeData.removeAtIndex(indexPath.row)
-</span><span class='line'>    
-</span><span class='line'>    dispatch_async(dispatch_get_main_queue(), {
-</span><span class='line'>        // must be "tableView!" not "tableView?"
-</span><span class='line'>        self.tableView!.reloadData()
-</span><span class='line'>    })
-</span><span class='line'>
-</span><span class='line'>    let alert = UIAlertView()
-</span><span class='line'>    alert.title = "Alert"
-</span><span class='line'>    alert.message = "Deleted!"
-</span><span class='line'>    alert.addButtonWithTitle("Ok")
-</span><span class='line'>    alert.show()
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
-
-
-<p>這樣我們就有顯示單筆以及顯示多筆還有刪除可以用了!</p>
 </div>
   
   

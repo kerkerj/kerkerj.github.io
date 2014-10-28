@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Swift | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/swift/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-27T23:12:36+08:00</updated>
+  <updated>2014-10-28T17:32:35+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,218 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[Swift-d28] - 實戰開發 - TODOList - API 3 新增與更新]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/28/swift-d28/"/>
+    <updated>2014-10-28T17:26:52+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/28/swift-d28</id>
+    <content type="html"><![CDATA[<p><a href="day28">Github link</a></p>
+
+<p>昨天做了 get list</p>
+
+<p>今天就來做 新增和儲存吧!</p>
+
+<p>可能有人會問說，那讀取一筆 todo 的 API 呢?</p>
+
+<p>因為在這邊資料量少，所有的東西都可以從最外層的 list 拿到</p>
+
+<p>所以雖然有換頁的動作，但是節省流量可以不需要實做這件事</p>
+
+<p>在實際開發中也會如此，case by case，有些情況一次拿完回來處理最好</p>
+
+<p>不過有些則不是~</p>
+
+<p>離題了，</p>
+
+<p>以下是新增 todo 的程式碼:</p>
+
+<p>先到 RestApi.swift 新增 post function</p>
+
+<pre><code class="swift">func addTodoList(completionHandler: ((NSDictionary!, NSError!) -&gt; Void)!, content: String) {
+        var session = NSURLSession.sharedSession()
+
+        var request = NSMutableURLRequest(URL: self.addTodoUrl!)
+        request.HTTPMethod = "POST"
+
+        var params = ["content": content] as Dictionary&lt;String, String&gt;
+
+        var err: NSError?
+        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &amp;err)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue(self.API_key, forHTTPHeaderField: "API-Key")
+
+
+        let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -&gt; Void in
+            if (error != nil) {
+                return completionHandler(nil, error)
+            }
+
+            var error: NSError?
+            let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &amp;error) as NSDictionary
+
+            if (error != nil) {
+                return completionHandler(nil, error)
+            } else {
+                return completionHandler(json, nil)
+            }
+        })
+
+        task.resume()
+    }
+</code></pre>
+
+<p>再來就是在程式中呼叫這隻 API 囉! 我們會在 UpdateViewController 中做這件事</p>
+
+<p>因為這隻 controler 處理了 &ldquo;Add&rdquo; 和 &ldquo;Update&rdquo; 兩件事</p>
+
+<p>在 save() 這個 function 裡面修改成:</p>
+
+<pre><code>// 記得 class 中先產生一個 api 物件
+var api = RestApi()
+
+func save() {
+        if from == "add" {
+            api.addTodoList({data, error -&gt; Void in
+                if data == nil {
+                    println(error)
+                }
+
+                dispatch_async(dispatch_get_main_queue(), {
+                    println("done")
+                    self.navigationController?.popToRootViewControllerAnimated(true)
+                })
+            }, content: self.textField.text)
+
+        } else if from == "edit" {
+            println("Save edited data")
+        }
+    }
+</code></pre>
+
+<p>打開執行就可以新增 todo 了!</p>
+
+<p>&ldquo;Update&rdquo; 的行為和新增一樣</p>
+
+<p>先到 RestApi class 加入 update 的方法:</p>
+
+<pre><code>func updateTodoList(completionHandler: ((NSDictionary!, NSError!) -&gt; Void)!, content: String, todoId: String) {
+        var session = NSURLSession.sharedSession()
+
+        var request = NSMutableURLRequest(URL: NSURL(string: "http://192.168.1.158:3000/user/kerkerj/todos/\(todoId)")!)
+        request.HTTPMethod = "PUT"
+
+        var params = ["content": content] as Dictionary&lt;String, String&gt;
+
+        var err: NSError?
+        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &amp;err)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue(self.API_key, forHTTPHeaderField: "API-Key")
+
+
+        let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -&gt; Void in
+            if (error != nil) {
+                return completionHandler(nil, error)
+            }
+
+            var error: NSError?
+            let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &amp;error) as NSDictionary
+
+            if (error != nil) {
+                return completionHandler(nil, error)
+            } else {
+                return completionHandler(json, nil)
+            }
+        })
+
+        task.resume()
+    }
+</code></pre>
+
+<p>再到剛剛的 UpdateViewController ，把 save() 的另外一個 &ldquo;edit&rdquo; 的區塊改成下面的程式碼</p>
+
+<pre><code>else if from == "edit" {
+            println("Save edited data")
+            api.updateTodoList({data, error -&gt; Void in
+                if data == nil {
+                    println(error)
+                }
+
+                dispatch_async(dispatch_get_main_queue(), {
+                    println("done")
+                    self.navigationController!.popToRootViewControllerAnimated(true)
+                })
+
+            }, content: self.textField.text, todoId: self.index)
+        }
+</code></pre>
+
+<p>所以整個 save() 會長這樣:</p>
+
+<pre><code>func save() {
+        if from == "add" {
+            api.addTodoList({data, error -&gt; Void in
+                if data == nil {
+                    println(error)
+                }
+
+                dispatch_async(dispatch_get_main_queue(), {
+                    println("done")
+                    self.navigationController?.popToRootViewControllerAnimated(true)
+                })
+            }, content: self.textField.text)
+
+        } else if from == "edit" {
+            println("Save edited data")
+            api.updateTodoList({data, error -&gt; Void in
+                if data == nil {
+                    println(error)
+                }
+
+                dispatch_async(dispatch_get_main_queue(), {
+                    println("done")
+                    self.navigationController!.popToRootViewControllerAnimated(true)
+                })
+
+            }, content: self.textField.text, todoId: self.id
+        }
+    }
+</code></pre>
+
+<p>在這邊要再修改一個之前的 bug Orz</p>
+
+<p>由於我們要更新的時候，必須要使用到該筆資料的 object id</p>
+
+<p>我們之前在 view 中傳遞的都是 content，都沒有 id，因此要加進去</p>
+
+<p>首先要先改的地方是</p>
+
+<p>ViewController 中的</p>
+
+<pre><code>showViewController.id = fakeData[indexPath.row]["id"]
+
+// 改成:
+showViewController.id = fakeData[indexPath.row]["_id"]
+</code></pre>
+
+<p>因為在 mongodb 中 object id 的名字是 _id</p>
+
+<p>再來要在 ShowViewController 中加入一個把 id 傳到 UpdateViewController</p>
+
+<p>在 ShowViewController 中的 editTODO() 加入:</p>
+
+<p>(因為之前 showView 就已經有拿到 id 了，只是先前的欄位寫錯，加上沒有將 id pass 到 UpdateViewControler 才會發生這種事 XD)</p>
+
+<pre><code>editViewContronller.id = self.id
+</code></pre>
+
+<p>應該只有改這樣，最後執行看看</p>
+
+<p>就發現可以編輯成功囉!</p>
+
+<p>快結束啦!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[Swift-d27] - 實戰開發 - TODOList - API 2 讀取清單資料]]></title>
@@ -532,102 +744,6 @@ class UpdateViewController: UIViewController {
 </code></pre>
 
 <p>執行起來就可以增加資料到 fakeData 了!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[Swift-d23] - 實戰開發 - TODOList - Show View 2, Delete View]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/23/swift-d23/"/>
-    <updated>2014-10-23T14:59:37+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/23/swift-d23</id>
-    <content type="html"><![CDATA[<p><a href="https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day23">Github link</a></p>
-
-<p>延續昨天，接下來要做換頁</p>
-
-<p>因此我們必須先新建立一個 ShowViewController, 以及他的 xib</p>
-
-<p>接著我們在 xib 拉幾個元件: 兩個 label, 一個用來顯示目前的 index, 另一個則是顯示內容</p>
-
-<p>拉好後，將這兩個元件設定連結到 ShowViewController.swift</p>
-
-<p><img src="http://goo.gl/XPjBik" alt="image" /></p>
-
-<p>另外多在 ShowViewController 中放兩個變數</p>
-
-<pre><code>var index: Int!
-var content: String!
-</code></pre>
-
-<p>回到 ViewController, 到 tableView didSelectRowAtIndexPath 中</p>
-
-<p>因為 didSelectRowAtIndexPath 的意思就是當 cell 被選取時要做什麼事情</p>
-
-<p>因此當 cell 被選取時，我們就要讓他跳到下一頁，並且是使用 ShowViewController 來顯示資料</p>
-
-<p>因此修改此方法:</p>
-
-<pre><code>    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var showViewController = ShowViewController(nibName: "ShowViewController", bundle: nil)
-        showViewController.index = indexPath.row
-        showViewController.content = fakeData[indexPath.row]["content"]
-
-        // 回復非選取狀態
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        self.navigationController?.pushViewController(showViewController, animated: true)
-    }
-</code></pre>
-
-<p>最後在 ShowViewController 中的 viewDidLoad 加入:</p>
-
-<pre><code>        indexLabel.text = "\(index)"
-        contentLabel.text = content
-</code></pre>
-
-<p>這樣一來在 ShowViewController 被建立時，顯示的 label 就會將上一個 view 設定的 index, content 的值顯示出來了</p>
-
-<p>執行看看!</p>
-
-<p><img src="http://goo.gl/Uib0IA" alt="image" /></p>
-
-<p>這樣 Show 的部分就完成了!</p>
-
-<p>接著我們回到主頁</p>
-
-<p>要來建立將 cell 向左滑可以刪除的事件，這是 iOS 內建的事件，</p>
-
-<p>因此建立方法也很簡單:</p>
-
-<p>一樣是覆寫 tableView 的方法</p>
-
-<p>要讓 tableView 可以編輯 row - canEditRowAtIndexPath</p>
-
-<pre><code>    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -&gt; Bool {
-        return true
-    }
-</code></pre>
-
-<p>按下確認刪除後的行為 - 我們在這邊實際上是刪除 fakeData 的值</p>
-
-<p>所以只要 App 重開後就又會回到三筆資料了</p>
-
-<pre><code>    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-
-        self.fakeData.removeAtIndex(indexPath.row)
-
-        dispatch_async(dispatch_get_main_queue(), {
-            // must be "tableView!" not "tableView?"
-            self.tableView!.reloadData()
-        })
-
-        let alert = UIAlertView()
-        alert.title = "Alert"
-        alert.message = "Deleted!"
-        alert.addButtonWithTitle("Ok")
-        alert.show()
-    }
-</code></pre>
-
-<p>這樣我們就有顯示單筆以及顯示多筆還有刪除可以用了!</p>
 ]]></content>
   </entry>
   
