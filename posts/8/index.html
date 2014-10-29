@@ -98,6 +98,110 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2014/06/16/mac-update-openssl-on-mac/">[Mac] Update Openssl on Mac</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-16T09:16:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/06/16/mac-update-openssl-on-mac/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/06/16/mac-update-openssl-on-mac/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>First of all, you need &lsquo;brew&rsquo; (<a href="http://brew.sh/">http://brew.sh/</a>)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ brew update
+</span><span class='line'>$ brew install openssl
+</span><span class='line'>$ brew link --force openssl
+</span><span class='line'> 
+</span><span class='line'>$openssl version -a</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If it&rsquo;s still the old version, you shoud:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo rm /usr/bin/openssl   #remove the old binary 
+</span><span class='line'>$ sudo ln -s /usr/local/Cellar/openssl/1.0.1h/bin/openssl /usr/local/bin
+</span><span class='line'>(1.0.1h -&gt; the latest version)</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>ref: <a href="http://apple.stackexchange.com/questions/126830/how-to-upgrade-openssl-in-os-x">http://apple.stackexchange.com/questions/126830/how-to-upgrade-openssl-in-os-x</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/06/11/mysql-add-a-unique-index-by-2-columns/">[MySQL] Add a Unique Index by 2 Columns</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-11T08:51:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/06/11/mysql-add-a-unique-index-by-2-columns/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/06/11/mysql-add-a-unique-index-by-2-columns/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><code>ALTER TABLE table_name ADD UNIQUE INDEX(column1, column2);</code></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2014/05/30/ubuntu-enable-disable-services-on-start-up/">[Ubuntu] Enable/disable Services on Start-up</a></h1>
     
     
@@ -617,124 +721,6 @@ Magic is never good in development.</p>
 :timestamp</p>
 
 <p><a href="http://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters/TableDefinition.html#method-i-column">http://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters/TableDefinition.html#method-i-column</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/26/aws-ubuntu-swap/">[AWS] Ubuntu Swap</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-26T10:11:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2013/12/26/aws-ubuntu-swap/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2013/12/26/aws-ubuntu-swap/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Add swap for an instance</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo /bin/dd if=/dev/zero of=/var/swap.1 bs=1M count=1024
-</span><span class='line'>$ sudo /sbin/mkswap /var/swap.1
-</span><span class='line'>$ sudo /sbin/swapon /var/swap.1
-</span><span class='line'>$ echo "/var/swap.1 swap swap defaults 0 0" &gt;&gt; /etc/fstab #將 swap 加入 開機啟動</span></code></pre></td></tr></table></div></figure>
-
-
-<p>在 Amazon EC2 micro plan，加入 swap 很容易 I/O 過量，
-因此最好是需要時才開啟 swap，不用時關閉 swap 以免被收錢~</p>
-
-<p>swap usage</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="gp">$</span> swapon -s
-</span><span class='line'><span class="gp">$</span> free -k
-</span><span class='line'><span class="go">---</span>
-</span><span class='line'><span class="gp">$</span> swapoff -a
-</span><span class='line'><span class="gp">$</span> swapon  -a
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/24/sublimetext2-use-command-to-call-sublime-text2/">[SublimeText2] Use Command to Call Sublime Text2</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-24T07:26:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2013/12/24/sublimetext2-use-command-to-call-sublime-text2/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2013/12/24/sublimetext2-use-command-to-call-sublime-text2/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>ln -s /Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl /usr/local/bin/sublime</span></code></pre></td></tr></table></div></figure>
-
-
-<p>in terminal:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ sublime filename
-</span><span class='line'>$ sublime . (open the directory)</span></code></pre></td></tr></table></div></figure>
-
 </div>
   
   

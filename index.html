@@ -178,7 +178,7 @@ Day25 -  <a href="http://kerkerj.github.io/blog/2014/10/25/api-day25/">[API-day2
 Day26 -  <a href="http://kerkerj.github.io/blog/2014/10/26/api-d26/">[API-d26] - 實戰開發 - API-key</a><br/>
 Day27 -  <a href="http://kerkerj.github.io/blog/2014/10/27/api-d27/">[API-d27] - 實戰開發 - log 處理 及 config (db, apikey)</a><br/>
 Day28 -  <a href="http://kerkerj.github.io/blog/2014/10/28/api-d28/">[API-d28] - 實戰開發 - 發佈 - forever</a><br/>
-Day29 -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day29 -  <a href="http://kerkerj.github.io/blog/2014/10/29/api-d29/">[API-d29] - 實戰開發 - 發佈 - nginx</a><br/>
 Day30 -  <a href="http://kerkerj.github.io/">#</a></p>
 
 <h2>Swift:</h2>
@@ -211,8 +211,404 @@ Day25 -  <a href="http://kerkerj.github.io/blog/2014/10/25/swift-day25/">[Swift-
 Day26 -  <a href="http://kerkerj.github.io/blog/2014/10/26/swift-d26/">[Swift-d26] - 實戰開發 - TODOList - API 前置資料準備</a><br/>
 Day27 -  <a href="http://kerkerj.github.io/blog/2014/10/27/swift-d27/">[Swift-d27] - 實戰開發 - TODOList - API 2 讀取清單資料</a><br/>
 Day28 -  <a href="http://kerkerj.github.io/blog/2014/10/28/swift-d28/">[Swift-d28] - 實戰開發 - TODOList - API 3 新增與更新</a><br/>
-Day29 -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day29 -  <a href="http://kerkerj.github.io/blog/2014/10/29/swift-d29/">[Swift-d29] - 實戰開發 - TODOList - API 4 刪除</a><br/>
 Day30 -  <a href="http://kerkerj.github.io/">#</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/29/swift-d29/">[Swift-d29] - 實戰開發 - TODOList - API 4 刪除</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-29T19:33:01+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/10/29/swift-d29/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/29/swift-d29/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day29">Github link</a></p>
+
+<p>今天要處理刪除</p>
+
+<p>其實超簡單的</p>
+
+<p>只是想偷懶一下 XD</p>
+
+<p>一樣將下列程式碼新增到 RestApi class:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">deleteTodoList</span><span class="p">(</span><span class="nl">completionHandler</span><span class="p">:</span> <span class="p">((</span><span class="bp">NSDictionary</span><span class="o">!</span><span class="p">,</span> <span class="bp">NSError</span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Void</span><span class="p">)</span><span class="o">!</span><span class="p">,</span> <span class="nl">todoId</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">var</span> <span class="n">session</span> <span class="o">=</span> <span class="bp">NSURLSession</span><span class="p">.</span><span class="n">sharedSession</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">var</span> <span class="n">request</span> <span class="o">=</span> <span class="bp">NSMutableURLRequest</span><span class="p">(</span><span class="nl">URL</span><span class="p">:</span> <span class="bp">NSURL</span><span class="p">(</span><span class="nl">string</span><span class="p">:</span> <span class="s">&quot;http://192.168.1.158:3000/user/kerkerj/todos/\(todoId)&quot;</span><span class="p">)</span><span class="o">!</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">request</span><span class="p">.</span><span class="n">HTTPMethod</span> <span class="o">=</span> <span class="s">&quot;DELETE&quot;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">var</span> <span class="nl">err</span><span class="p">:</span> <span class="bp">NSError</span><span class="o">?</span>
+</span><span class='line'>        <span class="n">request</span><span class="p">.</span><span class="n">addValue</span><span class="p">(</span><span class="s">&quot;application/json&quot;</span><span class="p">,</span> <span class="nl">forHTTPHeaderField</span><span class="p">:</span> <span class="s">&quot;Content-Type&quot;</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">request</span><span class="p">.</span><span class="n">addValue</span><span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">API_key</span><span class="p">,</span> <span class="nl">forHTTPHeaderField</span><span class="p">:</span> <span class="s">&quot;API-Key&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">let</span> <span class="n">task</span> <span class="o">=</span> <span class="n">session</span><span class="p">.</span><span class="n">dataTaskWithRequest</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="nl">completionHandler</span><span class="p">:</span> <span class="p">{</span><span class="n">data</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">error</span> <span class="o">-&gt;</span> <span class="n">Void</span> <span class="k">in</span>
+</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="n">error</span> <span class="o">!=</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                <span class="k">return</span> <span class="n">completionHandler</span><span class="p">(</span><span class="nb">nil</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="k">var</span> <span class="nl">error</span><span class="p">:</span> <span class="bp">NSError</span><span class="o">?</span>
+</span><span class='line'>            <span class="k">let</span> <span class="n">json</span> <span class="o">=</span> <span class="bp">NSJSONSerialization</span><span class="p">.</span><span class="n">JSONObjectWithData</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nl">options</span><span class="p">:</span> <span class="n">NSJSONReadingOptions</span><span class="p">.</span><span class="n">MutableContainers</span><span class="p">,</span> <span class="nl">error</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">error</span><span class="p">)</span> <span class="kt">as</span> <span class="bp">NSDictionary</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="n">println</span><span class="p">(</span><span class="n">json</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="n">error</span> <span class="o">!=</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                <span class="k">return</span> <span class="n">completionHandler</span><span class="p">(</span><span class="nb">nil</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+</span><span class='line'>            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>                <span class="k">return</span> <span class="n">completionHandler</span><span class="p">(</span><span class="n">json</span><span class="p">,</span> <span class="nb">nil</span><span class="p">)</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>        <span class="p">})</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">task</span><span class="p">.</span><span class="n">resume</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>回到 ViewController 中的 tableView commitEditingStyle 的方法中</p>
+
+<p>將其更新為:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">tableView</span><span class="p">(</span><span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="p">,</span> <span class="n">commitEditingStyle</span> <span class="nl">editingStyle</span><span class="p">:</span> <span class="n">UITableViewCellEditingStyle</span><span class="p">,</span> <span class="n">forRowAtIndexPath</span> <span class="nl">indexPath</span><span class="p">:</span> <span class="bp">NSIndexPath</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">api</span><span class="p">.</span><span class="n">deleteTodoList</span><span class="p">({</span><span class="n">data</span><span class="p">,</span> <span class="n">err</span> <span class="o">-&gt;</span> <span class="n">Void</span> <span class="k">in</span>
+</span><span class='line'>            <span class="k">let</span> <span class="n">alert</span> <span class="o">=</span> <span class="bp">UIAlertView</span><span class="p">()</span>
+</span><span class='line'>            <span class="n">alert</span><span class="p">.</span><span class="n">title</span> <span class="o">=</span> <span class="s">&quot;Alert&quot;</span>
+</span><span class='line'>            <span class="n">alert</span><span class="p">.</span><span class="n">addButtonWithTitle</span><span class="p">(</span><span class="s">&quot;Ok&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="n">err</span> <span class="o">!=</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                <span class="n">alert</span><span class="p">.</span><span class="n">message</span> <span class="o">=</span> <span class="s">&quot;Failed to delete: \(err)&quot;</span>
+</span><span class='line'>                <span class="n">alert</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</span><span class='line'>            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>                <span class="n">alert</span><span class="p">.</span><span class="n">message</span> <span class="o">=</span> <span class="s">&quot;ok!&quot;</span>
+</span><span class='line'>
+</span><span class='line'>                <span class="nb">self</span><span class="p">.</span><span class="n">fakeData</span><span class="p">.</span><span class="n">removeAtIndex</span><span class="p">(</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>                <span class="n">dispatch_async</span><span class="p">(</span><span class="n">dispatch_get_main_queue</span><span class="p">(),</span> <span class="p">{</span>
+</span><span class='line'>                    <span class="c1">// must be &quot;tableView!&quot; not &quot;tableView?&quot;</span>
+</span><span class='line'>                    <span class="n">alert</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</span><span class='line'>                    <span class="nb">self</span><span class="p">.</span><span class="n">tableView</span><span class="o">!</span><span class="p">.</span><span class="n">reloadData</span><span class="p">()</span>
+</span><span class='line'>                <span class="p">})</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>            <span class="p">},</span> <span class="nl">todoId</span><span class="p">:</span> <span class="n">fakeData</span><span class="p">[</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">][</span><span class="s">&quot;_id&quot;</span><span class="p">]</span><span class="o">!</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>改好程式碼後，執行該程式</p>
+
+<p>在清單中將 item 往左滑，就可以看到刪除的按鈕了!</p>
+
+<p>超簡單的啦!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/29/api-d29/">[API-d29] - 實戰開發 - 發佈 - Nginx</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-29T19:32:57+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/10/29/api-d29/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/29/api-d29/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>接下來這篇就會比較偏 server 設定了！</p>
+
+<p>nginx 是一套伺服器軟體，和 apache 並駕齊驅</p>
+
+<p>(其實我覺得 nginx >>> apache XD)</p>
+
+<p>主要是 nginx 清量快速</p>
+
+<p>我們要拿他幫 nodejs 處理接收 request 的部分，再將 request 導往 nodejs</p>
+
+<p>所以感覺就會如下圖:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2013.14.16.png" alt="image" /></p>
+
+<p>可以讓 nginx 當作是 load balancer,</p>
+
+<p>透過 reverse proxy 的方式轉發 request 給 nodejs, 讓 nginx 承受流量</p>
+
+<p>這就是我們今天要做的事情，</p>
+
+<p>所以首先，我們就要先裝 nginx，因此就先進虛擬機吧!</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="nx">sudo</span> <span class="nx">apt</span><span class="o">-</span><span class="nx">get</span> <span class="nx">update</span> <span class="o">&amp;&amp;</span> <span class="nx">sudo</span> <span class="nx">apt</span><span class="o">-</span><span class="nx">get</span> <span class="nx">upgrade</span> <span class="o">-</span><span class="nx">y</span>
+</span><span class='line'><span class="nx">$</span> <span class="nx">sudo</span> <span class="nx">apt</span><span class="o">-</span><span class="nx">get</span> <span class="nx">install</span> <span class="nx">nginx</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這樣就會安裝一個 nginx 了!</p>
+
+<p>Nginx 的設定檔都是放在 <code>/etc/nginx/</code> 底下</p>
+
+<p>個別網站的設定放在 <code>/etc/nginx/sites-available</code></p>
+
+<p>如果要讓該網站上線，則會將 <code>/etc/nginx/sites-available</code> 的設定檔 link 到 <code>/etc/nginx/sites-enable</code></p>
+
+<p>因此若想自己新增設定檔的話，慣例是會在 available 新增，然後再 link 到 <code>enable</code></p>
+
+<p>如果我們進到 <code>/etc/nginx/sites-enable</code> 的話，裡面應該已經有一個 <code>default</code> 的設定檔了</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="nx">sudo</span> <span class="nx">vim</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">nginx</span><span class="o">/</span><span class="nx">sites</span><span class="o">-</span><span class="nx">enable</span><span class="o">/</span><span class="k">default</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>內容應該是:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">server</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">listen</span> <span class="mi">80</span> <span class="nx">default_server</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">listen</span> <span class="p">[</span><span class="o">::</span><span class="p">]</span><span class="o">:</span><span class="mi">80</span> <span class="nx">default_server</span> <span class="nx">ipv6only</span><span class="o">=</span><span class="nx">on</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nx">root</span> <span class="o">/</span><span class="nx">usr</span><span class="o">/</span><span class="nx">share</span><span class="o">/</span><span class="nx">nginx</span><span class="o">/</span><span class="nx">html</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">index</span> <span class="nx">index</span><span class="p">.</span><span class="nx">html</span> <span class="nx">index</span><span class="p">.</span><span class="nx">htm</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="err">#</span> <span class="nx">Make</span> <span class="nx">site</span> <span class="nx">accessible</span> <span class="nx">from</span> <span class="nx">http</span><span class="o">:</span><span class="c1">//localhost/</span>
+</span><span class='line'>        <span class="nx">server_name</span> <span class="nx">localhost</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nx">location</span> <span class="o">/</span> <span class="p">{</span>
+</span><span class='line'>                <span class="err">#</span> <span class="nx">First</span> <span class="nx">attempt</span> <span class="nx">to</span> <span class="nx">serve</span> <span class="nx">request</span> <span class="nx">as</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">then</span>
+</span><span class='line'>                <span class="err">#</span> <span class="nx">as</span> <span class="nx">directory</span><span class="p">,</span> <span class="nx">then</span> <span class="nx">fall</span> <span class="nx">back</span> <span class="nx">to</span> <span class="nx">displaying</span> <span class="nx">a</span> <span class="mi">404</span><span class="p">.</span>
+</span><span class='line'>                <span class="nx">try_files</span> <span class="nx">$uri</span> <span class="nx">$uri</span><span class="o">/</span> <span class="o">=</span><span class="mi">404</span><span class="p">;</span>
+</span><span class='line'>                <span class="err">#</span> <span class="nx">Uncomment</span> <span class="nx">to</span> <span class="nx">enable</span> <span class="nx">naxsi</span> <span class="nx">on</span> <span class="k">this</span> <span class="nx">location</span>
+</span><span class='line'>                <span class="err">#</span> <span class="nx">include</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">nginx</span><span class="o">/</span><span class="nx">naxsi</span><span class="p">.</span><span class="nx">rules</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="err">#</span> <span class="nx">Only</span> <span class="k">for</span> <span class="nx">nginx</span><span class="o">-</span><span class="nx">naxsi</span> <span class="nx">used</span> <span class="kd">with</span> <span class="nx">nginx</span><span class="o">-</span><span class="nx">naxsi</span><span class="o">-</span><span class="nx">ui</span> <span class="o">:</span> <span class="nx">process</span> <span class="nx">denied</span> <span class="nx">requests</span>
+</span><span class='line'>        <span class="err">#</span><span class="nx">location</span> <span class="o">/</span><span class="nx">RequestDenied</span> <span class="p">{</span>
+</span><span class='line'>        <span class="err">#</span>       <span class="nx">proxy_pass</span> <span class="nx">http</span><span class="o">:</span><span class="c1">//127.0.0.1:8080;</span>
+</span><span class='line'>        <span class="err">#</span><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="p">...</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>將設定檔改成如下:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">upstream</span> <span class="nx">nodejs</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">server</span> <span class="mf">127.0</span><span class="p">.</span><span class="mf">0.1</span><span class="o">:</span><span class="mi">3000</span><span class="p">;</span>
+</span><span class='line'>  <span class="err">#</span><span class="nx">server</span> <span class="mf">127.0</span><span class="p">.</span><span class="mf">0.1</span><span class="o">:</span><span class="mi">3001</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">server</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">listen</span> <span class="mi">80</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">server_name</span> <span class="nx">localhost</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">location</span> <span class="o">/</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">proxy_pass</span> <span class="nx">http</span><span class="o">:</span><span class="c1">//nodejs;</span>
+</span><span class='line'>        <span class="nx">proxy_http_version</span> <span class="mf">1.1</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">proxy_set_header</span> <span class="nx">Upgrade</span> <span class="nx">$http_upgrade</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">proxy_set_header</span> <span class="nx">Connection</span> <span class="s1">&#39;upgrade&#39;</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">proxy_set_header</span> <span class="nx">Host</span> <span class="nx">$host</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">proxy_cache_bypass</span> <span class="nx">$http_upgrade</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>解釋一下以下這段:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">upstream</span> <span class="nx">nodejs</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">server</span> <span class="mf">127.0</span><span class="p">.</span><span class="mf">0.1</span><span class="o">:</span><span class="mi">3000</span><span class="p">;</span>
+</span><span class='line'>  <span class="err">#</span><span class="nx">server</span> <span class="mf">127.0</span><span class="p">.</span><span class="mf">0.1</span><span class="o">:</span><span class="mi">3001</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>下面這段則是 proxy pass 的部分, 會將 <code>/</code> 的流量導到 nodejs 的 server cluster 裡面，不過因為我們現在只有一台 server 開起來，所以只會被導到 3000 port 的那台機器</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">location</span> <span class="o">/</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">proxy_pass</span> <span class="nx">http</span><span class="o">:</span><span class="c1">//nodejs;</span>
+</span><span class='line'>        <span class="nx">proxy_http_version</span> <span class="mf">1.1</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">proxy_set_header</span> <span class="nx">Upgrade</span> <span class="nx">$http_upgrade</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">proxy_set_header</span> <span class="nx">Connection</span> <span class="s1">&#39;upgrade&#39;</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">proxy_set_header</span> <span class="nx">Host</span> <span class="nx">$host</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">proxy_cache_bypass</span> <span class="nx">$http_upgrade</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果 nodejs server 的承載量不夠，可以開好幾檯，只要 port 不一樣即可</p>
+
+<p>這樣就可以建立一個 nodejs cluster</p>
+
+<p>再來使用 forever 開啓 nodejs server</p>
+
+<p>再重新開啟 nginx</p>
+
+<p>使用 postman 戳戳看 API</p>
+
+<p>就成功囉~~</p>
 </div>
   
   
@@ -1711,362 +2107,6 @@ Day30 -  <a href="http://kerkerj.github.io/">#</a></p>
 <p>因此流程面大致上到此告一個段落</p>
 
 <p>接下來就要串 API 了!</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/25/api-day25/">[API-day25] - 實戰開發 - 處理 404 & 500</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-25T21:46:35+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/10/25/api-day25/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/25/api-day25/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day25">Github 參考</a></p>
-
-<p>不知道大家在用 POSTMAN 對前幾天寫的 API 丟 request 有沒有遇過類似下面的情況:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">Cannot</span> <span class="nx">GET</span> <span class="o">/</span><span class="nx">user</span><span class="o">/</span><span class="nx">kerkerj</span><span class="o">/</span><span class="nx">todoss</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>通常是丟錯網址時會出現的，或是 code 沒寫好會出現 500 error</p>
-
-<p>這些情況是有辦法接到的，今天我們希望能夠接到後，將 message 轉成 json 格式吐回給 client</p>
-
-<p>因此程式碼如下</p>
-
-<p>app.js</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// catch 404 and forward to error handler</span>
-</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">err</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;Not Found&#39;</span><span class="p">);</span>
-</span><span class='line'>    <span class="nx">err</span><span class="p">.</span><span class="nx">status</span> <span class="o">=</span> <span class="mi">404</span><span class="p">;</span>
-</span><span class='line'>    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">404</span><span class="p">).</span><span class="nx">jsonp</span><span class="p">({</span><span class="nx">error</span><span class="o">:</span> <span class="s2">&quot;Not Found&quot;</span><span class="p">});</span>
-</span><span class='line'>    <span class="nx">next</span><span class="p">();</span>
-</span><span class='line'><span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// catch 500</span>
-</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>            <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">status</span> <span class="o">||</span> <span class="mi">500</span><span class="p">).</span><span class="nx">json</span><span class="p">({</span><span class="nx">error</span><span class="o">:</span> <span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">});</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>基本上這兩段 code 的意思就是加入了兩個 middleware</p>
-
-<p>如果進來的 request 是屬於 404 or 500 就會回傳 json 格式</p>
-
-<p>並且依錯誤碼不同而回傳不同的訊息</p>
-
-<p>試著將 server 跑起來</p>
-
-<p>亂丟 request 看看</p>
-
-<p>原本應該會是</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">Cannot</span> <span class="nx">GET</span> <span class="o">/</span><span class="nx">user</span><span class="o">/</span><span class="nx">kerkerj</span><span class="o">/</span><span class="nx">todoss</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>就會變成了 json</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="s2">&quot;error&quot;</span><span class="o">:</span> <span class="s2">&quot;Not Found&quot;</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>這樣一來, client 程式也就能夠統一接收 json 回傳，而不會因為莫名的字串導致解析錯誤而 crash 了!</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/24/swift-d24/">[Swift-d24] - 實戰開發 - TODOList - Create View</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-24T20:42:41+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/10/24/swift-d24/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/24/swift-d24/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day24">Github link</a></p>
-
-<p>今天要來建立 &ldquo;新增資料&rdquo; 的頁面</p>
-
-<p>不過這個頁面我們也會拿來給 &ldquo;更新資料&rdquo; 的頁面使用</p>
-
-<p>原因其實很簡單</p>
-
-<p>兩邊要建立或編輯的資料是一樣的</p>
-
-<p>差別只在於，當今天是編輯資料的 view call 該頁面時，</p>
-
-<p>該頁面除了顯示編輯框外，編輯框內的文字也會預先 load 好舊的資料了</p>
-
-<p>除此之外兩個 view 的排版一模一樣</p>
-
-<p>所以在這邊我們就只建立一個 UpdateViewController 就可以了</p>
-
-<p>那我們一樣建立一組 UpdateViewController.swift + UpdateViewController.xib</p>
-
-<p>也一樣為元件建立關聯</p>
-
-<p><img src="http://goo.gl/4AO4G0" alt="image" /></p>
-
-<p>回到主頁</p>
-
-<p>我們幫 Add 新增一個按鈕吧</p>
-
-<p>在 viewDidLoad 中</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="nb">self</span><span class="p">.</span><span class="n">navigationItem</span><span class="p">.</span><span class="n">rightBarButtonItem</span> <span class="o">=</span> <span class="bp">UIBarButtonItem</span><span class="p">(</span><span class="nl">title</span><span class="p">:</span> <span class="s">&quot;Add&quot;</span><span class="p">,</span> <span class="nl">style</span><span class="p">:</span> <span class="n">UIBarButtonItemStyle</span><span class="p">.</span><span class="n">Done</span><span class="p">,</span> <span class="nl">target</span><span class="p">:</span> <span class="nb">self</span><span class="p">,</span> <span class="nl">action</span><span class="p">:</span> <span class="n">Selector</span><span class="p">(</span><span class="s">&quot;pushToAddTODO&quot;</span><span class="p">))</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>設定 Navigation 的右邊鍵的功能</p>
-
-<p>並且根據 pushToAddTODO 的方法做事情</p>
-
-<p>因此繼續下去將 pushToAddTODO 方法做一下</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">pushToAddTODO</span><span class="p">(){</span>
-</span><span class='line'>    <span class="k">var</span> <span class="n">addViewController</span> <span class="o">=</span> <span class="n">UpdateViewController</span><span class="p">(</span><span class="nl">nibName</span><span class="p">:</span> <span class="s">&quot;UpdateViewController&quot;</span><span class="p">,</span> <span class="nl">bundle</span><span class="p">:</span> <span class="nb">nil</span><span class="p">)</span>
-</span><span class='line'>    <span class="n">addViewController</span><span class="p">.</span><span class="n">from</span> <span class="o">=</span> <span class="s">&quot;add&quot;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nb">self</span><span class="p">.</span><span class="n">navigationController</span><span class="o">?</span><span class="p">.</span><span class="n">pushViewController</span><span class="p">(</span><span class="n">addViewController</span><span class="p">,</span> <span class="nl">animated</span><span class="p">:</span> <span class="nb">true</span><span class="p">)</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>這樣寫完後就可以執行看看了!</p>
-
-<p>剩下的任務就是將資料寫進 fakeData 不過考慮到之後我們是使用 API</p>
-
-<p>因此就先不特別作 ShowViewController 的資料傳遞</p>
-
-<p>再來就做 create view 裡面的 save 按鈕!</p>
-
-<p>接著就要到 UpdateViewController</p>
-
-<p>幫 NavigationController 再多加一個右邊按鈕 &ldquo;Save&rdquo;</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">import</span> <span class="n">UIKit</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">class</span> <span class="nl">UpdateViewController</span><span class="p">:</span> <span class="bp">UIViewController</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">var</span> <span class="nl">from</span><span class="p">:</span> <span class="n">String</span><span class="o">!</span>
-</span><span class='line'>    <span class="p">@</span><span class="kt">IBOutlet</span> <span class="k">var</span> <span class="nl">textField</span><span class="p">:</span> <span class="bp">UITextField</span><span class="o">!</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kr">override</span> <span class="k">func</span> <span class="n">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nb">super</span><span class="p">.</span><span class="n">viewDidLoad</span><span class="p">()</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">navigationItem</span><span class="p">.</span><span class="n">rightBarButtonItem</span> <span class="o">=</span> <span class="bp">UIBarButtonItem</span><span class="p">(</span><span class="nl">title</span><span class="p">:</span> <span class="s">&quot;Save&quot;</span><span class="p">,</span> <span class="nl">style</span><span class="p">:</span> <span class="n">UIBarButtonItemStyle</span><span class="p">.</span><span class="n">Done</span><span class="p">,</span> <span class="nl">target</span><span class="p">:</span> <span class="nb">self</span><span class="p">,</span> <span class="nl">action</span><span class="p">:</span> <span class="n">Selector</span><span class="p">(</span><span class="s">&quot;save&quot;</span><span class="p">))</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kr">override</span> <span class="k">func</span> <span class="n">didReceiveMemoryWarning</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nb">super</span><span class="p">.</span><span class="n">didReceiveMemoryWarning</span><span class="p">()</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">func</span> <span class="n">save</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">navigationController</span><span class="o">?</span><span class="p">.</span><span class="n">popToRootViewControllerAnimated</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>整個程式碼都不難, 只有簡單處理 push/pop 的問題而已!</p>
-
-<p>如果我們要加上對 ViewController 的 fakeData 做存取的話，請看以下：</p>
-
-<p>由於需要資料傳遞，因此就必須寫 protocol</p>
-
-<p>protocol 可簡單可複雜，今天會寫非常簡單版!</p>
-
-<p>首先先新建一個 swift 檔案, 名為 TodoProtocol.swift</p>
-
-<p>內容如下:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">protocol</span> <span class="n">UpdateTODOlistDelegate</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">func</span> <span class="n">addData</span><span class="p">(</span><span class="kt">id</span><span class="o">:</span> <span class="n">String</span><span class="p">,</span> <span class="nl">content</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>接著到 UpdateViewController 中新建一個變數 屬於 UpdateTODOlistDelegate protocol:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">var</span> <span class="nl">delegate</span><span class="p">:</span> <span class="n">UpdateTODOlistDelegate</span><span class="o">!</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>並且設定 save 後的行為，會呼叫 protocol 中的</p>
-
-<p><code>addData(id: String, content: String)</code></p>
-
-<p>將欲新增的 id, content 都丟給該方法</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">save</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>      <span class="c1">// &quot;id&quot; 在這邊是直接給死的</span>
-</span><span class='line'>        <span class="n">delegate</span><span class="p">.</span><span class="n">addData</span><span class="p">(</span><span class="s">&quot;67&quot;</span><span class="p">,</span> <span class="nl">content</span><span class="p">:</span> <span class="nb">self</span><span class="p">.</span><span class="n">textField</span><span class="p">.</span><span class="n">text</span><span class="o">!</span><span class="p">)</span>
-</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">navigationController</span><span class="o">?</span><span class="p">.</span><span class="n">popToRootViewControllerAnimated</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>接著只要在主頁的程式碼中時做 protocol, 設定接到參數後的動作</p>
-
-<p>就可以在接到參數後，將資料寫入 fakeData 了!</p>
-
-<p>回到主頁的程式碼，class 必須先繼承 protocol，再實作</p>
-
-<p>設定繼承後, 實作 addData, 將接到的資料寫入 fakeData:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">addData</span><span class="p">(</span><span class="kt">id</span><span class="o">:</span> <span class="n">String</span><span class="p">,</span> <span class="nl">content</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">fakeData</span><span class="p">.</span><span class="n">append</span><span class="p">([</span><span class="s">&quot;id&quot;</span><span class="o">:</span> <span class="kt">id</span><span class="p">,</span> <span class="s">&quot;content&quot;</span><span class="o">:</span> <span class="n">content</span><span class="p">])</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">dispatch_async</span><span class="p">(</span><span class="n">dispatch_get_main_queue</span><span class="p">(),</span> <span class="p">{</span>
-</span><span class='line'>            <span class="c1">// must be &quot;tableView!&quot; not &quot;tableView?&quot;</span>
-</span><span class='line'>            <span class="nb">self</span><span class="p">.</span><span class="n">tableView</span><span class="o">!</span><span class="p">.</span><span class="n">reloadData</span><span class="p">()</span>
-</span><span class='line'>        <span class="p">})</span>
-</span><span class='line'>    <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>記得將 addViewController 的 delegate 設定成 self</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">pushToAddTODO</span><span class="p">(){</span>
-</span><span class='line'>        <span class="k">var</span> <span class="n">addViewController</span> <span class="o">=</span> <span class="n">UpdateViewController</span><span class="p">(</span><span class="nl">nibName</span><span class="p">:</span> <span class="s">&quot;UpdateViewController&quot;</span><span class="p">,</span> <span class="nl">bundle</span><span class="p">:</span> <span class="nb">nil</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">addViewController</span><span class="p">.</span><span class="n">from</span> <span class="o">=</span> <span class="s">&quot;add&quot;</span>
-</span><span class='line'>        <span class="n">addViewController</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="nb">self</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">navigationController</span><span class="o">?</span><span class="p">.</span><span class="n">pushViewController</span><span class="p">(</span><span class="n">addViewController</span><span class="p">,</span> <span class="nl">animated</span><span class="p">:</span> <span class="nb">true</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>執行起來就可以增加資料到 fakeData 了!</p>
 </div>
   
   

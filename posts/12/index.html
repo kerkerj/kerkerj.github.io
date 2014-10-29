@@ -98,6 +98,97 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2011/08/15/ubuntu-big5utf-8/">[Ubuntu] 將 Big5 文字檔轉成 UTF-8</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-15T10:47:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2011/08/15/ubuntu-big5utf-8/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2011/08/15/ubuntu-big5utf-8/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ iconv -f big5 -t utf-8 "要轉的big5檔案路徑" -o  "轉好後要輸出的檔案名"  
+</span><span class='line'>$ iconv -f big5 -t utf-8 /home/test/bigtext.txt -o  /home/test/utf8text.txt  </span></code></pre></td></tr></table></div></figure>
+
+
+<p>也可以輸入和輸出是同一個檔案</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ iconv -f big5 -t utf-8 /home/test/text.txt -o  /home/test/text.txt  </span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/07/04/eclipse-eclipseutf-8/">[Eclipse] 將eclipse改成utf-8編碼</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-04T09:14:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2011/07/04/eclipse-eclipseutf-8/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2011/07/04/eclipse-eclipseutf-8/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>直接附圖囉~~XD
+<a href="http://3.bp.blogspot.com/-m830CCAIkfQ/ThGEcyrt9_I/AAAAAAAAA5U/lU94Ot-Ci70/s1600/%25E6%259C%25AA%25E5%2591%25BD%25E5%2590%258D.png"><img src="http://3.bp.blogspot.com/-m830CCAIkfQ/ThGEcyrt9_I/AAAAAAAAA5U/lU94Ot-Ci70/s1600/%25E6%259C%25AA%25E5%2591%25BD%25E5%2590%258D.png" alt="" /></a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2011/06/30/arch-linux/">[Arch Linux] 安裝雜記</a></h1>
     
     
@@ -731,162 +822,6 @@ IEEE754 雙倍精正規表示範圍最大正數：≒  2 x 10<sup>308</sup>
  因此 (-13.625)ten = 1 1000 0010 10110100000000000000000  (空白只是觀看容易)
  驗證一下ㄎㄎ
  <a href="http://www.h-schmidt.net/FloatApplet/IEEE754.html" title="http://www.h-schmidt.net/FloatApplet/IEEE754.html">http://www.h-schmidt.net/FloatApplet/IEEE754.html</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/05/28/android-29/">[Android] 樣式,主題開發雜記</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-05-28T19:16:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2011/05/28/android-29/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2011/05/28/android-29/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>就是改變Android 預設的介面,主題樣式，例如按鈕的樣子</p>
-
-<p>(以下殘體文)<br/>
-1. style属性在某个空间中起作用，而theme属性则会在整个activity和application中起作用。可以用theme统一整个程序的风格，再用 style微调其中的某些风格。andorid中的某些widget并不遵守theme所定义的风格，比如button上的字。如果你在 activity甚至在application范围内使用theme，button的字还是白色的！估计是这个空间没有引用android:textColor风格，此时只能用button的style属性来改变它了。 (<a href="http://blog.csdn.net/lijiecong/archive/2009/11/10/4795306.aspx">引用自此</a>)<br/>
-2. <a href="http://www.moandroid.com/?p=909">Android Styles &amp; Themes（上）——Style</a><br/>
-3. <a href="http://www.moandroid.com/?p=918">Android Styles &amp; Themes（下）——Theme</a><br/>
-4. <a href="http://blog.csdn.net/G_rrrr/archive/2009/12/23/5056654.aspx">去掉默认ACTIVITY背景图</a><br/>
-5. <a href="http://icekirin.com/wordpress/?p=81">Button的应用(for android)</a><br/>
-6. <a href="http://android.yaohuiji.com/">{ Android学习指南 }</a></p>
-
-<p>(以下為英,中文)<br/>
-7. <a href="http://blog.androgames.net/40/custom-button-style-and-theme/">custom-button-style-and-theme</a><br/>
-        (好站!! <a href="http://blog.androgames.net/category/android-tutorials/">http://blog.androgames.net/category/android-tutorials/</a>) <br/>
-8. <a href="http://jp-lin.blogspot.com/2010/12/%E4%BD%BF%E7%94%A8android-sdk%E6%8F%90%E4%BE%9B%E7%9A%84draw9patch-tool.html">使用Android SDK提供的Draw9Patch Tool </a><br/>
-9. <a href="http://jp-lin.blogspot.com/2010/12/android.html">在Android中使用客製化按鈕 </a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/05/26/bouncy-castle-cryptography/">[Java] Bouncy Castle Cryptography</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-05-26T15:33:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2011/05/26/bouncy-castle-cryptography/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2011/05/26/bouncy-castle-cryptography/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>這是為了ECT作業所作的筆記
-<a href="http://www.bouncycastle.org/docs/docs1.6/index.html">Bouncy Castle Cryptography</a></p>
-
-<p>這次作業用到了密碼學的技術，助教給了這個網站的library讓大家方便實作</p>
-
-<p>作業內容是：可讀取文字, 圖片, 聲音<br/>
-先初始化轉成byte後，利用SHA512進行訊息摘要，<br/>
-再對檔案做RSA加密, 解密,接著是 AES 加密, 解密, <br/>
-最後使用解密後的內容作還原的動作,<br/>
-若input的檔案與output的檔案內容一樣表示成功。</p>
-
-<p>以下是這次作業會用到的class</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>* SHA512Digest 產生訊息摘要MD  
-</span><span class='line'>* AESEngine (對稱式加密)  
-</span><span class='line'>* RSAEngine (非對稱式加密)  
-</span><span class='line'>* RSAKeyParameters ，用來產生RSA的公鑰、私鑰  
-</span><span class='line'>* KeyParameter  
-</span><span class='line'>* BigInteger  </span></code></pre></td></tr></table></div></figure>
-
-
-<p>p.s. 以下是在寫作業時遇到的問題解決網址<br/>
-<a href="http://danielroc0108.blogspot.com/2008/06/legion-of-bouncy-castle.html">其實用到了什麼class也是google後從學長的部落格看來的XD</a></p>
-
-<p>SHA512: <a href="http://stackoverflow.com/questions/2208374/how-can-i-create-an-sha512-digest-string-in-java-using-bouncy-castle">SHA512 ouput 問題</a><br/>
-發現除了 SHA 的 out 外<br/>
-其他的加解密產生 output 值要印出時都可以用到：<br/>
-用： <code>String.format("%0128x", new BigInteger(1, byteData));</code><br/>
-來取代 <code>Hex.encode(byteData);</code></p>
-
-<p>RSA:<br/>
-<a href="http://www.javaworld.com.tw/jute/post/view?bid=29&amp;id=90179&amp;tpg=8&amp;ppg=1&amp;sty=1&amp;age=0">JavaWorld - 在RSA 解密時的問題 </a><br/>
-<a href="http://borispong.pixnet.net/blog/post/23242319">使用Java進行RSA加解密</a><br/>
-<a href="http://ox.no/posts/rsa-using-bouncycastle">RSA using BouncyCastle</a> (有問題 不過解決了 &ndash;> JavaClassCastException)</p>
-
-<p>AES:<br/>
-<a href="http://albertsong.iteye.com/blog/196273">用Bouncy Castle实现AES-128-CBC加密解密 (殘體字不喜勿入)</a><br/>
-<a href="http://www.itcsolutions.eu/2010/12/28/how-to-encrypt-decrypt-with-aes-from-bouncy-castle-api-in-j2me-applications/">How to encrypt / decrypt with AES from Bouncy Castle API in J2ME applications</a></p>
-
-<p>最後的檔案輸出：<br/>
-<a href="http://caterpillar.onlyfun.net/Gossip/JavaGossip-V2/ByteArrayInOutStream.htm">良葛格的學習筆記</a>  (最後寫輸出時才想到有這個網站，因此也修改了輸入檔案時的做法，一氣呵成~~ )</p>
-
-<p>若有一直google的話，會發現有許多做法<br/>
-我認為以下做法最省事：(省略了很多作法，自行google)</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Cipher</span> <span class="n">out</span> <span class="o">=</span> <span class="n">Cipher</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="s">&quot;演算法的名字 (ex. AES)&quot;</span><span class="o">,</span> <span class="s">&quot;BC&quot;</span><span class="o">);</span>
-</span><span class='line'><span class="n">out</span><span class="o">.</span><span class="na">init</span><span class="o">(</span><span class="n">Cipher</span><span class="o">.</span><span class="na">DECRYPT_MODE</span> <span class="o">(</span><span class="err">或是</span><span class="n">ENCRYPT_MODE</span><span class="o">),</span> <span class="n">key</span><span class="o">,</span> <span class="k">new</span> <span class="n">IvParameterSpec</span><span class="o">(</span><span class="n">AESiv</span><span class="o">));</span>
-</span><span class='line'><span class="n">outputByteArray</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="na">doFinal</span><span class="o">(</span> <span class="n">inputByteArray</span><span class="o">);</span><span class="err">  </span> <span class="o">(</span><span class="err">通常因為長度很長所以會用迴圈去做分段讀取的動作</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>2011/06/02  Updated:<br/>
-單純加解密：<br/>
-RSA - <a href="http://www.javamex.com/tutorials/cryptography/rsa_encryption.shtml">http://www.javamex.com/tutorials/cryptography/rsa_encryption.shtml</a><br/>
-AES - <a href="http://java.sun.com/developer/technicalArticles/Security/AES/AES_v1.html">http://java.sun.com/developer/technicalArticles/Security/AES/AES_v1.html</a><br/>
-超級有用 - <a href="http://introcs.cs.princeton.edu/java/78crypto/RSA.java.html">http://introcs.cs.princeton.edu/java/78crypto/RSA.java.html</a></p>
 </div>
   
   

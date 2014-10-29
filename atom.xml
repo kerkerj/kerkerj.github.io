@@ -4,7 +4,7 @@
   <title><![CDATA[kerkerj]]></title>
   <link href="http://kerkerj.github.io/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-28T17:32:35+08:00</updated>
+  <updated>2014-10-29T19:37:43+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -72,7 +72,7 @@ Day25 -  <a href="http://kerkerj.github.io/blog/2014/10/25/api-day25/">[API-day2
 Day26 -  <a href="http://kerkerj.github.io/blog/2014/10/26/api-d26/">[API-d26] - 實戰開發 - API-key</a><br/>
 Day27 -  <a href="http://kerkerj.github.io/blog/2014/10/27/api-d27/">[API-d27] - 實戰開發 - log 處理 及 config (db, apikey)</a><br/>
 Day28 -  <a href="http://kerkerj.github.io/blog/2014/10/28/api-d28/">[API-d28] - 實戰開發 - 發佈 - forever</a><br/>
-Day29 -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day29 -  <a href="http://kerkerj.github.io/blog/2014/10/29/api-d29/">[API-d29] - 實戰開發 - 發佈 - nginx</a><br/>
 Day30 -  <a href="http://kerkerj.github.io/">#</a></p>
 
 <h2>Swift:</h2>
@@ -105,8 +105,344 @@ Day25 -  <a href="http://kerkerj.github.io/blog/2014/10/25/swift-day25/">[Swift-
 Day26 -  <a href="http://kerkerj.github.io/blog/2014/10/26/swift-d26/">[Swift-d26] - 實戰開發 - TODOList - API 前置資料準備</a><br/>
 Day27 -  <a href="http://kerkerj.github.io/blog/2014/10/27/swift-d27/">[Swift-d27] - 實戰開發 - TODOList - API 2 讀取清單資料</a><br/>
 Day28 -  <a href="http://kerkerj.github.io/blog/2014/10/28/swift-d28/">[Swift-d28] - 實戰開發 - TODOList - API 3 新增與更新</a><br/>
-Day29 -  <a href="http://kerkerj.github.io/">#</a><br/>
+Day29 -  <a href="http://kerkerj.github.io/blog/2014/10/29/swift-d29/">[Swift-d29] - 實戰開發 - TODOList - API 4 刪除</a><br/>
 Day30 -  <a href="http://kerkerj.github.io/">#</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Swift-d29] - 實戰開發 - TODOList - API 4 刪除]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/29/swift-d29/"/>
+    <updated>2014-10-29T19:33:01+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/29/swift-d29</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day29">Github link</a></p>
+
+<p>今天要處理刪除</p>
+
+<p>其實超簡單的</p>
+
+<p>只是想偷懶一下 XD</p>
+
+<p>一樣將下列程式碼新增到 RestApi class:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">deleteTodoList</span><span class="p">(</span><span class="nl">completionHandler</span><span class="p">:</span> <span class="p">((</span><span class="bp">NSDictionary</span><span class="o">!</span><span class="p">,</span> <span class="bp">NSError</span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Void</span><span class="p">)</span><span class="o">!</span><span class="p">,</span> <span class="nl">todoId</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">var</span> <span class="n">session</span> <span class="o">=</span> <span class="bp">NSURLSession</span><span class="p">.</span><span class="n">sharedSession</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">var</span> <span class="n">request</span> <span class="o">=</span> <span class="bp">NSMutableURLRequest</span><span class="p">(</span><span class="nl">URL</span><span class="p">:</span> <span class="bp">NSURL</span><span class="p">(</span><span class="nl">string</span><span class="p">:</span> <span class="s">&quot;http://192.168.1.158:3000/user/kerkerj/todos/\(todoId)&quot;</span><span class="p">)</span><span class="o">!</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">request</span><span class="p">.</span><span class="n">HTTPMethod</span> <span class="o">=</span> <span class="s">&quot;DELETE&quot;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">var</span> <span class="nl">err</span><span class="p">:</span> <span class="bp">NSError</span><span class="o">?</span>
+</span><span class='line'>        <span class="n">request</span><span class="p">.</span><span class="n">addValue</span><span class="p">(</span><span class="s">&quot;application/json&quot;</span><span class="p">,</span> <span class="nl">forHTTPHeaderField</span><span class="p">:</span> <span class="s">&quot;Content-Type&quot;</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">request</span><span class="p">.</span><span class="n">addValue</span><span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">API_key</span><span class="p">,</span> <span class="nl">forHTTPHeaderField</span><span class="p">:</span> <span class="s">&quot;API-Key&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">let</span> <span class="n">task</span> <span class="o">=</span> <span class="n">session</span><span class="p">.</span><span class="n">dataTaskWithRequest</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="nl">completionHandler</span><span class="p">:</span> <span class="p">{</span><span class="n">data</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">error</span> <span class="o">-&gt;</span> <span class="n">Void</span> <span class="k">in</span>
+</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="n">error</span> <span class="o">!=</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                <span class="k">return</span> <span class="n">completionHandler</span><span class="p">(</span><span class="nb">nil</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="k">var</span> <span class="nl">error</span><span class="p">:</span> <span class="bp">NSError</span><span class="o">?</span>
+</span><span class='line'>            <span class="k">let</span> <span class="n">json</span> <span class="o">=</span> <span class="bp">NSJSONSerialization</span><span class="p">.</span><span class="n">JSONObjectWithData</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nl">options</span><span class="p">:</span> <span class="n">NSJSONReadingOptions</span><span class="p">.</span><span class="n">MutableContainers</span><span class="p">,</span> <span class="nl">error</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">error</span><span class="p">)</span> <span class="kt">as</span> <span class="bp">NSDictionary</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="n">println</span><span class="p">(</span><span class="n">json</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="n">error</span> <span class="o">!=</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                <span class="k">return</span> <span class="n">completionHandler</span><span class="p">(</span><span class="nb">nil</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+</span><span class='line'>            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>                <span class="k">return</span> <span class="n">completionHandler</span><span class="p">(</span><span class="n">json</span><span class="p">,</span> <span class="nb">nil</span><span class="p">)</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>        <span class="p">})</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">task</span><span class="p">.</span><span class="n">resume</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>回到 ViewController 中的 tableView commitEditingStyle 的方法中</p>
+
+<p>將其更新為:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">tableView</span><span class="p">(</span><span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="p">,</span> <span class="n">commitEditingStyle</span> <span class="nl">editingStyle</span><span class="p">:</span> <span class="n">UITableViewCellEditingStyle</span><span class="p">,</span> <span class="n">forRowAtIndexPath</span> <span class="nl">indexPath</span><span class="p">:</span> <span class="bp">NSIndexPath</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">api</span><span class="p">.</span><span class="n">deleteTodoList</span><span class="p">({</span><span class="n">data</span><span class="p">,</span> <span class="n">err</span> <span class="o">-&gt;</span> <span class="n">Void</span> <span class="k">in</span>
+</span><span class='line'>            <span class="k">let</span> <span class="n">alert</span> <span class="o">=</span> <span class="bp">UIAlertView</span><span class="p">()</span>
+</span><span class='line'>            <span class="n">alert</span><span class="p">.</span><span class="n">title</span> <span class="o">=</span> <span class="s">&quot;Alert&quot;</span>
+</span><span class='line'>            <span class="n">alert</span><span class="p">.</span><span class="n">addButtonWithTitle</span><span class="p">(</span><span class="s">&quot;Ok&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="n">err</span> <span class="o">!=</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                <span class="n">alert</span><span class="p">.</span><span class="n">message</span> <span class="o">=</span> <span class="s">&quot;Failed to delete: \(err)&quot;</span>
+</span><span class='line'>                <span class="n">alert</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</span><span class='line'>            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>                <span class="n">alert</span><span class="p">.</span><span class="n">message</span> <span class="o">=</span> <span class="s">&quot;ok!&quot;</span>
+</span><span class='line'>
+</span><span class='line'>                <span class="nb">self</span><span class="p">.</span><span class="n">fakeData</span><span class="p">.</span><span class="n">removeAtIndex</span><span class="p">(</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>                <span class="n">dispatch_async</span><span class="p">(</span><span class="n">dispatch_get_main_queue</span><span class="p">(),</span> <span class="p">{</span>
+</span><span class='line'>                    <span class="c1">// must be &quot;tableView!&quot; not &quot;tableView?&quot;</span>
+</span><span class='line'>                    <span class="n">alert</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</span><span class='line'>                    <span class="nb">self</span><span class="p">.</span><span class="n">tableView</span><span class="o">!</span><span class="p">.</span><span class="n">reloadData</span><span class="p">()</span>
+</span><span class='line'>                <span class="p">})</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>            <span class="p">},</span> <span class="nl">todoId</span><span class="p">:</span> <span class="n">fakeData</span><span class="p">[</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">][</span><span class="s">&quot;_id&quot;</span><span class="p">]</span><span class="o">!</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>改好程式碼後，執行該程式</p>
+
+<p>在清單中將 item 往左滑，就可以看到刪除的按鈕了!</p>
+
+<p>超簡單的啦!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[API-d29] - 實戰開發 - 發佈 - Nginx]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/29/api-d29/"/>
+    <updated>2014-10-29T19:32:57+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/29/api-d29</id>
+    <content type="html"><![CDATA[<p>接下來這篇就會比較偏 server 設定了！</p>
+
+<p>nginx 是一套伺服器軟體，和 apache 並駕齊驅</p>
+
+<p>(其實我覺得 nginx >>> apache XD)</p>
+
+<p>主要是 nginx 清量快速</p>
+
+<p>我們要拿他幫 nodejs 處理接收 request 的部分，再將 request 導往 nodejs</p>
+
+<p>所以感覺就會如下圖:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2013.14.16.png" alt="image" /></p>
+
+<p>可以讓 nginx 當作是 load balancer,</p>
+
+<p>透過 reverse proxy 的方式轉發 request 給 nodejs, 讓 nginx 承受流量</p>
+
+<p>這就是我們今天要做的事情，</p>
+
+<p>所以首先，我們就要先裝 nginx，因此就先進虛擬機吧!</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="nx">sudo</span> <span class="nx">apt</span><span class="o">-</span><span class="nx">get</span> <span class="nx">update</span> <span class="o">&amp;&amp;</span> <span class="nx">sudo</span> <span class="nx">apt</span><span class="o">-</span><span class="nx">get</span> <span class="nx">upgrade</span> <span class="o">-</span><span class="nx">y</span>
+</span><span class='line'><span class="nx">$</span> <span class="nx">sudo</span> <span class="nx">apt</span><span class="o">-</span><span class="nx">get</span> <span class="nx">install</span> <span class="nx">nginx</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這樣就會安裝一個 nginx 了!</p>
+
+<p>Nginx 的設定檔都是放在 <code>/etc/nginx/</code> 底下</p>
+
+<p>個別網站的設定放在 <code>/etc/nginx/sites-available</code></p>
+
+<p>如果要讓該網站上線，則會將 <code>/etc/nginx/sites-available</code> 的設定檔 link 到 <code>/etc/nginx/sites-enable</code></p>
+
+<p>因此若想自己新增設定檔的話，慣例是會在 available 新增，然後再 link 到 <code>enable</code></p>
+
+<p>如果我們進到 <code>/etc/nginx/sites-enable</code> 的話，裡面應該已經有一個 <code>default</code> 的設定檔了</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="nx">sudo</span> <span class="nx">vim</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">nginx</span><span class="o">/</span><span class="nx">sites</span><span class="o">-</span><span class="nx">enable</span><span class="o">/</span><span class="k">default</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>內容應該是:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">server</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">listen</span> <span class="mi">80</span> <span class="nx">default_server</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">listen</span> <span class="p">[</span><span class="o">::</span><span class="p">]</span><span class="o">:</span><span class="mi">80</span> <span class="nx">default_server</span> <span class="nx">ipv6only</span><span class="o">=</span><span class="nx">on</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nx">root</span> <span class="o">/</span><span class="nx">usr</span><span class="o">/</span><span class="nx">share</span><span class="o">/</span><span class="nx">nginx</span><span class="o">/</span><span class="nx">html</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">index</span> <span class="nx">index</span><span class="p">.</span><span class="nx">html</span> <span class="nx">index</span><span class="p">.</span><span class="nx">htm</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="err">#</span> <span class="nx">Make</span> <span class="nx">site</span> <span class="nx">accessible</span> <span class="nx">from</span> <span class="nx">http</span><span class="o">:</span><span class="c1">//localhost/</span>
+</span><span class='line'>        <span class="nx">server_name</span> <span class="nx">localhost</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nx">location</span> <span class="o">/</span> <span class="p">{</span>
+</span><span class='line'>                <span class="err">#</span> <span class="nx">First</span> <span class="nx">attempt</span> <span class="nx">to</span> <span class="nx">serve</span> <span class="nx">request</span> <span class="nx">as</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">then</span>
+</span><span class='line'>                <span class="err">#</span> <span class="nx">as</span> <span class="nx">directory</span><span class="p">,</span> <span class="nx">then</span> <span class="nx">fall</span> <span class="nx">back</span> <span class="nx">to</span> <span class="nx">displaying</span> <span class="nx">a</span> <span class="mi">404</span><span class="p">.</span>
+</span><span class='line'>                <span class="nx">try_files</span> <span class="nx">$uri</span> <span class="nx">$uri</span><span class="o">/</span> <span class="o">=</span><span class="mi">404</span><span class="p">;</span>
+</span><span class='line'>                <span class="err">#</span> <span class="nx">Uncomment</span> <span class="nx">to</span> <span class="nx">enable</span> <span class="nx">naxsi</span> <span class="nx">on</span> <span class="k">this</span> <span class="nx">location</span>
+</span><span class='line'>                <span class="err">#</span> <span class="nx">include</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">nginx</span><span class="o">/</span><span class="nx">naxsi</span><span class="p">.</span><span class="nx">rules</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="err">#</span> <span class="nx">Only</span> <span class="k">for</span> <span class="nx">nginx</span><span class="o">-</span><span class="nx">naxsi</span> <span class="nx">used</span> <span class="kd">with</span> <span class="nx">nginx</span><span class="o">-</span><span class="nx">naxsi</span><span class="o">-</span><span class="nx">ui</span> <span class="o">:</span> <span class="nx">process</span> <span class="nx">denied</span> <span class="nx">requests</span>
+</span><span class='line'>        <span class="err">#</span><span class="nx">location</span> <span class="o">/</span><span class="nx">RequestDenied</span> <span class="p">{</span>
+</span><span class='line'>        <span class="err">#</span>       <span class="nx">proxy_pass</span> <span class="nx">http</span><span class="o">:</span><span class="c1">//127.0.0.1:8080;</span>
+</span><span class='line'>        <span class="err">#</span><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="p">...</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>將設定檔改成如下:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">upstream</span> <span class="nx">nodejs</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">server</span> <span class="mf">127.0</span><span class="p">.</span><span class="mf">0.1</span><span class="o">:</span><span class="mi">3000</span><span class="p">;</span>
+</span><span class='line'>  <span class="err">#</span><span class="nx">server</span> <span class="mf">127.0</span><span class="p">.</span><span class="mf">0.1</span><span class="o">:</span><span class="mi">3001</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">server</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">listen</span> <span class="mi">80</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">server_name</span> <span class="nx">localhost</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">location</span> <span class="o">/</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">proxy_pass</span> <span class="nx">http</span><span class="o">:</span><span class="c1">//nodejs;</span>
+</span><span class='line'>        <span class="nx">proxy_http_version</span> <span class="mf">1.1</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">proxy_set_header</span> <span class="nx">Upgrade</span> <span class="nx">$http_upgrade</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">proxy_set_header</span> <span class="nx">Connection</span> <span class="s1">&#39;upgrade&#39;</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">proxy_set_header</span> <span class="nx">Host</span> <span class="nx">$host</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">proxy_cache_bypass</span> <span class="nx">$http_upgrade</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>解釋一下以下這段:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">upstream</span> <span class="nx">nodejs</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">server</span> <span class="mf">127.0</span><span class="p">.</span><span class="mf">0.1</span><span class="o">:</span><span class="mi">3000</span><span class="p">;</span>
+</span><span class='line'>  <span class="err">#</span><span class="nx">server</span> <span class="mf">127.0</span><span class="p">.</span><span class="mf">0.1</span><span class="o">:</span><span class="mi">3001</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>下面這段則是 proxy pass 的部分, 會將 <code>/</code> 的流量導到 nodejs 的 server cluster 裡面，不過因為我們現在只有一台 server 開起來，所以只會被導到 3000 port 的那台機器</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">location</span> <span class="o">/</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">proxy_pass</span> <span class="nx">http</span><span class="o">:</span><span class="c1">//nodejs;</span>
+</span><span class='line'>        <span class="nx">proxy_http_version</span> <span class="mf">1.1</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">proxy_set_header</span> <span class="nx">Upgrade</span> <span class="nx">$http_upgrade</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">proxy_set_header</span> <span class="nx">Connection</span> <span class="s1">&#39;upgrade&#39;</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">proxy_set_header</span> <span class="nx">Host</span> <span class="nx">$host</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">proxy_cache_bypass</span> <span class="nx">$http_upgrade</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果 nodejs server 的承載量不夠，可以開好幾檯，只要 port 不一樣即可</p>
+
+<p>這樣就可以建立一個 nodejs cluster</p>
+
+<p>再來使用 forever 開啓 nodejs server</p>
+
+<p>再重新開啟 nginx</p>
+
+<p>使用 postman 戳戳看 API</p>
+
+<p>就成功囉~~</p>
 ]]></content>
   </entry>
   
@@ -2811,562 +3147,6 @@ Day30 -  <a href="http://kerkerj.github.io/">#</a></p>
 <p>接下來就要用 Swift 寫一個 TODOList APP 囉!</p>
 
 <p>並且實際接上隔壁棚的 Restful API XD</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[API-d20] - 實戰開發 - Routes 2, Get Params and Request Data]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/20/api-d20/"/>
-    <updated>2014-10-20T18:46:12+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/20/api-d20</id>
-    <content type="html"><![CDATA[<p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day20">Github 參考</a></p>
-
-<p>接著我們要根據我們開之前寫好的 <a href="http://docs.todolist7.apiary.io/">文件</a> 來開發:</p>
-
-<p>要有下列 routes</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">TODOs</span>
-</span><span class='line'><span class="nx">GET</span> <span class="o">/</span><span class="nx">user</span><span class="o">/</span><span class="p">{</span><span class="nx">user_id</span><span class="p">}</span><span class="o">/</span><span class="nx">todos</span><span class="o">/</span>
-</span><span class='line'><span class="nx">POST</span> <span class="o">/</span><span class="nx">user</span><span class="o">/</span><span class="p">{</span><span class="nx">user_id</span><span class="p">}</span><span class="o">/</span><span class="nx">todos</span><span class="o">/</span>
-</span><span class='line'><span class="nx">GET</span> <span class="o">/</span><span class="nx">user</span><span class="o">/</span><span class="p">{</span><span class="nx">user_id</span><span class="p">}</span><span class="o">/</span><span class="nx">todos</span><span class="o">/</span><span class="p">{</span><span class="nx">id</span><span class="p">}</span>
-</span><span class='line'><span class="nx">PUT</span> <span class="o">/</span><span class="nx">user</span><span class="o">/</span><span class="p">{</span><span class="nx">user_id</span><span class="p">}</span><span class="o">/</span><span class="nx">todos</span><span class="o">/</span><span class="p">{</span><span class="nx">id</span><span class="p">}</span>
-</span><span class='line'><span class="nx">DELETE</span> <span class="o">/</span><span class="nx">user</span><span class="o">/</span><span class="p">{</span><span class="nx">user_id</span><span class="p">}</span><span class="o">/</span><span class="nx">todos</span><span class="o">/</span><span class="p">{</span><span class="nx">id</span><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>這樣的需求其實可以用 namespace 實作，不過我們偷懶一點，直接指向 /user 就好</p>
-
-<p>所以在 app.js 加入</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">users</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./routes/users&#39;</span><span class="p">);</span>
-</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;/user&#39;</span><span class="p">,</span> <span class="nx">users</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>所以會變這樣:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;express&#39;</span><span class="p">);</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// Set routers</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">index</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./routes/index&#39;</span><span class="p">);</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">users</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./routes/users&#39;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="nx">index</span><span class="p">);</span>
-</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;/user&#39;</span><span class="p">,</span> <span class="nx">users</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">app</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>不過看起來我們缺少 routes/users.js，所以我們也來新增一個</p>
-
-<p>routes/users.js 內容如下</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;express&#39;</span><span class="p">);</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">router</span> <span class="o">=</span> <span class="nx">express</span><span class="p">.</span><span class="nx">Router</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">router</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">router</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">router</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">router</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">router</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">router</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>好像有那麼一點符合我們要的 routes 了</p>
-
-<p>我們在把每個詳細的 uri 加入</p>
-
-<p>在這邊要注意</p>
-
-<p>因為我們在 app.js 中把 uers.js 加入了 (&lsquo;/users&rsquo;, users)</p>
-
-<p>這個 route</p>
-
-<p>因此在 users.js 中設定的所有 route 都是接在 <code>/users/</code> 後面的</p>
-
-<p>要注意哦</p>
-
-<p>修改後的檔案:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;express&#39;</span><span class="p">);</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">router</span> <span class="o">=</span> <span class="nx">express</span><span class="p">.</span><span class="nx">Router</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// Get todo list</span>
-</span><span class='line'><span class="nx">router</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/:user_id/todos&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">200</span><span class="p">).</span><span class="nx">json</span><span class="p">(</span> <span class="p">{</span><span class="nx">success</span><span class="o">:</span> <span class="s2">&quot;GET lists&quot;</span><span class="p">}</span> <span class="p">);</span>
-</span><span class='line'><span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// Create a todo task</span>
-</span><span class='line'><span class="nx">router</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/:user_id/todos&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">200</span><span class="p">).</span><span class="nx">json</span><span class="p">(</span> <span class="p">{</span><span class="nx">success</span><span class="o">:</span> <span class="s2">&quot;POST&quot;</span><span class="p">}</span> <span class="p">);</span>
-</span><span class='line'><span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// Get a todo task</span>
-</span><span class='line'><span class="nx">router</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/:user_id/todos/:todo_id&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">200</span><span class="p">).</span><span class="nx">json</span><span class="p">(</span> <span class="p">{</span><span class="nx">success</span><span class="o">:</span> <span class="s2">&quot;GET 1 task&quot;</span><span class="p">}</span> <span class="p">);</span>
-</span><span class='line'><span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// Update a todo task</span>
-</span><span class='line'><span class="nx">router</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="s1">&#39;/:user_id/todos/:todo_id&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">200</span><span class="p">).</span><span class="nx">json</span><span class="p">(</span> <span class="p">{</span><span class="nx">success</span><span class="o">:</span> <span class="s2">&quot;PUT&quot;</span><span class="p">}</span> <span class="p">);</span>
-</span><span class='line'><span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// Delete a todo task</span>
-</span><span class='line'><span class="nx">router</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="s1">&#39;/:user_id/todos/:todo_id&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">200</span><span class="p">).</span><span class="nx">json</span><span class="p">(</span> <span class="p">{</span><span class="nx">success</span><span class="o">:</span> <span class="s2">&quot;DELETE&quot;</span><span class="p">}</span> <span class="p">);</span>
-</span><span class='line'><span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">router</span><span class="p">;</span><span class="err">```</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>將 server 重啟，試著對這些網址丟丟看</p>
-
-<p>這時候使用瀏覽器應該就沒辦法丟 GET 以外的要求了對吧?</p>
-
-<p>此時 chrome extension - POSTMAN 就該上場啦！</p>
-
-<p>打開 POSTMAN 就可以送以下的 request 囉!</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">GET</span> <span class="nx">http</span><span class="o">:</span><span class="c1">//localhost:3000/user/kerkerj/todos  </span>
-</span><span class='line'><span class="nx">POST</span> <span class="nx">http</span><span class="o">:</span><span class="c1">//localhost:3000/user/kerkerj/todos  </span>
-</span><span class='line'><span class="nx">GET</span> <span class="nx">http</span><span class="o">:</span><span class="c1">//localhost:3000/user/kerkerj/todos/1  </span>
-</span><span class='line'><span class="nx">PUT</span> <span class="nx">http</span><span class="o">:</span><span class="c1">//localhost:3000/user/kerkerj/todos/1  </span>
-</span><span class='line'><span class="nx">DELETE</span> <span class="nx">http</span><span class="o">:</span><span class="c1">//localhost:3000/user/kerkerj/todos/1  </span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>因為剛剛程式裡面都只讓他回傳 success，因此還沒有太大的作用，</p>
-
-<p>不過已經有感覺了對吧!! XD</p>
-
-<h2>Get params from url</h2>
-
-<p>我們現在先針對以下這段程式碼作進一步的改寫:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Get a todo task</span>
-</span><span class='line'><span class="nx">router</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/:user_id/todos/:todo_id&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">200</span><span class="p">).</span><span class="nx">json</span><span class="p">(</span>
-</span><span class='line'>      <span class="p">{</span>
-</span><span class='line'>          <span class="nx">success</span><span class="o">:</span> <span class="s2">&quot;GET 1 task&quot;</span><span class="p">,</span>
-</span><span class='line'>          <span class="nx">user</span><span class="o">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">user_id</span><span class="p">,</span>
-</span><span class='line'>          <span class="nx">todo_id</span><span class="o">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">todo_id</span>
-</span><span class='line'>      <span class="p">}</span> <span class="p">);</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>存檔並打開 server，存取 <a href="http://localhost:3000/user/test/todos/1">http://localhost:3000/user/test/todos/1</a></p>
-
-<p>就可以看到回傳值是:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="s2">&quot;success&quot;</span><span class="o">:</span> <span class="s2">&quot;GET 1 task&quot;</span><span class="p">,</span>
-</span><span class='line'>    <span class="s2">&quot;user&quot;</span><span class="o">:</span> <span class="s2">&quot;kerkerj&quot;</span><span class="p">,</span>
-</span><span class='line'>    <span class="s2">&quot;todo_id&quot;</span><span class="o">:</span> <span class="s2">&quot;1&quot;</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>所以又學到一招了!</p>
-
-<p>先設定想要抓哪一段網址，例如:</p>
-
-<p><code>/:user_id/todos/:todo_id</code></p>
-
-<p>前面有加冒號的就是這段網址是要被抓成一個參數</p>
-
-<p>而冒號後面接的就是之後在下面要使用到的名字</p>
-
-<p>要接網址的參數的拿法 - req.params.{???}</p>
-
-<p>例如:</p>
-
-<p>req.params.user_id</p>
-
-<p>req.params.todo_id</p>
-
-<p>拿到了網址的參數，就可以對資料庫做進一步的查詢</p>
-
-<h2>Get request data</h2>
-
-<p>那要怎麼拿到 request 的 data 呢?</p>
-
-<p>他並不存在于網址列上啊?</p>
-
-<p>這時候就要加入 <code>body-parser</code> 了!</p>
-
-<p>他會在接收到 request 時，幫我們做過處理後，再傳到每個 request 該去的 router 裏</p>
-
-<p>在 app.js 中加入</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// 最上面</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">bodyParser</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;body-parser&#39;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// 加在 router 前面，切記!!</span>
-</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span> <span class="nx">bodyParser</span><span class="p">.</span><span class="nx">json</span><span class="p">()</span> <span class="p">);</span>
-</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span> <span class="nx">bodyParser</span><span class="p">.</span><span class="nx">urlencoded</span><span class="p">({</span> <span class="nx">extended</span><span class="o">:</span> <span class="kc">true</span> <span class="p">})</span> <span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="nx">index</span><span class="p">);</span>
-</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;/user&#39;</span><span class="p">,</span> <span class="nx">users</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>接著在 users.js 中的 POST 區塊中加入兩行:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Create a todo task</span>
-</span><span class='line'><span class="nx">router</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/:user_id/todos&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">200</span><span class="p">).</span><span class="nx">json</span><span class="p">(</span> <span class="p">{</span><span class="nx">success</span><span class="o">:</span> <span class="nx">data</span> <span class="p">}</span> <span class="p">);</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>開啓 server, 用下圖的方式對 server 做 request:</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-09%2023.00.10.png" alt="image" /></p>
-
-<p>記得要加入 header -</p>
-
-<p>Content-Type - application/json</p>
-
-<p>Data 要選擇 raw data - 使用自己寫的 json 格式</p>
-
-<p>就可以看到下面的回傳格式了!</p>
-
-<p>透過拿到 url params 以及 request data</p>
-
-<p>我們就可以使用這些資料來對資料庫做存取了!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[Swift-d19] - Basic - 橋接第三方 Objc Library - Reachability and Bridge.h]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/19/swift-d19/"/>
-    <updated>2014-10-19T21:19:28+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/19/swift-d19</id>
-    <content type="html"><![CDATA[<p>本日專案的 <a href="https://github.com/kerkerj/ithome-BridgeObjcDemo">Github link</a></p>
-
-<p>由於 Swift 剛推出不到一年</p>
-
-<p>有許多的 third-party library 一定還沒轉換成 Swift</p>
-
-<p>或者是作者沒心力轉會成 Swift</p>
-
-<p>但是有些套件非常方便，那在 Swift 要怎麼使用 Objective-C 的套件呢?</p>
-
-<p>Xcode 有提供橋接的方式，非常好用</p>
-
-<p>接下來就介紹一下如何使用吧!</p>
-
-<p>以下的例子是一個叫做 <code>Reachability</code> 的套件</p>
-
-<p>它可以簡單地幫我們判斷是否有網路連線 3g or wifi 之類的</p>
-
-<p>所以我們先下載這個套件吧!</p>
-
-<p><a href="https://github.com/tonymillion/Reachability">https://github.com/tonymillion/Reachability</a></p>
-
-<p>下載解壓縮後</p>
-
-<p>將 .h 和 .m 檔拖曳進 Xcode 專案中</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2014.27.17.png" alt="image" /></p>
-
-<p>接下來 Xcode 就會問一個非常重要的問題!:</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2014.26.24.png" alt="image" /></p>
-
-<p>是否要建立橋接的 .h 檔案!</p>
-
-<p>當然是選擇建立囉~</p>
-
-<p>此時的專案結構就會變成這樣:</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2014.26.38.png" alt="image" /></p>
-
-<p>再來編輯 bridge-header.h 檔</p>
-
-<p>將想要橋接的 objc 套件 import 進去</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="cp">#import &quot;Reachability.h&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>這樣我們就可以在 Swift 中直接使用該套件的類別與方法了!</p>
-
-<p>接下來就讓我們試試看!</p>
-
-<p>在 ViewController 中加入以下程式碼:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
-<span class='line-number'>55</span>
-<span class='line-number'>56</span>
-<span class='line-number'>57</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="c1">//</span>
-</span><span class='line'><span class="c1">//  ViewController.swift</span>
-</span><span class='line'><span class="c1">//  BridgeObjcDemo</span>
-</span><span class='line'><span class="c1">//</span>
-</span><span class='line'><span class="c1">//  Created by Jerry Huang on 2014/10/18.</span>
-</span><span class='line'><span class="c1">//  Copyright (c) 2014年 kerkerj. All rights reserved.</span>
-</span><span class='line'><span class="c1">//</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">import</span> <span class="n">UIKit</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">class</span> <span class="nl">ViewController</span><span class="p">:</span> <span class="bp">UIViewController</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kr">override</span> <span class="k">func</span> <span class="n">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nb">super</span><span class="p">.</span><span class="n">viewDidLoad</span><span class="p">()</span>
-</span><span class='line'>        <span class="c1">// Do any additional setup after loading the view, typically from a nib.</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">var</span> <span class="n">isConnected</span> <span class="o">=</span> <span class="n">checkNetworkConnection</span><span class="p">()</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">let</span> <span class="n">alert</span> <span class="o">=</span> <span class="bp">UIAlertView</span><span class="p">()</span>
-</span><span class='line'>        <span class="n">alert</span><span class="p">.</span><span class="n">title</span> <span class="o">=</span> <span class="s">&quot;Network Connection&quot;</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">if</span> <span class="n">isConnected</span> <span class="p">{</span>
-</span><span class='line'>            <span class="n">alert</span><span class="p">.</span><span class="n">message</span> <span class="o">=</span> <span class="s">&quot;You&#39;re online!&quot;</span>
-</span><span class='line'>        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span><span class='line'>            <span class="n">alert</span><span class="p">.</span><span class="n">message</span> <span class="o">=</span> <span class="s">&quot;You&#39;re offline!&quot;</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">alert</span><span class="p">.</span><span class="n">addButtonWithTitle</span><span class="p">(</span><span class="s">&quot;OK&quot;</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">alert</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kr">override</span> <span class="k">func</span> <span class="n">didReceiveMemoryWarning</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nb">super</span><span class="p">.</span><span class="n">didReceiveMemoryWarning</span><span class="p">()</span>
-</span><span class='line'>        <span class="c1">// Dispose of any resources that can be recreated.</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">func</span> <span class="n">checkNetworkConnection</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Bool</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">let</span> <span class="nl">reachability</span><span class="p">:</span> <span class="n">Reachability</span> <span class="o">=</span> <span class="n">Reachability</span><span class="p">.</span><span class="n">reachabilityForInternetConnection</span><span class="p">()</span>
-</span><span class='line'>        <span class="k">let</span> <span class="nl">networkStatus</span><span class="p">:</span> <span class="n">NetworkStatus</span> <span class="o">=</span> <span class="n">reachability</span><span class="p">.</span><span class="n">currentReachabilityStatus</span><span class="p">()</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">println</span><span class="p">(</span><span class="n">networkStatus</span><span class="p">.</span><span class="n">toRaw</span><span class="p">())</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">switch</span> <span class="p">(</span><span class="n">networkStatus</span><span class="p">.</span><span class="n">toRaw</span><span class="p">())</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
-</span><span class='line'>            <span class="n">println</span><span class="p">(</span><span class="s">&quot;[Network Status]: NotReachable&quot;</span><span class="p">)</span>
-</span><span class='line'>        <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
-</span><span class='line'>            <span class="n">println</span><span class="p">(</span><span class="s">&quot;[Network Status]: ReachableViaWWAN&quot;</span><span class="p">)</span>
-</span><span class='line'>        <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
-</span><span class='line'>            <span class="n">println</span><span class="p">(</span><span class="s">&quot;[Network Status]: ReachableViaWiFi&quot;</span><span class="p">)</span>
-</span><span class='line'>        <span class="k">default</span><span class="o">:</span>
-</span><span class='line'>            <span class="k">break</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">return</span> <span class="n">networkStatus</span><span class="p">.</span><span class="n">toRaw</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>簡單的說，我們寫了一個方法，使用 Reachability 偵測網路連線</p>
-
-<p>在 ViewDidLoad 時，偵測是否有網路連線</p>
-
-<p>跳一個 Alert 會告訴你是有連線還是沒有連線</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2014.42.45.png" alt="image" /></p>
-
-<p>不過在這邊，我不曉得如何讓模擬器關掉連線，</p>
-
-<p>所以沒辦法提供 offline 的圖</p>
-
-<p>但是我實際安裝到手機後，將 wifi 功能關掉後的確是有跳出 offline 的</p>
-
-<p>哈哈 雖然說沒圖沒真相但是&hellip;XD</p>
-
-<p>橋接第三方套件就是那麼簡單! :D</p>
 ]]></content>
   </entry>
   

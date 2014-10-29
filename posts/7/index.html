@@ -98,6 +98,345 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2014/09/25/codeigniter-on-nginx/">Codeigniter on Nginx</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-25T16:03:24+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/09/25/codeigniter-on-nginx/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/09/25/codeigniter-on-nginx/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I use Ubuntu 14.04, Nginx 1.4.6, php5-fpm, Codeigniter 2.2.0</p>
+
+<p>It will remove index.php, and access Codeigniter site normally.</p>
+
+<p>Clean configuration:</p>
+
+<figure class='code'><figcaption><span>&#8220;/etc/nginx/site-enabled/default&#8221;</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>server {
+</span><span class='line'>
+</span><span class='line'>#&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; START
+</span><span class='line'>        listen 80;
+</span><span class='line'>        listen [::]:80 default_server ipv6only=on;
+</span><span class='line'>
+</span><span class='line'>        root /YOUR/PROJECT/ROOT;
+</span><span class='line'>        index index.html index.htm index.php;
+</span><span class='line'>
+</span><span class='line'>        # Make site accessible from http://localhost/
+</span><span class='line'>        server_name localhost;
+</span><span class='line'>
+</span><span class='line'>        #location ~* .(ico|css|js|gif|jpe?g|png)(?[0-9]+)?$ {
+</span><span class='line'>        #   expires max;
+</span><span class='line'>        #   log_not_found off;
+</span><span class='line'>        #}
+</span><span class='line'>
+</span><span class='line'>        location / {
+</span><span class='line'>                # First attempt to serve request as file, then
+</span><span class='line'>                # as directory, then fall back to displaying a 404.
+</span><span class='line'>                try_files $uri $uri/ /index.php;
+</span><span class='line'>                # Uncomment to enable naxsi on this location
+</span><span class='line'>                # include /etc/nginx/naxsi.rules
+</span><span class='line'>        }
+</span><span class='line'>
+</span><span class='line'>        location ~ .php$ {
+</span><span class='line'>            root           /YOUR/PROJECT/ROOT;
+</span><span class='line'>            try_files $uri =404;
+</span><span class='line'>            fastcgi_pass unix:/var/run/php5-fpm.sock;
+</span><span class='line'>            fastcgi_index  index.php;
+</span><span class='line'>            fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+</span><span class='line'>            include        fastcgi_params;
+</span><span class='line'>            fastcgi_buffer_size 128k;
+</span><span class='line'>            fastcgi_buffers 256 4k;
+</span><span class='line'>            fastcgi_busy_buffers_size 256k;
+</span><span class='line'>            fastcgi_temp_file_write_size 256k;
+</span><span class='line'>        }
+</span><span class='line'>
+</span><span class='line'>#&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; END
+</span><span class='line'>
+</span><span class='line'>        # Only for nginx-naxsi used with nginx-naxsi-ui : process denied requests
+</span><span class='line'>        #location /RequestDenied {
+</span><span class='line'>        #       proxy_pass http://127.0.0.1:8080;
+</span><span class='line'>
+</span><span class='line'>        #error_page 404 /404.html;
+</span><span class='line'>
+</span><span class='line'>        # redirect server error pages to the static page /50x.html
+</span><span class='line'>        #
+</span><span class='line'>        #error_page 500 502 503 504 /50x.html;
+</span><span class='line'>        #location = /50x.html {
+</span><span class='line'>        #       root /usr/share/nginx/html;
+</span><span class='line'>        #}
+</span><span class='line'>
+</span><span class='line'>        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+</span><span class='line'>        #
+</span><span class='line'>        #location ~ \.php$ {
+</span><span class='line'>        #       fastcgi_split_path_info ^(.+\.php)(/.+)$;
+</span><span class='line'>        #       # NOTE: You should have &quot;cgi.fix_pathinfo = 0;&quot; in php.ini
+</span><span class='line'>        #
+</span><span class='line'>        #       # With php5-cgi alone:
+</span><span class='line'>        #       fastcgi_pass 127.0.0.1:9000;
+</span><span class='line'>        #       # With php5-fpm:
+</span><span class='line'>        #       fastcgi_pass unix:/var/run/php5-fpm.sock;
+</span><span class='line'>        #       fastcgi_index index.php;
+</span><span class='line'>        #       include fastcgi_params;
+</span><span class='line'>        #}
+</span><span class='line'>
+</span><span class='line'>        # deny access to .htaccess files, if Apache&#39;s document root
+</span><span class='line'>        # concurs with nginx&#39;s one
+</span><span class='line'>        #
+</span><span class='line'>        #location ~ /\.ht {
+</span><span class='line'>        #       deny all;
+</span><span class='line'>        #}
+</span><span class='line'>}
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Codeigniter config:</p>
+
+<figure class='code'><figcaption><span>config.php</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;index_page&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;uri_protocol&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;REQUEST_URI&#39;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/08/18/event-driven-i-slash-o-models-and-coroutine/">Event-driven I/O Models and Coroutine Notes</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-18T23:19:51+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/08/18/event-driven-i-slash-o-models-and-coroutine/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/08/18/event-driven-i-slash-o-models-and-coroutine/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>Event-driven I/O model</h2>
+
+<p>首先，聽到 Event-driven 是從 <a href="http://nodejs.org/">Node.js</a> 得知，</p>
+
+<blockquote><p>Node.js® is a platform built on <a href="http://code.google.com/p/v8/">Chrome&rsquo;s JavaScript runtime</a> for easily building fast, scalable network applications.</p>
+
+<p>Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient, perfect for data-intensive real-time applications that run across distributed devices.</p></blockquote>
+
+<p>其實剛聽到這詞會有點陌生，我們可以先從 Victor 所寫的文章開始讀起:
+<a href="http://blog.ez2learn.com/2010/07/17/talk-about-coroutine-and-gevent/">淺談coroutine與gevent</a></p>
+
+<p>裡面提到了幾種網路模型：</p>
+
+<blockquote><ol>
+<li>阻塞式單一行程</li>
+<li>阻塞式多行程</li>
+<li>阻塞式多行程多執行序</li>
+<li>非阻塞式事件驅動</li>
+<li>非阻塞式 coroutine</li>
+</ol>
+</blockquote>
+
+<p>以下是各語言 event-driven 的 model<br/>
+(Node.js 就不列出了，本身就是 event-driven 設計)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Event-driven model:
+</span><span class='line'>* Ruby    -&gt; [Eventmachine](http://rubyeventmachine.com/)  
+</span><span class='line'>          -&gt; [Celluloid::IO](https://github.com/celluloid/celluloid-io)   
+</span><span class='line'>          -&gt; [Thin Server](http://code.macournoyer.com/thin)   
+</span><span class='line'>* Python  -&gt; [Twisted](https://twistedmatrix.com/trac/)  
+</span><span class='line'>          -&gt; [Tornado](http://www.tornadoweb.org/en/stable)   
+</span><span class='line'>* Perl     -&gt; [Perl Object Environment (POE)](http://poe.perl.org)    
+</span><span class='line'>* PHP     -&gt; [REACT](http://reactphp.org) </span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>以 Ruby 建構 API Service 的話，可以使用 Sinatra + Eventmachine + thin proxy + Nginx 的 Solution:<br/>
+<a href="http://recipes.sinatrarb.com/p/embed/event-machine">Embedding Sinatra within EventMachine</a></p>
+
+<p>延伸閱讀: <br/>
+<a href="https://www.igvita.com/2008/05/27/ruby-eventmachine-the-speed-demon/">2008 - Eventmachine and Reactor pattern</a> <br/>
+<a href="http://developwithstyle.com/articles/2012/05/23/lessons-learnt-from-building-a-rest-based-api/">2012 - Lessons Learnt From Building a REST API</a><br/>
+<a href="https://docs.google.com/document/d/1dU-juYN25FMXdp6Ju62KAIT_0tuuZAPEgZkj-aT6kPQ/edit#heading=h.lafes4uxj2b0">年份未知 - 針對各 framework 進行評測 Event Driven I/O Web Application Server Analysis</a><br/>
+<a href="http://blog.sina.com.cn/s/blog_704b6af70100py9n.html">Twisted 教程</a></p>
+
+<h4>Reactor 模型</h4>
+
+<p>Node.js 處理 concurrency 是 Reactor mode<br/>
+Ruby 的 Goliath framework 也是 Reactor mode<br/>
+Golang, Erlang 是 CSP (communicating sequential process)</p>
+
+<p>現在比較流行的是 event-driven 的 Reactor mode, e.g. Node.js, Goliath<br/>
+但是 Node.js 比較令人詬病的是 code 難維護，太多層層的 callback 會擾亂邏輯<br/>
+畢竟線性處理比較符合人類思維 <br/>
+而 Ruby 使用 Fiber 以避免寫出過多的 callback<br/>
+Python 的 Twisted 也已經存在好一陣子，穩定發展中</p>
+
+<p>不過以 Node.js 典型的應用的確是 proxy, API server<br/>
+因此我們可以參考 Node.js 的特性，使用其他語言來達到同樣的效果<br/>
+那就是 event-driven</p>
+
+<h2>Coroutine Programming</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>* Golang - goroutine (native) 
+</span><span class='line'>* Python - [gevent](http://www.gevent.org/)  
+</span><span class='line'>* Ruby - Fiber (native)   
+</span><span class='line'>* Lua   </span></code></pre></td></tr></table></div></figure>
+
+
+<p>延伸閱讀:<br/>
+<a href="http://www.bigfastblog.com/">Ruby 的 eventmachine 相關討論</a><br/>
+<a href="http://www.blogjava.net/killme2008/archive/2010/03/11/315158.html">Ruby Fiber 指南</a><br/>
+<a href="http://electronic-blue.herokuapp.com/blog/2012/06/coroutine-an-introduction/">2012 - Lua - Coroutine introduction</a><br/>
+<a href="https://www.igvita.com/2009/05/13/fibers-cooperative-scheduling-in-ruby/">2009 - Fibers &amp; Cooperative Scheduling in Ruby</a><br/>
+<a href="http://www.blogjava.net/killme2008/archive/2010/03/02/314264.html">2010 - Lua、LuaJIT Coroutine和Ruby Fiber的切換效率對比</a></p>
+
+<hr />
+
+<p>建構 API Service 考慮到的除了 Server 以外，<br/>
+語言的特性通常也必須考慮進去，例如<br/>
+sync v.s. async<br/>
+coroutine v.s. non-coroutine<br/>
+但通常以當前需求而言，其實也不需要 over-design<br/>
+只要選擇拿手的，能夠快速方便的開發出雛形，<br/>
+我想等到真的快要 10000 per/second request 時，再來煩惱更進一步的架構吧</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2014/08/15/add-tracked-file-to-gitignore/">Add Tracked File to .gitignore</a></h1>
     
     
@@ -1185,110 +1524,6 @@ enable sites: <code>sudo a2ensite default-ssl</code></p>
 
 <object id="flashObj" width="640" height="360" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,47,0"><param name="movie" value="http://c.brightcove.com/services/viewer/federated_f9?isVid=1&isUI=1" /><param name="bgcolor" value="#FFFFFF" /><param name="flashVars" value="videoId=1452855338001&linkBaseURL=http%3A%2F%2Fwww.symantec.com%2Ftv%2Fproducts%2Fdetails.jsp%3Fvid%3D1452855338001&playerID=1170996384001&playerKey=AQ~~,AAAABuIiy9k~,I8BhasVwr9yry4vRRPOpsSrBvwjFZ03K&domain=embed&dynamicStreaming=true" /><param name="base" value="http://admin.brightcove.com" /><param name="seamlesstabbing" value="false" /><param name="allowFullScreen" value="true" /><param name="swLiveConnect" value="true" /><param name="allowScriptAccess" value="always" /><embed src="http://c.brightcove.com/services/viewer/federated_f9?isVid=1&isUI=1" bgcolor="#FFFFFF" flashVars="videoId=1452855338001&linkBaseURL=http%3A%2F%2Fwww.symantec.com%2Ftv%2Fproducts%2Fdetails.jsp%3Fvid%3D1452855338001&playerID=1170996384001&playerKey=AQ~~,AAAABuIiy9k~,I8BhasVwr9yry4vRRPOpsSrBvwjFZ03K&domain=embed&dynamicStreaming=true" base="http://admin.brightcove.com" name="flashObj" width="640" height="360" seamlesstabbing="false" type="application/x-shockwave-flash" allowFullScreen="true" allowScriptAccess="always" swLiveConnect="true" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"></embed></object>
 
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/06/16/mac-update-openssl-on-mac/">[Mac] Update Openssl on Mac</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-16T09:16:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/06/16/mac-update-openssl-on-mac/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/06/16/mac-update-openssl-on-mac/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>First of all, you need &lsquo;brew&rsquo; (<a href="http://brew.sh/">http://brew.sh/</a>)</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ brew update
-</span><span class='line'>$ brew install openssl
-</span><span class='line'>$ brew link --force openssl
-</span><span class='line'> 
-</span><span class='line'>$openssl version -a</span></code></pre></td></tr></table></div></figure>
-
-
-<p>If it&rsquo;s still the old version, you shoud:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo rm /usr/bin/openssl   #remove the old binary 
-</span><span class='line'>$ sudo ln -s /usr/local/Cellar/openssl/1.0.1h/bin/openssl /usr/local/bin
-</span><span class='line'>(1.0.1h -&gt; the latest version)</span></code></pre></td></tr></table></div></figure>
-
-
-<p></p>
-
-<p>ref: <a href="http://apple.stackexchange.com/questions/126830/how-to-upgrade-openssl-in-os-x">http://apple.stackexchange.com/questions/126830/how-to-upgrade-openssl-in-os-x</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/06/11/mysql-add-a-unique-index-by-2-columns/">[MySQL] Add a Unique Index by 2 Columns</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-11T08:51:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/06/11/mysql-add-a-unique-index-by-2-columns/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/06/11/mysql-add-a-unique-index-by-2-columns/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><code>ALTER TABLE table_name ADD UNIQUE INDEX(column1, column2);</code></p>
 </div>
   
   

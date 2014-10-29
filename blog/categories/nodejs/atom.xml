@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Nodejs | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/nodejs/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-28T17:32:35+08:00</updated>
+  <updated>2014-10-29T19:37:43+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,138 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[API-d29] - 實戰開發 - 發佈 - Nginx]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/29/api-d29/"/>
+    <updated>2014-10-29T19:32:57+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/29/api-d29</id>
+    <content type="html"><![CDATA[<p>接下來這篇就會比較偏 server 設定了！</p>
+
+<p>nginx 是一套伺服器軟體，和 apache 並駕齊驅</p>
+
+<p>(其實我覺得 nginx >>> apache XD)</p>
+
+<p>主要是 nginx 清量快速</p>
+
+<p>我們要拿他幫 nodejs 處理接收 request 的部分，再將 request 導往 nodejs</p>
+
+<p>所以感覺就會如下圖:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2013.14.16.png" alt="image" /></p>
+
+<p>可以讓 nginx 當作是 load balancer,</p>
+
+<p>透過 reverse proxy 的方式轉發 request 給 nodejs, 讓 nginx 承受流量</p>
+
+<p>這就是我們今天要做的事情，</p>
+
+<p>所以首先，我們就要先裝 nginx，因此就先進虛擬機吧!</p>
+
+<pre><code class="javascript">$ sudo apt-get update &amp;&amp; sudo apt-get upgrade -y
+$ sudo apt-get install nginx 
+</code></pre>
+
+<p>這樣就會安裝一個 nginx 了!</p>
+
+<p>Nginx 的設定檔都是放在 <code>/etc/nginx/</code> 底下</p>
+
+<p>個別網站的設定放在 <code>/etc/nginx/sites-available</code></p>
+
+<p>如果要讓該網站上線，則會將 <code>/etc/nginx/sites-available</code> 的設定檔 link 到 <code>/etc/nginx/sites-enable</code></p>
+
+<p>因此若想自己新增設定檔的話，慣例是會在 available 新增，然後再 link 到 <code>enable</code></p>
+
+<p>如果我們進到 <code>/etc/nginx/sites-enable</code> 的話，裡面應該已經有一個 <code>default</code> 的設定檔了</p>
+
+<pre><code>$ sudo vim /etc/nginx/sites-enable/default
+</code></pre>
+
+<p>內容應該是:</p>
+
+<pre><code>server {
+        listen 80 default_server;
+        listen [::]:80 default_server ipv6only=on;
+
+        root /usr/share/nginx/html;
+        index index.html index.htm;
+
+        # Make site accessible from http://localhost/
+        server_name localhost;
+
+        location / {
+                # First attempt to serve request as file, then
+                # as directory, then fall back to displaying a 404.
+                try_files $uri $uri/ =404;
+                # Uncomment to enable naxsi on this location
+                # include /etc/nginx/naxsi.rules
+        }
+
+        # Only for nginx-naxsi used with nginx-naxsi-ui : process denied requests
+        #location /RequestDenied {
+        #       proxy_pass http://127.0.0.1:8080;
+        #}
+
+        ...
+}
+</code></pre>
+
+<p>將設定檔改成如下:</p>
+
+<pre><code>upstream nodejs {
+  server 127.0.0.1:3000;
+  #server 127.0.0.1:3001;
+}
+
+server {
+    listen 80;
+
+    server_name localhost;
+
+    location / {
+        proxy_pass http://nodejs;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+</code></pre>
+
+<p>解釋一下以下這段:</p>
+
+<pre><code>upstream nodejs {
+  server 127.0.0.1:3000;
+  #server 127.0.0.1:3001;
+}
+</code></pre>
+
+<p>下面這段則是 proxy pass 的部分, 會將 <code>/</code> 的流量導到 nodejs 的 server cluster 裡面，不過因為我們現在只有一台 server 開起來，所以只會被導到 3000 port 的那台機器</p>
+
+<pre><code>location / {
+        proxy_pass http://nodejs;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+</code></pre>
+
+<p>如果 nodejs server 的承載量不夠，可以開好幾檯，只要 port 不一樣即可</p>
+
+<p>這樣就可以建立一個 nodejs cluster</p>
+
+<p>再來使用 forever 開啓 nodejs server</p>
+
+<p>再重新開啟 nginx</p>
+
+<p>使用 postman 戳戳看 API</p>
+
+<p>就成功囉~~</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[API-d28] - 實戰開發 - 發佈 - Forever]]></title>
@@ -387,67 +519,6 @@ app.use(function(err, req, res, next) {
 </code></pre>
 
 <p>這樣一來, client 程式也就能夠統一接收 json 回傳，而不會因為莫名的字串導致解析錯誤而 crash 了!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[API-d24] - 實戰開發 - 刪除 TODO Task API With Mongoose]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/24/api-d24/"/>
-    <updated>2014-10-24T20:42:36+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/24/api-d24</id>
-    <content type="html"><![CDATA[<p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day24">Github 參考</a></p>
-
-<p>還記得昨天說要偷懶一下嗎 XD</p>
-
-<p>因為刪除真的很簡單!</p>
-
-<p>我們前面走過了新增、修改、讀取了</p>
-
-<p>刪除？哪有什麼困難的呢! XD</p>
-
-<p>直接看 code 吧!</p>
-
-<p>routes/users.js:</p>
-
-<pre><code class="javascript">// Delete a todo task
-router.delete('/:user_id/todos/:todo_id', function(req, res) {
-    var user_id = req.params.user_id;
-    var todo_id = req.params.todo_id;
-
-    TODO.remove(
-        { _id: todo_id, user_id: user_id },
-        function (err) {
-            if (err) {
-                res.status(400).json(
-                    { error: "delete data error"}
-                );
-            } else {
-                res.status(201).json(
-                    { success: "true" }
-                );
-            }
-        }
-    );
-});
-</code></pre>
-
-<p>非常的簡單!</p>
-
-<p>先抓到 user_id, todo_id 後</p>
-
-<p>使用 .remove 的方法，下 WHERE 條件，並在 callback 作處理</p>
-
-<p>就完成了!</p>
-
-<p>試試看吧!</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%203.39.09.png" alt="image" /></p>
-
-<p>是不是非常的簡單呢！</p>
-
-<p>我們已經完成 CRUD API 操作了！</p>
-
-<p>接下來幾天會稍作一些細節上的處理!</p>
 ]]></content>
   </entry>
   
