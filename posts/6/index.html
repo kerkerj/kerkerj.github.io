@@ -98,6 +98,710 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2014/10/06/swift-d6/">[Swift-d6] - Playground - Function</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-06T18:54:13+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/10/06/swift-d6/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/06/swift-d6/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>Playground - function</h1>
+
+<p>來看看 Swift 各種 function 的寫法吧!</p>
+
+<p>Swift 使用 <code>func</code> 當作宣告的保留字</p>
+
+<p>GOLANG 的 fu&hellip;. XD</p>
+
+<p>寫 Swift 的 function 會很開心</p>
+
+<h2>基本的</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">say</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">println</span><span class="p">(</span><span class="s">&quot;Hello!&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>有一個回傳值的</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="n">say</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">String</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">return</span> <span class="s">&quot;Hello!&quot;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>有多個回傳值的!!! (就是回傳 Tuple)</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">say</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">let</span> <span class="n">greeting</span> <span class="o">=</span> <span class="s">&quot;hello&quot;</span>
+</span><span class='line'>  <span class="k">let</span> <span class="n">times</span> <span class="o">=</span> <span class="mi">5</span>
+</span><span class='line'>  <span class="k">return</span> <span class="p">(</span><span class="n">greeting</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">say</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>有參數的</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">say</span><span class="p">(</span><span class="nl">g</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">println</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">say</span><span class="p">(</span><span class="s">&quot;Hello&quot;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>多個參數</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">say</span><span class="p">(</span><span class="nl">g</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="nl">times</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">for</span> <span class="n">index</span> <span class="k">in</span> <span class="mf">1.</span><span class="p">..</span><span class="n">times</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">println</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">say</span><span class="p">(</span><span class="s">&quot;Hello&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>有參數的進階版</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">say</span><span class="p">(</span><span class="n">greetings</span> <span class="nl">g</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">println</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">say</span><span class="p">(</span><span class="s">&quot;Hello&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>此時如果同樣使用 <code>say("hello")</code> 會出錯</p>
+
+<p>因為我們剛剛宣告了外部參數名稱</p>
+
+<p>因此需要:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="n">say</span><span class="p">(</span><span class="nl">greetings</span><span class="p">:</span> <span class="s">&quot;hello&quot;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這種寫法在必須代入許多參數時，非常好用，會讓程式可讀性變高</p>
+
+<p>另外，方便起見，也可以加上 <code>#</code>，表示外部參數名稱與 func 內部名稱是一樣的</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">say</span><span class="p">(</span><span class="n">greetings</span> <span class="nl">g</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="err">#</span><span class="nl">times</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">for</span> <span class="n">index</span> <span class="k">in</span> <span class="mf">1.</span><span class="p">..</span><span class="n">times</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">println</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="n">say</span><span class="p">(</span><span class="nl">greetings</span><span class="p">:</span> <span class="s">&quot;Hello&quot;</span><span class="p">,</span> <span class="nl">times</span><span class="p">:</span> <span class="mi">3</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可以看到第一種寫法和第二種寫法是一樣的功用~</p>
+
+<h2>給參數預設值</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">say</span><span class="p">(</span><span class="n">greetings</span> <span class="nl">g</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="s">&quot;hello&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">println</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">say</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果呼叫 <code>say()</code> 而沒有給定參數時，會直接使用預設值</p>
+
+<h2>常數參數與變數參數</h2>
+
+<p>簡單看一下以下的程式碼</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">say</span><span class="p">(</span><span class="nl">greetings</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="s">&quot;hello&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">greetings</span> <span class="o">=</span> <span class="s">&quot;\(greetings), welcome!&quot;</span>
+</span><span class='line'>    <span class="n">println</span><span class="p">(</span><span class="n">greetings</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">let</span> <span class="n">greetings</span> <span class="o">=</span> <span class="s">&quot;Hello!&quot;</span>
+</span><span class='line'><span class="n">say</span><span class="p">(</span><span class="nl">greetings</span><span class="p">:</span> <span class="n">greetings</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我們定義了一個常數，代入 say() 裡面，</p>
+
+<p>但是 say function 裡面必須改變代入的值，於是這個時候 Xcode 就會該了</p>
+
+<p>那要怎麼辦呢?</p>
+
+<p>修改成:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">say</span><span class="p">(</span><span class="k">var</span> <span class="nl">greetings</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="s">&quot;hello&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">greetings</span> <span class="o">=</span> <span class="s">&quot;\(greetings), welcome!&quot;</span>
+</span><span class='line'>    <span class="n">println</span><span class="p">(</span><span class="n">greetings</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">let</span> <span class="n">greetings</span> <span class="o">=</span> <span class="s">&quot;Hello!&quot;</span>
+</span><span class='line'><span class="n">say</span><span class="p">(</span><span class="nl">greetings</span><span class="p">:</span> <span class="n">greetings</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>多加一個 <code>var</code> 宣告，就會 copy 一份傳入，就可以更改值了!</p>
+
+<p>一樣是非常有用的語法!</p>
+
+<h2>輸入輸出函數</h2>
+
+<p>直接看例子</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">swapInt</span><span class="p">(</span><span class="k">inout</span> <span class="nl">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="k">inout</span> <span class="nl">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">let</span> <span class="n">tmpA</span> <span class="o">=</span> <span class="n">a</span>
+</span><span class='line'>    <span class="n">a</span> <span class="o">=</span> <span class="n">b</span>
+</span><span class='line'>    <span class="n">b</span> <span class="o">=</span> <span class="n">tmpA</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">var</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span class='line'><span class="k">var</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">2</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">swap</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>酷吧</p>
+
+<h2>function types 函式型別</h2>
+
+<p>直接看例子</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">addTwoInt</span><span class="p">(</span><span class="nl">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="nl">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">func</span> <span class="n">mTwoInt</span><span class="p">(</span><span class="nl">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="nl">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">func</span> <span class="n">printHello</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">println</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">var</span> <span class="nl">mathFunction</span><span class="p">:</span> <span class="p">(</span><span class="n">Int</span><span class="p">,</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span> <span class="o">=</span> <span class="n">addTwoInt</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">println</span><span class="p">(</span><span class="s">&quot;result: \(mathFunction(2, 3))&quot;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>前面宣告了三個 function ，</p>
+
+<p>而</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">var</span> <span class="nl">mathFunction</span><span class="p">:</span> <span class="p">(</span><span class="n">Int</span><span class="p">,</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span> <span class="o">=</span> <span class="n">addTwoInt</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>後面的這句的意思是:</p>
+
+<p>我們定義了一個變數叫做 <code>mathFunction</code>，</p>
+
+<p>他的型別是「一個 (Int, Int) 的參數，並且回傳 Int」的 function，</p>
+
+<p>簡單說就是 mathFunction 的型別是一個 Function</p>
+
+<p>並指向 addTwoInt 這個 function</p>
+
+<p>所以上面的例子中，<code>mathFunction</code> 代入的 <code>(2, 3)</code> 會丟給 addTwoInt，</p>
+
+<p>並且最後回傳 Int</p>
+
+<p>有 javascript 的味道:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">test</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">;</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">add</span> <span class="o">=</span> <span class="nx">test</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;result = &quot;</span> <span class="o">+</span> <span class="nx">add</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>function as parameter types</h2>
+
+<p>函式也可以拿來當做參數傳入函式中，</p>
+
+<p>接續上面的例子，加入：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">func</span> <span class="nx">printResult</span><span class="p">(</span><span class="nx">mathFunction</span><span class="o">:</span> <span class="p">(</span><span class="nx">Int</span><span class="p">,</span> <span class="nx">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nx">Int</span><span class="p">,</span> <span class="nx">a</span><span class="o">:</span> <span class="nx">Int</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="nx">Int</span> <span class="p">)</span>  <span class="p">{</span>
+</span><span class='line'>    <span class="nx">println</span><span class="p">(</span><span class="s2">&quot;Result: \(mathFunction(a, b))&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="nx">printResult</span><span class="p">(</span><span class="nx">mathFunction</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>function as return type</h2>
+
+<p>函式也可以拿來當做回傳值</p>
+
+<p>就是在原本的回傳符號 <code>-&gt;</code> 後面代入函式型別</p>
+
+<p>這邊直接借別人的例子來參考吧</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// 定義兩個 function </span>
+</span><span class='line'><span class="nx">func</span> <span class="nx">stepForward</span><span class="p">(</span><span class="nx">input</span><span class="o">:</span> <span class="nx">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nx">Int</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nx">input</span> <span class="o">+</span> <span class="mi">1</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="nx">func</span> <span class="nx">stepBackward</span><span class="p">(</span><span class="nx">input</span><span class="o">:</span> <span class="nx">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nx">Int</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nx">input</span> <span class="o">-</span> <span class="mi">1</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 再定義一個 function ，透過布林值導往上面不同的 function</span>
+</span><span class='line'><span class="nx">func</span> <span class="nx">chooseStepFunction</span><span class="p">(</span><span class="nx">backwards</span><span class="o">:</span> <span class="nx">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nx">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nx">Int</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nx">backwards</span> <span class="o">?</span> <span class="nx">stepBackward</span> <span class="o">:</span> <span class="nx">stepForward</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">currentValue</span> <span class="o">=</span> <span class="mi">3</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 將 chooseStepFunction 指給 moveNearerToZero</span>
+</span><span class='line'><span class="c1">// 所以 moveNearerToZero 現在是一個 function 了!</span>
+</span><span class='line'><span class="kd">let</span> <span class="nx">moveNearerToZero</span> <span class="o">=</span> <span class="nx">chooseStepFunction</span><span class="p">(</span><span class="nx">currentValue</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">println</span><span class="p">(</span><span class="s2">&quot;Counting to zero:&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="c1">// Counting to zero:</span>
+</span><span class='line'><span class="k">while</span> <span class="nx">currentValue</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">println</span><span class="p">(</span><span class="s2">&quot;\(currentValue)... &quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="nx">currentValue</span> <span class="o">=</span> <span class="nx">moveNearerToZero</span><span class="p">(</span><span class="nx">currentValue</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="nx">println</span><span class="p">(</span><span class="s2">&quot;zero!&quot;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Nested Function</h2>
+
+<p>就是 funciton 中的 function，變數有分 global、local 變數，function 也有</p>
+
+<p>以上面的例子來改寫:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">func</span> <span class="nx">chooseStepFunction</span><span class="p">(</span><span class="nx">backwards</span><span class="o">:</span> <span class="nx">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nx">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nx">Int</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">func</span> <span class="nx">stepForward</span><span class="p">(</span><span class="nx">input</span><span class="o">:</span> <span class="nx">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nx">Int</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">input</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">}</span>
+</span><span class='line'>    <span class="nx">func</span> <span class="nx">stepBackward</span><span class="p">(</span><span class="nx">input</span><span class="o">:</span> <span class="nx">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nx">Int</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">input</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nx">backwards</span> <span class="o">?</span> <span class="nx">stepBackward</span> <span class="o">:</span> <span class="nx">stepForward</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/06/api-d6/">[API-d6] - [Server 番外篇] 建立自己的本機虛擬伺服器 2 - Ubuntu 基本設定與安裝 Node.js, MongoDB</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-06T18:54:07+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/10/06/api-d6/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/06/api-d6/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>[Server 番外篇] 建立自己的本機虛擬伺服器 2 - Ubuntu 基本設定與安裝 Node.js, MongoDB</h1>
+
+<p>嗨又到了 Server 時間了!</p>
+
+<p>接下來我們都會做一些指令操作，</p>
+
+<p>如果進一步有興趣的可以 Google 鳥哥的私房菜，</p>
+
+<p>完整的 Linux 操作教學，淺顯易懂，想學習操作 linux OS 的話必看！</p>
+
+<p>今天我們要稍稍整理一下昨天剛安裝完的 Ubuntu 作業系統，以及安裝一些我們需要用到的東西</p>
+
+<p>首先我們的第一步就是先開啟終端機，到昨天放 Vagrantfile 的資料夾:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd ~/ithome/</span></code></pre></td></tr></table></div></figure>
+
+
+<p>開啟 Ubuntu</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ vagrant up</span></code></pre></td></tr></table></div></figure>
+
+
+<p>順帶一提，有時候開機時可能會卡在一個地方：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>default: Warning: Connection timeout. Retrying...
+</span><span class='line'>default: Warning: Connection timeout. Retrying...
+</span><span class='line'>default: Warning: Connection timeout. Retrying...</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這個就稍微等一下吧~ 如果電腦性能比較差的話可能會卡比較久，不過應該不至於會卡超過 10 分鐘</p>
+
+<p>如果卡超過十分鐘可能要強制中斷，並且尋找解決辦法了～</p>
+
+<p>開機完成後就登入吧!</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ vagrant ssh
+</span><span class='line'>...
+</span><span class='line'>vagrant@vagrant-ubuntu-trusty-64:~$</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Ubuntu 套件, 設定時區</h2>
+
+<p>今天就要來幫 Ubuntu 安裝一些東西，</p>
+
+<p>首先先產生 locale file for zh_TW</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo locale-gen zh_TW.UTF-8</span></code></pre></td></tr></table></div></figure>
+
+
+<p>更新檔案清單並安裝更新, 移除更新後不需要的套件:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get update && sudo apt-get -y upgrade
+</span><span class='line'>$ sudo apt-get -y autoremove</span></code></pre></td></tr></table></div></figure>
+
+
+<p>再來是安裝一些常用的套件 如 git, curl, vim 等等:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get -y install build-essential vim git-core curl autoconf libssl-dev</span></code></pre></td></tr></table></div></figure>
+
+
+<p>設定時區, 照著指令選就好了~</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo dpkg-reconfigure tzdata
+</span><span class='line'>...
+</span><span class='line'>
+</span><span class='line'>// 選擇完畢後, 輸入 date 指令來查詢伺服器時間
+</span><span class='line'>$ date
+</span><span class='line'>Sat Oct  6 20:47:03 CST 2014</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Node.js 安裝</h2>
+
+<p>我們使用了 ppa 以安裝最新的 Node.js 版本:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// 加入 ppa
+</span><span class='line'>$ sudo add-apt-repository ppa:chris-lea/node.js
+</span><span class='line'> Evented I/O for V8 javascript. Node's goal is to provide an easy way to build scalable network programs
+</span><span class='line'> More info: https://launchpad.net/~chris-lea/+archive/ubuntu/node.js
+</span><span class='line'>Press [ENTER] to continue or ctrl-c to cancel adding it
+</span><span class='line'>(要再按一下 enter)
+</span><span class='line'>
+</span><span class='line'>// 因為加入新的檔案清單來源了，所以重新更新 ubuntu 的檔案清單
+</span><span class='line'>$ sudo apt-get update
+</span><span class='line'>
+</span><span class='line'>// 安裝 nodejs
+</span><span class='line'>$ sudo apt-get -y install nodejs</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這樣就完成安裝了!</p>
+
+<p>確認一下版本是否安裝成功:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ node -v 
+</span><span class='line'>v0.10.32 
+</span><span class='line'>
+</span><span class='line'>$ npm -v 
+</span><span class='line'>1.4.28</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ya! 這樣 Ubuntu 就有 node.js 了!</p>
+
+<h2>MongoDB</h2>
+
+<p>再來就是要安裝 MongoDB 了!</p>
+
+<p>我們參考 MongoDB <a href="http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/">官方網站的文件</a></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>//加入 apt-key
+</span><span class='line'>$ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>// 新增一個來源清單，並將 mongodb 的來源寫進該來源清單
+</span><span class='line'>$ echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | sudo tee /etc/apt/sources.list.d/mongodb.list
+</span><span class='line'>
+</span><span class='line'>// 重新更新來源清單
+</span><span class='line'>$ sudo apt-get update
+</span><span class='line'>
+</span><span class='line'>// 安裝 mongodb
+</span><span class='line'>$ sudo apt-get install -y mongodb-org</span></code></pre></td></tr></table></div></figure>
+
+
+<p>安裝完成後 Mongo db 就會跑起來了，從以下指令可以得知</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ps aux | grep mongo</span></code></pre></td></tr></table></div></figure>
+
+
+<p>順便確認一下版本:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ mongod --version
+</span><span class='line'>db version v2.6.4
+</span><span class='line'>2014-10-04T06:31:01.553+0000 git version: 3a830be0eb92d772aa855ebb711ac91d658ee910
+</span><span class='line'>
+</span><span class='line'>$ mongo --verion
+</span><span class='line'>MongoDB shell version: 2.6.4</span></code></pre></td></tr></table></div></figure>
+
+
+<p>MongoDB 除了安裝了 DB 本身，還提供了指令提供操作，稱之為 MongoDB Shell，</p>
+
+<p>方便我們使用 Shell 進去 DB 裡面做 DB 操作</p>
+
+<p>以下是 mongodb service 的指令:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// 開啟 mongodb
+</span><span class='line'>$ sudo service mongod start
+</span><span class='line'>
+</span><span class='line'>// 關閉 mongodb
+</span><span class='line'>$ sudo service mongod stop
+</span><span class='line'>
+</span><span class='line'>// 重啟 mongodb
+</span><span class='line'>$ sudo service mongod restart</span></code></pre></td></tr></table></div></figure>
+
+
+<p>好啦~ 今天就先到這，記得把虛擬機器關起來~</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2014/10/05/swift-d5/">[Swift-d5] - Playground - Array, Dictionary, Controll Flow</a></h1>
     
     
@@ -1452,169 +2156,6 @@ Xcode 會即時顯示該變數的值、型別、以及輸出結果，<br/>
 </code></pre>
 
 <p>下一篇會討論什麼時候該打造 RESTful API?  以及看看別人寫的 RESTful API</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/02/swift-d1/">[Swift-d1] - 介紹</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-02T01:37:44+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/10/02/swift-d1/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/02/swift-d1/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Swift 是 2014 年由蘋果公司在其開發者大會 WWDC 上所發佈的程式語言</p>
-
-<p>The Swift Programming Language 一書中提到：</p>
-
-<ol>
-<li>Swift 用來撰寫 iOS 及 Mac OSX 的程式。</li>
-<li>Swift 吸收了 C 和 Objective-C 的優點，使其在設計更具彈性、容易，且撰寫時有更多樂趣。</li>
-<li>Swift 是基於成熟而且倍受喜愛的 Cocoa 和 Cocoa Touch framework，意即 Swift 可以直接使用這些現有的框架</li>
-<li>Swift 兼具編譯語言的性能，以及直譯式語言的特性。</li>
-</ol>
-
-
-<p>** 什麼是 Cocoa/Cocoa Touch framework: <br/>
-Cocoa framework 是 Apple 爲 Mac OSX 所建立的環境，用來開發 OSX 的程式，<br/>
-而 Cocoa Touch framework 則是建立於 Cocoa framework 之上，用來開發 iOS 作業系統程式，<br/>
-此兩種 framework 皆遵循 MVC 軟體架構，開發時必須遵循此架構。</p>
-
-<p>若之前從未接觸過 Objective-C 但又想嘗試開發 iOS app 的話，<br/>
-現在是個入門的好時機，Swift 去除了 Objective-C 的繁瑣語法，<br/>
-且相較於 Objective-C 是個更好入門的程式語言。</p>
-
-<p>對於非 Objective-C 開發者而言，若先前有過程式語言開發經驗的話，語法上手不會太難，<br/>
-只是需要花時間學習 Cocoa/Cocoa Touch framework，但是，都要學習撰寫 iOS app 了，<br/>
-不學 Cocoa/Cocoa Touch framework 應該也說不過去 :D</p>
-
-<p>而對於 Objective-C 開發者而言，由於已經非常熟悉 Cocoa/Cocoa Touch framework 了，<br/>
-在 Swift 使用 Cocoa/Cocoa Touch framework 是幾乎無痛轉換的，因為函式、變數名稱完全一樣，<br/>
-只需要熟悉 Swift 語法，不出一天即可快速上手，也因此 Objectiv-C 開發者也不需過於擔心飯碗被搶走 XD<br/>
-接觸過 Cocoa/Cocoa Touch framework 的開發者來說還是有相當大的優勢的。</p>
-
-<p>由於筆者之前從未接觸過 Objective-C/ Cocoa/ Cocoa Touch framework，<br/>
-只有些許 java/php/ruby 撰寫經驗，<br/>
-選擇 Swift 的原因之一即是語法上手容易，並且有 playground 可以馬上執行撰寫的程式，<br/>
-也因此希望能夠透過學習 Swift ，了解 iOS app 開發架構，實際打造出一款 app！</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/02/api-d1/">[API-d1] - 定義 1 - 什麼是 REST/RESTful?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-02T01:02:26+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/10/02/api-d1/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/02/api-d1/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Representational State Transfer，簡稱 <code>REST</code>，<br/>
-它是一種網路架構風格，他並不是一種標準。</p>
-
-<p>而 RESTful 可以這樣子想像:<br/>
-美麗 (Beauty) 的事物可以稱為 Beautiful<br/>
-設計為 REST 的系統就可以稱為 RESTful</p>
-
-<p>以 API 而言，假設我們正在撰寫一組待辦事項的 API，<br/>
-可能會有以下方式來作為 API 的 interface:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>獲取使用者資料     /getAllUsers
-</span><span class='line'>獲取使用者資料     /getUser/1
-</span><span class='line'>新增使用者資料     /createUser
-</span><span class='line'>更新使用者資料     /updateUser/1
-</span><span class='line'>刪除使用者資料     /deleteUser/1</span></code></pre></td></tr></table></div></figure>
-
-
-<p>若是以 REST 風格來開發 RESTful API 的話:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>獲取使用者資料     /GET            /users
-</span><span class='line'>獲取使用者資料     /GET            /user/1
-</span><span class='line'>新增使用者資料     /POST          /user
-</span><span class='line'>更新使用者資料     /PUT             /user/1
-</span><span class='line'>刪除使用者資料     /DELETE      /user/1</span></code></pre></td></tr></table></div></figure>
-
-
-<p>兩者差異是在於 RESTful API 充分地使用了 HTTP protocol (GET/POST/PUT/DELETE)，<br/>
-達到<br/>
-1. 以直觀簡潔的資源 URI<br/>
-2. 並且善用 HTTP Verb<br/>
-3. 達到對資源的操作<br/>
-4. 並使用 Web 所接受的資料類型: JSON, XML, YAML 等，最常見的是 JSON</p>
-
-<p>通常是使用 HTTP, URI, JSON, HTML 這些現有廣泛流行的協議和標準，<br/>
-且使用 HTTP status code 來代表該資源的狀態。</p>
-
-<p>框架中強制使用 REST 風格的最有名的應該就是 Ruby on Rails 了!<br/>
-(不過我們並不會使用 Rails 來開發 API service :P)</p>
-
-<p>p.s. 因為 REST 並非是一種標準，因此有時候也不一定非得要照著 REST 來做，<br/>
-只是在資源的操作面上，可以設計成這類的風格，以達到簡潔易懂，並且可重用。</p>
-
-<p>下一篇會來聊聊 REST 的要求與優點</p>
 </div>
   
   

@@ -98,6 +98,109 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2013/11/26/ubuntu-1204-install-oracle-java/">[Ubuntu] 12.04 Install Oracle Java</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-26T02:18:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/11/26/ubuntu-1204-install-oracle-java/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2013/11/26/ubuntu-1204-install-oracle-java/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo rm /var/lib/dpkg/info/oracle-java7-installer*
+</span><span class='line'>sudo apt-get purge oracle-java7-installer*
+</span><span class='line'>sudo rm /etc/apt/sources.list.d/*java*
+</span><span class='line'>sudo apt-get update
+</span><span class='line'>sudo add-apt-repository ppa:webupd8team/java
+</span><span class='line'>sudo apt-get update
+</span><span class='line'>sudo apt-get install oracle-java7-installer</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/11/19/xcode-emulator-home-keys-are-gone/">[Xcode] 模擬器的 Home 鍵不見了?!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-19T15:02:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/11/19/xcode-emulator-home-keys-are-gone/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2013/11/19/xcode-emulator-home-keys-are-gone/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>其實有點有趣
+今天由於某些因素在測試 iOS app
+於是開了許久沒動的 xcode
+更新了一下發現多了一些 retina 的模擬器
+也沒想那麼多就把它 run 到模擬器上
+但模擬器一開出來我還以為是模擬器壞掉 XDDDD
+它的 home 鍵勒～～～～～</p>
+
+<p>其實是因為 iOS 5 以後的 simulater 沒有 home 鍵</p>
+
+<blockquote><p>叫出 home 鍵     <code>command</code>+<code>shift</code>+<code>h</code>
+調整大小               <code>command</code>+ <code>1</code> or <code>2</code> or <code>3</code></p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2013/11/13/mac-osx-bash-it/">[Mac OSX] Bash-it</a></h1>
     
     
@@ -847,264 +950,6 @@ Reference:
 則編輯 <code>/etc/hosts.allow</code> , 加入: <code>sshd:192.168.11.11 :allow</code><br/>
 編輯 <code>/etc/hosts.deny</code> , 讓其他人都無法連入, 加入這行: <code>sshd:all:deny</code><br/>
 全數編輯完畢後, 重新啟動 ssh 服務 <code>$sudo /etc/init.d/ssh restart</code></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/04/18/android-thread-ui-update/">[Android] Thread 處理 UI Update</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-04-18T15:26:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2012/04/18/android-thread-ui-update/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2012/04/18/android-thread-ui-update/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>不知道大家在寫 Android 用 thread 處理 UI 更新時，有沒有遇過這樣的錯誤：</p>
-
-<blockquote><p>Only the original thread that created a view hierarchy can touch its views.</p></blockquote>
-
-<p>通常這是因為自己產生的 thread 不能去更動到 原本 main thread 的 view
-只有 main thread 可以去動 UI，因此我們必須透過 runOnUiThread 這個方法來對 UI 做操作
-這裡以下面這個 ProgressDialog 做例子：</p>
-
-<figure class='code'><figcaption><span>PDExample.java  </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">package</span> <span class="n">org</span><span class="o">.</span><span class="na">twgg</span><span class="o">.</span><span class="na">kerkerj</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="kn">import</span> <span class="nn">android.app.Activity</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">android.app.ProgressDialog</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">android.os.Bundle</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">android.os.Handler</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">android.os.Message</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">android.view.View</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">android.view.View.OnClickListener</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">android.widget.Button</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">android.widget.TextView</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PDExample</span> <span class="kd">extends</span> <span class="n">Activity</span> <span class="kd">implements</span> <span class="n">Runnable</span> <span class="o">{</span>
-</span><span class='line'>  <span class="kd">private</span> <span class="n">String</span> <span class="n">pi</span><span class="o">=</span><span class="s">&quot;null&quot;</span><span class="o">;</span>
-</span><span class='line'>  <span class="kd">private</span> <span class="n">Button</span> <span class="n">btn</span><span class="o">;</span>
-</span><span class='line'>  <span class="kd">private</span> <span class="n">TextView</span> <span class="n">text</span><span class="o">;</span>
-</span><span class='line'>  <span class="kd">private</span> <span class="n">ProgressDialog</span> <span class="n">pd</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">icicle</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>      <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">icicle</span><span class="o">);</span>
-</span><span class='line'>    <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">main</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">text</span> <span class="o">=</span> <span class="o">(</span><span class="n">TextView</span><span class="o">)</span> <span class="k">this</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">text</span><span class="o">);</span>
-</span><span class='line'>    <span class="n">btn</span> <span class="o">=</span> <span class="o">(</span><span class="n">Button</span><span class="o">)</span> <span class="k">this</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">btn</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">//按下 Button 則會開始運算，運算的東西放在 thread 裡</span>
-</span><span class='line'>    <span class="n">btn</span><span class="o">.</span><span class="na">setOnClickListener</span><span class="o">(</span><span class="k">new</span> <span class="n">OnClickListener</span><span class="o">(){</span>
-</span><span class='line'>      <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="n">View</span> <span class="n">v</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>          <span class="c1">// Progress Dialog 開始跑</span>
-</span><span class='line'>        <span class="n">pd</span> <span class="o">=</span> <span class="n">ProgressDialog</span><span class="o">.</span><span class="na">show</span><span class="o">(</span><span class="n">PDExample</span><span class="o">.</span><span class="na">this</span><span class="o">,</span> <span class="s">&quot;運算中&quot;</span><span class="o">,</span> <span class="s">&quot;機哩咕嚕機哩咕嚕...&quot;</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
-</span><span class='line'>        <span class="n">Thread</span> <span class="n">thread</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(</span><span class="n">PDExample</span><span class="o">.</span><span class="na">this</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="c1">//進入 thread</span>
-</span><span class='line'>        <span class="n">thread</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
-</span><span class='line'>       <span class="o">}</span>
-</span><span class='line'>    <span class="o">});</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>      <span class="k">try</span> <span class="o">{</span>
-</span><span class='line'>      <span class="c1">//要運算的東西放這裡</span>
-</span><span class='line'>      <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">10000</span><span class="o">);</span> <span class="c1">//在這裡只是讓 thread停久一點感覺一下</span>
-</span><span class='line'>      <span class="n">pi</span> <span class="o">=</span> <span class="s">&quot;ya, we&#39;re done!&quot;</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="c1">//Wrong!! 以下兩行會出錯, 因為這是在新的 thread 裡要求更改 UI view</span>
-</span><span class='line'>      <span class="n">pd</span><span class="o">.</span><span class="na">dismiss</span><span class="o">();</span>
-</span><span class='line'>      <span class="n">text</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">pi</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>      <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>
-正確的 run() 必須這樣:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">try</span> <span class="o">{</span>
-</span><span class='line'>      <span class="c1">//要運算的東西放這裡</span>
-</span><span class='line'>    <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">10000</span><span class="o">);</span> <span class="c1">//在這裡只是讓 thread停久一點感覺一下</span>
-</span><span class='line'>    <span class="n">pi</span> <span class="o">=</span> <span class="s">&quot;ya, we&#39;re done!&quot;</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">runOnUiThread</span><span class="o">(</span><span class="k">new</span> <span class="n">Runnable</span><span class="o">()</span> <span class="o">{</span> <span class="c1">// Correct!! </span>
-</span><span class='line'>      <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>          <span class="c1">//modify View object</span>
-</span><span class='line'>          <span class="n">pd</span><span class="o">.</span><span class="na">dismiss</span><span class="o">();</span>
-</span><span class='line'>          <span class="n">text</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">pi</span><span class="o">);</span>
-</span><span class='line'>      <span class="o">}</span>
-</span><span class='line'>      <span class="o">});</span>
-</span><span class='line'>  <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>      <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>p.s. 之前 Google 有另外一種解法是<a href="http://www.helloandroid.com/tutorials/using-threads-and-progressdialog">用 handler 去處理 UI update</a>，<br/>
-不過既然都有 runOnUiThread 這個好用的方法就用它吧 :)</p>
-
-<p>2012/06/13續: <a href="http://kerkerj.logdown.com/posts/2012/06/13/android-ui-update-2">[Android] thread 處理 UI update (2)</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/04/18/android-install-developing-env/">[Android] 安裝開發環境</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-04-18T13:54:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2012/04/18/android-install-developing-env/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2012/04/18/android-install-developing-env/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>最近電腦重裝的關係，順便把 Android 開發環境整理一下，
-不得不說 Android 在 Eclipse 上的外掛開發的越來越不錯了！
-Step1. 到 <a href="http://oracle%20java%20se%20downloads/">Oracle Java SE downloads</a> 點擊 Java Platform (JDK) 並選擇作業系統
-Step2. 安裝 <a href="http://www.eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/indigosr2">Eclipse IDE for Java EE Developers</a>
-Step3. 到 <a href="http://developer.android.com/">Android Developers</a> 下載 <a href="http://developer.android.com/sdk/index.html">Android SDK</a> 並安裝<br/>
-<a href="http://4.bp.blogspot.com/-B4zRQJ_Hino/T47FNembF_I/AAAAAAAAC5w/onWCdvf2iC8/s1600/android1.png"><img src="http://4.bp.blogspot.com/-B4zRQJ_Hino/T47FNembF_I/AAAAAAAAC5w/onWCdvf2iC8/s640/android1.png" alt="" /></a>
-Step4. 安裝 ADT Plugin for Eclipse ( <a href="http://developer.android.com/sdk/eclipse-adt.html#installing">官方文件</a> )
-   a. 開啟 Eclipse， [Help] -> [Install New Software&hellip;.]
-   b. 點選 [Add] 輸入名稱及網址 ( APT / <a href="https://dl-ssl.google.com/android/eclipse/">https://dl-ssl.google.com/android/eclipse/</a> )
-   c. 等待 pending 結束後會看到可以勾選的 Developer Tools ，選擇 next 並 accept 開始安裝
-<a href="http://3.bp.blogspot.com/-QHyb2NYl9Bc/T47FOa_Pj0I/AAAAAAAAC50/Yrskz6l_VrU/s1600/android2.png"><img src="http://3.bp.blogspot.com/-QHyb2NYl9Bc/T47FOa_Pj0I/AAAAAAAAC50/Yrskz6l_VrU/s640/android2.png" alt="" /></a>
-Step5. 安裝 packages (Platforms and Other Packages)
-   a. 從 Eclipse : [Window] -> [Android SDK Manager]
-   b. 從 Windows : 到 Android SDK 資料夾中點擊 SDK Manager.exe
-   c. 從 Linux/Mac : 到 Android SDK 的 tools 資料夾，並執行 android 指令
-   選擇要開發的版本或package並安裝
-<a href="http://2.bp.blogspot.com/-K8t_6L2xiBs/T47FOxvM8BI/AAAAAAAAC6A/a7WIq7z-ygw/s1600/android3.png"><img src="http://2.bp.blogspot.com/-K8t_6L2xiBs/T47FOxvM8BI/AAAAAAAAC6A/a7WIq7z-ygw/s640/android3.png" alt="" /></a>
-    沒記錯的話安裝完 Eclpise 的外掛後，Eclipse 會自動跳出問你的 Android SDK 裝在哪，
-  若這時候已經安裝好 SDK 的話就可以選擇第二個選項，並指定資料夾位址<br/>
-<a href="http://2.bp.blogspot.com/-6bJrhcn2SiM/T47GecGxajI/AAAAAAAAC6Q/eneUabD0cmE/s1600/android4.png"><img src="http://2.bp.blogspot.com/-6bJrhcn2SiM/T47GecGxajI/AAAAAAAAC6Q/eneUabD0cmE/s640/android4.png" alt="" /></a>
-接著就可以寫程式了
-開啟模擬器的話就到下圖所示新增即可
-<a href="http://2.bp.blogspot.com/-aB1Eh5AFUqs/T47HFnNpO9I/AAAAAAAAC6Y/4QhPHIZZcTk/s1600/android5.png"><img src="http://2.bp.blogspot.com/-aB1Eh5AFUqs/T47HFnNpO9I/AAAAAAAAC6Y/4QhPHIZZcTk/s640/android5.png" alt="" /></a></p>
 </div>
   
   

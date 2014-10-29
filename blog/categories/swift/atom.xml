@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Swift | kerkerj]]></title>
   <link href="http://kerkerj.github.io/blog/categories/swift/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-10-29T19:37:43+08:00</updated>
+  <updated>2014-10-30T01:45:24+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,55 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[Swift-d30] - 總結]]></title>
+    <link href="http://kerkerj.github.io/blog/2014/10/30/swift-d30/"/>
+    <updated>2014-10-30T01:38:05+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2014/10/30/swift-d30</id>
+    <content type="html"><![CDATA[<p>30 天下來其實中間受到不少人幫忙</p>
+
+<p>因為第一次寫 iOS 程式，對於 iOS 的基本運作流程還是詢問了不少同事</p>
+
+<p>包含在隔壁棚用 Cocos2d 寫 2D 遊戲的 Andy</p>
+
+<p>還有同事 Henry 和 Felix 都給予了很大的幫忙</p>
+
+<p>最後這隻小 app 其實 code 的品質並沒有很好</p>
+
+<p>主要還是因為寫來 demo 用的，以及老實講也沒什麼時間寫&hellip;</p>
+
+<p>報兩個組別真的是很鐵人哪</p>
+
+<p>還看到隔壁棚一次報三四個主題的大大</p>
+
+<p>真是太厲害了</p>
+
+<p>假設明年還會參賽的話，應該還是會以單一技術來鑽研吧!</p>
+
+<p>Swift 有蠻多特性是 Objective-C 所沒有的</p>
+
+<p>如果有想在新專案嘗試的話</p>
+
+<p>最好還是先多看看網路上的比較</p>
+
+<p>避免踩到雷</p>
+
+<p>像有一點是我們同事曾經踩到的雷</p>
+
+<p>就是 NSDictionary V.S. Dictionary</p>
+
+<p>兩者的速度可以差到 5, 6 倍以上</p>
+
+<p>網路上搜尋也會發現有人在討論 Swift Dictionary 的效能差異</p>
+
+<p>若要在新專案使用還是要查詢一下避免掉一些問題</p>
+
+<p>另外還有就是 Swift on Xcode 的穩定度還是有待加強&hellip;</p>
+
+<p>總而言之, 30 天結束了，ya!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[Swift-d29] - 實戰開發 - TODOList - API 4 刪除]]></title>
@@ -568,111 +617,6 @@ return
 <p>所以最重要的就是 content 及 _id</p>
 
 <p>今天先允許我偷懶一下，明天就要開始寫 api utility 給 swift 用</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[Swift-day25] - 實戰開發 - TODOList - Update View]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/25/swift-day25/"/>
-    <updated>2014-10-25T21:46:40+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/25/swift-day25</id>
-    <content type="html"><![CDATA[<p><a href="https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day27">Github link</a></p>
-
-<p>(忘了是放在哪個 branch 了 Orz)</p>
-
-<p>接下來就要進到最後一個 Update View 了!</p>
-
-<p>什麼時候會進到 Update View 呢？</p>
-
-<p>是在顯示單筆 TODO 的時候的右上方按鈕:</p>
-
-<p><img src="http://goo.gl/tNOyRs" alt="image" /></p>
-
-<p>我們今天只會實作 view 的部分, fakeData 就不實作了</p>
-
-<p>因為接下來就要直接接 API 啦</p>
-
-<p>也不需要更新 fakeData 了 :P</p>
-
-<p>要加入 Edit 這個按鈕</p>
-
-<p>要到 ShowViewController, 加入 UIBarButtonItem</p>
-
-<p>並且讓其吃到一個方法，可以讓 Navigation 往下一個 View 前進:</p>
-
-<pre><code class="swift">var id: String!
-
-override func viewDidLoad() {
-        super.viewDidLoad()
-
-        indexLabel.text = "\(index)"
-        contentLabel.text = content
-
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Bordered, target: self, action: Selector("editTodo"))
-    }
-</code></pre>
-
-<p>p.s. 先前忘記加了 id, 現在補回來 XD</p>
-
-<p>先新增一個 Edit 按鈕後</p>
-
-<p>並實作 editTodo</p>
-
-<pre><code>func editTodo() {
-        var editViewContronller = UpdateViewController(nibName: "UpdateViewController", bundle: nil)
-        editViewContronller.from = "edit"
-        editViewContronller.content = content
-        editViewContronller.index = index
-
-        self.navigationController?.pushViewController(editViewContronller, animated: true)
-    }
-</code></pre>
-
-<p>由於要先指定資料</p>
-
-<p>因此再到 UpdateViewController 中再加入兩個參數</p>
-
-<pre><code>    var index: Int!
-    var content: String!
-</code></pre>
-
-<p>最後在 UpdateController 的 viewDidLoad 中, 加入 add or edit 的判斷</p>
-
-<pre><code>override func viewDidLoad() {
-        super.viewDidLoad()
-
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Done, target: self, action: Selector("save"))
-
-          if self.from == "edit" {
-            self.textField.text = content
-        }
-
-    }
-</code></pre>
-
-<p>這時候先前設定的 &ldquo;from&rdquo; 參數就很有用了~</p>
-
-<p>就可以根據是從 add 的 view 來的或者是 edit 的 view 來的</p>
-
-<p>以便判定要不要 append 舊資料上去</p>
-
-<p>此外，也因為如此</p>
-
-<p>所以 UpdateViewController 的 save 方法也要判斷</p>
-
-<pre><code>        if from == "add" {
-            delegate.addData("g6", content: self.textField.text)
-            self.navigationController?.popToRootViewControllerAnimated(true)
-        } else if from == "edit" {
-            println("Save edited data")
-        }
-</code></pre>
-
-<p>不過因為今天我們不做資料更新</p>
-
-<p>因此流程面大致上到此告一個段落</p>
-
-<p>接下來就要串 API 了!</p>
 ]]></content>
   </entry>
   
