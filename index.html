@@ -98,6 +98,286 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2015/04/22/raspberry-pi2-remote-webcam/">Raspberry Pi2 Remote Webcam</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-04-22T23:43:38+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2015/04/22/raspberry-pi2-remote-webcam/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2015/04/22/raspberry-pi2-remote-webcam/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>如題~</p>
+
+<p>先假設 pi2 本身的 IP 是 <code>192.168.1.200</code></p>
+
+<p>首先先進去 server 來更新一下~</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get update && sudo apt-get upgrade</span></code></pre></td></tr></table></div></figure>
+
+
+<p>再來就裝 <a href="http://www.lavrsen.dk/foswiki/bin/view/Motion/WebHome">motion</a></p>
+
+<p>他其實是一個 motion detector，不過也可以拿來當作 web cam 用的 streaming server XD</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get install motion</span></code></pre></td></tr></table></div></figure>
+
+
+<p>編輯設定檔 <code>/etc/motion/motion.conf</code></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo vi /etc/motion/motion.conf</span></code></pre></td></tr></table></div></figure>
+
+
+<p>找到以下幾個值，並分別改成下面</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>daemon = ON 
+</span><span class='line'>webcam_localhost = OFF
+</span><span class='line'>control_localhost = OFF</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>webcam_localhost</code> 是 streaming 介面</p>
+
+<p><code>control_localhost</code> 是設定介面</p>
+
+<p>如果要改預設 port，就找 <code>webcam_port</code>, or <code>control_port</code></p>
+
+<p>最後設定將 service 啟動</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo vi /etc/default/motion</span></code></pre></td></tr></table></div></figure>
+
+
+<p>將 no 改成 yes</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>start_motion_daemon = yes</span></code></pre></td></tr></table></div></figure>
+
+
+<p>啟動 service</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo service motion start</span></code></pre></td></tr></table></div></figure>
+
+
+<p>motion 這個 service 預設的 port 是 8080/8081 (可以在前述的設定檔更改)</p>
+
+<p>開啟瀏覽器, 連入 <code>http://192.168.1.200:8080</code> or <code>http://192.168.1.200:8081</code></p>
+
+<p>這邊會有個小問題，就是連 8080 時會很正常</p>
+
+<p>但是 8081 時如果是用 chrome，則怎麼都進不去</p>
+
+<p>後來發現 <a href="http://www.lavrsen.dk/foswiki/bin/view/Motion/SupportQuestion2013x09x01x104741">這篇</a></p>
+
+<p>他說 Chrome 不再支援 raw MJPEG streams 了</p>
+
+<p>所以就是用其他瀏覽器開吧, 我是用 Safari :D</p>
+
+<p>記得要和你的 pi2 在同一個 wifi 環境下~</p>
+
+<p>剩下的還有許多設定可以玩～ 改天再來慢慢玩</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/04/22/setup-wifi-on-raspberry-pi2/">Setup Wifi on Raspberry Pi2</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-04-22T22:59:11+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2015/04/22/setup-wifi-on-raspberry-pi2/#disqus_thread"
+             data-disqus-identifier="http://kerkerj.github.io/blog/2015/04/22/setup-wifi-on-raspberry-pi2/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>(這是篇筆記)</p>
+
+<p>前陣子從前同事那接手了一塊 raspberry pi2 的板子</p>
+
+<p>想要用 wifi 來連網，於是就買了一個 usb 無線網卡</p>
+
+<p>型號是:</p>
+
+<p>TP-LINK TL-WN725N 150MbpsUSB無線網卡 (<a href="http://24h.pchome.com.tw/prod/DRAF4Z-A75333252">pchome連結</a>)</p>
+
+<p>一開始當然還是必須先插網路線，<code>ssh</code> 進去後</p>
+
+<p>先檢查 <code>pi2</code> 的 <code>kernel</code> 版本</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ uname -r
+</span><span class='line'>3.18.7-v7+ # 這是我的版本</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接著根據這個 <a href="https://github.com/lwfinger/rtl8188eu/">repo</a></p>
+
+<p>將韌體載下來放到 /lib/firmware 裡</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo wget https://github.com/lwfinger/rtl8188eu/raw/c83976d1dfb4793893158461430261562b3a5bf0/rtl8188eufw.bin -O /lib/firmware/rtlwifi/rtl8188eufw.bin </span></code></pre></td></tr></table></div></figure>
+
+
+<p>再來設定 pi2 的網路</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ifconfig
+</span><span class='line'>eth0      Link encap:Ethernet  
+</span><span class='line'>lo        Link encap:Local Loopback
+</span><span class='line'>wlan0     Link encap:Ethernet </span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果網卡有裝成功，應該就會有 <code>wlan0</code> 或是 <code>wlanX</code> 之類的 (X 是數字)</p>
+
+<p>最後就是手動掃描無線網路，並設定連線值囉</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo iwlist scan =&gt; 掃描無線網路 AP
+</span><span class='line'>wlan0     Scan completed :
+</span><span class='line'>          Cell 01 - Address: XX:XX:XX:XX:XX:XX
+</span><span class='line'>                    ESSID:"GGININDER"
+</span><span class='line'>          Cell 02 - Address: XX:XX:XX:XX:XX:XX
+</span><span class='line'>                    ESSID:"TP-LINK_F5566"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>連線的 <code>SSID</code> 就找 <code>Cell</code> 裡的 <code>ESSID</code></p>
+
+<p>(通常應該會記得自己家的 AP 啦，可以用來確認一下)</p>
+
+<p>開啟 <code>/etc/network/interfaces</code> 來寫入連線值</p>
+
+<p>我的 AP 的加密機制是 WPA/WPA2，所以使用下面的方式連線</p>
+
+<p>若是其他方式 (e.g. WEP) 可以參考 <a href="http://inpega.blogspot.tw/2013/09/blog-post_15.html">這篇</a></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ vi /etc/network/interfaces
+</span><span class='line'>auto lo
+</span><span class='line'>
+</span><span class='line'>iface lo inet loopback
+</span><span class='line'>iface eth0 inet dhcp
+</span><span class='line'>
+</span><span class='line'># 重點是下面這段
+</span><span class='line'>
+</span><span class='line'># 允許熱插拔 wlan0 這個介面
+</span><span class='line'>allow-hotplug wlan0 
+</span><span class='line'>
+</span><span class='line'># 預設設定為 dhcp
+</span><span class='line'>iface default inet dhcp
+</span><span class='line'>
+</span><span class='line'># 設定 wlan0 這張介面卡為 DHCP 自動取得 IP
+</span><span class='line'>iface wlan0 inet dhcp
+</span><span class='line'>
+</span><span class='line'># 你的 AP 的 SSID
+</span><span class='line'>wpa-ssid "GGININDER"
+</span><span class='line'>
+</span><span class='line'># 你的 AP 的密碼
+</span><span class='line'>wpa-psk "password"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>設定好後，重新啟動 wlan0 介面就可以連線囉</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo ifdown wlan0
+</span><span class='line'>$ sudo ifup wlan0
+</span><span class='line'>$ ifconfig wlan0 # 確認是否取得 IP</span></code></pre></td></tr></table></div></figure>
+
+
+<p>reference:</p>
+
+<p>raspberry pi forum: <a href="http://www.raspberrypi.org/forums/viewtopic.php?f=28&amp;t=62371&amp;start=475">http://www.raspberrypi.org/forums/viewtopic.php?f=28&amp;t=62371&amp;start=475</a></p>
+
+<p>網路設定: <a href="http://inpega.blogspot.tw/2013/09/blog-post_15.html">http://inpega.blogspot.tw/2013/09/blog-post_15.html</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2014/11/01/planning/">Ithome 鐵人賽 - 規劃</a></h1>
     
     
@@ -1599,375 +1879,6 @@ Day30 -  <a href="http://kerkerj.github.io/blog/2014/10/30/swift-d30/">[Swift-d3
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/27/api-d27/">[API-d27] - 實戰開發 - Log 處理 及 Config (Db, Apikey)</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-27T23:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/10/27/api-d27/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/27/api-d27/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day27">Github 參考</a></p>
-
-<h2>log 處理</h2>
-
-<p>今天要來談談 log 的處理，</p>
-
-<p>身為一台自走 (?) node.js API server</p>
-
-<p>也應該要記錄一下 request 的 log 呀！</p>
-
-<p>不然哪天出問題了都不知道是哪個 request 把 server 搞掛了!</p>
-
-<p>因此我們就要加入 log 的 middleware</p>
-
-<p>node.js 的 log 套件也蠻多的, 例如 <code>winston</code></p>
-
-<p>不過我們今天要用的是 <code>log4js</code></p>
-
-<p>會選擇他其實也只是因為之前寫 <code>java</code> 有用過 <code>log4j</code></p>
-
-<p><code>log4js</code> 的設定感覺起來比較相似</p>
-
-<p>所以就使用它了!</p>
-
-<p>再來我們就安裝一下 <code>log4js</code> 吧</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="nx">npm</span> <span class="nx">install</span> <span class="nx">log4js</span> <span class="o">-</span><span class="nx">save</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>並在 <code>app.js</code> 中 require 進去</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">log4js</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;log4js&#39;</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>接著在 <code>app.js</code> 的前面區段加入以下程式碼:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">log4js</span><span class="p">.</span><span class="nx">configure</span><span class="p">({</span>
-</span><span class='line'>    <span class="nx">appenders</span><span class="o">:</span> <span class="p">[</span>
-</span><span class='line'>        <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;console&#39;</span> <span class="p">},</span> <span class="c1">//控制台輸出</span>
-</span><span class='line'>        <span class="p">{</span>
-</span><span class='line'>            <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;file&#39;</span><span class="p">,</span> <span class="c1">//文件輸出</span>
-</span><span class='line'>            <span class="nx">filename</span><span class="o">:</span> <span class="s1">&#39;logs/access.log&#39;</span><span class="p">,</span>
-</span><span class='line'>            <span class="nx">maxLogSize</span><span class="o">:</span> <span class="mi">20000000</span><span class="p">,</span> <span class="c1">// 20 MB</span>
-</span><span class='line'>            <span class="nx">backups</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
-</span><span class='line'>            <span class="nx">category</span><span class="o">:</span> <span class="s1">&#39;normal&#39;</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>    <span class="p">],</span>
-</span><span class='line'>    <span class="nx">replaceConsole</span><span class="o">:</span> <span class="kc">true</span>
-</span><span class='line'><span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">var</span> <span class="nx">logger</span> <span class="o">=</span> <span class="nx">log4js</span><span class="p">.</span><span class="nx">getLogger</span><span class="p">(</span><span class="s1">&#39;normal&#39;</span><span class="p">);</span>
-</span><span class='line'><span class="nx">logger</span><span class="p">.</span><span class="nx">setLevel</span><span class="p">(</span><span class="s1">&#39;INFO&#39;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">log4js</span><span class="p">.</span><span class="nx">connectLogger</span><span class="p">(</span><span class="nx">logger</span><span class="p">,</span> <span class="p">{</span><span class="nx">level</span><span class="o">:</span> <span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="nx">format</span><span class="o">:</span><span class="s1">&#39;:method :url&#39;</span><span class="p">}));</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>其實註解已經可以看出一些端倪了</p>
-
-<p>使用 <code>log4js</code> 可以輸出 log 檔案，並且會按照設定的檔案大小來寫入</p>
-
-<p>如果達到 20MB 就會換一個新的檔案寫入，原本的還保留著，不過最多只會保留 10 份</p>
-
-<p>接著就設定 log level, 以及想要 log 的資訊</p>
-
-<p>詳細資訊就可以再多查詢一下</p>
-
-<p>此時我們將 server run 起來吧!</p>
-
-<p>並且對 server 戳幾個 request, 就會發現 log 檔案被建立起來了!</p>
-
-<p>(該程式碼加在 token 檢查前或檢查後是有差異的，加在 token 檢查後面，token error 的話則不會被記錄到 log 裡面)</p>
-
-<p>打開 log 檔看看，就會發現有 log 被寫入囉!</p>
-
-<h2>config (db, apikey)</h2>
-
-<p>有些重要的設定檔其實我們並不希望寫在程式碼裡，這時候 config 的設定很有用</p>
-
-<p>建立設定檔有很多種方式，比方說直接寫一個 json 檔案，或是 xml 檔案</p>
-
-<p>今天我們就用最簡單的 js 檔案的方式來建立 config 檔</p>
-
-<p>我們在 config 資料夾裡新增一個 config.js</p>
-
-<p>我們以下面的程式碼當作例子:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
-</span><span class='line'>    <span class="s2">&quot;base_url&quot;</span><span class="o">:</span> <span class="s2">&quot;http://localhost:3000&quot;</span><span class="p">,</span>
-</span><span class='line'>    <span class="s2">&quot;test_token&quot;</span><span class="o">:</span> <span class="s2">&quot;55665566&quot;</span><span class="p">,</span>
-</span><span class='line'>    <span class="s2">&quot;db&quot;</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>        <span class="s2">&quot;production&quot;</span><span class="o">:</span> <span class="s2">&quot;mongodb://192.168.33.10:27017/TODOs&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s2">&quot;development&quot;</span><span class="o">:</span> <span class="s2">&quot;mongodb://192.168.33.10:27017/DEV_TODOs&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s2">&quot;test&quot;</span><span class="o">:</span> <span class="s2">&quot;mongodb://192.168.33.10:27017/TEST_TODOs&quot;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">};</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>要怎麼使用裡面的內容呢?</p>
-
-<p>假設我們要將 db 的連結改成用 config 的方式連結的話:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./config/config&#39;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// Set DB</span>
-</span><span class='line'><span class="nx">mongoose</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">db</span><span class="p">.</span><span class="nx">development</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>只要先將 config require 進來，然後就直接使用它就好了!</p>
-
-<p>這樣就可以幫助我們將一些重要的設定從程式碼中抽離出來了!</p>
-
-<p>今天就這樣啦!</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/26/swift-d26/">[Swift-d26] - 實戰開發 - TODOList - API 前置資料準備</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-26T23:04:09+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/10/26/swift-d26/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/26/swift-d26/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>接下來是要串 <a href="http://ithelp.ithome.com.tw/ironman7/app/profile/20091343/dev">隔壁棚的 API</a> XD</p>
-
-<p>從前幾天的 APP 組成</p>
-
-<p>我們所需要的資料大概會是以下幾種:</p>
-
-<ul>
-<li>GET todo list</li>
-</ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="n">GET</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//192.168.1.158:3000/user/kerkerj/todos</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">return</span><span class="o">:</span>
-</span><span class='line'><span class="p">[</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="s">&quot;_id&quot;</span><span class="o">:</span> <span class="s">&quot;54441f64d84f1ea412db855c&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s">&quot;updated_at&quot;</span><span class="o">:</span> <span class="s">&quot;2014-10-19T20:30:28.797Z&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s">&quot;created_at&quot;</span><span class="o">:</span> <span class="s">&quot;2014-10-19T20:30:28.797Z&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s">&quot;content&quot;</span><span class="o">:</span> <span class="s">&quot;task11syy&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s">&quot;user_id&quot;</span><span class="o">:</span> <span class="s">&quot;kerkerj&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s">&quot;__v&quot;</span><span class="o">:</span> <span class="mi">0</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="s">&quot;_id&quot;</span><span class="o">:</span> <span class="s">&quot;54441f6fd84f1ea412db855e&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s">&quot;updated_at&quot;</span><span class="o">:</span> <span class="s">&quot;2014-10-19T20:30:39.957Z&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s">&quot;created_at&quot;</span><span class="o">:</span> <span class="s">&quot;2014-10-19T20:30:39.957Z&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s">&quot;content&quot;</span><span class="o">:</span> <span class="s">&quot;task13&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s">&quot;user_id&quot;</span><span class="o">:</span> <span class="s">&quot;kerkerj&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s">&quot;__v&quot;</span><span class="o">:</span> <span class="mi">0</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">]</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>Get a todo task</li>
-</ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="n">GET</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//192.168.1.158:3000/user/kerkerj/todos/54441f64d84f1ea412db855c</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">return</span><span class="o">:</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>        <span class="s">&quot;_id&quot;</span><span class="o">:</span> <span class="s">&quot;54441f64d84f1ea412db855c&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s">&quot;updated_at&quot;</span><span class="o">:</span> <span class="s">&quot;2014-10-19T20:30:28.797Z&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s">&quot;created_at&quot;</span><span class="o">:</span> <span class="s">&quot;2014-10-19T20:30:28.797Z&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s">&quot;content&quot;</span><span class="o">:</span> <span class="s">&quot;task11syy&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s">&quot;user_id&quot;</span><span class="o">:</span> <span class="s">&quot;kerkerj&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s">&quot;__v&quot;</span><span class="o">:</span> <span class="mi">0</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>Add a todo task</li>
-</ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="n">POST</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//192.168.1.158:3000/user/kerkerj/todos/</span>
-</span><span class='line'><span class="nl">data</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;content&quot;</span><span class="o">:</span> <span class="s">&quot;your data&quot;</span><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">return</span><span class="o">:</span> <span class="n">the</span> <span class="n">data</span> <span class="n">you</span> <span class="n">sent</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>Update a todo task</li>
-</ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="n">PUT</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//192.168.1.158:3000/user/kerkerj/todos/</span>
-</span><span class='line'><span class="nl">data</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;content&quot;</span><span class="o">:</span> <span class="s">&quot;your data&quot;</span><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">return</span><span class="o">:</span> <span class="n">the</span> <span class="n">data</span> <span class="n">you</span> <span class="n">sent</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>Delete a todo task</li>
-</ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="n">DELETE</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//192.168.1.158:3000/user/kerkerj/todos/54441f64d84f1ea412db855c</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">return</span>
-</span><span class='line'><span class="p">{</span><span class="s">&quot;success&quot;</span><span class="o">:</span> <span class="s">&quot;true&quot;</span><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>從以上資料可以知道</p>
-
-<p>最重要的欄位就是 _id, user_id, content</p>
-
-<p>user_id 我們在 app 中就直接寫死了</p>
-
-<p>所以最重要的就是 content 及 _id</p>
-
-<p>今天先允許我偷懶一下，明天就要開始寫 api utility 給 swift 用</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/2">&larr; Older</a>
@@ -1985,7 +1896,7 @@ Day30 -  <a href="http://kerkerj.github.io/blog/2014/10/30/swift-d30/">[Swift-d3
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - kerkerj -
+  Copyright &copy; 2015 - kerkerj -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a> | Themed with <a href="https://github.com/lucaslew/whitespace">Whitespace</a></span>
 </p>
 

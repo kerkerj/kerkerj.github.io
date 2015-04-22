@@ -4,7 +4,7 @@
   <title><![CDATA[kerkerj]]></title>
   <link href="http://kerkerj.github.io/atom.xml" rel="self"/>
   <link href="http://kerkerj.github.io/"/>
-  <updated>2014-12-08T14:52:37+08:00</updated>
+  <updated>2015-04-23T02:01:04+08:00</updated>
   <id>http://kerkerj.github.io/</id>
   <author>
     <name><![CDATA[kerkerj]]></name>
@@ -12,6 +12,226 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Raspberry Pi2 Remote Webcam]]></title>
+    <link href="http://kerkerj.github.io/blog/2015/04/22/raspberry-pi2-remote-webcam/"/>
+    <updated>2015-04-22T23:43:38+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2015/04/22/raspberry-pi2-remote-webcam</id>
+    <content type="html"><![CDATA[<p>如題~</p>
+
+<p>先假設 pi2 本身的 IP 是 <code>192.168.1.200</code></p>
+
+<p>首先先進去 server 來更新一下~</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get update && sudo apt-get upgrade</span></code></pre></td></tr></table></div></figure>
+
+
+<p>再來就裝 <a href="http://www.lavrsen.dk/foswiki/bin/view/Motion/WebHome">motion</a></p>
+
+<p>他其實是一個 motion detector，不過也可以拿來當作 web cam 用的 streaming server XD</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get install motion</span></code></pre></td></tr></table></div></figure>
+
+
+<p>編輯設定檔 <code>/etc/motion/motion.conf</code></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo vi /etc/motion/motion.conf</span></code></pre></td></tr></table></div></figure>
+
+
+<p>找到以下幾個值，並分別改成下面</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>daemon = ON 
+</span><span class='line'>webcam_localhost = OFF
+</span><span class='line'>control_localhost = OFF</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>webcam_localhost</code> 是 streaming 介面</p>
+
+<p><code>control_localhost</code> 是設定介面</p>
+
+<p>如果要改預設 port，就找 <code>webcam_port</code>, or <code>control_port</code></p>
+
+<p>最後設定將 service 啟動</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo vi /etc/default/motion</span></code></pre></td></tr></table></div></figure>
+
+
+<p>將 no 改成 yes</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>start_motion_daemon = yes</span></code></pre></td></tr></table></div></figure>
+
+
+<p>啟動 service</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo service motion start</span></code></pre></td></tr></table></div></figure>
+
+
+<p>motion 這個 service 預設的 port 是 8080/8081 (可以在前述的設定檔更改)</p>
+
+<p>開啟瀏覽器, 連入 <code>http://192.168.1.200:8080</code> or <code>http://192.168.1.200:8081</code></p>
+
+<p>這邊會有個小問題，就是連 8080 時會很正常</p>
+
+<p>但是 8081 時如果是用 chrome，則怎麼都進不去</p>
+
+<p>後來發現 <a href="http://www.lavrsen.dk/foswiki/bin/view/Motion/SupportQuestion2013x09x01x104741">這篇</a></p>
+
+<p>他說 Chrome 不再支援 raw MJPEG streams 了</p>
+
+<p>所以就是用其他瀏覽器開吧, 我是用 Safari :D</p>
+
+<p>記得要和你的 pi2 在同一個 wifi 環境下~</p>
+
+<p>剩下的還有許多設定可以玩～ 改天再來慢慢玩</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Setup Wifi on Raspberry Pi2]]></title>
+    <link href="http://kerkerj.github.io/blog/2015/04/22/setup-wifi-on-raspberry-pi2/"/>
+    <updated>2015-04-22T22:59:11+08:00</updated>
+    <id>http://kerkerj.github.io/blog/2015/04/22/setup-wifi-on-raspberry-pi2</id>
+    <content type="html"><![CDATA[<p>(這是篇筆記)</p>
+
+<p>前陣子從前同事那接手了一塊 raspberry pi2 的板子</p>
+
+<p>想要用 wifi 來連網，於是就買了一個 usb 無線網卡</p>
+
+<p>型號是:</p>
+
+<p>TP-LINK TL-WN725N 150MbpsUSB無線網卡 (<a href="http://24h.pchome.com.tw/prod/DRAF4Z-A75333252">pchome連結</a>)</p>
+
+<p>一開始當然還是必須先插網路線，<code>ssh</code> 進去後</p>
+
+<p>先檢查 <code>pi2</code> 的 <code>kernel</code> 版本</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ uname -r
+</span><span class='line'>3.18.7-v7+ # 這是我的版本</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接著根據這個 <a href="https://github.com/lwfinger/rtl8188eu/">repo</a></p>
+
+<p>將韌體載下來放到 /lib/firmware 裡</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo wget https://github.com/lwfinger/rtl8188eu/raw/c83976d1dfb4793893158461430261562b3a5bf0/rtl8188eufw.bin -O /lib/firmware/rtlwifi/rtl8188eufw.bin </span></code></pre></td></tr></table></div></figure>
+
+
+<p>再來設定 pi2 的網路</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ifconfig
+</span><span class='line'>eth0      Link encap:Ethernet  
+</span><span class='line'>lo        Link encap:Local Loopback
+</span><span class='line'>wlan0     Link encap:Ethernet </span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果網卡有裝成功，應該就會有 <code>wlan0</code> 或是 <code>wlanX</code> 之類的 (X 是數字)</p>
+
+<p>最後就是手動掃描無線網路，並設定連線值囉</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo iwlist scan =&gt; 掃描無線網路 AP
+</span><span class='line'>wlan0     Scan completed :
+</span><span class='line'>          Cell 01 - Address: XX:XX:XX:XX:XX:XX
+</span><span class='line'>                    ESSID:"GGININDER"
+</span><span class='line'>          Cell 02 - Address: XX:XX:XX:XX:XX:XX
+</span><span class='line'>                    ESSID:"TP-LINK_F5566"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>連線的 <code>SSID</code> 就找 <code>Cell</code> 裡的 <code>ESSID</code></p>
+
+<p>(通常應該會記得自己家的 AP 啦，可以用來確認一下)</p>
+
+<p>開啟 <code>/etc/network/interfaces</code> 來寫入連線值</p>
+
+<p>我的 AP 的加密機制是 WPA/WPA2，所以使用下面的方式連線</p>
+
+<p>若是其他方式 (e.g. WEP) 可以參考 <a href="http://inpega.blogspot.tw/2013/09/blog-post_15.html">這篇</a></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ vi /etc/network/interfaces
+</span><span class='line'>auto lo
+</span><span class='line'>
+</span><span class='line'>iface lo inet loopback
+</span><span class='line'>iface eth0 inet dhcp
+</span><span class='line'>
+</span><span class='line'># 重點是下面這段
+</span><span class='line'>
+</span><span class='line'># 允許熱插拔 wlan0 這個介面
+</span><span class='line'>allow-hotplug wlan0 
+</span><span class='line'>
+</span><span class='line'># 預設設定為 dhcp
+</span><span class='line'>iface default inet dhcp
+</span><span class='line'>
+</span><span class='line'># 設定 wlan0 這張介面卡為 DHCP 自動取得 IP
+</span><span class='line'>iface wlan0 inet dhcp
+</span><span class='line'>
+</span><span class='line'># 你的 AP 的 SSID
+</span><span class='line'>wpa-ssid "GGININDER"
+</span><span class='line'>
+</span><span class='line'># 你的 AP 的密碼
+</span><span class='line'>wpa-psk "password"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>設定好後，重新啟動 wlan0 介面就可以連線囉</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo ifdown wlan0
+</span><span class='line'>$ sudo ifup wlan0
+</span><span class='line'>$ ifconfig wlan0 # 確認是否取得 IP</span></code></pre></td></tr></table></div></figure>
+
+
+<p>reference:</p>
+
+<p>raspberry pi forum: <a href="http://www.raspberrypi.org/forums/viewtopic.php?f=28&amp;t=62371&amp;start=475">http://www.raspberrypi.org/forums/viewtopic.php?f=28&amp;t=62371&amp;start=475</a></p>
+
+<p>網路設定: <a href="http://inpega.blogspot.tw/2013/09/blog-post_15.html">http://inpega.blogspot.tw/2013/09/blog-post_15.html</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Ithome 鐵人賽 - 規劃]]></title>
@@ -2617,294 +2837,6 @@ Day30 -  <a href="http://kerkerj.github.io/blog/2014/10/30/swift-d30/">[Swift-d3
 
 
 <p>明天就會提到換頁以及刪除的作法!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[API-d22] - 實戰開發 - 讀取 TODO Task API With Mongoose]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/22/api-d22/"/>
-    <updated>2014-10-22T19:13:00+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/22/api-d22</id>
-    <content type="html"><![CDATA[<p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day22">Github 參考</a></p>
-
-<p>如果有使用 MongoDB client 的話就可以搭配使用會比較有感覺</p>
-
-<p>Mac 我是使用 Robomongo，算很好上手~</p>
-
-<p>今天要來實作讀取的部分</p>
-
-<p>讀取有分兩種，一種是讀取 list</p>
-
-<p>另一種是讀取特定某個 todo task，今天兩種都會實作</p>
-
-<p>首先我們先實作 get todo list</p>
-
-<p>因為若要拿到特定的 todo task，需要 todo task 的 id</p>
-
-<p>而我們現在還不曉得 todo task 的 id 是多少，我們只知道 user_id</p>
-
-<p>因此就先從 list 下手</p>
-
-<p>routes/users.js:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Get todo list</span>
-</span><span class='line'><span class="nx">router</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/:user_id/todos&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="kd">var</span> <span class="nx">user_id</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">user_id</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nx">TODO</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span>
-</span><span class='line'>        <span class="p">{</span><span class="nx">user_id</span><span class="o">:</span> <span class="nx">user_id</span><span class="p">},</span>
-</span><span class='line'>        <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">results</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>                <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">400</span><span class="p">).</span><span class="nx">json</span><span class="p">(</span>
-</span><span class='line'>                    <span class="p">{</span> <span class="nx">error</span><span class="o">:</span> <span class="s2">&quot;can not find data&quot;</span> <span class="p">}</span>
-</span><span class='line'>                <span class="p">);</span>
-</span><span class='line'>            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span><span class='line'>                <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">200</span><span class="p">).</span><span class="nx">json</span><span class="p">(</span>
-</span><span class='line'>                    <span class="nx">results</span>
-</span><span class='line'>                <span class="p">);</span>
-</span><span class='line'>            <span class="p">}</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>    <span class="p">);</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>上面程式碼的意思是，先抓到 uri 的 user_id</p>
-
-<p>再來就直接進 db 找，find() 的第一個參數為:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span><span class="nx">user_id</span><span class="o">:</span> <span class="nx">user_id</span><span class="p">},</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>可以想像成是 SQL 語法中的 WHERE 條件</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">SELECT</span> <span class="o">*</span> <span class="nx">WHERE</span> <span class="nx">user_id</span> <span class="o">=</span> <span class="s1">&#39;user_id&#39;</span> <span class="nx">FROM</span> <span class="nx">todos</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>而 callback 則是針對 error 或 results 作處理</p>
-
-<p>試著將 server 跑起來，然後使用 POSTMAN 丟 GET request 試試看</p>
-
-<p>如果沒有資料，就利用昨天實作的 POST API 新增幾個吧！</p>
-
-<p>記得 url 中輸入的 user_id 要在 DB 中有該 user 的資料才找的到資料哦</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%203.17.08.png" alt="images" /></p>
-
-<p>如此一來就有 task id 了!</p>
-
-<p>再來就來實作讀取特定 id 的 task API 吧!</p>
-
-<p>程式碼如下</p>
-
-<p>routes/user.js:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Get a todo task</span>
-</span><span class='line'><span class="nx">router</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/:user_id/todos/:todo_id&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">user_id</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">user_id</span><span class="p">;</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">todo_id</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">todo_id</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nx">TODO</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span>
-</span><span class='line'>        <span class="p">{</span> <span class="nx">_id</span><span class="o">:</span> <span class="nx">todo_id</span><span class="p">,</span> <span class="nx">user_id</span><span class="o">:</span> <span class="nx">user_id</span><span class="p">},</span>
-</span><span class='line'>        <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">results</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>                <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">400</span><span class="p">).</span><span class="nx">json</span><span class="p">(</span>
-</span><span class='line'>                    <span class="p">{</span> <span class="nx">error</span><span class="o">:</span> <span class="s2">&quot;can not find data&quot;</span> <span class="p">}</span>
-</span><span class='line'>                <span class="p">);</span>
-</span><span class='line'>            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span><span class='line'>                <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">200</span><span class="p">).</span><span class="nx">json</span><span class="p">(</span>
-</span><span class='line'>                    <span class="nx">results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</span><span class='line'>                <span class="p">);</span>
-</span><span class='line'>            <span class="p">}</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>    <span class="p">);</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>這次更簡單了，user_id 及 todo_id 都是從 url 上取值</p>
-
-<p>接著一樣使用 where 條件，將值帶入找資料</p>
-
-<p>最後交給 callback 處理回傳值</p>
-
-<p>將 server 跑起來，試著先從todo list 複製某一筆 _id 的值</p>
-
-<p>丟到 url 中試試看</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%203.21.51.png" alt="image" /></p>
-
-<p>如此一來，讀取特定 task 的 API 也完成囉!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[Swift-d21] - 實戰開發 - TODOList - 前置設定]]></title>
-    <link href="http://kerkerj.github.io/blog/2014/10/21/swift-d21/"/>
-    <updated>2014-10-21T18:58:10+08:00</updated>
-    <id>http://kerkerj.github.io/blog/2014/10/21/swift-d21</id>
-    <content type="html"><![CDATA[<p><a href="https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day21">Github link</a></p>
-
-<p>首先在開始寫這隻 app 前，</p>
-
-<p>我們要先定義好程式大致上的流程</p>
-
-<p>基本上接下來的程式碼都不會用到 storyboard</p>
-
-<p>只會用到程式 + xib</p>
-
-<p>程式的流程大致上是使用 Navigation controller 來控制 view 的轉換</p>
-
-<p>第一頁 - tableView 顯示 todo items list</p>
-
-<p><img src="http://goo.gl/RKH85d" alt="image" /></p>
-
-<p>點進子項目可以觀看內容，進到子頁後可以編輯，</p>
-
-<p>編輯後就即可存檔</p>
-
-<p>新增項目則在主頁的右上角 &ldquo;Add&rdquo; 可以新增</p>
-
-<p>我們會先從建立假的資料開始，也就是我會先刻出程式的流程</p>
-
-<p>先不接 API</p>
-
-<p>實際寫出運作流程後，再加上 API 操作的部分</p>
-
-<p>因此今天的進度就先開一個新專案，將基本的 Navigation + tableView 建立起來吧:</p>
-
-<p>首先建立一個新專案</p>
-
-<p>再來到 project settings</p>
-
-<p>將 Main Interface 及 Launch Screen file 拿掉</p>
-
-<p>並將 deploy target 設成 7.1 (反正用到的程式碼都一樣~ 沒有特別使用 8.0 的 lib)</p>
-
-<p>設定 device orientation - 只限定直的</p>
-
-<p><img src="http://goo.gl/xQ6m25" alt="image" /></p>
-
-<p>接著就來編輯 AppDelegate.swift</p>
-
-<p>建立一個 NavigationController + ViewController</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="p">@</span><span class="n">UIApplicationMain</span>
-</span><span class='line'><span class="k">class</span> <span class="nl">AppDelegate</span><span class="p">:</span> <span class="bp">UIResponder</span><span class="p">,</span> <span class="bp">UIApplicationDelegate</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">var</span> <span class="nl">window</span><span class="p">:</span> <span class="bp">UIWindow</span><span class="o">?</span>
-</span><span class='line'>    <span class="k">var</span> <span class="nl">navigationController</span><span class="p">:</span> <span class="bp">UINavigationController</span><span class="o">?</span>
-</span><span class='line'>    <span class="k">var</span> <span class="nl">viewController</span><span class="p">:</span> <span class="n">ViewController</span><span class="o">?</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">func</span> <span class="n">application</span><span class="p">(</span><span class="nl">application</span><span class="p">:</span> <span class="bp">UIApplication</span><span class="p">,</span> <span class="n">didFinishLaunchingWithOptions</span> <span class="nl">launchOptions</span><span class="p">:</span> <span class="p">[</span><span class="nl">NSObject</span><span class="p">:</span> <span class="n">AnyObject</span><span class="p">]</span><span class="o">?</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Bool</span> <span class="p">{</span>
-</span><span class='line'>        <span class="c1">// Override point for customization after application launch.</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">window</span> <span class="o">=</span> <span class="bp">UIWindow</span><span class="p">(</span><span class="nl">frame</span><span class="p">:</span> <span class="bp">UIScreen</span><span class="p">.</span><span class="n">mainScreen</span><span class="p">().</span><span class="n">bounds</span><span class="p">)</span>
-</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">window</span><span class="o">?</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="bp">UIColor</span><span class="p">.</span><span class="n">whiteColor</span><span class="p">()</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">viewController</span> <span class="o">=</span> <span class="n">ViewController</span><span class="p">()</span>
-</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">viewController</span><span class="o">?</span><span class="p">.</span><span class="n">title</span> <span class="o">=</span> <span class="s">&quot;TODO List&quot;</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">navigationController</span> <span class="o">=</span> <span class="bp">UINavigationController</span><span class="p">(</span><span class="nl">rootViewController</span><span class="p">:</span> <span class="nb">self</span><span class="p">.</span><span class="n">viewController</span><span class="o">!</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">window</span><span class="o">?</span><span class="p">.</span><span class="n">makeKeyAndVisible</span><span class="p">()</span>
-</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">window</span><span class="o">?</span><span class="p">.</span><span class="n">rootViewController</span> <span class="o">=</span> <span class="n">navigationController</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">return</span> <span class="nb">true</span>
-</span><span class='line'>    <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>就是之前有用到的程式碼，稍作改寫</p>
-
-<p>再來到 ViewController 中, 將背景色稍改一些</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="kr">override</span> <span class="k">func</span> <span class="nf">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nb">super</span><span class="p">.</span><span class="n">viewDidLoad</span><span class="p">()</span>
-</span><span class='line'>        <span class="c1">// Do any additional setup after loading the view, typically from a nib.</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">view</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="bp">UIColor</span><span class="p">.</span><span class="n">yellowColor</span><span class="p">()</span>
-</span><span class='line'>    <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>最後將 storyboard 以及 launchScreen.xib 刪掉</p>
-
-<p>執行程式，就 OK 囉！</p>
-
-<p><img src="http://goo.gl/n1T0zv" alt="image" /></p>
 ]]></content>
   </entry>
   
