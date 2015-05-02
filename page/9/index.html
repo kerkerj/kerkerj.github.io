@@ -10,7 +10,7 @@
     <meta property="og:url" content="http://kerkerj.github.io/">
     <meta property="og:title" content="kerkerj">
     
-    <meta property="og:description" content="如題~ 先假設 pi2 本身的 IP 是 192.168.1.200 首先先進去 server 來更新一下~ $ sudo apt-get update &amp;&amp; sudo apt-get upgrade 再來就裝 motion 他其實是一個 motion detector，不過也可以拿來當作 web cam 用的 streaming server XD $ sudo apt-get install motion 編輯設定檔 /etc/motion/motion.conf $ sudo vi /etc/motion/motion.conf 找到以下幾個值，並分別改成下面 daemon = ON webcam_localhost = OFF control_localhost = OFF webcam_localhost 是 streaming 介面 control_localhost 是設定介面 如果要改預設 port，就找 webcam_port, or control_port 最後設定將 service 啟動 $ sudo vi /etc/default/motion 將 no">
+    <meta property="og:description" content="hugo hugo - 快速又現代的靜態網站產生器 ^^^ 這是 spf13 自己說的 繼 spf13-vim 後又一個 spf13 出品的好東西 XD 在靜態網站產生器中最廣為人知的應該就是 Jekyll 以及基於 Jekyll 的 Octopress 了 (關於靜態網站產生器，這篇文章 介紹了六個除了 Jekyll 以外的產生器) 為什麼要用 hugo？ 雖然 Jekyll / Octopress 很紅資源多主題也不少 但是缺點就是要使用它們就必須裝 ruby、裝 gem 有在寫 ruby 的人感覺應該還好 沒在寫 ruby 的光想像就覺得應該會被搞死&hellip; XD 而且覺得文章一多時在編譯的時候好慢&hellip; 用 hugo 的好處就是因為他是用 go 寫的 執行速度飛快，而且只要下載一個 binary 檔案後就可以操作了喲~ 基本 hugo 安裝與操作 首先先安裝 hugo (我是用 mac 的 homebrew) $ brew install hugo 使用 hugo 產生一個新的網站 $ hugo new site /path/to/the/site e.g.">
     
     
     
@@ -90,14 +90,6 @@
                 </li>
                 
                 
-                <li class="nav-item">
-                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
-                </li>
-                
-                
-                <li class="nav-item">
-                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
-                </li>
                 
                 <li class="nav-item">
                     <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
@@ -112,6 +104,96 @@
         <div>
             
             <div class="posts">
+                
+                <h1 class="content-subhead">2014-04-04 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/04/16/2014-04-16-ubuntu-update-openssl/" class="post-title">[Ubuntu] update OpenSSL</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-ubuntu" href="http://kerkerj.github.io//categories/ubuntu">ubuntu</a><a class="post-category post-category-OpenSSL" href="http://kerkerj.github.io//categories/openssl">OpenSSL</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>Easy way:</p>
+
+<ul>
+<li>Below the single command line to compiling and install the last openssl version.</li>
+</ul>
+
+<pre><code>$ curl https://www.openssl.org/source/openssl-1.0.1h.tar.gz | tar xz &amp;&amp; cd openssl-1.0.1h &amp;&amp; sudo ./config &amp;&amp; sudo make &amp;&amp; sudo make install
+</code></pre>
+
+<ul>
+<li>Replace old openssl binary file by the new one via a symlink.</li>
+</ul>
+
+<pre><code>$ sudo ln -sf /usr/local/ssl/bin/openssl `which openssl`
+</code></pre>
+
+<p>how to check version:</p>
+
+<pre><code>$ openssl version -b
+built on: Mon Apr  7 20:33:29 UTC 2014
+$ openssl version -a
+OpenSSL 1.0.1 14 Mar 2012
+built on: Mon Apr  7 20:33:29 UTC 2014
+platform: debian-amd64
+options:  bn(64,64) rc4(16x,int) des(idx,cisc,16,int) blowfish(idx)
+compiler: ..........
+OPENSSLDIR: &quot;/usr/lib/ssl&quot;
+</code></pre>
+
+<p>from: <a href="http://superuser.com/questions/740930/apt-get-upgrade-openssl-wont-bring-ubuntu-12-04-to-latest-version">http://superuser.com/questions/740930/apt-get-upgrade-openssl-wont-bring-ubuntu-12-04-to-latest-version</a></p>
+
+<p>Hard way:</p>
+
+<pre><code class="language-bash">#!/bin/bash
+
+###
+# Need to upgrade an Ubuntu 13.04 server to use OpenSSL 1.0.1g?
+# Read and execute this script :D
+###
+# License: WTFPL, GPLv3, MIT, whatever; just patch your shit
+# http://askubuntu.com/questions/444702/how-to-patch-cve-2014-0160-in-openssl
+###
+
+if [[ $EUID -ne 0 ]]; then
+    echo &quot;This script must be run as root&quot; 1&gt;&amp;2
+    exit 1
+fi
+wget https://www.openssl.org/source/openssl-1.0.1g.tar.gz
+wget https://www.openssl.org/source/openssl-1.0.1g.tar.gz.asc
+
+gpg --recv-key 0xD3577507FA40E9E2
+# Dr Stephen Henson
+# IMPORTANT! Manually verify that this is the correct key ID:
+# http://pgp.mit.edu:11371/pks/lookup?op=vindex&amp;search=0xD3577507FA40E9E2
+# https://www.openssl.org/about/
+
+gpg --verify openssl-1.0.1g.tar.gz.asc openssl-1.0.1g.tar.gz
+
+if [[ $? -eq 0 ]]; then
+    tar xzvf openssl-1.0.1g.tar.gz
+    cd openssl-1.0.1g &amp;&amp; sudo ./config &amp;&amp; sudo make &amp;&amp; sudo make install
+    # To link the old openssl library to a new version
+    sudo ln -sf /usr/local/ssl/bin/openssl `which openssl`
+    echo
+    echo &quot;DONE!&quot;
+fi
+
+# eof
+</code></pre>
+
+                    </div>
+                </section>
                 
                 <h1 class="content-subhead">2014-01-01 00:00</h1>
                 <section class="post">
@@ -184,6 +266,41 @@ Magic is never good in development.</p>
                 <section class="post">
                     <header class="post-header">
 
+                        <a href="http://kerkerj.github.io/blog/2014/01/02/2014-01-02-rails-list-of-rails-model-type-mysql/" class="post-title">[Rails] List of Rails Model Type (MySQL)</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-rails" href="http://kerkerj.github.io//categories/rails">rails</a><a class="post-category post-category-mysql" href="http://kerkerj.github.io//categories/mysql">mysql</a><a class="post-category post-category-model" href="http://kerkerj.github.io//categories/model">model</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>:binary<br />
+:boolean<br />
+:date<br />
+:datetime<br />
+:decimal<br />
+:float<br />
+:integer<br />
+:primary_key<br />
+:string<br />
+:text<br />
+:time<br />
+:timestamp</p>
+
+<p><a href="http://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters/TableDefinition.html#method-i-column">http://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters/TableDefinition.html#method-i-column</a></p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-01-01 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
                         <a href="http://kerkerj.github.io/blog/2014/01/02/2014-01-02-rails-put-vs-patch/" class="post-title">[Rails] PUT v.s. PATCH</a>
 
                         <p class="post-meta">
@@ -216,41 +333,6 @@ edit_post GET    /posts/:id/edit(.:format)                   {:action=&gt;&quot;
 </code></pre>
 
 <p>延伸閱讀：ihower - <a href="http://ihower.tw/blog/archives/6483">HTTP Verbs: 談 POST, PUT 和 PATCH 的應用</a></p>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2014-01-01 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://kerkerj.github.io/blog/2014/01/02/2014-01-02-rails-list-of-rails-model-type-mysql/" class="post-title">[Rails] List of Rails Model Type (MySQL)</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-rails" href="http://kerkerj.github.io//categories/rails">rails</a><a class="post-category post-category-mysql" href="http://kerkerj.github.io//categories/mysql">mysql</a><a class="post-category post-category-model" href="http://kerkerj.github.io//categories/model">model</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p>:binary<br />
-:boolean<br />
-:date<br />
-:datetime<br />
-:decimal<br />
-:float<br />
-:integer<br />
-:primary_key<br />
-:string<br />
-:text<br />
-:time<br />
-:timestamp</p>
-
-<p><a href="http://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters/TableDefinition.html#method-i-column">http://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters/TableDefinition.html#method-i-column</a></p>
 
                     </div>
                 </section>
@@ -601,37 +683,6 @@ end</p>
                     </div>
                 </section>
                 
-                <h1 class="content-subhead">2013-12-12 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://kerkerj.github.io/blog/2013/12/18/2013-12-18-ruby-pp-to-ruby-as-var-dump-to-php/" class="post-title">[Ruby] PP to Ruby as Var_dump to PHP </a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <pre><code class="language-ruby">require 'pp'
-pp(ENV)
-</code></pre>
-
-<blockquote>
-<p>Usage:
-pp(any_variable)</p>
-</blockquote>
-
-<p>just like <code>var_dump</code> in <code>php</code></p>
-
-                    </div>
-                </section>
-                
             </div>
             
 <div class="pagination">
@@ -674,7 +725,7 @@ hljs.initHighlightingOnLoad();
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('create', 'UA-45583907-2', 'auto');
 ga('send', 'pageview');
 
 </script>

@@ -10,7 +10,7 @@
     <meta property="og:url" content="http://kerkerj.github.io/">
     <meta property="og:title" content="kerkerj">
     
-    <meta property="og:description" content="如題~ 先假設 pi2 本身的 IP 是 192.168.1.200 首先先進去 server 來更新一下~ $ sudo apt-get update &amp;&amp; sudo apt-get upgrade 再來就裝 motion 他其實是一個 motion detector，不過也可以拿來當作 web cam 用的 streaming server XD $ sudo apt-get install motion 編輯設定檔 /etc/motion/motion.conf $ sudo vi /etc/motion/motion.conf 找到以下幾個值，並分別改成下面 daemon = ON webcam_localhost = OFF control_localhost = OFF webcam_localhost 是 streaming 介面 control_localhost 是設定介面 如果要改預設 port，就找 webcam_port, or control_port 最後設定將 service 啟動 $ sudo vi /etc/default/motion 將 no">
+    <meta property="og:description" content="hugo hugo - 快速又現代的靜態網站產生器 ^^^ 這是 spf13 自己說的 繼 spf13-vim 後又一個 spf13 出品的好東西 XD 在靜態網站產生器中最廣為人知的應該就是 Jekyll 以及基於 Jekyll 的 Octopress 了 (關於靜態網站產生器，這篇文章 介紹了六個除了 Jekyll 以外的產生器) 為什麼要用 hugo？ 雖然 Jekyll / Octopress 很紅資源多主題也不少 但是缺點就是要使用它們就必須裝 ruby、裝 gem 有在寫 ruby 的人感覺應該還好 沒在寫 ruby 的光想像就覺得應該會被搞死&hellip; XD 而且覺得文章一多時在編譯的時候好慢&hellip; 用 hugo 的好處就是因為他是用 go 寫的 執行速度飛快，而且只要下載一個 binary 檔案後就可以操作了喲~ 基本 hugo 安裝與操作 首先先安裝 hugo (我是用 mac 的 homebrew) $ brew install hugo 使用 hugo 產生一個新的網站 $ hugo new site /path/to/the/site e.g.">
     
     
     
@@ -90,14 +90,6 @@
                 </li>
                 
                 
-                <li class="nav-item">
-                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
-                </li>
-                
-                
-                <li class="nav-item">
-                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
-                </li>
                 
                 <li class="nav-item">
                     <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
@@ -112,6 +104,135 @@
         <div>
             
             <div class="posts">
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/03/2014-10-03-swift-d3/" class="post-title">[Swift-d3] - Playground - 變數與常數, 註解, 基本資料型別 </a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-Swift" href="http://kerkerj.github.io//categories/swift">Swift</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>##變數與常數</p>
+
+<p>定義一個變數:</p>
+
+<pre><code class="language-Swift">var obj: String = &quot;&quot;
+</code></pre>
+
+<p>var 是保留字，宣告 obj 是一個變數名稱，冒號後面接資料形態<br />
+以此例子來說，宣告了一個字串變數叫做 obj，並且初始化為 &ldquo;&rdquo; 空字串</p>
+
+<pre><code>let obj: String = &quot;&quot;
+</code></pre>
+
+<p>let 同樣是用來宣告一個變數，但是宣告此變數後，該變數的值無法被改變，<br />
+無法被改變的數值其實正正的名字就叫做常數
+以上面的例子來說， 若我們多做一件事:</p>
+
+<pre><code>let obj: String = &quot;&quot;
+obj = &quot;test&quot;
+</code></pre>
+
+<p>若我們試圖去更改 obj，讓 obj 從空字串變成 &ldquo;test&rdquo; 時，<br />
+Xcode 就會報錯，不能更改該值</p>
+
+<p>再來是宣告的變型，其實宣告時不一定要給資料形態，<br />
+Swift 會自動從後面的值來判斷 x 可能是什麼資料形態，<br />
+只是由於筆者的習慣，會儘量在後面加上該變數的資料型別</p>
+
+<pre><code>var x = &quot;test&quot;
+</code></pre>
+
+<p>一行內宣告多值：</p>
+
+<pre><code>var x = 0.0, y = 0.0, z = 0.0
+</code></pre>
+
+<p>我們就可以在 Playground 裡面試著宣告一些變數看看，並且使用昨天的輸出函式來輸出變數:</p>
+
+<pre><code>var str: String = &quot;測試&quot;
+let fixString: String = &quot;fixed&quot;
+
+var x = 0, y = 1, z = 2
+
+println(str)
+println(x)
+println(y)
+println(z)
+</code></pre>
+
+<p>##註解</p>
+
+<pre><code>// 單行註解
+
+/*
+多行註解
+多行註解
+多行註解
+*/
+</code></pre>
+
+<p>##基本資料型別</p>
+
+<p>Swift 是一個強型別語言，意即若是以下的程式碼是會出錯的:</p>
+
+<pre><code>var x = &quot;test&quot;
+x = 2
+</code></pre>
+
+<p>由於 x 已經被先 Swift 判定是 String 了，後面想指定 Int 資料給 x 就會出錯</p>
+
+<p>Int 整數:
+Swift 提供了 Int 還另外提供了 8, 16, 32, 64 位元的有號和無號整數型別<br />
+若在 32 位元平台，宣告 Int 的話， Int 的長度和 Int32 是一樣的<br />
+若在 64 位元平台，宣告 Int 的話， Int 的長度和 Int64 是一樣的</p>
+
+<p>浮點數：
+3.2, 0.0 之類的數字，可以用
+Double - 64 位元浮點數 (至少 15 位數)
+Float - 32 位元浮點數 (至少 6 位數)</p>
+
+<p>布林值：
+true/false</p>
+
+<p>Tuples:
+Tuple 可以將多個值組合成一個值，例如：</p>
+
+<pre><code>//賦值
+let httpSucess = (200, &quot;Success&quot;)
+
+// 反過來接值
+let (statusCode, statusMessage) = httpSucess
+
+// 若只需要其中一個值，另一個值可以用 _ 代替，但是不能沒有 _ 
+let (statusCode, _) = httpSucess
+
+// 也可以用索引的方式拿值
+println(httpSucess.0)
+
+// 宣告 tuples 時也可以直接給予參數一個名稱
+let httpSucess = (statusCode: 200, statusMessage: &quot;Success&quot;)
+
+// 拿值時就可以:
+println(httpSucess.statusCode)
+</code></pre>
+
+<p>同時結合 function 這樣就可以多值回傳了！</p>
+
+<p>下一篇會接續今天變數相關的主題~</p>
+
+                    </div>
+                </section>
                 
                 <h1 class="content-subhead">2014-10-10 00:00</h1>
                 <section class="post">
@@ -719,119 +840,6 @@ print(fact(num))
                     </div>
                 </section>
                 
-                <h1 class="content-subhead">2014-08-08 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://kerkerj.github.io/blog/2014/08/05/2014-08-05-openresty-on-ubuntu-14-dot-04/" class="post-title">Openresty on Ubuntu 14.04</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-ubuntu" href="http://kerkerj.github.io//categories/ubuntu">ubuntu</a><a class="post-category post-category-nginx" href="http://kerkerj.github.io//categories/nginx">nginx</a><a class="post-category post-category-openresty" href="http://kerkerj.github.io//categories/openresty">openresty</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        
-
-<p>##Install
-choose the latest version of Openresty<br />
-I used ngx_openresty-1.7.2.1.tar.gz</p>
-
-<pre><code class="language-console"># install packages
-sudo apt-get install libreadline-dev libpcre3-dev libssl-dev perl  
-
-# get openresty package
-wget http://openresty.org/download/ngx_openresty-1.7.2.1.tar.gz   
-
-# unzip
-tar xzvf ngx_openresty-1.7.2.1.tar.gz
-
-# install
-cd ngx_openresty-1.7.2.1/
-
-# You can setup with ./configure --prefix=&quot;the folder you want to install&quot;, default is '/usr/local/openresty'
-./configure 
-make
-sudo make install # need permission to copy file to target folder
-</code></pre>
-
-<p>Default folder: <code>/usr/local/openresty</code></p>
-
-<p>##Setup</p>
-
-<p>create work folder in ~</p>
-
-<pre><code>mkdir ~/work
-cd ~/work
-mkdir logs/ conf/
-</code></pre>
-
-<p>create a new file in <code>~/work/conf/nginx.conf</code></p>
-
-<pre><code>worker_processes  1;
-error_log logs/error.log;
-events {
-    worker_connections 1024;
-}
-http {
-    server {
-        listen 8080;
-        location / {
-            default_type text/html;
-            content_by_lua '
-                ngx.say(&quot;&lt;p&gt;hello, world&lt;/p&gt;&quot;)
-            ';
-        }
-    }
-}
-</code></pre>
-
-<p>because Openresty is installed in <code>/usr/local/openresty</code>,<br />
-we need to add the directory to PATH variable</p>
-
-<pre><code>PATH=/usr/local/openresty/nginx/sbin:$PATH
-export PATH
-</code></pre>
-
-<p>Then use the way below to start nginx server</p>
-
-<pre><code>nginx -p `pwd`/ -c conf/nginx.conf
-</code></pre>
-
-<p>Assume that you have a nginx server originally, and then you installed Openresty, it can be set up at the same time if the port is not confilcted to the origin nginx.</p>
-
-<h2 id="use-external-lua-file-to-keep-conf-clean:0e2cb561b06a3e1b36965c450d4a314c">Use external lua file to keep conf clean</h2>
-
-<p>Edit <code>~/work/conf/nginx.conf</code></p>
-
-<pre><code>worker_processes  1;
-error_log logs/error.log;
-events {
-    worker_connections 1024;
-}
-http {
-    server {
-        listen 8080;
-        location /hello {
-            content_by_lua_file conf/hello.lua;
-        }
-    }
-}
-</code></pre>
-
-<p><code>lua hello.lua
--- hello.lua
-ngx.say(&quot;Hello World&quot;)
-</code></p>
-
-                    </div>
-                </section>
-                
             </div>
             
 <div class="pagination">
@@ -874,7 +882,7 @@ hljs.initHighlightingOnLoad();
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('create', 'UA-45583907-2', 'auto');
 ga('send', 'pageview');
 
 </script>

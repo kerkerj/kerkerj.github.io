@@ -85,14 +85,6 @@
                 </li>
                 
                 
-                <li class="nav-item">
-                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
-                </li>
-                
-                
-                <li class="nav-item">
-                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
-                </li>
                 
                 <li class="nav-item">
                     <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
@@ -107,6 +99,135 @@
         <div>
             
             <div class="posts">
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/03/2014-10-03-swift-d3/" class="post-title">[Swift-d3] - Playground - 變數與常數, 註解, 基本資料型別 </a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-Swift" href="http://kerkerj.github.io//categories/swift">Swift</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>##變數與常數</p>
+
+<p>定義一個變數:</p>
+
+<pre><code class="language-Swift">var obj: String = &quot;&quot;
+</code></pre>
+
+<p>var 是保留字，宣告 obj 是一個變數名稱，冒號後面接資料形態<br />
+以此例子來說，宣告了一個字串變數叫做 obj，並且初始化為 &ldquo;&rdquo; 空字串</p>
+
+<pre><code>let obj: String = &quot;&quot;
+</code></pre>
+
+<p>let 同樣是用來宣告一個變數，但是宣告此變數後，該變數的值無法被改變，<br />
+無法被改變的數值其實正正的名字就叫做常數
+以上面的例子來說， 若我們多做一件事:</p>
+
+<pre><code>let obj: String = &quot;&quot;
+obj = &quot;test&quot;
+</code></pre>
+
+<p>若我們試圖去更改 obj，讓 obj 從空字串變成 &ldquo;test&rdquo; 時，<br />
+Xcode 就會報錯，不能更改該值</p>
+
+<p>再來是宣告的變型，其實宣告時不一定要給資料形態，<br />
+Swift 會自動從後面的值來判斷 x 可能是什麼資料形態，<br />
+只是由於筆者的習慣，會儘量在後面加上該變數的資料型別</p>
+
+<pre><code>var x = &quot;test&quot;
+</code></pre>
+
+<p>一行內宣告多值：</p>
+
+<pre><code>var x = 0.0, y = 0.0, z = 0.0
+</code></pre>
+
+<p>我們就可以在 Playground 裡面試著宣告一些變數看看，並且使用昨天的輸出函式來輸出變數:</p>
+
+<pre><code>var str: String = &quot;測試&quot;
+let fixString: String = &quot;fixed&quot;
+
+var x = 0, y = 1, z = 2
+
+println(str)
+println(x)
+println(y)
+println(z)
+</code></pre>
+
+<p>##註解</p>
+
+<pre><code>// 單行註解
+
+/*
+多行註解
+多行註解
+多行註解
+*/
+</code></pre>
+
+<p>##基本資料型別</p>
+
+<p>Swift 是一個強型別語言，意即若是以下的程式碼是會出錯的:</p>
+
+<pre><code>var x = &quot;test&quot;
+x = 2
+</code></pre>
+
+<p>由於 x 已經被先 Swift 判定是 String 了，後面想指定 Int 資料給 x 就會出錯</p>
+
+<p>Int 整數:
+Swift 提供了 Int 還另外提供了 8, 16, 32, 64 位元的有號和無號整數型別<br />
+若在 32 位元平台，宣告 Int 的話， Int 的長度和 Int32 是一樣的<br />
+若在 64 位元平台，宣告 Int 的話， Int 的長度和 Int64 是一樣的</p>
+
+<p>浮點數：
+3.2, 0.0 之類的數字，可以用
+Double - 64 位元浮點數 (至少 15 位數)
+Float - 32 位元浮點數 (至少 6 位數)</p>
+
+<p>布林值：
+true/false</p>
+
+<p>Tuples:
+Tuple 可以將多個值組合成一個值，例如：</p>
+
+<pre><code>//賦值
+let httpSucess = (200, &quot;Success&quot;)
+
+// 反過來接值
+let (statusCode, statusMessage) = httpSucess
+
+// 若只需要其中一個值，另一個值可以用 _ 代替，但是不能沒有 _ 
+let (statusCode, _) = httpSucess
+
+// 也可以用索引的方式拿值
+println(httpSucess.0)
+
+// 宣告 tuples 時也可以直接給予參數一個名稱
+let httpSucess = (statusCode: 200, statusMessage: &quot;Success&quot;)
+
+// 拿值時就可以:
+println(httpSucess.statusCode)
+</code></pre>
+
+<p>同時結合 function 這樣就可以多值回傳了！</p>
+
+<p>下一篇會接續今天變數相關的主題~</p>
+
+                    </div>
+                </section>
                 
                 <h1 class="content-subhead">2014-10-10 00:00</h1>
                 <section class="post">
@@ -714,206 +835,6 @@ print(fact(num))
                     </div>
                 </section>
                 
-                <h1 class="content-subhead">2014-08-08 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://kerkerj.github.io/blog/2014/08/05/2014-08-05-capistrano-with-rails-basic-notes/" class="post-title">Capistrano with rails - basic notes</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-rails" href="http://kerkerj.github.io//categories/rails">rails</a><a class="post-category post-category-capistrano" href="http://kerkerj.github.io//categories/capistrano">capistrano</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        
-
-<p>詳細的東西還是看 project&rsquo;s github page 比較快 - <a href="https://github.com/capistrano/capistrano">Capistrano@github</a></p>
-
-<p>Capistrano 剛開始寫 deploy script 時真的會有點搞不太懂 XD<br />
-記錄一下使用 &lsquo;capistrano&rsquo; 把特定的 github repo 抓到 remote server</p>
-
-<p>##安裝</p>
-
-<p>先在 Gemfile 加入:</p>
-
-<pre><code>gem 'capistrano', '~&gt; 3.2.0'   
-</code></pre>
-
-<p>然後安裝~</p>
-
-<pre><code>bundle install
-</code></pre>
-
-<p>步驟大概會是：</p>
-
-<p>假設已經寫完 capistrano 了，執行 script 時，<br />
-capistrano 會先利用 script 裡提供的 server ip 以及 public key，<br />
-先連線到 remote server，接著再到 github 上拉 code 到指定的目錄裡，<br />
-再重開 server。</p>
-
-<p>##產生相關檔案</p>
-
-<pre><code>bundle exec cap install 
-</code></pre>
-
-<p>會產生以下檔案:  (copy from <a href="https://github.com/capistrano/capistrano">Capistrano@github</a>)</p>
-
-<pre><code>├── Capfile
-├── config
-│   ├── deploy
-│   │   ├── production.rb
-│   │   └── staging.rb
-│   └── deploy.rb
-└── lib
-    └── capistrano
-            └── tasks
-</code></pre>
-
-<p>deploy.rb 通常是設定 source control 的類型 (可以設定 git, hg, svn)，<br />
-project repo 的路徑，要 deploy 到 server 的哪個目錄等等，<br />
-<code>config/deploy/*</code> 底下的檔案則是根據不同的 stage 分別設定，<br />
-以下是 deploy.rb, production.rb 的一些簡單設定</p>
-
-<p>```ruby deploy.rb</p>
-
-<h1 id="config-valid-only-for-capistrano-3-1:fec4ba4e5c88d61d622b40a3ae8beda5">config valid only for Capistrano 3.1</h1>
-
-<p>lock &lsquo;3.2.1&rsquo;</p>
-
-<p>set :application, &lsquo;application_name&rsquo;
-set :repo_url, &lsquo;github_repo_url&rsquo;</p>
-
-<p>set :deploy_via, :copy</p>
-
-<h1 id="default-branch-is-master:fec4ba4e5c88d61d622b40a3ae8beda5">Default branch is :master</h1>
-
-<h1 id="ask-branch-proc-git-rev-parse-abbrev-ref-head-chomp-call:fec4ba4e5c88d61d622b40a3ae8beda5">ask :branch, proc { <code>git rev-parse --abbrev-ref HEAD</code>.chomp }.call</h1>
-
-<h1 id="default-deploy-to-directory-is-var-www-my-app:fec4ba4e5c88d61d622b40a3ae8beda5">Default deploy_to directory is /var/www/my_app</h1>
-
-<p>set :deploy_to, &lsquo;/server/www/path/&rsquo;</p>
-
-<h1 id="default-value-for-scm-is-git:fec4ba4e5c88d61d622b40a3ae8beda5">Default value for :scm is :git</h1>
-
-<p>set :scm, :git</p>
-
-<h1 id="default-value-for-format-is-pretty:fec4ba4e5c88d61d622b40a3ae8beda5">Default value for :format is :pretty</h1>
-
-<p>set :format, :pretty</p>
-
-<h1 id="default-value-for-log-level-is-debug:fec4ba4e5c88d61d622b40a3ae8beda5">Default value for :log_level is :debug</h1>
-
-<p>set :log_level, :debug</p>
-
-<h1 id="default-value-for-pty-is-false:fec4ba4e5c88d61d622b40a3ae8beda5">Default value for :pty is false</h1>
-
-<h1 id="set-pty-true:fec4ba4e5c88d61d622b40a3ae8beda5">set :pty, true</h1>
-
-<h1 id="default-value-for-linked-files-is:fec4ba4e5c88d61d622b40a3ae8beda5">Default value for :linked_files is []</h1>
-
-<h1 id="set-linked-files-w-config-database-yml:fec4ba4e5c88d61d622b40a3ae8beda5">set :linked_files, %w{config/database.yml}</h1>
-
-<h1 id="default-value-for-linked-dirs-is:fec4ba4e5c88d61d622b40a3ae8beda5">Default value for linked_dirs is []</h1>
-
-<h1 id="set-linked-dirs-w-bin-log-tmp-pids-tmp-cache-tmp-sockets-vendor-bundle-public-system:fec4ba4e5c88d61d622b40a3ae8beda5">set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}</h1>
-
-<h1 id="default-value-for-default-env-is:fec4ba4e5c88d61d622b40a3ae8beda5">Default value for default_env is {}</h1>
-
-<h1 id="set-default-env-path-opt-ruby-bin-path:fec4ba4e5c88d61d622b40a3ae8beda5">set :default_env, { path: &ldquo;/opt/ruby/bin:$PATH&rdquo; }</h1>
-
-<h1 id="default-value-for-keep-releases-is-5:fec4ba4e5c88d61d622b40a3ae8beda5">Default value for keep_releases is 5</h1>
-
-<h1 id="set-keep-releases-5:fec4ba4e5c88d61d622b40a3ae8beda5">set :keep_releases, 5</h1>
-
-<p>namespace :deploy do</p>
-
-<p>desc &lsquo;Restart application&rsquo;
-  task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      # Your restart mechanism here, for example:
-      execute :mkdir, &lsquo;-p&rsquo;, &ldquo;#{ release_path }/tmp&rdquo;
-      execute :touch, release_path.join(&lsquo;tmp/restart.txt&rsquo;)
-    end
-  end</p>
-
-<p>after :publishing, :restart</p>
-
-<p>after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
-      # Here we can do anything such as:
-      # within release_path do
-      #  execute :rake, &lsquo;cache:clear&rsquo;
-      # end
-    end
-  end</p>
-
-<p>end</p>
-
-<pre><code>
-```ruby production.rb
-# Simple Role Syntax
-# ==================
-# Supports bulk-adding hosts to roles, the primary server in each group
-# is considered to be the first unless any hosts have the primary
-# property set.  Don't declare `role :all`, it's a meta role.
-
-role :app, %w{app@server}
-role :web, %w{web@server}
-role :db,  %w{db@server}
-
-
-# Extended Server Syntax
-# ======================
-# This can be used to drop a more detailed server definition into the
-# server list. The second argument is a, or duck-types, Hash and is
-# used to set extended properties on the server.
-
-server 'server_ip', user: 'server_user', roles: %w{app}, my_property: :my_value
-
-
-# Custom SSH Options
-# ==================
-# You may pass any option but keep in mind that net/ssh understands a
-# limited set of options, consult[net/ssh documentation](http://net-ssh.github.io/net-ssh/classes/Net/SSH.html#method-c-start).
-#
-# Global options
-# --------------
-#  set :ssh_options, {
-#    keys: %w(/home/rlisowski/.ssh/id_rsa),
-#    forward_agent: true
-#    auth_methods: %w(password)
-#  }
-#
-# And/or per server (overrides global)
-# ------------------------------------
- server 'server_ip',
-   user: 'server_user',
-   ssh_options: {
-     keys: %w(/user/.ssh/id_rsa),
-     forward_agent: false,
-     auth_methods: %w(publickey password)
-   }
-
-</code></pre>
-
-<p>設定完後，因為這邊是設定 production.rb<br />
-因此執行以下指令 deploy 到 production server</p>
-
-<pre><code class="language-console">bundle exec cap production deploy
-</code></pre>
-
-<p>如果 <code>exit status 0 (successful).</code><br />
-那就是成功啦~</p>
-
-                    </div>
-                </section>
-                
             </div>
             
 <div class="pagination">
@@ -955,7 +876,7 @@ hljs.initHighlightingOnLoad();
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('create', 'UA-45583907-2', 'auto');
 ga('send', 'pageview');
 
 </script>

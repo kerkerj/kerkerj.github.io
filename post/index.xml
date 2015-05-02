@@ -7,8 +7,499 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
-    <lastBuildDate>Wed, 22 Apr 2015 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 03 May 2015 02:14:59 +0800</lastBuildDate>
     <atom:link href="http://kerkerj.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Migrating to Hugo from Octopress</title>
+      <link>http://kerkerj.github.io/blog/2015/05/03/migrating-to-hugo-from-octopress/</link>
+      <pubDate>Sun, 03 May 2015 02:14:59 +0800</pubDate>
+      
+      <guid>http://kerkerj.github.io/blog/2015/05/03/migrating-to-hugo-from-octopress/</guid>
+      <description>
+
+&lt;p&gt;&lt;a href=&#34;https://gohugo.io&#34;&gt;hugo&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;l&gt;&lt;b&gt;hugo - 快速又現代的靜態網站產生器&lt;/b&gt;&lt;/l&gt;&lt;/p&gt;
+
+&lt;p&gt;^^^ 這是 spf13 自己說的&lt;/p&gt;
+
+&lt;p&gt;繼 spf13-vim 後又一個 spf13 出品的好東西 XD&lt;/p&gt;
+
+&lt;p&gt;在靜態網站產生器中最廣為人知的應該就是 &lt;a href=&#34;http://jekyllrb.com/&#34;&gt;&lt;code&gt;Jekyll&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;以及基於 &lt;code&gt;Jekyll&lt;/code&gt; 的 &lt;a href=&#34;http://octopress.org/&#34;&gt;&lt;code&gt;Octopress&lt;/code&gt;&lt;/a&gt; 了&lt;/p&gt;
+
+&lt;p&gt;(關於靜態網站產生器，&lt;a href=&#34;http://www.sitepoint.com/6-static-blog-generators-arent-jekyll/&#34;&gt;這篇文章&lt;/a&gt; 介紹了六個除了 &lt;code&gt;Jekyll&lt;/code&gt; 以外的產生器)&lt;/p&gt;
+
+&lt;h2 id=&#34;為什麼要用-hugo:869884de6842d04f918ac95a6e75e9a8&#34;&gt;為什麼要用 &lt;code&gt;hugo&lt;/code&gt;？&lt;/h2&gt;
+
+&lt;p&gt;雖然 &lt;code&gt;Jekyll&lt;/code&gt; / &lt;code&gt;Octopress&lt;/code&gt; 很紅資源多主題也不少&lt;/p&gt;
+
+&lt;p&gt;但是缺點就是要使用它們就必須裝 &lt;code&gt;ruby&lt;/code&gt;、裝 &lt;code&gt;gem&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;有在寫 &lt;code&gt;ruby&lt;/code&gt; 的人感覺應該還好&lt;/p&gt;
+
+&lt;p&gt;沒在寫 &lt;code&gt;ruby&lt;/code&gt; 的光想像就覺得應該會被搞死&amp;hellip; XD&lt;/p&gt;
+
+&lt;p&gt;而且覺得文章一多時在編譯的時候好慢&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;用 &lt;code&gt;hugo&lt;/code&gt; 的好處就是因為他是用 &lt;code&gt;go&lt;/code&gt; 寫的&lt;/p&gt;
+
+&lt;p&gt;執行速度飛快，而且只要下載一個 &lt;code&gt;binary&lt;/code&gt; 檔案後就可以操作了喲~&lt;/p&gt;
+
+&lt;h2 id=&#34;基本-hugo-安裝與操作:869884de6842d04f918ac95a6e75e9a8&#34;&gt;基本 &lt;code&gt;hugo&lt;/code&gt; 安裝與操作&lt;/h2&gt;
+
+&lt;p&gt;首先先安裝 &lt;code&gt;hugo&lt;/code&gt; (我是用 &lt;code&gt;mac&lt;/code&gt; 的 &lt;code&gt;homebrew&lt;/code&gt;)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ brew install hugo
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;使用 &lt;code&gt;hugo&lt;/code&gt; 產生一個新的網站&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ hugo new site /path/to/the/site
+e.g.
+$ hugo new site /Users/kerkerj/my_hugo_blog
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;到剛剛產生的網站目錄底下&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd /path/to/the/site
+e.g.
+$ cd /Users/kerkerj/my_hugo_blog
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;產生一些內容&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ hugo new about.md
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;或是一篇文章&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ hugo new post/first-post.md
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;安裝主題&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git clone --recursive https://github.com/spf13/hugoThemes themes
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;把 &lt;code&gt;hugo&lt;/code&gt; 跑起來!&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ hugo server --theme=hyde-x --buildDrafts --watch
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;指令說明:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;--theme=hyde-x&lt;/code&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;指的是使用哪一個主題，可以在 &lt;code&gt;themes&lt;/code&gt; 資料夾裡找，並將 &lt;code&gt;hyde&lt;/code&gt; 替換掉就可以換主題，例如換成 &lt;code&gt;greyshade&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;code&gt;--buildDrafts&lt;/code&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;使用 &lt;code&gt;hugo new post/first-post.md&lt;/code&gt; 預設會是草稿 (在 &lt;code&gt;first-post.md&lt;/code&gt; 裡會有 &lt;code&gt;draft=true&lt;/code&gt;)&lt;/p&gt;
+
+&lt;p&gt;如果下 &lt;code&gt;--buildDrafts&lt;/code&gt; 的意思就是會把草稿也 build 出來讓你看到&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;code&gt;--watch&lt;/code&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;如果在 server 開啟時，編輯文章並儲存的話，server 會幫你根據修改的內容重新產生網頁，&lt;/p&gt;
+
+&lt;p&gt;不需要再下指令重新 build 一次&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;migrating-from-octopress:869884de6842d04f918ac95a6e75e9a8&#34;&gt;Migrating from &lt;code&gt;octopress&lt;/code&gt;&lt;/h2&gt;
+
+&lt;p&gt;我自己原本是用 &lt;code&gt;octopress&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;為了不要怕改壞原本的 &lt;code&gt;octopress&lt;/code&gt; 文章&lt;/p&gt;
+
+&lt;p&gt;我把在 &lt;code&gt;octopress&lt;/code&gt; 的文章 (&lt;code&gt;source/_posts&lt;/code&gt;)&lt;/p&gt;
+
+&lt;p&gt;全數複製一份到 &lt;code&gt;my_hugo_blog/content/post/&lt;/code&gt; 底下&lt;/p&gt;
+
+&lt;p&gt;接著就試著跑 &lt;code&gt;hugo server&lt;/code&gt; 起來試試看&lt;/p&gt;
+
+&lt;p&gt;當然是炸了一堆 ERROR 出來啦 XD&lt;/p&gt;
+
+&lt;p&gt;以下是我遇到的幾個常見問題&lt;/p&gt;
+
+&lt;h2 id=&#34;meta-data-的-date:869884de6842d04f918ac95a6e75e9a8&#34;&gt;Meta-data 的 Date&lt;/h2&gt;
+
+&lt;p&gt;這是我的錯誤訊息&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ERROR: 2015/05/02 Failed to parse date &#39;2010-10-04 18:25&#39; in page post/2010-10-04-freebsd81-famp.md
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;首先瞭解一下文章的 meta-data 格式&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;octopress&lt;/code&gt; 的是 &lt;code&gt;yaml&lt;/code&gt; 格式&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;---
+layout: post
+title: &amp;quot;Setup wifi on raspberry pi2&amp;quot;
+date: 2015-04-22 22:59:11 +0800
+comments: true
+categories: [raspberry]
+keywords: [raspberry, pi, pi2, wifi]
+description: 
+---
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;hugo&lt;/code&gt; 的則是 &lt;code&gt;toml&lt;/code&gt; 格式&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;+++
+date = &amp;quot;2015-05-02T02:27:21+08:00&amp;quot;
+draft = true
+title = &amp;quot;test&amp;quot;
+
++++
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;現在 &lt;code&gt;hugo&lt;/code&gt; 0.13 版開始也可以讀 &lt;code&gt;yaml&lt;/code&gt; 格式了&lt;/p&gt;
+
+&lt;p&gt;(在 config 中可以設定 &lt;code&gt;metaDataFormat: &amp;quot;yaml&amp;quot;&lt;/code&gt;)&lt;/p&gt;
+
+&lt;p&gt;不過比較麻煩的是 &lt;code&gt;date&lt;/code&gt; 這個屬性，兩邊長得並不太一樣&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;octopress&lt;/code&gt; 比較舊的是長這樣 &lt;code&gt;2010-10-04 18:25&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;新一點 (某一次更新後) 的長這樣 &lt;code&gt;2014-10-02 01:37:44 +0800&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;不過不管怎樣，&lt;code&gt;hugo&lt;/code&gt; 都不吃&lt;/p&gt;
+
+&lt;p&gt;因為 &lt;code&gt;hugo&lt;/code&gt; 的長這樣 &lt;code&gt;2015-05-02T02:27:21+08:00&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;囧了&lt;/p&gt;
+
+&lt;p&gt;因此必須將 &lt;code&gt;octopress&lt;/code&gt; 的格式換成 &lt;code&gt;hugo&lt;/code&gt; 的&lt;/p&gt;
+
+&lt;p&gt;接下來下的指令最好先 &lt;code&gt;git commit&lt;/code&gt; 一下後再做 XD&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd my_hugo_blog/content/post/ 
+$ find . -type f -exec sed -i &amp;quot;&amp;quot; -e &#39;s/date: \([0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}\).*$/date: \1/g&#39; {} \;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這個指令會將原本的 date 格式換成只有 &lt;code&gt;yyyy-mm-dd&lt;/code&gt; 的格式&lt;/p&gt;
+
+&lt;p&gt;例如 &lt;code&gt;2014-10-02 01:37:44 +0800&lt;/code&gt; 換成只有 &lt;code&gt;2014-10-02&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;這樣 &lt;code&gt;hugo&lt;/code&gt; 就看得懂&lt;/p&gt;
+
+&lt;h2 id=&#34;permallink-的問題:869884de6842d04f918ac95a6e75e9a8&#34;&gt;permallink 的問題&lt;/h2&gt;
+
+&lt;p&gt;當日期問題修好後，重開 server&lt;/p&gt;
+
+&lt;p&gt;發現點擊文章標題進單篇文章網頁時會跳 404&lt;/p&gt;
+
+&lt;p&gt;原因是 &lt;code&gt;hugo&lt;/code&gt; 預設產生的連結是&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;http://yoursite.com/post/2015-04-22-raspberry-pi2-remote-webcam/&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;而在 &lt;code&gt;octopress&lt;/code&gt; 是根據日期區分&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;http://yoursite.com/post/2015/04/22/raspberry-pi2-remote-webcam/&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;這個問題的解法比較簡單&lt;/p&gt;
+
+&lt;p&gt;在 &lt;code&gt;config.toml&lt;/code&gt; 加入這行就行&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[Permalinks]
+	post = &amp;quot;/:year/:month/:day/:filename/&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;不過因為 &lt;code&gt;octopress&lt;/code&gt; 本身在產生檔案時就已經把日期加入檔名中&lt;/p&gt;
+
+&lt;p&gt;(e.g. &lt;code&gt;2015-04-22-raspberry-pi2-remote-webcam.md&lt;/code&gt;)&lt;/p&gt;
+
+&lt;p&gt;因此 &lt;code&gt;octopress&lt;/code&gt; 的文章連結看起來就會很長，例如:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;http://localhost:1313/2015/04/22/2015-04-22-raspberry-pi2-remote-webcam/
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這時候就看要不要把檔名改掉啦&lt;/p&gt;
+
+&lt;p&gt;例如把 &lt;code&gt;2015-04-22-raspberry-pi2-remote-webcam.md&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;改成 &lt;code&gt;raspberry-pi2-remote-webcam.md&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;或者可以試著改成:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[Permalinks]
+	post = &amp;quot;/:year/:month/:day/:title/&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;不過我試了一下，會有機會因為標題有特殊符號或中文&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;e.g.  http://localhost:1313/2014/10/20/swift-d20---basic---%E6%8D%A8%E6%A3%84-storyboard-%E4%BD%BF%E7%94%A8%E7%B4%94%E7%A8%8B%E5%BC%8F%E7%A2%BC-%E7%9A%84%E6%96%B9%E5%BC%8F%E6%92%B0%E5%AF%AB-viewcontroller/
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;產生出奇怪的資料夾名稱而導致該文章無法存取&lt;/p&gt;
+
+&lt;p&gt;所以這個方式僅供參考，可以試試 XD&lt;/p&gt;
+
+&lt;p&gt;BTW，我個人在撰寫文章時都沒有用到產生器的樣板語言，因此在轉換時比較沒遇到什麼問題&lt;/p&gt;
+
+&lt;p&gt;上述問題解法的參考來源:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://nathanleclaire.com/blog/2014/12/22/migrating-to-hugo-from-octopress/&#34;&gt;Migrating to Hugo From Octopress&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://deeeet.com/writing/2014/12/25/hugo/&#34;&gt;OctopressからHugoへ移行した&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;設定檔-config-toml-config-yml-config-json:869884de6842d04f918ac95a6e75e9a8&#34;&gt;設定檔 (config.toml, config.yml, config.json)&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;hugo&lt;/code&gt; 預設的是 &lt;code&gt;config.toml&lt;/code&gt;，也支援 &lt;code&gt;yaml&lt;/code&gt; 和 &lt;code&gt;json&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;而 &lt;code&gt;hugo&lt;/code&gt; 讀取的順位是照上述順序&lt;/p&gt;
+
+&lt;p&gt;如果是要將網頁讓 &lt;code&gt;GitHub&lt;/code&gt; host 的話，就必須使用 &lt;code&gt;config.yaml&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;因此我就把 &lt;code&gt;config.toml&lt;/code&gt; 換成 &lt;code&gt;config.yml&lt;/code&gt; 了 (也比較習慣)&lt;/p&gt;
+
+&lt;p&gt;以下是我的 &lt;code&gt;config.yml&lt;/code&gt; 主要的設定&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;baseurl:            &amp;quot;http://blog.kerkerj.in/&amp;quot;
+languageCode:       &amp;quot;en-us&amp;quot;
+title:              &amp;quot;My New Hugo Site&amp;quot;
+
+buildDrafts:        false
+config:             &amp;quot;config.yml&amp;quot;
+metaDataFormat:     &amp;quot;yaml&amp;quot;
+
+permalinks:
+  post:             &amp;quot;/blog/:year/:month/:day/:filename/&amp;quot;
+
+theme:              &amp;quot;purehugo&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;設定 &lt;code&gt;metaDataFormat: &amp;quot;yaml&amp;quot;&lt;/code&gt; 的話&lt;/p&gt;
+
+&lt;p&gt;使用 &lt;code&gt;hugo new&lt;/code&gt; 的文章 meta-data 都會是 &lt;code&gt;yaml&lt;/code&gt; 格式喔&lt;/p&gt;
+
+&lt;p&gt;要查詢預設的參數在這 &lt;a href=&#34;http://gohugo.io/overview/configuration/&#34;&gt;Configuring Hugo&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;主題佈景-theme:869884de6842d04f918ac95a6e75e9a8&#34;&gt;主題佈景 Theme&lt;/h2&gt;
+
+&lt;p&gt;其實在 &lt;code&gt;hugo&lt;/code&gt; 裡比較讓我覺得麻煩的還是主題的挑選吧&lt;/p&gt;
+
+&lt;p&gt;因為選擇實在不多&lt;/p&gt;
+
+&lt;p&gt;我最喜歡的是在 &lt;code&gt;octopress&lt;/code&gt; 中的 &lt;a href=&#34;https://github.com/shashankmehta/greyshade&#34;&gt;greyshade&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;雖然 &lt;code&gt;spf13/hugoThemes&lt;/code&gt; 的 repo 中有人 porting，但是完成度似乎不高&lt;/p&gt;
+
+&lt;p&gt;改 template 是應該沒什麼難度，照著改就好，不過&amp;hellip;實在沒這麼多時間 Orz&lt;/p&gt;
+
+&lt;p&gt;而且 &lt;code&gt;hugo&lt;/code&gt; 在二月底 release 了 0.13 版，有一部分的主題佈景都不能動了 XD&lt;/p&gt;
+
+&lt;p&gt;這邊列出我試過可以 work 的&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/spf13/herring-cove&#34;&gt;herring-cove&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/SenjinDarashiva/hugo-uno&#34;&gt;hugo-uno&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/zyro/hyde-x&#34;&gt;hyde-x&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/dplesca/purehugo&#34;&gt;purehugo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/tmaiaroto/hugo-redlounge&#34;&gt;redlounge&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/AlexFinn/simple-a&#34;&gt;simple-a&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/marloncabrera/tachyons&#34;&gt;tachyons&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/roperzh/tinyce-hugo-theme&#34;&gt;tinyce&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/keichi/vienna&#34;&gt;vienna&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;vienna&lt;/code&gt; 的 index list 壞掉了，不過 single page 能動，佈景也還算漂亮&lt;/p&gt;
+
+&lt;p&gt;自己修一下應該就可以&lt;/p&gt;
+
+&lt;p&gt;其實其他不少佈景也都是 index page 不能動，其他都能動&lt;/p&gt;
+
+&lt;p&gt;另外在試的過程中，發現除非 repo 有特別說&lt;/p&gt;
+
+&lt;p&gt;不然 &lt;code&gt;config.yml&lt;/code&gt; 的 &lt;code&gt;disqus&lt;/code&gt; 的 key 都是 &lt;code&gt;disqusShortname&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;(因為有個佈景的 key 是 &lt;code&gt;disqus_short_name&lt;/code&gt;)&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;hyde-x&lt;/code&gt; 是最多人 star 的主題佈景，有八種色系可以選擇&lt;/p&gt;
+
+&lt;p&gt;功能也蠻齊全，不想自己搞東搞西的話，建議就直接選這個主題&lt;/p&gt;
+
+&lt;p&gt;(因為我最後 &lt;a href=&#34;https://github.com/dplesca/purehugo&#34;&gt;fork 人家的&lt;/a&gt; theme &lt;a href=&#34;https://github.com/kerkerj/purehugo&#34;&gt;自己改了一堆&lt;/a&gt; (遮臉) )&lt;/p&gt;
+
+&lt;h2 id=&#34;syntax-highlight:869884de6842d04f918ac95a6e75e9a8&#34;&gt;Syntax highlight&lt;/h2&gt;
+
+&lt;p&gt;寫技術筆記的人應該對這個非常執著 XD&lt;/p&gt;
+
+&lt;p&gt;我使用的主題是 &lt;code&gt;purehugo&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;不過他的 syntax highlight 是預設的常見的模式&lt;/p&gt;
+
+&lt;p&gt;因此我就自己把他抽掉換成 &lt;a href=&#34;https://github.com/isagalaev/highlight.js&#34;&gt;&lt;code&gt;highlight.js&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;hugo&lt;/code&gt; 在 &lt;a href=&#34;http://gohugo.io/extras/highlighting/&#34;&gt;這篇文件&lt;/a&gt; 中有另外說明關於如何自訂 syntax highlight&lt;/p&gt;
+
+&lt;h2 id=&#34;支援-disqus-ga-pagination-seo-robot-txt-favcon:869884de6842d04f918ac95a6e75e9a8&#34;&gt;支援 (disqus, ga, pagination, SEO, robot.txt, favcon)&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;disqus&lt;/code&gt; 要看佈景有無支援，&lt;code&gt;GA&lt;/code&gt; 也是&lt;/p&gt;
+
+&lt;p&gt;不過如果主題沒有的話，也是自己寫一個 partial 插進去就好&lt;/p&gt;
+
+&lt;p&gt;另外 &lt;code&gt;pagination&lt;/code&gt; 也是在最新版 (0.13) 才加入，所以也要看佈景有沒有支援&lt;/p&gt;
+
+&lt;p&gt;不然文章多的就會發現首頁往下捲捲不完&amp;hellip; XD&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;SEO&lt;/code&gt; 的部分有人特別寫 partial &lt;a href=&#34;https://github.com/nozzle/hugo-snippets&#34;&gt;nozzle/hugo-snippets&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;自己寫在 theme 的 header.html 當然是最直覺的&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;robot.txt&lt;/code&gt;、&lt;code&gt;favcon&lt;/code&gt; 就自己加進 &lt;code&gt;static&lt;/code&gt; 資料夾，再到 theme 裡面修改&lt;/p&gt;
+
+&lt;h2 id=&#34;deploy:869884de6842d04f918ac95a6e75e9a8&#34;&gt;Deploy&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;hugo&lt;/code&gt; 有一篇 &lt;a href=&#34;http://gohugo.io/tutorials/github-pages-blog/&#34;&gt;教學文&lt;/a&gt; 教你如何放在 &lt;code&gt;GitHub&lt;/code&gt; 上&lt;/p&gt;
+
+&lt;p&gt;有兩種方式 (Project page or Personl page)&lt;/p&gt;
+
+&lt;p&gt;不過都需要先在 &lt;code&gt;config.yml&lt;/code&gt; 加入以下資訊&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;---
+contentdir: &amp;quot;content&amp;quot;
+layoutdir: &amp;quot;layouts&amp;quot;
+publishdir: &amp;quot;public&amp;quot;
+indexes:
+  category: &amp;quot;categories&amp;quot;
+baseurl: &amp;quot;http://kerkerj.github.io/ or http://kerkerj.github.io/hugo_gh_blog/&amp;quot;
+title: &amp;quot;Hugo Blog Template for GitHub Pages&amp;quot;
+canonifyurls: true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;project-page-e-g-http-your-github-account-github-io-hugo-gh-blog:869884de6842d04f918ac95a6e75e9a8&#34;&gt;Project page: e.g. &lt;a href=&#34;http://your_github_account.github.io/hugo_gh_blog/&#34;&gt;http://your_github_account.github.io/hugo_gh_blog/&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;先處理好本機端 &lt;code&gt;hugo&lt;/code&gt; 的 blog，接著 &lt;code&gt;git init&lt;/code&gt; 並且 &lt;code&gt;commit&lt;/code&gt; 後&lt;/p&gt;
+
+&lt;p&gt;加入 &lt;code&gt;gh-pages&lt;/code&gt; 這個 branch (&lt;a href=&#34;https://help.github.com/articles/creating-project-pages-manually/&#34;&gt;教學&lt;/a&gt;)&lt;/p&gt;
+
+&lt;p&gt;接著回到 &lt;code&gt;master&lt;/code&gt;，照著下列步驟&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# Fetch the deployment script into the root of your source tree, make it executable.
+wget https://github.com/X1011/git-directory-deploy/raw/master/deploy.sh &amp;amp;&amp;amp; chmod +x deploy.sh
+
+# For setting it up to build to a folder other than &amp;quot;dist&amp;quot;, see the options in deploy.sh.
+# Build the site to /dist.
+hugo -d dist
+
+# Run the deploy.sh script installed above.
+./deploy.sh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;就可以 deploy 到 github project page 了&lt;/p&gt;
+
+&lt;p&gt;存取網址就是 &lt;code&gt;http://your_github_account.github.io/hugo_gh_blog/&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;personal-page-e-g-http-kerkerj-github-io:869884de6842d04f918ac95a6e75e9a8&#34;&gt;Personal page: e.g. &lt;a href=&#34;http://kerkerj.github.io/&#34;&gt;http://kerkerj.github.io/&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;建立兩個 repo，一個拿來放 &lt;code&gt;my_hugo_blog&lt;/code&gt; 本機端的資料&lt;/p&gt;
+
+&lt;p&gt;一個就是 &lt;code&gt;your_github_account.github.io&lt;/code&gt; 這個 repo&lt;/p&gt;
+
+&lt;p&gt;會拿來放 &lt;code&gt;my_hugo_blog/public&lt;/code&gt; 資料夾裡的資料&lt;/p&gt;
+
+&lt;p&gt;所以就必須先在 &lt;code&gt;GitHub&lt;/code&gt; 上有 &lt;code&gt;your_github_account.github.io&lt;/code&gt; 這個 repo&lt;/p&gt;
+
+&lt;p&gt;這邊會比較簡單&lt;/p&gt;
+
+&lt;p&gt;以剛剛的例子的話就會是 &lt;code&gt;my_hugo_blog&lt;/code&gt;，這個資料夾裡放了所有剛剛 &lt;code&gt;hugo&lt;/code&gt; 產生的資料&lt;/p&gt;
+
+&lt;p&gt;先處理 &lt;code&gt;deploy.sh&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;可以直接自己把以下內容存成 &lt;code&gt;deploy.sh&lt;/code&gt;，並 &lt;code&gt;chmod +x deploy.sh&lt;/code&gt; 使其可執行&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#!/bin/bash
+# Deploy hugo site to GitHug personal page
+ 
+echo -e &amp;quot;\033[0;32mDeploying updates to GitHub...\033[0m&amp;quot;
+ 
+# Build the project. 
+hugo # if using a theme, replace by `hugo -t &amp;lt;yourtheme&amp;gt;`
+ 
+# Go To Public folder
+cd public
+# Add changes to git.
+git add -A
+ 
+# Commit changes.
+msg=&amp;quot;rebuilding site `date`&amp;quot;
+if [ $# -eq 1 ]
+  then msg=&amp;quot;$1&amp;quot;
+fi
+git commit -m &amp;quot;$msg&amp;quot;
+ 
+# Push source and build repos.
+git push origin master
+ 
+# Come Back
+cd ..
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;或下載 &lt;code&gt;deploy.sh&lt;/code&gt; (同時使其可執行)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;wget https://gist.githubusercontent.com/kerkerj/18b18a24af8e8a0ec0ee/raw/654dfb7faaa23db24f707c4d746319e458157d89/deploy.sh &amp;amp;&amp;amp; chmod +x deploy.sh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果有使用 theme，記得修改 &lt;code&gt;deploy.sh&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;把&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;hugo # if using a theme, replace by `hugo -t &amp;lt;yourtheme&amp;gt;`
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;換成&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;hugo -t yourtheme # if using a theme, replace by `hugo -t &amp;lt;yourtheme&amp;gt;`
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;所以現在已經處理好的東西有:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;my_hugo_blog&lt;/code&gt; 資料夾以及可執行的 &lt;code&gt;deploy.sh&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;已經在 &lt;code&gt;GitHub&lt;/code&gt; 上有 &lt;code&gt;your_github_account.github.io&lt;/code&gt; 這個 repo&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;(p.s. 如果有要設定 CNAME 什麼的，就把 CNAME 檔案放 &lt;code&gt;static&lt;/code&gt; 這個資料夾裡)&lt;/p&gt;
+
+&lt;p&gt;接下來，先將 server 跑起來&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ hugo server --watch -t &amp;lt;yourtheme&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;把你想要的網站調整好後，關掉 server 並將 &lt;code&gt;public&lt;/code&gt; 資料夾刪除 (等等會重新在 deploy.sh 中產生)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ rm -rf public
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;接著把 &lt;code&gt;GitHub&lt;/code&gt; 的 repo 加到 &lt;code&gt;public&lt;/code&gt; 裡&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git submodule add git@github.com:&amp;lt;username&amp;gt;/&amp;lt;username&amp;gt;.github.io.git public
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;最後就 deploy 到 github 上&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# 自動產生 commit message
+$ ./deploy.sh 
+
+# 如果要自訂 commit message 的話
+$ ./deploy.sh &amp;quot;Your commit message&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果是第一次 deploy 到 &lt;code&gt;GitHub&lt;/code&gt; 的話，需要等待大約 15 ~ 20 分鐘&lt;/p&gt;
+
+&lt;p&gt;才會在 &lt;code&gt;GitHub&lt;/code&gt; 上看到你的網站喲&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Raspberry Pi2 remote webcam</title>
@@ -1455,113 +1946,6 @@ app.use(function(err, req, res, next) {
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;這樣一來, client 程式也就能夠統一接收 json 回傳，而不會因為莫名的字串導致解析錯誤而 crash 了!&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>[Swift-day25] - 實戰開發 - TODOList - Update View</title>
-      <link>http://kerkerj.github.io/blog/2014/10/25/2014-10-25-swift-day25/</link>
-      <pubDate>Sat, 25 Oct 2014 00:00:00 +0000</pubDate>
-      
-      <guid>http://kerkerj.github.io/blog/2014/10/25/2014-10-25-swift-day25/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day27&#34;&gt;Github link&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;(忘了是放在哪個 branch 了 Orz)&lt;/p&gt;
-
-&lt;p&gt;接下來就要進到最後一個 Update View 了!&lt;/p&gt;
-
-&lt;p&gt;什麼時候會進到 Update View 呢？&lt;/p&gt;
-
-&lt;p&gt;是在顯示單筆 TODO 的時候的右上方按鈕:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://goo.gl/tNOyRs&#34; alt=&#34;image&#34; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;我們今天只會實作 view 的部分, fakeData 就不實作了&lt;/p&gt;
-
-&lt;p&gt;因為接下來就要直接接 API 啦&lt;/p&gt;
-
-&lt;p&gt;也不需要更新 fakeData 了 :P&lt;/p&gt;
-
-&lt;p&gt;要加入 Edit 這個按鈕&lt;/p&gt;
-
-&lt;p&gt;要到 ShowViewController, 加入 UIBarButtonItem&lt;/p&gt;
-
-&lt;p&gt;並且讓其吃到一個方法，可以讓 Navigation 往下一個 View 前進:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;var id: String!
-
-override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        indexLabel.text = &amp;quot;\(index)&amp;quot;
-        contentLabel.text = content
-        
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: &amp;quot;Edit&amp;quot;, style: UIBarButtonItemStyle.Bordered, target: self, action: Selector(&amp;quot;editTodo&amp;quot;))
-    }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;p.s. 先前忘記加了 id, 現在補回來 XD&lt;/p&gt;
-
-&lt;p&gt;先新增一個 Edit 按鈕後&lt;/p&gt;
-
-&lt;p&gt;並實作 editTodo&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;func editTodo() {
-        var editViewContronller = UpdateViewController(nibName: &amp;quot;UpdateViewController&amp;quot;, bundle: nil)
-        editViewContronller.from = &amp;quot;edit&amp;quot;
-        editViewContronller.content = content
-        editViewContronller.index = index
-        
-        self.navigationController?.pushViewController(editViewContronller, animated: true)
-    }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;由於要先指定資料&lt;/p&gt;
-
-&lt;p&gt;因此再到 UpdateViewController 中再加入兩個參數&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;    var index: Int!
-    var content: String!
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;最後在 UpdateController 的 viewDidLoad 中, 加入 add or edit 的判斷&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: &amp;quot;Save&amp;quot;, style: UIBarButtonItemStyle.Done, target: self, action: Selector(&amp;quot;save&amp;quot;))
-			
-		  if self.from == &amp;quot;edit&amp;quot; {
-            self.textField.text = content
-        }
-        
-    }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;這時候先前設定的 &amp;ldquo;from&amp;rdquo; 參數就很有用了~&lt;/p&gt;
-
-&lt;p&gt;就可以根據是從 add 的 view 來的或者是 edit 的 view 來的&lt;/p&gt;
-
-&lt;p&gt;以便判定要不要 append 舊資料上去&lt;/p&gt;
-
-&lt;p&gt;此外，也因為如此&lt;/p&gt;
-
-&lt;p&gt;所以 UpdateViewController 的 save 方法也要判斷&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;        if from == &amp;quot;add&amp;quot; {
-            delegate.addData(&amp;quot;g6&amp;quot;, content: self.textField.text)
-            self.navigationController?.popToRootViewControllerAnimated(true)
-        } else if from == &amp;quot;edit&amp;quot; {
-            println(&amp;quot;Save edited data&amp;quot;)
-        }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;不過因為今天我們不做資料更新&lt;/p&gt;
-
-&lt;p&gt;因此流程面大致上到此告一個段落&lt;/p&gt;
-
-&lt;p&gt;接下來就要串 API 了!&lt;/p&gt;
 </description>
     </item>
     

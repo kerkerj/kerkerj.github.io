@@ -85,14 +85,6 @@
                 </li>
                 
                 
-                <li class="nav-item">
-                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
-                </li>
-                
-                
-                <li class="nav-item">
-                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
-                </li>
                 
                 <li class="nav-item">
                     <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
@@ -107,6 +99,34 @@
         <div>
             
             <div class="posts">
+                
+                <h1 class="content-subhead">2011-06-06 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2011/06/06/2011-06-06-android-activity-title-bar/" class="post-title">[Android] 移除 Activity的 Title bar</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-android" href="http://kerkerj.github.io//categories/android">android</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p><code>xml AndroidManifest.xml:   
+    &lt;activity android:name=&quot;.MyMainClass&quot;
+              android:label=&quot;@string/app_name&quot;
+              android:theme=&quot;@android:style/Theme.NoTitleBar&quot;&gt;
+  &lt;/activity&gt;
+</code>
+style/Theme.NoTitleBar</p>
+
+                    </div>
+                </section>
                 
                 <h1 class="content-subhead">2011-06-06 00:00</h1>
                 <section class="post">
@@ -610,74 +630,6 @@ $./fixdropbox
                     </div>
                 </section>
                 
-                <h1 class="content-subhead">2011-01-01 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://kerkerj.github.io/blog/2011/01/26/2011-01-26-php-db/" class="post-title">[PHP] 簡單的資料庫連結</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-php" href="http://kerkerj.github.io//categories/php">php</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p>我是PHP新手，超級嫩，所以就寫寫簡單的東西，今天來寫關於資料庫的連結。<br />
-環境同之前寫的，就是 FreeBSD、MySQL、phpMyadmin 啦~</p>
-
-<p>我將他分成兩個檔案來寫：<br />
-一個是負責連結資料庫：<code>connectDB.inc.php</code><br />
-另一個則是測試的 php ：<code>test.php</code></p>
-
-<p>在 <code>connectDB.inc.php</code> 中設定好 SQL 主機的 IP、使用者名稱密碼等等資料，<br />
-然後由 <code>test.php</code> 來呈現資料，直接看 code 最快：</p>
-
-<p>```php connectDB.inc.php
-&lt;?php
-    $cfgDB_HOST = &ldquo;localhost&rdquo;;      //主機名稱或ip位址
-  $cfgDB_PORT = &ldquo;80&rdquo;;                       //主機開放連線的port
-    $cfgDB_USERNAME = &ldquo;account&rdquo;;    //登入主機帳號
-    $cfgDB_PASSWORD = &ldquo;password&rdquo;;   //登入主機密碼
-    $cfgDB_NAME = &ldquo;db_name&rdquo;;            //資料庫名稱</p>
-
-<p>//建立資料庫連線
-  $link = mysql_connect($cfgDB_HOST . &ldquo;:&rdquo; . $cfgDB_PORT, $cfgDB_USERNAME, $cfgDB_PASSWORD) or die(&ldquo;Could not connect MySQL&rdquo;);
-  //選擇資料庫
-  mysql_select_db($cfgDB_NAME, $link) or die(&ldquo;Could not select database&rdquo;);
-  //讓中文正常顯示
-  mysql_query(&ldquo;SET NAMES &lsquo;utf8&rsquo;&rdquo;);</p>
-
-<p>?&gt;
-```</p>
-
-<p><code>php test.php
-&lt;?php 
-    include (&quot;connectDB.inc.php&quot;);
-    try{
-        $sql=&quot;SELECT * from test&quot;;  //給予SQL指令
-      $result=mysql_query($sql) or die(&quot;invalid query&quot;);//傳給MySQL指令
-      //將所有資料顯示出來
-      while($record=mysql_fetch_array($result)){
-        echo &quot;id: $record[0]&lt;br&gt;&quot;;                      //第一種讀取資料庫欄位的方法，使用欄位序號
-        echo &quot;name: &quot;.$record[&quot;test_string&quot;].&quot;&lt;br&gt;&quot;;    //第二種讀取資料庫欄位方法，使用欄位名稱
-        }
-      mysql_close($link);
-    } catch(Exception $e){
-        echo $e;
-    }
-?&gt;
-</code></p>
-
-<p>若資料庫有資料就可以正確顯示溜</p>
-
-                    </div>
-                </section>
-                
             </div>
             
 <div class="pagination">
@@ -719,7 +671,7 @@ hljs.initHighlightingOnLoad();
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('create', 'UA-45583907-2', 'auto');
 ga('send', 'pageview');
 
 </script>

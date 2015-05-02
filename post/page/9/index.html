@@ -85,14 +85,6 @@
                 </li>
                 
                 
-                <li class="nav-item">
-                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
-                </li>
-                
-                
-                <li class="nav-item">
-                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
-                </li>
                 
                 <li class="nav-item">
                     <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
@@ -107,6 +99,96 @@
         <div>
             
             <div class="posts">
+                
+                <h1 class="content-subhead">2014-04-04 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/04/16/2014-04-16-ubuntu-update-openssl/" class="post-title">[Ubuntu] update OpenSSL</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-ubuntu" href="http://kerkerj.github.io//categories/ubuntu">ubuntu</a><a class="post-category post-category-OpenSSL" href="http://kerkerj.github.io//categories/openssl">OpenSSL</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>Easy way:</p>
+
+<ul>
+<li>Below the single command line to compiling and install the last openssl version.</li>
+</ul>
+
+<pre><code>$ curl https://www.openssl.org/source/openssl-1.0.1h.tar.gz | tar xz &amp;&amp; cd openssl-1.0.1h &amp;&amp; sudo ./config &amp;&amp; sudo make &amp;&amp; sudo make install
+</code></pre>
+
+<ul>
+<li>Replace old openssl binary file by the new one via a symlink.</li>
+</ul>
+
+<pre><code>$ sudo ln -sf /usr/local/ssl/bin/openssl `which openssl`
+</code></pre>
+
+<p>how to check version:</p>
+
+<pre><code>$ openssl version -b
+built on: Mon Apr  7 20:33:29 UTC 2014
+$ openssl version -a
+OpenSSL 1.0.1 14 Mar 2012
+built on: Mon Apr  7 20:33:29 UTC 2014
+platform: debian-amd64
+options:  bn(64,64) rc4(16x,int) des(idx,cisc,16,int) blowfish(idx)
+compiler: ..........
+OPENSSLDIR: &quot;/usr/lib/ssl&quot;
+</code></pre>
+
+<p>from: <a href="http://superuser.com/questions/740930/apt-get-upgrade-openssl-wont-bring-ubuntu-12-04-to-latest-version">http://superuser.com/questions/740930/apt-get-upgrade-openssl-wont-bring-ubuntu-12-04-to-latest-version</a></p>
+
+<p>Hard way:</p>
+
+<pre><code class="language-bash">#!/bin/bash
+
+###
+# Need to upgrade an Ubuntu 13.04 server to use OpenSSL 1.0.1g?
+# Read and execute this script :D
+###
+# License: WTFPL, GPLv3, MIT, whatever; just patch your shit
+# http://askubuntu.com/questions/444702/how-to-patch-cve-2014-0160-in-openssl
+###
+
+if [[ $EUID -ne 0 ]]; then
+    echo &quot;This script must be run as root&quot; 1&gt;&amp;2
+    exit 1
+fi
+wget https://www.openssl.org/source/openssl-1.0.1g.tar.gz
+wget https://www.openssl.org/source/openssl-1.0.1g.tar.gz.asc
+
+gpg --recv-key 0xD3577507FA40E9E2
+# Dr Stephen Henson
+# IMPORTANT! Manually verify that this is the correct key ID:
+# http://pgp.mit.edu:11371/pks/lookup?op=vindex&amp;search=0xD3577507FA40E9E2
+# https://www.openssl.org/about/
+
+gpg --verify openssl-1.0.1g.tar.gz.asc openssl-1.0.1g.tar.gz
+
+if [[ $? -eq 0 ]]; then
+    tar xzvf openssl-1.0.1g.tar.gz
+    cd openssl-1.0.1g &amp;&amp; sudo ./config &amp;&amp; sudo make &amp;&amp; sudo make install
+    # To link the old openssl library to a new version
+    sudo ln -sf /usr/local/ssl/bin/openssl `which openssl`
+    echo
+    echo &quot;DONE!&quot;
+fi
+
+# eof
+</code></pre>
+
+                    </div>
+                </section>
                 
                 <h1 class="content-subhead">2014-01-01 00:00</h1>
                 <section class="post">
@@ -596,37 +678,6 @@ end</p>
                     </div>
                 </section>
                 
-                <h1 class="content-subhead">2013-12-12 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://kerkerj.github.io/blog/2013/12/18/2013-12-18-ruby-pp-to-ruby-as-var-dump-to-php/" class="post-title">[Ruby] PP to Ruby as Var_dump to PHP </a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <pre><code class="language-ruby">require 'pp'
-pp(ENV)
-</code></pre>
-
-<blockquote>
-<p>Usage:
-pp(any_variable)</p>
-</blockquote>
-
-<p>just like <code>var_dump</code> in <code>php</code></p>
-
-                    </div>
-                </section>
-                
             </div>
             
 <div class="pagination">
@@ -668,7 +719,7 @@ hljs.initHighlightingOnLoad();
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('create', 'UA-45583907-2', 'auto');
 ga('send', 'pageview');
 
 </script>

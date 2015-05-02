@@ -10,7 +10,7 @@
     <meta property="og:url" content="http://kerkerj.github.io/">
     <meta property="og:title" content="kerkerj">
     
-    <meta property="og:description" content="如題~ 先假設 pi2 本身的 IP 是 192.168.1.200 首先先進去 server 來更新一下~ $ sudo apt-get update &amp;&amp; sudo apt-get upgrade 再來就裝 motion 他其實是一個 motion detector，不過也可以拿來當作 web cam 用的 streaming server XD $ sudo apt-get install motion 編輯設定檔 /etc/motion/motion.conf $ sudo vi /etc/motion/motion.conf 找到以下幾個值，並分別改成下面 daemon = ON webcam_localhost = OFF control_localhost = OFF webcam_localhost 是 streaming 介面 control_localhost 是設定介面 如果要改預設 port，就找 webcam_port, or control_port 最後設定將 service 啟動 $ sudo vi /etc/default/motion 將 no">
+    <meta property="og:description" content="hugo hugo - 快速又現代的靜態網站產生器 ^^^ 這是 spf13 自己說的 繼 spf13-vim 後又一個 spf13 出品的好東西 XD 在靜態網站產生器中最廣為人知的應該就是 Jekyll 以及基於 Jekyll 的 Octopress 了 (關於靜態網站產生器，這篇文章 介紹了六個除了 Jekyll 以外的產生器) 為什麼要用 hugo？ 雖然 Jekyll / Octopress 很紅資源多主題也不少 但是缺點就是要使用它們就必須裝 ruby、裝 gem 有在寫 ruby 的人感覺應該還好 沒在寫 ruby 的光想像就覺得應該會被搞死&hellip; XD 而且覺得文章一多時在編譯的時候好慢&hellip; 用 hugo 的好處就是因為他是用 go 寫的 執行速度飛快，而且只要下載一個 binary 檔案後就可以操作了喲~ 基本 hugo 安裝與操作 首先先安裝 hugo (我是用 mac 的 homebrew) $ brew install hugo 使用 hugo 產生一個新的網站 $ hugo new site /path/to/the/site e.g.">
     
     
     
@@ -90,14 +90,6 @@
                 </li>
                 
                 
-                <li class="nav-item">
-                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
-                </li>
-                
-                
-                <li class="nav-item">
-                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
-                </li>
                 
                 <li class="nav-item">
                     <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
@@ -112,6 +104,132 @@
         <div>
             
             <div class="posts">
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/08/2014-10-08-api-d8/" class="post-title">[API-d8] - Node.js - Hello World!</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-restful" href="http://kerkerj.github.io//categories/restful">restful</a><a class="post-category post-category-api" href="http://kerkerj.github.io//categories/api">api</a><a class="post-category post-category-nodejs" href="http://kerkerj.github.io//categories/nodejs">nodejs</a><a class="post-category post-category-node" href="http://kerkerj.github.io//categories/node">node</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        
+
+<h1 id="node-js-hello-world:e95c172dc9aeb9ea8e227904633c9cb4">Node.js - Hello World!</h1>
+
+<p>一樣先開虛擬機哦~</p>
+
+<p>並且開啟終端機連進 server 裡面~</p>
+
+<p>以下是 <a href="http://nodejs.org/">Node.js</a> 官方網站的 web server 程式範例，我稍作小修改：</p>
+
+<pre><code class="language-javascript">var http = require('http');
+
+http.createServer(function (req, res) {
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.end('Hello World\n');
+}).listen(1337, '0.0.0.0');
+
+console.log('Server running at http://0.0.0.0:1337/');
+</code></pre>
+
+<p>我們先在虛擬機的資料夾建立一個子資料夾 &lsquo;HelloWorld&rsquo;</p>
+
+<p>在 HelloWorld 資料夾裡面建立一個 app.js</p>
+
+<p>內容如上，存檔。</p>
+
+<p>使用終端機進入 server :</p>
+
+<pre><code>$ vagrant ssh
+$ cd /vagrant/HelloWorld
+$ node app.js
+</code></pre>
+
+<p>到瀏覽器輸入 <a href="http://192.168.33.10:1337/">http://192.168.33.10:1337/</a></p>
+
+<p>(或者是你的 Vagrantfile 裡面設定的 private IP)</p>
+
+<p>即可看到 Hello World 了！</p>
+
+<p>要關掉 Server 也非常簡單，回到下指令的地方，按下 ctrl + c 即可中斷程式</p>
+
+<h2 id="分析:e95c172dc9aeb9ea8e227904633c9cb4">分析</h2>
+
+<p>簡單分析一下此段程式：</p>
+
+<pre><code class="language-javascript">var http = require('http');
+</code></pre>
+
+<p>將 http 這個模組引入，並指定給物件 http</p>
+
+<pre><code class="language-javascript">http.createServer(
+	...
+).listen(1337, '0.0.0.0');
+</code></pre>
+
+<p>先略過中間的 function 不看，<br />
+這段 code 的用意即是讓呼叫 http 物件中的 createServer 的方法，
+.listen() 則是設定該 server 要跑在哪個 port、hostname</p>
+
+<pre><code class="language-javascript">function (req, res) {
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.end('Hello World\n');
+}
+</code></pre>
+
+<p>上面的 code 則是原本在 .createServer() 裡的，
+我們可以看一下 Node.js 的 API doc <a href="http://nodejs.org/api/http.html#http_http_createserver_requestlistener">關於此方法的部分</a></p>
+
+<p>.createServer() 要帶入的東西其實是一個 requestListener，<br />
+也就是當 Server 跑起來時，我們開啟瀏覽器，輸入 127.0.0.1:1337 時，<br />
+Node.js Server 要回丟的東西，因此觀察一下此 listener:</p>
+
+<pre><code class="language-javascript">function (req, res) {
+	...
+}
+</code></pre>
+
+<p>function 中帶入參數的是 req, res，意即 request, response，<br />
+request 即是 server 接收到 client 端的訊息，<br />
+response 則是 server 要回丟給 client 的訊息，<br />
+由於在此範例中，我們只是要回丟給 client 端一個 hello world 的訊息，
+因此，我們不處理 client 送給 server 的 request，
+我們只需處理要回丟給 client 的訊息，</p>
+
+<pre><code class="language-javascript">res.writeHead(200, {'Content-Type': 'text/plain'});
+res.end('Hello World\n');
+</code></pre>
+
+<p>寫網頁的開發者應該對一些關鍵字例如 Content-type, text/plain 不陌生，<br />
+第一行代表回傳給使用者的訊息中，HTTP HEAD 的設定是 http status code 200,
+並且 Content-type 設定為 text/plain</p>
+
+<pre><code class="language-javascript">res.writeHead(200, {'Content-Type': 'text/plain'});
+</code></pre>
+
+<p>那麼，以下這行 code 的意思即是，此次要回送給使用者的訊息到這裡結束，以 &ldquo;Hello World&rdquo; 作結尾</p>
+
+<pre><code class="language-javascript">res.end('Hello World\n');
+</code></pre>
+
+<p>因此整段 code 看下來，就是一個非常簡單的 http server，</p>
+
+<p><a href="http://192.168.33.10:1337/">http://192.168.33.10:1337/</a> 總是會回傳 Hello World</p>
+
+<p>今天就完成了我們的 Hello World 了!</p>
+
+                    </div>
+                </section>
                 
                 <h1 class="content-subhead">2014-10-10 00:00</h1>
                 <section class="post">
@@ -358,6 +476,182 @@ let strings = numbers.map {
 <p>而處理的方法則是將 Int 的每個位數分別轉換成 String 連接起來再回傳</p>
 
 <p>很方便的方法!</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/06/2014-10-06-api-d6/" class="post-title">[API-d6] - [Server 番外篇] 建立自己的本機虛擬伺服器 2 - Ubuntu 基本設定與安裝 Node.js, MongoDB</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-restful" href="http://kerkerj.github.io//categories/restful">restful</a><a class="post-category post-category-api" href="http://kerkerj.github.io//categories/api">api</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        
+
+<h1 id="server-番外篇-建立自己的本機虛擬伺服器-2-ubuntu-基本設定與安裝-node-js-mongodb:86f691637d0cc1a9e2829cee005f2907">[Server 番外篇] 建立自己的本機虛擬伺服器 2 - Ubuntu 基本設定與安裝 Node.js, MongoDB</h1>
+
+<p>嗨又到了 Server 時間了!</p>
+
+<p>接下來我們都會做一些指令操作，</p>
+
+<p>如果進一步有興趣的可以 Google 鳥哥的私房菜，</p>
+
+<p>完整的 Linux 操作教學，淺顯易懂，想學習操作 linux OS 的話必看！</p>
+
+<p>今天我們要稍稍整理一下昨天剛安裝完的 Ubuntu 作業系統，以及安裝一些我們需要用到的東西</p>
+
+<p>首先我們的第一步就是先開啟終端機，到昨天放 Vagrantfile 的資料夾:</p>
+
+<pre><code>$ cd ~/ithome/
+</code></pre>
+
+<p>開啟 Ubuntu</p>
+
+<pre><code>$ vagrant up
+</code></pre>
+
+<p>順帶一提，有時候開機時可能會卡在一個地方：</p>
+
+<pre><code>default: Warning: Connection timeout. Retrying...
+default: Warning: Connection timeout. Retrying...
+default: Warning: Connection timeout. Retrying...
+</code></pre>
+
+<p>這個就稍微等一下吧~ 如果電腦性能比較差的話可能會卡比較久，不過應該不至於會卡超過 10 分鐘</p>
+
+<p>如果卡超過十分鐘可能要強制中斷，並且尋找解決辦法了～</p>
+
+<p>開機完成後就登入吧!</p>
+
+<pre><code>$ vagrant ssh
+...
+vagrant@vagrant-ubuntu-trusty-64:~$
+</code></pre>
+
+<p>##Ubuntu 套件, 設定時區</p>
+
+<p>今天就要來幫 Ubuntu 安裝一些東西，</p>
+
+<p>首先先產生 locale file for zh_TW</p>
+
+<pre><code>$ sudo locale-gen zh_TW.UTF-8
+</code></pre>
+
+<p>更新檔案清單並安裝更新, 移除更新後不需要的套件:</p>
+
+<pre><code>$ sudo apt-get update &amp;&amp; sudo apt-get -y upgrade
+$ sudo apt-get -y autoremove
+</code></pre>
+
+<p>再來是安裝一些常用的套件 如 git, curl, vim 等等:</p>
+
+<pre><code>$ sudo apt-get -y install build-essential vim git-core curl autoconf libssl-dev
+</code></pre>
+
+<p>設定時區, 照著指令選就好了~</p>
+
+<pre><code>$ sudo dpkg-reconfigure tzdata
+...
+
+// 選擇完畢後, 輸入 date 指令來查詢伺服器時間
+$ date
+Sat Oct  6 20:47:03 CST 2014
+</code></pre>
+
+<p>##Node.js 安裝</p>
+
+<p>我們使用了 ppa 以安裝最新的 Node.js 版本:</p>
+
+<pre><code>// 加入 ppa
+$ sudo add-apt-repository ppa:chris-lea/node.js
+ Evented I/O for V8 javascript. Node's goal is to provide an easy way to build scalable network programs
+ More info: https://launchpad.net/~chris-lea/+archive/ubuntu/node.js
+Press [ENTER] to continue or ctrl-c to cancel adding it
+(要再按一下 enter)
+
+// 因為加入新的檔案清單來源了，所以重新更新 ubuntu 的檔案清單
+$ sudo apt-get update
+
+// 安裝 nodejs
+$ sudo apt-get -y install nodejs
+</code></pre>
+
+<p>這樣就完成安裝了!</p>
+
+<p>確認一下版本是否安裝成功:</p>
+
+<pre><code>$ node -v 
+v0.10.32 
+
+$ npm -v 
+1.4.28
+</code></pre>
+
+<p>ya! 這樣 Ubuntu 就有 node.js 了!</p>
+
+<p>##MongoDB</p>
+
+<p>再來就是要安裝 MongoDB 了!</p>
+
+<p>我們參考 MongoDB <a href="http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/">官方網站的文件</a></p>
+
+<pre><code>//加入 apt-key
+$ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+
+
+// 新增一個來源清單，並將 mongodb 的來源寫進該來源清單
+$ echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | sudo tee /etc/apt/sources.list.d/mongodb.list
+
+// 重新更新來源清單
+$ sudo apt-get update
+
+// 安裝 mongodb
+$ sudo apt-get install -y mongodb-org
+</code></pre>
+
+<p>安裝完成後 Mongo db 就會跑起來了，從以下指令可以得知</p>
+
+<pre><code>$ ps aux | grep mongo
+</code></pre>
+
+<p>順便確認一下版本:</p>
+
+<pre><code>$ mongod --version
+db version v2.6.4
+2014-10-04T06:31:01.553+0000 git version: 3a830be0eb92d772aa855ebb711ac91d658ee910
+
+$ mongo --version
+MongoDB shell version: 2.6.4
+</code></pre>
+
+<p>MongoDB 除了安裝了 DB 本身，還提供了指令提供操作，稱之為 MongoDB Shell，</p>
+
+<p>方便我們使用 Shell 進去 DB 裡面做 DB 操作</p>
+
+<p>以下是 mongodb service 的指令:</p>
+
+<pre><code>// 開啟 mongodb
+$ sudo service mongod start
+
+// 關閉 mongodb
+$ sudo service mongod stop
+
+// 重啟 mongodb
+$ sudo service mongod restart
+</code></pre>
+
+<p>好啦~ 今天就先到這，記得把虛擬機器關起來~</p>
 
                     </div>
                 </section>
@@ -645,182 +939,6 @@ println(&quot;zero!&quot;)
     return backwards ? stepBackward : stepForward
 }
 </code></pre>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2014-10-10 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://kerkerj.github.io/blog/2014/10/06/2014-10-06-api-d6/" class="post-title">[API-d6] - [Server 番外篇] 建立自己的本機虛擬伺服器 2 - Ubuntu 基本設定與安裝 Node.js, MongoDB</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-restful" href="http://kerkerj.github.io//categories/restful">restful</a><a class="post-category post-category-api" href="http://kerkerj.github.io//categories/api">api</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        
-
-<h1 id="server-番外篇-建立自己的本機虛擬伺服器-2-ubuntu-基本設定與安裝-node-js-mongodb:86f691637d0cc1a9e2829cee005f2907">[Server 番外篇] 建立自己的本機虛擬伺服器 2 - Ubuntu 基本設定與安裝 Node.js, MongoDB</h1>
-
-<p>嗨又到了 Server 時間了!</p>
-
-<p>接下來我們都會做一些指令操作，</p>
-
-<p>如果進一步有興趣的可以 Google 鳥哥的私房菜，</p>
-
-<p>完整的 Linux 操作教學，淺顯易懂，想學習操作 linux OS 的話必看！</p>
-
-<p>今天我們要稍稍整理一下昨天剛安裝完的 Ubuntu 作業系統，以及安裝一些我們需要用到的東西</p>
-
-<p>首先我們的第一步就是先開啟終端機，到昨天放 Vagrantfile 的資料夾:</p>
-
-<pre><code>$ cd ~/ithome/
-</code></pre>
-
-<p>開啟 Ubuntu</p>
-
-<pre><code>$ vagrant up
-</code></pre>
-
-<p>順帶一提，有時候開機時可能會卡在一個地方：</p>
-
-<pre><code>default: Warning: Connection timeout. Retrying...
-default: Warning: Connection timeout. Retrying...
-default: Warning: Connection timeout. Retrying...
-</code></pre>
-
-<p>這個就稍微等一下吧~ 如果電腦性能比較差的話可能會卡比較久，不過應該不至於會卡超過 10 分鐘</p>
-
-<p>如果卡超過十分鐘可能要強制中斷，並且尋找解決辦法了～</p>
-
-<p>開機完成後就登入吧!</p>
-
-<pre><code>$ vagrant ssh
-...
-vagrant@vagrant-ubuntu-trusty-64:~$
-</code></pre>
-
-<p>##Ubuntu 套件, 設定時區</p>
-
-<p>今天就要來幫 Ubuntu 安裝一些東西，</p>
-
-<p>首先先產生 locale file for zh_TW</p>
-
-<pre><code>$ sudo locale-gen zh_TW.UTF-8
-</code></pre>
-
-<p>更新檔案清單並安裝更新, 移除更新後不需要的套件:</p>
-
-<pre><code>$ sudo apt-get update &amp;&amp; sudo apt-get -y upgrade
-$ sudo apt-get -y autoremove
-</code></pre>
-
-<p>再來是安裝一些常用的套件 如 git, curl, vim 等等:</p>
-
-<pre><code>$ sudo apt-get -y install build-essential vim git-core curl autoconf libssl-dev
-</code></pre>
-
-<p>設定時區, 照著指令選就好了~</p>
-
-<pre><code>$ sudo dpkg-reconfigure tzdata
-...
-
-// 選擇完畢後, 輸入 date 指令來查詢伺服器時間
-$ date
-Sat Oct  6 20:47:03 CST 2014
-</code></pre>
-
-<p>##Node.js 安裝</p>
-
-<p>我們使用了 ppa 以安裝最新的 Node.js 版本:</p>
-
-<pre><code>// 加入 ppa
-$ sudo add-apt-repository ppa:chris-lea/node.js
- Evented I/O for V8 javascript. Node's goal is to provide an easy way to build scalable network programs
- More info: https://launchpad.net/~chris-lea/+archive/ubuntu/node.js
-Press [ENTER] to continue or ctrl-c to cancel adding it
-(要再按一下 enter)
-
-// 因為加入新的檔案清單來源了，所以重新更新 ubuntu 的檔案清單
-$ sudo apt-get update
-
-// 安裝 nodejs
-$ sudo apt-get -y install nodejs
-</code></pre>
-
-<p>這樣就完成安裝了!</p>
-
-<p>確認一下版本是否安裝成功:</p>
-
-<pre><code>$ node -v 
-v0.10.32 
-
-$ npm -v 
-1.4.28
-</code></pre>
-
-<p>ya! 這樣 Ubuntu 就有 node.js 了!</p>
-
-<p>##MongoDB</p>
-
-<p>再來就是要安裝 MongoDB 了!</p>
-
-<p>我們參考 MongoDB <a href="http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/">官方網站的文件</a></p>
-
-<pre><code>//加入 apt-key
-$ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
-
-
-// 新增一個來源清單，並將 mongodb 的來源寫進該來源清單
-$ echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | sudo tee /etc/apt/sources.list.d/mongodb.list
-
-// 重新更新來源清單
-$ sudo apt-get update
-
-// 安裝 mongodb
-$ sudo apt-get install -y mongodb-org
-</code></pre>
-
-<p>安裝完成後 Mongo db 就會跑起來了，從以下指令可以得知</p>
-
-<pre><code>$ ps aux | grep mongo
-</code></pre>
-
-<p>順便確認一下版本:</p>
-
-<pre><code>$ mongod --version
-db version v2.6.4
-2014-10-04T06:31:01.553+0000 git version: 3a830be0eb92d772aa855ebb711ac91d658ee910
-
-$ mongo --version
-MongoDB shell version: 2.6.4
-</code></pre>
-
-<p>MongoDB 除了安裝了 DB 本身，還提供了指令提供操作，稱之為 MongoDB Shell，</p>
-
-<p>方便我們使用 Shell 進去 DB 裡面做 DB 操作</p>
-
-<p>以下是 mongodb service 的指令:</p>
-
-<pre><code>// 開啟 mongodb
-$ sudo service mongod start
-
-// 關閉 mongodb
-$ sudo service mongod stop
-
-// 重啟 mongodb
-$ sudo service mongod restart
-</code></pre>
-
-<p>好啦~ 今天就先到這，記得把虛擬機器關起來~</p>
 
                     </div>
                 </section>
@@ -1500,135 +1618,6 @@ Twitter: <a href="https://dev.twitter.com/rest/tools/console">https://dev.twitte
                     </div>
                 </section>
                 
-                <h1 class="content-subhead">2014-10-10 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://kerkerj.github.io/blog/2014/10/03/2014-10-03-swift-d3/" class="post-title">[Swift-d3] - Playground - 變數與常數, 註解, 基本資料型別 </a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-Swift" href="http://kerkerj.github.io//categories/swift">Swift</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p>##變數與常數</p>
-
-<p>定義一個變數:</p>
-
-<pre><code class="language-Swift">var obj: String = &quot;&quot;
-</code></pre>
-
-<p>var 是保留字，宣告 obj 是一個變數名稱，冒號後面接資料形態<br />
-以此例子來說，宣告了一個字串變數叫做 obj，並且初始化為 &ldquo;&rdquo; 空字串</p>
-
-<pre><code>let obj: String = &quot;&quot;
-</code></pre>
-
-<p>let 同樣是用來宣告一個變數，但是宣告此變數後，該變數的值無法被改變，<br />
-無法被改變的數值其實正正的名字就叫做常數
-以上面的例子來說， 若我們多做一件事:</p>
-
-<pre><code>let obj: String = &quot;&quot;
-obj = &quot;test&quot;
-</code></pre>
-
-<p>若我們試圖去更改 obj，讓 obj 從空字串變成 &ldquo;test&rdquo; 時，<br />
-Xcode 就會報錯，不能更改該值</p>
-
-<p>再來是宣告的變型，其實宣告時不一定要給資料形態，<br />
-Swift 會自動從後面的值來判斷 x 可能是什麼資料形態，<br />
-只是由於筆者的習慣，會儘量在後面加上該變數的資料型別</p>
-
-<pre><code>var x = &quot;test&quot;
-</code></pre>
-
-<p>一行內宣告多值：</p>
-
-<pre><code>var x = 0.0, y = 0.0, z = 0.0
-</code></pre>
-
-<p>我們就可以在 Playground 裡面試著宣告一些變數看看，並且使用昨天的輸出函式來輸出變數:</p>
-
-<pre><code>var str: String = &quot;測試&quot;
-let fixString: String = &quot;fixed&quot;
-
-var x = 0, y = 1, z = 2
-
-println(str)
-println(x)
-println(y)
-println(z)
-</code></pre>
-
-<p>##註解</p>
-
-<pre><code>// 單行註解
-
-/*
-多行註解
-多行註解
-多行註解
-*/
-</code></pre>
-
-<p>##基本資料型別</p>
-
-<p>Swift 是一個強型別語言，意即若是以下的程式碼是會出錯的:</p>
-
-<pre><code>var x = &quot;test&quot;
-x = 2
-</code></pre>
-
-<p>由於 x 已經被先 Swift 判定是 String 了，後面想指定 Int 資料給 x 就會出錯</p>
-
-<p>Int 整數:
-Swift 提供了 Int 還另外提供了 8, 16, 32, 64 位元的有號和無號整數型別<br />
-若在 32 位元平台，宣告 Int 的話， Int 的長度和 Int32 是一樣的<br />
-若在 64 位元平台，宣告 Int 的話， Int 的長度和 Int64 是一樣的</p>
-
-<p>浮點數：
-3.2, 0.0 之類的數字，可以用
-Double - 64 位元浮點數 (至少 15 位數)
-Float - 32 位元浮點數 (至少 6 位數)</p>
-
-<p>布林值：
-true/false</p>
-
-<p>Tuples:
-Tuple 可以將多個值組合成一個值，例如：</p>
-
-<pre><code>//賦值
-let httpSucess = (200, &quot;Success&quot;)
-
-// 反過來接值
-let (statusCode, statusMessage) = httpSucess
-
-// 若只需要其中一個值，另一個值可以用 _ 代替，但是不能沒有 _ 
-let (statusCode, _) = httpSucess
-
-// 也可以用索引的方式拿值
-println(httpSucess.0)
-
-// 宣告 tuples 時也可以直接給予參數一個名稱
-let httpSucess = (statusCode: 200, statusMessage: &quot;Success&quot;)
-
-// 拿值時就可以:
-println(httpSucess.statusCode)
-</code></pre>
-
-<p>同時結合 function 這樣就可以多值回傳了！</p>
-
-<p>下一篇會接續今天變數相關的主題~</p>
-
-                    </div>
-                </section>
-                
             </div>
             
 <div class="pagination">
@@ -1671,7 +1660,7 @@ hljs.initHighlightingOnLoad();
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('create', 'UA-45583907-2', 'auto');
 ga('send', 'pageview');
 
 </script>

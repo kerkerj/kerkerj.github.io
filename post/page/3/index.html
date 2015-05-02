@@ -85,14 +85,6 @@
                 </li>
                 
                 
-                <li class="nav-item">
-                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
-                </li>
-                
-                
-                <li class="nav-item">
-                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
-                </li>
                 
                 <li class="nav-item">
                     <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
@@ -107,6 +99,137 @@
         <div>
             
             <div class="posts">
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/22/2014-10-22-api-d22/" class="post-title">[API-d22] - 實戰開發 - 讀取 TODO task API with mongoose</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-restful" href="http://kerkerj.github.io//categories/restful">restful</a><a class="post-category post-category-api" href="http://kerkerj.github.io//categories/api">api</a><a class="post-category post-category-nodejs" href="http://kerkerj.github.io//categories/nodejs">nodejs</a><a class="post-category post-category-express" href="http://kerkerj.github.io//categories/express">express</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day22">Github 參考</a></p>
+
+<p>如果有使用 MongoDB client 的話就可以搭配使用會比較有感覺</p>
+
+<p>Mac 我是使用 Robomongo，算很好上手~</p>
+
+<p>今天要來實作讀取的部分</p>
+
+<p>讀取有分兩種，一種是讀取 list</p>
+
+<p>另一種是讀取特定某個 todo task，今天兩種都會實作</p>
+
+<p>首先我們先實作 get todo list</p>
+
+<p>因為若要拿到特定的 todo task，需要 todo task 的 id</p>
+
+<p>而我們現在還不曉得 todo task 的 id 是多少，我們只知道 user_id</p>
+
+<p>因此就先從 list 下手</p>
+
+<p>routes/users.js:</p>
+
+<pre><code class="language-javascript">// Get todo list
+router.get('/:user_id/todos', function(req, res) {
+	var user_id = req.params.user_id;
+
+    TODO.find(
+        {user_id: user_id},
+        function (err, results) {
+            if (err) {
+                res.status(400).json(
+                    { error: &quot;can not find data&quot; }
+                );
+            } else {
+                res.status(200).json(
+                    results
+                );
+            }
+        }
+    );
+});
+</code></pre>
+
+<p>上面程式碼的意思是，先抓到 uri 的 user_id</p>
+
+<p>再來就直接進 db 找，find() 的第一個參數為:</p>
+
+<pre><code>{user_id: user_id},
+</code></pre>
+
+<p>可以想像成是 SQL 語法中的 WHERE 條件</p>
+
+<pre><code>SELECT * WHERE user_id = 'user_id' FROM todos
+</code></pre>
+
+<p>而 callback 則是針對 error 或 results 作處理</p>
+
+<p>試著將 server 跑起來，然後使用 POSTMAN 丟 GET request 試試看</p>
+
+<p>如果沒有資料，就利用昨天實作的 POST API 新增幾個吧！</p>
+
+<p>記得 url 中輸入的 user_id 要在 DB 中有該 user 的資料才找的到資料哦</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%203.17.08.png" alt="images" />
+</p>
+
+<p>如此一來就有 task id 了!</p>
+
+<p>再來就來實作讀取特定 id 的 task API 吧!</p>
+
+<p>程式碼如下</p>
+
+<p>routes/user.js:</p>
+
+<pre><code>// Get a todo task
+router.get('/:user_id/todos/:todo_id', function(req, res) {
+    var user_id = req.params.user_id;
+    var todo_id = req.params.todo_id;
+
+    TODO.find(
+        { _id: todo_id, user_id: user_id},
+        function (err, results) {
+            if (err) {
+                res.status(400).json(
+                    { error: &quot;can not find data&quot; }
+                );
+            } else {
+                res.status(200).json(
+                    results[0]
+                );
+            }
+        }
+    );
+});
+</code></pre>
+
+<p>這次更簡單了，user_id 及 todo_id 都是從 url 上取值</p>
+
+<p>接著一樣使用 where 條件，將值帶入找資料</p>
+
+<p>最後交給 callback 處理回傳值</p>
+
+<p>將 server 跑起來，試著先從todo list 複製某一筆 _id 的值</p>
+
+<p>丟到 url 中試試看</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%203.21.51.png" alt="image" />
+</p>
+
+<p>如此一來，讀取特定 task 的 API 也完成囉!</p>
+
+                    </div>
+                </section>
                 
                 <h1 class="content-subhead">2014-10-10 00:00</h1>
                 <section class="post">
@@ -1473,144 +1596,6 @@ $ npm stop
                     </div>
                 </section>
                 
-                <h1 class="content-subhead">2014-10-10 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://kerkerj.github.io/blog/2014/10/18/2014-10-18-swift-d18/" class="post-title">[Swift-d18] - Basic - Customize TableViewCell</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-swift" href="http://kerkerj.github.io//categories/swift">swift</a><a class="post-category post-category-tableviewcell" href="http://kerkerj.github.io//categories/tableviewcell">tableviewcell</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p>今天的主題延續昨天的 Navigation + TableView</p>
-
-<p>我們要來客製化 TableViewCell</p>
-
-<p>通常 TableView 可以被拿來做很多事情，不僅只是像是 ListView 而已</p>
-
-<p>而 TableViewCell 可以做更深度的切版，排列元素</p>
-
-<p>因此自定 TableViewCell 是一件算是還蠻重要的事情</p>
-
-<p>下面的 Code 是延續昨天的專案</p>
-
-<p>我先把已更改過的程式碼貼上來:</p>
-
-<pre><code class="language-swift">import UIKit
-
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
-    @IBOutlet var tableView: UITableView!
-    
-    var arr = [&quot;A&quot;, &quot;B&quot;, &quot;C&quot;]
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {
-        return arr.count;
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell {
-        var cell: CustomTableViewCell? = tableView.dequeueReusableCellWithIdentifier(&quot;cell&quot;) as CustomTableViewCell?
-        
-        if cell == nil {
-            var objects = NSBundle.mainBundle().loadNibNamed(&quot;CustomTableViewCell&quot;, owner: self, options: nil)
-            cell = objects[0] as? CustomTableViewCell
-        }
-        
-        cell!.textLabel?.text = arr[indexPath.row]
-        
-        return cell!
-    }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var detailViewController = DetailViewController()
-        detailViewController.title = arr[indexPath.row]
-        self.navigationController?.pushViewController(detailViewController, animated: true)
-    }
-    
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -&gt; CGFloat {
-        return 165.0
-    }
-}
-</code></pre>
-
-<p>今天要新增一個檔案, 我們就稱之為 CustomTableViewCell</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.36.49.png" alt="image" />
-</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.37.37.png" alt="image" />
-</p>
-
-<p>就會出現一份 .swift 檔案以及 .xib 檔案了</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.38.06.png" alt="image" />
-</p>
-
-<p>接下來我們簡單編輯 .xib 檔案，將背景顏色換成其他顏色，以及將它的長度拉高</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.39.49.png" alt="image" />
-</p>
-
-<p>這樣其實就很簡單地完成了一個小客製化的 TableViewCell 了</p>
-
-<p>那我們要怎麼讓原本的 TableView 吃到這個 TableViewCell 呢?</p>
-
-<p>看以下的 function:</p>
-
-<pre><code>func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell {
-	var cell: CustomTableViewCell? = tableView.dequeueReusableCellWithIdentifier(&quot;cell&quot;) as CustomTableViewCell?
-        
-	if cell == nil {
-		var objects = NSBundle.mainBundle().loadNibNamed(&quot;CustomTableViewCell&quot;, owner: self, options: nil)
-		cell = objects[0] as? CustomTableViewCell
-	}
-        
-	cell!.textLabel?.text = arr[indexPath.row]
-        
-	return cell!
-}
-</code></pre>
-
-<p>我們將 cell 的類別更改成了 CustomTableViewCell</p>
-
-<p>直接使用剛剛產生的 .swift 類別來產生新的 TableViewCell</p>
-
-<p>並且如果 cell == nil ，則會將 Nib 載入</p>
-
-<p>最後設定該 textLabel ，返回 cell</p>
-
-<p>若使用最一開始的程式碼 apply changes</p>
-
-<p>執行！</p>
-
-<p>應該就可以看到成果了!</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2012.01.35.png" alt="image" />
-</p>
-
-<p>p.s. 這篇可能實作上會有 bug (我寫的), 就先跳過吧 XD</p>
-
-                    </div>
-                </section>
-                
             </div>
             
 <div class="pagination">
@@ -1652,7 +1637,7 @@ hljs.initHighlightingOnLoad();
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('create', 'UA-45583907-2', 'auto');
 ga('send', 'pageview');
 
 </script>

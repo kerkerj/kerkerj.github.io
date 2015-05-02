@@ -10,7 +10,7 @@
     <meta property="og:url" content="http://kerkerj.github.io/">
     <meta property="og:title" content="kerkerj">
     
-    <meta property="og:description" content="如題~ 先假設 pi2 本身的 IP 是 192.168.1.200 首先先進去 server 來更新一下~ $ sudo apt-get update &amp;&amp; sudo apt-get upgrade 再來就裝 motion 他其實是一個 motion detector，不過也可以拿來當作 web cam 用的 streaming server XD $ sudo apt-get install motion 編輯設定檔 /etc/motion/motion.conf $ sudo vi /etc/motion/motion.conf 找到以下幾個值，並分別改成下面 daemon = ON webcam_localhost = OFF control_localhost = OFF webcam_localhost 是 streaming 介面 control_localhost 是設定介面 如果要改預設 port，就找 webcam_port, or control_port 最後設定將 service 啟動 $ sudo vi /etc/default/motion 將 no">
+    <meta property="og:description" content="hugo hugo - 快速又現代的靜態網站產生器 ^^^ 這是 spf13 自己說的 繼 spf13-vim 後又一個 spf13 出品的好東西 XD 在靜態網站產生器中最廣為人知的應該就是 Jekyll 以及基於 Jekyll 的 Octopress 了 (關於靜態網站產生器，這篇文章 介紹了六個除了 Jekyll 以外的產生器) 為什麼要用 hugo？ 雖然 Jekyll / Octopress 很紅資源多主題也不少 但是缺點就是要使用它們就必須裝 ruby、裝 gem 有在寫 ruby 的人感覺應該還好 沒在寫 ruby 的光想像就覺得應該會被搞死&hellip; XD 而且覺得文章一多時在編譯的時候好慢&hellip; 用 hugo 的好處就是因為他是用 go 寫的 執行速度飛快，而且只要下載一個 binary 檔案後就可以操作了喲~ 基本 hugo 安裝與操作 首先先安裝 hugo (我是用 mac 的 homebrew) $ brew install hugo 使用 hugo 產生一個新的網站 $ hugo new site /path/to/the/site e.g.">
     
     
     
@@ -90,14 +90,6 @@
                 </li>
                 
                 
-                <li class="nav-item">
-                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
-                </li>
-                
-                
-                <li class="nav-item">
-                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
-                </li>
                 
                 <li class="nav-item">
                     <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
@@ -112,6 +104,144 @@
         <div>
             
             <div class="posts">
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/18/2014-10-18-swift-d18/" class="post-title">[Swift-d18] - Basic - Customize TableViewCell</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-swift" href="http://kerkerj.github.io//categories/swift">swift</a><a class="post-category post-category-tableviewcell" href="http://kerkerj.github.io//categories/tableviewcell">tableviewcell</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>今天的主題延續昨天的 Navigation + TableView</p>
+
+<p>我們要來客製化 TableViewCell</p>
+
+<p>通常 TableView 可以被拿來做很多事情，不僅只是像是 ListView 而已</p>
+
+<p>而 TableViewCell 可以做更深度的切版，排列元素</p>
+
+<p>因此自定 TableViewCell 是一件算是還蠻重要的事情</p>
+
+<p>下面的 Code 是延續昨天的專案</p>
+
+<p>我先把已更改過的程式碼貼上來:</p>
+
+<pre><code class="language-swift">import UIKit
+
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    @IBOutlet var tableView: UITableView!
+    
+    var arr = [&quot;A&quot;, &quot;B&quot;, &quot;C&quot;]
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {
+        return arr.count;
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell {
+        var cell: CustomTableViewCell? = tableView.dequeueReusableCellWithIdentifier(&quot;cell&quot;) as CustomTableViewCell?
+        
+        if cell == nil {
+            var objects = NSBundle.mainBundle().loadNibNamed(&quot;CustomTableViewCell&quot;, owner: self, options: nil)
+            cell = objects[0] as? CustomTableViewCell
+        }
+        
+        cell!.textLabel?.text = arr[indexPath.row]
+        
+        return cell!
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        var detailViewController = DetailViewController()
+        detailViewController.title = arr[indexPath.row]
+        self.navigationController?.pushViewController(detailViewController, animated: true)
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -&gt; CGFloat {
+        return 165.0
+    }
+}
+</code></pre>
+
+<p>今天要新增一個檔案, 我們就稱之為 CustomTableViewCell</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.36.49.png" alt="image" />
+</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.37.37.png" alt="image" />
+</p>
+
+<p>就會出現一份 .swift 檔案以及 .xib 檔案了</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.38.06.png" alt="image" />
+</p>
+
+<p>接下來我們簡單編輯 .xib 檔案，將背景顏色換成其他顏色，以及將它的長度拉高</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.39.49.png" alt="image" />
+</p>
+
+<p>這樣其實就很簡單地完成了一個小客製化的 TableViewCell 了</p>
+
+<p>那我們要怎麼讓原本的 TableView 吃到這個 TableViewCell 呢?</p>
+
+<p>看以下的 function:</p>
+
+<pre><code>func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell {
+	var cell: CustomTableViewCell? = tableView.dequeueReusableCellWithIdentifier(&quot;cell&quot;) as CustomTableViewCell?
+        
+	if cell == nil {
+		var objects = NSBundle.mainBundle().loadNibNamed(&quot;CustomTableViewCell&quot;, owner: self, options: nil)
+		cell = objects[0] as? CustomTableViewCell
+	}
+        
+	cell!.textLabel?.text = arr[indexPath.row]
+        
+	return cell!
+}
+</code></pre>
+
+<p>我們將 cell 的類別更改成了 CustomTableViewCell</p>
+
+<p>直接使用剛剛產生的 .swift 類別來產生新的 TableViewCell</p>
+
+<p>並且如果 cell == nil ，則會將 Nib 載入</p>
+
+<p>最後設定該 textLabel ，返回 cell</p>
+
+<p>若使用最一開始的程式碼 apply changes</p>
+
+<p>執行！</p>
+
+<p>應該就可以看到成果了!</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2012.01.35.png" alt="image" />
+</p>
+
+<p>p.s. 這篇可能實作上會有 bug (我寫的), 就先跳過吧 XD</p>
+
+                    </div>
+                </section>
                 
                 <h1 class="content-subhead">2014-10-10 00:00</h1>
                 <section class="post">
@@ -633,189 +763,6 @@ override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
                 <section class="post">
                     <header class="post-header">
 
-                        <a href="http://kerkerj.github.io/blog/2014/10/15/2014-10-15-swift-d15/" class="post-title">[Swift-d15] - Basic - Table View 1 直接給值 datasource, (table view scroll)</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-swift" href="http://kerkerj.github.io//categories/swift">swift</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p>今天要來練習新的東西 - TableView</p>
-
-<p>據同事說明，TableView 是最常用到的 View 之一</p>
-
-<p>在我們的實戰開發中也會用到 TableView</p>
-
-<p>因此今天就先簡單的來建立出單頁純顯示資料的 TableView</p>
-
-<p>TableView 的概念大概是如下圖:</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%202.30.44.png" alt="image" />
-</p>
-
-<p>長得有點像 ListView 但是每一行又可以多切開，放一些東西</p>
-
-<p>每一行都稱之為一個 TableViewCell</p>
-
-<p>今天就來要簡單寫一個資料已經預先定義好，並且會顯示在 view 上面的 TableView</p>
-
-<p>要進行下去之前當然就先開一個新的練習專案囉</p>
-
-<p>開啟完專案後，首先第一件事情就是進 storyboard</p>
-
-<p>選擇 TableView 拉進 storyboard 裏</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%202.34.28.png" alt="image" />
-</p>
-
-<p>接著再選擇 TableViewCell 拉進 TableView 中</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%202.35.16.png" alt="image" />
-</p>
-
-<p>透過此圖，我們了解到可以打開 storyboard 的 tree 來看看它們之間的關係</p>
-
-<p>下面此步驟很重要，資料的連接就靠這條線:</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%202.38.16.png" alt="image" />
-</p>
-
-<p>先選取 TableView (可以使用階層樹或是點擊 storyboard)，然後選擇右方的 connection inspector (右上角的最右邊的那一個按鈕)</p>
-
-<p>裡頭有個 dataSource 以及 delegate</p>
-
-<p>我們先按住 dataSource 右邊的空心圓按鈕，拖曳拉到 storyboard 中的 ViewController，如上圖所示</p>
-
-<p>這樣子等等在程式碼中產生的資料才會有和 storyboard 的 UI 做連結</p>
-
-<p>最後一個和 storyboard 相關的操作是將 storyboard 的 TableView 和 程式碼做連結，好方便我們在程式碼中對 storyborad 的 TableView 做操作</p>
-
-<p>之前就有做過類似的事情了，就是按著 ctrl + 拖曳拉進程式碼中：</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%202.42.32.png" alt="image" />
-</p>
-
-<p>給他個名稱：</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%202.44.57.png" alt="image" />
-</p>
-
-<p>這時候的程式應該會長這樣:</p>
-
-<pre><code class="language-swift">import UIKit
-
-class ViewController: UIViewController {
-
-    @IBOutlet var tableSample: UITableView!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-}
-</code></pre>
-
-<p>再來就是程式的部分了</p>
-
-<p>先直接貼出 ViewController 的程式碼:</p>
-
-<pre><code class="language-swift">import UIKit
-
-class ViewController: UIViewController, UITableViewDataSource {
-
-    @IBOutlet var tableSample: UITableView!
-    
-    var items: [String] = []
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        for var i = 0 ; i &lt;= 100 ; i++ {
-            items.append(&quot;\(i)&quot;)
-        }
-        
-        self.tableSample.registerClass(UITableViewCell.self, forCellReuseIdentifier: &quot;cell&quot;)
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {
-        return self.items.count
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell{
-        
-        var cell: UITableViewCell = self.tableSample.dequeueReusableCellWithIdentifier(&quot;cell&quot;) as UITableViewCell
-        cell.textLabel?.text = self.items[indexPath.row]
-        
-        return cell
-    }
-}
-</code></pre>
-
-<p>這中間了幾件事:</p>
-
-<p>viewDidload 產生一個 0 ~ 100 的陣列，並且向 tableSample 註冊了一個 cell 物件，並且設定該物件的 identifier 為 &ldquo;cell&rdquo;</p>
-
-<p>接著下面兩個 function 是實作顯示資料以及資料行數的部分:</p>
-
-<pre><code>func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {
-	return self.items.count
-}
-    
-func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell{
-        
-	var cell: UITableViewCell = self.tableSample.dequeueReusableCellWithIdentifier(&quot;cell&quot;) as UITableViewCell
-	cell.textLabel?.text = self.items[indexPath.row]
-        
-	return cell
-}
-</code></pre>
-
-<p>第一個 tableView 的方法是回傳這個 tableView 的資料有多少筆</p>
-
-<p>第二個 tableView 則是根據每一行的值，產生一個 cell，將陣列值丟進該 cell 的文字，並且回傳</p>
-
-<p>這樣理論上就會顯示 0 ~ 100 個 cell，裡面的值分別是依據順序而顯示號碼</p>
-
-<p>注意在程式的 class 那一行</p>
-
-<pre><code>class ViewController: UIViewController, UITableViewDataSource {
-</code></pre>
-
-<p>有多一個 UITableViewDataSource, 因為我們要將資料丟到 UITableView 中，因此需要使用繼承該類別</p>
-
-<p>等明天我們要做換頁功能時，就要加入其他的類別了</p>
-
-<p>程式撰寫好後，執行看看吧!</p>
-
-<p>應該就會長這樣子喲:</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%202.56.47.png" alt="image" />
-</p>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2014-10-10 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
                         <a href="http://kerkerj.github.io/blog/2014/10/15/2014-10-15-api-d15/" class="post-title">[API-d15] - [Javascript 番外篇] Javascript callback, event</a>
 
                         <p class="post-meta">
@@ -1022,107 +969,181 @@ doHouseWork(function(){
                 <section class="post">
                     <header class="post-header">
 
-                        <a href="http://kerkerj.github.io/blog/2014/10/14/2014-10-14-api-d14/" class="post-title">[API-d14] - [Javascript 番外篇] Javascript function scopes 和 closures</a>
+                        <a href="http://kerkerj.github.io/blog/2014/10/15/2014-10-15-swift-d15/" class="post-title">[Swift-d15] - Basic - Table View 1 直接給值 datasource, (table view scroll)</a>
 
                         <p class="post-meta">
                             
                             
                                 under
                                 
-                                <a class="post-category post-category-restful" href="http://kerkerj.github.io//categories/restful">restful</a><a class="post-category post-category-api" href="http://kerkerj.github.io//categories/api">api</a><a class="post-category post-category-javascript" href="http://kerkerj.github.io//categories/javascript">javascript</a>
+                                <a class="post-category post-category-swift" href="http://kerkerj.github.io//categories/swift">swift</a>
                             
                         </p>
                     </header>
 
                     <div class="post-description">
-                        <p>這幾天會探討 javascript 的特性，由於比較少在寫 js ，因此有錯請指正</p>
+                        <p>今天要來練習新的東西 - TableView</p>
 
-<p>##Scope</p>
+<p>據同事說明，TableView 是最常用到的 View 之一</p>
 
-<p>例子:</p>
+<p>在我們的實戰開發中也會用到 TableView</p>
 
-<pre><code class="language-javascript">function hi() {
-    var greetings = &quot;hi&quot;;
+<p>因此今天就先簡單的來建立出單頁純顯示資料的 TableView</p>
 
-    console.log(&quot;Say: &quot; + greetings);
+<p>TableView 的概念大概是如下圖:</p>
 
-    function sayYa(newInput) {
-        greetings = newInput;
-        console.log(&quot;Say: &quot; + greetings);
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%202.30.44.png" alt="image" />
+</p>
+
+<p>長得有點像 ListView 但是每一行又可以多切開，放一些東西</p>
+
+<p>每一行都稱之為一個 TableViewCell</p>
+
+<p>今天就來要簡單寫一個資料已經預先定義好，並且會顯示在 view 上面的 TableView</p>
+
+<p>要進行下去之前當然就先開一個新的練習專案囉</p>
+
+<p>開啟完專案後，首先第一件事情就是進 storyboard</p>
+
+<p>選擇 TableView 拉進 storyboard 裏</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%202.34.28.png" alt="image" />
+</p>
+
+<p>接著再選擇 TableViewCell 拉進 TableView 中</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%202.35.16.png" alt="image" />
+</p>
+
+<p>透過此圖，我們了解到可以打開 storyboard 的 tree 來看看它們之間的關係</p>
+
+<p>下面此步驟很重要，資料的連接就靠這條線:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%202.38.16.png" alt="image" />
+</p>
+
+<p>先選取 TableView (可以使用階層樹或是點擊 storyboard)，然後選擇右方的 connection inspector (右上角的最右邊的那一個按鈕)</p>
+
+<p>裡頭有個 dataSource 以及 delegate</p>
+
+<p>我們先按住 dataSource 右邊的空心圓按鈕，拖曳拉到 storyboard 中的 ViewController，如上圖所示</p>
+
+<p>這樣子等等在程式碼中產生的資料才會有和 storyboard 的 UI 做連結</p>
+
+<p>最後一個和 storyboard 相關的操作是將 storyboard 的 TableView 和 程式碼做連結，好方便我們在程式碼中對 storyborad 的 TableView 做操作</p>
+
+<p>之前就有做過類似的事情了，就是按著 ctrl + 拖曳拉進程式碼中：</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%202.42.32.png" alt="image" />
+</p>
+
+<p>給他個名稱：</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%202.44.57.png" alt="image" />
+</p>
+
+<p>這時候的程式應該會長這樣:</p>
+
+<pre><code class="language-swift">import UIKit
+
+class ViewController: UIViewController {
+
+    @IBOutlet var tableSample: UITableView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
     }
 
-    function sayCool(newInput) {
-        var cool = newInput;
-        console.log(&quot;Say: &quot; + cool);
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
-
-    sayYa(&quot;Yo&quot;);
-    sayCool(&quot;Cool&quot;);
-
-    console.log(&quot;Say: &quot; + greetings);
 }
-
-hi();
 </code></pre>
 
-<p>很簡單的概念</p>
+<p>再來就是程式的部分了</p>
 
-<p>greetins 在 sayYa 方法中被覆寫掉了</p>
+<p>先直接貼出 ViewController 的程式碼:</p>
 
-<p>如果要定義 local 變數必須在 function 裏用 var 定義</p>
+<pre><code class="language-swift">import UIKit
 
-<p>例如 sayCool function</p>
+class ViewController: UIViewController, UITableViewDataSource {
 
-<p>##Closure</p>
-
-<p>例子:</p>
-
-<pre><code>function person(){
-    var name = 'default';
-
-    return {
-        greetings: function() {
-            console.log( name );
-        },
-        changeName: function(newInput) {
-            name = newInput;
+    @IBOutlet var tableSample: UITableView!
+    
+    var items: [String] = []
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        
+        for var i = 0 ; i &lt;= 100 ; i++ {
+            items.append(&quot;\(i)&quot;)
         }
-    };
-}
-
-var me = new person();
-me.greetings();
-me.changeName(&quot;kerkerj&quot;);
-me.greetings();
-</code></pre>
-
-<p>##Self-Executing Anonymous Functions</p>
-
-<p>使用這種方式通常是避免和其他 js 檔案造成變數混淆</p>
-
-<p>或是初始化</p>
-
-<p>裡面的變數和 function 只被限制在這個範圍內</p>
-
-<p>例子:</p>
-
-<pre><code>(function(){
-    var hi = 'Hello';
-
-    function sayHi(name){
-        return hi + ' ' + name;
+        
+        self.tableSample.registerClass(UITableViewCell.self, forCellReuseIdentifier: &quot;cell&quot;)
     }
 
-    global.greetings = sayHi
-})(global);
-
-console.log(global.greetings(&quot;kerkerj&quot;));
-console.log(hi); // &lt;- 這會失敗
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {
+        return self.items.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell{
+        
+        var cell: UITableViewCell = self.tableSample.dequeueReusableCellWithIdentifier(&quot;cell&quot;) as UITableViewCell
+        cell.textLabel?.text = self.items[indexPath.row]
+        
+        return cell
+    }
+}
 </code></pre>
 
-<p>必須將 sayHi 指給 global 的某一個變數, 才有辦法使用它</p>
+<p>這中間了幾件事:</p>
 
-<p>在 node.js 中 global 是全域變數，在瀏覽器中是 window~</p>
+<p>viewDidload 產生一個 0 ~ 100 的陣列，並且向 tableSample 註冊了一個 cell 物件，並且設定該物件的 identifier 為 &ldquo;cell&rdquo;</p>
+
+<p>接著下面兩個 function 是實作顯示資料以及資料行數的部分:</p>
+
+<pre><code>func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {
+	return self.items.count
+}
+    
+func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell{
+        
+	var cell: UITableViewCell = self.tableSample.dequeueReusableCellWithIdentifier(&quot;cell&quot;) as UITableViewCell
+	cell.textLabel?.text = self.items[indexPath.row]
+        
+	return cell
+}
+</code></pre>
+
+<p>第一個 tableView 的方法是回傳這個 tableView 的資料有多少筆</p>
+
+<p>第二個 tableView 則是根據每一行的值，產生一個 cell，將陣列值丟進該 cell 的文字，並且回傳</p>
+
+<p>這樣理論上就會顯示 0 ~ 100 個 cell，裡面的值分別是依據順序而顯示號碼</p>
+
+<p>注意在程式的 class 那一行</p>
+
+<pre><code>class ViewController: UIViewController, UITableViewDataSource {
+</code></pre>
+
+<p>有多一個 UITableViewDataSource, 因為我們要將資料丟到 UITableView 中，因此需要使用繼承該類別</p>
+
+<p>等明天我們要做換頁功能時，就要加入其他的類別了</p>
+
+<p>程式撰寫好後，執行看看吧!</p>
+
+<p>應該就會長這樣子喲:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%202.56.47.png" alt="image" />
+</p>
 
                     </div>
                 </section>
@@ -1260,6 +1281,115 @@ self.navigationController?.pushViewController(self.storyboard?.instantiateViewCo
                 <section class="post">
                     <header class="post-header">
 
+                        <a href="http://kerkerj.github.io/blog/2014/10/14/2014-10-14-api-d14/" class="post-title">[API-d14] - [Javascript 番外篇] Javascript function scopes 和 closures</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-restful" href="http://kerkerj.github.io//categories/restful">restful</a><a class="post-category post-category-api" href="http://kerkerj.github.io//categories/api">api</a><a class="post-category post-category-javascript" href="http://kerkerj.github.io//categories/javascript">javascript</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>這幾天會探討 javascript 的特性，由於比較少在寫 js ，因此有錯請指正</p>
+
+<p>##Scope</p>
+
+<p>例子:</p>
+
+<pre><code class="language-javascript">function hi() {
+    var greetings = &quot;hi&quot;;
+
+    console.log(&quot;Say: &quot; + greetings);
+
+    function sayYa(newInput) {
+        greetings = newInput;
+        console.log(&quot;Say: &quot; + greetings);
+    }
+
+    function sayCool(newInput) {
+        var cool = newInput;
+        console.log(&quot;Say: &quot; + cool);
+    }
+
+    sayYa(&quot;Yo&quot;);
+    sayCool(&quot;Cool&quot;);
+
+    console.log(&quot;Say: &quot; + greetings);
+}
+
+hi();
+</code></pre>
+
+<p>很簡單的概念</p>
+
+<p>greetins 在 sayYa 方法中被覆寫掉了</p>
+
+<p>如果要定義 local 變數必須在 function 裏用 var 定義</p>
+
+<p>例如 sayCool function</p>
+
+<p>##Closure</p>
+
+<p>例子:</p>
+
+<pre><code>function person(){
+    var name = 'default';
+
+    return {
+        greetings: function() {
+            console.log( name );
+        },
+        changeName: function(newInput) {
+            name = newInput;
+        }
+    };
+}
+
+var me = new person();
+me.greetings();
+me.changeName(&quot;kerkerj&quot;);
+me.greetings();
+</code></pre>
+
+<p>##Self-Executing Anonymous Functions</p>
+
+<p>使用這種方式通常是避免和其他 js 檔案造成變數混淆</p>
+
+<p>或是初始化</p>
+
+<p>裡面的變數和 function 只被限制在這個範圍內</p>
+
+<p>例子:</p>
+
+<pre><code>(function(){
+    var hi = 'Hello';
+
+    function sayHi(name){
+        return hi + ' ' + name;
+    }
+
+    global.greetings = sayHi
+})(global);
+
+console.log(global.greetings(&quot;kerkerj&quot;));
+console.log(hi); // &lt;- 這會失敗
+</code></pre>
+
+<p>必須將 sayHi 指給 global 的某一個變數, 才有辦法使用它</p>
+
+<p>在 node.js 中 global 是全域變數，在瀏覽器中是 window~</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
                         <a href="http://kerkerj.github.io/blog/2014/10/13/2014-10-13-swift-d13/" class="post-title">[Swift-d13] - Basic - Navigation View 1 &#43; ViewController</a>
 
                         <p class="post-meta">
@@ -1364,192 +1494,6 @@ self.navigationController?.pushViewController(self.storyboard?.instantiateViewCo
                     </div>
                 </section>
                 
-                <h1 class="content-subhead">2014-10-10 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://kerkerj.github.io/blog/2014/10/13/2014-10-13-api-d13/" class="post-title">[API-d13] - [Javascript 番外篇] Javascript require/ module/ Module Pattern</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-restful" href="http://kerkerj.github.io//categories/restful">restful</a><a class="post-category post-category-api" href="http://kerkerj.github.io//categories/api">api</a><a class="post-category post-category-javascript" href="http://kerkerj.github.io//categories/javascript">javascript</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p>接下來幾天會探討 node.js 的特性，由於比較少在寫 js ，因此有錯請指正</p>
-
-<p>在 node.js 裏，要讀取外部模組都是透過 require 和 exports 來做溝通</p>
-
-<p>以下列出這次最簡單 module 的例子</p>
-
-<pre><code class="language-javascript">//hello.js
-console.log('Hello World');
-</code></pre>
-
-<pre><code>// app.js
-require('./hello.js');
-</code></pre>
-
-<p>##Module 也是有 Pattern 的</p>
-
-<p>第一種: Global (Not so good)</p>
-
-<pre><code>// foo.js
-foo = function() {
-	console.log(&quot;foo!&quot;);
-}
-
-// app.js
-require('./foo.js');
-foo();
-</code></pre>
-
-<p>第二種: export an anonymous function</p>
-
-<pre><code>// foo.js
-module.exports = function() {
-	console.log(&quot;foo! YA&quot;);
-};
-
-// app.js
-var test = require(&quot;./foo.js&quot;);
-test();
-</code></pre>
-
-<p>第三種： export a named function</p>
-
-<pre><code>// bar.js
-exports.bar = function() {
-	console.log(&quot;bar&quot;);
-}
-
-// app.js
-var bar = require('./bar.js').bar;
-bar();
-</code></pre>
-
-<p>第四種: exports an anoymous object</p>
-
-<pre><code>// bar4.js
-var Bar4 = function() {};
-
-Bar4.prototype.say = function() {
-    console.log('bar4');
-};
-
-module.exports = new Bar4();
-
-// app.js 
-var b = require('./bar4.js');
-b.say();
-</code></pre>
-
-<p>第五種: export a named object</p>
-
-<pre><code>// bar5.js
-var Bar5 = function() {};
-
-Bar5.prototype.say = function() {
-    console.log(&quot;bar5&quot;);
-};
-
-exports.Bar5 = new Bar5();
-
-// app.js
-var b = require('./bar5.js').Bar5;
-b.say();
-</code></pre>
-
-<p>第六種: export an anonymous prototype</p>
-
-<pre><code>// cool.js
-var Cool = function() {};
-
-Cool.prototype.say = function() {
-    console.log('Cool!');
-};
-
-module.exports = Cool;
-
-// app.js
-var Cool = require('./cool.js');
-var coo = new Cool();
-coo.say();
-</code></pre>
-
-<p>第七種: export a named prototype</p>
-
-<pre><code>// ang.js
-var Ang = function () {};
-
-Ang.prototype.say = function () {
-    console.log('Ang!');
-};
-
-exports.Ang = Ang;
-
-// app.js
-var Ang = require('./ang.js').Ang;
-var wer = new Ang();
-wer.say();
-</code></pre>
-
-<p>##exports v.s. module.exports</p>
-
-<p>exports 是 module.exports 的輔助方法</p>
-
-<p>以下有個例子會執行錯誤:</p>
-
-<pre><code>// ya.js
-module.exports = &quot;YA&quot;;
-exports.name = function() {
-    console.log('My name is kerkerj');
-};
-
-// app.js
-var ya = require('./ya.js');
-ya.name(); TypeError: Cannot call method 'name' of undefined
-</code></pre>
-
-<p>在 ya.js 中 module.exports 有屬性了</p>
-
-<p>因此下面的 export.name 就沒有被加入了</p>
-
-<p>如果 module.exports 沒有任何屬性被加入的話，</p>
-
-<p>exports 若有屬性了，則會交給 module.exports</p>
-
-<p>反之就是剛剛的情況，moduel.exports 已經有屬性了，因此 export.name 就沒有作用了</p>
-
-<p><a href="http://www.hacksparrow.com/node-js-exports-vs-module-exports.html">延伸閱讀</a></p>
-
-<p>##Module as class</p>
-
-<p>直接看例子吧 XD</p>
-
-<pre><code>// user.js
-module.exports = function(name, age) {
-    this.name = name;
-    this.age = age;
-    this.about = function() {
-        console.log(this.name +' is '+ this.age +' years old');
-    };
-};
-
-// app.js
-var User = require('./user.js');
-var kerkerj = new User('kerkerj', 18);
-kerkerj.about(); 
-</code></pre>
-
-                    </div>
-                </section>
-                
             </div>
             
 <div class="pagination">
@@ -1592,7 +1536,7 @@ hljs.initHighlightingOnLoad();
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('create', 'UA-45583907-2', 'auto');
 ga('send', 'pageview');
 
 </script>
