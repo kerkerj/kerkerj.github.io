@@ -109,117 +109,6 @@
                 <section class="post">
                     <header class="post-header">
 
-                        <a href="http://blog.kerkerj.in/blog/2014/10/22/2014-10-22-swift-d22/" class="post-title">[Swift-d22] - 實戰開發 - TODOList - Show View 1</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-swift" href="http://blog.kerkerj.in//categories/swift">swift</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p><a href="https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day22">Github link</a></p>
-
-<p>接著我們要讓主頁顯示一些假資料:</p>
-
-<p>由於我們未來接的 api 的資料會是 todo_id + content</p>
-
-<p>因此我們先產生一個 dictionary array 來存放我們的假資料</p>
-
-<pre><code class="language-swift">var fakeData = [[String:String]]()
-fakeData = [
-	[&quot;id&quot;: &quot;1&quot;, &quot;content&quot;: &quot;A&quot;],
-	[&quot;id&quot;: &quot;2&quot;, &quot;content&quot;: &quot;B&quot;],
-	[&quot;id&quot;: &quot;3&quot;, &quot;content&quot;: &quot;C&quot;],
-]
-</code></pre>
-
-<p>再來對主頁的 controller 新增 tableView 上去</p>
-
-<p>並且對 UITableView 加入 delegate 以及 datasource</p>
-
-<pre><code>import UIKit
-
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
-    var fakeData = [[String:String]]()
-    var tableView: UITableView?
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        fakeData = [[&quot;1&quot;: &quot;A&quot;], [&quot;2&quot;: &quot;B&quot;], [&quot;3&quot;: &quot;C&quot;]]
-        self.view.backgroundColor = UIColor.yellowColor()
-        
-        self.tableView = UITableView(frame: self.view.frame)
-        self.tableView?.delegate = self
-        self.tableView?.dataSource = self
-        
-        self.view.addSubview(self.tableView!)
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
-}
-</code></pre>
-
-<p>此時編譯器就會要求實作 UITableViewDataSource, UITableViewDelegate 的 methods</p>
-
-<p>實作完就可以讓 TableView 顯示資料, 這我們之前也都有提到過了~</p>
-
-<p>在這邊我們也同時使用自訂的 CustomTableViewCell, 簡單對 cell 改個顏色，雖然沒什麼多大用處 XD</p>
-
-<pre><code>	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {
-        return self.fakeData.count
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell {
-        var cell: CustomTableViewCell? = tableView.dequeueReusableCellWithIdentifier(&quot;CustomCell&quot;) as? CustomTableViewCell
-        
-        if cell == nil {
-            var objects = NSBundle.mainBundle().loadNibNamed(&quot;CustomTableViewCell&quot;, owner: self, options: nil)
-            cell = objects[0] as? CustomTableViewCell
-        }
-        
-        cell!.textLabel?.text = (self.fakeData[indexPath.row])[&quot;content&quot;]
-        
-        return cell!
-    }
-</code></pre>
-
-<p><img src="http://goo.gl/8Zis9p" alt="image" />
-</p>
-
-<p>不過可以看到有小瑕疵，就是選取後他並不會回覆成原本的模樣</p>
-
-<p>因此加入 tableView didSelectRowAtIndexPath:</p>
-
-<pre><code>	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        // 回復非選取狀態
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-    }
-
-</code></pre>
-
-<p>明天就會提到換頁以及刪除的作法!</p>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2014-10-10 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
                         <a href="http://blog.kerkerj.in/blog/2014/10/22/2014-10-22-api-d22/" class="post-title">[API-d22] - 實戰開發 - 讀取 TODO task API with mongoose</a>
 
                         <p class="post-meta">
@@ -343,6 +232,117 @@ router.get('/:user_id/todos/:todo_id', function(req, res) {
 </p>
 
 <p>如此一來，讀取特定 task 的 API 也完成囉!</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://blog.kerkerj.in/blog/2014/10/22/2014-10-22-swift-d22/" class="post-title">[Swift-d22] - 實戰開發 - TODOList - Show View 1</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-swift" href="http://blog.kerkerj.in//categories/swift">swift</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p><a href="https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day22">Github link</a></p>
+
+<p>接著我們要讓主頁顯示一些假資料:</p>
+
+<p>由於我們未來接的 api 的資料會是 todo_id + content</p>
+
+<p>因此我們先產生一個 dictionary array 來存放我們的假資料</p>
+
+<pre><code class="language-swift">var fakeData = [[String:String]]()
+fakeData = [
+	[&quot;id&quot;: &quot;1&quot;, &quot;content&quot;: &quot;A&quot;],
+	[&quot;id&quot;: &quot;2&quot;, &quot;content&quot;: &quot;B&quot;],
+	[&quot;id&quot;: &quot;3&quot;, &quot;content&quot;: &quot;C&quot;],
+]
+</code></pre>
+
+<p>再來對主頁的 controller 新增 tableView 上去</p>
+
+<p>並且對 UITableView 加入 delegate 以及 datasource</p>
+
+<pre><code>import UIKit
+
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    var fakeData = [[String:String]]()
+    var tableView: UITableView?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        
+        fakeData = [[&quot;1&quot;: &quot;A&quot;], [&quot;2&quot;: &quot;B&quot;], [&quot;3&quot;: &quot;C&quot;]]
+        self.view.backgroundColor = UIColor.yellowColor()
+        
+        self.tableView = UITableView(frame: self.view.frame)
+        self.tableView?.delegate = self
+        self.tableView?.dataSource = self
+        
+        self.view.addSubview(self.tableView!)
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+
+}
+</code></pre>
+
+<p>此時編譯器就會要求實作 UITableViewDataSource, UITableViewDelegate 的 methods</p>
+
+<p>實作完就可以讓 TableView 顯示資料, 這我們之前也都有提到過了~</p>
+
+<p>在這邊我們也同時使用自訂的 CustomTableViewCell, 簡單對 cell 改個顏色，雖然沒什麼多大用處 XD</p>
+
+<pre><code>	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {
+        return self.fakeData.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell {
+        var cell: CustomTableViewCell? = tableView.dequeueReusableCellWithIdentifier(&quot;CustomCell&quot;) as? CustomTableViewCell
+        
+        if cell == nil {
+            var objects = NSBundle.mainBundle().loadNibNamed(&quot;CustomTableViewCell&quot;, owner: self, options: nil)
+            cell = objects[0] as? CustomTableViewCell
+        }
+        
+        cell!.textLabel?.text = (self.fakeData[indexPath.row])[&quot;content&quot;]
+        
+        return cell!
+    }
+</code></pre>
+
+<p><img src="http://goo.gl/8Zis9p" alt="image" />
+</p>
+
+<p>不過可以看到有小瑕疵，就是選取後他並不會回覆成原本的模樣</p>
+
+<p>因此加入 tableView didSelectRowAtIndexPath:</p>
+
+<pre><code>	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        // 回復非選取狀態
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+
+</code></pre>
+
+<p>明天就會提到換頁以及刪除的作法!</p>
 
                     </div>
                 </section>

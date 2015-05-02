@@ -1889,63 +1889,109 @@ return
     </item>
     
     <item>
-      <title>[API-day25] - 實戰開發 - 處理 404 &amp; 500</title>
-      <link>http://blog.kerkerj.in/blog/2014/10/25/2014-10-25-api-day25/</link>
+      <title>[Swift-day25] - 實戰開發 - TODOList - Update View</title>
+      <link>http://blog.kerkerj.in/blog/2014/10/25/2014-10-25-swift-day25/</link>
       <pubDate>Sat, 25 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.kerkerj.in/blog/2014/10/25/2014-10-25-api-day25/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day25&#34;&gt;Github 參考&lt;/a&gt;&lt;/p&gt;
+      <guid>http://blog.kerkerj.in/blog/2014/10/25/2014-10-25-swift-day25/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day27&#34;&gt;Github link&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;不知道大家在用 POSTMAN 對前幾天寫的 API 丟 request 有沒有遇過類似下面的情況:&lt;/p&gt;
+&lt;p&gt;(忘了是放在哪個 branch 了 Orz)&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;Cannot GET /user/kerkerj/todoss
+&lt;p&gt;接下來就要進到最後一個 Update View 了!&lt;/p&gt;
+
+&lt;p&gt;什麼時候會進到 Update View 呢？&lt;/p&gt;
+
+&lt;p&gt;是在顯示單筆 TODO 的時候的右上方按鈕:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://goo.gl/tNOyRs&#34; alt=&#34;image&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;我們今天只會實作 view 的部分, fakeData 就不實作了&lt;/p&gt;
+
+&lt;p&gt;因為接下來就要直接接 API 啦&lt;/p&gt;
+
+&lt;p&gt;也不需要更新 fakeData 了 :P&lt;/p&gt;
+
+&lt;p&gt;要加入 Edit 這個按鈕&lt;/p&gt;
+
+&lt;p&gt;要到 ShowViewController, 加入 UIBarButtonItem&lt;/p&gt;
+
+&lt;p&gt;並且讓其吃到一個方法，可以讓 Navigation 往下一個 View 前進:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;var id: String!
+
+override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        indexLabel.text = &amp;quot;\(index)&amp;quot;
+        contentLabel.text = content
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: &amp;quot;Edit&amp;quot;, style: UIBarButtonItemStyle.Bordered, target: self, action: Selector(&amp;quot;editTodo&amp;quot;))
+    }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;通常是丟錯網址時會出現的，或是 code 沒寫好會出現 500 error&lt;/p&gt;
+&lt;p&gt;p.s. 先前忘記加了 id, 現在補回來 XD&lt;/p&gt;
 
-&lt;p&gt;這些情況是有辦法接到的，今天我們希望能夠接到後，將 message 轉成 json 格式吐回給 client&lt;/p&gt;
+&lt;p&gt;先新增一個 Edit 按鈕後&lt;/p&gt;
 
-&lt;p&gt;因此程式碼如下&lt;/p&gt;
+&lt;p&gt;並實作 editTodo&lt;/p&gt;
 
-&lt;p&gt;app.js&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-    var err = new Error(&#39;Not Found&#39;);
-    err.status = 404;
-    res.status(404).jsonp({error: &amp;quot;Not Found&amp;quot;});
-    next();
-});
-
-// catch 500
-app.use(function(err, req, res, next) {
-            res.status(err.status || 500).json({error: err.message});
-});
+&lt;pre&gt;&lt;code&gt;func editTodo() {
+        var editViewContronller = UpdateViewController(nibName: &amp;quot;UpdateViewController&amp;quot;, bundle: nil)
+        editViewContronller.from = &amp;quot;edit&amp;quot;
+        editViewContronller.content = content
+        editViewContronller.index = index
+        
+        self.navigationController?.pushViewController(editViewContronller, animated: true)
+    }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;基本上這兩段 code 的意思就是加入了兩個 middleware&lt;/p&gt;
+&lt;p&gt;由於要先指定資料&lt;/p&gt;
 
-&lt;p&gt;如果進來的 request 是屬於 404 or 500 就會回傳 json 格式&lt;/p&gt;
+&lt;p&gt;因此再到 UpdateViewController 中再加入兩個參數&lt;/p&gt;
 
-&lt;p&gt;並且依錯誤碼不同而回傳不同的訊息&lt;/p&gt;
-
-&lt;p&gt;試著將 server 跑起來&lt;/p&gt;
-
-&lt;p&gt;亂丟 request 看看&lt;/p&gt;
-
-&lt;p&gt;原本應該會是&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Cannot GET /user/kerkerj/todoss
+&lt;pre&gt;&lt;code&gt;    var index: Int!
+    var content: String!
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;就會變成了 json&lt;/p&gt;
+&lt;p&gt;最後在 UpdateController 的 viewDidLoad 中, 加入 add or edit 的判斷&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;{
-    &amp;quot;error&amp;quot;: &amp;quot;Not Found&amp;quot;
-}
+&lt;pre&gt;&lt;code&gt;override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: &amp;quot;Save&amp;quot;, style: UIBarButtonItemStyle.Done, target: self, action: Selector(&amp;quot;save&amp;quot;))
+			
+		  if self.from == &amp;quot;edit&amp;quot; {
+            self.textField.text = content
+        }
+        
+    }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;這樣一來, client 程式也就能夠統一接收 json 回傳，而不會因為莫名的字串導致解析錯誤而 crash 了!&lt;/p&gt;
+&lt;p&gt;這時候先前設定的 &amp;ldquo;from&amp;rdquo; 參數就很有用了~&lt;/p&gt;
+
+&lt;p&gt;就可以根據是從 add 的 view 來的或者是 edit 的 view 來的&lt;/p&gt;
+
+&lt;p&gt;以便判定要不要 append 舊資料上去&lt;/p&gt;
+
+&lt;p&gt;此外，也因為如此&lt;/p&gt;
+
+&lt;p&gt;所以 UpdateViewController 的 save 方法也要判斷&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;        if from == &amp;quot;add&amp;quot; {
+            delegate.addData(&amp;quot;g6&amp;quot;, content: self.textField.text)
+            self.navigationController?.popToRootViewControllerAnimated(true)
+        } else if from == &amp;quot;edit&amp;quot; {
+            println(&amp;quot;Save edited data&amp;quot;)
+        }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;不過因為今天我們不做資料更新&lt;/p&gt;
+
+&lt;p&gt;因此流程面大致上到此告一個段落&lt;/p&gt;
+
+&lt;p&gt;接下來就要串 API 了!&lt;/p&gt;
 </description>
     </item>
     
