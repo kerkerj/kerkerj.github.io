@@ -384,6 +384,92 @@ Day30 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/30/swift-d30/&#34
     </item>
     
     <item>
+      <title>[Swift-d29] - 實戰開發 - TODOList - API 4 刪除</title>
+      <link>http://kerkerj.github.io/blog/2014/10/29/2014-10-29-swift-d29/</link>
+      <pubDate>Wed, 29 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://kerkerj.github.io/blog/2014/10/29/2014-10-29-swift-d29/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day29&#34;&gt;Github link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;今天要處理刪除&lt;/p&gt;
+
+&lt;p&gt;其實超簡單的&lt;/p&gt;
+
+&lt;p&gt;只是想偷懶一下 XD&lt;/p&gt;
+
+&lt;p&gt;一樣將下列程式碼新增到 RestApi class:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;func deleteTodoList(completionHandler: ((NSDictionary!, NSError!) -&amp;gt; Void)!, todoId: String) {
+        var session = NSURLSession.sharedSession()
+        
+        var request = NSMutableURLRequest(URL: NSURL(string: &amp;quot;http://192.168.1.158:3000/user/kerkerj/todos/\(todoId)&amp;quot;)!)
+        request.HTTPMethod = &amp;quot;DELETE&amp;quot;
+        
+        var err: NSError?
+        request.addValue(&amp;quot;application/json&amp;quot;, forHTTPHeaderField: &amp;quot;Content-Type&amp;quot;)
+        request.addValue(self.API_key, forHTTPHeaderField: &amp;quot;API-Key&amp;quot;)
+        
+        
+        let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -&amp;gt; Void in
+            if (error != nil) {
+                return completionHandler(nil, error)
+            }
+            
+            var error: NSError?
+            let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &amp;amp;error) as NSDictionary
+            
+            println(json)
+            
+            if (error != nil) {
+                return completionHandler(nil, error)
+            } else {
+                return completionHandler(json, nil)
+            }
+        })
+        
+        task.resume()
+    }
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;回到 ViewController 中的 tableView commitEditingStyle 的方法中&lt;/p&gt;
+
+&lt;p&gt;將其更新為:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        api.deleteTodoList({data, err -&amp;gt; Void in
+            let alert = UIAlertView()
+            alert.title = &amp;quot;Alert&amp;quot;
+            alert.addButtonWithTitle(&amp;quot;Ok&amp;quot;)
+            
+            if (err != nil) {
+                alert.message = &amp;quot;Failed to delete: \(err)&amp;quot;
+                alert.show()
+            } else {
+                alert.message = &amp;quot;ok!&amp;quot;
+                
+                self.fakeData.removeAtIndex(indexPath.row)
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    // must be &amp;quot;tableView!&amp;quot; not &amp;quot;tableView?&amp;quot;
+                    alert.show()
+                    self.tableView!.reloadData()
+                })
+            }
+            }, todoId: fakeData[indexPath.row][&amp;quot;_id&amp;quot;]!)
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;改好程式碼後，執行該程式&lt;/p&gt;
+
+&lt;p&gt;在清單中將 item 往左滑，就可以看到刪除的按鈕了!&lt;/p&gt;
+
+&lt;p&gt;超簡單的啦!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>[API-d29] - 實戰開發 - 發佈 - nginx</title>
       <link>http://kerkerj.github.io/blog/2014/10/29/2014-10-29-api-d29/</link>
       <pubDate>Wed, 29 Oct 2014 00:00:00 +0000</pubDate>
@@ -518,88 +604,112 @@ server {
     </item>
     
     <item>
-      <title>[Swift-d29] - 實戰開發 - TODOList - API 4 刪除</title>
-      <link>http://kerkerj.github.io/blog/2014/10/29/2014-10-29-swift-d29/</link>
-      <pubDate>Wed, 29 Oct 2014 00:00:00 +0000</pubDate>
+      <title>[API-d28] - 實戰開發 - 發佈 - forever</title>
+      <link>http://kerkerj.github.io/blog/2014/10/28/2014-10-28-api-d28/</link>
+      <pubDate>Tue, 28 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://kerkerj.github.io/blog/2014/10/29/2014-10-29-swift-d29/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day29&#34;&gt;Github link&lt;/a&gt;&lt;/p&gt;
+      <guid>http://kerkerj.github.io/blog/2014/10/28/2014-10-28-api-d28/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day28&#34;&gt;Github 參考&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;今天要處理刪除&lt;/p&gt;
+&lt;p&gt;接下來兩天要講 deploy 的部分&lt;/p&gt;
 
-&lt;p&gt;其實超簡單的&lt;/p&gt;
+&lt;p&gt;由於 deploy 的 script 其實非常的麻煩，因此我們就不提 deploy 的 script 了&lt;/p&gt;
 
-&lt;p&gt;只是想偷懶一下 XD&lt;/p&gt;
+&lt;p&gt;我們只專注在 server 上需要什麼東西&lt;/p&gt;
 
-&lt;p&gt;一樣將下列程式碼新增到 RestApi class:&lt;/p&gt;
+&lt;p&gt;今天要來看看 &lt;code&gt;forever&lt;/code&gt; 這個套件&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;func deleteTodoList(completionHandler: ((NSDictionary!, NSError!) -&amp;gt; Void)!, todoId: String) {
-        var session = NSURLSession.sharedSession()
-        
-        var request = NSMutableURLRequest(URL: NSURL(string: &amp;quot;http://192.168.1.158:3000/user/kerkerj/todos/\(todoId)&amp;quot;)!)
-        request.HTTPMethod = &amp;quot;DELETE&amp;quot;
-        
-        var err: NSError?
-        request.addValue(&amp;quot;application/json&amp;quot;, forHTTPHeaderField: &amp;quot;Content-Type&amp;quot;)
-        request.addValue(self.API_key, forHTTPHeaderField: &amp;quot;API-Key&amp;quot;)
-        
-        
-        let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -&amp;gt; Void in
-            if (error != nil) {
-                return completionHandler(nil, error)
-            }
-            
-            var error: NSError?
-            let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &amp;amp;error) as NSDictionary
-            
-            println(json)
-            
-            if (error != nil) {
-                return completionHandler(nil, error)
-            } else {
-                return completionHandler(json, nil)
-            }
-        })
-        
-        task.resume()
-    }
+&lt;p&gt;這個套件可以幫助 nodejs 的 server 遇上無預警的 server 掛掉時&lt;/p&gt;
 
+&lt;p&gt;會幫你自動重新啟動 nodejs 的 server&lt;/p&gt;
+
+&lt;p&gt;也就是說&lt;/p&gt;
+
+&lt;p&gt;假設說 nodejs 寫的 server 某個 route 有問題，&lt;/p&gt;
+
+&lt;p&gt;送 request 後會因為某些因素造成 server error 造成程式碼 crash 時&lt;/p&gt;
+
+&lt;p&gt;forever 的 monitor 會偵測到，並幫你自動重啟 server&lt;/p&gt;
+
+&lt;p&gt;至少不會造成其他正常存取 server 的使用者遭遇到 server down 的問題&lt;/p&gt;
+
+&lt;p&gt;這個套件可以選擇裝在 global 或是 project&lt;/p&gt;
+
+&lt;p&gt;在這邊我是選擇裝成 global&lt;/p&gt;
+
+&lt;p&gt;進到虛擬機&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;$ npm install -g forever
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;回到 ViewController 中的 tableView commitEditingStyle 的方法中&lt;/p&gt;
+&lt;p&gt;p.s. 如果遇到問題，試著跑下面的指令看看?&lt;/p&gt;
 
-&lt;p&gt;將其更新為:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        
-        api.deleteTodoList({data, err -&amp;gt; Void in
-            let alert = UIAlertView()
-            alert.title = &amp;quot;Alert&amp;quot;
-            alert.addButtonWithTitle(&amp;quot;Ok&amp;quot;)
-            
-            if (err != nil) {
-                alert.message = &amp;quot;Failed to delete: \(err)&amp;quot;
-                alert.show()
-            } else {
-                alert.message = &amp;quot;ok!&amp;quot;
-                
-                self.fakeData.removeAtIndex(indexPath.row)
-                
-                dispatch_async(dispatch_get_main_queue(), {
-                    // must be &amp;quot;tableView!&amp;quot; not &amp;quot;tableView?&amp;quot;
-                    alert.show()
-                    self.tableView!.reloadData()
-                })
-            }
-            }, todoId: fakeData[indexPath.row][&amp;quot;_id&amp;quot;]!)
-    }
+&lt;pre&gt;&lt;code&gt;$ sudo chown vagrant:vagrant -R ~/.npm/
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;改好程式碼後，執行該程式&lt;/p&gt;
+&lt;p&gt;接下來我們就可以使用 &lt;code&gt;forever&lt;/code&gt; 這個指令了!&lt;/p&gt;
 
-&lt;p&gt;在清單中將 item 往左滑，就可以看到刪除的按鈕了!&lt;/p&gt;
+&lt;p&gt;原本我們要啟動 server 的話&lt;/p&gt;
 
-&lt;p&gt;超簡單的啦!&lt;/p&gt;
+&lt;p&gt;是要下:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ npm start 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;同義於:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ node ./bin/server.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果要改用 &lt;code&gt;forever&lt;/code&gt; 的話:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// 記得先到專案根目錄
+$ forever start bin/server.js
+warn:    --minUptime not set. Defaulting to: 1000ms
+warn:    --spinSleepTime not set. Your script will exit if it does not stay up for at least 1000ms
+info:    Forever processing file: ./bin/server.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然後就會被丟到背景執行了&lt;/p&gt;
+
+&lt;p&gt;那要怎麼知道我的 server 有跑起來呢?&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ forever list
+info:    Forever processes running
+data:        uid  command                              script        forever pid   logfile                         uptime
+data:    [0] 6qhd /home/vagrant/.nvm/v0.10.32/bin/node bin/server.js 13746   13748 /home/vagrant/.forever/6qhd.log 0:0:0:47.743
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;就會列出相關資訊以及 forever 自己的 log file 位置&lt;/p&gt;
+
+&lt;p&gt;要關閉的話:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ forever stop bin/server.js
+info:    Forever stopped process:
+data:        uid  command                              script        forever pid   logfile                         uptime
+[0] 6qhd /home/vagrant/.nvm/v0.10.32/bin/node bin/server.js 13746   14061 /home/vagrant/.forever/6qhd.log 0:0:0:6.595
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;bin/server.js&lt;/code&gt; 也可以替換成 forever uid 或 pid&lt;/p&gt;
+
+&lt;p&gt;如果要重開的話&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ forever restart bin/server.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;超簡單!&lt;/p&gt;
+
+&lt;p&gt;這樣就可以不用擔心 server 突然掛掉了&amp;hellip;.嗎?&lt;/p&gt;
+
+&lt;p&gt;錯，還是必須要監控 server 狀態&lt;/p&gt;
+
+&lt;p&gt;畢竟，&lt;code&gt;forever&lt;/code&gt; 也是會有 bug 的&lt;/p&gt;
+
+&lt;p&gt;所以自己的 server 自己顧&lt;/p&gt;
+
+&lt;p&gt;真正應用在 production 環境還是必須要監控的&lt;/p&gt;
+
+&lt;p&gt;今天就分享到這啦!&lt;/p&gt;
 </description>
     </item>
     
@@ -813,116 +923,6 @@ showViewController.id = fakeData[indexPath.row][&amp;quot;_id&amp;quot;]
 &lt;p&gt;就發現可以編輯成功囉!&lt;/p&gt;
 
 &lt;p&gt;快結束啦!&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>[API-d28] - 實戰開發 - 發佈 - forever</title>
-      <link>http://kerkerj.github.io/blog/2014/10/28/2014-10-28-api-d28/</link>
-      <pubDate>Tue, 28 Oct 2014 00:00:00 +0000</pubDate>
-      
-      <guid>http://kerkerj.github.io/blog/2014/10/28/2014-10-28-api-d28/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day28&#34;&gt;Github 參考&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;接下來兩天要講 deploy 的部分&lt;/p&gt;
-
-&lt;p&gt;由於 deploy 的 script 其實非常的麻煩，因此我們就不提 deploy 的 script 了&lt;/p&gt;
-
-&lt;p&gt;我們只專注在 server 上需要什麼東西&lt;/p&gt;
-
-&lt;p&gt;今天要來看看 &lt;code&gt;forever&lt;/code&gt; 這個套件&lt;/p&gt;
-
-&lt;p&gt;這個套件可以幫助 nodejs 的 server 遇上無預警的 server 掛掉時&lt;/p&gt;
-
-&lt;p&gt;會幫你自動重新啟動 nodejs 的 server&lt;/p&gt;
-
-&lt;p&gt;也就是說&lt;/p&gt;
-
-&lt;p&gt;假設說 nodejs 寫的 server 某個 route 有問題，&lt;/p&gt;
-
-&lt;p&gt;送 request 後會因為某些因素造成 server error 造成程式碼 crash 時&lt;/p&gt;
-
-&lt;p&gt;forever 的 monitor 會偵測到，並幫你自動重啟 server&lt;/p&gt;
-
-&lt;p&gt;至少不會造成其他正常存取 server 的使用者遭遇到 server down 的問題&lt;/p&gt;
-
-&lt;p&gt;這個套件可以選擇裝在 global 或是 project&lt;/p&gt;
-
-&lt;p&gt;在這邊我是選擇裝成 global&lt;/p&gt;
-
-&lt;p&gt;進到虛擬機&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;$ npm install -g forever
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;p.s. 如果遇到問題，試著跑下面的指令看看?&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ sudo chown vagrant:vagrant -R ~/.npm/
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;接下來我們就可以使用 &lt;code&gt;forever&lt;/code&gt; 這個指令了!&lt;/p&gt;
-
-&lt;p&gt;原本我們要啟動 server 的話&lt;/p&gt;
-
-&lt;p&gt;是要下:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ npm start 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;同義於:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ node ./bin/server.js
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;如果要改用 &lt;code&gt;forever&lt;/code&gt; 的話:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;// 記得先到專案根目錄
-$ forever start bin/server.js
-warn:    --minUptime not set. Defaulting to: 1000ms
-warn:    --spinSleepTime not set. Your script will exit if it does not stay up for at least 1000ms
-info:    Forever processing file: ./bin/server.js
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;然後就會被丟到背景執行了&lt;/p&gt;
-
-&lt;p&gt;那要怎麼知道我的 server 有跑起來呢?&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ forever list
-info:    Forever processes running
-data:        uid  command                              script        forever pid   logfile                         uptime
-data:    [0] 6qhd /home/vagrant/.nvm/v0.10.32/bin/node bin/server.js 13746   13748 /home/vagrant/.forever/6qhd.log 0:0:0:47.743
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;就會列出相關資訊以及 forever 自己的 log file 位置&lt;/p&gt;
-
-&lt;p&gt;要關閉的話:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ forever stop bin/server.js
-info:    Forever stopped process:
-data:        uid  command                              script        forever pid   logfile                         uptime
-[0] 6qhd /home/vagrant/.nvm/v0.10.32/bin/node bin/server.js 13746   14061 /home/vagrant/.forever/6qhd.log 0:0:0:6.595
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;bin/server.js&lt;/code&gt; 也可以替換成 forever uid 或 pid&lt;/p&gt;
-
-&lt;p&gt;如果要重開的話&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ forever restart bin/server.js
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;超簡單!&lt;/p&gt;
-
-&lt;p&gt;這樣就可以不用擔心 server 突然掛掉了&amp;hellip;.嗎?&lt;/p&gt;
-
-&lt;p&gt;錯，還是必須要監控 server 狀態&lt;/p&gt;
-
-&lt;p&gt;畢竟，&lt;code&gt;forever&lt;/code&gt; 也是會有 bug 的&lt;/p&gt;
-
-&lt;p&gt;所以自己的 server 自己顧&lt;/p&gt;
-
-&lt;p&gt;真正應用在 production 環境還是必須要監控的&lt;/p&gt;
-
-&lt;p&gt;今天就分享到這啦!&lt;/p&gt;
 </description>
     </item>
     

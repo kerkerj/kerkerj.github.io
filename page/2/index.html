@@ -695,6 +695,81 @@ override func viewDidLoad() {
                 <section class="post">
                     <header class="post-header">
 
+                        <a href="http://kerkerj.github.io/blog/2014/10/24/2014-10-24-api-d24/" class="post-title">[API-d24] - 實戰開發 - 刪除 TODO task API with mongoose</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-restful" href="http://kerkerj.github.io//categories/restful">restful</a><a class="post-category post-category-api" href="http://kerkerj.github.io//categories/api">api</a><a class="post-category post-category-nodejs" href="http://kerkerj.github.io//categories/nodejs">nodejs</a><a class="post-category post-category-express" href="http://kerkerj.github.io//categories/express">express</a><a class="post-category post-category-mongoose" href="http://kerkerj.github.io//categories/mongoose">mongoose</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day24">Github 參考</a></p>
+
+<p>還記得昨天說要偷懶一下嗎 XD</p>
+
+<p>因為刪除真的很簡單!</p>
+
+<p>我們前面走過了新增、修改、讀取了</p>
+
+<p>刪除？哪有什麼困難的呢! XD</p>
+
+<p>直接看 code 吧!</p>
+
+<p>routes/users.js:</p>
+
+<pre><code class="language-javascript">// Delete a todo task
+router.delete('/:user_id/todos/:todo_id', function(req, res) {
+    var user_id = req.params.user_id;
+    var todo_id = req.params.todo_id;
+
+    TODO.remove(
+        { _id: todo_id, user_id: user_id },
+        function (err) {
+            if (err) {
+                res.status(400).json(
+                    { error: &quot;delete data error&quot;}
+                );
+            } else {
+                res.status(201).json(
+                    { success: &quot;true&quot; }
+                );
+            }
+        }
+    );
+});
+</code></pre>
+
+<p>非常的簡單!</p>
+
+<p>先抓到 user_id, todo_id 後</p>
+
+<p>使用 .remove 的方法，下 WHERE 條件，並在 callback 作處理</p>
+
+<p>就完成了!</p>
+
+<p>試試看吧!</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%203.39.09.png" alt="image" />
+</p>
+
+<p>是不是非常的簡單呢！</p>
+
+<p>我們已經完成 CRUD API 操作了！</p>
+
+<p>接下來幾天會稍作一些細節上的處理!</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
                         <a href="http://kerkerj.github.io/blog/2014/10/24/2014-10-24-swift-d24/" class="post-title">[Swift-d24] - 實戰開發 - TODOList - Create View</a>
 
                         <p class="post-meta">
@@ -856,81 +931,6 @@ class UpdateViewController: UIViewController {
 </code></pre>
 
 <p>執行起來就可以增加資料到 fakeData 了!</p>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2014-10-10 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://kerkerj.github.io/blog/2014/10/24/2014-10-24-api-d24/" class="post-title">[API-d24] - 實戰開發 - 刪除 TODO task API with mongoose</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-restful" href="http://kerkerj.github.io//categories/restful">restful</a><a class="post-category post-category-api" href="http://kerkerj.github.io//categories/api">api</a><a class="post-category post-category-nodejs" href="http://kerkerj.github.io//categories/nodejs">nodejs</a><a class="post-category post-category-express" href="http://kerkerj.github.io//categories/express">express</a><a class="post-category post-category-mongoose" href="http://kerkerj.github.io//categories/mongoose">mongoose</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day24">Github 參考</a></p>
-
-<p>還記得昨天說要偷懶一下嗎 XD</p>
-
-<p>因為刪除真的很簡單!</p>
-
-<p>我們前面走過了新增、修改、讀取了</p>
-
-<p>刪除？哪有什麼困難的呢! XD</p>
-
-<p>直接看 code 吧!</p>
-
-<p>routes/users.js:</p>
-
-<pre><code class="language-javascript">// Delete a todo task
-router.delete('/:user_id/todos/:todo_id', function(req, res) {
-    var user_id = req.params.user_id;
-    var todo_id = req.params.todo_id;
-
-    TODO.remove(
-        { _id: todo_id, user_id: user_id },
-        function (err) {
-            if (err) {
-                res.status(400).json(
-                    { error: &quot;delete data error&quot;}
-                );
-            } else {
-                res.status(201).json(
-                    { success: &quot;true&quot; }
-                );
-            }
-        }
-    );
-});
-</code></pre>
-
-<p>非常的簡單!</p>
-
-<p>先抓到 user_id, todo_id 後</p>
-
-<p>使用 .remove 的方法，下 WHERE 條件，並在 callback 作處理</p>
-
-<p>就完成了!</p>
-
-<p>試試看吧!</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%203.39.09.png" alt="image" />
-</p>
-
-<p>是不是非常的簡單呢！</p>
-
-<p>我們已經完成 CRUD API 操作了！</p>
-
-<p>接下來幾天會稍作一些細節上的處理!</p>
 
                     </div>
                 </section>

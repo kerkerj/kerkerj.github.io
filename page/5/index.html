@@ -117,80 +117,6 @@
                 <section class="post">
                     <header class="post-header">
 
-                        <a href="http://kerkerj.github.io/blog/2014/10/12/2014-10-12-swift-d12/" class="post-title">[Swift-d12] - Basic - 基本元件 (Label, Button, UIColor, 文字輸入框)</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-swift" href="http://kerkerj.github.io//categories/swift">swift</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p>今天來放一些基本的元件:</p>
-
-<p>放入一個文字輸入框、文字標簽、按鈕，</p>
-
-<p>在文字框輸入一些字後，按下按鈕後，會在文字標簽顯示剛剛輸入的內容：</p>
-
-<p>首先使用右下角的 Object library 中將上述三種元件拉到 storyborad 中</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-12%2018.37.11.png" alt="image" />
-</p>
-
-<p>圖中依順序是文字標簽、文字輸入框、按鈕</p>
-
-<p>接著我們要使用到的文件是文字標簽以及文字輸入框，另外要將按鈕加入事件</p>
-
-<p>因此程式的流程是:</p>
-
-<p>按下按鈕後-&gt; 執行按鈕事件
-    -&gt; 抓到文字輸入框的輸入內容
-    -&gt; 將文字標簽的內容改變成文字輸入框的內容</p>
-
-<p>因此先使用昨天的方式，將文字標簽及文字輸入框拉到 ViewController 中以便使用它們，在圖中的程式碼 12, 13 行：</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-12%2018.40.48.png" alt="image" />
-</p>
-
-<p>這樣我們就可以控制文字標簽的文字以及拿到輸入框的文字了</p>
-
-<p>再來就是最重要的按鈕事件了!</p>
-
-<p>一樣使用 ctrl + 拖曳的方式將按鈕拉到程式碼中，但是這次是要選擇 「IBAction」，是事件的意思:</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-12%2018.42.57.png" alt="image" />
-</p>
-
-<p>接著就會產生出一段 function:</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-12%2018.43.05.png" alt="image" />
-</p>
-
-<p>名為 titleButton, 我們在方法中輸入一行程式碼:</p>
-
-<pre><code class="language-swift">titleLabel.text = titleField.text
-</code></pre>
-
-<p>意思就是將文字標簽的字改成文字輸入框的文字</p>
-
-<p>接著我們就把程式跑起來吧!</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-12%2018.46.14.png" alt="image" />
-</p>
-
-<p>在文字框中輸入文字，按下按鈕，標簽就可以變文字了!</p>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2014-10-10 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
                         <a href="http://kerkerj.github.io/blog/2014/10/12/2014-10-12-api-d12/" class="post-title">[API-d12] - MongoDB - Hello World! (Client-side) </a>
 
                         <p class="post-meta">
@@ -363,6 +289,80 @@ mongoClient.connect('mongodb://localhost:27017/testDB', function(err, db) {
 <p>正式環境要嘛建立使用者帳號密碼</p>
 
 <p>要嘛就是讓 DB 只限本機存取，請記住這件事情哦~</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/12/2014-10-12-swift-d12/" class="post-title">[Swift-d12] - Basic - 基本元件 (Label, Button, UIColor, 文字輸入框)</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-swift" href="http://kerkerj.github.io//categories/swift">swift</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>今天來放一些基本的元件:</p>
+
+<p>放入一個文字輸入框、文字標簽、按鈕，</p>
+
+<p>在文字框輸入一些字後，按下按鈕後，會在文字標簽顯示剛剛輸入的內容：</p>
+
+<p>首先使用右下角的 Object library 中將上述三種元件拉到 storyborad 中</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-12%2018.37.11.png" alt="image" />
+</p>
+
+<p>圖中依順序是文字標簽、文字輸入框、按鈕</p>
+
+<p>接著我們要使用到的文件是文字標簽以及文字輸入框，另外要將按鈕加入事件</p>
+
+<p>因此程式的流程是:</p>
+
+<p>按下按鈕後-&gt; 執行按鈕事件
+    -&gt; 抓到文字輸入框的輸入內容
+    -&gt; 將文字標簽的內容改變成文字輸入框的內容</p>
+
+<p>因此先使用昨天的方式，將文字標簽及文字輸入框拉到 ViewController 中以便使用它們，在圖中的程式碼 12, 13 行：</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-12%2018.40.48.png" alt="image" />
+</p>
+
+<p>這樣我們就可以控制文字標簽的文字以及拿到輸入框的文字了</p>
+
+<p>再來就是最重要的按鈕事件了!</p>
+
+<p>一樣使用 ctrl + 拖曳的方式將按鈕拉到程式碼中，但是這次是要選擇 「IBAction」，是事件的意思:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-12%2018.42.57.png" alt="image" />
+</p>
+
+<p>接著就會產生出一段 function:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-12%2018.43.05.png" alt="image" />
+</p>
+
+<p>名為 titleButton, 我們在方法中輸入一行程式碼:</p>
+
+<pre><code class="language-swift">titleLabel.text = titleField.text
+</code></pre>
+
+<p>意思就是將文字標簽的字改成文字輸入框的文字</p>
+
+<p>接著我們就把程式跑起來吧!</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-12%2018.46.14.png" alt="image" />
+</p>
+
+<p>在文字框中輸入文字，按下按鈕，標簽就可以變文字了!</p>
 
                     </div>
                 </section>
@@ -655,6 +655,77 @@ WriteResult({ &quot;nMatched&quot; : 1, &quot;nUpserted&quot; : 0, &quot;nModifi
                 <section class="post">
                     <header class="post-header">
 
+                        <a href="http://kerkerj.github.io/blog/2014/10/10/2014-10-10-swift-d10/" class="post-title">[Swift-d10] 延伸閱讀</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-swift" href="http://kerkerj.github.io//categories/swift">swift</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>今天算一算也來到第十天了，</p>
+
+<p>前面講了 8 天的語法，其實會有些枯燥</p>
+
+<p>不過有些語法又很有趣</p>
+
+<p>我不懂 Objective-C，</p>
+
+<p>如果想從 Objectiv-C 轉換到 Swift 的話，最好查查一些比較的文章</p>
+
+<p>最好的文件就是<a href="https://developer.apple.com/library/ios/navigation/#">官方文件</a>了</p>
+
+<p>以 UILabel 為例</p>
+
+<p>官方網站會列出兩種不同<a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UILabel_Class/index.html#//apple_ref/occ/instp/UILabel/text">寫法</a>:</p>
+
+<pre><code class="language-swift">// SWIFT
+var text: String?
+
+// OBJECTIVE-C
+@property(nonatomic, copy) NSString *text
+</code></pre>
+
+<p>如果要從 Swift 基本概念開始，當然是首推官方的 <a href="https://itunes.apple.com/us/book/the-swift-programming-language/id881256329?mt=11&amp;ls=1">The Swift Programming Language</a></p>
+
+<p>是英文苦手的話，強國人有 <a href="https://www.gitbook.io/book/numbbbbb/-the-swift-programming-language-">翻譯文件</a></p>
+
+<p>這群人非常厲害，發表後沒幾天就翻譯完成了</p>
+
+<p>不過因為技術用語還是以中國為主，因此建議英文優先，或是對照著看</p>
+
+<p>前面幾天都基本介紹前半部而已，屬於一般學習程式語言的基本練習而已</p>
+
+<p>後半部是更詳細的部分，有空的話還是可以多看看~</p>
+
+<p>另外，官方還出了一本 <a href="https://itunes.apple.com/us/book/using-swift-cocoa-objective/id888894773?mt=11">Using Swift with Cocoa ad Objective-C</a></p>
+
+<p>就是在介紹如何使用 Swift 加上 Cocoa framework 開發 App</p>
+
+<p>不過書的內容不多，算入門級，有興趣也可看看這本~</p>
+
+<p>接下來會開始用 Swift 寫簡單的界面</p>
+
+<p>由於筆者從沒寫過 iOS app，因此也是會用大約十天的時間來簡單練習一些常用的 Cocoa Touch framework 的元件</p>
+
+<p>順帶一提前面沒講到的，Objective-C 有個東西叫作 Catagory，在 Swift 裏是 extension</p>
+
+<p>不需要破壞原本的結構，加上一些外掛，讓原本的結構更好用</p>
+
+<p>(好像是個很重要的順帶一提 XD)</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
                         <a href="http://kerkerj.github.io/blog/2014/10/10/2014-10-10-api-d10/" class="post-title">[API-d10] - Express - Hello World!</a>
 
                         <p class="post-meta">
@@ -809,77 +880,6 @@ $ express /tmp/foo &amp;&amp; cd /tmp/foo
 </code></pre>
 
 <p>下一篇會講解如何簡單操作 MongoDB!</p>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2014-10-10 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://kerkerj.github.io/blog/2014/10/10/2014-10-10-swift-d10/" class="post-title">[Swift-d10] 延伸閱讀</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-swift" href="http://kerkerj.github.io//categories/swift">swift</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p>今天算一算也來到第十天了，</p>
-
-<p>前面講了 8 天的語法，其實會有些枯燥</p>
-
-<p>不過有些語法又很有趣</p>
-
-<p>我不懂 Objective-C，</p>
-
-<p>如果想從 Objectiv-C 轉換到 Swift 的話，最好查查一些比較的文章</p>
-
-<p>最好的文件就是<a href="https://developer.apple.com/library/ios/navigation/#">官方文件</a>了</p>
-
-<p>以 UILabel 為例</p>
-
-<p>官方網站會列出兩種不同<a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UILabel_Class/index.html#//apple_ref/occ/instp/UILabel/text">寫法</a>:</p>
-
-<pre><code class="language-swift">// SWIFT
-var text: String?
-
-// OBJECTIVE-C
-@property(nonatomic, copy) NSString *text
-</code></pre>
-
-<p>如果要從 Swift 基本概念開始，當然是首推官方的 <a href="https://itunes.apple.com/us/book/the-swift-programming-language/id881256329?mt=11&amp;ls=1">The Swift Programming Language</a></p>
-
-<p>是英文苦手的話，強國人有 <a href="https://www.gitbook.io/book/numbbbbb/-the-swift-programming-language-">翻譯文件</a></p>
-
-<p>這群人非常厲害，發表後沒幾天就翻譯完成了</p>
-
-<p>不過因為技術用語還是以中國為主，因此建議英文優先，或是對照著看</p>
-
-<p>前面幾天都基本介紹前半部而已，屬於一般學習程式語言的基本練習而已</p>
-
-<p>後半部是更詳細的部分，有空的話還是可以多看看~</p>
-
-<p>另外，官方還出了一本 <a href="https://itunes.apple.com/us/book/using-swift-cocoa-objective/id888894773?mt=11">Using Swift with Cocoa ad Objective-C</a></p>
-
-<p>就是在介紹如何使用 Swift 加上 Cocoa framework 開發 App</p>
-
-<p>不過書的內容不多，算入門級，有興趣也可看看這本~</p>
-
-<p>接下來會開始用 Swift 寫簡單的界面</p>
-
-<p>由於筆者從沒寫過 iOS app，因此也是會用大約十天的時間來簡單練習一些常用的 Cocoa Touch framework 的元件</p>
-
-<p>順帶一提前面沒講到的，Objective-C 有個東西叫作 Catagory，在 Swift 裏是 extension</p>
-
-<p>不需要破壞原本的結構，加上一些外掛，讓原本的結構更好用</p>
-
-<p>(好像是個很重要的順帶一提 XD)</p>
 
                     </div>
                 </section>
