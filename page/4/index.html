@@ -109,136 +109,188 @@
                 <section class="post">
                     <header class="post-header">
 
-                        <a href="http://kerkerj.github.io/blog/2014/10/18/2014-10-18-swift-d18/" class="post-title">[Swift-d18] - Basic - Customize TableViewCell</a>
+                        <a href="http://kerkerj.github.io/blog/2014/10/18/2014-10-18-api-d18/" class="post-title">[API-d18] - 實戰開發 - 套件模組</a>
 
                         <p class="post-meta">
                             
                             
                                 under
                                 
-                                <a class="post-category post-category-swift" href="http://kerkerj.github.io//categories/swift">swift</a><a class="post-category post-category-tableviewcell" href="http://kerkerj.github.io//categories/tableviewcell">tableviewcell</a>
+                                <a class="post-category post-category-restful" href="http://kerkerj.github.io//categories/restful">restful</a><a class="post-category post-category-api" href="http://kerkerj.github.io//categories/api">api</a><a class="post-category post-category-nodejs" href="http://kerkerj.github.io//categories/nodejs">nodejs</a><a class="post-category post-category-express" href="http://kerkerj.github.io//categories/express">express</a><a class="post-category post-category-npm" href="http://kerkerj.github.io//categories/npm">npm</a><a class="post-category post-category-mongodb" href="http://kerkerj.github.io//categories/mongodb">mongodb</a><a class="post-category post-category-mongoose" href="http://kerkerj.github.io//categories/mongoose">mongoose</a><a class="post-category post-category-mocha superagent" href="http://kerkerj.github.io//categories/mocha-superagent">mocha superagent</a><a class="post-category post-category-validator" href="http://kerkerj.github.io//categories/validator">validator</a><a class="post-category post-category-expect.js" href="http://kerkerj.github.io//categories/expect.js">expect.js</a>
                             
                         </p>
                     </header>
 
                     <div class="post-description">
-                        <p>今天的主題延續昨天的 Navigation + TableView</p>
+                        <p>##會使用到的套件:</p>
 
-<p>我們要來客製化 TableViewCell</p>
+<pre><code>主體:
+express - web framework
+body-parser - parse request body
 
-<p>通常 TableView 可以被拿來做很多事情，不僅只是像是 ListView 而已</p>
+測試相關:
+mocha - test framework
+mocha-mongoose - 用來和 mocha 和 mongoose 中間做介接的套件
+superagent - 拿它來丟 http request
+validator - 用來驗證某個物件是否為某個型別
+expect.js - 類似 BDD 的語法，用來寫測試的
+debug - debug package
 
-<p>而 TableViewCell 可以做更深度的切版，排列元素</p>
+DB 相關:
+mongoose - mongodb orm
+mongodb - mongodb native driver
 
-<p>因此自定 TableViewCell 是一件算是還蠻重要的事情</p>
+開發相關:
+nodemon - detect file change and restart server
 
-<p>下面的 Code 是延續昨天的專案</p>
+生產環境相關:
+log4js - 記錄 request log
+</code></pre>
 
-<p>我先把已更改過的程式碼貼上來:</p>
+<p>這是我的 package.json, 可以複製到專案目錄，然後下 <code>npm install</code></p>
 
-<pre><code class="language-swift">import UIKit
+<pre><code>{
+  &quot;name&quot;: &quot;TODOAPI&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;app.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;node ./bin/server.js env=development&quot;,
+    &quot;test&quot;: &quot;./node_modules/mocha/bin/mocha&quot;,
+    &quot;test-detail&quot;: &quot;./node_modules/mocha/bin/mocha --reporter list&quot;,
+    &quot;stop&quot;: &quot;pkill -lf server.js&quot;
+  },
+  &quot;author&quot;: &quot;kerkerj&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;dependencies&quot;: {
+    &quot;body-parser&quot;: &quot;^1.9.0&quot;,
+    &quot;debug&quot;: &quot;^2.0.0&quot;,
+    &quot;expect.js&quot;: &quot;^0.3.1&quot;,
+    &quot;express&quot;: &quot;^4.9.5&quot;,
+    &quot;log4js&quot;: &quot;^0.6.21&quot;,
+    &quot;mocha&quot;: &quot;^1.21.4&quot;,
+    &quot;mocha-mongoose&quot;: &quot;^1.0.1&quot;,
+    &quot;mongodb&quot;: &quot;^1.4.19&quot;,
+    &quot;mongoose&quot;: &quot;^3.8.17&quot;,
+    &quot;superagent&quot;: &quot;^0.20.0&quot;,
+    &quot;validator&quot;: &quot;^3.19.1&quot;
+  }
+}
+</code></pre>
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
-    @IBOutlet var tableView: UITableView!
-    
-    var arr = [&quot;A&quot;, &quot;B&quot;, &quot;C&quot;]
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
+<p>##安裝套件，及全域套件 mocha</p>
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {
-        return arr.count;
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell {
-        var cell: CustomTableViewCell? = tableView.dequeueReusableCellWithIdentifier(&quot;cell&quot;) as CustomTableViewCell?
-        
-        if cell == nil {
-            var objects = NSBundle.mainBundle().loadNibNamed(&quot;CustomTableViewCell&quot;, owner: self, options: nil)
-            cell = objects[0] as? CustomTableViewCell
+<pre><code>// in project folder
+$ npm install express body-parser mocha mocha-mongoose superagent validator expect.js debug mongoose mongodb log4js -save 
+$ npm install -g nodemon
+</code></pre>
+
+<p>##各個套件簡單設定</p>
+
+<p>接下來會針對一些套件作說明，但是由於可能有些人不懂整個專案的運作，因此下面看看就好，之後實作上有問題可以再回來看。</p>
+
+<p>##Nodemon 的作用</p>
+
+<p>範例:</p>
+
+<pre><code>$ nodemon ./bin/server.js
+...
+</code></pre>
+
+<p>就可以放著不管它了~ 只要檔案有變動，就會自動重開 server</p>
+
+<p>##使用 logger - log4js</p>
+
+<p>設定 logger - log4js, 並將 log 寫入到 logs/access.log 裏</p>
+
+<pre><code>// Set logger
+var log4js = require('log4js');
+log4js.configure({
+    appenders: [
+        { type: 'console' }, //控制台輸出
+        {
+            type: 'file', //文件輸出
+            filename: 'logs/access.log',
+            maxLogSize: 20000000, // 20 MB
+            backups: 10,
+            category: 'normal'
         }
-        
-        cell!.textLabel?.text = arr[indexPath.row]
-        
-        return cell!
-    }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var detailViewController = DetailViewController()
-        detailViewController.title = arr[indexPath.row]
-        self.navigationController?.pushViewController(detailViewController, animated: true)
-    }
-    
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -&gt; CGFloat {
-        return 165.0
-    }
+    ],
+    replaceConsole: true
+});
+
+var logger = log4js.getLogger('normal');
+logger.setLevel('INFO');
+
+app.use(log4js.connectLogger(logger, {level: 'auto', format:':method :url'}));
+</code></pre>
+
+<p><a href="http://blog.fens.me/nodejs-log4js/">node log4s</a></p>
+
+<p>##使用 body-parser 處理 request 的資料</p>
+
+<p>加入 middleware</p>
+
+<pre><code>app.use( bodyParser.json() );
+app.use( bodyParser.urlencoded({ extended: true }) );
+</code></pre>
+
+<p>需要加入 { extended: true/false }, 否則會 warning:</p>
+
+<p>body-parser deprecated undefined extended: provide extended</p>
+
+<p>如果要接收 json request</p>
+
+<p>client 端在 Header 中必須先設定 &ldquo;Content-type: applciation/json&rdquo;</p>
+
+<p>才能夠在 router 中使用 <code>req.body</code> 拿到 json 值</p>
+
+<p>##測試套件</p>
+
+<pre><code>mocha - 專案
+expect.js - 專案
+superagent - 專案
+</code></pre>
+
+<p>測試流程 -</p>
+
+<p>先跑 server 起來，透過自動化程式自動丟 request 給 server，測試結束</p>
+
+<pre><code>$ npm start
+$ mocha
+$ npm stop
+</code></pre>
+
+<p>所以必須先在 package.json 中設定好 script</p>
+
+<pre><code>{
+	(...)
+	&quot;scripts&quot;: {
+      &quot;start&quot;: &quot;node ./bin/server.js&quot;,
+      &quot;test&quot;: &quot;mocha&quot;,
+      &quot;stop&quot;: &quot;pkill -lf server.js&quot;
+  },
+  (...)
 }
 </code></pre>
 
-<p>今天要新增一個檔案, 我們就稱之為 CustomTableViewCell</p>
+<p>由於我將啟動 server 的 script 放在 bin 資料夾裡，因此</p>
 
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.36.49.png" alt="image" />
-</p>
+<p><code>npm start</code> 的 script 就會執行:</p>
 
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.37.37.png" alt="image" />
-</p>
-
-<p>就會出現一份 .swift 檔案以及 .xib 檔案了</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.38.06.png" alt="image" />
-</p>
-
-<p>接下來我們簡單編輯 .xib 檔案，將背景顏色換成其他顏色，以及將它的長度拉高</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.39.49.png" alt="image" />
-</p>
-
-<p>這樣其實就很簡單地完成了一個小客製化的 TableViewCell 了</p>
-
-<p>那我們要怎麼讓原本的 TableView 吃到這個 TableViewCell 呢?</p>
-
-<p>看以下的 function:</p>
-
-<pre><code>func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell {
-	var cell: CustomTableViewCell? = tableView.dequeueReusableCellWithIdentifier(&quot;cell&quot;) as CustomTableViewCell?
-        
-	if cell == nil {
-		var objects = NSBundle.mainBundle().loadNibNamed(&quot;CustomTableViewCell&quot;, owner: self, options: nil)
-		cell = objects[0] as? CustomTableViewCell
-	}
-        
-	cell!.textLabel?.text = arr[indexPath.row]
-        
-	return cell!
-}
+<pre><code>node ./bin/server.js
 </code></pre>
 
-<p>我們將 cell 的類別更改成了 CustomTableViewCell</p>
+<p><code>npm stop</code> 的話，用到了 *nix 的指令，會先到 process list 中找到和 server.js 有關的 process，然後 kill process (<code>pkill</code>)</p>
 
-<p>直接使用剛剛產生的 .swift 類別來產生新的 TableViewCell</p>
+<pre><code>pkill -lf server.js
+</code></pre>
 
-<p>並且如果 cell == nil ，則會將 Nib 載入</p>
+<p>跑測試的話，直接下 <code>mocha</code>，在這邊我們也丟一個 script 指定給 <code>npm test</code></p>
 
-<p>最後設定該 textLabel ，返回 cell</p>
+<p>下 <code>npm test</code> 就是等同於下 <code>mocha</code></p>
 
-<p>若使用最一開始的程式碼 apply changes</p>
-
-<p>執行！</p>
-
-<p>應該就可以看到成果了!</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2012.01.35.png" alt="image" />
-</p>
-
-<p>p.s. 這篇可能實作上會有 bug (我寫的), 就先跳過吧 XD</p>
+<p>上面只是大致上講解一下每個套件如何用，接下來我們會以實際的例子來說明</p>
 
                     </div>
                 </section>
@@ -292,7 +344,7 @@ $
 
 <p>分別講解一下各個 folder 的工作:</p>
 
-<h3 id="bin:7e0de0f2ba00c9180cc5d15c737f79c5"><code>bin</code></h3>
+<h3 id="bin:efe06a9cfabcdace1501cb271521a7ea"><code>bin</code></h3>
 
 <p>筆者會在 <code>bin</code> 資料夾底下放一個 <code>server.js</code></p>
 
@@ -306,27 +358,27 @@ $
 
 <p>拿來放資料庫 schema 以及相關的資料庫操作的資料夾</p>
 
-<h3 id="node-modules:7e0de0f2ba00c9180cc5d15c737f79c5"><code>node_modules</code></h3>
+<h3 id="node-modules:efe06a9cfabcdace1501cb271521a7ea"><code>node_modules</code></h3>
 
 <p>這其實是之後安裝的模組會放在這個資料夾裡，在這邊可以先不用建立沒關係</p>
 
-<h3 id="logs:7e0de0f2ba00c9180cc5d15c737f79c5"><code>logs</code></h3>
+<h3 id="logs:efe06a9cfabcdace1501cb271521a7ea"><code>logs</code></h3>
 
 <p>由於我們是建立一個 restful service，因此 log 的記錄也是很重要的，我們把 log 放在這個資料夾裡</p>
 
-<h3 id="configs:7e0de0f2ba00c9180cc5d15c737f79c5"><code>configs</code></h3>
+<h3 id="configs:efe06a9cfabcdace1501cb271521a7ea"><code>configs</code></h3>
 
 <p>我們在這個資料夾裡放置一些專案設定，例如 db 設定或者是 log 的設定等等</p>
 
-<h3 id="test:7e0de0f2ba00c9180cc5d15c737f79c5"><code>test</code></h3>
+<h3 id="test:efe06a9cfabcdace1501cb271521a7ea"><code>test</code></h3>
 
 <p>撰寫測試程式的資料夾~</p>
 
-<h3 id="app-js:7e0de0f2ba00c9180cc5d15c737f79c5"><code>app.js</code></h3>
+<h3 id="app-js:efe06a9cfabcdace1501cb271521a7ea"><code>app.js</code></h3>
 
 <p>程式的進入點，可以想像成 index.php~</p>
 
-<h3 id="package-json:7e0de0f2ba00c9180cc5d15c737f79c5"><code>package.json</code></h3>
+<h3 id="package-json:efe06a9cfabcdace1501cb271521a7ea"><code>package.json</code></h3>
 
 <p>專案的資訊以及相關模組的資訊都會被放在這裡!</p>
 
@@ -1152,6 +1204,115 @@ func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexP
                 <section class="post">
                     <header class="post-header">
 
+                        <a href="http://kerkerj.github.io/blog/2014/10/14/2014-10-14-api-d14/" class="post-title">[API-d14] - [Javascript 番外篇] Javascript function scopes 和 closures</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-restful" href="http://kerkerj.github.io//categories/restful">restful</a><a class="post-category post-category-api" href="http://kerkerj.github.io//categories/api">api</a><a class="post-category post-category-javascript" href="http://kerkerj.github.io//categories/javascript">javascript</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>這幾天會探討 javascript 的特性，由於比較少在寫 js ，因此有錯請指正</p>
+
+<p>##Scope</p>
+
+<p>例子:</p>
+
+<pre><code class="language-javascript">function hi() {
+    var greetings = &quot;hi&quot;;
+
+    console.log(&quot;Say: &quot; + greetings);
+
+    function sayYa(newInput) {
+        greetings = newInput;
+        console.log(&quot;Say: &quot; + greetings);
+    }
+
+    function sayCool(newInput) {
+        var cool = newInput;
+        console.log(&quot;Say: &quot; + cool);
+    }
+
+    sayYa(&quot;Yo&quot;);
+    sayCool(&quot;Cool&quot;);
+
+    console.log(&quot;Say: &quot; + greetings);
+}
+
+hi();
+</code></pre>
+
+<p>很簡單的概念</p>
+
+<p>greetins 在 sayYa 方法中被覆寫掉了</p>
+
+<p>如果要定義 local 變數必須在 function 裏用 var 定義</p>
+
+<p>例如 sayCool function</p>
+
+<p>##Closure</p>
+
+<p>例子:</p>
+
+<pre><code>function person(){
+    var name = 'default';
+
+    return {
+        greetings: function() {
+            console.log( name );
+        },
+        changeName: function(newInput) {
+            name = newInput;
+        }
+    };
+}
+
+var me = new person();
+me.greetings();
+me.changeName(&quot;kerkerj&quot;);
+me.greetings();
+</code></pre>
+
+<p>##Self-Executing Anonymous Functions</p>
+
+<p>使用這種方式通常是避免和其他 js 檔案造成變數混淆</p>
+
+<p>或是初始化</p>
+
+<p>裡面的變數和 function 只被限制在這個範圍內</p>
+
+<p>例子:</p>
+
+<pre><code>(function(){
+    var hi = 'Hello';
+
+    function sayHi(name){
+        return hi + ' ' + name;
+    }
+
+    global.greetings = sayHi
+})(global);
+
+console.log(global.greetings(&quot;kerkerj&quot;));
+console.log(hi); // &lt;- 這會失敗
+</code></pre>
+
+<p>必須將 sayHi 指給 global 的某一個變數, 才有辦法使用它</p>
+
+<p>在 node.js 中 global 是全域變數，在瀏覽器中是 window~</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
                         <a href="http://kerkerj.github.io/blog/2014/10/14/2014-10-14-swift-d14/" class="post-title">[Swift-d14] - Basic - Navigation View 2 &#43; ViewController</a>
 
                         <p class="post-meta">
@@ -1273,115 +1434,6 @@ self.navigationController?.pushViewController(self.storyboard?.instantiateViewCo
 <p>有的話就抓起來，並且使用 as 轉型成 View2Controller, push 進 stack</p>
 
 <p>做完上述事情後，執行程式碼就可以看到結果囉!</p>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2014-10-10 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://kerkerj.github.io/blog/2014/10/14/2014-10-14-api-d14/" class="post-title">[API-d14] - [Javascript 番外篇] Javascript function scopes 和 closures</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-restful" href="http://kerkerj.github.io//categories/restful">restful</a><a class="post-category post-category-api" href="http://kerkerj.github.io//categories/api">api</a><a class="post-category post-category-javascript" href="http://kerkerj.github.io//categories/javascript">javascript</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p>這幾天會探討 javascript 的特性，由於比較少在寫 js ，因此有錯請指正</p>
-
-<p>##Scope</p>
-
-<p>例子:</p>
-
-<pre><code class="language-javascript">function hi() {
-    var greetings = &quot;hi&quot;;
-
-    console.log(&quot;Say: &quot; + greetings);
-
-    function sayYa(newInput) {
-        greetings = newInput;
-        console.log(&quot;Say: &quot; + greetings);
-    }
-
-    function sayCool(newInput) {
-        var cool = newInput;
-        console.log(&quot;Say: &quot; + cool);
-    }
-
-    sayYa(&quot;Yo&quot;);
-    sayCool(&quot;Cool&quot;);
-
-    console.log(&quot;Say: &quot; + greetings);
-}
-
-hi();
-</code></pre>
-
-<p>很簡單的概念</p>
-
-<p>greetins 在 sayYa 方法中被覆寫掉了</p>
-
-<p>如果要定義 local 變數必須在 function 裏用 var 定義</p>
-
-<p>例如 sayCool function</p>
-
-<p>##Closure</p>
-
-<p>例子:</p>
-
-<pre><code>function person(){
-    var name = 'default';
-
-    return {
-        greetings: function() {
-            console.log( name );
-        },
-        changeName: function(newInput) {
-            name = newInput;
-        }
-    };
-}
-
-var me = new person();
-me.greetings();
-me.changeName(&quot;kerkerj&quot;);
-me.greetings();
-</code></pre>
-
-<p>##Self-Executing Anonymous Functions</p>
-
-<p>使用這種方式通常是避免和其他 js 檔案造成變數混淆</p>
-
-<p>或是初始化</p>
-
-<p>裡面的變數和 function 只被限制在這個範圍內</p>
-
-<p>例子:</p>
-
-<pre><code>(function(){
-    var hi = 'Hello';
-
-    function sayHi(name){
-        return hi + ' ' + name;
-    }
-
-    global.greetings = sayHi
-})(global);
-
-console.log(global.greetings(&quot;kerkerj&quot;));
-console.log(hi); // &lt;- 這會失敗
-</code></pre>
-
-<p>必須將 sayHi 指給 global 的某一個變數, 才有辦法使用它</p>
-
-<p>在 node.js 中 global 是全域變數，在瀏覽器中是 window~</p>
 
                     </div>
                 </section>

@@ -109,139 +109,6 @@
                 <section class="post">
                     <header class="post-header">
 
-                        <a href="http://kerkerj.github.io/blog/2014/10/27/2014-10-27-api-d27/" class="post-title">[API-d27] - 實戰開發 - log 處理 及 config (db, apikey)</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-restful" href="http://kerkerj.github.io//categories/restful">restful</a><a class="post-category post-category-api" href="http://kerkerj.github.io//categories/api">api</a><a class="post-category post-category-nodejs" href="http://kerkerj.github.io//categories/nodejs">nodejs</a><a class="post-category post-category-express" href="http://kerkerj.github.io//categories/express">express</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day27">Github 參考</a></p>
-
-<p>##log 處理</p>
-
-<p>今天要來談談 log 的處理，</p>
-
-<p>身為一台自走 (?) node.js API server</p>
-
-<p>也應該要記錄一下 request 的 log 呀！</p>
-
-<p>不然哪天出問題了都不知道是哪個 request 把 server 搞掛了!</p>
-
-<p>因此我們就要加入 log 的 middleware</p>
-
-<p>node.js 的 log 套件也蠻多的, 例如 <code>winston</code></p>
-
-<p>不過我們今天要用的是 <code>log4js</code></p>
-
-<p>會選擇他其實也只是因為之前寫 <code>java</code> 有用過 <code>log4j</code></p>
-
-<p><code>log4js</code> 的設定感覺起來比較相似</p>
-
-<p>所以就使用它了!</p>
-
-<p>再來我們就安裝一下 <code>log4js</code> 吧</p>
-
-<pre><code class="language-javascript">$ npm install log4js -save  
-</code></pre>
-
-<p>並在 <code>app.js</code> 中 require 進去</p>
-
-<pre><code>var log4js = require('log4js');
-</code></pre>
-
-<p>接著在 <code>app.js</code> 的前面區段加入以下程式碼:</p>
-
-<pre><code>log4js.configure({
-    appenders: [
-        { type: 'console' }, //控制台輸出
-        {
-            type: 'file', //文件輸出
-            filename: 'logs/access.log',
-            maxLogSize: 20000000, // 20 MB
-            backups: 10,
-            category: 'normal'
-        }
-    ],
-    replaceConsole: true
-});
-
-var logger = log4js.getLogger('normal');
-logger.setLevel('INFO');
-
-app.use(log4js.connectLogger(logger, {level: 'auto', format:':method :url'}));
-</code></pre>
-
-<p>其實註解已經可以看出一些端倪了</p>
-
-<p>使用 <code>log4js</code> 可以輸出 log 檔案，並且會按照設定的檔案大小來寫入</p>
-
-<p>如果達到 20MB 就會換一個新的檔案寫入，原本的還保留著，不過最多只會保留 10 份</p>
-
-<p>接著就設定 log level, 以及想要 log 的資訊</p>
-
-<p>詳細資訊就可以再多查詢一下</p>
-
-<p>此時我們將 server run 起來吧!</p>
-
-<p>並且對 server 戳幾個 request, 就會發現 log 檔案被建立起來了!</p>
-
-<p>(該程式碼加在 token 檢查前或檢查後是有差異的，加在 token 檢查後面，token error 的話則不會被記錄到 log 裡面)</p>
-
-<p>打開 log 檔看看，就會發現有 log 被寫入囉!</p>
-
-<p>##config (db, apikey)</p>
-
-<p>有些重要的設定檔其實我們並不希望寫在程式碼裡，這時候 config 的設定很有用</p>
-
-<p>建立設定檔有很多種方式，比方說直接寫一個 json 檔案，或是 xml 檔案</p>
-
-<p>今天我們就用最簡單的 js 檔案的方式來建立 config 檔</p>
-
-<p>我們在 config 資料夾裡新增一個 config.js</p>
-
-<p>我們以下面的程式碼當作例子:</p>
-
-<pre><code>module.exports = {
-    &quot;base_url&quot;: &quot;http://localhost:3000&quot;,
-    &quot;test_token&quot;: &quot;55665566&quot;,
-    &quot;db&quot;: {
-        &quot;production&quot;: &quot;mongodb://192.168.33.10:27017/TODOs&quot;,
-        &quot;development&quot;: &quot;mongodb://192.168.33.10:27017/DEV_TODOs&quot;,
-        &quot;test&quot;: &quot;mongodb://192.168.33.10:27017/TEST_TODOs&quot;
-    }
-};
-</code></pre>
-
-<p>要怎麼使用裡面的內容呢?</p>
-
-<p>假設我們要將 db 的連結改成用 config 的方式連結的話:</p>
-
-<pre><code>var config = require('./config/config');
-
-// Set DB
-mongoose.connect(config.db.development);
-</code></pre>
-
-<p>只要先將 config require 進來，然後就直接使用它就好了!</p>
-
-<p>這樣就可以幫助我們將一些重要的設定從程式碼中抽離出來了!</p>
-
-<p>今天就這樣啦!</p>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2014-10-10 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
                         <a href="http://kerkerj.github.io/blog/2014/10/27/2014-10-27-swift-d27/" class="post-title">[Swift-d27] - 實戰開發 - TODOList - API 2 讀取清單資料</a>
 
                         <p class="post-meta">
@@ -407,6 +274,139 @@ class RestApi {
 <p>並沒有考慮到太多 :P</p>
 
 <p>明天繼續!</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/27/2014-10-27-api-d27/" class="post-title">[API-d27] - 實戰開發 - log 處理 及 config (db, apikey)</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-restful" href="http://kerkerj.github.io//categories/restful">restful</a><a class="post-category post-category-api" href="http://kerkerj.github.io//categories/api">api</a><a class="post-category post-category-nodejs" href="http://kerkerj.github.io//categories/nodejs">nodejs</a><a class="post-category post-category-express" href="http://kerkerj.github.io//categories/express">express</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day27">Github 參考</a></p>
+
+<p>##log 處理</p>
+
+<p>今天要來談談 log 的處理，</p>
+
+<p>身為一台自走 (?) node.js API server</p>
+
+<p>也應該要記錄一下 request 的 log 呀！</p>
+
+<p>不然哪天出問題了都不知道是哪個 request 把 server 搞掛了!</p>
+
+<p>因此我們就要加入 log 的 middleware</p>
+
+<p>node.js 的 log 套件也蠻多的, 例如 <code>winston</code></p>
+
+<p>不過我們今天要用的是 <code>log4js</code></p>
+
+<p>會選擇他其實也只是因為之前寫 <code>java</code> 有用過 <code>log4j</code></p>
+
+<p><code>log4js</code> 的設定感覺起來比較相似</p>
+
+<p>所以就使用它了!</p>
+
+<p>再來我們就安裝一下 <code>log4js</code> 吧</p>
+
+<pre><code class="language-javascript">$ npm install log4js -save  
+</code></pre>
+
+<p>並在 <code>app.js</code> 中 require 進去</p>
+
+<pre><code>var log4js = require('log4js');
+</code></pre>
+
+<p>接著在 <code>app.js</code> 的前面區段加入以下程式碼:</p>
+
+<pre><code>log4js.configure({
+    appenders: [
+        { type: 'console' }, //控制台輸出
+        {
+            type: 'file', //文件輸出
+            filename: 'logs/access.log',
+            maxLogSize: 20000000, // 20 MB
+            backups: 10,
+            category: 'normal'
+        }
+    ],
+    replaceConsole: true
+});
+
+var logger = log4js.getLogger('normal');
+logger.setLevel('INFO');
+
+app.use(log4js.connectLogger(logger, {level: 'auto', format:':method :url'}));
+</code></pre>
+
+<p>其實註解已經可以看出一些端倪了</p>
+
+<p>使用 <code>log4js</code> 可以輸出 log 檔案，並且會按照設定的檔案大小來寫入</p>
+
+<p>如果達到 20MB 就會換一個新的檔案寫入，原本的還保留著，不過最多只會保留 10 份</p>
+
+<p>接著就設定 log level, 以及想要 log 的資訊</p>
+
+<p>詳細資訊就可以再多查詢一下</p>
+
+<p>此時我們將 server run 起來吧!</p>
+
+<p>並且對 server 戳幾個 request, 就會發現 log 檔案被建立起來了!</p>
+
+<p>(該程式碼加在 token 檢查前或檢查後是有差異的，加在 token 檢查後面，token error 的話則不會被記錄到 log 裡面)</p>
+
+<p>打開 log 檔看看，就會發現有 log 被寫入囉!</p>
+
+<p>##config (db, apikey)</p>
+
+<p>有些重要的設定檔其實我們並不希望寫在程式碼裡，這時候 config 的設定很有用</p>
+
+<p>建立設定檔有很多種方式，比方說直接寫一個 json 檔案，或是 xml 檔案</p>
+
+<p>今天我們就用最簡單的 js 檔案的方式來建立 config 檔</p>
+
+<p>我們在 config 資料夾裡新增一個 config.js</p>
+
+<p>我們以下面的程式碼當作例子:</p>
+
+<pre><code>module.exports = {
+    &quot;base_url&quot;: &quot;http://localhost:3000&quot;,
+    &quot;test_token&quot;: &quot;55665566&quot;,
+    &quot;db&quot;: {
+        &quot;production&quot;: &quot;mongodb://192.168.33.10:27017/TODOs&quot;,
+        &quot;development&quot;: &quot;mongodb://192.168.33.10:27017/DEV_TODOs&quot;,
+        &quot;test&quot;: &quot;mongodb://192.168.33.10:27017/TEST_TODOs&quot;
+    }
+};
+</code></pre>
+
+<p>要怎麼使用裡面的內容呢?</p>
+
+<p>假設我們要將 db 的連結改成用 config 的方式連結的話:</p>
+
+<pre><code>var config = require('./config/config');
+
+// Set DB
+mongoose.connect(config.db.development);
+</code></pre>
+
+<p>只要先將 config require 進來，然後就直接使用它就好了!</p>
+
+<p>這樣就可以幫助我們將一些重要的設定從程式碼中抽離出來了!</p>
+
+<p>今天就這樣啦!</p>
 
                     </div>
                 </section>
@@ -820,6 +820,81 @@ override func viewDidLoad() {
                 <section class="post">
                     <header class="post-header">
 
+                        <a href="http://kerkerj.github.io/blog/2014/10/24/2014-10-24-api-d24/" class="post-title">[API-d24] - 實戰開發 - 刪除 TODO task API with mongoose</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-restful" href="http://kerkerj.github.io//categories/restful">restful</a><a class="post-category post-category-api" href="http://kerkerj.github.io//categories/api">api</a><a class="post-category post-category-nodejs" href="http://kerkerj.github.io//categories/nodejs">nodejs</a><a class="post-category post-category-express" href="http://kerkerj.github.io//categories/express">express</a><a class="post-category post-category-mongoose" href="http://kerkerj.github.io//categories/mongoose">mongoose</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day24">Github 參考</a></p>
+
+<p>還記得昨天說要偷懶一下嗎 XD</p>
+
+<p>因為刪除真的很簡單!</p>
+
+<p>我們前面走過了新增、修改、讀取了</p>
+
+<p>刪除？哪有什麼困難的呢! XD</p>
+
+<p>直接看 code 吧!</p>
+
+<p>routes/users.js:</p>
+
+<pre><code class="language-javascript">// Delete a todo task
+router.delete('/:user_id/todos/:todo_id', function(req, res) {
+    var user_id = req.params.user_id;
+    var todo_id = req.params.todo_id;
+
+    TODO.remove(
+        { _id: todo_id, user_id: user_id },
+        function (err) {
+            if (err) {
+                res.status(400).json(
+                    { error: &quot;delete data error&quot;}
+                );
+            } else {
+                res.status(201).json(
+                    { success: &quot;true&quot; }
+                );
+            }
+        }
+    );
+});
+</code></pre>
+
+<p>非常的簡單!</p>
+
+<p>先抓到 user_id, todo_id 後</p>
+
+<p>使用 .remove 的方法，下 WHERE 條件，並在 callback 作處理</p>
+
+<p>就完成了!</p>
+
+<p>試試看吧!</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%203.39.09.png" alt="image" />
+</p>
+
+<p>是不是非常的簡單呢！</p>
+
+<p>我們已經完成 CRUD API 操作了！</p>
+
+<p>接下來幾天會稍作一些細節上的處理!</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
                         <a href="http://kerkerj.github.io/blog/2014/10/24/2014-10-24-swift-d24/" class="post-title">[Swift-d24] - 實戰開發 - TODOList - Create View</a>
 
                         <p class="post-meta">
@@ -989,184 +1064,6 @@ class UpdateViewController: UIViewController {
                 <section class="post">
                     <header class="post-header">
 
-                        <a href="http://kerkerj.github.io/blog/2014/10/24/2014-10-24-api-d24/" class="post-title">[API-d24] - 實戰開發 - 刪除 TODO task API with mongoose</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-restful" href="http://kerkerj.github.io//categories/restful">restful</a><a class="post-category post-category-api" href="http://kerkerj.github.io//categories/api">api</a><a class="post-category post-category-nodejs" href="http://kerkerj.github.io//categories/nodejs">nodejs</a><a class="post-category post-category-express" href="http://kerkerj.github.io//categories/express">express</a><a class="post-category post-category-mongoose" href="http://kerkerj.github.io//categories/mongoose">mongoose</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day24">Github 參考</a></p>
-
-<p>還記得昨天說要偷懶一下嗎 XD</p>
-
-<p>因為刪除真的很簡單!</p>
-
-<p>我們前面走過了新增、修改、讀取了</p>
-
-<p>刪除？哪有什麼困難的呢! XD</p>
-
-<p>直接看 code 吧!</p>
-
-<p>routes/users.js:</p>
-
-<pre><code class="language-javascript">// Delete a todo task
-router.delete('/:user_id/todos/:todo_id', function(req, res) {
-    var user_id = req.params.user_id;
-    var todo_id = req.params.todo_id;
-
-    TODO.remove(
-        { _id: todo_id, user_id: user_id },
-        function (err) {
-            if (err) {
-                res.status(400).json(
-                    { error: &quot;delete data error&quot;}
-                );
-            } else {
-                res.status(201).json(
-                    { success: &quot;true&quot; }
-                );
-            }
-        }
-    );
-});
-</code></pre>
-
-<p>非常的簡單!</p>
-
-<p>先抓到 user_id, todo_id 後</p>
-
-<p>使用 .remove 的方法，下 WHERE 條件，並在 callback 作處理</p>
-
-<p>就完成了!</p>
-
-<p>試試看吧!</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%203.39.09.png" alt="image" />
-</p>
-
-<p>是不是非常的簡單呢！</p>
-
-<p>我們已經完成 CRUD API 操作了！</p>
-
-<p>接下來幾天會稍作一些細節上的處理!</p>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2014-10-10 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://kerkerj.github.io/blog/2014/10/23/2014-10-23-api-d23/" class="post-title">[API-d23] - 實戰開發 - 修改 TODO task API with mongoose</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-restful" href="http://kerkerj.github.io//categories/restful">restful</a><a class="post-category post-category-api" href="http://kerkerj.github.io//categories/api">api</a><a class="post-category post-category-nodejs" href="http://kerkerj.github.io//categories/nodejs">nodejs</a><a class="post-category post-category-express" href="http://kerkerj.github.io//categories/express">express</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day23">Github 參考</a></p>
-
-<p>接上篇，我們已經可以拿到 todo list 了</p>
-
-<p>也可以拿到特定的 todo task</p>
-
-<p>再來我們就可以編輯特定的 todo task 了對吧?</p>
-
-<p>不囉唆直接進入程式碼</p>
-
-<p>routes/users.js</p>
-
-<pre><code class="language-javascript">// Update a todo task
-router.put('/:user_id/todos/:todo_id', function(req, res) {
-    var user_id = req.params.user_id;
-    var todo_id = req.params.todo_id;
-    var data = req.body;
-
-    TODO.update(
-        { _id: todo_id, user_id: user_id },
-        { $set: { content: data.content } },
-        function (err, num, raw, results) {
-            if (err) {
-                res.status(400).json(
-                    { error: &quot;update data error&quot; }
-                );
-            } else {
-                TODO.find({ _id: todo_id, user_id: user_id }, function (err, results) {
-                    res.status(201).json(
-                        results[0]
-                    );
-                });
-            }
-        }
-    );
-});
-</code></pre>
-
-<p>這次拿資料要拿三組: user_id, todo_id, 以及 data from req.body</p>
-
-<pre><code>var user_id = req.params.user_id;
-var todo_id = req.params.todo_id;
-var data = req.body;
-</code></pre>
-
-<p>body 的資料很簡單，就是欲修改的 content 的資料:</p>
-
-<pre><code>{ &quot;content&quot;: &quot;想修改的資料&quot; }
-</code></pre>
-
-<p>再來，除了是使用 .update 方法以及同樣要下 WHERE 參數外， .update 方法還多了一個參數:</p>
-
-<pre><code>{ _id: todo_id, user_id: user_id },
-{ $set: { content: data.content } },
-</code></pre>
-
-<p>$set 的意思等同於 SQL 語法中的 SET</p>
-
-<p>如果沒有加 $set 變成下面這樣:</p>
-
-<pre><code>{ _id: todo_id, user_id: user_id },
-{ content: data.content } ,
-</code></pre>
-
-<p>整個資料就會被洗掉，變成只有 <code>{ content: data.content }</code></p>
-
-<p>因此有沒有加 $set 差很多哦</p>
-
-<p>後面一樣是 callback 的處理</p>
-
-<p>都寫好後，實際開 POSTMAN 試試看吧!</p>
-
-<p>記得要使用 <code>PUT</code> 來丟 request</p>
-
-<p>例子如下，我把原本的 buy milk 改成 buy milk and banana</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%203.31.57.png" alt="image" />
-</p>
-
-<p>這樣離完成 API 就不遠啦!</p>
-
-<p>明天就稍微休息一下吧 XD</p>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2014-10-10 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
                         <a href="http://kerkerj.github.io/blog/2014/10/23/2014-10-23-swift-d23/" class="post-title">[Swift-d23] - 實戰開發 - TODOList - Show View 2, Delete View</a>
 
                         <p class="post-meta">
@@ -1270,6 +1167,109 @@ var content: String!
 </code></pre>
 
 <p>這樣我們就有顯示單筆以及顯示多筆還有刪除可以用了!</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/23/2014-10-23-api-d23/" class="post-title">[API-d23] - 實戰開發 - 修改 TODO task API with mongoose</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-restful" href="http://kerkerj.github.io//categories/restful">restful</a><a class="post-category post-category-api" href="http://kerkerj.github.io//categories/api">api</a><a class="post-category post-category-nodejs" href="http://kerkerj.github.io//categories/nodejs">nodejs</a><a class="post-category post-category-express" href="http://kerkerj.github.io//categories/express">express</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day23">Github 參考</a></p>
+
+<p>接上篇，我們已經可以拿到 todo list 了</p>
+
+<p>也可以拿到特定的 todo task</p>
+
+<p>再來我們就可以編輯特定的 todo task 了對吧?</p>
+
+<p>不囉唆直接進入程式碼</p>
+
+<p>routes/users.js</p>
+
+<pre><code class="language-javascript">// Update a todo task
+router.put('/:user_id/todos/:todo_id', function(req, res) {
+    var user_id = req.params.user_id;
+    var todo_id = req.params.todo_id;
+    var data = req.body;
+
+    TODO.update(
+        { _id: todo_id, user_id: user_id },
+        { $set: { content: data.content } },
+        function (err, num, raw, results) {
+            if (err) {
+                res.status(400).json(
+                    { error: &quot;update data error&quot; }
+                );
+            } else {
+                TODO.find({ _id: todo_id, user_id: user_id }, function (err, results) {
+                    res.status(201).json(
+                        results[0]
+                    );
+                });
+            }
+        }
+    );
+});
+</code></pre>
+
+<p>這次拿資料要拿三組: user_id, todo_id, 以及 data from req.body</p>
+
+<pre><code>var user_id = req.params.user_id;
+var todo_id = req.params.todo_id;
+var data = req.body;
+</code></pre>
+
+<p>body 的資料很簡單，就是欲修改的 content 的資料:</p>
+
+<pre><code>{ &quot;content&quot;: &quot;想修改的資料&quot; }
+</code></pre>
+
+<p>再來，除了是使用 .update 方法以及同樣要下 WHERE 參數外， .update 方法還多了一個參數:</p>
+
+<pre><code>{ _id: todo_id, user_id: user_id },
+{ $set: { content: data.content } },
+</code></pre>
+
+<p>$set 的意思等同於 SQL 語法中的 SET</p>
+
+<p>如果沒有加 $set 變成下面這樣:</p>
+
+<pre><code>{ _id: todo_id, user_id: user_id },
+{ content: data.content } ,
+</code></pre>
+
+<p>整個資料就會被洗掉，變成只有 <code>{ content: data.content }</code></p>
+
+<p>因此有沒有加 $set 差很多哦</p>
+
+<p>後面一樣是 callback 的處理</p>
+
+<p>都寫好後，實際開 POSTMAN 試試看吧!</p>
+
+<p>記得要使用 <code>PUT</code> 來丟 request</p>
+
+<p>例子如下，我把原本的 buy milk 改成 buy milk and banana</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%203.31.57.png" alt="image" />
+</p>
+
+<p>這樣離完成 API 就不遠啦!</p>
+
+<p>明天就稍微休息一下吧 XD</p>
 
                     </div>
                 </section>

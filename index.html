@@ -612,6 +612,93 @@ $ ./deploy.sh &quot;Your commit message&quot;
                 <section class="post">
                     <header class="post-header">
 
+                        <a href="http://kerkerj.github.io/blog/2015/04/22/2015-04-22-raspberry-pi2-remote-webcam/" class="post-title">Raspberry Pi2 remote webcam</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-raspberry" href="http://kerkerj.github.io//categories/raspberry">raspberry</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>如題~</p>
+
+<p>先假設 pi2 本身的 IP 是 <code>192.168.1.200</code></p>
+
+<p>首先先進去 server 來更新一下~</p>
+
+<pre><code class="language-shell">$ sudo apt-get update &amp;&amp; sudo apt-get upgrade
+</code></pre>
+
+<p>再來就裝 <a href="http://www.lavrsen.dk/foswiki/bin/view/Motion/WebHome">motion</a></p>
+
+<p>他其實是一個 motion detector，不過也可以拿來當作 web cam 用的 streaming server XD</p>
+
+<pre><code class="language-shell">$ sudo apt-get install motion
+</code></pre>
+
+<p>編輯設定檔 <code>/etc/motion/motion.conf</code></p>
+
+<pre><code class="language-shell">$ sudo vi /etc/motion/motion.conf
+</code></pre>
+
+<p>找到以下幾個值，並分別改成下面</p>
+
+<pre><code class="language-shell">daemon = ON
+webcam_localhost = OFF
+control_localhost = OFF
+</code></pre>
+
+<p><code>webcam_localhost</code> 是 streaming 介面</p>
+
+<p><code>control_localhost</code> 是設定介面</p>
+
+<p>如果要改預設 port，就找 <code>webcam_port</code>, or <code>control_port</code></p>
+
+<p>最後設定將 service 啟動</p>
+
+<pre><code class="language-shell">$ sudo vi /etc/default/motion
+</code></pre>
+
+<p>將 no 改成 yes</p>
+
+<pre><code class="language-shell">start_motion_daemon = yes
+</code></pre>
+
+<p>啟動 service</p>
+
+<pre><code class="language-shell">$ sudo service motion start
+</code></pre>
+
+<p>motion 這個 service 預設的 port 是 8080 / 8081 (可以在前述的設定檔更改)</p>
+
+<p>開啟瀏覽器, 連入 <code>http://192.168.1.200:8080</code> or <code>http://192.168.1.200:8081</code></p>
+
+<p>這邊會有個小問題，就是連 8080 時會很正常</p>
+
+<p>但是 8081 時如果是用 chrome，則怎麼都進不去</p>
+
+<p>後來發現 <a href="http://www.lavrsen.dk/foswiki/bin/view/Motion/SupportQuestion2013x09x01x104741">這篇</a></p>
+
+<p>他說 Chrome 不再支援 raw MJPEG streams 了</p>
+
+<p>所以就是用其他瀏覽器開吧, 我是用 Safari :D</p>
+
+<p>記得要和你的 pi2 在同一個 wifi 環境下~</p>
+
+<p>剩下的還有許多設定可以玩～ 改天再來慢慢玩</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2015-04-04 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
                         <a href="http://kerkerj.github.io/blog/2015/04/22/2015-04-22-setup-wifi-on-raspberry-pi2/" class="post-title">Setup wifi on raspberry pi2</a>
 
                         <p class="post-meta">
@@ -720,93 +807,6 @@ $ ifconfig wlan0 # 確認是否取得 IP
                     </div>
                 </section>
                 
-                <h1 class="content-subhead">2015-04-04 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://kerkerj.github.io/blog/2015/04/22/2015-04-22-raspberry-pi2-remote-webcam/" class="post-title">Raspberry Pi2 remote webcam</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-raspberry" href="http://kerkerj.github.io//categories/raspberry">raspberry</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p>如題~</p>
-
-<p>先假設 pi2 本身的 IP 是 <code>192.168.1.200</code></p>
-
-<p>首先先進去 server 來更新一下~</p>
-
-<pre><code class="language-shell">$ sudo apt-get update &amp;&amp; sudo apt-get upgrade
-</code></pre>
-
-<p>再來就裝 <a href="http://www.lavrsen.dk/foswiki/bin/view/Motion/WebHome">motion</a></p>
-
-<p>他其實是一個 motion detector，不過也可以拿來當作 web cam 用的 streaming server XD</p>
-
-<pre><code class="language-shell">$ sudo apt-get install motion
-</code></pre>
-
-<p>編輯設定檔 <code>/etc/motion/motion.conf</code></p>
-
-<pre><code class="language-shell">$ sudo vi /etc/motion/motion.conf
-</code></pre>
-
-<p>找到以下幾個值，並分別改成下面</p>
-
-<pre><code class="language-shell">daemon = ON
-webcam_localhost = OFF
-control_localhost = OFF
-</code></pre>
-
-<p><code>webcam_localhost</code> 是 streaming 介面</p>
-
-<p><code>control_localhost</code> 是設定介面</p>
-
-<p>如果要改預設 port，就找 <code>webcam_port</code>, or <code>control_port</code></p>
-
-<p>最後設定將 service 啟動</p>
-
-<pre><code class="language-shell">$ sudo vi /etc/default/motion
-</code></pre>
-
-<p>將 no 改成 yes</p>
-
-<pre><code class="language-shell">start_motion_daemon = yes
-</code></pre>
-
-<p>啟動 service</p>
-
-<pre><code class="language-shell">$ sudo service motion start
-</code></pre>
-
-<p>motion 這個 service 預設的 port 是 8080 / 8081 (可以在前述的設定檔更改)</p>
-
-<p>開啟瀏覽器, 連入 <code>http://192.168.1.200:8080</code> or <code>http://192.168.1.200:8081</code></p>
-
-<p>這邊會有個小問題，就是連 8080 時會很正常</p>
-
-<p>但是 8081 時如果是用 chrome，則怎麼都進不去</p>
-
-<p>後來發現 <a href="http://www.lavrsen.dk/foswiki/bin/view/Motion/SupportQuestion2013x09x01x104741">這篇</a></p>
-
-<p>他說 Chrome 不再支援 raw MJPEG streams 了</p>
-
-<p>所以就是用其他瀏覽器開吧, 我是用 Safari :D</p>
-
-<p>記得要和你的 pi2 在同一個 wifi 環境下~</p>
-
-<p>剩下的還有許多設定可以玩～ 改天再來慢慢玩</p>
-
-                    </div>
-                </section>
-                
                 <h1 class="content-subhead">2014-11-11 00:00</h1>
                 <section class="post">
                     <header class="post-header">
@@ -847,130 +847,68 @@ control_localhost = OFF
 <p>有任何文章更新也會同步在此篇文章中!</p>
 
 <p>##RESTful API Service:
-Day1  -  <a href="http://kerkerj.github.io/blog/2014/10/02/api-d1/">[API-d1] - 定義 1 - 什麼是 REST/RESTful?</a><br />
-Day2  -  <a href="http://kerkerj.github.io/blog/2014/10/02/api-d2/">[API-d2] - 定義 2 - RESTful 的優點與要求</a><br />
-Day3  -  <a href="http://kerkerj.github.io/blog/2014/10/03/api-d3/">[API-d3] - 使用時機與實際 API 參考</a><br />
-Day4  -  <a href="http://kerkerj.github.io/blog/2014/10/04/api-d4/">[API-d4] - 使用技術與工具介紹及原因</a><br />
-Day5  -  <a href="http://kerkerj.github.io/blog/2014/10/05/api-d5/">[API-d5] - [Server 番外篇] 建立自己的本機虛擬伺服器 1 - Vagrant + VirtualBox 安裝</a><br />
-Day6  -  <a href="http://kerkerj.github.io/blog/2014/10/06/api-d6/">[API-d6] - [Server 番外篇] 建立自己的本機虛擬伺服器 2 - Ubuntu 基本設定與安裝 Node.js, MongoDB </a><br />
-Day7  -  <a href="http://kerkerj.github.io/blog/2014/10/07/api-d7/">[API-d7] - [Server 番外篇] 建立自己的本機虛擬伺服器 3 - 打包環境</a><br />
-Day8  -  <a href="http://kerkerj.github.io/blog/2014/10/08/api-d8/">[API-d8] - Node.js - Hello World!</a><br />
-Day9  -  <a href="http://kerkerj.github.io/blog/2014/10/09/api-d9/">[API-d9] - NVM 與 NPM 使用</a><br />
-Day10 -  <a href="http://kerkerj.github.io/blog/2014/10/10/api-d10/">[API-d10] - Express - Hello World!</a><br />
-Day11 -  <a href="http://kerkerj.github.io/blog/2014/10/11/api-d11/">[API-d11] - MongoDB - Hello World!</a><br />
-Day12 -  <a href="http://kerkerj.github.io/blog/2014/10/12/api-d12/">[API-d12] - MongoDB - Hello World! (Client-side) </a><br />
-Day13 -  <a href="http://kerkerj.github.io/blog/2014/10/13/api-d13/">[API-d13] - [Javascript 番外篇] Javascript require/ module/ Module Pattern</a><br />
-Day14 -  <a href="http://kerkerj.github.io/blog/2014/10/14/api-d14/">[API-d14] - [Javascript 番外篇] Javascript function scopes 和 closures</a><br />
-Day15 -  <a href="http://kerkerj.github.io/blog/2014/10/15/api-d15/">[API-d15] - [Javascript 番外篇] Javascript callback, event</a><br />
-Day16 -  <a href="http://kerkerj.github.io/blog/2014/10/16/api-d16/">[API-d16] - 實戰開發 - 設定主題及規劃</a><br />
-Day17 -  <a href="http://kerkerj.github.io/blog/2014/10/17/api-d17/">[API-d17] - 實戰開發 - 專案結構</a><br />
-Day18 -  <a href="http://kerkerj.github.io/blog/2014/10/18/api-d18/">[API-d18] - 實戰開發 - 套件模組</a><br />
-Day19 -  <a href="http://kerkerj.github.io/blog/2014/10/19/api-d19/">[API-d19] - 實戰開發 - index &amp; route &amp; http status code</a><br />
-Day20 -  <a href="http://kerkerj.github.io/blog/2014/10/20/api-d20/">[API-d20] - 實戰開發 - Routes 2, get params and request data</a><br />
-Day21 -  <a href="http://kerkerj.github.io/blog/2014/10/21/api-d21/">[API-d21] - 實戰開發 - 新增 TODO task API with mongoose</a><br />
-Day22 -  <a href="http://kerkerj.github.io/blog/2014/10/22/api-d22/">[API-d22] - 實戰開發 - 讀取 TODO task API with mongoose</a><br />
-Day23 -  <a href="http://kerkerj.github.io/blog/2014/10/23/api-d23/">[API-d23] - 實戰開發 - 修改 TODO task API with mongoose</a><br />
-Day24 -  <a href="http://kerkerj.github.io/blog/2014/10/24/api-d24/">[API-d24] - 實戰開發 - 刪除 TODO task API with mongoose</a><br />
-Day25 -  <a href="http://kerkerj.github.io/blog/2014/10/25/api-day25/">[API-day25] - 實戰開發 - 處理 404 &amp; 500</a><br />
-Day26 -  <a href="http://kerkerj.github.io/blog/2014/10/26/api-d26/">[API-d26] - 實戰開發 - API-key</a><br />
-Day27 -  <a href="http://kerkerj.github.io/blog/2014/10/27/api-d27/">[API-d27] - 實戰開發 - log 處理 及 config (db, apikey)</a><br />
-Day28 -  <a href="http://kerkerj.github.io/blog/2014/10/28/api-d28/">[API-d28] - 實戰開發 - 發佈 - forever</a><br />
-Day29 -  <a href="http://kerkerj.github.io/blog/2014/10/29/api-d29/">[API-d29] - 實戰開發 - 發佈 - nginx</a><br />
-Day30 -  <a href="http://kerkerj.github.io/blog/2014/10/30/api-d30/">[API-d30] - 總結</a></p>
+Day1  -  <a href="http://kerkerj.github.io/blog/2014/10/02/2014-10-01-api-d1/">[API-d1] - 定義 1 - 什麼是 REST/RESTful?</a><br />
+Day2  -  <a href="http://kerkerj.github.io/blog/2014/10/02/2014-10-02-api-d2/">[API-d2] - 定義 2 - RESTful 的優點與要求</a><br />
+Day3  -  <a href="http://kerkerj.github.io/blog/2014/10/03/2014-10-03-api-d3/">[API-d3] - 使用時機與實際 API 參考</a><br />
+Day4  -  <a href="http://kerkerj.github.io/blog/2014/10/04/2014-10-04-api-d4/">[API-d4] - 使用技術與工具介紹及原因</a><br />
+Day5  -  <a href="http://kerkerj.github.io/blog/2014/10/05/2014-10-05-api-d5/">[API-d5] - [Server 番外篇] 建立自己的本機虛擬伺服器 1 - Vagrant + VirtualBox 安裝</a><br />
+Day6  -  <a href="http://kerkerj.github.io/blog/2014/10/06/2014-10-06-api-d6/">[API-d6] - [Server 番外篇] 建立自己的本機虛擬伺服器 2 - Ubuntu 基本設定與安裝 Node.js, MongoDB </a><br />
+Day7  -  <a href="http://kerkerj.github.io/blog/2014/10/07/2014-10-07-api-d7/">[API-d7] - [Server 番外篇] 建立自己的本機虛擬伺服器 3 - 打包環境</a><br />
+Day8  -  <a href="http://kerkerj.github.io/blog/2014/10/08/2014-10-08-api-d8/">[API-d8] - Node.js - Hello World!</a><br />
+Day9  -  <a href="http://kerkerj.github.io/blog/2014/10/09/2014-10-09-api-d9/">[API-d9] - NVM 與 NPM 使用</a><br />
+Day10 -  <a href="http://kerkerj.github.io/blog/2014/10/10/2014-10-10-api-d10/">[API-d10] - Express - Hello World!</a><br />
+Day11 -  <a href="http://kerkerj.github.io/blog/2014/10/11/2014-10-11-api-d11/">[API-d11] - MongoDB - Hello World!</a><br />
+Day12 -  <a href="http://kerkerj.github.io/blog/2014/10/12/2014-10-12-api-d12/">[API-d12] - MongoDB - Hello World! (Client-side) </a><br />
+Day13 -  <a href="http://kerkerj.github.io/blog/2014/10/13/2014-10-13-api-d13/">[API-d13] - [Javascript 番外篇] Javascript require/ module/ Module Pattern</a><br />
+Day14 -  <a href="http://kerkerj.github.io/blog/2014/10/14/2014-10-14-api-d14/">[API-d14] - [Javascript 番外篇] Javascript function scopes 和 closures</a><br />
+Day15 -  <a href="http://kerkerj.github.io/blog/2014/10/15/2014-10-15-api-d15/">[API-d15] - [Javascript 番外篇] Javascript callback, event</a><br />
+Day16 -  <a href="http://kerkerj.github.io/blog/2014/10/16/2014-10-16-api-d16/">[API-d16] - 實戰開發 - 設定主題及規劃</a><br />
+Day17 -  <a href="http://kerkerj.github.io/blog/2014/10/17/2014-10-17-api-d17/">[API-d17] - 實戰開發 - 專案結構</a><br />
+Day18 -  <a href="http://kerkerj.github.io/blog/2014/10/18/2014-10-18-api-d18/">[API-d18] - 實戰開發 - 套件模組</a><br />
+Day19 -  <a href="http://kerkerj.github.io/blog/2014/10/19/2014-10-19-api-d19/">[API-d19] - 實戰開發 - index &amp; route &amp; http status code</a><br />
+Day20 -  <a href="http://kerkerj.github.io/blog/2014/10/20/2014-10-20-api-d20/">[API-d20] - 實戰開發 - Routes 2, get params and request data</a><br />
+Day21 -  <a href="http://kerkerj.github.io/blog/2014/10/21/2014-10-21-api-d21/">[API-d21] - 實戰開發 - 新增 TODO task API with mongoose</a><br />
+Day22 -  <a href="http://kerkerj.github.io/blog/2014/10/22/2014-10-22-api-d22/">[API-d22] - 實戰開發 - 讀取 TODO task API with mongoose</a><br />
+Day23 -  <a href="http://kerkerj.github.io/blog/2014/10/23/2014-10-23-api-d23/">[API-d23] - 實戰開發 - 修改 TODO task API with mongoose</a><br />
+Day24 -  <a href="http://kerkerj.github.io/blog/2014/10/24/2014-10-24-api-d24/">[API-d24] - 實戰開發 - 刪除 TODO task API with mongoose</a><br />
+Day25 -  <a href="http://kerkerj.github.io/blog/2014/10/25/2014-10-25-api-day25/">[API-day25] - 實戰開發 - 處理 404 &amp; 500</a><br />
+Day26 -  <a href="http://kerkerj.github.io/blog/2014/10/26/2014-10-26-api-d26/">[API-d26] - 實戰開發 - API-key</a><br />
+Day27 -  <a href="http://kerkerj.github.io/blog/2014/10/27/2014-10-27-api-d27/">[API-d27] - 實戰開發 - log 處理 及 config (db, apikey)</a><br />
+Day28 -  <a href="http://kerkerj.github.io/blog/2014/10/28/2014-10-28-api-d28/">[API-d28] - 實戰開發 - 發佈 - forever</a><br />
+Day29 -  <a href="http://kerkerj.github.io/blog/2014/10/29/2014-10-29-api-d29/">[API-d29] - 實戰開發 - 發佈 - nginx</a><br />
+Day30 -  <a href="http://kerkerj.github.io/blog/2014/10/30/2014-10-30-api-d30/">[API-d30] - 總結</a></p>
 
 <p>##Swift:
-Day1  -  <a href="http://kerkerj.github.io/blog/2014/10/02/swift-d1/">[Swift-d1] - 介紹</a><br />
-Day2  -  <a href="http://kerkerj.github.io/blog/2014/10/02/swift-d2/">[Swift-d2] - 安裝及 Hello World!</a><br />
-Day3  -  <a href="http://kerkerj.github.io/blog/2014/10/03/swift-d3/">[Swift-d3] - Playground - 變數與常數, 註解, 基本資料型別</a><br />
-Day4  -  <a href="http://kerkerj.github.io/blog/2014/10/04/swift-d4/">[Swift-d4] - Playground - Optional, ! and ? </a><br />
-Day5  -  <a href="http://kerkerj.github.io/blog/2014/10/05/swift-d5/">[Swift-d5] - Playground - Array, Dictionary, Controll Flow</a><br />
-Day6  -  <a href="http://kerkerj.github.io/blog/2014/10/06/swift-d6/">[Swift-d6] - Playground - function</a><br />
-Day7  -  <a href="http://kerkerj.github.io/blog/2014/10/07/swift-d7/">[Swift-d7] - Playground - Closures</a><br />
-Day8  -  <a href="http://kerkerj.github.io/blog/2014/10/08/swift-d8/">[Swift-d8] - Playground - Enumerations</a><br />
-Day9  -  <a href="http://kerkerj.github.io/blog/2014/10/09/swift-d9/">[Swift-d9] - Playground - Class, Struct</a><br />
-Day10 -  <a href="http://kerkerj.github.io/blog/2014/10/10/swift-d10/">[Swift-d10] 延伸閱讀</a><br />
-Day11 -  <a href="http://kerkerj.github.io/blog/2014/10/11/swift-d11/">[Swift-d11] - Basic - Hello World!</a><br />
-Day12 -  <a href="http://kerkerj.github.io/blog/2014/10/12/swift-d12/">[Swift-d12] - Basic - 基本元件 (Label, Button, UIColor, 文字輸入框)</a><br />
-Day13 -  <a href="http://kerkerj.github.io/blog/2014/10/13/swift-d13/">[Swift-d13] - Basic - Navigation View 1 + ViewController</a><br />
-Day14 -  <a href="http://kerkerj.github.io/blog/2014/10/14/swift-d14/">[Swift-d14] - Basic - Navigation View 2 + ViewController</a><br />
-Day15 -  <a href="http://kerkerj.github.io/blog/2014/10/15/swift-d15/">[Swift-d15] - Basic - Table View 1 直接給值 datasource, (table view scroll)</a><br />
-Day16 -  <a href="http://kerkerj.github.io/blog/2014/10/16/swift-d16/">[Swift-d16] - Basic - Table View 2 換頁 (delegate)</a><br />
-Day17 -  <a href="http://kerkerj.github.io/blog/2014/10/17/swift-d17/">[Swift-d17] - Basic - Navigation View + TableView</a><br />
-Day18 -  <a href="http://kerkerj.github.io/blog/2014/10/18/swift-d18/">[Swift-d18] - Basic - Customize TableViewCell</a><br />
-Day19 -  <a href="http://kerkerj.github.io/blog/2014/10/19/swift-d19/">[Swift-d19] - Basic - 橋接第三方 Objc library - Reachability and Bridge.h</a><br />
-Day20 -  <a href="http://kerkerj.github.io/blog/2014/10/20/swift-d20/">[Swift-d20] - Basic - 捨棄 Storyboard 使用純程式碼 的方式撰寫 ViewController</a><br />
-Day21 -  <a href="http://kerkerj.github.io/blog/2014/10/21/swift-d21/">[Swift-d21] - 實戰開發 - TODOList - 前置設定</a><br />
-Day22 -  <a href="http://kerkerj.github.io/blog/2014/10/22/swift-d22/">[Swift-d22] - 實戰開發 - TODOList - Show View 1</a><br />
-Day23 -  <a href="http://kerkerj.github.io/blog/2014/10/23/swift-d23/">[Swift-d23] - 實戰開發 - TODOList - Show View 2, Delete View</a><br />
-Day24 -  <a href="http://kerkerj.github.io/blog/2014/10/24/swift-d24/">[Swift-d24] - 實戰開發 - TODOList - Create View</a><br />
-Day25 -  <a href="http://kerkerj.github.io/blog/2014/10/25/swift-day25/">[Swift-day25] - 實戰開發 - TODOList - Update View</a><br />
-Day26 -  <a href="http://kerkerj.github.io/blog/2014/10/26/swift-d26/">[Swift-d26] - 實戰開發 - TODOList - API 前置資料準備</a><br />
-Day27 -  <a href="http://kerkerj.github.io/blog/2014/10/27/swift-d27/">[Swift-d27] - 實戰開發 - TODOList - API 2 讀取清單資料</a><br />
-Day28 -  <a href="http://kerkerj.github.io/blog/2014/10/28/swift-d28/">[Swift-d28] - 實戰開發 - TODOList - API 3 新增與更新</a><br />
-Day29 -  <a href="http://kerkerj.github.io/blog/2014/10/29/swift-d29/">[Swift-d29] - 實戰開發 - TODOList - API 4 刪除</a><br />
-Day30 -  <a href="http://kerkerj.github.io/blog/2014/10/30/swift-d30/">[Swift-d30] - 總結</a></p>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2014-10-10 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://kerkerj.github.io/blog/2014/10/30/2014-10-30-swift-d30/" class="post-title">[Swift-d30] - 總結</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-swift" href="http://kerkerj.github.io//categories/swift">swift</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p>30 天下來其實中間受到不少人幫忙</p>
-
-<p>因為第一次寫 iOS 程式，對於 iOS 的基本運作流程還是詢問了不少同事</p>
-
-<p>包含在隔壁棚用 Cocos2d 寫 2D 遊戲的 Andy</p>
-
-<p>還有同事 Henry 和 Felix 都給予了很大的幫忙</p>
-
-<p>最後這隻小 app 其實 code 的品質並沒有很好</p>
-
-<p>主要還是因為寫來 demo 用的，以及老實講也沒什麼時間寫&hellip;</p>
-
-<p>報兩個組別真的是很鐵人哪</p>
-
-<p>還看到隔壁棚一次報三四個主題的大大</p>
-
-<p>真是太厲害了</p>
-
-<p>假設明年還會參賽的話，應該還是會以單一技術來鑽研吧!</p>
-
-<p>Swift 有蠻多特性是 Objective-C 所沒有的</p>
-
-<p>如果有想在新專案嘗試的話</p>
-
-<p>最好還是先多看看網路上的比較</p>
-
-<p>避免踩到雷</p>
-
-<p>像有一點是我們同事曾經踩到的雷</p>
-
-<p>就是 NSDictionary V.S. Dictionary</p>
-
-<p>兩者的速度可以差到 5, 6 倍以上</p>
-
-<p>網路上搜尋也會發現有人在討論 Swift Dictionary 的效能差異</p>
-
-<p>若要在新專案使用還是要查詢一下避免掉一些問題</p>
-
-<p>另外還有就是 Swift on Xcode 的穩定度還是有待加強&hellip;</p>
-
-<p>總而言之, 30 天結束了，ya!</p>
+Day1  -  <a href="http://kerkerj.github.io/blog/2014/10/02/2014-10-02-swift-d1/">[Swift-d1] - 介紹</a><br />
+Day2  -  <a href="http://kerkerj.github.io/blog/2014/10/02/2014-10-02-swift-d2/">[Swift-d2] - 安裝及 Hello World!</a><br />
+Day3  -  <a href="http://kerkerj.github.io/blog/2014/10/03/2014-10-03-swift-d3/">[Swift-d3] - Playground - 變數與常數, 註解, 基本資料型別</a><br />
+Day4  -  <a href="http://kerkerj.github.io/blog/2014/10/04/2014-10-04-swift-d4/">[Swift-d4] - Playground - Optional, ! and ? </a><br />
+Day5  -  <a href="http://kerkerj.github.io/blog/2014/10/05/2014-10-05-swift-d5/">[Swift-d5] - Playground - Array, Dictionary, Controll Flow</a><br />
+Day6  -  <a href="http://kerkerj.github.io/blog/2014/10/06/2014-10-06-swift-d6/">[Swift-d6] - Playground - function</a><br />
+Day7  -  <a href="http://kerkerj.github.io/blog/2014/10/07/2014-10-07-swift-d7/">[Swift-d7] - Playground - Closures</a><br />
+Day8  -  <a href="http://kerkerj.github.io/blog/2014/10/08/2014-10-08-swift-d8/">[Swift-d8] - Playground - Enumerations</a><br />
+Day9  -  <a href="http://kerkerj.github.io/blog/2014/10/09/2014-10-09-swift-d9/">[Swift-d9] - Playground - Class, Struct</a><br />
+Day10 -  <a href="http://kerkerj.github.io/blog/2014/10/10/2014-10-10-swift-d10/">[Swift-d10] 延伸閱讀</a><br />
+Day11 -  <a href="http://kerkerj.github.io/blog/2014/10/11/2014-10-11-swift-d11/">[Swift-d11] - Basic - Hello World!</a><br />
+Day12 -  <a href="http://kerkerj.github.io/blog/2014/10/12/2014-10-12-swift-d12/">[Swift-d12] - Basic - 基本元件 (Label, Button, UIColor, 文字輸入框)</a><br />
+Day13 -  <a href="http://kerkerj.github.io/blog/2014/10/13/2014-10-13-swift-d13/">[Swift-d13] - Basic - Navigation View 1 + ViewController</a><br />
+Day14 -  <a href="http://kerkerj.github.io/blog/2014/10/14/2014-10-14-swift-d14/">[Swift-d14] - Basic - Navigation View 2 + ViewController</a><br />
+Day15 -  <a href="http://kerkerj.github.io/blog/2014/10/15/2014-10-15-swift-d15/">[Swift-d15] - Basic - Table View 1 直接給值 datasource, (table view scroll)</a><br />
+Day16 -  <a href="http://kerkerj.github.io/blog/2014/10/16/2014-10-16-swift-d16/">[Swift-d16] - Basic - Table View 2 換頁 (delegate)</a><br />
+Day17 -  <a href="http://kerkerj.github.io/blog/2014/10/17/2014-10-17-swift-d17/">[Swift-d17] - Basic - Navigation View + TableView</a><br />
+Day18 -  <a href="http://kerkerj.github.io/blog/2014/10/18/2014-10-18-swift-d18/">[Swift-d18] - Basic - Customize TableViewCell</a><br />
+Day19 -  <a href="http://kerkerj.github.io/blog/2014/10/19/2014-10-19-swift-d19/">[Swift-d19] - Basic - 橋接第三方 Objc library - Reachability and Bridge.h</a><br />
+Day20 -  <a href="http://kerkerj.github.io/blog/2014/10/20/2014-10-20-swift-d20/">[Swift-d20] - Basic - 捨棄 Storyboard 使用純程式碼 的方式撰寫 ViewController</a><br />
+Day21 -  <a href="http://kerkerj.github.io/blog/2014/10/21/2014-10-21-swift-d21/">[Swift-d21] - 實戰開發 - TODOList - 前置設定</a><br />
+Day22 -  <a href="http://kerkerj.github.io/blog/2014/10/22/2014-10-22-swift-d22/">[Swift-d22] - 實戰開發 - TODOList - Show View 1</a><br />
+Day23 -  <a href="http://kerkerj.github.io/blog/2014/10/23/2014-10-23-swift-d23/">[Swift-d23] - 實戰開發 - TODOList - Show View 2, Delete View</a><br />
+Day24 -  <a href="http://kerkerj.github.io/blog/2014/10/24/2014-10-24-swift-d24/">[Swift-d24] - 實戰開發 - TODOList - Create View</a><br />
+Day25 -  <a href="http://kerkerj.github.io/blog/2014/10/25/2014-10-25-swift-day25/">[Swift-day25] - 實戰開發 - TODOList - Update View</a><br />
+Day26 -  <a href="http://kerkerj.github.io/blog/2014/10/26/2014-10-26-swift-d26/">[Swift-d26] - 實戰開發 - TODOList - API 前置資料準備</a><br />
+Day27 -  <a href="http://kerkerj.github.io/blog/2014/10/27/2014-10-27-swift-d27/">[Swift-d27] - 實戰開發 - TODOList - API 2 讀取清單資料</a><br />
+Day28 -  <a href="http://kerkerj.github.io/blog/2014/10/28/2014-10-29-swift-d28/">[Swift-d28] - 實戰開發 - TODOList - API 3 新增與更新</a><br />
+Day29 -  <a href="http://kerkerj.github.io/blog/2014/10/29/2014-10-29-swift-d29/">[Swift-d29] - 實戰開發 - TODOList - API 4 刪除</a><br />
+Day30 -  <a href="http://kerkerj.github.io/blog/2014/10/30/2014-10-30-swift-d30/">[Swift-d30] - 總結</a></p>
 
                     </div>
                 </section>
@@ -1037,6 +975,68 @@ Day30 -  <a href="http://kerkerj.github.io/blog/2014/10/30/swift-d30/">[Swift-d3
 <p>對了突然想到一件事，這個主題的副標最後一句是想要和 APP 結合</p>
 
 <p>APP 在隔壁棚啦 XD</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/30/2014-10-30-swift-d30/" class="post-title">[Swift-d30] - 總結</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-swift" href="http://kerkerj.github.io//categories/swift">swift</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>30 天下來其實中間受到不少人幫忙</p>
+
+<p>因為第一次寫 iOS 程式，對於 iOS 的基本運作流程還是詢問了不少同事</p>
+
+<p>包含在隔壁棚用 Cocos2d 寫 2D 遊戲的 Andy</p>
+
+<p>還有同事 Henry 和 Felix 都給予了很大的幫忙</p>
+
+<p>最後這隻小 app 其實 code 的品質並沒有很好</p>
+
+<p>主要還是因為寫來 demo 用的，以及老實講也沒什麼時間寫&hellip;</p>
+
+<p>報兩個組別真的是很鐵人哪</p>
+
+<p>還看到隔壁棚一次報三四個主題的大大</p>
+
+<p>真是太厲害了</p>
+
+<p>假設明年還會參賽的話，應該還是會以單一技術來鑽研吧!</p>
+
+<p>Swift 有蠻多特性是 Objective-C 所沒有的</p>
+
+<p>如果有想在新專案嘗試的話</p>
+
+<p>最好還是先多看看網路上的比較</p>
+
+<p>避免踩到雷</p>
+
+<p>像有一點是我們同事曾經踩到的雷</p>
+
+<p>就是 NSDictionary V.S. Dictionary</p>
+
+<p>兩者的速度可以差到 5, 6 倍以上</p>
+
+<p>網路上搜尋也會發現有人在討論 Swift Dictionary 的效能差異</p>
+
+<p>若要在新專案使用還是要查詢一下避免掉一些問題</p>
+
+<p>另外還有就是 Swift on Xcode 的穩定度還是有待加強&hellip;</p>
+
+<p>總而言之, 30 天結束了，ya!</p>
 
                     </div>
                 </section>
@@ -1289,128 +1289,6 @@ server {
                 <section class="post">
                     <header class="post-header">
 
-                        <a href="http://kerkerj.github.io/blog/2014/10/28/2014-10-28-api-d28/" class="post-title">[API-d28] - 實戰開發 - 發佈 - forever</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-restful" href="http://kerkerj.github.io//categories/restful">restful</a><a class="post-category post-category-api" href="http://kerkerj.github.io//categories/api">api</a><a class="post-category post-category-nodejs" href="http://kerkerj.github.io//categories/nodejs">nodejs</a><a class="post-category post-category-express" href="http://kerkerj.github.io//categories/express">express</a><a class="post-category post-category-forever" href="http://kerkerj.github.io//categories/forever">forever</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day28">Github 參考</a></p>
-
-<p>接下來兩天要講 deploy 的部分</p>
-
-<p>由於 deploy 的 script 其實非常的麻煩，因此我們就不提 deploy 的 script 了</p>
-
-<p>我們只專注在 server 上需要什麼東西</p>
-
-<p>今天要來看看 <code>forever</code> 這個套件</p>
-
-<p>這個套件可以幫助 nodejs 的 server 遇上無預警的 server 掛掉時</p>
-
-<p>會幫你自動重新啟動 nodejs 的 server</p>
-
-<p>也就是說</p>
-
-<p>假設說 nodejs 寫的 server 某個 route 有問題，</p>
-
-<p>送 request 後會因為某些因素造成 server error 造成程式碼 crash 時</p>
-
-<p>forever 的 monitor 會偵測到，並幫你自動重啟 server</p>
-
-<p>至少不會造成其他正常存取 server 的使用者遭遇到 server down 的問題</p>
-
-<p>這個套件可以選擇裝在 global 或是 project</p>
-
-<p>在這邊我是選擇裝成 global</p>
-
-<p>進到虛擬機</p>
-
-<pre><code class="language-javascript">$ npm install -g forever
-</code></pre>
-
-<p>p.s. 如果遇到問題，試著跑下面的指令看看?</p>
-
-<pre><code>$ sudo chown vagrant:vagrant -R ~/.npm/
-</code></pre>
-
-<p>接下來我們就可以使用 <code>forever</code> 這個指令了!</p>
-
-<p>原本我們要啟動 server 的話</p>
-
-<p>是要下:</p>
-
-<pre><code>$ npm start 
-</code></pre>
-
-<p>同義於:</p>
-
-<pre><code>$ node ./bin/server.js
-</code></pre>
-
-<p>如果要改用 <code>forever</code> 的話:</p>
-
-<pre><code>// 記得先到專案根目錄
-$ forever start bin/server.js
-warn:    --minUptime not set. Defaulting to: 1000ms
-warn:    --spinSleepTime not set. Your script will exit if it does not stay up for at least 1000ms
-info:    Forever processing file: ./bin/server.js
-</code></pre>
-
-<p>然後就會被丟到背景執行了</p>
-
-<p>那要怎麼知道我的 server 有跑起來呢?</p>
-
-<pre><code>$ forever list
-info:    Forever processes running
-data:        uid  command                              script        forever pid   logfile                         uptime
-data:    [0] 6qhd /home/vagrant/.nvm/v0.10.32/bin/node bin/server.js 13746   13748 /home/vagrant/.forever/6qhd.log 0:0:0:47.743
-</code></pre>
-
-<p>就會列出相關資訊以及 forever 自己的 log file 位置</p>
-
-<p>要關閉的話:</p>
-
-<pre><code>$ forever stop bin/server.js
-info:    Forever stopped process:
-data:        uid  command                              script        forever pid   logfile                         uptime
-[0] 6qhd /home/vagrant/.nvm/v0.10.32/bin/node bin/server.js 13746   14061 /home/vagrant/.forever/6qhd.log 0:0:0:6.595
-</code></pre>
-
-<p><code>bin/server.js</code> 也可以替換成 forever uid 或 pid</p>
-
-<p>如果要重開的話</p>
-
-<pre><code>$ forever restart bin/server.js
-</code></pre>
-
-<p>超簡單!</p>
-
-<p>這樣就可以不用擔心 server 突然掛掉了&hellip;.嗎?</p>
-
-<p>錯，還是必須要監控 server 狀態</p>
-
-<p>畢竟，<code>forever</code> 也是會有 bug 的</p>
-
-<p>所以自己的 server 自己顧</p>
-
-<p>真正應用在 production 環境還是必須要監控的</p>
-
-<p>今天就分享到這啦!</p>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2014-10-10 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
                         <a href="http://kerkerj.github.io/blog/2014/10/28/2014-10-28-swift-d28/" class="post-title">[Swift-d28] - 實戰開發 - TODOList - API 3 新增與更新</a>
 
                         <p class="post-meta">
@@ -1628,6 +1506,128 @@ showViewController.id = fakeData[indexPath.row][&quot;_id&quot;]
 <p>就發現可以編輯成功囉!</p>
 
 <p>快結束啦!</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/28/2014-10-28-api-d28/" class="post-title">[API-d28] - 實戰開發 - 發佈 - forever</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-restful" href="http://kerkerj.github.io//categories/restful">restful</a><a class="post-category post-category-api" href="http://kerkerj.github.io//categories/api">api</a><a class="post-category post-category-nodejs" href="http://kerkerj.github.io//categories/nodejs">nodejs</a><a class="post-category post-category-express" href="http://kerkerj.github.io//categories/express">express</a><a class="post-category post-category-forever" href="http://kerkerj.github.io//categories/forever">forever</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day28">Github 參考</a></p>
+
+<p>接下來兩天要講 deploy 的部分</p>
+
+<p>由於 deploy 的 script 其實非常的麻煩，因此我們就不提 deploy 的 script 了</p>
+
+<p>我們只專注在 server 上需要什麼東西</p>
+
+<p>今天要來看看 <code>forever</code> 這個套件</p>
+
+<p>這個套件可以幫助 nodejs 的 server 遇上無預警的 server 掛掉時</p>
+
+<p>會幫你自動重新啟動 nodejs 的 server</p>
+
+<p>也就是說</p>
+
+<p>假設說 nodejs 寫的 server 某個 route 有問題，</p>
+
+<p>送 request 後會因為某些因素造成 server error 造成程式碼 crash 時</p>
+
+<p>forever 的 monitor 會偵測到，並幫你自動重啟 server</p>
+
+<p>至少不會造成其他正常存取 server 的使用者遭遇到 server down 的問題</p>
+
+<p>這個套件可以選擇裝在 global 或是 project</p>
+
+<p>在這邊我是選擇裝成 global</p>
+
+<p>進到虛擬機</p>
+
+<pre><code class="language-javascript">$ npm install -g forever
+</code></pre>
+
+<p>p.s. 如果遇到問題，試著跑下面的指令看看?</p>
+
+<pre><code>$ sudo chown vagrant:vagrant -R ~/.npm/
+</code></pre>
+
+<p>接下來我們就可以使用 <code>forever</code> 這個指令了!</p>
+
+<p>原本我們要啟動 server 的話</p>
+
+<p>是要下:</p>
+
+<pre><code>$ npm start 
+</code></pre>
+
+<p>同義於:</p>
+
+<pre><code>$ node ./bin/server.js
+</code></pre>
+
+<p>如果要改用 <code>forever</code> 的話:</p>
+
+<pre><code>// 記得先到專案根目錄
+$ forever start bin/server.js
+warn:    --minUptime not set. Defaulting to: 1000ms
+warn:    --spinSleepTime not set. Your script will exit if it does not stay up for at least 1000ms
+info:    Forever processing file: ./bin/server.js
+</code></pre>
+
+<p>然後就會被丟到背景執行了</p>
+
+<p>那要怎麼知道我的 server 有跑起來呢?</p>
+
+<pre><code>$ forever list
+info:    Forever processes running
+data:        uid  command                              script        forever pid   logfile                         uptime
+data:    [0] 6qhd /home/vagrant/.nvm/v0.10.32/bin/node bin/server.js 13746   13748 /home/vagrant/.forever/6qhd.log 0:0:0:47.743
+</code></pre>
+
+<p>就會列出相關資訊以及 forever 自己的 log file 位置</p>
+
+<p>要關閉的話:</p>
+
+<pre><code>$ forever stop bin/server.js
+info:    Forever stopped process:
+data:        uid  command                              script        forever pid   logfile                         uptime
+[0] 6qhd /home/vagrant/.nvm/v0.10.32/bin/node bin/server.js 13746   14061 /home/vagrant/.forever/6qhd.log 0:0:0:6.595
+</code></pre>
+
+<p><code>bin/server.js</code> 也可以替換成 forever uid 或 pid</p>
+
+<p>如果要重開的話</p>
+
+<pre><code>$ forever restart bin/server.js
+</code></pre>
+
+<p>超簡單!</p>
+
+<p>這樣就可以不用擔心 server 突然掛掉了&hellip;.嗎?</p>
+
+<p>錯，還是必須要監控 server 狀態</p>
+
+<p>畢竟，<code>forever</code> 也是會有 bug 的</p>
+
+<p>所以自己的 server 自己顧</p>
+
+<p>真正應用在 production 環境還是必須要監控的</p>
+
+<p>今天就分享到這啦!</p>
 
                     </div>
                 </section>
