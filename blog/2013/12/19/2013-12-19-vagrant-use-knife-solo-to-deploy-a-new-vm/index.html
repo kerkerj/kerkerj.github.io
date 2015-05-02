@@ -134,35 +134,36 @@ $ knife cookbook create &quot;package&quot;
 $ knife solo bootstrap vagrant@ip.address (bootstrap = prepare + cook, only for the first time)
 </code></pre>
 
-<p>加入菜單：
-<code>
-$ knife cookbook create nginx
-</code>
-在 cookbooks/nginx/recipes/default.rb 裡最少要加入
+<p>加入菜單：</p>
+
+<pre><code>$ knife cookbook create nginx
+</code></pre>
+
+<p>在 cookbooks/nginx/recipes/default.rb 裡最少要加入
 <code>package 'nginx'</code> 也就是套件名稱
 其他內容可以自己加
-例如：
-```
-package &lsquo;nginx&rsquo;</p>
+例如：</p>
 
-<p>service &lsquo;nginx&rsquo; do
+<pre><code>package 'nginx'
+
+service 'nginx' do
     supports [:status, :restart, :reload]
       action :start
-end</p>
+end
 
-<p>directory &ldquo;/vagrant/demo&rdquo; do
-end</p>
+directory &quot;/vagrant/demo&quot; do
+end
 
-<p>file &ldquo;/vagrant/index.php&rdquo; do
-    content &ldquo;&lt;?php phpinfo(); ?&gt;&rdquo;
-end</p>
+file &quot;/vagrant/index.php&quot; do
+    content &quot;&lt;?php phpinfo(); ?&gt;&quot;
+end
 
-<p>template &ldquo;/etc/nginx/sites-enabled/default&rdquo; do
-    source &lsquo;default.erb&rsquo;
-      notifies :restart, &lsquo;service[nginx]&lsquo;, :immediately
-end</p>
+template &quot;/etc/nginx/sites-enabled/default&quot; do
+    source 'default.erb'
+      notifies :restart, 'service[nginx]', :immediately
+end
 
-<p>```</p>
+</code></pre>
 
                     </div>
                     <div class="post-share">

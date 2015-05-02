@@ -505,92 +505,88 @@ Xcode 會即時顯示該變數的值、型別、以及輸出結果，<br />
 
 <p>It will remove index.php, and access Codeigniter site normally.</p>
 
-<p>Clean configuration:</p>
+<p>Clean configuration &ldquo;/etc/nginx/site-enabled/default&rdquo;:</p>
 
-<p>```text &ldquo;/etc/nginx/site-enabled/default&rdquo;
-server {</p>
+<pre><code class="language-text">server {
 
-<p>#&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; START
+#&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; START
         listen 80;
-        listen [::]:80 default_server ipv6only=on;</p>
+        listen [::]:80 default_server ipv6only=on;
 
-<pre><code>    root /YOUR/PROJECT/ROOT;
-    index index.html index.htm index.php;
+        root /YOUR/PROJECT/ROOT;
+        index index.html index.htm index.php;
 
-    # Make site accessible from http://localhost/
-    server_name localhost;
+        # Make site accessible from http://localhost/
+        server_name localhost;
+        
+        #location ~* .(ico|css|js|gif|jpe?g|png)(?[0-9]+)?$ {
+        #   expires max;
+        #   log_not_found off;
+        #}
+        
+        location / {
+                # First attempt to serve request as file, then
+                # as directory, then fall back to displaying a 404.
+                try_files $uri $uri/ /index.php;
+                # Uncomment to enable naxsi on this location
+                # include /etc/nginx/naxsi.rules
+        }
 
-    #location ~* .(ico|css|js|gif|jpe?g|png)(?[0-9]+)?$ {
-    #   expires max;
-    #   log_not_found off;
-    #}
+        location ~ .php$ {
+            root           /YOUR/PROJECT/ROOT;
+            try_files $uri =404;
+            fastcgi_pass unix:/var/run/php5-fpm.sock;
+            fastcgi_index  index.php;
+            fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+            include        fastcgi_params;
+            fastcgi_buffer_size 128k;
+            fastcgi_buffers 256 4k;
+            fastcgi_busy_buffers_size 256k;
+            fastcgi_temp_file_write_size 256k;
+        }
 
-    location / {
-            # First attempt to serve request as file, then
-            # as directory, then fall back to displaying a 404.
-            try_files $uri $uri/ /index.php;
-            # Uncomment to enable naxsi on this location
-            # include /etc/nginx/naxsi.rules
-    }
+#&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; END
 
-    location ~ .php$ {
-        root           /YOUR/PROJECT/ROOT;
-        try_files $uri =404;
-        fastcgi_pass unix:/var/run/php5-fpm.sock;
-        fastcgi_index  index.php;
-        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
-        include        fastcgi_params;
-        fastcgi_buffer_size 128k;
-        fastcgi_buffers 256 4k;
-        fastcgi_busy_buffers_size 256k;
-        fastcgi_temp_file_write_size 256k;
-    }
+        # Only for nginx-naxsi used with nginx-naxsi-ui : process denied requests
+        #location /RequestDenied {
+        #       proxy_pass http://127.0.0.1:8080;
+
+        #error_page 404 /404.html;
+
+        # redirect server error pages to the static page /50x.html
+        #
+        #error_page 500 502 503 504 /50x.html;
+        #location = /50x.html {
+        #       root /usr/share/nginx/html;
+        #}
+
+        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+        #
+        #location ~ \.php$ {
+        #       fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        #       # NOTE: You should have &quot;cgi.fix_pathinfo = 0;&quot; in php.ini
+        #
+        #       # With php5-cgi alone:
+        #       fastcgi_pass 127.0.0.1:9000;
+        #       # With php5-fpm:
+        #       fastcgi_pass unix:/var/run/php5-fpm.sock;
+        #       fastcgi_index index.php;
+        #       include fastcgi_params;
+        #}
+
+        # deny access to .htaccess files, if Apache's document root
+        # concurs with nginx's one
+        #
+        #location ~ /\.ht {
+        #       deny all;
+        #}
+}
+
 </code></pre>
 
-<p>#&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; END</p>
+<p>Codeigniter config - config.php:</p>
 
-<pre><code>    # Only for nginx-naxsi used with nginx-naxsi-ui : process denied requests
-    #location /RequestDenied {
-    #       proxy_pass http://127.0.0.1:8080;
-
-    #error_page 404 /404.html;
-
-    # redirect server error pages to the static page /50x.html
-    #
-    #error_page 500 502 503 504 /50x.html;
-    #location = /50x.html {
-    #       root /usr/share/nginx/html;
-    #}
-
-    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
-    #
-    #location ~ \.php$ {
-    #       fastcgi_split_path_info ^(.+\.php)(/.+)$;
-    #       # NOTE: You should have &quot;cgi.fix_pathinfo = 0;&quot; in php.ini
-    #
-    #       # With php5-cgi alone:
-    #       fastcgi_pass 127.0.0.1:9000;
-    #       # With php5-fpm:
-    #       fastcgi_pass unix:/var/run/php5-fpm.sock;
-    #       fastcgi_index index.php;
-    #       include fastcgi_params;
-    #}
-
-    # deny access to .htaccess files, if Apache's document root
-    # concurs with nginx's one
-    #
-    #location ~ /\.ht {
-    #       deny all;
-    #}
-</code></pre>
-
-<p>}</p>
-
-<pre><code>
-Codeigniter config:
-
-```php config.php
-$config['index_page'] = '';
+<pre><code class="language-php">$config['index_page'] = '';
 $config['uri_protocol'] = 'REQUEST_URI';
 </code></pre>
 
@@ -659,8 +655,9 @@ $config['uri_protocol'] = 'REQUEST_URI';
 <a href="https://docs.google.com/document/d/1dU-juYN25FMXdp6Ju62KAIT_0tuuZAPEgZkj-aT6kPQ/edit#heading=h.lafes4uxj2b0">年份未知 - 針對各 framework 進行評測 Event Driven I/O Web Application Server Analysis</a><br />
 <a href="http://blog.sina.com.cn/s/blog_704b6af70100py9n.html">Twisted 教程</a></p>
 
-<p>####Reactor 模型
-Node.js 處理 concurrency 是 Reactor mode<br />
+<h4 id="reactor-模型:ee2d238fddfde2ae14f531afb674e177">Reactor 模型</h4>
+
+<p>Node.js 處理 concurrency 是 Reactor mode<br />
 Ruby 的 Goliath framework 也是 Reactor mode<br />
 Golang, Erlang 是 CSP (communicating sequential process)</p>
 
@@ -791,7 +788,9 @@ SELECT * FROM my_table
                     </header>
 
                     <div class="post-description">
-                        <p>##Install lua on mac</p>
+                        
+
+<h2 id="install-lua-on-mac:8e145fa2aa5a58c0f066272b1882f03b">Install lua on mac</h2>
 
 <p>I&rsquo;m not sure that whether Lua is built on mac originally.</p>
 
@@ -809,16 +808,15 @@ SELECT * FROM my_table
 <pre><code>brew install lua
 </code></pre>
 
-<p>##Writing Lua</p>
+<h2 id="writing-lua:8e145fa2aa5a58c0f066272b1882f03b">Writing Lua</h2>
 
 <p>You can use command: <code>lua</code> to interact with lua. (just like <code>php -a</code> or <code>irb</code>)</p>
 
-<p>```lua hello.lua
-print(&ldquo;Hello World&rdquo;)</p>
+<pre><code class="language-lua">print(&quot;Hello World&quot;)
 
-<pre><code>
-```lua fact.lua
-function fact(n)
+</code></pre>
+
+<pre><code class="language-lua">function fact(n)
 	if n == 0 then
 		return 1
 	else

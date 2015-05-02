@@ -120,15 +120,16 @@
                     <div class="post-description">
                         <p>首先，是先簡單說明使用 Codeigniter framework 時移除 URL 中的 index.php<br />
 在 Codeigniter 的根目錄新增一 .htaccess 檔案<br />
-並放入以下內容<br />
-<code>
-RewriteEngine on  
+並放入以下內容</p>
+
+<pre><code>RewriteEngine on  
 RewriteCond $1 !^(index\.php|js|robots\.txt|css)  
 RewriteRule ^(.*)$ index.php/$1 [L]  
-</code></p>
+</code></pre>
 
-<p>另外還要修改 Codeigniter 的 config.php 設定<br />
-<code>$config['index_page'] = ''&quot;;</code></p>
+<p>另外還要修改 Codeigniter 的 config.php 設定</p>
+
+<p><code>$config['index_page'] = ''&quot;;</code></p>
 
 <p>不過上面的 rewrite rule 有些問題，<br />
 情境是這樣的：<br />

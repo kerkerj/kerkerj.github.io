@@ -118,22 +118,31 @@
                         </p>
                     </header>
                     <div class="post-description">
-                        <p>Ubuntu 裝完是沒辦法透過別台機器 ssh 進這台機器<br />
-只能夠 ssh 出去, 所以來安裝一下<br />
-<code>
-$sudo apt-get update  
-$sudo apt-get install ssh  
-</code>
-裝完後修改一下設定檔 : <code>$sudo vi /etc/ssh/sshd_config</code><br />
-預設 port 為 22 可以改成別的 ( 可以到 <code>/etc/services</code> 看有沒有沒再用的 port 並指給它 ) (optional)<br />
-<code>Port 22</code> 找到這行, 意思為允許 root 登入 (optional)<br />
-<code>PermitRootLogin yes</code> 將 yes 改成 no, 不允許 root 登入.</p>
+                        <p>Ubuntu 裝完是沒辦法透過別台機器 ssh 進這台機器</p>
 
-<p>另外可以設定 <code>/etc/hosts.allow</code> 和 <code>/etc/hosts.deny</code> 更精準的限制連線 (optional)<br />
-例如: 我只要 192.168.11.11 登入我這台機器<br />
-則編輯 <code>/etc/hosts.allow</code> , 加入: <code>sshd:192.168.11.11 :allow</code><br />
-編輯 <code>/etc/hosts.deny</code> , 讓其他人都無法連入, 加入這行: <code>sshd:all:deny</code><br />
-全數編輯完畢後, 重新啟動 ssh 服務 <code>$sudo /etc/init.d/ssh restart</code></p>
+<p>只能夠 ssh 出去, 所以來安裝一下</p>
+
+<pre><code>$sudo apt-get update  
+$sudo apt-get install ssh  
+</code></pre>
+
+<p>裝完後修改一下設定檔 : <code>$sudo vi /etc/ssh/sshd_config</code></p>
+
+<p>預設 port 為 22 可以改成別的 ( 可以到 <code>/etc/services</code> 看有沒有沒再用的 port 並指給它 ) (optional)</p>
+
+<p><code>Port 22</code> 找到這行, 意思為允許 root 登入 (optional)</p>
+
+<p><code>PermitRootLogin yes</code> 將 yes 改成 no, 不允許 root 登入.</p>
+
+<p>另外可以設定 <code>/etc/hosts.allow</code> 和 <code>/etc/hosts.deny</code> 更精準的限制連線 (optional)</p>
+
+<p>例如: 我只要 192.168.11.11 登入我這台機器</p>
+
+<p>則編輯 <code>/etc/hosts.allow</code> , 加入: <code>sshd:192.168.11.11 :allow</code></p>
+
+<p>編輯 <code>/etc/hosts.deny</code> , 讓其他人都無法連入, 加入這行: <code>sshd:all:deny</code></p>
+
+<p>全數編輯完畢後, 重新啟動 ssh 服務 <code>$sudo /etc/init.d/ssh restart</code></p>
 
                     </div>
                     <div class="post-share">

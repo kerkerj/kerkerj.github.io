@@ -128,26 +128,28 @@
 <p>在 <code>connectDB.inc.php</code> 中設定好 SQL 主機的 IP、使用者名稱密碼等等資料，<br />
 然後由 <code>test.php</code> 來呈現資料，直接看 code 最快：</p>
 
-<p>```php connectDB.inc.php
-&lt;?php
-    $cfgDB_HOST = &ldquo;localhost&rdquo;;      //主機名稱或ip位址
-  $cfgDB_PORT = &ldquo;80&rdquo;;                       //主機開放連線的port
-    $cfgDB_USERNAME = &ldquo;account&rdquo;;    //登入主機帳號
-    $cfgDB_PASSWORD = &ldquo;password&rdquo;;   //登入主機密碼
-    $cfgDB_NAME = &ldquo;db_name&rdquo;;            //資料庫名稱</p>
+<p>connectDB.inc.php</p>
 
-<p>//建立資料庫連線
-  $link = mysql_connect($cfgDB_HOST . &ldquo;:&rdquo; . $cfgDB_PORT, $cfgDB_USERNAME, $cfgDB_PASSWORD) or die(&ldquo;Could not connect MySQL&rdquo;);
+<pre><code class="language-php">&lt;?php 
+    $cfgDB_HOST = &quot;localhost&quot;;      //主機名稱或ip位址
+  $cfgDB_PORT = &quot;80&quot;;                       //主機開放連線的port
+    $cfgDB_USERNAME = &quot;account&quot;;    //登入主機帳號
+    $cfgDB_PASSWORD = &quot;password&quot;;   //登入主機密碼
+    $cfgDB_NAME = &quot;db_name&quot;;            //資料庫名稱
+  
+  //建立資料庫連線
+  $link = mysql_connect($cfgDB_HOST . &quot;:&quot; . $cfgDB_PORT, $cfgDB_USERNAME, $cfgDB_PASSWORD) or die(&quot;Could not connect MySQL&quot;);
   //選擇資料庫
-  mysql_select_db($cfgDB_NAME, $link) or die(&ldquo;Could not select database&rdquo;);
+  mysql_select_db($cfgDB_NAME, $link) or die(&quot;Could not select database&quot;);
   //讓中文正常顯示
-  mysql_query(&ldquo;SET NAMES &lsquo;utf8&rsquo;&rdquo;);</p>
+  mysql_query(&quot;SET NAMES 'utf8'&quot;);
+  
+?&gt;
+</code></pre>
 
-<p>?&gt;
-```</p>
+<p>test.php</p>
 
-<p><code>php test.php
-&lt;?php 
+<pre><code class="language-php">&lt;?php 
     include (&quot;connectDB.inc.php&quot;);
     try{
         $sql=&quot;SELECT * from test&quot;;  //給予SQL指令
@@ -162,7 +164,7 @@
         echo $e;
     }
 ?&gt;
-</code></p>
+</code></pre>
 
 <p>若資料庫有資料就可以正確顯示溜</p>
 

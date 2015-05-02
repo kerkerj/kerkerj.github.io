@@ -109,6 +109,117 @@
                 <section class="post">
                     <header class="post-header">
 
+                        <a href="http://blog.kerkerj.in/blog/2014/10/22/2014-10-22-swift-d22/" class="post-title">[Swift-d22] - 實戰開發 - TODOList - Show View 1</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-swift" href="http://blog.kerkerj.in//categories/swift">swift</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p><a href="https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day22">Github link</a></p>
+
+<p>接著我們要讓主頁顯示一些假資料:</p>
+
+<p>由於我們未來接的 api 的資料會是 todo_id + content</p>
+
+<p>因此我們先產生一個 dictionary array 來存放我們的假資料</p>
+
+<pre><code class="language-swift">var fakeData = [[String:String]]()
+fakeData = [
+	[&quot;id&quot;: &quot;1&quot;, &quot;content&quot;: &quot;A&quot;],
+	[&quot;id&quot;: &quot;2&quot;, &quot;content&quot;: &quot;B&quot;],
+	[&quot;id&quot;: &quot;3&quot;, &quot;content&quot;: &quot;C&quot;],
+]
+</code></pre>
+
+<p>再來對主頁的 controller 新增 tableView 上去</p>
+
+<p>並且對 UITableView 加入 delegate 以及 datasource</p>
+
+<pre><code>import UIKit
+
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    var fakeData = [[String:String]]()
+    var tableView: UITableView?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        
+        fakeData = [[&quot;1&quot;: &quot;A&quot;], [&quot;2&quot;: &quot;B&quot;], [&quot;3&quot;: &quot;C&quot;]]
+        self.view.backgroundColor = UIColor.yellowColor()
+        
+        self.tableView = UITableView(frame: self.view.frame)
+        self.tableView?.delegate = self
+        self.tableView?.dataSource = self
+        
+        self.view.addSubview(self.tableView!)
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+
+}
+</code></pre>
+
+<p>此時編譯器就會要求實作 UITableViewDataSource, UITableViewDelegate 的 methods</p>
+
+<p>實作完就可以讓 TableView 顯示資料, 這我們之前也都有提到過了~</p>
+
+<p>在這邊我們也同時使用自訂的 CustomTableViewCell, 簡單對 cell 改個顏色，雖然沒什麼多大用處 XD</p>
+
+<pre><code>	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {
+        return self.fakeData.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell {
+        var cell: CustomTableViewCell? = tableView.dequeueReusableCellWithIdentifier(&quot;CustomCell&quot;) as? CustomTableViewCell
+        
+        if cell == nil {
+            var objects = NSBundle.mainBundle().loadNibNamed(&quot;CustomTableViewCell&quot;, owner: self, options: nil)
+            cell = objects[0] as? CustomTableViewCell
+        }
+        
+        cell!.textLabel?.text = (self.fakeData[indexPath.row])[&quot;content&quot;]
+        
+        return cell!
+    }
+</code></pre>
+
+<p><img src="http://goo.gl/8Zis9p" alt="image" />
+</p>
+
+<p>不過可以看到有小瑕疵，就是選取後他並不會回覆成原本的模樣</p>
+
+<p>因此加入 tableView didSelectRowAtIndexPath:</p>
+
+<pre><code>	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        // 回復非選取狀態
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+
+</code></pre>
+
+<p>明天就會提到換頁以及刪除的作法!</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
                         <a href="http://blog.kerkerj.in/blog/2014/10/22/2014-10-22-api-d22/" class="post-title">[API-d22] - 實戰開發 - 讀取 TODO task API with mongoose</a>
 
                         <p class="post-meta">
@@ -232,117 +343,6 @@ router.get('/:user_id/todos/:todo_id', function(req, res) {
 </p>
 
 <p>如此一來，讀取特定 task 的 API 也完成囉!</p>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2014-10-10 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://blog.kerkerj.in/blog/2014/10/22/2014-10-22-swift-d22/" class="post-title">[Swift-d22] - 實戰開發 - TODOList - Show View 1</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-swift" href="http://blog.kerkerj.in//categories/swift">swift</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p><a href="https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day22">Github link</a></p>
-
-<p>接著我們要讓主頁顯示一些假資料:</p>
-
-<p>由於我們未來接的 api 的資料會是 todo_id + content</p>
-
-<p>因此我們先產生一個 dictionary array 來存放我們的假資料</p>
-
-<pre><code class="language-swift">var fakeData = [[String:String]]()
-fakeData = [
-	[&quot;id&quot;: &quot;1&quot;, &quot;content&quot;: &quot;A&quot;],
-	[&quot;id&quot;: &quot;2&quot;, &quot;content&quot;: &quot;B&quot;],
-	[&quot;id&quot;: &quot;3&quot;, &quot;content&quot;: &quot;C&quot;],
-]
-</code></pre>
-
-<p>再來對主頁的 controller 新增 tableView 上去</p>
-
-<p>並且對 UITableView 加入 delegate 以及 datasource</p>
-
-<pre><code>import UIKit
-
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
-    var fakeData = [[String:String]]()
-    var tableView: UITableView?
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        fakeData = [[&quot;1&quot;: &quot;A&quot;], [&quot;2&quot;: &quot;B&quot;], [&quot;3&quot;: &quot;C&quot;]]
-        self.view.backgroundColor = UIColor.yellowColor()
-        
-        self.tableView = UITableView(frame: self.view.frame)
-        self.tableView?.delegate = self
-        self.tableView?.dataSource = self
-        
-        self.view.addSubview(self.tableView!)
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
-}
-</code></pre>
-
-<p>此時編譯器就會要求實作 UITableViewDataSource, UITableViewDelegate 的 methods</p>
-
-<p>實作完就可以讓 TableView 顯示資料, 這我們之前也都有提到過了~</p>
-
-<p>在這邊我們也同時使用自訂的 CustomTableViewCell, 簡單對 cell 改個顏色，雖然沒什麼多大用處 XD</p>
-
-<pre><code>	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {
-        return self.fakeData.count
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell {
-        var cell: CustomTableViewCell? = tableView.dequeueReusableCellWithIdentifier(&quot;CustomCell&quot;) as? CustomTableViewCell
-        
-        if cell == nil {
-            var objects = NSBundle.mainBundle().loadNibNamed(&quot;CustomTableViewCell&quot;, owner: self, options: nil)
-            cell = objects[0] as? CustomTableViewCell
-        }
-        
-        cell!.textLabel?.text = (self.fakeData[indexPath.row])[&quot;content&quot;]
-        
-        return cell!
-    }
-</code></pre>
-
-<p><img src="http://goo.gl/8Zis9p" alt="image" />
-</p>
-
-<p>不過可以看到有小瑕疵，就是選取後他並不會回覆成原本的模樣</p>
-
-<p>因此加入 tableView didSelectRowAtIndexPath:</p>
-
-<pre><code>	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        // 回復非選取狀態
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-    }
-
-</code></pre>
-
-<p>明天就會提到換頁以及刪除的作法!</p>
 
                     </div>
                 </section>
@@ -1001,160 +1001,6 @@ self.window?.makeKeyAndVisible()
                 <section class="post">
                     <header class="post-header">
 
-                        <a href="http://blog.kerkerj.in/blog/2014/10/19/2014-10-19-swift-d19/" class="post-title">[Swift-d19] - Basic - 橋接第三方 Objc library - Reachability and Bridge.h</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-swift" href="http://blog.kerkerj.in//categories/swift">swift</a><a class="post-category post-category-bridge" href="http://blog.kerkerj.in//categories/bridge">bridge</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p>本日專案的 <a href="https://github.com/kerkerj/ithome-BridgeObjcDemo">Github link</a></p>
-
-<p>由於 Swift 剛推出不到一年</p>
-
-<p>有許多的 third-party library 一定還沒轉換成 Swift</p>
-
-<p>或者是作者沒心力轉會成 Swift</p>
-
-<p>但是有些套件非常方便，那在 Swift 要怎麼使用 Objective-C 的套件呢?</p>
-
-<p>Xcode 有提供橋接的方式，非常好用</p>
-
-<p>接下來就介紹一下如何使用吧!</p>
-
-<p>以下的例子是一個叫做 <code>Reachability</code> 的套件</p>
-
-<p>它可以簡單地幫我們判斷是否有網路連線 3g or wifi 之類的</p>
-
-<p>所以我們先下載這個套件吧!</p>
-
-<p><a href="https://github.com/tonymillion/Reachability">https://github.com/tonymillion/Reachability</a></p>
-
-<p>下載解壓縮後</p>
-
-<p>將 .h 和 .m 檔拖曳進 Xcode 專案中</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2014.27.17.png" alt="image" />
-</p>
-
-<p>接下來 Xcode 就會問一個非常重要的問題!:</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2014.26.24.png" alt="image" />
-</p>
-
-<p>是否要建立橋接的 .h 檔案!</p>
-
-<p>當然是選擇建立囉~</p>
-
-<p>此時的專案結構就會變成這樣:</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2014.26.38.png" alt="image" />
-</p>
-
-<p>再來編輯 bridge-header.h 檔</p>
-
-<p>將想要橋接的 objc 套件 import 進去</p>
-
-<pre><code class="language-swift">#import &quot;Reachability.h&quot;
-</code></pre>
-
-<p>這樣我們就可以在 Swift 中直接使用該套件的類別與方法了!</p>
-
-<p>接下來就讓我們試試看!</p>
-
-<p>在 ViewController 中加入以下程式碼:</p>
-
-<pre><code>//
-//  ViewController.swift
-//  BridgeObjcDemo
-//
-//  Created by Jerry Huang on 2014/10/18.
-//  Copyright (c) 2014年 kerkerj. All rights reserved.
-//
-
-import UIKit
-
-class ViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        
-        var isConnected = checkNetworkConnection()
-        
-        let alert = UIAlertView()
-        alert.title = &quot;Network Connection&quot;
-        
-        if isConnected {
-            alert.message = &quot;You're online!&quot;
-        } else {
-            alert.message = &quot;You're offline!&quot;
-        }
-        
-        alert.addButtonWithTitle(&quot;OK&quot;)
-        alert.show()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    func checkNetworkConnection() -&gt; Bool {
-        let reachability: Reachability = Reachability.reachabilityForInternetConnection()
-        let networkStatus: NetworkStatus = reachability.currentReachabilityStatus()
-        
-        println(networkStatus.toRaw())
-        
-        switch (networkStatus.toRaw()) {
-        case 0:
-            println(&quot;[Network Status]: NotReachable&quot;)
-        case 1:
-            println(&quot;[Network Status]: ReachableViaWWAN&quot;)
-        case 2:
-            println(&quot;[Network Status]: ReachableViaWiFi&quot;)
-        default:
-            break
-        }
-        
-        return networkStatus.toRaw() != 0
-    }
-}
-</code></pre>
-
-<p>簡單的說，我們寫了一個方法，使用 Reachability 偵測網路連線</p>
-
-<p>在 ViewDidLoad 時，偵測是否有網路連線</p>
-
-<p>跳一個 Alert 會告訴你是有連線還是沒有連線</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2014.42.45.png" alt="image" />
-</p>
-
-<p>不過在這邊，我不曉得如何讓模擬器關掉連線，</p>
-
-<p>所以沒辦法提供 offline 的圖</p>
-
-<p>但是我實際安裝到手機後，將 wifi 功能關掉後的確是有跳出 offline 的</p>
-
-<p>哈哈 雖然說沒圖沒真相但是&hellip;XD</p>
-
-<p>橋接第三方套件就是那麼簡單! :D</p>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2014-10-10 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
                         <a href="http://blog.kerkerj.in/blog/2014/10/19/2014-10-19-api-d19/" class="post-title">[API-d19] - 實戰開發 - index &amp; route &amp; http status code</a>
 
                         <p class="post-meta">
@@ -1356,6 +1202,160 @@ module.exports = router;
 <p>詳細還可以參考: <a href="http://zh.wikipedia.org/wiki/HTTP%E7%8A%B6%E6%80%81%E7%A0%81">HTTP status code</a></p>
 
 <p><a href="http://www.restapitutorial.com/httpstatuscodes.html">其他教學</a></p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://blog.kerkerj.in/blog/2014/10/19/2014-10-19-swift-d19/" class="post-title">[Swift-d19] - Basic - 橋接第三方 Objc library - Reachability and Bridge.h</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-swift" href="http://blog.kerkerj.in//categories/swift">swift</a><a class="post-category post-category-bridge" href="http://blog.kerkerj.in//categories/bridge">bridge</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>本日專案的 <a href="https://github.com/kerkerj/ithome-BridgeObjcDemo">Github link</a></p>
+
+<p>由於 Swift 剛推出不到一年</p>
+
+<p>有許多的 third-party library 一定還沒轉換成 Swift</p>
+
+<p>或者是作者沒心力轉會成 Swift</p>
+
+<p>但是有些套件非常方便，那在 Swift 要怎麼使用 Objective-C 的套件呢?</p>
+
+<p>Xcode 有提供橋接的方式，非常好用</p>
+
+<p>接下來就介紹一下如何使用吧!</p>
+
+<p>以下的例子是一個叫做 <code>Reachability</code> 的套件</p>
+
+<p>它可以簡單地幫我們判斷是否有網路連線 3g or wifi 之類的</p>
+
+<p>所以我們先下載這個套件吧!</p>
+
+<p><a href="https://github.com/tonymillion/Reachability">https://github.com/tonymillion/Reachability</a></p>
+
+<p>下載解壓縮後</p>
+
+<p>將 .h 和 .m 檔拖曳進 Xcode 專案中</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2014.27.17.png" alt="image" />
+</p>
+
+<p>接下來 Xcode 就會問一個非常重要的問題!:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2014.26.24.png" alt="image" />
+</p>
+
+<p>是否要建立橋接的 .h 檔案!</p>
+
+<p>當然是選擇建立囉~</p>
+
+<p>此時的專案結構就會變成這樣:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2014.26.38.png" alt="image" />
+</p>
+
+<p>再來編輯 bridge-header.h 檔</p>
+
+<p>將想要橋接的 objc 套件 import 進去</p>
+
+<pre><code class="language-swift">#import &quot;Reachability.h&quot;
+</code></pre>
+
+<p>這樣我們就可以在 Swift 中直接使用該套件的類別與方法了!</p>
+
+<p>接下來就讓我們試試看!</p>
+
+<p>在 ViewController 中加入以下程式碼:</p>
+
+<pre><code>//
+//  ViewController.swift
+//  BridgeObjcDemo
+//
+//  Created by Jerry Huang on 2014/10/18.
+//  Copyright (c) 2014年 kerkerj. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        
+        
+        var isConnected = checkNetworkConnection()
+        
+        let alert = UIAlertView()
+        alert.title = &quot;Network Connection&quot;
+        
+        if isConnected {
+            alert.message = &quot;You're online!&quot;
+        } else {
+            alert.message = &quot;You're offline!&quot;
+        }
+        
+        alert.addButtonWithTitle(&quot;OK&quot;)
+        alert.show()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func checkNetworkConnection() -&gt; Bool {
+        let reachability: Reachability = Reachability.reachabilityForInternetConnection()
+        let networkStatus: NetworkStatus = reachability.currentReachabilityStatus()
+        
+        println(networkStatus.toRaw())
+        
+        switch (networkStatus.toRaw()) {
+        case 0:
+            println(&quot;[Network Status]: NotReachable&quot;)
+        case 1:
+            println(&quot;[Network Status]: ReachableViaWWAN&quot;)
+        case 2:
+            println(&quot;[Network Status]: ReachableViaWiFi&quot;)
+        default:
+            break
+        }
+        
+        return networkStatus.toRaw() != 0
+    }
+}
+</code></pre>
+
+<p>簡單的說，我們寫了一個方法，使用 Reachability 偵測網路連線</p>
+
+<p>在 ViewDidLoad 時，偵測是否有網路連線</p>
+
+<p>跳一個 Alert 會告訴你是有連線還是沒有連線</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2014.42.45.png" alt="image" />
+</p>
+
+<p>不過在這邊，我不曉得如何讓模擬器關掉連線，</p>
+
+<p>所以沒辦法提供 offline 的圖</p>
+
+<p>但是我實際安裝到手機後，將 wifi 功能關掉後的確是有跳出 offline 的</p>
+
+<p>哈哈 雖然說沒圖沒真相但是&hellip;XD</p>
+
+<p>橋接第三方套件就是那麼簡單! :D</p>
 
                     </div>
                 </section>

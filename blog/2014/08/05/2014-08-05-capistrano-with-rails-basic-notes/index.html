@@ -125,7 +125,7 @@
 <p>Capistrano 剛開始寫 deploy script 時真的會有點搞不太懂 XD<br />
 記錄一下使用 &lsquo;capistrano&rsquo; 把特定的 github repo 抓到 remote server</p>
 
-<p>##安裝</p>
+<h2 id="安裝:0c80082cc245ac95d41aa492a716caef">安裝</h2>
 
 <p>先在 Gemfile 加入:</p>
 
@@ -144,7 +144,7 @@ capistrano 會先利用 script 裡提供的 server ip 以及 public key，<br />
 先連線到 remote server，接著再到 github 上拉 code 到指定的目錄裡，<br />
 再重開 server。</p>
 
-<p>##產生相關檔案</p>
+<h2 id="產生相關檔案:0c80082cc245ac95d41aa492a716caef">產生相關檔案</h2>
 
 <pre><code>bundle exec cap install 
 </code></pre>
@@ -167,84 +167,73 @@ project repo 的路徑，要 deploy 到 server 的哪個目錄等等，<br />
 <code>config/deploy/*</code> 底下的檔案則是根據不同的 stage 分別設定，<br />
 以下是 deploy.rb, production.rb 的一些簡單設定</p>
 
-<p>```ruby deploy.rb</p>
+<pre><code class="language-ruby"># config valid only for Capistrano 3.1
+lock '3.2.1'
 
-<h1 id="config-valid-only-for-capistrano-3-1:0c80082cc245ac95d41aa492a716caef">config valid only for Capistrano 3.1</h1>
+set :application, 'application_name'
+set :repo_url, 'github_repo_url'
 
-<p>lock &lsquo;3.2.1&rsquo;</p>
+set :deploy_via, :copy
 
-<p>set :application, &lsquo;application_name&rsquo;
-set :repo_url, &lsquo;github_repo_url&rsquo;</p>
+# Default branch is :master
+# ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
-<p>set :deploy_via, :copy</p>
+# Default deploy_to directory is /var/www/my_app
+set :deploy_to, '/server/www/path/'
 
-<h1 id="default-branch-is-master:0c80082cc245ac95d41aa492a716caef">Default branch is :master</h1>
+# Default value for :scm is :git
+set :scm, :git
 
-<h1 id="ask-branch-proc-git-rev-parse-abbrev-ref-head-chomp-call:0c80082cc245ac95d41aa492a716caef">ask :branch, proc { <code>git rev-parse --abbrev-ref HEAD</code>.chomp }.call</h1>
+# Default value for :format is :pretty
+set :format, :pretty
 
-<h1 id="default-deploy-to-directory-is-var-www-my-app:0c80082cc245ac95d41aa492a716caef">Default deploy_to directory is /var/www/my_app</h1>
+# Default value for :log_level is :debug
+set :log_level, :debug
 
-<p>set :deploy_to, &lsquo;/server/www/path/&rsquo;</p>
+# Default value for :pty is false
+# set :pty, true
 
-<h1 id="default-value-for-scm-is-git:0c80082cc245ac95d41aa492a716caef">Default value for :scm is :git</h1>
+# Default value for :linked_files is []
+# set :linked_files, %w{config/database.yml}
 
-<p>set :scm, :git</p>
+# Default value for linked_dirs is []
+# set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
-<h1 id="default-value-for-format-is-pretty:0c80082cc245ac95d41aa492a716caef">Default value for :format is :pretty</h1>
+# Default value for default_env is {}
+# set :default_env, { path: &quot;/opt/ruby/bin:$PATH&quot; }
 
-<p>set :format, :pretty</p>
+# Default value for keep_releases is 5
+# set :keep_releases, 5
 
-<h1 id="default-value-for-log-level-is-debug:0c80082cc245ac95d41aa492a716caef">Default value for :log_level is :debug</h1>
+namespace :deploy do
 
-<p>set :log_level, :debug</p>
-
-<h1 id="default-value-for-pty-is-false:0c80082cc245ac95d41aa492a716caef">Default value for :pty is false</h1>
-
-<h1 id="set-pty-true:0c80082cc245ac95d41aa492a716caef">set :pty, true</h1>
-
-<h1 id="default-value-for-linked-files-is:0c80082cc245ac95d41aa492a716caef">Default value for :linked_files is []</h1>
-
-<h1 id="set-linked-files-w-config-database-yml:0c80082cc245ac95d41aa492a716caef">set :linked_files, %w{config/database.yml}</h1>
-
-<h1 id="default-value-for-linked-dirs-is:0c80082cc245ac95d41aa492a716caef">Default value for linked_dirs is []</h1>
-
-<h1 id="set-linked-dirs-w-bin-log-tmp-pids-tmp-cache-tmp-sockets-vendor-bundle-public-system:0c80082cc245ac95d41aa492a716caef">set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}</h1>
-
-<h1 id="default-value-for-default-env-is:0c80082cc245ac95d41aa492a716caef">Default value for default_env is {}</h1>
-
-<h1 id="set-default-env-path-opt-ruby-bin-path:0c80082cc245ac95d41aa492a716caef">set :default_env, { path: &ldquo;/opt/ruby/bin:$PATH&rdquo; }</h1>
-
-<h1 id="default-value-for-keep-releases-is-5:0c80082cc245ac95d41aa492a716caef">Default value for keep_releases is 5</h1>
-
-<h1 id="set-keep-releases-5:0c80082cc245ac95d41aa492a716caef">set :keep_releases, 5</h1>
-
-<p>namespace :deploy do</p>
-
-<p>desc &lsquo;Restart application&rsquo;
+  desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
       # Your restart mechanism here, for example:
-      execute :mkdir, &lsquo;-p&rsquo;, &ldquo;#{ release_path }/tmp&rdquo;
-      execute :touch, release_path.join(&lsquo;tmp/restart.txt&rsquo;)
+      execute :mkdir, '-p', &quot;#{ release_path }/tmp&quot;
+      execute :touch, release_path.join('tmp/restart.txt')
     end
-  end</p>
+  end
 
-<p>after :publishing, :restart</p>
+  after :publishing, :restart
 
-<p>after :restart, :clear_cache do
+  after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
       # within release_path do
-      #  execute :rake, &lsquo;cache:clear&rsquo;
+      #  execute :rake, 'cache:clear'
       # end
     end
-  end</p>
+  end
 
-<p>end</p>
+end
 
-<pre><code>
-```ruby production.rb
-# Simple Role Syntax
+</code></pre>
+
+<p>production.rb:</p>
+
+<pre><code class="language-ruby"># Simple Role Syntax
 # ==================
 # Supports bulk-adding hosts to roles, the primary server in each group
 # is considered to be the first unless any hosts have the primary
@@ -292,7 +281,7 @@ server 'server_ip', user: 'server_user', roles: %w{app}, my_property: :my_value
 <p>設定完後，因為這邊是設定 production.rb<br />
 因此執行以下指令 deploy 到 production server</p>
 
-<pre><code class="language-console">bundle exec cap production deploy
+<pre><code class="language-shell">$ bundle exec cap production deploy
 </code></pre>
 
 <p>如果 <code>exit status 0 (successful).</code><br />

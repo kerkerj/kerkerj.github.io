@@ -502,81 +502,6 @@ $ ./deploy.sh &amp;quot;Your commit message&amp;quot;
     </item>
     
     <item>
-      <title>Raspberry Pi2 remote webcam</title>
-      <link>http://blog.kerkerj.in/blog/2015/04/22/2015-04-22-raspberry-pi2-remote-webcam/</link>
-      <pubDate>Wed, 22 Apr 2015 00:00:00 +0000</pubDate>
-      
-      <guid>http://blog.kerkerj.in/blog/2015/04/22/2015-04-22-raspberry-pi2-remote-webcam/</guid>
-      <description>&lt;p&gt;如題~&lt;/p&gt;
-
-&lt;p&gt;先假設 pi2 本身的 IP 是 &lt;code&gt;192.168.1.200&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;首先先進去 server 來更新一下~&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;$ sudo apt-get update &amp;amp;&amp;amp; sudo apt-get upgrade
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;再來就裝 &lt;a href=&#34;http://www.lavrsen.dk/foswiki/bin/view/Motion/WebHome&#34;&gt;motion&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;他其實是一個 motion detector，不過也可以拿來當作 web cam 用的 streaming server XD&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;$ sudo apt-get install motion
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;編輯設定檔 &lt;code&gt;/etc/motion/motion.conf&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;$ sudo vi /etc/motion/motion.conf
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;找到以下幾個值，並分別改成下面&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;daemon = ON
-webcam_localhost = OFF
-control_localhost = OFF
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;webcam_localhost&lt;/code&gt; 是 streaming 介面&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;control_localhost&lt;/code&gt; 是設定介面&lt;/p&gt;
-
-&lt;p&gt;如果要改預設 port，就找 &lt;code&gt;webcam_port&lt;/code&gt;, or &lt;code&gt;control_port&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;最後設定將 service 啟動&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;$ sudo vi /etc/default/motion
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;將 no 改成 yes&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;start_motion_daemon = yes
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;啟動 service&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;$ sudo service motion start
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;motion 這個 service 預設的 port 是 8080 / 8081 (可以在前述的設定檔更改)&lt;/p&gt;
-
-&lt;p&gt;開啟瀏覽器, 連入 &lt;code&gt;http://192.168.1.200:8080&lt;/code&gt; or &lt;code&gt;http://192.168.1.200:8081&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;這邊會有個小問題，就是連 8080 時會很正常&lt;/p&gt;
-
-&lt;p&gt;但是 8081 時如果是用 chrome，則怎麼都進不去&lt;/p&gt;
-
-&lt;p&gt;後來發現 &lt;a href=&#34;http://www.lavrsen.dk/foswiki/bin/view/Motion/SupportQuestion2013x09x01x104741&#34;&gt;這篇&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;他說 Chrome 不再支援 raw MJPEG streams 了&lt;/p&gt;
-
-&lt;p&gt;所以就是用其他瀏覽器開吧, 我是用 Safari :D&lt;/p&gt;
-
-&lt;p&gt;記得要和你的 pi2 在同一個 wifi 環境下~&lt;/p&gt;
-
-&lt;p&gt;剩下的還有許多設定可以玩～ 改天再來慢慢玩&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
       <title>Setup wifi on raspberry pi2</title>
       <link>http://blog.kerkerj.in/blog/2015/04/22/2015-04-22-setup-wifi-on-raspberry-pi2/</link>
       <pubDate>Wed, 22 Apr 2015 00:00:00 +0000</pubDate>
@@ -673,6 +598,81 @@ $ ifconfig wlan0 # 確認是否取得 IP
 &lt;p&gt;raspberry pi forum: &lt;a href=&#34;http://www.raspberrypi.org/forums/viewtopic.php?f=28&amp;amp;t=62371&amp;amp;start=475&#34;&gt;http://www.raspberrypi.org/forums/viewtopic.php?f=28&amp;amp;t=62371&amp;amp;start=475&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;網路設定: &lt;a href=&#34;http://inpega.blogspot.tw/2013/09/blog-post_15.html&#34;&gt;http://inpega.blogspot.tw/2013/09/blog-post_15.html&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Raspberry Pi2 remote webcam</title>
+      <link>http://blog.kerkerj.in/blog/2015/04/22/2015-04-22-raspberry-pi2-remote-webcam/</link>
+      <pubDate>Wed, 22 Apr 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.kerkerj.in/blog/2015/04/22/2015-04-22-raspberry-pi2-remote-webcam/</guid>
+      <description>&lt;p&gt;如題~&lt;/p&gt;
+
+&lt;p&gt;先假設 pi2 本身的 IP 是 &lt;code&gt;192.168.1.200&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;首先先進去 server 來更新一下~&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;$ sudo apt-get update &amp;amp;&amp;amp; sudo apt-get upgrade
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;再來就裝 &lt;a href=&#34;http://www.lavrsen.dk/foswiki/bin/view/Motion/WebHome&#34;&gt;motion&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;他其實是一個 motion detector，不過也可以拿來當作 web cam 用的 streaming server XD&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;$ sudo apt-get install motion
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;編輯設定檔 &lt;code&gt;/etc/motion/motion.conf&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;$ sudo vi /etc/motion/motion.conf
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;找到以下幾個值，並分別改成下面&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;daemon = ON
+webcam_localhost = OFF
+control_localhost = OFF
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;webcam_localhost&lt;/code&gt; 是 streaming 介面&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;control_localhost&lt;/code&gt; 是設定介面&lt;/p&gt;
+
+&lt;p&gt;如果要改預設 port，就找 &lt;code&gt;webcam_port&lt;/code&gt;, or &lt;code&gt;control_port&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;最後設定將 service 啟動&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;$ sudo vi /etc/default/motion
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;將 no 改成 yes&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;start_motion_daemon = yes
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;啟動 service&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;$ sudo service motion start
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;motion 這個 service 預設的 port 是 8080 / 8081 (可以在前述的設定檔更改)&lt;/p&gt;
+
+&lt;p&gt;開啟瀏覽器, 連入 &lt;code&gt;http://192.168.1.200:8080&lt;/code&gt; or &lt;code&gt;http://192.168.1.200:8081&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;這邊會有個小問題，就是連 8080 時會很正常&lt;/p&gt;
+
+&lt;p&gt;但是 8081 時如果是用 chrome，則怎麼都進不去&lt;/p&gt;
+
+&lt;p&gt;後來發現 &lt;a href=&#34;http://www.lavrsen.dk/foswiki/bin/view/Motion/SupportQuestion2013x09x01x104741&#34;&gt;這篇&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;他說 Chrome 不再支援 raw MJPEG streams 了&lt;/p&gt;
+
+&lt;p&gt;所以就是用其他瀏覽器開吧, 我是用 Safari :D&lt;/p&gt;
+
+&lt;p&gt;記得要和你的 pi2 在同一個 wifi 環境下~&lt;/p&gt;
+
+&lt;p&gt;剩下的還有許多設定可以玩～ 改天再來慢慢玩&lt;/p&gt;
 </description>
     </item>
     

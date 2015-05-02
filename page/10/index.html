@@ -183,21 +183,23 @@ $ sudo update-locale LANG=zh_TW.UTF-8
 
 <p>download the Parsedown.php
 and put it into Library folder
-then edit autoload.php
-<code>
-$autoload['libraries'] = array('Parsedown');
-</code>
-then in the view php for tests:
-<code>
-$text = 'Hello **Parsedown**!';
+then edit autoload.php</p>
+
+<pre><code>$autoload['libraries'] = array('Parsedown');
+</code></pre>
+
+<p>then in the view php for tests:</p>
+
+<pre><code>$text = 'Hello **Parsedown**!';
 $result = Parsedown::instance()-&gt;parse($text);
 echo $result;
-</code>
-No need to require or include the file.
-If you want to load a file with path, you can use the function called file_get_contents:
-<code>
-file_get_contents('./markdown/test.md',true); (true: enable path)
-</code></p>
+</code></pre>
+
+<p>No need to require or include the file.
+If you want to load a file with path, you can use the function called file_get_contents:</p>
+
+<pre><code>file_get_contents('./markdown/test.md',true); (true: enable path)
+</code></pre>
 
                     </div>
                 </section>
@@ -248,17 +250,27 @@ sudo apt-get install oracle-java7-installer
                     </header>
 
                     <div class="post-description">
-                        <p>其實有點有趣
-今天由於某些因素在測試 iOS app
-於是開了許久沒動的 xcode
-更新了一下發現多了一些 retina 的模擬器
-也沒想那麼多就把它 run 到模擬器上
-但模擬器一開出來我還以為是模擬器壞掉 XDDDD
-它的 home 鍵勒～～～～～</p>
+                        <p>其實有點有趣</p>
 
-<p>其實是因為 iOS 5 以後的 simulater 沒有 home 鍵
-&gt;叫出 home 鍵   <code>command</code>+<code>shift</code>+<code>h</code>
-&gt;調整大小               <code>command</code>+ <code>1</code> or <code>2</code> or <code>3</code></p>
+<p>今天由於某些因素在測試 iOS app</p>
+
+<p>於是開了許久沒動的 xcode</p>
+
+<p>更新了一下發現多了一些 retina 的模擬器</p>
+
+<p>也沒想那麼多就把它 run 到模擬器上</p>
+
+<p>但模擬器一開出來我還以為是模擬器壞掉 XDDDD</p>
+
+<p>它的 home 鍵勒～～～～～</p>
+
+<p>其實是因為 iOS 5 以後的 simulater 沒有 home 鍵</p>
+
+<blockquote>
+<p>叫出 home 鍵   <code>command</code>+<code>shift</code>+<code>h</code></p>
+
+<p>調整大小               <code>command</code>+ <code>1</code> or <code>2</code> or <code>3</code></p>
+</blockquote>
 
                     </div>
                 </section>
@@ -280,14 +292,17 @@ sudo apt-get install oracle-java7-installer
                     </header>
 
                     <div class="post-description">
-                        <p>bash-it:
-<code>
-$git clone http://github.com/revans/bash-it.git ~/.bash_it
+                        <p>bash-it:</p>
+
+<pre><code>$git clone http://github.com/revans/bash-it.git ~/.bash_it
 $~/.bash_it/install.sh
-</code>
-他會幫你自動備份原來的 <code>.bash_profile</code> 為 <code>.bash_profile.bak</code> 所以別擔心
-當他在問你要使用什麼 completion 或 script 之類的東西時，
-選擇 &lsquo;some&rsquo; 就可以自己選擇~</p>
+</code></pre>
+
+<p>他會幫你自動備份原來的 <code>.bash_profile</code> 為 <code>.bash_profile.bak</code> 所以別擔心</p>
+
+<p>當他在問你要使用什麼 completion 或 script 之類的東西時，</p>
+
+<p>選擇 &lsquo;some&rsquo; 就可以自己選擇~</p>
 
 <p>有許多的 theme 及 package , completion 等等可以用，很方便！</p>
 
@@ -313,9 +328,9 @@ $~/.bash_it/install.sh
                     </header>
 
                     <div class="post-description">
-                        <p>failed log:
-<code>
-$sudo brew update
+                        <p>failed log:</p>
+
+<pre><code>$sudo brew update
 error: Your local changes to the following files would be overwritten by merge:
     Library/Aliases/gperftools
     Library/Aliases/hashdeep
@@ -334,14 +349,14 @@ error: The following untracked working tree files would be overwritten by merge:
         ....
 Aborting
 Error: Failure while executing: git pull -q origin refs/heads/master:refs/remotes/origin/master
-</code></p>
+</code></pre>
 
-<p>Solution:
-<code>
-$ cd /usr/local
+<p>Solution:</p>
+
+<pre><code>$ cd /usr/local
 $ git fetch origin
 $ git reset --hard origin/master
-</code></p>
+</code></pre>
 
 <p><a href="http://stackoverflow.com/questions/10762859/brew-update-the-following-untracked-working-tree-files-would-be-overwritten-by">reference</a>
 <a href="http://git-scm.com/2011/07/11/reset.html">[read]</a></p>
@@ -366,42 +381,52 @@ $ git reset --hard origin/master
                     </header>
 
                     <div class="post-description">
-                        <p>最近在開 mac 的 iTerm.app 或者是內建的終端機都覺得卡卡的，
-之前以為是 .bashrc 載入太多東西導致的，所以把一些掛載的 bin 目錄都註解掉，
-但是還是沒解決，心想不對勁，就順手 google 了一下&hellip;</p>
+                        <p>最近在開 mac 的 iTerm.app 或者是內建的終端機都覺得卡卡的，</p>
 
-<p>我執行了下列語法：
-```
-$ time /usr/libexec/path_helper
-PATH=&ldquo;/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/ABC/android-sdks/platform-tools:/Users/ABC/android-sdks/tools:/Application/Vagrant/bin&rdquo;; export PATH;</p>
+<p>之前以為是 .bashrc 載入太多東西導致的，所以把一些掛載的 bin 目錄都註解掉，</p>
 
-<p>real    0m0.043s
+<p>但是還是沒解決，心想不對勁，就順手 google 了一下&hellip;</p>
+
+<p>我執行了下列語法：</p>
+
+<pre><code>$ time /usr/libexec/path_helper
+PATH=&quot;/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/ABC/android-sdks/platform-tools:/Users/ABC/android-sdks/tools:/Application/Vagrant/bin&quot;; export PATH;
+
+real    0m0.043s
 user    0m0.001s
 sys 0m0.002s
-``<code>
-接著我把</code>PATH<code>的內容寫進</code>.bash_profile`，問題竟然就解決了&hellip;
-速度飛快～～</p>
+</code></pre>
 
-<p>後來看到一篇 <a href="http://www.joshstaiger.org/archives/2005/07/bash_profile_vs.html">.bash_profile vs.bashrc</a>
-雖然大家都知道 <code>.bash_profile</code> 是在登入時執行（即是輸入帳號密碼時），
-而 <code>.bashrc</code> 是在系統內非登入狀態時開啟 prompt 時執行，
-但是！！ Mac OSX 是個例外～是個例外～是個例外～&hellip;&hellip;.=.=</p>
+<p>接著我把 <code>PATH</code> 的內容寫進 <code>.bash_profile</code>，問題竟然就解決了&hellip;</p>
+
+<p>速度飛快～～</p>
+
+<p>後來看到一篇 <a href="http://www.joshstaiger.org/archives/2005/07/bash_profile_vs.html">.bash_profile vs.bashrc</a></p>
+
+<p>雖然大家都知道 <code>.bash_profile</code> 是在登入時執行（即是輸入帳號密碼時），</p>
+
+<p>而 <code>.bashrc</code> 是在系統內非登入狀態時開啟 prompt 時執行，</p>
+
+<p>但是！！ Mac OSX 是個例外～是個例外～是個例外～&hellip;&hellip;.=.=</p>
 
 <blockquote>
-<p>Mac OS X — an exception
-An exception to the terminal window guidelines is Mac OS X&rsquo;s Terminal.app, which runs a login shell by default for each new terminal window, calling .bash_profile instead of .bashrc. Other GUI terminal emulators may do the same, but most tend not to.</p>
+<p>Mac OS X — an exception</p>
+
+<p>An exception to the terminal window guidelines is Mac OS X&rsquo;s Terminal.app, which runs a login shell by default for each new terminal window, calling .bash_profile instead of .bashrc. Other GUI terminal emulators may do the same, but most tend not to.</p>
 </blockquote>
 
-<p>所以通常解決方法是在 <code>.bash_profile</code> 寫入以下 script:
-<code>
-if [ -f ~/.bashrc ]; then
+<p>所以通常解決方法是在 <code>.bash_profile</code> 寫入以下 script:</p>
+
+<pre><code>if [ -f ~/.bashrc ]; then
     source ~/.bashrc
 fi
-</code></p>
+</code></pre>
 
-<p>不過我之前就這樣做了，這次成功的方式是直接在 <code>.bash_profile</code> 寫入 PATH 路徑&hellip;
-猜想應該是在 <code>.bash_profile</code> 預先讀取而加快速度的
-如果把原本的 <code>.bashrc</code> 的 <code>PATH</code> 註解掉都移到 <code>.bash_profile</code> 會再稍快一些</p>
+<p>不過我之前就這樣做了，這次成功的方式是直接在 <code>.bash_profile</code> 寫入 PATH 路徑&hellip;</p>
+
+<p>猜想應該是在 <code>.bash_profile</code> 預先讀取而加快速度的</p>
+
+<p>如果把原本的 <code>.bashrc</code> 的 <code>PATH</code> 註解掉都移到 <code>.bash_profile</code> 會再稍快一些</p>
 
                     </div>
                 </section>
@@ -425,32 +450,34 @@ fi
                     <div class="post-description">
                         
 
-<h1 id="vagrant-1-development-environments-made-easy:393c871f756de36d9030b67aea0417c1"><a href="http://www.vagrantup.com/">Vagrant</a> - Development environments made easy.</h1>
+<h2 id="vagrant-1-development-environments-made-easy:393c871f756de36d9030b67aea0417c1"><a href="http://www.vagrantup.com/">Vagrant</a> - Development environments made easy.</h2>
 
 <p>就是這個軟體的宗旨，把它想做是 ghost 吧！我們開發網站或是測試一些多機器架構時，常不小心就把自己的電腦或是測試主機搞到爛掉，租機器又慢又花錢，搞到爛重灌更麻煩。因此這個軟體基於 VirtualBox 做出了令人方便設定的功能，讓我們可以快速架設安裝環境並測試，尤其是以多機器架構而言更是方便！例如從最簡單的 Web server + DB server，或是 Web Load Balancer + Application Server * 5 等等的架構，一台電腦就能達成囉！
 今天主要是以安裝 Vagrant 及架設出 Nginx + php5-fpm 的架構，下一篇打算另外建構一台 mongodb server，達到 Vagrant 最主要的多機器設定功能~</p>
 
-<h1 id="vagrant-基本設定:393c871f756de36d9030b67aea0417c1">Vagrant 基本設定</h1>
+<h2 id="vagrant-基本設定:393c871f756de36d9030b67aea0417c1">Vagrant 基本設定</h2>
 
 <ol>
 <li>先下載 VirtualBox 吧！<br /></li>
 <li>下載 Vagarnt 套件 <a href="http://downloads.vagrantup.com/">http://downloads.vagrantup.com/</a><br />
 安裝好後，可能會需要加 path，至少 1.3.0 當時我是自己加的，現在 1.3.5 就不清楚了~<br /></li>
-<li>接下來就可以開始加入 box (可以把它想為 ghost 檔)，並開始設定 Vagrant。
-<code>
-vagrant box add {你想要的Box名稱} {下載網址} 
-</code>
-輸入後就會開始下載該 box 了！ 範例：
-<code>
-$vagrant box add devbox http://ﬁles.vagrantup.com/precise64.box   
+<li>接下來就可以開始加入 box (可以把它想為 ghost 檔)，並開始設定 Vagrant。</li>
+</ol>
+
+<pre><code>vagrant box add {你想要的Box名稱} {下載網址} 
+</code></pre>
+
+<p>輸入後就會開始下載該 box 了！ 範例：</p>
+
+<pre><code>$vagrant box add devbox http://ﬁles.vagrantup.com/precise64.box   
 $mkdir my_box  
 $cd my_box  
 $vagrant init devbox (將 my_box 這個專案資料夾以 devbox 這個 box 檔案初始化)  
-</code>
-box 官方有提供 Ubuntu 的，在 <a href="http://www.vagrantbox.es/">vagrantbox.es</a> 很多，可以自己找～ 當然自己做應該也是可以的！<br /></li>
-</ol>
+</code></pre>
 
-<h1 id="vagrant-基本指令:393c871f756de36d9030b67aea0417c1">Vagrant 基本指令</h1>
+<p>box 官方有提供 Ubuntu 的，在 <a href="http://www.vagrantbox.es/">vagrantbox.es</a> 很多，可以自己找～ 當然自己做應該也是可以的！</p>
+
+<h2 id="vagrant-基本指令:393c871f756de36d9030b67aea0417c1">Vagrant 基本指令</h2>
 
 <pre><code>vagrant up 開機  
 vagrant ssh 登⼊  
@@ -459,94 +486,112 @@ vagrant halt 關機
 vagrant destroy 刪除  
 </code></pre>
 
-<h1 id="進入新裝好的機器吧:393c871f756de36d9030b67aea0417c1">進入新裝好的機器吧！</h1>
+<h2 id="進入新裝好的機器吧:393c871f756de36d9030b67aea0417c1">進入新裝好的機器吧！</h2>
 
 <pre><code>$vagrant up  //開機  
 $vagrant ssh //登入  
 </code></pre>
 
-<h1 id="vagrantfile-設定:393c871f756de36d9030b67aea0417c1">Vagrantfile 設定</h1>
+<h2 id="vagrantfile-設定:393c871f756de36d9030b67aea0417c1">Vagrantfile 設定</h2>
 
-<p>Vagrantfile 這個設定檔可以用很多很強大的設定，在官方網頁裡有教學
-不過首先要先做的是： <code>config.vm.forward_port 80, 8088</code>
-把虛擬機器裡從 80 port 傳送的東西丟到本機的 8088 port
-如此一來在本機瀏覽器輸入 localhost:8088 ，就可以看到網頁了！
-另外就是： <code>config.vm.synced_folder &quot;/vagrant&quot;, &quot;本機目錄&quot;</code>
-如此一來，Ubuntu 底下就有一個 /vargrant 目錄，和自己主機裡的某個目錄是同步的！
-也就是在自己主機上寫好程式後，就可以直接讓虛擬機器抓到 code 去執行，超方便的！
-只要把 nginx 的網頁目錄設定在 /vagrant 上就可以了！ (後面會說)</p>
+<p>Vagrantfile 這個設定檔可以用很多很強大的設定，在官方網頁裡有教學</p>
 
-<h1 id="ubuntu-基本安裝:393c871f756de36d9030b67aea0417c1">Ubuntu 基本安裝</h1>
+<p>不過首先要先做的是： <code>config.vm.forward_port 80, 8088</code></p>
 
-<p>進去後是乾淨的 Ubuntu 12.04 64位元版，因此需先做點安裝:
-<code>
-$sudo apt-get -y update  
+<p>把虛擬機器裡從 80 port 傳送的東西丟到本機的 8088 port</p>
+
+<p>如此一來在本機瀏覽器輸入 localhost:8088 ，就可以看到網頁了！</p>
+
+<p>另外就是： <code>config.vm.synced_folder &quot;/vagrant&quot;, &quot;本機目錄&quot;</code></p>
+
+<p>如此一來，Ubuntu 底下就有一個 /vargrant 目錄，和自己主機裡的某個目錄是同步的！</p>
+
+<p>也就是在自己主機上寫好程式後，就可以直接讓虛擬機器抓到 code 去執行，超方便的！</p>
+
+<p>只要把 nginx 的網頁目錄設定在 /vagrant 上就可以了！ (後面會說)</p>
+
+<h2 id="ubuntu-基本安裝:393c871f756de36d9030b67aea0417c1">Ubuntu 基本安裝</h2>
+
+<p>進去後是乾淨的 Ubuntu 12.04 64位元版，因此需先做點安裝:</p>
+
+<pre><code>$sudo apt-get -y update  
 $sudo apt-get --no-install-recommends -y install build-essential openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev libgdbm-dev ncurses-dev automake libtool bison subversion pkg-config libffi-dev vim  
-</code>
-有些東西其實可以不用裝，就看個人的需求，必裝應該是 build-essential, openssl, curl, git-core, vim XD</p>
-
-<h1 id="nginx-php5-fpm-安裝:393c871f756de36d9030b67aea0417c1">Nginx &amp; php5-fpm 安裝</h1>
-
-<p>安裝 Nginx
-<code>
-$sudo apt-get install nginx  
-</code>
-若要更改 Nginx 的網頁目錄，設定檔在 <code>/etc/nginx/</code> 裡，
-通常應該是更改 <code>/etc/nginx/sites-enable/default</code> 裡的 <code>root /usr/share/nginx/www/</code>
-還要將這段 code 解除註解：
-```
-location ~ .php$ {
-    fastcgi_split_path_info ^(.+.php)(/.+)$;
-    # NOTE: You should have &ldquo;cgi.fix_pathinfo = 0;&rdquo; in php.ini</p>
-
-<pre><code># With php5-cgi alone:
-#fastcgi_pass 127.0.0.1:9000;
-# With php5-fpm:
-fastcgi_pass unix:/var/run/php5-fpm.sock;
-fastcgi_index index.php;
-include fastcgi_params;
 </code></pre>
 
-<p>}
-<code>
-更改後確認一下 `/etc/nginx/nginx.conf` 是否有 `inculde /etc/nginx/sites-enable/*`
-</code>
-$sudo service nginx start (開始服務)
-<code>
-安裝 php5-fpm
-</code>
-$sudo apt-get install php5-fpm<br />
-$sudo vim /etc/php5/fpm/php.ini (找到並更改 cgi.fix_pathinfo = 0 )<br />
-$sudo vim /etc/php5/fpm/pool.d/www.conf<br />
-<code>
-找到 `listen = 127.0.0.1:9000`, 換成 `/var/run/php5-fpm.sock`
-寫個 phpinfo(); 的 php 檔放入資料夾
-</code>
-$sudo service php5-fpm restart (開啟服務)
-```
-在瀏覽器輸入 localhost:8088 就可以看到 nginx 的頁面，再讀取剛剛寫的 php 應該就成功囉！</p>
+<p>有些東西其實可以不用裝，就看個人的需求，必裝應該是 build-essential, openssl, curl, git-core, vim XD</p>
 
-<p>安裝 MySQL:
-<code>
-$ sudo apt-get install mysql-server
-</code>
-過程中會問 root 的密碼，裝完後就可以登入：
-<code>
-$ mysql -u root -p
-</code></p>
+<h2 id="nginx-php5-fpm-安裝:393c871f756de36d9030b67aea0417c1">Nginx &amp; php5-fpm 安裝</h2>
+
+<p>安裝 Nginx</p>
+
+<pre><code>$sudo apt-get install nginx  
+</code></pre>
+
+<p>若要更改 Nginx 的網頁目錄，設定檔在 <code>/etc/nginx/</code> 裡，</p>
+
+<p>通常應該是更改 <code>/etc/nginx/sites-enable/default</code> 裡的 <code>root /usr/share/nginx/www/</code></p>
+
+<p>還要將這段 code 解除註解：</p>
+
+<pre><code>location ~ \.php$ {
+    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+    # NOTE: You should have &quot;cgi.fix_pathinfo = 0;&quot; in php.ini
+
+    # With php5-cgi alone:
+    #fastcgi_pass 127.0.0.1:9000;
+    # With php5-fpm:
+    fastcgi_pass unix:/var/run/php5-fpm.sock;
+    fastcgi_index index.php;
+    include fastcgi_params;
+}
+</code></pre>
+
+<p>更改後確認一下 <code>/etc/nginx/nginx.conf</code> 是否有 <code>inculde /etc/nginx/sites-enable/*</code></p>
+
+<pre><code>$sudo service nginx start (開始服務)
+</code></pre>
+
+<p>安裝 php5-fpm</p>
+
+<pre><code>$sudo apt-get install php5-fpm  
+$sudo vim /etc/php5/fpm/php.ini (找到並更改 cgi.fix_pathinfo = 0 )  
+$sudo vim /etc/php5/fpm/pool.d/www.conf  
+</code></pre>
+
+<p>找到 <code>listen = 127.0.0.1:9000</code>, 換成 <code>/var/run/php5-fpm.sock</code>
+寫個 phpinfo(); 的 php 檔放入資料夾</p>
+
+<pre><code>$sudo service php5-fpm restart (開啟服務)
+</code></pre>
+
+<p>在瀏覽器輸入 localhost:8088 就可以看到 nginx 的頁面，再讀取剛剛寫的 php 應該就成功囉！</p>
+
+<p>安裝 MySQL:</p>
+
+<pre><code>$ sudo apt-get install mysql-server
+</code></pre>
+
+<p>過程中會問 root 的密碼，裝完後就可以登入：</p>
+
+<pre><code>$ mysql -u root -p
+</code></pre>
 
 <p>下回就是多機器的設定囉～</p>
 
 <p>reference:<br />
-<a href="http://gogojimmy.net/2013/05/26/vagrant-tutorial/">http://gogojimmy.net/2013/05/26/vagrant-tutorial/</a>
-<a href="http://www.slideshare.net/ihower/vagrant-osdc">http://www.slideshare.net/ihower/vagrant-osdc</a>
-<a href="https://www.digitalocean.com/community/articles/how-to-install-linux-nginx-mysql-php-lemp-stack-on-ubuntu-12-04">https://www.digitalocean.com/community/articles/how-to-install-linux-nginx-mysql-php-lemp-stack-on-ubuntu-12-04</a></p>
+<a href="http://gogojimmy.net/2013/05/26/vagrant-tutorial/">http://gogojimmy.net/2013/05/26/vagrant-tutorial/</a></p>
 
-<p>p.s. Vagrantfile 產生器：<a href="https://puphpet.com/#vagrantfile">Puphpet.com/#vagrantfile</a>
-這網站有很多值得玩的地方，可以直接幫你產生出這些設定檔真的是太方便了！</p>
+<p><a href="http://www.slideshare.net/ihower/vagrant-osdc">http://www.slideshare.net/ihower/vagrant-osdc</a></p>
 
-<p>p.s.s.有亂入用到的指令記一下：dpkg &ndash;get-selections 列出已安裝的 package
-另外提供一下我在研究 Vagrant 的筆記，很亂超級亂，但是有些東西沒有寫在 blog 裡~
+<p><a href="https://www.digitalocean.com/community/articles/how-to-install-linux-nginx-mysql-php-lemp-stack-on-ubuntu-12-04">https://www.digitalocean.com/community/articles/how-to-install-linux-nginx-mysql-php-lemp-stack-on-ubuntu-12-04</a></p>
+
+<p>p.s. Vagrantfile 產生器：<a href="https://puphpet.com/#vagrantfile">Puphpet.com/#vagrantfile</a></p>
+
+<p>這網站有很多值得玩的地方，可以直接幫你產生出這些設定檔真的是太方便了！</p>
+
+<p>p.s.s.有亂入用到的指令記一下：dpkg &ndash;get-selections 列出已安裝的 package</p>
+
+<p>另外提供一下我在研究 Vagrant 的筆記，很亂超級亂，但是有些東西沒有寫在 blog 裡~
 <a href="https://www.evernote.com/shard/s81/sh/91ccf490-d9cd-468e-943a-d57c79d052f4/71e0a682b024c6e97fd8c79b90f89f67">Evernote by kerkerj</a></p>
 
                     </div>
@@ -556,23 +601,30 @@ $ mysql -u root -p
                 <section class="post">
                     <header class="post-header">
 
-                        <a href="http://blog.kerkerj.in/blog/2012/06/12/2012-06-12-php-checkbox-checkuncheck-all/" class="post-title">[PHP] checkbox check/uncheck all</a>
+                        <a href="http://blog.kerkerj.in/blog/2012/06/12/2012-06-12-android-ui-update-2/" class="post-title">[Android] thread 處理 UI update (2)</a>
 
                         <p class="post-meta">
                             
                             
                                 under
                                 
-                                <a class="post-category post-category-php" href="http://blog.kerkerj.in//categories/php">php</a><a class="post-category post-category-checkbox" href="http://blog.kerkerj.in//categories/checkbox">checkbox</a>
+                                <a class="post-category post-category-android" href="http://blog.kerkerj.in//categories/android">android</a>
                             
                         </p>
                     </header>
 
                     <div class="post-description">
-                        <p>今天在做 checkbox 時, 想做全選/取消全選
-多使用一個 checkbox, 若勾選則是全選, 再點一次則全不選
-於是就產生了這段 code&hellip;
-<iframe style="width: 100%; height: 300px" src="http://jsfiddle.net/jerry54010/tmJXb/4/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe></p>
+                        <p>這是第一篇: [[Android] thread 處理 UI update]</p>
+
+<p>在那之後自己在寫一些東西時也用到 runOnUiThread</p>
+
+<p>不過有別的方法可以不用像 runOnUiThread 寫的比較雜亂</p>
+
+<p>那就是用 AsyncTask , 剛剛自己也順手寫了一個 Test 放在 Github 上</p>
+
+<p>我覺得使用 AsyncTask 可以不用處理 thread, 而且寫法上比較清楚~</p>
+
+<script src="https://gist.github.com/kerkerj/7367244.js"></script>
 
                     </div>
                 </section>

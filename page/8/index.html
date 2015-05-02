@@ -129,7 +129,7 @@
 <p>Capistrano 剛開始寫 deploy script 時真的會有點搞不太懂 XD<br />
 記錄一下使用 &lsquo;capistrano&rsquo; 把特定的 github repo 抓到 remote server</p>
 
-<p>##安裝</p>
+<h2 id="安裝:0c80082cc245ac95d41aa492a716caef">安裝</h2>
 
 <p>先在 Gemfile 加入:</p>
 
@@ -148,7 +148,7 @@ capistrano 會先利用 script 裡提供的 server ip 以及 public key，<br />
 先連線到 remote server，接著再到 github 上拉 code 到指定的目錄裡，<br />
 再重開 server。</p>
 
-<p>##產生相關檔案</p>
+<h2 id="產生相關檔案:0c80082cc245ac95d41aa492a716caef">產生相關檔案</h2>
 
 <pre><code>bundle exec cap install 
 </code></pre>
@@ -171,84 +171,73 @@ project repo 的路徑，要 deploy 到 server 的哪個目錄等等，<br />
 <code>config/deploy/*</code> 底下的檔案則是根據不同的 stage 分別設定，<br />
 以下是 deploy.rb, production.rb 的一些簡單設定</p>
 
-<p>```ruby deploy.rb</p>
+<pre><code class="language-ruby"># config valid only for Capistrano 3.1
+lock '3.2.1'
 
-<h1 id="config-valid-only-for-capistrano-3-1:0c80082cc245ac95d41aa492a716caef">config valid only for Capistrano 3.1</h1>
+set :application, 'application_name'
+set :repo_url, 'github_repo_url'
 
-<p>lock &lsquo;3.2.1&rsquo;</p>
+set :deploy_via, :copy
 
-<p>set :application, &lsquo;application_name&rsquo;
-set :repo_url, &lsquo;github_repo_url&rsquo;</p>
+# Default branch is :master
+# ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
-<p>set :deploy_via, :copy</p>
+# Default deploy_to directory is /var/www/my_app
+set :deploy_to, '/server/www/path/'
 
-<h1 id="default-branch-is-master:0c80082cc245ac95d41aa492a716caef">Default branch is :master</h1>
+# Default value for :scm is :git
+set :scm, :git
 
-<h1 id="ask-branch-proc-git-rev-parse-abbrev-ref-head-chomp-call:0c80082cc245ac95d41aa492a716caef">ask :branch, proc { <code>git rev-parse --abbrev-ref HEAD</code>.chomp }.call</h1>
+# Default value for :format is :pretty
+set :format, :pretty
 
-<h1 id="default-deploy-to-directory-is-var-www-my-app:0c80082cc245ac95d41aa492a716caef">Default deploy_to directory is /var/www/my_app</h1>
+# Default value for :log_level is :debug
+set :log_level, :debug
 
-<p>set :deploy_to, &lsquo;/server/www/path/&rsquo;</p>
+# Default value for :pty is false
+# set :pty, true
 
-<h1 id="default-value-for-scm-is-git:0c80082cc245ac95d41aa492a716caef">Default value for :scm is :git</h1>
+# Default value for :linked_files is []
+# set :linked_files, %w{config/database.yml}
 
-<p>set :scm, :git</p>
+# Default value for linked_dirs is []
+# set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
-<h1 id="default-value-for-format-is-pretty:0c80082cc245ac95d41aa492a716caef">Default value for :format is :pretty</h1>
+# Default value for default_env is {}
+# set :default_env, { path: &quot;/opt/ruby/bin:$PATH&quot; }
 
-<p>set :format, :pretty</p>
+# Default value for keep_releases is 5
+# set :keep_releases, 5
 
-<h1 id="default-value-for-log-level-is-debug:0c80082cc245ac95d41aa492a716caef">Default value for :log_level is :debug</h1>
+namespace :deploy do
 
-<p>set :log_level, :debug</p>
-
-<h1 id="default-value-for-pty-is-false:0c80082cc245ac95d41aa492a716caef">Default value for :pty is false</h1>
-
-<h1 id="set-pty-true:0c80082cc245ac95d41aa492a716caef">set :pty, true</h1>
-
-<h1 id="default-value-for-linked-files-is:0c80082cc245ac95d41aa492a716caef">Default value for :linked_files is []</h1>
-
-<h1 id="set-linked-files-w-config-database-yml:0c80082cc245ac95d41aa492a716caef">set :linked_files, %w{config/database.yml}</h1>
-
-<h1 id="default-value-for-linked-dirs-is:0c80082cc245ac95d41aa492a716caef">Default value for linked_dirs is []</h1>
-
-<h1 id="set-linked-dirs-w-bin-log-tmp-pids-tmp-cache-tmp-sockets-vendor-bundle-public-system:0c80082cc245ac95d41aa492a716caef">set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}</h1>
-
-<h1 id="default-value-for-default-env-is:0c80082cc245ac95d41aa492a716caef">Default value for default_env is {}</h1>
-
-<h1 id="set-default-env-path-opt-ruby-bin-path:0c80082cc245ac95d41aa492a716caef">set :default_env, { path: &ldquo;/opt/ruby/bin:$PATH&rdquo; }</h1>
-
-<h1 id="default-value-for-keep-releases-is-5:0c80082cc245ac95d41aa492a716caef">Default value for keep_releases is 5</h1>
-
-<h1 id="set-keep-releases-5:0c80082cc245ac95d41aa492a716caef">set :keep_releases, 5</h1>
-
-<p>namespace :deploy do</p>
-
-<p>desc &lsquo;Restart application&rsquo;
+  desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
       # Your restart mechanism here, for example:
-      execute :mkdir, &lsquo;-p&rsquo;, &ldquo;#{ release_path }/tmp&rdquo;
-      execute :touch, release_path.join(&lsquo;tmp/restart.txt&rsquo;)
+      execute :mkdir, '-p', &quot;#{ release_path }/tmp&quot;
+      execute :touch, release_path.join('tmp/restart.txt')
     end
-  end</p>
+  end
 
-<p>after :publishing, :restart</p>
+  after :publishing, :restart
 
-<p>after :restart, :clear_cache do
+  after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
       # within release_path do
-      #  execute :rake, &lsquo;cache:clear&rsquo;
+      #  execute :rake, 'cache:clear'
       # end
     end
-  end</p>
+  end
 
-<p>end</p>
+end
 
-<pre><code>
-```ruby production.rb
-# Simple Role Syntax
+</code></pre>
+
+<p>production.rb:</p>
+
+<pre><code class="language-ruby"># Simple Role Syntax
 # ==================
 # Supports bulk-adding hosts to roles, the primary server in each group
 # is considered to be the first unless any hosts have the primary
@@ -296,7 +285,7 @@ server 'server_ip', user: 'server_user', roles: %w{app}, my_property: :my_value
 <p>設定完後，因為這邊是設定 production.rb<br />
 因此執行以下指令 deploy 到 production server</p>
 
-<pre><code class="language-console">bundle exec cap production deploy
+<pre><code class="language-shell">$ bundle exec cap production deploy
 </code></pre>
 
 <p>如果 <code>exit status 0 (successful).</code><br />
@@ -324,11 +313,12 @@ server 'server_ip', user: 'server_user', roles: %w{app}, my_property: :my_value
                     <div class="post-description">
                         
 
-<p>##Install
-choose the latest version of Openresty<br />
+<h2 id="install:a5e64391ada30ee8ed15fcd1b674ee6b">Install</h2>
+
+<p>choose the latest version of Openresty<br />
 I used ngx_openresty-1.7.2.1.tar.gz</p>
 
-<pre><code class="language-console"># install packages
+<pre><code class="language-shell"># install packages
 sudo apt-get install libreadline-dev libpcre3-dev libssl-dev perl  
 
 # get openresty package
@@ -348,7 +338,7 @@ sudo make install # need permission to copy file to target folder
 
 <p>Default folder: <code>/usr/local/openresty</code></p>
 
-<p>##Setup</p>
+<h2 id="setup:a5e64391ada30ee8ed15fcd1b674ee6b">Setup</h2>
 
 <p>create work folder in ~</p>
 
@@ -410,10 +400,9 @@ http {
 }
 </code></pre>
 
-<p><code>lua hello.lua
--- hello.lua
+<pre><code class="language-lua">-- hello.lua
 ngx.say(&quot;Hello World&quot;)
-</code></p>
+</code></pre>
 
                     </div>
                 </section>
@@ -435,7 +424,9 @@ ngx.say(&quot;Hello World&quot;)
                     </header>
 
                     <div class="post-description">
-                        <pre><code>nodejs v0.10.25 (for rails javascript engine)
+                        
+
+<pre><code>nodejs v0.10.25 (for rails javascript engine)
 
 rbenv 0.4.0-98-g13a474c
 
@@ -451,7 +442,7 @@ mysql  Ver 14.14 Distrib 5.5.38, for debian-linux-gnu (x86_64) using readline 6.
 
 </code></pre>
 
-<p>##Installing Ruby &amp; Rails</p>
+<h2 id="installing-ruby-rails:c3f0d026b5eef696bef07e5a82f0b1ed">Installing Ruby &amp; Rails</h2>
 
 <pre><code>sudo apt-get update &amp;&amp; sudo apt-get upgrade
 sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties nodejs npm
@@ -488,7 +479,7 @@ exec $SHELL
 rails -v
 </code></pre>
 
-<p>##Installing Nginx with passenger</p>
+<h2 id="installing-nginx-with-passenger:c3f0d026b5eef696bef07e5a82f0b1ed">Installing Nginx with passenger</h2>
 
 <pre><code># Install Phusion's PGP key to verify packages
 gpg --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7
@@ -523,7 +514,7 @@ passenger_ruby /usr/bin/ruby; #change this line
 # Use `which ruby`
 </code></pre>
 
-<p>##Installing MySQL</p>
+<h2 id="installing-mysql:c3f0d026b5eef696bef07e5a82f0b1ed">Installing MySQL</h2>
 
 <pre><code>sudo apt-get install mysql-server mysql-client libmysqlclient-dev
 </code></pre>
@@ -578,7 +569,9 @@ in <code>ApplicationController</code></p>
                     <div class="post-description">
                         
 
-<h2 id="self-signed:ecf5dbe1752e516c50d0d4915274f6e7">##[Self-signed]</h2>
+<h2 id="self-signed:ecf5dbe1752e516c50d0d4915274f6e7">[Self-signed]</h2>
+
+<hr />
 
 <ol>
 <li><p>Generate a host key:
@@ -631,7 +624,9 @@ sudo apachectl restart
 <p>p.s. enable mods: <code>sudo a2enmod ssl</code>
 enable sites: <code>sudo a2ensite default-ssl</code></p>
 
-<h2 id="purchased-symantec:ecf5dbe1752e516c50d0d4915274f6e7">##[Purchased (Symantec)]</h2>
+<h2 id="purchased-symantec:ecf5dbe1752e516c50d0d4915274f6e7">[Purchased (Symantec)]</h2>
+
+<hr />
 
 <p>[<a href="http://www.symantec.com/tv/products/details.jsp?vid=1452855338001">http://www.symantec.com/tv/products/details.jsp?vid=1452855338001</a>]
 <object id="flashObj" width="640" height="360" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,47,0"><param name="movie" value="http://c.brightcove.com/services/viewer/federated_f9?isVid=1&isUI=1" /><param name="bgcolor" value="#FFFFFF" /><param name="flashVars" value="videoId=1452855338001&linkBaseURL=http%3A%2F%2Fwww.symantec.com%2Ftv%2Fproducts%2Fdetails.jsp%3Fvid%3D1452855338001&playerID=1170996384001&playerKey=AQ~~,AAAABuIiy9k~,I8BhasVwr9yry4vRRPOpsSrBvwjFZ03K&domain=embed&dynamicStreaming=true" /><param name="base" value="http://admin.brightcove.com" /><param name="seamlesstabbing" value="false" /><param name="allowFullScreen" value="true" /><param name="swLiveConnect" value="true" /><param name="allowScriptAccess" value="always" /><embed src="http://c.brightcove.com/services/viewer/federated_f9?isVid=1&isUI=1" bgcolor="#FFFFFF" flashVars="videoId=1452855338001&linkBaseURL=http%3A%2F%2Fwww.symantec.com%2Ftv%2Fproducts%2Fdetails.jsp%3Fvid%3D1452855338001&playerID=1170996384001&playerKey=AQ~~,AAAABuIiy9k~,I8BhasVwr9yry4vRRPOpsSrBvwjFZ03K&domain=embed&dynamicStreaming=true" base="http://admin.brightcove.com" name="flashObj" width="640" height="360" seamlesstabbing="false" type="application/x-shockwave-flash" allowFullScreen="true" allowScriptAccess="always" swLiveConnect="true" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"></embed></object></p>

@@ -117,13 +117,13 @@
                     </header>
 
                     <div class="post-description">
-                        <p><code>xml AndroidManifest.xml:   
-    &lt;activity android:name=&quot;.MyMainClass&quot;
+                        <pre><code class="language-xml">&lt;activity android:name=&quot;.MyMainClass&quot;
               android:label=&quot;@string/app_name&quot;
               android:theme=&quot;@android:style/Theme.NoTitleBar&quot;&gt;
-  &lt;/activity&gt;
-</code>
-style/Theme.NoTitleBar</p>
+&lt;/activity&gt;
+</code></pre>
+
+<p>style/Theme.NoTitleBar</p>
 
                     </div>
                 </section>
@@ -226,117 +226,33 @@ public byte[] fromHexString(String in){
                     </header>
 
                     <div class="post-description">
-                        <p>2的補數複習一下  <a href="http://scribefire-next/" title="http://entry.hit.edu.tw/~bd92043/1.htm">http://entry.hit.edu.tw/~bd92043/1.htm</a>
-另一篇IEEE 754   <a href="http://tw.myblog.yahoo.com/nicholas-kang/article?mid=39&amp;l=f&amp;fid=5" title="http://tw.myblog.yahoo.com/nicholas-kang/article?mid=39&amp;l=f&amp;fid=5">http://tw.myblog.yahoo.com/nicholas-kang/article?mid=39&amp;l=f&amp;fid=5   </a></p>
+                        <p>2的補數複習一下  <a href="http://scribefire-next/" title="http://entry.hit.edu.tw/~bd92043/1.htm">http://entry.hit.edu.tw/~bd92043/1.htm</a></p>
 
-<p>作者: Liroy (優白白) 看板: Army-Sir
-標題: [教學] 計概 IEEE754 表示式
-時間: Fri Jan 14 21:47:11 2011
-IEEE754為一種二進位小數的標準表示式，以精確度分成單倍精和雙倍精。</p>
+<p>另一篇IEEE 754   <a href="http://tw.myblog.yahoo.com/nicholas-kang/article?mid=39&amp;l=f&amp;fid=5" title="http://tw.myblog.yahoo.com/nicholas-kang/article?mid=39&amp;l=f&amp;fid=5">http://tw.myblog.yahoo.com/nicholas-kang/article?mid=39&amp;l=f&amp;fid=5   </a></p>
 
-<p>#單倍精(32bit)
-以32個bit來表示一個二進位小數，格式如下
-<code>
-s(1 bit) exp(8 bit)  fraction(23 bit) =&gt; 1+8+23=32 bit(沒錯吧XXXD)
-</code>
-化簡方式分成幾步驟(十進位-&gt;IEEE754)：
-        1. 十進位-&gt;二進位
-        2. 二進位正規化
-        3. exp加上bias值
-        4. fraction扣去隱藏位元
-eg:  -5(10)化成IEEE754表示式
-        1. -5(10) = -101
-        2. -101 = -1.01 x 2^2
-        3. 2 + 127 = 129(10) = 10000001(2) - 這個只要一般二進位表示即可
-                                           不需用二的補數，因為你已經加上bias了
-                s    exp        fraction
-        ＝＞    1 10000001 01000000000000000000000
-  ps:可能有人會問127是什麼？127為bias，再化成IEEE754時都固定要加上這個值, 又有人問，幹麻加這個，因為這樣的化簡可以簡化兩個IEEE754小數做運算時的步驟,怎樣的簡化，就不在這裡討論範圍內了。(詳見白算盤XXXXD)
-  ps2:有人會問幹麻把小數點前的那個1隱藏起來呀。答案是，因為正規化時，小數點前一定是1，所以可以省略，這樣就可以多一個bit來表示小數，可增加小數精確度
-  ps3:exp只需要用二進位表示就好了，因為你已經加上bias了，所以不會變負的，不需要用到二的補數來表示這個部份。</p>
+<p>PTT 轉錄 <a href="https://www.ptt.cc/bbs/CYCU-IM/M.1233932341.A.13C.html">https://www.ptt.cc/bbs/CYCU-IM/M.1233932341.A.13C.html</a></p>
 
-<p>#雙倍精(64 bit)
-以64個bit來表示一個二進位小數，格式如下
-<code>
-s(1 bit) exp(11 bit)  fraction(52 bit) =&gt; 1+11+52=64 bit(沒錯吧XXXD)
-</code>
-化簡方式分成幾步驟(十進位-&gt;IEEE754)：
-        1. 十進位-&gt;二進位
-        2. 二進位正規化
-        3. exp加上bias值
-        4. fraction扣去隱藏位元
-eg:  -5(10)化成IEEE754表示式
-        1. -5(10) = -101
-        2. -101 = -1.01 x 2^2
-        3. 2 + 1023 = 1025(10) = 10000000001(2)  - 這個只要一般二進位表示即可
-        4. 1.01 -&gt; .01 (1被隱藏起來了，剩下小數點後面的東西)
-                s     exp        fraction
-        ＝＞    1 10000000001 0100&hellip;0(好多零～囧 1後面一共有50 bit，自己算吧)
-  備註：雙倍精bias為1023  (因為exp bit一共有11個)</p>
+<p>以下是我的筆記：</p>
 
-<hr />
-
-<p>另外單倍精exp最多只能到11111110 ，最小也只能到達00000001
-妳會納悶11111111 和 00000000 怎麼不用- -a
-因為呀！！ 這兩個拿來當另外處理的
-exp＝255  fraction≠0   =&gt;NaN (表非數字)
-exp＝255  fraction＝0   =&gt;±∞(依s來區別是正還是負)
-exp＝0    fraction≠0   =&gt;不足位,underflow,denormalized(太小了，小到無法表示)
-exp＝0    fraction＝0   =&gt;用來表示0.0這個數 (有的版本還會分正負零)
-雙倍精依此類推，exp無法使用11111111111 和 00000000000
-例外處理所表示的跟單倍精一樣，只是255改成2047
-<code>
-......|-------------------|..|..|-------------------|......
-      *--可用IEEE754表示--*  0  *--可用IEEE754表示--*
-</code>
-亮粉紅表示overflow，數字太大無法表示，∞
-亮黃色表示underflow，數字太小無法表示，denormalized number
-&ndash; 表示可用IEEE754正規表示式表示的範圍 (中間的0也可以表示喔！！別把他忽略了)</p>
-
-<hr />
-
-<p>此外補充：
-IEEE754 單倍精正規表示範圍最大正數：≒  2 x 10^38
-                          最小正數：≒  2 x 10^-38
-                          最大負數：≒ -2 x 10^-38
-                          最大負數：≒ -2 x 10^38
-IEEE754 雙倍精正規表示範圍最大正數：≒  2 x 10^308
-                          最小正數：≒  2 x 10^-308
-                          最大負數：≒ -2 x 10^-308
-                          最大負數：≒ -2 x 10^308</p>
-
-<hr />
-
-<p>#最大數和最小數證明
- IEEE754單倍精最大正數-&gt;0 11111110 11111111111111111111111  (IEEE754)
-  =&gt; + 1.11111111111111111111111 x 2^(254-127) ≒ 2.0 x 2^127 ≒  2 x 10^38
-      ^^^^^^^^^^^^^^^^^^^^^^^^^-&gt;大約等於2.0，大家應該沒異議吧！
- IEEE754單倍精最小正數-&gt;0 00000001 00000000000000000000000  (IEEE754)
-  =&gt; + 1.00000000000000000000000 x 2^(1-127)  ≒ 1.0 x 2^-126 ≒  2 x 10^-38
-其他依此類推，我懶著打了ˊˋ。數零數到我眼睛都花了～ε(┬┬＿┬┬)3
-這應該就全部IEEE754的精隨了！！～有問題再問吧&lt;(<em>.</em>)&gt;</p>
-
-<p>&mdash;以上為轉錄
-以下是我的筆記：
- IEEE 754 結構 (以下皆只討論Single Precision)
- ==== S(1) + Exponent(8) + Fraction(23)   共32 bits ====
- S判斷正負
- 作業例子：  (-13.625)ten 使用IEEE 754 表示
- p.s. IEEE 754表示式是在第一個bit來判斷正負
- 1. 先轉二進位
- (-13)ten = (-1101)two
- (0.625)ten = (<sup>5</sup>&frasl;<sub>8</sub>)ten = (<sup>101</sup>&frasl;<sub>1000</sub>)two
- =&gt; (-13.625)ten = (-1101.101)two
- 2. 正規化表示 (就像科學記號表示法一樣)
- =&gt; (-1101.101)two = -1.101101 x 2^3
- 3. 因此可以得到
- =&gt; 1 ________ 10110100000000000000000
- 4. E = 指數加上 bias 即可   不用二的補數  (IEEE 754的偏差設為127)
- =&gt; 剛剛算出來的指數是3，所以
- =&gt; 3 + 127 = 130
- =&gt; 130 轉二進位為：1000 0010
- 因此 (-13.625)ten = 1 1000 0010 10110100000000000000000  (空白只是觀看容易)
- 驗證一下ㄎㄎ
+<p> IEEE 754 結構 (以下皆只討論Single Precision)<br />
+ ==== S(1) + Exponent(8) + Fraction(23)   共32 bits ====<br />
+ S判斷正負<br />
+ 作業例子：  (-13.625)ten 使用IEEE 754 表示<br />
+ p.s. IEEE 754表示式是在第一個bit來判斷正負<br />
+ 1. 先轉二進位<br />
+ (-13)ten = (-1101)two<br />
+ (0.625)ten = (<sup>5</sup>&frasl;<sub>8</sub>)ten = (<sup>101</sup>&frasl;<sub>1000</sub>)two<br />
+ =&gt; (-13.625)ten = (-1101.101)two<br />
+ 2. 正規化表示 (就像科學記號表示法一樣)<br />
+ =&gt; (-1101.101)two = -1.101101 x 2^3<br />
+ 3. 因此可以得到<br />
+ =&gt; 1 ________ 10110100000000000000000<br />
+ 4. E = 指數加上 bias 即可   不用二的補數  (IEEE 754的偏差設為127)<br />
+ =&gt; 剛剛算出來的指數是3，所以<br />
+ =&gt; 3 + 127 = 130<br />
+ =&gt; 130 轉二進位為：1000 0010<br />
+ 因此 (-13.625)ten = 1 1000 0010 10110100000000000000000  (空白只是觀看容易)<br />
+ 驗證一下ㄎㄎ<br />
  <a href="http://www.h-schmidt.net/FloatApplet/IEEE754.html" title="http://www.h-schmidt.net/FloatApplet/IEEE754.html">http://www.h-schmidt.net/FloatApplet/IEEE754.html</a></p>
 
                     </div>
@@ -359,17 +275,18 @@ IEEE754 雙倍精正規表示範圍最大正數：≒  2 x 10^308
                     </header>
 
                     <div class="post-description">
-                        <p>只有連結，因為看連結就好了，圖解很累ＸＤ
-<a href="http://1.bp.blogspot.com/-xUK4YkIFTj8/TeUxjstgvoI/AAAAAAAAA0M/CqwnFrzUJQg/s1600/gridlayout.jpg"><img src="http://1.bp.blogspot.com/-xUK4YkIFTj8/TeUxjstgvoI/AAAAAAAAA0M/CqwnFrzUJQg/s1600/gridlayout.jpg" alt="" />
+                        <p>只有連結，因為看連結就好了，圖解很累ＸＤ</p>
+
+<p><a href="http://1.bp.blogspot.com/-xUK4YkIFTj8/TeUxjstgvoI/AAAAAAAAA0M/CqwnFrzUJQg/s1600/gridlayout.jpg"><img src="http://1.bp.blogspot.com/-xUK4YkIFTj8/TeUxjstgvoI/AAAAAAAAA0M/CqwnFrzUJQg/s1600/gridlayout.jpg" alt="" />
 </a>
 (圖片來源：<a href="http://blog.csdn.net/dmgactive/archive/2009/06/28/4304567.aspx">http://blog.csdn.net/dmgactive/archive/2009/06/28/4304567.aspx</a> )<br />
 <a href="http://download.oracle.com/javase/tutorial/uiswing/layout/gridbag.html">http://download.oracle.com/javase/tutorial/uiswing/layout/gridbag.html</a>
 <a href="http://felixcic.blogspot.com/2010/11/gridbaglayout.html">http://felixcic.blogspot.com/2010/11/gridbaglayout.html</a>
 <a href="http://home.so-net.net.tw/idealist/Java/AWT/GridBagLayout.html">http://home.so-net.net.tw/idealist/Java/AWT/GridBagLayout.html</a></p>
 
-<p>大致上是設定以下參數
-<code>java
-public int anchor  
+<p>大致上是設定以下參數</p>
+
+<pre><code class="language-java">public int anchor  
 public int fill  
 public gridheight  
 Public gridweight  
@@ -380,8 +297,9 @@ public int ipadx
 public int ipady  
 public double weightx  
 public double weighty
-</code>
-大概是這樣</p>
+</code></pre>
+
+<p>大概是這樣</p>
 
                     </div>
                 </section>
@@ -540,15 +458,18 @@ AES - <a href="http://java.sun.com/developer/technicalArticles/Security/AES/AES_
                     </header>
 
                     <div class="post-description">
-                        <p>最近在寫和Android程式，因此把一些重點筆記下來：</p>
+                        
 
-<p>#Android中各種JAVA包的功能描述
-(ref: <a href="http://huenlil.pixnet.net/blog/post/24346240">http://huenlil.pixnet.net/blog/post/24346240</a>)</p>
+<p>最近在寫和Android程式，因此把一些重點筆記下來：</p>
+
+<h2 id="android中各種java包的功能描述:48d7960f855113661498d2ced85a0b3e">Android中各種JAVA包的功能描述</h2>
+
+<p>(ref: <a href="http://huenlil.pixnet.net/blog/post/24346240">http://huenlil.pixnet.net/blog/post/24346240</a>)</p>
 
 <p>在Android的應用程序開發中，通常使用的是JAVA語言，除了需要熟悉JAVA語言的基礎知識之外，還需要瞭解Android提供的擴展的JAVA功能。
-在Android中，各種包寫成android.*的方式，重要包的描述如下所示：
-<code>
-* android.app        ：提供高層的程序模型、提供基本的運行環境
+在Android中，各種包寫成android.*的方式，重要包的描述如下所示：</p>
+
+<pre><code>* android.app        ：提供高層的程序模型、提供基本的運行環境
 * android.content    ：包含各種的對設備上的數據進行訪問和發佈的類
 * android.database   ：通過內容提供者瀏覽和操作數據庫
 * android.graphics   ：底層的圖形庫，包含畫布，顏色過濾，點，矩形，可以將他們直接繪製到屏幕上
@@ -563,10 +484,11 @@ AES - <a href="http://java.sun.com/developer/technicalArticles/Security/AES/AES_
 * android.util       ：涉及工具性的方法，例如時間日期的操作
 * android.webkit     ：默認瀏覽器操作接口
 * android.widget     ：包含各種UI元素（大部分是可見的）在應用程序的屏幕中使用
-</code></p>
+</code></pre>
 
-<p>#Empty Process, Background Process, Service Process, Visible Process, Foreground Process 初探
-(ref: <a href="http://www.gururu.tw/Android-Process-Thread.html">[Android 教學課程] Empty Process , Background Process , Service Process , Visible Process , Foreground Process 初探</a> )</p>
+<h2 id="empty-process-background-process-service-process-visible-process-foreground-process-初探:48d7960f855113661498d2ced85a0b3e">Empty Process, Background Process, Service Process, Visible Process, Foreground Process 初探</h2>
+
+<p>(ref: <a href="http://www.gururu.tw/Android-Process-Thread.html">[Android 教學課程] Empty Process , Background Process , Service Process , Visible Process , Foreground Process 初探</a> )</p>
 
 <pre><code>* 關於 Android 的應用程式組件 ( Application Components ) 的補充
 * 處理程序 ( Process ) 與執行緒 ( Thread )
@@ -577,8 +499,9 @@ AES - <a href="http://java.sun.com/developer/technicalArticles/Security/AES/AES_
 * 前景處理程序 ( Foreground process ) 
 </code></pre>
 
-<p>#Activity , Fragment , Service , Broadcast receiver , Content provider 與 Intent 初探
-( ref: <a href="http://www.gururu.tw/Android-Activity-Fragment-Service-Broadcast-receiver-Content-provider-Intent.html">[Android 教學課程] Activity , Fragment , Service , Broadcast receiver , Content provider 與 Intent 初探</a> )</p>
+<h2 id="activity-fragment-service-broadcast-receiver-content-provider-與-intent-初探:48d7960f855113661498d2ced85a0b3e">Activity , Fragment , Service , Broadcast receiver , Content provider 與 Intent 初探</h2>
+
+<p>( ref: <a href="http://www.gururu.tw/Android-Activity-Fragment-Service-Broadcast-receiver-Content-provider-Intent.html">[Android 教學課程] Activity , Fragment , Service , Broadcast receiver , Content provider 與 Intent 初探</a> )</p>
 
 <pre><code>* 什麼是 Activity？ Activity ：它負責前端使用者介面處理。
 * 什麼是 Fragment？ Fragment ：它在一個具分割畫面( Multi-Pane )的 Activity 應用程式組件之中，負責分割畫面的部份區段或部份行為。
@@ -587,8 +510,9 @@ AES - <a href="http://java.sun.com/developer/technicalArticles/Security/AES/AES_
 * 什麼是 Broadcast receivers？  Broadcast receivers ：此應用程式組件的中文譯名，多半會翻成廣播接收者或者廣播接收器。
 </code></pre>
 
-<p>#手機截圖：
-(ref:<a href="http://www.eprice.com.tw/mobile/talk/124/4483653/">【教學】Android 手機截圖：一點都不難</a>)</p>
+<h2 id="手機截圖:48d7960f855113661498d2ced85a0b3e">手機截圖：</h2>
+
+<p>(ref:<a href="http://www.eprice.com.tw/mobile/talk/124/4483653/">【教學】Android 手機截圖：一點都不難</a>)</p>
 
 <p>若有裝Android SDK 的話 (一般開發者應該都會裝吧XD)，直接開 Android SDK 的目錄 /tools/ddms.bat，執行此批次檔就可以囉 (使用時不要將該dos畫面關閉), 此時手機必須連接上網路，並設定USB偵錯，
 要截圖時只要到 device/capture screen 即可</p>
@@ -616,16 +540,20 @@ AES - <a href="http://java.sun.com/developer/technicalArticles/Security/AES/AES_
                         <p>我從 Dropbox 上下載 for Ubuntu 的套件，安裝完後，設定的頁面卻遲遲不出來，這真是非常的詭異，所以就查了解決方法。<br />
 <a href="http://www.webupd8.org/2011/03/get-dropbox-appindicator-to-work-in.html#more">http://www.webupd8.org/2011/03/get-dropbox-appindicator-to-work-in.html#more</a></p>
 
-<p>1.一樣也是先去下載<br />
-2.然後執行以下指令（一行一行)<br />
-<code>
-$cd  
+<ol>
+<li>一樣也是先去下載<br /></li>
+<li>然後執行以下指令（一行一行)<br /></li>
+</ol>
+
+<pre><code>$cd  
 $wget http://webupd8.googlecode.com/files/fixdropbox  
 $chmod +x fixdropbox  
 $./fixdropbox  
-</code>
-應該就可以了，如果要多作設定再：<code>gedit ~/.dropbox.sh</code><br />
-好像有什麼秒數的東西設定吧~~</p>
+</code></pre>
+
+<p>應該就可以了，如果要多作設定再：<code>gedit ~/.dropbox.sh</code></p>
+
+<p>好像有什麼秒數的東西設定吧~~</p>
 
                     </div>
                 </section>

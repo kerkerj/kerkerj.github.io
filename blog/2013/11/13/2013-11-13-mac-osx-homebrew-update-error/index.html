@@ -118,9 +118,9 @@
                         </p>
                     </header>
                     <div class="post-description">
-                        <p>failed log:
-<code>
-$sudo brew update
+                        <p>failed log:</p>
+
+<pre><code>$sudo brew update
 error: Your local changes to the following files would be overwritten by merge:
     Library/Aliases/gperftools
     Library/Aliases/hashdeep
@@ -139,14 +139,14 @@ error: The following untracked working tree files would be overwritten by merge:
         ....
 Aborting
 Error: Failure while executing: git pull -q origin refs/heads/master:refs/remotes/origin/master
-</code></p>
+</code></pre>
 
-<p>Solution:
-<code>
-$ cd /usr/local
+<p>Solution:</p>
+
+<pre><code>$ cd /usr/local
 $ git fetch origin
 $ git reset --hard origin/master
-</code></p>
+</code></pre>
 
 <p><a href="http://stackoverflow.com/questions/10762859/brew-update-the-following-untracked-working-tree-files-would-be-overwritten-by">reference</a>
 <a href="http://git-scm.com/2011/07/11/reset.html">[read]</a></p>

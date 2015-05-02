@@ -122,21 +122,23 @@
 
 <p>download the Parsedown.php
 and put it into Library folder
-then edit autoload.php
-<code>
-$autoload['libraries'] = array('Parsedown');
-</code>
-then in the view php for tests:
-<code>
-$text = 'Hello **Parsedown**!';
+then edit autoload.php</p>
+
+<pre><code>$autoload['libraries'] = array('Parsedown');
+</code></pre>
+
+<p>then in the view php for tests:</p>
+
+<pre><code>$text = 'Hello **Parsedown**!';
 $result = Parsedown::instance()-&gt;parse($text);
 echo $result;
-</code>
-No need to require or include the file.
-If you want to load a file with path, you can use the function called file_get_contents:
-<code>
-file_get_contents('./markdown/test.md',true); (true: enable path)
-</code></p>
+</code></pre>
+
+<p>No need to require or include the file.
+If you want to load a file with path, you can use the function called file_get_contents:</p>
+
+<pre><code>file_get_contents('./markdown/test.md',true); (true: enable path)
+</code></pre>
 
                     </div>
                     <div class="post-share">

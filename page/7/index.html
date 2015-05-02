@@ -109,46 +109,127 @@
                 <section class="post">
                     <header class="post-header">
 
-                        <a href="http://blog.kerkerj.in/blog/2014/10/03/2014-10-03-api-d3/" class="post-title">[API-d3] - 使用時機與實際 API 參考</a>
+                        <a href="http://blog.kerkerj.in/blog/2014/10/03/2014-10-03-swift-d3/" class="post-title">[Swift-d3] - Playground - 變數與常數, 註解, 基本資料型別 </a>
 
                         <p class="post-meta">
                             
                             
                                 under
                                 
-                                <a class="post-category post-category-RESTful" href="http://blog.kerkerj.in//categories/restful">RESTful</a><a class="post-category post-category-API" href="http://blog.kerkerj.in//categories/api">API</a>
+                                <a class="post-category post-category-Swift" href="http://blog.kerkerj.in//categories/swift">Swift</a>
                             
                         </p>
                     </header>
 
                     <div class="post-description">
-                        <p>#使用時機與實際 API 參考<br />
-什麼時候需要打造 RESTful API?<br />
-看看別人的 RESTful API (Instagram/Twitter)</p>
+                        <p>##變數與常數</p>
 
-<p>什麼時候需要打造 RESTful API?<br />
-我認為當有數組資源要被多種不同平台使用時，就需要打造 RESTful API<br />
-例如，有 Android/ iOS / Web 要對同一 table 做存取時，<br />
-假設有個 MySQL DB，各個平台都使用各自的 mysql-driver 來直接操作 DB<br />
-假設有個 A 專案建立了一套書籍管理系統，資料庫裡記錄了大大小小的書籍，<br />
-而有個新的 B 專案需要使用到書籍的資料，此時 DB 操作的程式碼只能再寫一遍，<br />
-且各個平台重新撰寫，似乎是不大靠譜。</p>
+<p>定義一個變數:</p>
 
-<p>撰寫 RESTful API 的好處之一即是 RESTful 使用 HTTP 協定，<br />
-各個平台皆支援，不需要太複雜的程式，只需要使用各個平台的 http-client，<br />
-各個平台也不需要了解 DB 操作語法，只需要知道 json, xml 習慣的資料格式，<br />
-且開發 API 還能夠對各個資源輕易地上 cache 增進反應速度，<br />
-開發 RESTful API 好處多多，哪天想 Open API 也就不需要再多作處理了～</p>
+<pre><code class="language-Swift">var obj: String = &quot;&quot;
+</code></pre>
 
-<p>接著讓我們來看看兩個有名網站的 API 吧！</p>
+<p>var 是保留字，宣告 obj 是一個變數名稱，冒號後面接資料形態<br />
+以此例子來說，宣告了一個字串變數叫做 obj，並且初始化為 &ldquo;&rdquo; 空字串</p>
 
-<p>Instagram: <a href="http://instagram.com/developer/api-console/">http://instagram.com/developer/api-console/</a><br />
-Twitter: <a href="https://dev.twitter.com/rest/tools/console">https://dev.twitter.com/rest/tools/console</a></p>
+<pre><code>let obj: String = &quot;&quot;
+</code></pre>
 
-<p>很顯然的，我比較喜歡 Instagram 的 API 資源定義與命名方式 :P</p>
+<p>let 同樣是用來宣告一個變數，但是宣告此變數後，該變數的值無法被改變，<br />
+無法被改變的數值其實正正的名字就叫做常數
+以上面的例子來說， 若我們多做一件事:</p>
 
-<p>下一篇會介紹我接下來會用到的工具箱，暖身結束，要正式開始了!<br />
-(不好意思前面嘴炮一點 XD)</p>
+<pre><code>let obj: String = &quot;&quot;
+obj = &quot;test&quot;
+</code></pre>
+
+<p>若我們試圖去更改 obj，讓 obj 從空字串變成 &ldquo;test&rdquo; 時，<br />
+Xcode 就會報錯，不能更改該值</p>
+
+<p>再來是宣告的變型，其實宣告時不一定要給資料形態，<br />
+Swift 會自動從後面的值來判斷 x 可能是什麼資料形態，<br />
+只是由於筆者的習慣，會儘量在後面加上該變數的資料型別</p>
+
+<pre><code>var x = &quot;test&quot;
+</code></pre>
+
+<p>一行內宣告多值：</p>
+
+<pre><code>var x = 0.0, y = 0.0, z = 0.0
+</code></pre>
+
+<p>我們就可以在 Playground 裡面試著宣告一些變數看看，並且使用昨天的輸出函式來輸出變數:</p>
+
+<pre><code>var str: String = &quot;測試&quot;
+let fixString: String = &quot;fixed&quot;
+
+var x = 0, y = 1, z = 2
+
+println(str)
+println(x)
+println(y)
+println(z)
+</code></pre>
+
+<p>##註解</p>
+
+<pre><code>// 單行註解
+
+/*
+多行註解
+多行註解
+多行註解
+*/
+</code></pre>
+
+<p>##基本資料型別</p>
+
+<p>Swift 是一個強型別語言，意即若是以下的程式碼是會出錯的:</p>
+
+<pre><code>var x = &quot;test&quot;
+x = 2
+</code></pre>
+
+<p>由於 x 已經被先 Swift 判定是 String 了，後面想指定 Int 資料給 x 就會出錯</p>
+
+<p>Int 整數:
+Swift 提供了 Int 還另外提供了 8, 16, 32, 64 位元的有號和無號整數型別<br />
+若在 32 位元平台，宣告 Int 的話， Int 的長度和 Int32 是一樣的<br />
+若在 64 位元平台，宣告 Int 的話， Int 的長度和 Int64 是一樣的</p>
+
+<p>浮點數：
+3.2, 0.0 之類的數字，可以用
+Double - 64 位元浮點數 (至少 15 位數)
+Float - 32 位元浮點數 (至少 6 位數)</p>
+
+<p>布林值：
+true/false</p>
+
+<p>Tuples:
+Tuple 可以將多個值組合成一個值，例如：</p>
+
+<pre><code>//賦值
+let httpSucess = (200, &quot;Success&quot;)
+
+// 反過來接值
+let (statusCode, statusMessage) = httpSucess
+
+// 若只需要其中一個值，另一個值可以用 _ 代替，但是不能沒有 _ 
+let (statusCode, _) = httpSucess
+
+// 也可以用索引的方式拿值
+println(httpSucess.0)
+
+// 宣告 tuples 時也可以直接給予參數一個名稱
+let httpSucess = (statusCode: 200, statusMessage: &quot;Success&quot;)
+
+// 拿值時就可以:
+println(httpSucess.statusCode)
+</code></pre>
+
+<p>同時結合 function 這樣就可以多值回傳了！</p>
+
+<p>下一篇會接續今天變數相關的主題~</p>
 
                     </div>
                 </section>
@@ -429,92 +510,88 @@ Xcode 會即時顯示該變數的值、型別、以及輸出結果，<br />
 
 <p>It will remove index.php, and access Codeigniter site normally.</p>
 
-<p>Clean configuration:</p>
+<p>Clean configuration &ldquo;/etc/nginx/site-enabled/default&rdquo;:</p>
 
-<p>```text &ldquo;/etc/nginx/site-enabled/default&rdquo;
-server {</p>
+<pre><code class="language-text">server {
 
-<p>#&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; START
+#&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; START
         listen 80;
-        listen [::]:80 default_server ipv6only=on;</p>
+        listen [::]:80 default_server ipv6only=on;
 
-<pre><code>    root /YOUR/PROJECT/ROOT;
-    index index.html index.htm index.php;
+        root /YOUR/PROJECT/ROOT;
+        index index.html index.htm index.php;
 
-    # Make site accessible from http://localhost/
-    server_name localhost;
+        # Make site accessible from http://localhost/
+        server_name localhost;
+        
+        #location ~* .(ico|css|js|gif|jpe?g|png)(?[0-9]+)?$ {
+        #   expires max;
+        #   log_not_found off;
+        #}
+        
+        location / {
+                # First attempt to serve request as file, then
+                # as directory, then fall back to displaying a 404.
+                try_files $uri $uri/ /index.php;
+                # Uncomment to enable naxsi on this location
+                # include /etc/nginx/naxsi.rules
+        }
 
-    #location ~* .(ico|css|js|gif|jpe?g|png)(?[0-9]+)?$ {
-    #   expires max;
-    #   log_not_found off;
-    #}
+        location ~ .php$ {
+            root           /YOUR/PROJECT/ROOT;
+            try_files $uri =404;
+            fastcgi_pass unix:/var/run/php5-fpm.sock;
+            fastcgi_index  index.php;
+            fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+            include        fastcgi_params;
+            fastcgi_buffer_size 128k;
+            fastcgi_buffers 256 4k;
+            fastcgi_busy_buffers_size 256k;
+            fastcgi_temp_file_write_size 256k;
+        }
 
-    location / {
-            # First attempt to serve request as file, then
-            # as directory, then fall back to displaying a 404.
-            try_files $uri $uri/ /index.php;
-            # Uncomment to enable naxsi on this location
-            # include /etc/nginx/naxsi.rules
-    }
+#&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; END
 
-    location ~ .php$ {
-        root           /YOUR/PROJECT/ROOT;
-        try_files $uri =404;
-        fastcgi_pass unix:/var/run/php5-fpm.sock;
-        fastcgi_index  index.php;
-        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
-        include        fastcgi_params;
-        fastcgi_buffer_size 128k;
-        fastcgi_buffers 256 4k;
-        fastcgi_busy_buffers_size 256k;
-        fastcgi_temp_file_write_size 256k;
-    }
+        # Only for nginx-naxsi used with nginx-naxsi-ui : process denied requests
+        #location /RequestDenied {
+        #       proxy_pass http://127.0.0.1:8080;
+
+        #error_page 404 /404.html;
+
+        # redirect server error pages to the static page /50x.html
+        #
+        #error_page 500 502 503 504 /50x.html;
+        #location = /50x.html {
+        #       root /usr/share/nginx/html;
+        #}
+
+        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+        #
+        #location ~ \.php$ {
+        #       fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        #       # NOTE: You should have &quot;cgi.fix_pathinfo = 0;&quot; in php.ini
+        #
+        #       # With php5-cgi alone:
+        #       fastcgi_pass 127.0.0.1:9000;
+        #       # With php5-fpm:
+        #       fastcgi_pass unix:/var/run/php5-fpm.sock;
+        #       fastcgi_index index.php;
+        #       include fastcgi_params;
+        #}
+
+        # deny access to .htaccess files, if Apache's document root
+        # concurs with nginx's one
+        #
+        #location ~ /\.ht {
+        #       deny all;
+        #}
+}
+
 </code></pre>
 
-<p>#&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; END</p>
+<p>Codeigniter config - config.php:</p>
 
-<pre><code>    # Only for nginx-naxsi used with nginx-naxsi-ui : process denied requests
-    #location /RequestDenied {
-    #       proxy_pass http://127.0.0.1:8080;
-
-    #error_page 404 /404.html;
-
-    # redirect server error pages to the static page /50x.html
-    #
-    #error_page 500 502 503 504 /50x.html;
-    #location = /50x.html {
-    #       root /usr/share/nginx/html;
-    #}
-
-    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
-    #
-    #location ~ \.php$ {
-    #       fastcgi_split_path_info ^(.+\.php)(/.+)$;
-    #       # NOTE: You should have &quot;cgi.fix_pathinfo = 0;&quot; in php.ini
-    #
-    #       # With php5-cgi alone:
-    #       fastcgi_pass 127.0.0.1:9000;
-    #       # With php5-fpm:
-    #       fastcgi_pass unix:/var/run/php5-fpm.sock;
-    #       fastcgi_index index.php;
-    #       include fastcgi_params;
-    #}
-
-    # deny access to .htaccess files, if Apache's document root
-    # concurs with nginx's one
-    #
-    #location ~ /\.ht {
-    #       deny all;
-    #}
-</code></pre>
-
-<p>}</p>
-
-<pre><code>
-Codeigniter config:
-
-```php config.php
-$config['index_page'] = '';
+<pre><code class="language-php">$config['index_page'] = '';
 $config['uri_protocol'] = 'REQUEST_URI';
 </code></pre>
 
@@ -583,8 +660,9 @@ $config['uri_protocol'] = 'REQUEST_URI';
 <a href="https://docs.google.com/document/d/1dU-juYN25FMXdp6Ju62KAIT_0tuuZAPEgZkj-aT6kPQ/edit#heading=h.lafes4uxj2b0">年份未知 - 針對各 framework 進行評測 Event Driven I/O Web Application Server Analysis</a><br />
 <a href="http://blog.sina.com.cn/s/blog_704b6af70100py9n.html">Twisted 教程</a></p>
 
-<p>####Reactor 模型
-Node.js 處理 concurrency 是 Reactor mode<br />
+<h4 id="reactor-模型:ee2d238fddfde2ae14f531afb674e177">Reactor 模型</h4>
+
+<p>Node.js 處理 concurrency 是 Reactor mode<br />
 Ruby 的 Goliath framework 也是 Reactor mode<br />
 Golang, Erlang 是 CSP (communicating sequential process)</p>
 
@@ -715,7 +793,9 @@ SELECT * FROM my_table
                     </header>
 
                     <div class="post-description">
-                        <p>##Install lua on mac</p>
+                        
+
+<h2 id="install-lua-on-mac:8e145fa2aa5a58c0f066272b1882f03b">Install lua on mac</h2>
 
 <p>I&rsquo;m not sure that whether Lua is built on mac originally.</p>
 
@@ -733,16 +813,15 @@ SELECT * FROM my_table
 <pre><code>brew install lua
 </code></pre>
 
-<p>##Writing Lua</p>
+<h2 id="writing-lua:8e145fa2aa5a58c0f066272b1882f03b">Writing Lua</h2>
 
 <p>You can use command: <code>lua</code> to interact with lua. (just like <code>php -a</code> or <code>irb</code>)</p>
 
-<p>```lua hello.lua
-print(&ldquo;Hello World&rdquo;)</p>
+<pre><code class="language-lua">print(&quot;Hello World&quot;)
 
-<pre><code>
-```lua fact.lua
-function fact(n)
+</code></pre>
+
+<pre><code class="language-lua">function fact(n)
 	if n == 0 then
 		return 1
 	else

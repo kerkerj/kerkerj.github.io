@@ -612,93 +612,6 @@ $ ./deploy.sh &quot;Your commit message&quot;
                 <section class="post">
                     <header class="post-header">
 
-                        <a href="http://blog.kerkerj.in/blog/2015/04/22/2015-04-22-raspberry-pi2-remote-webcam/" class="post-title">Raspberry Pi2 remote webcam</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-raspberry" href="http://blog.kerkerj.in//categories/raspberry">raspberry</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p>如題~</p>
-
-<p>先假設 pi2 本身的 IP 是 <code>192.168.1.200</code></p>
-
-<p>首先先進去 server 來更新一下~</p>
-
-<pre><code class="language-shell">$ sudo apt-get update &amp;&amp; sudo apt-get upgrade
-</code></pre>
-
-<p>再來就裝 <a href="http://www.lavrsen.dk/foswiki/bin/view/Motion/WebHome">motion</a></p>
-
-<p>他其實是一個 motion detector，不過也可以拿來當作 web cam 用的 streaming server XD</p>
-
-<pre><code class="language-shell">$ sudo apt-get install motion
-</code></pre>
-
-<p>編輯設定檔 <code>/etc/motion/motion.conf</code></p>
-
-<pre><code class="language-shell">$ sudo vi /etc/motion/motion.conf
-</code></pre>
-
-<p>找到以下幾個值，並分別改成下面</p>
-
-<pre><code class="language-shell">daemon = ON
-webcam_localhost = OFF
-control_localhost = OFF
-</code></pre>
-
-<p><code>webcam_localhost</code> 是 streaming 介面</p>
-
-<p><code>control_localhost</code> 是設定介面</p>
-
-<p>如果要改預設 port，就找 <code>webcam_port</code>, or <code>control_port</code></p>
-
-<p>最後設定將 service 啟動</p>
-
-<pre><code class="language-shell">$ sudo vi /etc/default/motion
-</code></pre>
-
-<p>將 no 改成 yes</p>
-
-<pre><code class="language-shell">start_motion_daemon = yes
-</code></pre>
-
-<p>啟動 service</p>
-
-<pre><code class="language-shell">$ sudo service motion start
-</code></pre>
-
-<p>motion 這個 service 預設的 port 是 8080 / 8081 (可以在前述的設定檔更改)</p>
-
-<p>開啟瀏覽器, 連入 <code>http://192.168.1.200:8080</code> or <code>http://192.168.1.200:8081</code></p>
-
-<p>這邊會有個小問題，就是連 8080 時會很正常</p>
-
-<p>但是 8081 時如果是用 chrome，則怎麼都進不去</p>
-
-<p>後來發現 <a href="http://www.lavrsen.dk/foswiki/bin/view/Motion/SupportQuestion2013x09x01x104741">這篇</a></p>
-
-<p>他說 Chrome 不再支援 raw MJPEG streams 了</p>
-
-<p>所以就是用其他瀏覽器開吧, 我是用 Safari :D</p>
-
-<p>記得要和你的 pi2 在同一個 wifi 環境下~</p>
-
-<p>剩下的還有許多設定可以玩～ 改天再來慢慢玩</p>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2015-04-04 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
                         <a href="http://blog.kerkerj.in/blog/2015/04/22/2015-04-22-setup-wifi-on-raspberry-pi2/" class="post-title">Setup wifi on raspberry pi2</a>
 
                         <p class="post-meta">
@@ -803,6 +716,93 @@ $ ifconfig wlan0 # 確認是否取得 IP
 <p>raspberry pi forum: <a href="http://www.raspberrypi.org/forums/viewtopic.php?f=28&amp;t=62371&amp;start=475">http://www.raspberrypi.org/forums/viewtopic.php?f=28&amp;t=62371&amp;start=475</a></p>
 
 <p>網路設定: <a href="http://inpega.blogspot.tw/2013/09/blog-post_15.html">http://inpega.blogspot.tw/2013/09/blog-post_15.html</a></p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2015-04-04 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://blog.kerkerj.in/blog/2015/04/22/2015-04-22-raspberry-pi2-remote-webcam/" class="post-title">Raspberry Pi2 remote webcam</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-raspberry" href="http://blog.kerkerj.in//categories/raspberry">raspberry</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>如題~</p>
+
+<p>先假設 pi2 本身的 IP 是 <code>192.168.1.200</code></p>
+
+<p>首先先進去 server 來更新一下~</p>
+
+<pre><code class="language-shell">$ sudo apt-get update &amp;&amp; sudo apt-get upgrade
+</code></pre>
+
+<p>再來就裝 <a href="http://www.lavrsen.dk/foswiki/bin/view/Motion/WebHome">motion</a></p>
+
+<p>他其實是一個 motion detector，不過也可以拿來當作 web cam 用的 streaming server XD</p>
+
+<pre><code class="language-shell">$ sudo apt-get install motion
+</code></pre>
+
+<p>編輯設定檔 <code>/etc/motion/motion.conf</code></p>
+
+<pre><code class="language-shell">$ sudo vi /etc/motion/motion.conf
+</code></pre>
+
+<p>找到以下幾個值，並分別改成下面</p>
+
+<pre><code class="language-shell">daemon = ON
+webcam_localhost = OFF
+control_localhost = OFF
+</code></pre>
+
+<p><code>webcam_localhost</code> 是 streaming 介面</p>
+
+<p><code>control_localhost</code> 是設定介面</p>
+
+<p>如果要改預設 port，就找 <code>webcam_port</code>, or <code>control_port</code></p>
+
+<p>最後設定將 service 啟動</p>
+
+<pre><code class="language-shell">$ sudo vi /etc/default/motion
+</code></pre>
+
+<p>將 no 改成 yes</p>
+
+<pre><code class="language-shell">start_motion_daemon = yes
+</code></pre>
+
+<p>啟動 service</p>
+
+<pre><code class="language-shell">$ sudo service motion start
+</code></pre>
+
+<p>motion 這個 service 預設的 port 是 8080 / 8081 (可以在前述的設定檔更改)</p>
+
+<p>開啟瀏覽器, 連入 <code>http://192.168.1.200:8080</code> or <code>http://192.168.1.200:8081</code></p>
+
+<p>這邊會有個小問題，就是連 8080 時會很正常</p>
+
+<p>但是 8081 時如果是用 chrome，則怎麼都進不去</p>
+
+<p>後來發現 <a href="http://www.lavrsen.dk/foswiki/bin/view/Motion/SupportQuestion2013x09x01x104741">這篇</a></p>
+
+<p>他說 Chrome 不再支援 raw MJPEG streams 了</p>
+
+<p>所以就是用其他瀏覽器開吧, 我是用 Safari :D</p>
+
+<p>記得要和你的 pi2 在同一個 wifi 環境下~</p>
+
+<p>剩下的還有許多設定可以玩～ 改天再來慢慢玩</p>
 
                     </div>
                 </section>
