@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+     
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="[Swift-d11] - Basic - Hello World! ViewController | kerkerj">
+    <meta property="og:url" content="http://kerkerj.github.io/blog/2014/10/11/2014-10-11-swift-d11/">
+    <meta property="og:description" content="">
+    
+    
+    <meta property="og:site_name" content="kerkerj">
+
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="kerkerj" />
+    <meta name="twitter:title" content="[Swift-d11] - Basic - Hello World! ViewController &middot; kerkerj">
+    <meta name="twitter:description" content="">
+
+    
+    <title>[Swift-d11] - Basic - Hello World! ViewController &middot; kerkerj</title>
+
+    
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+    
+
+    <link rel="stylesheet" href="http://kerkerj.github.io//css/all.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    
+    
+      <link rel="stylesheet" href="http://kerkerj.github.io//css/highlight/railscasts.css">
+    
+
+    
+    <link href="http://kerkerj.github.io/favicon.ico" rel="icon">
+
+    
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://kerkerj.github.io//index.xml">
+</head>
+<body>
+
+
+<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+    <div class="header">
+        <hgroup>
+            <h1 class="brand-title"><a href="http://kerkerj.github.io/">kerkerj</a></h1>
+            <h2 class="brand-tagline"> Hi. </h2>
+        </hgroup>
+
+        <nav class="nav">
+            
+            <ul class="pure-menu-list">
+              
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//notes/">Notes</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//about/">About</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//mac-app-list/">Mac App List</a>
+                </li>
+              
+            </ul>
+
+            
+            <ul class="nav-list">
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://twitter.com/kerkerj"><i class="fa fa-twitter"></i> Twitter</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://github.com/kerkerj "><i class="fa fa-github-alt"></i> Github</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            
+            <div class="posts">
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/11/2014-10-11-swift-d11/" class="post-title">[Swift-d11] - Basic - Hello World! ViewController</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-swift" href="http://kerkerj.github.io//categories/swift">swift</a>
+                            
+                        </p>
+                    </header>
+                    <div class="post-description">
+                        <p>今天就要來建立一個 Hello World swift app 啦 XD</p>
+
+<p>首先就是開 Xcode 然後開專案囉~~</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.18.22.png" alt="image" />
+</p>
+
+<p>就看你要存去哪裡啦～</p>
+
+<p>再來就會進到專案本身:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.19.47.png" alt="image" />
+</p>
+
+<p>我們就看右下角有個地方可以找到 Label 這個選項:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.20.27.png" alt="image" />
+</p>
+
+<p>把他拉到 Storyboard 的任意位置就可以了~</p>
+
+<p>然後更改 label 的屬性:</p>
+
+<p>先點一下 label 選取後，看右上角</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.21.53.png" alt="image" />
+</p>
+
+<p>有個地方可以更改它的顯示文字，我們將它改成 HelloWorld!</p>
+
+<p>改完之後，按左上角的 Run! ，我們也可以選擇後面的 target 看是要跑在 i6 或是 i5 上，</p>
+
+<p>按下 Run 後程式就會 deploy 到模擬器上面了！</p>
+
+<p>這就是第一個 Hello World 啦!</p>
+
+<p>完全不用寫程式哦 XDDDDD</p>
+
+<p>不過還是要稍微了解一下運作原理啦~</p>
+
+<p>如果剛剛在編輯 storyboard 的時候，有發現那個 View 的左邊有一個奇怪的箭頭指向 View，那個箭頭的意思其實就是程式進入點的意思，</p>
+
+<p>storyboard 就是在描述程式的走向，像在說故事一樣，從某一頁按了什麼東西跳到哪一頁</p>
+
+<p>其實我一直都沒有很習慣 storyboard 的拉法，還是比較習慣用程式建立物件，將想要的物件用程式擺(憑空想像XD)，但是前面幾個比較屬於練習的小東西都還是會用拉的，比較好懂~</p>
+
+<p>我們剛剛建立的那一頁 Hello world</p>
+
+<p>基本上就是在左邊的 ViewController</p>
+
+<p>那我們試著使用程式來改變 HelloWorld 這個 label 的值吧!</p>
+
+<p>我們首先使用分割視窗的模式</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.33.31.png" alt="image" />
+</p>
+
+<p>選擇左邊數來第二個按鈕</p>
+
+<p>然後選擇 storyboard 及 ViewController</p>
+
+<p>讓他是照下面那樣排列的</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.34.52.png" alt="image" />
+</p>
+
+<p>接著在 左邊的 label 上按著 ctrl ，拖曳到右邊的程式碼 class 中，</p>
+
+<p>他就會自動幫你產生一個 storyboard 物件與程式碼的連結，</p>
+
+<p>輸入 label 的變數，我們取名叫 titleLabel</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.37.41.png" alt="image" />
+</p>
+
+<p>就可以在 viewDidload 中，更改該 label 的值:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.38.13.png" alt="image" />
+</p>
+
+<pre><code>override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        titleLabel.text = &quot;hi&quot;
+    }
+</code></pre>
+
+<p>在 viewDidload 中，雖然 label 在 storyboard 時已經有初始值 &ldquo;Hello World&rdquo; 了</p>
+
+<p>但是當 app 被 init 起來後，ViewController 也被初始化了，因此就會執行 ViewDidload 的方法，這個時候就會執行到剛剛的 <code>titleLabel.text = &quot;hi&quot;</code></p>
+
+<p>於是就會更改掉 label 的值了</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-10%202.41.04.png" alt="image" />
+</p>
+
+<p>以上就是簡單的 Hello World</p>
+
+<p>明天來拉幾個常用的元件！</p>
+
+<p>p.s. 截圖感謝同事菲力克濕協助幫忙 :D</p>
+
+                    </div>
+                    <div class="post-share">
+                        <div class="post-share-links">
+                            <h4 style="">Share</h4>
+                            <a href="#" data-type="facebook" data-url="http://kerkerj.github.io/blog/2014/10/11/2014-10-11-swift-d11/" data-title="[Swift-d11] - Basic - Hello World! ViewController" data-description="" data-media="" class="prettySocial fa fa-facebook"></a>
+                            <a href="#" data-type="googleplus" data-url="http://kerkerj.github.io/blog/2014/10/11/2014-10-11-swift-d11/" data-description="" class="prettySocial fa fa-google-plus"></a>
+                            
+                            <a href="#" data-type="twitter" data-url="http://kerkerj.github.io/blog/2014/10/11/2014-10-11-swift-d11/" data-description="" data-via="kerkerj" class="prettySocial fa fa-twitter"></a>
+                            
+
+                        </div>
+                    </div>
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/kerkerj.github.io\/blog\/2014\/10\/11\/2014-10-11-swift-d11\/';
+    var disqus_title = '[Swift-d11] - Basic - Hello World! ViewController';
+    var disqus_url = 'http:\/\/kerkerj.github.io\/blog\/2014\/10\/11\/2014-10-11-swift-d11\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                </section>
+            </div>
+            <div class="footer">
+    <div class="pure-menu pure-menu-horizontal pure-menu-open">
+        <ul>
+            <li>Powered by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a></li>
+        </ul>
+    </div>
+</div>
+<script src="http://kerkerj.github.io//js/all.min.js"></script>
+<script>
+hljs.initHighlightingOnLoad();
+</script>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

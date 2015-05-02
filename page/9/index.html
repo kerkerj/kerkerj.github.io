@@ -1,0 +1,683 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://kerkerj.github.io/">
+    <meta property="og:title" content="kerkerj">
+    
+    <meta property="og:description" content="如題~ 先假設 pi2 本身的 IP 是 192.168.1.200 首先先進去 server 來更新一下~ $ sudo apt-get update &amp;&amp; sudo apt-get upgrade 再來就裝 motion 他其實是一個 motion detector，不過也可以拿來當作 web cam 用的 streaming server XD $ sudo apt-get install motion 編輯設定檔 /etc/motion/motion.conf $ sudo vi /etc/motion/motion.conf 找到以下幾個值，並分別改成下面 daemon = ON webcam_localhost = OFF control_localhost = OFF webcam_localhost 是 streaming 介面 control_localhost 是設定介面 如果要改預設 port，就找 webcam_port, or control_port 最後設定將 service 啟動 $ sudo vi /etc/default/motion 將 no">
+    
+    
+    
+    <meta property="og:site_name" content="kerkerj">
+
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="kerkerj" />
+    <meta name="twitter:title" content="kerkerj &middot; kerkerj">
+    <meta name="twitter:description" content="Hi.">
+
+    
+    <title>kerkerj &middot; kerkerj</title>
+
+    
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+    
+
+    <link rel="stylesheet" href="http://kerkerj.github.io//css/all.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    
+    
+      <link rel="stylesheet" href="http://kerkerj.github.io//css/highlight/railscasts.css">
+    
+
+    
+    <link href="http://kerkerj.github.io/favicon.ico" rel="icon">
+
+    
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://kerkerj.github.io//index.xml">
+</head>
+<body>
+
+
+<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+    <div class="header">
+        <hgroup>
+            <h1 class="brand-title"><a href="http://kerkerj.github.io/">kerkerj</a></h1>
+            <h2 class="brand-tagline"> Hi. </h2>
+        </hgroup>
+
+        <nav class="nav">
+            
+            <ul class="pure-menu-list">
+              
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//notes/">Notes</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//about/">About</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//mac-app-list/">Mac App List</a>
+                </li>
+              
+            </ul>
+
+            
+            <ul class="nav-list">
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://twitter.com/kerkerj"><i class="fa fa-twitter"></i> Twitter</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://github.com/kerkerj "><i class="fa fa-github-alt"></i> Github</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            
+            <div class="posts">
+                
+                <h1 class="content-subhead">2014-01-01 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/01/28/2014-01-28-php-json-decode-error-by-wrong-json-string-with-quotes/" class="post-title">[PHP] json_decode error by wrong json string with quotes </a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-php" href="http://kerkerj.github.io//categories/php">php</a><a class="post-category post-category-json" href="http://kerkerj.github.io//categories/json">json</a><a class="post-category post-category-php.ini" href="http://kerkerj.github.io//categories/php.ini">php.ini</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>Normal json string:
+<code>
+{&quot;Hey&quot;:&quot;There&quot;}
+</code>
+Error json string got from $_POST variable:
+<code>
+{\&quot;Hey\&quot;:\&quot;There\&quot;}
+</code>
+This may causes by <code>magic_quotes</code> in <code>php.ini</code>
+Magic is never good in development.</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-01-01 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/01/09/2014-01-09-sublime-text-2-integration-with-rvm-and-rspec/" class="post-title">[Sublime Text 2] Integration With RVM and Rspec</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-ruby" href="http://kerkerj.github.io//categories/ruby">ruby</a><a class="post-category post-category-RVM" href="http://kerkerj.github.io//categories/rvm">RVM</a><a class="post-category post-category-SublimeText2" href="http://kerkerj.github.io//categories/sublimetext2">SublimeText2</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>Ruby:</p>
+
+<p><code>~/Library/Application\ Support/Sublime\ Text\ 2/Packages/Ruby/Ruby.sublime-build</code>
+<code>json
+{
+  &quot;env&quot;:{
+      &quot;PATH&quot;:&quot;${HOME}/.rvm/bin:${PATH}&quot;
+  },
+  &quot;cmd&quot;: [&quot;rvm-auto-ruby&quot;, &quot;$file&quot;],
+  &quot;file_regex&quot;: &quot;^(...*?):([0-9]*):?([0-9]*)&quot;,
+  &quot;selector&quot;: &quot;source.ruby&quot;
+}
+</code></p>
+
+<p><a href="http://rubenlaguna.com/wp/2012/12/07/sublime-text-2-rvm-rspec-take-2/">http://rubenlaguna.com/wp/2012/12/07/sublime-text-2-rvm-rspec-take-2/</a></p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-01-01 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/01/02/2014-01-02-rails-put-vs-patch/" class="post-title">[Rails] PUT v.s. PATCH</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-rails" href="http://kerkerj.github.io//categories/rails">rails</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>According to rails convention,</p>
+
+<p>PUT is used for updating an existing resource</p>
+
+<p>POST is used for creating a new resource</p>
+
+<p>In rails 4, PUT has been changed to PATCH to avoid confusion.</p>
+
+<pre><code>     posts GET    /posts(.:format)                            {:action=&gt;&quot;index&quot;, :controller=&gt;&quot;posts&quot;}
+          POST   /posts(.:format)                            {:action=&gt;&quot;create&quot;, :controller=&gt;&quot;posts&quot;}
+ new_post GET    /posts/new(.:format)                        {:action=&gt;&quot;new&quot;, :controller=&gt;&quot;posts&quot;}
+edit_post GET    /posts/:id/edit(.:format)                   {:action=&gt;&quot;edit&quot;, :controller=&gt;&quot;posts&quot;}
+     post GET    /posts/:id(.:format)                        {:action=&gt;&quot;show&quot;, :controller=&gt;&quot;posts&quot;}
+          PUT    /posts/:id(.:format)                        {:action=&gt;&quot;update&quot;, :controller=&gt;&quot;posts&quot;}
+          DELETE /posts/:id(.:format)                        {:action=&gt;&quot;destroy&quot;, :controller=&gt;&quot;posts&quot;}
+
+</code></pre>
+
+<p>延伸閱讀：ihower - <a href="http://ihower.tw/blog/archives/6483">HTTP Verbs: 談 POST, PUT 和 PATCH 的應用</a></p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-01-01 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/01/02/2014-01-02-rails-list-of-rails-model-type-mysql/" class="post-title">[Rails] List of Rails Model Type (MySQL)</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-rails" href="http://kerkerj.github.io//categories/rails">rails</a><a class="post-category post-category-mysql" href="http://kerkerj.github.io//categories/mysql">mysql</a><a class="post-category post-category-model" href="http://kerkerj.github.io//categories/model">model</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>:binary<br />
+:boolean<br />
+:date<br />
+:datetime<br />
+:decimal<br />
+:float<br />
+:integer<br />
+:primary_key<br />
+:string<br />
+:text<br />
+:time<br />
+:timestamp</p>
+
+<p><a href="http://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters/TableDefinition.html#method-i-column">http://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters/TableDefinition.html#method-i-column</a></p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2013-12-12 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2013/12/26/2013-12-26-aws-ubuntu-swap/" class="post-title">[AWS] ubuntu swap</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-aws" href="http://kerkerj.github.io//categories/aws">aws</a><a class="post-category post-category-ubuntu" href="http://kerkerj.github.io//categories/ubuntu">ubuntu</a><a class="post-category post-category-ec2" href="http://kerkerj.github.io//categories/ec2">ec2</a><a class="post-category post-category-swap" href="http://kerkerj.github.io//categories/swap">swap</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>Add swap for an instance</p>
+
+<pre><code>$ sudo /bin/dd if=/dev/zero of=/var/swap.1 bs=1M count=1024
+$ sudo /sbin/mkswap /var/swap.1
+$ sudo /sbin/swapon /var/swap.1
+$ echo &quot;/var/swap.1 swap swap defaults 0 0&quot; &gt;&gt; /etc/fstab #將 swap 加入 開機啟動
+</code></pre>
+
+<p>在 Amazon EC2 micro plan，加入 swap 很容易 I/O 過量，
+因此最好是需要時才開啟 swap，不用時關閉 swap 以免被收錢~</p>
+
+<p>swap usage</p>
+
+<pre><code class="language-console">$ swapon -s   
+$ free -k  
+---
+$ swapoff -a  
+$ swapon  -a  
+</code></pre>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2013-12-12 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2013/12/24/2013-12-24-sublimetext2-use-command-to-call-sublime-text2/" class="post-title">[SublimeText2] use command to call sublime text2</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <pre><code>ln -s /Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl /usr/local/bin/sublime
+</code></pre>
+
+<p>in terminal:
+<code>
+$ sublime filename
+$ sublime . (open the directory)
+</code></p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2013-12-12 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2013/12/22/2013-12-22-gem-how-to-make-no-ri-no-rdoc-the-default-for-gem-install/" class="post-title">[Gem] How to make --no-ri --no-rdoc the default for gem install?</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-gem" href="http://kerkerj.github.io//categories/gem">gem</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>In home dir, create a file: .gemrc (on linux, maybe on mac)
+<code>
+echo &quot;gem: --no-ri --no-rdoc&quot; &gt;&gt; ~/.gemrc
+</code></p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2013-12-12 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2013/12/20/2013-12-20-ubuntu-ror-environment/" class="post-title">[Ubuntu] RoR environment</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-mysql" href="http://kerkerj.github.io//categories/mysql">mysql</a><a class="post-category post-category-ubuntu" href="http://kerkerj.github.io//categories/ubuntu">ubuntu</a><a class="post-category post-category-RVM" href="http://kerkerj.github.io//categories/rvm">RVM</a><a class="post-category post-category-nginx" href="http://kerkerj.github.io//categories/nginx">nginx</a><a class="post-category post-category-passenger" href="http://kerkerj.github.io//categories/passenger">passenger</a><a class="post-category post-category-php5-fpm" href="http://kerkerj.github.io//categories/php5-fpm">php5-fpm</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>##RVM with Ruby2.0.0-p353 + Rails4.0.2 + Ubuntu12.04(precise64) + php-fpm by Vagrant(clean install)
+p.s.
+If you don&rsquo;t use RVM, you can just follow the instruction from <a href="http://www.modrails.com/documentation/Users%20guide%20Nginx.html#install_on_debian_ubuntu">Passenger offcial website</a>. It will be easier.
+Plus, I installed all these things by Vagrant.
+##First thing to do
+<code>
+$ sudo apt-get update
+$ sudo apt-get upgrade
+</code>
+##Pre-setup: install necessary packages
+<code>
+$ sudo apt-get update
+$ sudo apt-get install build-essential libssl-dev libpcre3-dev libncurses5-dev libreadline6-dev git vim curl libcurl4-openssl-dev libreadline6 autoconf openssl git-core zlib1g zlib1g-dev  libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev autoconf libc6-dev libgdbm-dev libncurses5-dev automake libtool bison subversion pkg-config libffi-dev
+</code>
+##Get .bashrc from my repo (Optional)
+<code>
+$ cd
+$ git clone https://github.com/jerry54010/bash-it.git
+$ mv bash-it .bash_it
+$ cd .bash_it
+$ git checkout ubuntu
+$ ln -s ~/.bash_it/.bash_profile ~/.bash_profile
+$ cd
+$ source ~/.bash_profile
+</code>
+##Get .vimrc from my repo (Optional)
+<code>
+$ wget https://gist.github.com/jerry54010/8049575/raw/42ced22651fedf06174457e311d22d17f6591b65/.vimrc
+</code>
+##RVM and Ruby 2.0 (RVM: Ruby version management)
+```
+$ \curl -sSL <a href="https://get.rvm.io">https://get.rvm.io</a> | bash -s stable
+$ source ~/.bash_profile //if you installed my bash_profile.
+//If not, source ~/.profile
+$ rvm requirements
+$ echo &lsquo;gem: &ndash;no-ri &ndash;no-rdoc&rsquo;  &gt;&gt; ~/.gemrc
+$ rvm install 2.0.0
+$ source ~/.bash_profile //if you installed my bash_profile.
+//If not, source ~/.profile</p>
+
+<p>add this line to .bash_rc or .bash_profile (if you don&rsquo;t use my .bash_profile)
+[[ -s &ldquo;$HOME/.rvm/scripts/rvm&rdquo; ]] &amp;&amp; . &ldquo;$HOME/.rvm/scripts/rvm&rdquo; # Load RVM function</p>
+
+<p>$ rvm use 2.0.0 &ndash;default
+<code>
+Now we should be using ruby2.0.0 by RVM, let's check:
+</code>
+$ rvm list
+=* ruby-2.0.0-p353 [ x86_64 ]
+// =&gt; - current
+// =* - current &amp;&amp; default
+//  * - default
+<code>
+##Nodejs, libv8-dev(for javascript) and SQLite3 (sqlite3 libsqlite3-dev)
+</code>
+$ sudo apt-get -y install nodejs libv8-dev sqlite3 libsqlite3-dev
+<code>
+##Passenger with NGINX
+</code>
+$ gem install passenger
+$ rvmsudo passenger-install-nginx-module
+choose 2: customize
+    a. src dir: /home/vagrant/nginx-1.4.4/ (where the nginx you download)
+    b. I installed nginx with passenger in <code>/etc/nginx</code> (default is /opt/nginx)
+    c. default
+<code>
+##Get nginx script 
+If you use /opt/nginx as root dir, you don't need to modify this script.
+If you use /etc/nginx or else dir as root dir like me, you should modify the script.
+(from [linode](https://library.linode.com/web-servers/nginx/installation/ubuntu-12.04-precise-pangolin))
+</code>
+$ wget -O init-deb.sh <a href="http://library.linode.com/assets/1139-init-deb.sh">http://library.linode.com/assets/1139-init-deb.sh</a>
+$ sudo mv init-deb.sh /etc/init.d/nginx
+$ chmod +x /etc/init.d/nginx
+$ sudo /usr/sbin/update-rc.d -f nginx defaults
+<code>
+The nginx default public folder will be in `/etc/nginx/html` 
+check nginx version:
+</code>
+$ /etc/nginx/sbin/nginx -v
+nginx version: nginx/1.4.4
+<code>
+##Install php5-fpm
+</code>
+$ sudo apt-get -y install php5-cli php5-common php5-fpm
+$ sudo vim /etc/php5/fpm/php.ini
+//(find and change to <code>cgi.fix_pathinfo = 0</code> )
+$ sudo vim /etc/php5/fpm/pool.d/www.conf
+//change: listen = 127.0.0.1:9000 to listen = /var/run/php5-fpm.sock
+$ sudo vim /etc/nginx/conf/nginx.conf or /opt/nginx/conf/nginx.conf //find and modify
+location ~ .php$ {
+    fastcgi_split_path_info ^(.+.php)(/.+)$;
+    # NOTE: You should have &ldquo;cgi.fix_pathinfo = 0;&rdquo; in php.ini
+    # With php5-cgi alone:
+    #fastcgi_pass 127.0.0.1:9000;
+    # With php5-fpm:
+    fastcgi_pass unix:/var/run/php5-fpm.sock;
+    fastcgi_index index.php;
+    fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+    include fastcgi_params;
+}
+$ echo &ldquo;&lt;?php phpinfo(); ?&gt;&rdquo; | sudo tee -a /etc/nginx/html/phpinfo.php
+<code>
+Restart all:
+</code>
+$ sudo service php5-fpm restart
+$ sudo service nginx restart
+<code>
+##Install rails
+</code>
+$ gem install rails
+<code>
+##RoR environment check
+</code>
+$ ruby -v
+ruby 2.0.0p353 (2013-11-22 revision 43784) [x86_64-linux]
+$ rails -v
+Rails 4.0.2
+$ rake -V
+rake, version 10.1.0
+```
+If you passed, you are good to go!</p>
+
+<p>##Deploy Rails application by nginx:
+Assume your rails application path is: <code>/home/vagrant/projects/subapp/</code>
+(by <code>rails new subapp</code>)
+then, the <code>/etc/nginx/conf/nginx.conf</code> will be:
+```
+http {
+    &hellip;
+    server {
+        listen 80;
+        server_name localhost;
+        root /etc/nginx/html;</p>
+
+<pre><code>    # This block has been added.
+    location ~ ^/subapp(/.*|$) {
+        passenger_base_uri /subapp;
+        alias /home/vagrant/projects/subapp/public$1;  # &lt;-- be sure to point to 'public'!
+        passenger_app_root /home/vagrant/projects/subapp;
+        passenger_enabled on;
+        rails_env development; # or production
+    }
+}
+...
+</code></pre>
+
+<p>}
+<code>
+restart nginx, you can access the url: `http://localhost/subapp/`  
+##Install MySQL and Mysql adapter  
+</code>
+$ sudo apt-get -y install mysql-server mysql-common mysql-client libmysqlclient-dev<br />
+$ gem install mysql2 //gem mysql2 is faster than gem mysql<br />
+```
+&gt;The gem you installed is placed in RVM&rsquo;s ruby, if you are using RVM&rsquo;s ruby.</p>
+
+<p>If you use MySQL in your rails application, remember to change the database.yml.</p>
+
+<p>p.s. If you want to use phpmyadmin, you can do:<br />
+<code>
+$ sudo apt-get install php5-mysql
+</code>
+download phpmyadmin, then extract to <code>/etc/nginx/html/phpmyadmin</code><br />
+then start the server, access: <code>http://localhost/phpmyadmin/</code></p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2013-12-12 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2013/12/19/2013-12-19-vagrant-use-knife-solo-to-deploy-a-new-vm/" class="post-title">[Vagrant] use knife-solo to deploy a new VM</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>My own computer: host side
+My VM: guest side</p>
+
+<p>knife-solo is a tool for Chef.
+host side: you need ruby environment!
+<code>
+$ gem install knife-solo
+</code></p>
+
+<p>The only thing you need to install is just knife-solo by ruby!</p>
+
+<pre><code>$ knife configure -r . --defaults (產生預設設定檔，內容為空)
+$ knife cookbook create &quot;package&quot;
+$ knife solo bootstrap vagrant@ip.address (bootstrap = prepare + cook, only for the first time)
+</code></pre>
+
+<p>加入菜單：
+<code>
+$ knife cookbook create nginx
+</code>
+在 cookbooks/nginx/recipes/default.rb 裡最少要加入
+<code>package 'nginx'</code> 也就是套件名稱
+其他內容可以自己加
+例如：
+```
+package &lsquo;nginx&rsquo;</p>
+
+<p>service &lsquo;nginx&rsquo; do
+    supports [:status, :restart, :reload]
+      action :start
+end</p>
+
+<p>directory &ldquo;/vagrant/demo&rdquo; do
+end</p>
+
+<p>file &ldquo;/vagrant/index.php&rdquo; do
+    content &ldquo;&lt;?php phpinfo(); ?&gt;&rdquo;
+end</p>
+
+<p>template &ldquo;/etc/nginx/sites-enabled/default&rdquo; do
+    source &lsquo;default.erb&rsquo;
+      notifies :restart, &lsquo;service[nginx]&lsquo;, :immediately
+end</p>
+
+<p>```</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2013-12-12 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2013/12/18/2013-12-18-ruby-pp-to-ruby-as-var-dump-to-php/" class="post-title">[Ruby] PP to Ruby as Var_dump to PHP </a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <pre><code class="language-ruby">require 'pp'
+pp(ENV)
+</code></pre>
+
+<blockquote>
+<p>Usage:
+pp(any_variable)</p>
+</blockquote>
+
+<p>just like <code>var_dump</code> in <code>php</code></p>
+
+                    </div>
+                </section>
+                
+            </div>
+            
+<div class="pagination">
+  <nav role="pagination" class="post-list-pagination">
+      
+      <a href="http://kerkerj.github.io/page/8/" class="post-list-pagination-item pure-button post-list-pagination-item-prev">
+        <i class="fa fa-angle-double-left"></i>&nbsp;Newer
+      </a>
+      
+    <span class="post-list-pagination-item post-list-pagination-item-current">Page 9 of 14</span>
+    
+      <a href="http://kerkerj.github.io/page/10/" class="post-list-pagination-item pure-button post-list-pagination-item-next">
+        Older&nbsp;<i class="fa fa-angle-double-right"></i>
+      </a>
+    
+  </nav>
+</div>
+
+
+            <div class="footer">
+    <div class="pure-menu pure-menu-horizontal pure-menu-open">
+        <ul>
+            <li>Powered by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a></li>
+        </ul>
+    </div>
+</div>
+<script src="http://kerkerj.github.io//js/all.min.js"></script>
+<script>
+hljs.initHighlightingOnLoad();
+</script>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

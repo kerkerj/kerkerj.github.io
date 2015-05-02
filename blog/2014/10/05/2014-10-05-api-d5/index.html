@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+     
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="[API-d5] - [Server 番外篇] 建立自己的本機虛擬伺服器 1 - Vagrant &#43; VirtualBox 安裝 | kerkerj">
+    <meta property="og:url" content="http://kerkerj.github.io/blog/2014/10/05/2014-10-05-api-d5/">
+    <meta property="og:description" content="">
+    
+    
+    <meta property="og:site_name" content="kerkerj">
+
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="kerkerj" />
+    <meta name="twitter:title" content="[API-d5] - [Server 番外篇] 建立自己的本機虛擬伺服器 1 - Vagrant &#43; VirtualBox 安裝 &middot; kerkerj">
+    <meta name="twitter:description" content="">
+
+    
+    <title>[API-d5] - [Server 番外篇] 建立自己的本機虛擬伺服器 1 - Vagrant &#43; VirtualBox 安裝 &middot; kerkerj</title>
+
+    
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+    
+
+    <link rel="stylesheet" href="http://kerkerj.github.io//css/all.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    
+    
+      <link rel="stylesheet" href="http://kerkerj.github.io//css/highlight/railscasts.css">
+    
+
+    
+    <link href="http://kerkerj.github.io/favicon.ico" rel="icon">
+
+    
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://kerkerj.github.io//index.xml">
+</head>
+<body>
+
+
+<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+    <div class="header">
+        <hgroup>
+            <h1 class="brand-title"><a href="http://kerkerj.github.io/">kerkerj</a></h1>
+            <h2 class="brand-tagline"> Hi. </h2>
+        </hgroup>
+
+        <nav class="nav">
+            
+            <ul class="pure-menu-list">
+              
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//notes/">Notes</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//about/">About</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//mac-app-list/">Mac App List</a>
+                </li>
+              
+            </ul>
+
+            
+            <ul class="nav-list">
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://twitter.com/kerkerj"><i class="fa fa-twitter"></i> Twitter</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://github.com/kerkerj "><i class="fa fa-github-alt"></i> Github</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            
+            <div class="posts">
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/05/2014-10-05-api-d5/" class="post-title">[API-d5] - [Server 番外篇] 建立自己的本機虛擬伺服器 1 - Vagrant &#43; VirtualBox 安裝</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-restful" href="http://kerkerj.github.io//categories/restful">restful</a><a class="post-category post-category-api" href="http://kerkerj.github.io//categories/api">api</a>
+                            
+                        </p>
+                    </header>
+                    <div class="post-description">
+                        <p>VirtualBox 是一套虛擬軟體，可以方便幫助我們在現有的作業系統上</p>
+
+<p>模擬另一個作業系統 (如 linux, Ubuntu, CentOS&hellip;)</p>
+
+<p>在虛擬機器裡面所以的一切變動，都不會影響到現有的作業系統，</p>
+
+<p>非常適合拿來做測試使用</p>
+
+<p>由於現在大部份的 Service 除了架設在 Windows Server 外，最大宗的就是 *nix distribution 了</p>
+
+<p>因此這在這個系列文中，也是一定要教大家如何建立起虛擬測試機器，</p>
+
+<p>來模擬真實 Server 環境中，如何架設自己撰寫的 API Service</p>
+
+<p>##VirtualBox</p>
+
+<p>到 <a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a> 官方網站下載合適的安裝檔案吧!</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-04%2012.56.26.png" alt="p1" />
+</p>
+
+<p>安裝完成就可以了!</p>
+
+<p>因為我們接下來會使用 Vagrant 這套 commaond line tool 來對 VirtualBox 進行操作</p>
+
+<p>因此只要安裝完 VirtualBox 後就可以不用管他了 XD</p>
+
+<p>##Vagrant</p>
+
+<p><a href="https://www.vagrantup.com/">Vagrant</a></p>
+
+<p>它可以幫助我們快速的建立一個輕量、可重複使用、並且可以打包起來帶著走的環境</p>
+
+<p>透過編輯一個設定檔，就可以簡單設定該虛擬系統的 *nix 基本設定，如 共享資料夾、網路存取等等，</p>
+
+<p>不需要透過 VirtualBox</p>
+
+<p>通常這套軟體可以應用在團隊開發上：</p>
+
+<p>以網頁開發來說，如果大家的測試環境與版本都不太一樣，例如 apache 或 php 版本不同</p>
+
+<p>有時候會造成團隊溝通的負擔，因此透過 Vagrant 將 server 環境重新建立一套虛擬機器，</p>
+
+<p>並且透過 Vagrant 打包，就可以丟給其他人使用，這樣一來大家的環境都一樣，</p>
+
+<p>就可以避免這個問題，</p>
+
+<p>而且還有一點，Server 的安裝是很累人的，同樣的事情基本上都不會想做第二遍，</p>
+
+<p>因此打包一個乾淨的環境後備份，弄髒了可以隨時快速再把備份拿出來用，非常方便！</p>
+
+<p>###安裝:</p>
+
+<p>到 <a href="https://www.vagrantup.com/downloads">下載頁面</a> 尋找適合自己的下載並且安裝</p>
+
+<p>安裝完後應該就可以在終端機中使用 vagrant 這個指令了!</p>
+
+<pre><code>$ vagrant -v
+Vagrant 1.6.5
+</code></pre>
+
+<p>目前最新的版本應該是 1.6.5</p>
+
+<p>###建立自己的虛擬機器</p>
+
+<p>首先在自己想要建立虛擬機器的地方先開一個資料夾</p>
+
+<pre><code>$ mkdir ~/ithome/ 
+</code></pre>
+
+<p>切換到該資料夾</p>
+
+<pre><code>$ cd ~/ithome
+</code></pre>
+
+<p>使用 vagrant 初始化這個資料夾，並且指定我們要使用 Ubuntu 14.04 版本</p>
+
+<pre><code>$ vagrant init ubuntu/trusty64
+A `Vagrantfile` has been placed in this directory. You are now
+ready to `vagrant up` your first virtual environment! Please read
+the comments in the Vagrantfile as well as documentation on
+`vagrantup.com` for more information on using Vagrant.
+</code></pre>
+
+<p>如果想要使用別種 *nix 版本可以到這裡找 - <a href="https://vagrantcloud.com/discover/featured">VagrantCloud</a></p>
+
+<p>下完 <code>vagrant init ubuntu/trusty64</code> 指令後，指令告訴你有一個檔案叫做 <code>Vagrantfile</code> 被建立在這個資料夾裡了，</p>
+
+<p>可以使用 <code>vagrant up</code> 來開啟虛擬機器</p>
+
+<p>不過我們先不要下開機指令，我們先來看看 <code>Vagrantfile</code> 的內容，我直接把比較重要的設定說明寫在註解裡面了：</p>
+
+<pre><code>  ...
+  
+  // 此行是說明要使用哪一個 box ，會到自己的系統裡面尋找，如果沒有的話就會下載一個
+  // 由於我們剛剛是使用 VagrantCloud 找的版本，因此 vagrant 會去找 
+  config.vm.box = &quot;ubuntu/trusty64&quot;
+
+  // 這個是設定網路
+  // 預設是 NAT，也就是如果我們在虛擬機器裝了網頁伺服器，
+  // 必須使用 port forwarding 的方式來讀到虛擬機器裡面的網頁 
+  #config.vm.network &quot;forwarded_port&quot;, guest: 80, host: 8080
+
+  // Important! 
+  // 承上，或者我們可以使用一個 private network ip，我們把它開啟註解吧~
+  // 這樣我們開啟虛擬機器時，他的 IP 就會是 192.168.33.10
+  config.vm.network &quot;private_network&quot;, ip: &quot;192.168.33.10&quot;
+
+  // 開啟註解的話，就是直接使用 bridge 的方式，如果是使用分享器的話
+  // 虛擬機會到分享器要一個 IP 
+  # config.vm.network &quot;public_network&quot;
+  
+  // 這個是設定共享資料夾
+  // 預設是放 Vagrantfile 的那個資料夾
+  // 在這個資料夾放檔案的話，在虛擬機器裡的 '/vagrant/' 資料夾是可以看到的!!
+  // 如果有想要指定到特殊的資料夾，再編輯此行並開啟註解即可
+  # config.vm.synced_folder &quot;../data&quot;, &quot;/vagrant_data&quot;
+
+end
+</code></pre>
+
+<p>再來就讓它開機吧!</p>
+
+<pre><code>$ vagrant up 
+</code></pre>
+
+<p>如果沒有下載過 ubuntu 系統的話，會先幫你下載，所以需要等待一些時間</p>
+
+<p>若看到終端機說系統已經建立完成，</p>
+
+<p>就可以連線進去了!</p>
+
+<pre><code>$ vagrant ssh
+.....
+vagrant@vagrant-ubuntu-trusty-64:~$ 
+</code></pre>
+
+<p>就會發現終端機的 prompt 已經不一樣了，變成 ubuntu-trusty-64 ，表示我們已經進入虛擬機器裡面了</p>
+
+<p>由於今天的內容只會先到這，關於 Ubuntu 的設定是明天，所以記得離開虛擬機器並且幫他關機 XDD</p>
+
+<pre><code>// 如果剛剛有進入虛擬機器的話，輸入 exit 離開
+$ exit
+</code></pre>
+
+<p>再下關機指令:</p>
+
+<pre><code>$ vagrant halt 
+</code></pre>
+
+<p>虛擬機器就被關起來了!</p>
+
+<p>順帶一提</p>
+
+<p>如果在虛擬機器開機時，需要更改 Vagrantfile 的設定，</p>
+
+<p>改完後虛擬機器必須要重新開啟才會讀到新的設定</p>
+
+<pre><code>$ vagrant reload
+</code></pre>
+
+<p>下回待續!!</p>
+
+                    </div>
+                    <div class="post-share">
+                        <div class="post-share-links">
+                            <h4 style="">Share</h4>
+                            <a href="#" data-type="facebook" data-url="http://kerkerj.github.io/blog/2014/10/05/2014-10-05-api-d5/" data-title="[API-d5] - [Server 番外篇] 建立自己的本機虛擬伺服器 1 - Vagrant &#43; VirtualBox 安裝" data-description="" data-media="" class="prettySocial fa fa-facebook"></a>
+                            <a href="#" data-type="googleplus" data-url="http://kerkerj.github.io/blog/2014/10/05/2014-10-05-api-d5/" data-description="" class="prettySocial fa fa-google-plus"></a>
+                            
+                            <a href="#" data-type="twitter" data-url="http://kerkerj.github.io/blog/2014/10/05/2014-10-05-api-d5/" data-description="" data-via="kerkerj" class="prettySocial fa fa-twitter"></a>
+                            
+
+                        </div>
+                    </div>
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/kerkerj.github.io\/blog\/2014\/10\/05\/2014-10-05-api-d5\/';
+    var disqus_title = '[API-d5] - [Server 番外篇] 建立自己的本機虛擬伺服器 1 - Vagrant \x2b VirtualBox 安裝';
+    var disqus_url = 'http:\/\/kerkerj.github.io\/blog\/2014\/10\/05\/2014-10-05-api-d5\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                </section>
+            </div>
+            <div class="footer">
+    <div class="pure-menu pure-menu-horizontal pure-menu-open">
+        <ul>
+            <li>Powered by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a></li>
+        </ul>
+    </div>
+</div>
+<script src="http://kerkerj.github.io//js/all.min.js"></script>
+<script>
+hljs.initHighlightingOnLoad();
+</script>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

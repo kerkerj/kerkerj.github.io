@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+     
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="[API-d17] - 實戰開發 - 專案結構 | kerkerj">
+    <meta property="og:url" content="http://kerkerj.github.io/blog/2014/10/17/2014-10-17-api-d17/">
+    <meta property="og:description" content="">
+    
+    
+    <meta property="og:site_name" content="kerkerj">
+
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="kerkerj" />
+    <meta name="twitter:title" content="[API-d17] - 實戰開發 - 專案結構 &middot; kerkerj">
+    <meta name="twitter:description" content="">
+
+    
+    <title>[API-d17] - 實戰開發 - 專案結構 &middot; kerkerj</title>
+
+    
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+    
+
+    <link rel="stylesheet" href="http://kerkerj.github.io//css/all.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    
+    
+      <link rel="stylesheet" href="http://kerkerj.github.io//css/highlight/railscasts.css">
+    
+
+    
+    <link href="http://kerkerj.github.io/favicon.ico" rel="icon">
+
+    
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://kerkerj.github.io//index.xml">
+</head>
+<body>
+
+
+<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+    <div class="header">
+        <hgroup>
+            <h1 class="brand-title"><a href="http://kerkerj.github.io/">kerkerj</a></h1>
+            <h2 class="brand-tagline"> Hi. </h2>
+        </hgroup>
+
+        <nav class="nav">
+            
+            <ul class="pure-menu-list">
+              
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//notes/">Notes</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//about/">About</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//mac-app-list/">Mac App List</a>
+                </li>
+              
+            </ul>
+
+            
+            <ul class="nav-list">
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://twitter.com/kerkerj"><i class="fa fa-twitter"></i> Twitter</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://github.com/kerkerj "><i class="fa fa-github-alt"></i> Github</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            
+            <div class="posts">
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/17/2014-10-17-api-d17/" class="post-title">[API-d17] - 實戰開發 - 專案結構</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-restful" href="http://kerkerj.github.io//categories/restful">restful</a><a class="post-category post-category-api" href="http://kerkerj.github.io//categories/api">api</a><a class="post-category post-category-nodejs" href="http://kerkerj.github.io//categories/nodejs">nodejs</a><a class="post-category post-category-express" href="http://kerkerj.github.io//categories/express">express</a>
+                            
+                        </p>
+                    </header>
+                    <div class="post-description">
+                        
+
+<p>首先我們就在虛擬機的資料夾底下，建立一個專案資料夾吧!</p>
+
+<p>今天會來簡單切割一下我們的專案目錄</p>
+
+<p>##建立新專案目錄:</p>
+
+<pre><code>$ cd /vagrant/
+$ mkdir TODOAPI
+$ cd TODOAPI
+$ npm init
+// 輸入專案資訊
+$ 
+</code></pre>
+
+<p>##建立專案結構</p>
+
+<pre><code>/
+| - bin/
+| - routes/
+| - model/
+| - node_modules/
+| - logs/
+| - config/
+| - test/
+| - app.js
+| - package.json
+</code></pre>
+
+<p>分別講解一下各個 folder 的工作:</p>
+
+<h3 id="bin:7e0de0f2ba00c9180cc5d15c737f79c5"><code>bin</code></h3>
+
+<p>筆者會在 <code>bin</code> 資料夾底下放一個 <code>server.js</code></p>
+
+<p>這個 <code>server.js</code> 就是會專門用來啟動一個 <code>app.js</code> instance</p>
+
+<p>###<code>routes</code></p>
+
+<p>基本上如果了解 MVC 架構的話，<code>routes</code> 就是 <code>controller</code> 的意思，其實如果讀者本身夠了解的話，這個資料夾也可以改成 <code>controller</code> 也 ok，應該說，其實資料夾怎麼放都是看個人隨意即可，只是若是要模組化的話，筆者會這樣來處理一個專案結構。</p>
+
+<p>###<code>model</code></p>
+
+<p>拿來放資料庫 schema 以及相關的資料庫操作的資料夾</p>
+
+<h3 id="node-modules:7e0de0f2ba00c9180cc5d15c737f79c5"><code>node_modules</code></h3>
+
+<p>這其實是之後安裝的模組會放在這個資料夾裡，在這邊可以先不用建立沒關係</p>
+
+<h3 id="logs:7e0de0f2ba00c9180cc5d15c737f79c5"><code>logs</code></h3>
+
+<p>由於我們是建立一個 restful service，因此 log 的記錄也是很重要的，我們把 log 放在這個資料夾裡</p>
+
+<h3 id="configs:7e0de0f2ba00c9180cc5d15c737f79c5"><code>configs</code></h3>
+
+<p>我們在這個資料夾裡放置一些專案設定，例如 db 設定或者是 log 的設定等等</p>
+
+<h3 id="test:7e0de0f2ba00c9180cc5d15c737f79c5"><code>test</code></h3>
+
+<p>撰寫測試程式的資料夾~</p>
+
+<h3 id="app-js:7e0de0f2ba00c9180cc5d15c737f79c5"><code>app.js</code></h3>
+
+<p>程式的進入點，可以想像成 index.php~</p>
+
+<h3 id="package-json:7e0de0f2ba00c9180cc5d15c737f79c5"><code>package.json</code></h3>
+
+<p>專案的資訊以及相關模組的資訊都會被放在這裡!</p>
+
+<hr />
+
+<p>其實關於專案結構有許多不同的討論，<code>express</code> 也有一個專案自動產生器，不過如果對結構內容不了解而使用產生器的話，很容易變成只知表面不知內部運作，因此我們還是一步一步來，先定義好我們專案的需求結構</p>
+
+<p>另外，因為我們是建立 restful API service，在此並沒有用到 html 頁面，也因此就沒有 <code>view</code> 或 <code>public</code> 這兩個資料夾囉~</p>
+
+<p>延伸閱讀:</p>
+
+<p>我們可以透過觀摩別人的專案來參考他們的專案架構:</p>
+
+<p><a href="http://scotch.io/tutorials/javascript/node-and-angular-to-do-app-application-organization-and-structure">Node and Angular To-Do App: Application Organization and Structure</a></p>
+
+<p><a href="http://stackoverflow.com/questions/18789864/node-js-express-global-modules-best-practices-for-application-structure">node.js &amp; express - global modules &amp; best practices for application structure</a></p>
+
+<p>在 Github 上的討論，非常值得一看: <a href="https://gist.github.com/lancejpollard/1398757">Github discussion</a></p>
+
+<p>後來覺得也可以模仿 rails 的分法:</p>
+
+<pre><code>/
+| - app/
+| - ----controllers/
+| - ----models/
+| - ----views/
+| - ----helpers/
+| - node_modules/
+| - logs/
+| - libs/
+| - public/
+| - config/
+| - test/
+| - server.js
+| - package.json
+</code></pre>
+
+<p>都 OK!</p>
+
+                    </div>
+                    <div class="post-share">
+                        <div class="post-share-links">
+                            <h4 style="">Share</h4>
+                            <a href="#" data-type="facebook" data-url="http://kerkerj.github.io/blog/2014/10/17/2014-10-17-api-d17/" data-title="[API-d17] - 實戰開發 - 專案結構" data-description="" data-media="" class="prettySocial fa fa-facebook"></a>
+                            <a href="#" data-type="googleplus" data-url="http://kerkerj.github.io/blog/2014/10/17/2014-10-17-api-d17/" data-description="" class="prettySocial fa fa-google-plus"></a>
+                            
+                            <a href="#" data-type="twitter" data-url="http://kerkerj.github.io/blog/2014/10/17/2014-10-17-api-d17/" data-description="" data-via="kerkerj" class="prettySocial fa fa-twitter"></a>
+                            
+
+                        </div>
+                    </div>
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/kerkerj.github.io\/blog\/2014\/10\/17\/2014-10-17-api-d17\/';
+    var disqus_title = '[API-d17] - 實戰開發 - 專案結構';
+    var disqus_url = 'http:\/\/kerkerj.github.io\/blog\/2014\/10\/17\/2014-10-17-api-d17\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                </section>
+            </div>
+            <div class="footer">
+    <div class="pure-menu pure-menu-horizontal pure-menu-open">
+        <ul>
+            <li>Powered by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a></li>
+        </ul>
+    </div>
+</div>
+<script src="http://kerkerj.github.io//js/all.min.js"></script>
+<script>
+hljs.initHighlightingOnLoad();
+</script>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

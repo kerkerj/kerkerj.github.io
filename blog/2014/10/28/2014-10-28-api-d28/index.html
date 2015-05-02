@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+     
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="[API-d28] - 實戰開發 - 發佈 - forever | kerkerj">
+    <meta property="og:url" content="http://kerkerj.github.io/blog/2014/10/28/2014-10-28-api-d28/">
+    <meta property="og:description" content="">
+    
+    
+    <meta property="og:site_name" content="kerkerj">
+
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="kerkerj" />
+    <meta name="twitter:title" content="[API-d28] - 實戰開發 - 發佈 - forever &middot; kerkerj">
+    <meta name="twitter:description" content="">
+
+    
+    <title>[API-d28] - 實戰開發 - 發佈 - forever &middot; kerkerj</title>
+
+    
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+    
+
+    <link rel="stylesheet" href="http://kerkerj.github.io//css/all.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    
+    
+      <link rel="stylesheet" href="http://kerkerj.github.io//css/highlight/railscasts.css">
+    
+
+    
+    <link href="http://kerkerj.github.io/favicon.ico" rel="icon">
+
+    
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://kerkerj.github.io//index.xml">
+</head>
+<body>
+
+
+<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+    <div class="header">
+        <hgroup>
+            <h1 class="brand-title"><a href="http://kerkerj.github.io/">kerkerj</a></h1>
+            <h2 class="brand-tagline"> Hi. </h2>
+        </hgroup>
+
+        <nav class="nav">
+            
+            <ul class="pure-menu-list">
+              
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//notes/">Notes</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//about/">About</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//mac-app-list/">Mac App List</a>
+                </li>
+              
+            </ul>
+
+            
+            <ul class="nav-list">
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://twitter.com/kerkerj"><i class="fa fa-twitter"></i> Twitter</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://github.com/kerkerj "><i class="fa fa-github-alt"></i> Github</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            
+            <div class="posts">
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/28/2014-10-28-api-d28/" class="post-title">[API-d28] - 實戰開發 - 發佈 - forever</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-restful" href="http://kerkerj.github.io//categories/restful">restful</a><a class="post-category post-category-api" href="http://kerkerj.github.io//categories/api">api</a><a class="post-category post-category-nodejs" href="http://kerkerj.github.io//categories/nodejs">nodejs</a><a class="post-category post-category-express" href="http://kerkerj.github.io//categories/express">express</a><a class="post-category post-category-forever" href="http://kerkerj.github.io//categories/forever">forever</a>
+                            
+                        </p>
+                    </header>
+                    <div class="post-description">
+                        <p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day28">Github 參考</a></p>
+
+<p>接下來兩天要講 deploy 的部分</p>
+
+<p>由於 deploy 的 script 其實非常的麻煩，因此我們就不提 deploy 的 script 了</p>
+
+<p>我們只專注在 server 上需要什麼東西</p>
+
+<p>今天要來看看 <code>forever</code> 這個套件</p>
+
+<p>這個套件可以幫助 nodejs 的 server 遇上無預警的 server 掛掉時</p>
+
+<p>會幫你自動重新啟動 nodejs 的 server</p>
+
+<p>也就是說</p>
+
+<p>假設說 nodejs 寫的 server 某個 route 有問題，</p>
+
+<p>送 request 後會因為某些因素造成 server error 造成程式碼 crash 時</p>
+
+<p>forever 的 monitor 會偵測到，並幫你自動重啟 server</p>
+
+<p>至少不會造成其他正常存取 server 的使用者遭遇到 server down 的問題</p>
+
+<p>這個套件可以選擇裝在 global 或是 project</p>
+
+<p>在這邊我是選擇裝成 global</p>
+
+<p>進到虛擬機</p>
+
+<pre><code class="language-javascript">$ npm install -g forever
+</code></pre>
+
+<p>p.s. 如果遇到問題，試著跑下面的指令看看?</p>
+
+<pre><code>$ sudo chown vagrant:vagrant -R ~/.npm/
+</code></pre>
+
+<p>接下來我們就可以使用 <code>forever</code> 這個指令了!</p>
+
+<p>原本我們要啟動 server 的話</p>
+
+<p>是要下:</p>
+
+<pre><code>$ npm start 
+</code></pre>
+
+<p>同義於:</p>
+
+<pre><code>$ node ./bin/server.js
+</code></pre>
+
+<p>如果要改用 <code>forever</code> 的話:</p>
+
+<pre><code>// 記得先到專案根目錄
+$ forever start bin/server.js
+warn:    --minUptime not set. Defaulting to: 1000ms
+warn:    --spinSleepTime not set. Your script will exit if it does not stay up for at least 1000ms
+info:    Forever processing file: ./bin/server.js
+</code></pre>
+
+<p>然後就會被丟到背景執行了</p>
+
+<p>那要怎麼知道我的 server 有跑起來呢?</p>
+
+<pre><code>$ forever list
+info:    Forever processes running
+data:        uid  command                              script        forever pid   logfile                         uptime
+data:    [0] 6qhd /home/vagrant/.nvm/v0.10.32/bin/node bin/server.js 13746   13748 /home/vagrant/.forever/6qhd.log 0:0:0:47.743
+</code></pre>
+
+<p>就會列出相關資訊以及 forever 自己的 log file 位置</p>
+
+<p>要關閉的話:</p>
+
+<pre><code>$ forever stop bin/server.js
+info:    Forever stopped process:
+data:        uid  command                              script        forever pid   logfile                         uptime
+[0] 6qhd /home/vagrant/.nvm/v0.10.32/bin/node bin/server.js 13746   14061 /home/vagrant/.forever/6qhd.log 0:0:0:6.595
+</code></pre>
+
+<p><code>bin/server.js</code> 也可以替換成 forever uid 或 pid</p>
+
+<p>如果要重開的話</p>
+
+<pre><code>$ forever restart bin/server.js
+</code></pre>
+
+<p>超簡單!</p>
+
+<p>這樣就可以不用擔心 server 突然掛掉了&hellip;.嗎?</p>
+
+<p>錯，還是必須要監控 server 狀態</p>
+
+<p>畢竟，<code>forever</code> 也是會有 bug 的</p>
+
+<p>所以自己的 server 自己顧</p>
+
+<p>真正應用在 production 環境還是必須要監控的</p>
+
+<p>今天就分享到這啦!</p>
+
+                    </div>
+                    <div class="post-share">
+                        <div class="post-share-links">
+                            <h4 style="">Share</h4>
+                            <a href="#" data-type="facebook" data-url="http://kerkerj.github.io/blog/2014/10/28/2014-10-28-api-d28/" data-title="[API-d28] - 實戰開發 - 發佈 - forever" data-description="" data-media="" class="prettySocial fa fa-facebook"></a>
+                            <a href="#" data-type="googleplus" data-url="http://kerkerj.github.io/blog/2014/10/28/2014-10-28-api-d28/" data-description="" class="prettySocial fa fa-google-plus"></a>
+                            
+                            <a href="#" data-type="twitter" data-url="http://kerkerj.github.io/blog/2014/10/28/2014-10-28-api-d28/" data-description="" data-via="kerkerj" class="prettySocial fa fa-twitter"></a>
+                            
+
+                        </div>
+                    </div>
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/kerkerj.github.io\/blog\/2014\/10\/28\/2014-10-28-api-d28\/';
+    var disqus_title = '[API-d28] - 實戰開發 - 發佈 - forever';
+    var disqus_url = 'http:\/\/kerkerj.github.io\/blog\/2014\/10\/28\/2014-10-28-api-d28\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                </section>
+            </div>
+            <div class="footer">
+    <div class="pure-menu pure-menu-horizontal pure-menu-open">
+        <ul>
+            <li>Powered by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a></li>
+        </ul>
+    </div>
+</div>
+<script src="http://kerkerj.github.io//js/all.min.js"></script>
+<script>
+hljs.initHighlightingOnLoad();
+</script>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

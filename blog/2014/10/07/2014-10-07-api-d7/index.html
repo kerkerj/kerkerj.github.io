@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+     
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="[API-d7] - [Server 番外篇] 建立自己的本機虛擬伺服器 3 - 打包環境 | kerkerj">
+    <meta property="og:url" content="http://kerkerj.github.io/blog/2014/10/07/2014-10-07-api-d7/">
+    <meta property="og:description" content="">
+    
+    
+    <meta property="og:site_name" content="kerkerj">
+
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="kerkerj" />
+    <meta name="twitter:title" content="[API-d7] - [Server 番外篇] 建立自己的本機虛擬伺服器 3 - 打包環境 &middot; kerkerj">
+    <meta name="twitter:description" content="">
+
+    
+    <title>[API-d7] - [Server 番外篇] 建立自己的本機虛擬伺服器 3 - 打包環境 &middot; kerkerj</title>
+
+    
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+    
+
+    <link rel="stylesheet" href="http://kerkerj.github.io//css/all.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    
+    
+      <link rel="stylesheet" href="http://kerkerj.github.io//css/highlight/railscasts.css">
+    
+
+    
+    <link href="http://kerkerj.github.io/favicon.ico" rel="icon">
+
+    
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://kerkerj.github.io//index.xml">
+</head>
+<body>
+
+
+<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+    <div class="header">
+        <hgroup>
+            <h1 class="brand-title"><a href="http://kerkerj.github.io/">kerkerj</a></h1>
+            <h2 class="brand-tagline"> Hi. </h2>
+        </hgroup>
+
+        <nav class="nav">
+            
+            <ul class="pure-menu-list">
+              
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//notes/">Notes</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//about/">About</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//mac-app-list/">Mac App List</a>
+                </li>
+              
+            </ul>
+
+            
+            <ul class="nav-list">
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://twitter.com/kerkerj"><i class="fa fa-twitter"></i> Twitter</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://github.com/kerkerj "><i class="fa fa-github-alt"></i> Github</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            
+            <div class="posts">
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/07/2014-10-07-api-d7/" class="post-title">[API-d7] - [Server 番外篇] 建立自己的本機虛擬伺服器 3 - 打包環境</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-restful" href="http://kerkerj.github.io//categories/restful">restful</a><a class="post-category post-category-api" href="http://kerkerj.github.io//categories/api">api</a>
+                            
+                        </p>
+                    </header>
+                    <div class="post-description">
+                        <p>昨天我們已經把一個全新乾淨的環境架起來了</p>
+
+<p>這時候我們不希望因為日後的操作導致 Server 環境髒掉，又要重灌</p>
+
+<p>因此我們今天就來練習一下如何使用 vagrant 打包環境!</p>
+
+<p>##Vagrant 打包</p>
+
+<p>一樣先進入虛擬機資料夾，先確保虛擬機沒有在運作:</p>
+
+<pre><code>$ vagrant status
+Current machine states:
+
+default                   poweroff (virtualbox)
+
+The VM is powered off. To restart the VM, simply run `vagrant up`
+</code></pre>
+
+<p>如果是 poweroff 的話，就可以進行接下來的動作，如果是其他狀態的話，就先下關機指令囉</p>
+
+<pre><code>$ vagrant package
+==&gt; default: Clearing any previously set forwarded ports...
+==&gt; default: Exporting VM...
+==&gt; default: Compressing package to: /Users/.../ithome/package.box
+</code></pre>
+
+<p>vagrant 就會在虛擬機器資料夾底下建立一個 package.box</p>
+
+<p>這個檔案就是整個伺服器環境的檔案了!</p>
+
+<p>假設今天想要讓團隊成員使用，只要他們都有 VirtualBox + Vagrant 的話，</p>
+
+<p>就可以依循下面的指令步驟將你所做的 box 匯入並使用：</p>
+
+<p>首先我們可以先看看原本所使用的 box 清單:</p>
+
+<pre><code>$ vagrant box list
+ubuntu/trusty64                          (virtualbox, 14.04)
+</code></pre>
+
+<p>是 <code>ubuntu/trusty64</code> 沒錯！</p>
+
+<p>那麼我們現在想要加入剛剛所製作的 box ，並重新命名：</p>
+
+<pre><code>$ vagrant box add my_box package.box
+==&gt; box: Adding box 'my_box' (v0) for provider:
+    box: Downloading: file:///Users/.../ithome/package.box
+==&gt; box: Successfully added box 'my_box' (v0) for 'virtualbox'!
+</code></pre>
+
+<p>此時再看看 box 清單:</p>
+
+<pre><code>$ vagrant box list
+ubuntu/trusty64                          (virtualbox, 14.04)
+my_box                                   (virtualbox, 0)
+</code></pre>
+
+<p>就會多一個了!</p>
+
+<p><code>vagrant box add my_box package.box</code></p>
+
+<p>這個指令的意思是將 <code>package.box</code> 加入 box 清單，並以 my_box 命名</p>
+
+<p><code>package.box</code> 可以是本機路徑，也可以是網址，</p>
+
+<p>如果要分享給團隊成員使用，就可以使用 url 分享，其他人就可以下指令來下載 box 並加入 box list</p>
+
+<p>例如:</p>
+
+<pre><code>$ vagrant box add my_box http://my_dropbox.com/package.box
+</code></pre>
+
+<p>接著其他人就可以建立自己的虛擬機資料夾，並且到該資料夾中下指令就可以初始化虛擬機器了，例如：</p>
+
+<pre><code>$ mkdir ~/my_machine/
+$ cd ~/my_machine/
+$ vagrant init my_box 
+</code></pre>
+
+<p>超方便的啦～</p>
+
+<p>如果想要從 box list 中刪除不需要的 box，下此指令即可：</p>
+
+<pre><code>$ vagrant box remove my_box
+Are you sure you want to remove this box? [y/N] y
+</code></pre>
+
+<p>上面只會刪除 box 清單，</p>
+
+<p>如果要刪除虛擬機器資料夾，以及虛擬機器的所有檔案的話，先到虛擬機器資料夾，然後下此指令：</p>
+
+<pre><code>$ vagrant destroy
+    default: Are you sure you want to destroy the 'default' VM? [y/N] y
+</code></pre>
+
+<p>虛擬機就會被移除，再來只要將該資料夾砍掉即可～ 就恢復成乾乾淨淨的了~</p>
+
+<p>是不是很方便勒~~</p>
+
+<p>接下來我們就會開始先寫寫 Node.js 的 Hello World 囉~</p>
+
+                    </div>
+                    <div class="post-share">
+                        <div class="post-share-links">
+                            <h4 style="">Share</h4>
+                            <a href="#" data-type="facebook" data-url="http://kerkerj.github.io/blog/2014/10/07/2014-10-07-api-d7/" data-title="[API-d7] - [Server 番外篇] 建立自己的本機虛擬伺服器 3 - 打包環境" data-description="" data-media="" class="prettySocial fa fa-facebook"></a>
+                            <a href="#" data-type="googleplus" data-url="http://kerkerj.github.io/blog/2014/10/07/2014-10-07-api-d7/" data-description="" class="prettySocial fa fa-google-plus"></a>
+                            
+                            <a href="#" data-type="twitter" data-url="http://kerkerj.github.io/blog/2014/10/07/2014-10-07-api-d7/" data-description="" data-via="kerkerj" class="prettySocial fa fa-twitter"></a>
+                            
+
+                        </div>
+                    </div>
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/kerkerj.github.io\/blog\/2014\/10\/07\/2014-10-07-api-d7\/';
+    var disqus_title = '[API-d7] - [Server 番外篇] 建立自己的本機虛擬伺服器 3 - 打包環境';
+    var disqus_url = 'http:\/\/kerkerj.github.io\/blog\/2014\/10\/07\/2014-10-07-api-d7\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                </section>
+            </div>
+            <div class="footer">
+    <div class="pure-menu pure-menu-horizontal pure-menu-open">
+        <ul>
+            <li>Powered by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a></li>
+        </ul>
+    </div>
+</div>
+<script src="http://kerkerj.github.io//js/all.min.js"></script>
+<script>
+hljs.initHighlightingOnLoad();
+</script>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

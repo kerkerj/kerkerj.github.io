@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+     
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="[FreeBSD] 8.1 基本安裝紀錄 | kerkerj">
+    <meta property="og:url" content="http://kerkerj.github.io/blog/2010/09/15/2010-09-15-freebsd-81/">
+    <meta property="og:description" content="">
+    
+    
+    <meta property="og:site_name" content="kerkerj">
+
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="kerkerj" />
+    <meta name="twitter:title" content="[FreeBSD] 8.1 基本安裝紀錄 &middot; kerkerj">
+    <meta name="twitter:description" content="">
+
+    
+    <title>[FreeBSD] 8.1 基本安裝紀錄 &middot; kerkerj</title>
+
+    
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+    
+
+    <link rel="stylesheet" href="http://kerkerj.github.io//css/all.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    
+    
+      <link rel="stylesheet" href="http://kerkerj.github.io//css/highlight/railscasts.css">
+    
+
+    
+    <link href="http://kerkerj.github.io/favicon.ico" rel="icon">
+
+    
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://kerkerj.github.io//index.xml">
+</head>
+<body>
+
+
+<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+    <div class="header">
+        <hgroup>
+            <h1 class="brand-title"><a href="http://kerkerj.github.io/">kerkerj</a></h1>
+            <h2 class="brand-tagline"> Hi. </h2>
+        </hgroup>
+
+        <nav class="nav">
+            
+            <ul class="pure-menu-list">
+              
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//notes/">Notes</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//about/">About</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//mac-app-list/">Mac App List</a>
+                </li>
+              
+            </ul>
+
+            
+            <ul class="nav-list">
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://twitter.com/kerkerj"><i class="fa fa-twitter"></i> Twitter</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://github.com/kerkerj "><i class="fa fa-github-alt"></i> Github</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            
+            <div class="posts">
+                <h1 class="content-subhead">2010-09-09 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2010/09/15/2010-09-15-freebsd-81/" class="post-title">[FreeBSD] 8.1 基本安裝紀錄</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-freebsd" href="http://kerkerj.github.io//categories/freebsd">freebsd</a>
+                            
+                        </p>
+                    </header>
+                    <div class="post-description">
+                        <p>FreeBSD 安裝 - FreeBSD 8.1<br />
+幾乎是整套SOP流程了 = = 乾脆寫起來查比較快, 自己都重灌不曉得幾百遍了
+好站推薦：<a href="http://twbsd.org/cht/book/index.php">twbsd.org</a></p>
+
+<p>#安裝系統：
+1. 選擇鍵盤配置<br />
+2. 選擇Custom (可選DHCP)<br />
+3. 在這裡只紀錄如何搞Label （以40GB為例)<br />
+        /    ：1GB<br />
+    swap ：512MB (也可以視情況而定)<br />
+    /usr ：10GB<br />
+    /tmp ：1GB<br />
+    /var ：5GB<br />
+    /home：其他剩下的空間<br />
+4. 選擇CD/DVD安裝<br />
+5. commit 即可安裝完畢</p>
+
+<p>#登入後的一般設置：<a href="http://plog.longwin.com.tw/my_note-unix/2007/07/16/freebsd_initial_env_build_2007">一些基本套件語法等等可以看這裡</a></p>
+
+<p>先新增一使用者並加入wheel群組
+(可有可無：將.vimrc及csh.cshrc分別放入家目錄及/etc/底下)</p>
+
+<hr />
+
+<p>設定時區: <code>#sysinstall</code>
+選擇config -&gt; Timezone -&gt; 選擇時區</p>
+
+<hr />
+
+<p>設定網路: <code>#sysinstall</code>
+選擇config -&gt; networking -&gt; 即可設定網路
+會跳三個選項 - IPv6, DHCP, 選擇網路卡
+前兩者可選可不選, 網卡以主要連線的為主 （反正應該都知道哪張是給FreeBSD連線的吧XD
+之後作一點IP, gateway等等的設定即可</p>
+
+<hr />
+
+<p>更改開機設定檔:  <code>/etc/rc.conf</code>
+加入: <code>sshd_enable=&quot;yes&quot;</code></p>
+
+<hr />
+
+<p>套件安裝：
+cd 到該套件的目錄底下
+安裝前可先 <code>#make config</code> 來作設定
+設定完再 <code>#make install clean</code></p>
+
+<p>當第一次進行套件更新時會出現以下狀況：</p>
+
+<pre><code># cd /usr/ports/
+# make update
+--------------------------------------------------------------
+&gt;&gt;&gt; Running portsnap
+--------------------------------------------------------------
+Error: 'make update' uses portsnap(8) by default and
+needs /usr/ports to be created by portsnap on its first run.
+
+Please run 'portsnap fetch extract' first.
+You can also define SUP_UPDATE and PORTSSUPFILE to use csup(1) or CVS_UPDATE to use cvs(1) for updating.
+</code></pre>
+
+<p>就照著他所說的下指令即可(此時必須要有網路狀態, 且過程有點久)：<br />
+<code># portsnap fetch extract</code></p>
+
+<hr />
+
+<p>設定make.conf
+新增編輯 <code>/etc/make.conf</code><br />
+加入以下資料(更新時可以直接到台灣的ftp抓,速度快)</p>
+
+<p>p.s.自從 FreeBSD 6.2 開始，系統就內建了 csup 這指令來更新 Ports，使用方法就和 cvsup 一樣, 省去非常久的時間在安裝 cvsup (因此cvsup-without-gui可裝可不裝，但還是要設定make.conf)</p>
+
+<pre><code># for make install
+MASTER_SITE_BACKUP?= \
+ftp://ftp.tw.freebsd.org/pub/FreeBSD/distfiles/${DIST_SUBDIR}/\
+ftp://ftp7.tw.freebsd.org/pub/FreeBSD/distfiles/${DIST_SUBDIR}/\
+ftp://ftp8.tw.freebsd.org/pub/FreeBSD/distfiles/${DIST_SUBDIR}/\
+ftp://freebsd.csie.ncu.edu.tw/distfiles/${DIST_SUBDIR}/\
+ftp://freebsd.csie.nctu.edu.tw/pub/distfiles/${DIST_SUBDIR}/
+MASTER_SITE_OVERRIDE?= ${MASTER_SITE_BACKUP}
+
+# For CSUP make update
+# SUPHOST 代表要到哪台 CSUP，假如你知道哪個伺服站離你的主機比較近，請改成離您
+# 比較近的 Server 會有效率些。
+# 目前可用的 cvsup.tw.FreeBSD.org, cvsup1.tw.FreeBSD.org .... 到
+# cvsup14.tw.FreeBSD.org 可以選用。
+# 在SUPFILE的部份
+# 如果您是用 -stable，請用 stable-supfile
+# 如果您是用 -current，請用 standard-supfile
+
+SUP_UPDATE= yes
+SUP= /usr/bin/csup
+SUPFLAGS= -g -L 2
+SUPHOST= cvsup.tw.FreeBSD.org
+SUPFILE= /usr/share/examples/cvsup/standard-supfile
+PORTSSUPFILE= /usr/share/examples/cvsup/ports-supfile
+DOCSUPFILE= /usr/share/examples/cvsup/doc-supfile
+</code></pre>
+
+<p>即可到 port 作 <code>make update</code></p>
+
+<p>設定 <code>/etc/crontab</code> 讓主機每 12 小時自動更新一次 port tree，以後每次都可以安裝到新的套件。</p>
+
+<pre><code># echo '0 */12 * * * root cd /usr/ports; make update &amp;&amp; make fetchindex &gt;/dev/null 2&gt;&amp;1' &gt;&gt; /etc/crontab
+</code></pre>
+
+<hr />
+
+<p>校正主機的時間</p>
+
+<pre><code># ntpdate &quot;stdtime.sinica.edu.tw&quot;
+</code></pre>
+
+<p>然後設定 <code>/etc/crontab</code> 讓主機每 30 分鐘自動校時一次</p>
+
+<pre><code># echo '*/30 * * * * root ntpdate &quot;stdtime.sinica.edu.tw&quot; &gt; /dev/null 2&gt;&amp;1 &gt;&gt; /etc/crontab
+</code></pre>
+
+<p>寫入 <code>&gt; /dev/null 2&gt;&amp;1</code> 後每次校時的結果便不會回報給系統管理員，可以減少看很多封回報通知信。</p>
+
+<hr />
+
+<p>基本套件： sudo, gnuls, vim, screen</p>
+
+<pre><code>#cd /usr/ports/security/sudo   
+#make install clean  
+</code></pre>
+
+<p>編輯 <code>/usr/local/etc/sudoers</code>
+取消註解 <code>%wheel ALL=(ALL) ALL</code>
+嫌麻煩也可以註解掉下面的 <code>NOPASSWD</code> 但是記得改回來 (若是正式機器)</p>
+
+<pre><code>#cd/usr/ports/misc/gnuls
+#make install clean
+</code></pre>
+
+<p>設定 <code>/etc/csh.cshrc</code> ( 或 user 家目錄下的 .cshrc )</p>
+
+<pre><code>alias ls 'gnuls --color=auto --show-control-chars'
+</code></pre>
+
+<p>vim:</p>
+
+<pre><code>#cd /usr/ports/editors/vim-lite  (或者可以裝vim6 不過會裝很久)
+#make install clean
+</code></pre>
+
+<p>screen:</p>
+
+<pre><code>#cd /usr/ports/sysutils/screen
+#make install clean
+</code></pre>
+
+<hr />
+
+<p>這些東西裝完就是一個平常使用的FreeBSD囉~</p>
+
+                    </div>
+                    <div class="post-share">
+                        <div class="post-share-links">
+                            <h4 style="">Share</h4>
+                            <a href="#" data-type="facebook" data-url="http://kerkerj.github.io/blog/2010/09/15/2010-09-15-freebsd-81/" data-title="[FreeBSD] 8.1 基本安裝紀錄" data-description="" data-media="" class="prettySocial fa fa-facebook"></a>
+                            <a href="#" data-type="googleplus" data-url="http://kerkerj.github.io/blog/2010/09/15/2010-09-15-freebsd-81/" data-description="" class="prettySocial fa fa-google-plus"></a>
+                            
+                            <a href="#" data-type="twitter" data-url="http://kerkerj.github.io/blog/2010/09/15/2010-09-15-freebsd-81/" data-description="" data-via="kerkerj" class="prettySocial fa fa-twitter"></a>
+                            
+
+                        </div>
+                    </div>
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/kerkerj.github.io\/blog\/2010\/09\/15\/2010-09-15-freebsd-81\/';
+    var disqus_title = '[FreeBSD] 8.1 基本安裝紀錄';
+    var disqus_url = 'http:\/\/kerkerj.github.io\/blog\/2010\/09\/15\/2010-09-15-freebsd-81\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                </section>
+            </div>
+            <div class="footer">
+    <div class="pure-menu pure-menu-horizontal pure-menu-open">
+        <ul>
+            <li>Powered by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a></li>
+        </ul>
+    </div>
+</div>
+<script src="http://kerkerj.github.io//js/all.min.js"></script>
+<script>
+hljs.initHighlightingOnLoad();
+</script>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

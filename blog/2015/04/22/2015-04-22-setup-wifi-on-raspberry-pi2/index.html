@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+     
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Setup wifi on raspberry pi2 | kerkerj">
+    <meta property="og:url" content="http://kerkerj.github.io/blog/2015/04/22/2015-04-22-setup-wifi-on-raspberry-pi2/">
+    <meta property="og:description" content="">
+    
+    
+    <meta property="og:site_name" content="kerkerj">
+
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="kerkerj" />
+    <meta name="twitter:title" content="Setup wifi on raspberry pi2 &middot; kerkerj">
+    <meta name="twitter:description" content="">
+
+    
+    <title>Setup wifi on raspberry pi2 &middot; kerkerj</title>
+
+    
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+    
+
+    <link rel="stylesheet" href="http://kerkerj.github.io//css/all.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    
+    
+      <link rel="stylesheet" href="http://kerkerj.github.io//css/highlight/railscasts.css">
+    
+
+    
+    <link href="http://kerkerj.github.io/favicon.ico" rel="icon">
+
+    
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://kerkerj.github.io//index.xml">
+</head>
+<body>
+
+
+<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+    <div class="header">
+        <hgroup>
+            <h1 class="brand-title"><a href="http://kerkerj.github.io/">kerkerj</a></h1>
+            <h2 class="brand-tagline"> Hi. </h2>
+        </hgroup>
+
+        <nav class="nav">
+            
+            <ul class="pure-menu-list">
+              
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//notes/">Notes</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//about/">About</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//mac-app-list/">Mac App List</a>
+                </li>
+              
+            </ul>
+
+            
+            <ul class="nav-list">
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://twitter.com/kerkerj"><i class="fa fa-twitter"></i> Twitter</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://github.com/kerkerj "><i class="fa fa-github-alt"></i> Github</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            
+            <div class="posts">
+                <h1 class="content-subhead">2015-04-04 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2015/04/22/2015-04-22-setup-wifi-on-raspberry-pi2/" class="post-title">Setup wifi on raspberry pi2</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-raspberry" href="http://kerkerj.github.io//categories/raspberry">raspberry</a>
+                            
+                        </p>
+                    </header>
+                    <div class="post-description">
+                        <p>(這是篇筆記)</p>
+
+<p>前陣子從前同事那接手了一塊 raspberry pi2 的板子</p>
+
+<p>想要用 wifi 來連網，於是就買了一個 usb 無線網卡</p>
+
+<p>型號是:</p>
+
+<p>TP-LINK TL-WN725N 150MbpsUSB無線網卡 (<a href="http://24h.pchome.com.tw/prod/DRAF4Z-A75333252">pchome連結</a>)</p>
+
+<p>一開始當然還是必須先插網路線，<code>ssh</code> 進去後</p>
+
+<p>先檢查 <code>pi2</code> 的 <code>kernel</code> 版本</p>
+
+<pre><code>$ uname -r
+3.18.7-v7+ # 這是我的版本
+</code></pre>
+
+<p>接著根據這個 <a href="https://github.com/lwfinger/rtl8188eu/">repo</a></p>
+
+<p>將韌體載下來放到 /lib/firmware 裡</p>
+
+<pre><code>$ sudo wget https://github.com/lwfinger/rtl8188eu/raw/c83976d1dfb4793893158461430261562b3a5bf0/rtl8188eufw.bin -O /lib/firmware/rtlwifi/rtl8188eufw.bin 
+</code></pre>
+
+<p>再來設定 pi2 的網路</p>
+
+<pre><code>$ ifconfig
+eth0      Link encap:Ethernet  
+lo        Link encap:Local Loopback
+wlan0     Link encap:Ethernet 
+</code></pre>
+
+<p>如果網卡有裝成功，應該就會有 <code>wlan0</code> 或是 <code>wlanX</code> 之類的 (X 是數字)</p>
+
+<p>最後就是手動掃描無線網路，並設定連線值囉</p>
+
+<pre><code>$ sudo iwlist scan =&gt; 掃描無線網路 AP
+wlan0     Scan completed :
+          Cell 01 - Address: XX:XX:XX:XX:XX:XX
+                    ESSID:&quot;GGININDER&quot;
+          Cell 02 - Address: XX:XX:XX:XX:XX:XX
+                    ESSID:&quot;TP-LINK_F5566&quot;
+</code></pre>
+
+<p>連線的 <code>SSID</code> 就找 <code>Cell</code> 裡的 <code>ESSID</code></p>
+
+<p>(通常應該會記得自己家的 AP 啦，可以用來確認一下)</p>
+
+<p>開啟 <code>/etc/network/interfaces</code> 來寫入連線值</p>
+
+<p>我的 AP 的加密機制是 WPA/WPA2，所以使用下面的方式連線</p>
+
+<p>若是其他方式 (e.g. WEP) 可以參考 <a href="http://inpega.blogspot.tw/2013/09/blog-post_15.html">這篇</a></p>
+
+<pre><code>$ vi /etc/network/interfaces
+auto lo
+
+iface lo inet loopback
+iface eth0 inet dhcp
+
+# 重點是下面這段
+
+# 允許熱插拔 wlan0 這個介面
+allow-hotplug wlan0 
+
+# 預設設定為 dhcp
+iface default inet dhcp
+
+# 設定 wlan0 這張介面卡為 DHCP 自動取得 IP
+iface wlan0 inet dhcp
+
+# 你的 AP 的 SSID
+wpa-ssid &quot;GGININDER&quot;
+
+# 你的 AP 的密碼
+wpa-psk &quot;password&quot;
+</code></pre>
+
+<p>設定好後，重新啟動 wlan0 介面就可以連線囉</p>
+
+<pre><code>$ sudo ifdown wlan0
+$ sudo ifup wlan0
+$ ifconfig wlan0 # 確認是否取得 IP
+</code></pre>
+
+<p>reference:</p>
+
+<p>raspberry pi forum: <a href="http://www.raspberrypi.org/forums/viewtopic.php?f=28&amp;t=62371&amp;start=475">http://www.raspberrypi.org/forums/viewtopic.php?f=28&amp;t=62371&amp;start=475</a></p>
+
+<p>網路設定: <a href="http://inpega.blogspot.tw/2013/09/blog-post_15.html">http://inpega.blogspot.tw/2013/09/blog-post_15.html</a></p>
+
+                    </div>
+                    <div class="post-share">
+                        <div class="post-share-links">
+                            <h4 style="">Share</h4>
+                            <a href="#" data-type="facebook" data-url="http://kerkerj.github.io/blog/2015/04/22/2015-04-22-setup-wifi-on-raspberry-pi2/" data-title="Setup wifi on raspberry pi2" data-description="" data-media="" class="prettySocial fa fa-facebook"></a>
+                            <a href="#" data-type="googleplus" data-url="http://kerkerj.github.io/blog/2015/04/22/2015-04-22-setup-wifi-on-raspberry-pi2/" data-description="" class="prettySocial fa fa-google-plus"></a>
+                            
+                            <a href="#" data-type="twitter" data-url="http://kerkerj.github.io/blog/2015/04/22/2015-04-22-setup-wifi-on-raspberry-pi2/" data-description="" data-via="kerkerj" class="prettySocial fa fa-twitter"></a>
+                            
+
+                        </div>
+                    </div>
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/kerkerj.github.io\/blog\/2015\/04\/22\/2015-04-22-setup-wifi-on-raspberry-pi2\/';
+    var disqus_title = 'Setup wifi on raspberry pi2';
+    var disqus_url = 'http:\/\/kerkerj.github.io\/blog\/2015\/04\/22\/2015-04-22-setup-wifi-on-raspberry-pi2\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                </section>
+            </div>
+            <div class="footer">
+    <div class="pure-menu pure-menu-horizontal pure-menu-open">
+        <ul>
+            <li>Powered by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a></li>
+        </ul>
+    </div>
+</div>
+<script src="http://kerkerj.github.io//js/all.min.js"></script>
+<script>
+hljs.initHighlightingOnLoad();
+</script>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

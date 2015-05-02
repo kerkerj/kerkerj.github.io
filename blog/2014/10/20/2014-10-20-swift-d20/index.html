@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+     
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="[Swift-d20] - Basic - 捨棄 Storyboard 使用純程式碼 的方式撰寫 ViewController | kerkerj">
+    <meta property="og:url" content="http://kerkerj.github.io/blog/2014/10/20/2014-10-20-swift-d20/">
+    <meta property="og:description" content="">
+    
+    
+    <meta property="og:site_name" content="kerkerj">
+
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="kerkerj" />
+    <meta name="twitter:title" content="[Swift-d20] - Basic - 捨棄 Storyboard 使用純程式碼 的方式撰寫 ViewController &middot; kerkerj">
+    <meta name="twitter:description" content="">
+
+    
+    <title>[Swift-d20] - Basic - 捨棄 Storyboard 使用純程式碼 的方式撰寫 ViewController &middot; kerkerj</title>
+
+    
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+    
+
+    <link rel="stylesheet" href="http://kerkerj.github.io//css/all.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    
+    
+      <link rel="stylesheet" href="http://kerkerj.github.io//css/highlight/railscasts.css">
+    
+
+    
+    <link href="http://kerkerj.github.io/favicon.ico" rel="icon">
+
+    
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://kerkerj.github.io//index.xml">
+</head>
+<body>
+
+
+<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+    <div class="header">
+        <hgroup>
+            <h1 class="brand-title"><a href="http://kerkerj.github.io/">kerkerj</a></h1>
+            <h2 class="brand-tagline"> Hi. </h2>
+        </hgroup>
+
+        <nav class="nav">
+            
+            <ul class="pure-menu-list">
+              
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//notes/">Notes</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//about/">About</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//mac-app-list/">Mac App List</a>
+                </li>
+              
+            </ul>
+
+            
+            <ul class="nav-list">
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://twitter.com/kerkerj"><i class="fa fa-twitter"></i> Twitter</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://github.com/kerkerj "><i class="fa fa-github-alt"></i> Github</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            
+            <div class="posts">
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/20/2014-10-20-swift-d20/" class="post-title">[Swift-d20] - Basic - 捨棄 Storyboard 使用純程式碼 的方式撰寫 ViewController</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-swift" href="http://kerkerj.github.io//categories/swift">swift</a>
+                            
+                        </p>
+                    </header>
+                    <div class="post-description">
+                        <p>今天專案的 <a href="https://github.com/kerkerj/ithome-NoStoryboardDemo">Github link</a></p>
+
+<p>其實哦</p>
+
+<p>寫 Swift 也有幾個禮拜了</p>
+
+<p>我一直覺得使用 Interface Builder 的確很方便</p>
+
+<p>但是在程式面與視覺面之間的溝通常常會漏東漏西的</p>
+
+<p>比方說如果要設定 reusable identifier 時</p>
+
+<p>除了程式裡面的字串要設定以外，還要再到 storyboard 裡設定同樣的字串</p>
+
+<p>一個簡單的小程式可能不超過 20 個 View 的情況下</p>
+
+<p>還可以這樣做，當程式長得非常大的時候，好像就很難注意到這件事，</p>
+
+<p>而且 View 太多 storyboard 就會開始變慢&hellip;.</p>
+
+<p>因此今天要來試著在 Swift 中</p>
+
+<p>如何不用 Storyboard，來打造我們的程式</p>
+
+<p>(當然 xib/nib 還是會用到，只是我們單純捨棄 storyboard，用程式來控制流程)</p>
+
+<p>首先，一樣先建立一個測試專案</p>
+
+<p>接著我們要動到的程式碼是 AppDelegate.swift:</p>
+
+<p>編輯它:</p>
+
+<pre><code class="language-swift">@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+
+    var window: UIWindow?
+    var viewController: ViewController?
+
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -&gt; Bool {
+        // Override point for customization after application launch.
+
+        self.viewController = ViewController()
+        self.viewController?.view.backgroundColor = UIColor.redColor()
+        
+        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        self.window?.backgroundColor = UIColor.whiteColor()
+        
+        self.window?.rootViewController = viewController
+        self.window?.makeKeyAndVisible()
+        
+        return true
+    }
+</code></pre>
+
+<p>其實這段程式碼，就是在做 storyboard 的 &ldquo;進入點&rdquo; 這件事</p>
+
+<pre><code>var viewController: ViewController?
+</code></pre>
+
+<p>我們用專案建立時產生的 ViewController 建立了一個物件</p>
+
+<p>並在 application launch 的時候，將該 ViewController 建立起來，設定他的背景顏色為紅色</p>
+
+<pre><code>self.viewController = ViewController()
+self.viewController?.view.backgroundColor = UIColor.redColor()
+</code></pre>
+
+<p>另外對 window 做一些設定</p>
+
+<pre><code>self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        self.window?.backgroundColor = UIColor.whiteColor()
+</code></pre>
+
+<p>設定他 Screen 大小 (根據手機解析度而定)
+並設定 window 的背景顏色為白色</p>
+
+<p>接著是最重要的設定:</p>
+
+<pre><code>self.window?.rootViewController = viewController
+self.window?.makeKeyAndVisible()
+</code></pre>
+
+<p>我們要讓 viewController 指定為是這個 window 的 rootViewController</p>
+
+<p>並且 makeKeyAndVisible</p>
+
+<p>這樣就完成手動設定進入點的程式了</p>
+
+<p>再來我們就可以大膽一點，把 Storyboard 砍掉啦!</p>
+
+<p>接著執行程式，就可以看到一片紅色了!!!</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2015.10.21.png" alt="image" />
+</p>
+
+<p>是不是很簡單!</p>
+
+<p>如果要 NavigationController 也可以直接設定!</p>
+
+<p>接下來的實戰開發專案就會以不使用 Storyboard 的方式開發</p>
+
+<p>增加程式碼可讀性 :P</p>
+
+<p>老是貼圖也很累 XDDDD</p>
+
+<p>接下來就要用 Swift 寫一個 TODOList APP 囉!</p>
+
+<p>並且實際接上隔壁棚的 Restful API XD</p>
+
+                    </div>
+                    <div class="post-share">
+                        <div class="post-share-links">
+                            <h4 style="">Share</h4>
+                            <a href="#" data-type="facebook" data-url="http://kerkerj.github.io/blog/2014/10/20/2014-10-20-swift-d20/" data-title="[Swift-d20] - Basic - 捨棄 Storyboard 使用純程式碼 的方式撰寫 ViewController" data-description="" data-media="" class="prettySocial fa fa-facebook"></a>
+                            <a href="#" data-type="googleplus" data-url="http://kerkerj.github.io/blog/2014/10/20/2014-10-20-swift-d20/" data-description="" class="prettySocial fa fa-google-plus"></a>
+                            
+                            <a href="#" data-type="twitter" data-url="http://kerkerj.github.io/blog/2014/10/20/2014-10-20-swift-d20/" data-description="" data-via="kerkerj" class="prettySocial fa fa-twitter"></a>
+                            
+
+                        </div>
+                    </div>
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/kerkerj.github.io\/blog\/2014\/10\/20\/2014-10-20-swift-d20\/';
+    var disqus_title = '[Swift-d20] - Basic - 捨棄 Storyboard 使用純程式碼 的方式撰寫 ViewController';
+    var disqus_url = 'http:\/\/kerkerj.github.io\/blog\/2014\/10\/20\/2014-10-20-swift-d20\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                </section>
+            </div>
+            <div class="footer">
+    <div class="pure-menu pure-menu-horizontal pure-menu-open">
+        <ul>
+            <li>Powered by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a></li>
+        </ul>
+    </div>
+</div>
+<script src="http://kerkerj.github.io//js/all.min.js"></script>
+<script>
+hljs.initHighlightingOnLoad();
+</script>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

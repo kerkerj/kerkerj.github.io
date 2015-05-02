@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+     
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="[Swift-d9] - Playground - Class, Struct | kerkerj">
+    <meta property="og:url" content="http://kerkerj.github.io/blog/2014/10/09/2014-10-09-swift-d9/">
+    <meta property="og:description" content="">
+    
+    
+    <meta property="og:site_name" content="kerkerj">
+
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="kerkerj" />
+    <meta name="twitter:title" content="[Swift-d9] - Playground - Class, Struct &middot; kerkerj">
+    <meta name="twitter:description" content="">
+
+    
+    <title>[Swift-d9] - Playground - Class, Struct &middot; kerkerj</title>
+
+    
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+    
+
+    <link rel="stylesheet" href="http://kerkerj.github.io//css/all.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    
+    
+      <link rel="stylesheet" href="http://kerkerj.github.io//css/highlight/railscasts.css">
+    
+
+    
+    <link href="http://kerkerj.github.io/favicon.ico" rel="icon">
+
+    
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://kerkerj.github.io//index.xml">
+</head>
+<body>
+
+
+<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+    <div class="header">
+        <hgroup>
+            <h1 class="brand-title"><a href="http://kerkerj.github.io/">kerkerj</a></h1>
+            <h2 class="brand-tagline"> Hi. </h2>
+        </hgroup>
+
+        <nav class="nav">
+            
+            <ul class="pure-menu-list">
+              
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//notes/">Notes</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//about/">About</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//mac-app-list/">Mac App List</a>
+                </li>
+              
+            </ul>
+
+            
+            <ul class="nav-list">
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://twitter.com/kerkerj"><i class="fa fa-twitter"></i> Twitter</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://github.com/kerkerj "><i class="fa fa-github-alt"></i> Github</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            
+            <div class="posts">
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/09/2014-10-09-swift-d9/" class="post-title">[Swift-d9] - Playground - Class, Struct</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-swift" href="http://kerkerj.github.io//categories/swift">swift</a>
+                            
+                        </p>
+                    </header>
+                    <div class="post-description">
+                        <p>#Playground - Class, Struct</p>
+
+<p>再來就是要提重點的東西了!</p>
+
+<p>class 和 struct 是用來建構整個程式重要的東西</p>
+
+<p>兩者的差異在於：class 可以繼承其他 class，但是 struct 無法繼承</p>
+
+<p>以下是宣告方式</p>
+
+<pre><code class="language-swift">class SomeClass {
+	//...
+}
+
+struct SomeStruct {
+	//...
+}
+</code></pre>
+
+<p>注意，Swift 的 class 和 struct 命名慣例是大寫命名風格 <code>UpperCamelCase</code></p>
+
+<p>而屬性和方法則是 <code>lowerCamelCase</code></p>
+
+<p>例如 <code>increaseCount</code>, <code>addTwoInts</code></p>
+
+<p>舉個例子:</p>
+
+<pre><code>struct Resolution {
+	var width = 0
+	var height = 0
+}
+
+class CustomLabel {
+	var resolution = Resolution()
+	var isLabel = true
+	var name: String?
+}
+</code></pre>
+
+<p>實體化，就可以改變其中的值了</p>
+
+<pre><code>var someResolution = Resolution()
+var someLabel = CustomLabel()
+
+someResolution.width = 100
+someLabel.resolution.height = 200
+</code></pre>
+
+<p>就是一直 <code>點</code> 下去就對了!</p>
+
+<p>Struct 我們也可以直接給定初始值，class 就不能這樣做了~</p>
+
+<pre><code>var someResolution = Resolution(width: 200, height: 300)
+</code></pre>
+
+<p>sttuct 的 Getter 和 Setter 只存在於 computed properties</p>
+
+<p>亦即是必須要被計算過的才能使用 Getter, Setter</p>
+
+<p>以下就直接看別人的例子吧:</p>
+
+<pre><code>struct Point {
+    var x = 0.0, y = 0.0
+}
+struct Size {
+    var width = 0.0, height = 0.0
+}
+struct Rect {
+    var origin = Point()
+    var size = Size()
+    var center: Point {
+    get {
+        let centerX = origin.x + (size.width / 2)
+        let centerY = origin.y + (size.height / 2)
+        return Point(x: centerX, y: centerY)
+    }
+    set(newCenter) {
+        origin.x = newCenter.x - (size.width / 2)
+        origin.y = newCenter.y - (size.height / 2)
+    }
+    }
+}
+var square = Rect(origin: Point(x: 0.0, y: 0.0),
+    size: Size(width: 10.0, height: 10.0))
+let initialSquareCenter = square.center
+square.center = Point(x: 15.0, y: 15.0)
+println(&quot;square.origin is now at (\(square.origin.x), \(square.origin.y))&quot;)
+</code></pre>
+
+<p>###Struct 和 enum 是一種值型別</p>
+
+<p>值型別的的例子像是 Int, String &hellip;.</p>
+
+<p>那 struct 和 enum 也是，都是以值來操作的</p>
+
+<p>###Class 是參考型別</p>
+
+<p>##使用時機</p>
+
+<p>struct:</p>
+
+<ul>
+<li>用來封裝少量相關的資料</li>
+<li>不需要繼承</li>
+<li>是 copy value 而不是 reference</li>
+</ul>
+
+<p>例如：Label 的長寬, 三角形的三個點</p>
+
+<p>##Class 二三事</p>
+
+<p>礙于篇幅關係，這邊簡單講解一些 class 比較重要的點</p>
+
+<p>通常一個 class 裡面會有一些 variable 與 methods</p>
+
+<p>通常還會有靜態的 variables, methods 或是 建構子 (constructor)</p>
+
+<p>甚至是延遲載入一個變數</p>
+
+<p>下面就簡單寫了一個 class 來說明這幾個部分</p>
+
+<pre><code>class Person {
+    
+    var name: String
+    var height: Int!
+    
+    // 型別屬性 (靜態變數)
+    class var isAnimal: Bool {
+        return true
+    }
+    
+    // 初始化時必定輸入 name, 必須知道初始化時變數所代表的意義
+    init(name: String) {
+        self.name = name
+    }
+    
+    // 型別方法 (靜態方法)
+    class func sayHi() -&gt; String {
+        return &quot;Hi!&quot;
+    }
+    
+    func sayYa() -&gt; String {
+        return &quot;Ya&quot;
+    }
+    
+    final func car(#title: String) -&gt; String{
+        return title
+    }
+    
+    lazy var personalizedGreeting: String = {
+        [unowned self] in
+        return &quot;Hello, \(self.name)!&quot;
+    }()
+}
+
+let person = Person(name: &quot;Kerkerj&quot;)
+println(person.personalizedGreeting)
+println(person.car(title: &quot;Toyota&quot;))
+println(person.sayYa())
+println(Person.sayHi())
+println(Person.isAnimal)
+</code></pre>
+
+<p><code>self</code> 的意思就代表 class 自己，就字面上來看應該蠻好懂的</p>
+
+<p>通常 <code>lazy</code> 的使用時機在於，</p>
+
+<p>有個值需要被複雜或大量計算時，或是初始化時可能需要大量計算時，</p>
+
+<p>我們可以加入 <code>lazy</code>，使該變數在需要操作時再計算</p>
+
+<p>下面再簡單講一點繼承的東西</p>
+
+<p>直接看例子，我設定了一個 class 稱為 Man，繼承自 Person</p>
+
+<pre><code>class Man: Person {
+    class var sex: String {
+        return &quot;Male&quot;
+    }
+    
+    override init(name: String) {
+        super.init(name: name)
+    }
+    
+    override func sayYa() -&gt; String {
+        return &quot;YAYA&quot;
+    }
+    
+    func sayYo() -&gt; String {
+        return &quot;YO&quot;
+    }
+}
+
+let kerkerj = Man(name: &quot;kerkerj&quot;)
+println(kerkerj.name)
+println(kerkerj.sayYa())
+println(kerkerj.sayYo())
+println(Man.sex)
+</code></pre>
+
+<p>可以觀察一下自動補完的選項，當輸入 <code>kerkerj.</code> 時</p>
+
+<p>後面會出現除了 Man 這個 class 本身提供的變數與方法外，</p>
+
+<p>還有 Person 的變數與方法，這就是因為 Man 繼承自 Person 的關係</p>
+
+<p>Man 裡面覆寫了 init, sayYa 的方法，</p>
+
+<p>原本 sayYa 只會出現一次 &ldquo;YA&rdquo;, 覆寫過後會出現兩次變成 &ldquo;YAYA&rdquo;</p>
+
+<p>另外 Man 再多加了一個 sayYo 的方法</p>
+
+<p>如果父類別的某些方法不想被覆寫，在關鍵字前加上 <code>final</code></p>
+
+<p>就可以防止被覆寫</p>
+
+<hr />
+
+<p>以上是一些 class 和 struct 的特性</p>
+
+                    </div>
+                    <div class="post-share">
+                        <div class="post-share-links">
+                            <h4 style="">Share</h4>
+                            <a href="#" data-type="facebook" data-url="http://kerkerj.github.io/blog/2014/10/09/2014-10-09-swift-d9/" data-title="[Swift-d9] - Playground - Class, Struct" data-description="" data-media="" class="prettySocial fa fa-facebook"></a>
+                            <a href="#" data-type="googleplus" data-url="http://kerkerj.github.io/blog/2014/10/09/2014-10-09-swift-d9/" data-description="" class="prettySocial fa fa-google-plus"></a>
+                            
+                            <a href="#" data-type="twitter" data-url="http://kerkerj.github.io/blog/2014/10/09/2014-10-09-swift-d9/" data-description="" data-via="kerkerj" class="prettySocial fa fa-twitter"></a>
+                            
+
+                        </div>
+                    </div>
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/kerkerj.github.io\/blog\/2014\/10\/09\/2014-10-09-swift-d9\/';
+    var disqus_title = '[Swift-d9] - Playground - Class, Struct';
+    var disqus_url = 'http:\/\/kerkerj.github.io\/blog\/2014\/10\/09\/2014-10-09-swift-d9\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                </section>
+            </div>
+            <div class="footer">
+    <div class="pure-menu pure-menu-horizontal pure-menu-open">
+        <ul>
+            <li>Powered by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a></li>
+        </ul>
+    </div>
+</div>
+<script src="http://kerkerj.github.io//js/all.min.js"></script>
+<script>
+hljs.initHighlightingOnLoad();
+</script>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

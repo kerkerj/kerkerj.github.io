@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+     
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="[Swift-d23] - 實戰開發 - TODOList - Show View 2, Delete View | kerkerj">
+    <meta property="og:url" content="http://kerkerj.github.io/blog/2014/10/23/2014-10-23-swift-d23/">
+    <meta property="og:description" content="">
+    
+    
+    <meta property="og:site_name" content="kerkerj">
+
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="kerkerj" />
+    <meta name="twitter:title" content="[Swift-d23] - 實戰開發 - TODOList - Show View 2, Delete View &middot; kerkerj">
+    <meta name="twitter:description" content="">
+
+    
+    <title>[Swift-d23] - 實戰開發 - TODOList - Show View 2, Delete View &middot; kerkerj</title>
+
+    
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+    
+
+    <link rel="stylesheet" href="http://kerkerj.github.io//css/all.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    
+    
+      <link rel="stylesheet" href="http://kerkerj.github.io//css/highlight/railscasts.css">
+    
+
+    
+    <link href="http://kerkerj.github.io/favicon.ico" rel="icon">
+
+    
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://kerkerj.github.io//index.xml">
+</head>
+<body>
+
+
+<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+    <div class="header">
+        <hgroup>
+            <h1 class="brand-title"><a href="http://kerkerj.github.io/">kerkerj</a></h1>
+            <h2 class="brand-tagline"> Hi. </h2>
+        </hgroup>
+
+        <nav class="nav">
+            
+            <ul class="pure-menu-list">
+              
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//notes/">Notes</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//about/">About</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//mac-app-list/">Mac App List</a>
+                </li>
+              
+            </ul>
+
+            
+            <ul class="nav-list">
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://twitter.com/kerkerj"><i class="fa fa-twitter"></i> Twitter</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://github.com/kerkerj "><i class="fa fa-github-alt"></i> Github</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            
+            <div class="posts">
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/23/2014-10-23-swift-d23/" class="post-title">[Swift-d23] - 實戰開發 - TODOList - Show View 2, Delete View</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-swift" href="http://kerkerj.github.io//categories/swift">swift</a>
+                            
+                        </p>
+                    </header>
+                    <div class="post-description">
+                        <p><a href="https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day23">Github link</a></p>
+
+<p>延續昨天，接下來要做換頁</p>
+
+<p>因此我們必須先新建立一個 ShowViewController, 以及他的 xib</p>
+
+<p>接著我們在 xib 拉幾個元件: 兩個 label, 一個用來顯示目前的 index, 另一個則是顯示內容</p>
+
+<p>拉好後，將這兩個元件設定連結到 ShowViewController.swift</p>
+
+<p><img src="http://goo.gl/XPjBik" alt="image" />
+</p>
+
+<p>另外多在 ShowViewController 中放兩個變數</p>
+
+<pre><code>var index: Int!
+var content: String!
+</code></pre>
+
+<p>回到 ViewController, 到 tableView didSelectRowAtIndexPath 中</p>
+
+<p>因為 didSelectRowAtIndexPath 的意思就是當 cell 被選取時要做什麼事情</p>
+
+<p>因此當 cell 被選取時，我們就要讓他跳到下一頁，並且是使用 ShowViewController 來顯示資料</p>
+
+<p>因此修改此方法:</p>
+
+<pre><code>	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        var showViewController = ShowViewController(nibName: &quot;ShowViewController&quot;, bundle: nil)
+        showViewController.index = indexPath.row
+        showViewController.content = fakeData[indexPath.row][&quot;content&quot;]
+        
+        // 回復非選取狀態
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        self.navigationController?.pushViewController(showViewController, animated: true)
+    }
+</code></pre>
+
+<p>最後在 ShowViewController 中的 viewDidLoad 加入:</p>
+
+<pre><code>        indexLabel.text = &quot;\(index)&quot;
+        contentLabel.text = content
+</code></pre>
+
+<p>這樣一來在 ShowViewController 被建立時，顯示的 label 就會將上一個 view 設定的 index, content 的值顯示出來了</p>
+
+<p>執行看看!</p>
+
+<p><img src="http://goo.gl/Uib0IA" alt="image" />
+</p>
+
+<p>這樣 Show 的部分就完成了!</p>
+
+<p>接著我們回到主頁</p>
+
+<p>要來建立將 cell 向左滑可以刪除的事件，這是 iOS 內建的事件，</p>
+
+<p>因此建立方法也很簡單:</p>
+
+<p>一樣是覆寫 tableView 的方法</p>
+
+<p>要讓 tableView 可以編輯 row - canEditRowAtIndexPath</p>
+
+<pre><code>	func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -&gt; Bool {
+        return true
+    }
+</code></pre>
+
+<p>按下確認刪除後的行為 - 我們在這邊實際上是刪除 fakeData 的值</p>
+
+<p>所以只要 App 重開後就又會回到三筆資料了</p>
+
+<pre><code>	func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+
+        self.fakeData.removeAtIndex(indexPath.row)
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            // must be &quot;tableView!&quot; not &quot;tableView?&quot;
+            self.tableView!.reloadData()
+        })
+
+        let alert = UIAlertView()
+        alert.title = &quot;Alert&quot;
+        alert.message = &quot;Deleted!&quot;
+        alert.addButtonWithTitle(&quot;Ok&quot;)
+        alert.show()
+    }
+</code></pre>
+
+<p>這樣我們就有顯示單筆以及顯示多筆還有刪除可以用了!</p>
+
+                    </div>
+                    <div class="post-share">
+                        <div class="post-share-links">
+                            <h4 style="">Share</h4>
+                            <a href="#" data-type="facebook" data-url="http://kerkerj.github.io/blog/2014/10/23/2014-10-23-swift-d23/" data-title="[Swift-d23] - 實戰開發 - TODOList - Show View 2, Delete View" data-description="" data-media="" class="prettySocial fa fa-facebook"></a>
+                            <a href="#" data-type="googleplus" data-url="http://kerkerj.github.io/blog/2014/10/23/2014-10-23-swift-d23/" data-description="" class="prettySocial fa fa-google-plus"></a>
+                            
+                            <a href="#" data-type="twitter" data-url="http://kerkerj.github.io/blog/2014/10/23/2014-10-23-swift-d23/" data-description="" data-via="kerkerj" class="prettySocial fa fa-twitter"></a>
+                            
+
+                        </div>
+                    </div>
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/kerkerj.github.io\/blog\/2014\/10\/23\/2014-10-23-swift-d23\/';
+    var disqus_title = '[Swift-d23] - 實戰開發 - TODOList - Show View 2, Delete View';
+    var disqus_url = 'http:\/\/kerkerj.github.io\/blog\/2014\/10\/23\/2014-10-23-swift-d23\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                </section>
+            </div>
+            <div class="footer">
+    <div class="pure-menu pure-menu-horizontal pure-menu-open">
+        <ul>
+            <li>Powered by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a></li>
+        </ul>
+    </div>
+</div>
+<script src="http://kerkerj.github.io//js/all.min.js"></script>
+<script>
+hljs.initHighlightingOnLoad();
+</script>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

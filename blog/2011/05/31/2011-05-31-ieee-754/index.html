@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+     
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="[CS] IEEE 754 表示式 | kerkerj">
+    <meta property="og:url" content="http://kerkerj.github.io/blog/2011/05/31/2011-05-31-ieee-754/">
+    <meta property="og:description" content="">
+    
+    
+    <meta property="og:site_name" content="kerkerj">
+
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="kerkerj" />
+    <meta name="twitter:title" content="[CS] IEEE 754 表示式 &middot; kerkerj">
+    <meta name="twitter:description" content="">
+
+    
+    <title>[CS] IEEE 754 表示式 &middot; kerkerj</title>
+
+    
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+    
+
+    <link rel="stylesheet" href="http://kerkerj.github.io//css/all.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    
+    
+      <link rel="stylesheet" href="http://kerkerj.github.io//css/highlight/railscasts.css">
+    
+
+    
+    <link href="http://kerkerj.github.io/favicon.ico" rel="icon">
+
+    
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://kerkerj.github.io//index.xml">
+</head>
+<body>
+
+
+<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+    <div class="header">
+        <hgroup>
+            <h1 class="brand-title"><a href="http://kerkerj.github.io/">kerkerj</a></h1>
+            <h2 class="brand-tagline"> Hi. </h2>
+        </hgroup>
+
+        <nav class="nav">
+            
+            <ul class="pure-menu-list">
+              
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//notes/">Notes</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//about/">About</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//mac-app-list/">Mac App List</a>
+                </li>
+              
+            </ul>
+
+            
+            <ul class="nav-list">
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://twitter.com/kerkerj"><i class="fa fa-twitter"></i> Twitter</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://github.com/kerkerj "><i class="fa fa-github-alt"></i> Github</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            
+            <div class="posts">
+                <h1 class="content-subhead">2011-05-05 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2011/05/31/2011-05-31-ieee-754/" class="post-title">[CS] IEEE 754 表示式</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-IEEE754" href="http://kerkerj.github.io//categories/ieee754">IEEE754</a>
+                            
+                        </p>
+                    </header>
+                    <div class="post-description">
+                        <p>2的補數複習一下  <a href="http://scribefire-next/" title="http://entry.hit.edu.tw/~bd92043/1.htm">http://entry.hit.edu.tw/~bd92043/1.htm</a>
+另一篇IEEE 754   <a href="http://tw.myblog.yahoo.com/nicholas-kang/article?mid=39&amp;l=f&amp;fid=5" title="http://tw.myblog.yahoo.com/nicholas-kang/article?mid=39&amp;l=f&amp;fid=5">http://tw.myblog.yahoo.com/nicholas-kang/article?mid=39&amp;l=f&amp;fid=5   </a></p>
+
+<p>作者: Liroy (優白白) 看板: Army-Sir
+標題: [教學] 計概 IEEE754 表示式
+時間: Fri Jan 14 21:47:11 2011
+IEEE754為一種二進位小數的標準表示式，以精確度分成單倍精和雙倍精。</p>
+
+<p>#單倍精(32bit)
+以32個bit來表示一個二進位小數，格式如下
+<code>
+s(1 bit) exp(8 bit)  fraction(23 bit) =&gt; 1+8+23=32 bit(沒錯吧XXXD)
+</code>
+化簡方式分成幾步驟(十進位-&gt;IEEE754)：
+        1. 十進位-&gt;二進位
+        2. 二進位正規化
+        3. exp加上bias值
+        4. fraction扣去隱藏位元
+eg:  -5(10)化成IEEE754表示式
+        1. -5(10) = -101
+        2. -101 = -1.01 x 2^2
+        3. 2 + 127 = 129(10) = 10000001(2) - 這個只要一般二進位表示即可
+                                           不需用二的補數，因為你已經加上bias了
+                s    exp        fraction
+        ＝＞    1 10000001 01000000000000000000000
+  ps:可能有人會問127是什麼？127為bias，再化成IEEE754時都固定要加上這個值, 又有人問，幹麻加這個，因為這樣的化簡可以簡化兩個IEEE754小數做運算時的步驟,怎樣的簡化，就不在這裡討論範圍內了。(詳見白算盤XXXXD)
+  ps2:有人會問幹麻把小數點前的那個1隱藏起來呀。答案是，因為正規化時，小數點前一定是1，所以可以省略，這樣就可以多一個bit來表示小數，可增加小數精確度
+  ps3:exp只需要用二進位表示就好了，因為你已經加上bias了，所以不會變負的，不需要用到二的補數來表示這個部份。</p>
+
+<p>#雙倍精(64 bit)
+以64個bit來表示一個二進位小數，格式如下
+<code>
+s(1 bit) exp(11 bit)  fraction(52 bit) =&gt; 1+11+52=64 bit(沒錯吧XXXD)
+</code>
+化簡方式分成幾步驟(十進位-&gt;IEEE754)：
+        1. 十進位-&gt;二進位
+        2. 二進位正規化
+        3. exp加上bias值
+        4. fraction扣去隱藏位元
+eg:  -5(10)化成IEEE754表示式
+        1. -5(10) = -101
+        2. -101 = -1.01 x 2^2
+        3. 2 + 1023 = 1025(10) = 10000000001(2)  - 這個只要一般二進位表示即可
+        4. 1.01 -&gt; .01 (1被隱藏起來了，剩下小數點後面的東西)
+                s     exp        fraction
+        ＝＞    1 10000000001 0100&hellip;0(好多零～囧 1後面一共有50 bit，自己算吧)
+  備註：雙倍精bias為1023  (因為exp bit一共有11個)</p>
+
+<hr />
+
+<p>另外單倍精exp最多只能到11111110 ，最小也只能到達00000001
+妳會納悶11111111 和 00000000 怎麼不用- -a
+因為呀！！ 這兩個拿來當另外處理的
+exp＝255  fraction≠0   =&gt;NaN (表非數字)
+exp＝255  fraction＝0   =&gt;±∞(依s來區別是正還是負)
+exp＝0    fraction≠0   =&gt;不足位,underflow,denormalized(太小了，小到無法表示)
+exp＝0    fraction＝0   =&gt;用來表示0.0這個數 (有的版本還會分正負零)
+雙倍精依此類推，exp無法使用11111111111 和 00000000000
+例外處理所表示的跟單倍精一樣，只是255改成2047
+<code>
+......|-------------------|..|..|-------------------|......
+      *--可用IEEE754表示--*  0  *--可用IEEE754表示--*
+</code>
+亮粉紅表示overflow，數字太大無法表示，∞
+亮黃色表示underflow，數字太小無法表示，denormalized number
+&ndash; 表示可用IEEE754正規表示式表示的範圍 (中間的0也可以表示喔！！別把他忽略了)</p>
+
+<hr />
+
+<p>此外補充：
+IEEE754 單倍精正規表示範圍最大正數：≒  2 x 10^38
+                          最小正數：≒  2 x 10^-38
+                          最大負數：≒ -2 x 10^-38
+                          最大負數：≒ -2 x 10^38
+IEEE754 雙倍精正規表示範圍最大正數：≒  2 x 10^308
+                          最小正數：≒  2 x 10^-308
+                          最大負數：≒ -2 x 10^-308
+                          最大負數：≒ -2 x 10^308</p>
+
+<hr />
+
+<p>#最大數和最小數證明
+ IEEE754單倍精最大正數-&gt;0 11111110 11111111111111111111111  (IEEE754)
+  =&gt; + 1.11111111111111111111111 x 2^(254-127) ≒ 2.0 x 2^127 ≒  2 x 10^38
+      ^^^^^^^^^^^^^^^^^^^^^^^^^-&gt;大約等於2.0，大家應該沒異議吧！
+ IEEE754單倍精最小正數-&gt;0 00000001 00000000000000000000000  (IEEE754)
+  =&gt; + 1.00000000000000000000000 x 2^(1-127)  ≒ 1.0 x 2^-126 ≒  2 x 10^-38
+其他依此類推，我懶著打了ˊˋ。數零數到我眼睛都花了～ε(┬┬＿┬┬)3
+這應該就全部IEEE754的精隨了！！～有問題再問吧&lt;(<em>.</em>)&gt;</p>
+
+<p>&mdash;以上為轉錄
+以下是我的筆記：
+ IEEE 754 結構 (以下皆只討論Single Precision)
+ ==== S(1) + Exponent(8) + Fraction(23)   共32 bits ====
+ S判斷正負
+ 作業例子：  (-13.625)ten 使用IEEE 754 表示
+ p.s. IEEE 754表示式是在第一個bit來判斷正負
+ 1. 先轉二進位
+ (-13)ten = (-1101)two
+ (0.625)ten = (<sup>5</sup>&frasl;<sub>8</sub>)ten = (<sup>101</sup>&frasl;<sub>1000</sub>)two
+ =&gt; (-13.625)ten = (-1101.101)two
+ 2. 正規化表示 (就像科學記號表示法一樣)
+ =&gt; (-1101.101)two = -1.101101 x 2^3
+ 3. 因此可以得到
+ =&gt; 1 ________ 10110100000000000000000
+ 4. E = 指數加上 bias 即可   不用二的補數  (IEEE 754的偏差設為127)
+ =&gt; 剛剛算出來的指數是3，所以
+ =&gt; 3 + 127 = 130
+ =&gt; 130 轉二進位為：1000 0010
+ 因此 (-13.625)ten = 1 1000 0010 10110100000000000000000  (空白只是觀看容易)
+ 驗證一下ㄎㄎ
+ <a href="http://www.h-schmidt.net/FloatApplet/IEEE754.html" title="http://www.h-schmidt.net/FloatApplet/IEEE754.html">http://www.h-schmidt.net/FloatApplet/IEEE754.html</a></p>
+
+                    </div>
+                    <div class="post-share">
+                        <div class="post-share-links">
+                            <h4 style="">Share</h4>
+                            <a href="#" data-type="facebook" data-url="http://kerkerj.github.io/blog/2011/05/31/2011-05-31-ieee-754/" data-title="[CS] IEEE 754 表示式" data-description="" data-media="" class="prettySocial fa fa-facebook"></a>
+                            <a href="#" data-type="googleplus" data-url="http://kerkerj.github.io/blog/2011/05/31/2011-05-31-ieee-754/" data-description="" class="prettySocial fa fa-google-plus"></a>
+                            
+                            <a href="#" data-type="twitter" data-url="http://kerkerj.github.io/blog/2011/05/31/2011-05-31-ieee-754/" data-description="" data-via="kerkerj" class="prettySocial fa fa-twitter"></a>
+                            
+
+                        </div>
+                    </div>
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/kerkerj.github.io\/blog\/2011\/05\/31\/2011-05-31-ieee-754\/';
+    var disqus_title = '[CS] IEEE 754 表示式';
+    var disqus_url = 'http:\/\/kerkerj.github.io\/blog\/2011\/05\/31\/2011-05-31-ieee-754\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                </section>
+            </div>
+            <div class="footer">
+    <div class="pure-menu pure-menu-horizontal pure-menu-open">
+        <ul>
+            <li>Powered by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a></li>
+        </ul>
+    </div>
+</div>
+<script src="http://kerkerj.github.io//js/all.min.js"></script>
+<script>
+hljs.initHighlightingOnLoad();
+</script>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

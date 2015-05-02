@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+     
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="[API-d10] - Express - Hello World! | kerkerj">
+    <meta property="og:url" content="http://kerkerj.github.io/blog/2014/10/10/2014-10-10-api-d10/">
+    <meta property="og:description" content="">
+    
+    
+    <meta property="og:site_name" content="kerkerj">
+
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="kerkerj" />
+    <meta name="twitter:title" content="[API-d10] - Express - Hello World! &middot; kerkerj">
+    <meta name="twitter:description" content="">
+
+    
+    <title>[API-d10] - Express - Hello World! &middot; kerkerj</title>
+
+    
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+    
+
+    <link rel="stylesheet" href="http://kerkerj.github.io//css/all.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    
+    
+      <link rel="stylesheet" href="http://kerkerj.github.io//css/highlight/railscasts.css">
+    
+
+    
+    <link href="http://kerkerj.github.io/favicon.ico" rel="icon">
+
+    
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://kerkerj.github.io//index.xml">
+</head>
+<body>
+
+
+<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+    <div class="header">
+        <hgroup>
+            <h1 class="brand-title"><a href="http://kerkerj.github.io/">kerkerj</a></h1>
+            <h2 class="brand-tagline"> Hi. </h2>
+        </hgroup>
+
+        <nav class="nav">
+            
+            <ul class="pure-menu-list">
+              
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//notes/">Notes</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//about/">About</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//mac-app-list/">Mac App List</a>
+                </li>
+              
+            </ul>
+
+            
+            <ul class="nav-list">
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://twitter.com/kerkerj"><i class="fa fa-twitter"></i> Twitter</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://github.com/kerkerj "><i class="fa fa-github-alt"></i> Github</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            
+            <div class="posts">
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/10/2014-10-10-api-d10/" class="post-title">[API-d10] - Express - Hello World!</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-restful" href="http://kerkerj.github.io//categories/restful">restful</a><a class="post-category post-category-api" href="http://kerkerj.github.io//categories/api">api</a><a class="post-category post-category-nodejs" href="http://kerkerj.github.io//categories/nodejs">nodejs</a><a class="post-category post-category-express" href="http://kerkerj.github.io//categories/express">express</a>
+                            
+                        </p>
+                    </header>
+                    <div class="post-description">
+                        <p>#Express - Hello World!</p>
+
+<p>今天就要來安裝主角之一的 <a href="http://expressjs.com/">Express</a> 了!</p>
+
+<p>一樣開啟虛擬機器我應該是可以不用多說了 XD</p>
+
+<p>先確認自己的 node 是不是 NVM 的 node 喲</p>
+
+<p>##建立專案</p>
+
+<pre><code>$ cd /vagrant/
+$ mkdir API
+$ cd API/
+$ npm init
+</code></pre>
+
+<p>自己輸入專案的相關內容吧，不知道的就直接按 enter 空白丟給他~</p>
+
+<p>就會產生 package.json 了!</p>
+
+<p>##安裝 Express</p>
+
+<pre><code>// 在專案目錄底下 (/vagrant/API/)
+
+$ npm install express -save
+</code></pre>
+
+<p>下 <code>-save</code> 的原因是要將 express 加入 package.json 中</p>
+
+<p>離開虛擬機，其實我們也可以在虛擬機資料夾看到剛剛建立的專案了，</p>
+
+<p>現在開始就可以使用自己喜歡的編輯器來開啟這個專案資料夾，我個人偏好使用 Sublime Text</p>
+
+<p>要執行專案時再回終端機即可</p>
+
+<p>##Express Hello World!</p>
+
+<p>在 API 資料夾中建立一個 app.js</p>
+
+<p>內容是:</p>
+
+<pre><code>javascript
+var express = require('express');
+var app = express();
+
+app.get('/', function(req, res){
+  res.send('Hello World');
+});
+
+app.listen(3000, function() {
+    console.log('Listening on port %d', server.address().port);
+});
+
+</code></pre>
+
+<p>儲存後，回到終端機，將 express 跑起來:</p>
+
+<pre><code>vagrant@vagrant-ubuntu-trusty-64:/vagrant/API$ node app.js
+Listening on port 3000
+</code></pre>
+
+<p>開啟瀏覽器，瀏覽 <code>http://192.168.33.10:3000</code> (url 視個人環境而定)</p>
+
+<p>出現 <code>Hello World! Express!</code> 啦～～ 又一個 Hello World 啦~~</p>
+
+<p>是不是有比 Node.js 的範例更簡潔一點呢?</p>
+
+<p>簡單分析一下這段 code :</p>
+
+<pre><code>// 引入 express module
+var express = require('express');
+
+// 產生一個 express instance - app
+var app = express();
+
+// Express 的重點所在! 稍後解釋
+app.get('/', function(req, res){
+  res.send('Hello World');
+});
+
+// 讓 express server 跑在 port 3000
+app.listen(3000, function() {
+    console.log('Listening on port %d', server.address().port);
+});
+</code></pre>
+
+<p>以上概念基本上都和 Node.js 概念差不多</p>
+
+<p>值得一提的是 Express 的 Routing:</p>
+
+<pre><code>app.get('/', function(req, res){
+  res.send('Hello World');
+});
+</code></pre>
+
+<p>最前面有提到 HTTP 的動詞 GET, POST, PUT, DELETE &hellip;</p>
+
+<p>在這邊就必須用上了！</p>
+
+<p>我們可以看一下 express 的 <a href="http://expressjs.com/4x/api.html#router.VERB">API reference</a></p>
+
+<p><code>app.get</code> 的 <code>.get</code> 就是代表 HTTP GET</p>
+
+<p>如果後面接 <code>.post</code> 就是 HTTP POST, 等等都同樣概念</p>
+
+<p><a href="http://expressjs.com/4x/api.html#router.VERB">API reference</a> 中提到，</p>
+
+<pre><code>router.VERB(path, [callback...], callback)
+</code></pre>
+
+<p><code>path</code> 的意思就是要開放給 client 的路由, 透過不同的路由導向不同的動作</p>
+
+<p>中間的 <code>[callback...]</code> 是 middleware 這個之後會再解釋</p>
+
+<p>最後一個 callback 是用來處理 request 及 response</p>
+
+<p>在這個例子中，client 並沒有丟參數，因此不需要對 request 作處理，</p>
+
+<p>而 server 要回應 response</p>
+
+<p>所以使用了 <code>res.send('Hello World');</code> 來回傳資料</p>
+
+<p>是不是很簡單勒!</p>
+
+<p>##專案產生器</p>
+
+<p>或許有人會使用 <code>express-generator</code> 來產生 expresss 專案目錄</p>
+
+<p>雖然它很方便，一次建立好專案結構，並且安裝一些常用搭配的套件，</p>
+
+<p>但是由於在尚未了解 express 的運作原理，</p>
+
+<p>一開始一次建立完整我認為過快，因此先不建議這樣用，</p>
+
+<p>當然，如果已經很熟練很了解 express 中可以使用的東西了，使用產生器當然是節省時間囉~</p>
+
+<pre><code>$ npm install -g express-generator
+$ express /tmp/foo &amp;&amp; cd /tmp/foo
+</code></pre>
+
+<p>下一篇會講解如何簡單操作 MongoDB!</p>
+
+                    </div>
+                    <div class="post-share">
+                        <div class="post-share-links">
+                            <h4 style="">Share</h4>
+                            <a href="#" data-type="facebook" data-url="http://kerkerj.github.io/blog/2014/10/10/2014-10-10-api-d10/" data-title="[API-d10] - Express - Hello World!" data-description="" data-media="" class="prettySocial fa fa-facebook"></a>
+                            <a href="#" data-type="googleplus" data-url="http://kerkerj.github.io/blog/2014/10/10/2014-10-10-api-d10/" data-description="" class="prettySocial fa fa-google-plus"></a>
+                            
+                            <a href="#" data-type="twitter" data-url="http://kerkerj.github.io/blog/2014/10/10/2014-10-10-api-d10/" data-description="" data-via="kerkerj" class="prettySocial fa fa-twitter"></a>
+                            
+
+                        </div>
+                    </div>
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/kerkerj.github.io\/blog\/2014\/10\/10\/2014-10-10-api-d10\/';
+    var disqus_title = '[API-d10] - Express - Hello World!';
+    var disqus_url = 'http:\/\/kerkerj.github.io\/blog\/2014\/10\/10\/2014-10-10-api-d10\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                </section>
+            </div>
+            <div class="footer">
+    <div class="pure-menu pure-menu-horizontal pure-menu-open">
+        <ul>
+            <li>Powered by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a></li>
+        </ul>
+    </div>
+</div>
+<script src="http://kerkerj.github.io//js/all.min.js"></script>
+<script>
+hljs.initHighlightingOnLoad();
+</script>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

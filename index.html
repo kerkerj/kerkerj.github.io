@@ -1,162 +1,162 @@
-
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>kerkerj</title>
-  <meta name="author" content="kerkerj">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  
-  <meta name="description" content="cool thing, cool guy">
-  <meta name="keywords" content="mac,ubuntu,nginx,rails,ruby,php,mysql,freebsd,technique,geek">
+    
+    
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://kerkerj.github.io/">
+    <meta property="og:title" content="kerkerj">
+    
+    <meta property="og:description" content="如題~ 先假設 pi2 本身的 IP 是 192.168.1.200 首先先進去 server 來更新一下~ $ sudo apt-get update &amp;&amp; sudo apt-get upgrade 再來就裝 motion 他其實是一個 motion detector，不過也可以拿來當作 web cam 用的 streaming server XD $ sudo apt-get install motion 編輯設定檔 /etc/motion/motion.conf $ sudo vi /etc/motion/motion.conf 找到以下幾個值，並分別改成下面 daemon = ON webcam_localhost = OFF control_localhost = OFF webcam_localhost 是 streaming 介面 control_localhost 是設定介面 如果要改預設 port，就找 webcam_port, or control_port 最後設定將 service 啟動 $ sudo vi /etc/default/motion 將 no">
+    
+    
+    
+    <meta property="og:site_name" content="kerkerj">
 
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="kerkerj" />
+    <meta name="twitter:title" content="kerkerj &middot; kerkerj">
+    <meta name="twitter:description" content="Hi.">
 
-  
-  <link rel="canonical" href="http://kerkerj.github.io">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="kerkerj" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+    
+    <title>kerkerj &middot; kerkerj</title>
 
-<link href="/favicon.ico" rel="icon">
-<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href='//fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-<link href='//fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-45583907-2']);
-    _gaq.push(['_trackPageview']);
+    
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+    
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
+    <link rel="stylesheet" href="http://kerkerj.github.io//css/all.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
+    
+    
+      <link rel="stylesheet" href="http://kerkerj.github.io//css/highlight/railscasts.css">
+    
 
+    
+    <link href="http://kerkerj.github.io/favicon.ico" rel="icon">
+
+    
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://kerkerj.github.io//index.xml">
 </head>
-
-<body   class="collapse-sidebar sidebar-footer" >
-  <header role="banner"><hgroup>
-  <h1><a href="/">kerkerj</a></h1>
-  
-    <h2>Cool</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-  
-  
-  
-  
-<ul class="subscription">
-  <li><a href="https://github.com/kerkerj" rel="subscribe-github" title="@kerkerj on GitHub">GitHub</a></li>
-</ul>
-  
-  
-  
-  
-<form action="https://www.google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:kerkerj.github.io" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-  <li><a href="/notes">Notes</a></li>
-  <li><a href="/mac-app-list">Mac App List</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/04/22/raspberry-pi2-remote-webcam/">Raspberry Pi2 Remote Webcam</a></h1>
-    
-    
-      <p class="meta">
-        
+<body>
 
 
+<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+    <div class="header">
+        <hgroup>
+            <h1 class="brand-title"><a href="http://kerkerj.github.io/">kerkerj</a></h1>
+            <h2 class="brand-tagline"> Hi. </h2>
+        </hgroup>
+
+        <nav class="nav">
+            
+            <ul class="pure-menu-list">
+              
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//notes/">Notes</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//about/">About</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//mac-app-list/">Mac App List</a>
+                </li>
+              
+            </ul>
+
+            
+            <ul class="nav-list">
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://twitter.com/kerkerj"><i class="fa fa-twitter"></i> Twitter</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://github.com/kerkerj "><i class="fa fa-github-alt"></i> Github</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
 
 
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            
+            <div class="posts">
+                
+                <h1 class="content-subhead">2015-04-04 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
 
+                        <a href="http://kerkerj.github.io/blog/2015/04/22/2015-04-22-raspberry-pi2-remote-webcam/" class="post-title">Raspberry Pi2 remote webcam</a>
 
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-raspberry" href="http://kerkerj.github.io//categories/raspberry">raspberry</a>
+                            
+                        </p>
+                    </header>
 
-
-  
-
-
-<time datetime="2015-04-22T23:43:38+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2015/04/22/raspberry-pi2-remote-webcam/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2015/04/22/raspberry-pi2-remote-webcam/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>如題~</p>
+                    <div class="post-description">
+                        <p>如題~</p>
 
 <p>先假設 pi2 本身的 IP 是 <code>192.168.1.200</code></p>
 
 <p>首先先進去 server 來更新一下~</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get update && sudo apt-get upgrade</span></code></pre></td></tr></table></div></figure>
-
+<pre><code class="language-shell">$ sudo apt-get update &amp;&amp; sudo apt-get upgrade
+</code></pre>
 
 <p>再來就裝 <a href="http://www.lavrsen.dk/foswiki/bin/view/Motion/WebHome">motion</a></p>
 
 <p>他其實是一個 motion detector，不過也可以拿來當作 web cam 用的 streaming server XD</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get install motion</span></code></pre></td></tr></table></div></figure>
-
+<pre><code class="language-shell">$ sudo apt-get install motion
+</code></pre>
 
 <p>編輯設定檔 <code>/etc/motion/motion.conf</code></p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo vi /etc/motion/motion.conf</span></code></pre></td></tr></table></div></figure>
-
+<pre><code class="language-shell">$ sudo vi /etc/motion/motion.conf
+</code></pre>
 
 <p>找到以下幾個值，並分別改成下面</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>daemon = ON 
-</span><span class='line'>webcam_localhost = OFF
-</span><span class='line'>control_localhost = OFF</span></code></pre></td></tr></table></div></figure>
-
+<pre><code class="language-shell">daemon = ON
+webcam_localhost = OFF
+control_localhost = OFF
+</code></pre>
 
 <p><code>webcam_localhost</code> 是 streaming 介面</p>
 
@@ -166,23 +166,20 @@
 
 <p>最後設定將 service 啟動</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo vi /etc/default/motion</span></code></pre></td></tr></table></div></figure>
-
+<pre><code class="language-shell">$ sudo vi /etc/default/motion
+</code></pre>
 
 <p>將 no 改成 yes</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>start_motion_daemon = yes</span></code></pre></td></tr></table></div></figure>
-
+<pre><code class="language-shell">start_motion_daemon = yes
+</code></pre>
 
 <p>啟動 service</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo service motion start</span></code></pre></td></tr></table></div></figure>
+<pre><code class="language-shell">$ sudo service motion start
+</code></pre>
 
-
-<p>motion 這個 service 預設的 port 是 8080/8081 (可以在前述的設定檔更改)</p>
+<p>motion 這個 service 預設的 port 是 8080 / 8081 (可以在前述的設定檔更改)</p>
 
 <p>開啟瀏覽器, 連入 <code>http://192.168.1.200:8080</code> or <code>http://192.168.1.200:8081</code></p>
 
@@ -199,45 +196,28 @@
 <p>記得要和你的 pi2 在同一個 wifi 環境下~</p>
 
 <p>剩下的還有許多設定可以玩～ 改天再來慢慢玩</p>
-</div>
-  
-  
 
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2015-04-04 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/04/22/setup-wifi-on-raspberry-pi2/">Setup Wifi on Raspberry Pi2</a></h1>
-    
-    
-      <p class="meta">
-        
+                        <a href="http://kerkerj.github.io/blog/2015/04/22/2015-04-22-setup-wifi-on-raspberry-pi2/" class="post-title">Setup wifi on raspberry pi2</a>
 
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-raspberry" href="http://kerkerj.github.io//categories/raspberry">raspberry</a>
+                            
+                        </p>
+                    </header>
 
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-04-22T22:59:11+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2015/04/22/setup-wifi-on-raspberry-pi2/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2015/04/22/setup-wifi-on-raspberry-pi2/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>(這是篇筆記)</p>
+                    <div class="post-description">
+                        <p>(這是篇筆記)</p>
 
 <p>前陣子從前同事那接手了一塊 raspberry pi2 的板子</p>
 
@@ -251,49 +231,36 @@
 
 <p>先檢查 <code>pi2</code> 的 <code>kernel</code> 版本</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ uname -r
-</span><span class='line'>3.18.7-v7+ # 這是我的版本</span></code></pre></td></tr></table></div></figure>
-
+<pre><code>$ uname -r
+3.18.7-v7+ # 這是我的版本
+</code></pre>
 
 <p>接著根據這個 <a href="https://github.com/lwfinger/rtl8188eu/">repo</a></p>
 
 <p>將韌體載下來放到 /lib/firmware 裡</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo wget https://github.com/lwfinger/rtl8188eu/raw/c83976d1dfb4793893158461430261562b3a5bf0/rtl8188eufw.bin -O /lib/firmware/rtlwifi/rtl8188eufw.bin </span></code></pre></td></tr></table></div></figure>
-
+<pre><code>$ sudo wget https://github.com/lwfinger/rtl8188eu/raw/c83976d1dfb4793893158461430261562b3a5bf0/rtl8188eufw.bin -O /lib/firmware/rtlwifi/rtl8188eufw.bin 
+</code></pre>
 
 <p>再來設定 pi2 的網路</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ ifconfig
-</span><span class='line'>eth0      Link encap:Ethernet  
-</span><span class='line'>lo        Link encap:Local Loopback
-</span><span class='line'>wlan0     Link encap:Ethernet </span></code></pre></td></tr></table></div></figure>
-
+<pre><code>$ ifconfig
+eth0      Link encap:Ethernet  
+lo        Link encap:Local Loopback
+wlan0     Link encap:Ethernet 
+</code></pre>
 
 <p>如果網卡有裝成功，應該就會有 <code>wlan0</code> 或是 <code>wlanX</code> 之類的 (X 是數字)</p>
 
 <p>最後就是手動掃描無線網路，並設定連線值囉</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo iwlist scan =&gt; 掃描無線網路 AP
-</span><span class='line'>wlan0     Scan completed :
-</span><span class='line'>          Cell 01 - Address: XX:XX:XX:XX:XX:XX
-</span><span class='line'>                    ESSID:"GGININDER"
-</span><span class='line'>          Cell 02 - Address: XX:XX:XX:XX:XX:XX
-</span><span class='line'>                    ESSID:"TP-LINK_F5566"</span></code></pre></td></tr></table></div></figure>
-
+<pre><code>$ sudo iwlist scan =&gt; 掃描無線網路 AP
+wlan0     Scan completed :
+          Cell 01 - Address: XX:XX:XX:XX:XX:XX
+                    ESSID:&quot;GGININDER&quot;
+          Cell 02 - Address: XX:XX:XX:XX:XX:XX
+                    ESSID:&quot;TP-LINK_F5566&quot;
+</code></pre>
 
 <p>連線的 <code>SSID</code> 就找 <code>Cell</code> 裡的 <code>ESSID</code></p>
 
@@ -305,106 +272,64 @@
 
 <p>若是其他方式 (e.g. WEP) 可以參考 <a href="http://inpega.blogspot.tw/2013/09/blog-post_15.html">這篇</a></p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ vi /etc/network/interfaces
-</span><span class='line'>auto lo
-</span><span class='line'>
-</span><span class='line'>iface lo inet loopback
-</span><span class='line'>iface eth0 inet dhcp
-</span><span class='line'>
-</span><span class='line'># 重點是下面這段
-</span><span class='line'>
-</span><span class='line'># 允許熱插拔 wlan0 這個介面
-</span><span class='line'>allow-hotplug wlan0 
-</span><span class='line'>
-</span><span class='line'># 預設設定為 dhcp
-</span><span class='line'>iface default inet dhcp
-</span><span class='line'>
-</span><span class='line'># 設定 wlan0 這張介面卡為 DHCP 自動取得 IP
-</span><span class='line'>iface wlan0 inet dhcp
-</span><span class='line'>
-</span><span class='line'># 你的 AP 的 SSID
-</span><span class='line'>wpa-ssid "GGININDER"
-</span><span class='line'>
-</span><span class='line'># 你的 AP 的密碼
-</span><span class='line'>wpa-psk "password"</span></code></pre></td></tr></table></div></figure>
+<pre><code>$ vi /etc/network/interfaces
+auto lo
 
+iface lo inet loopback
+iface eth0 inet dhcp
+
+# 重點是下面這段
+
+# 允許熱插拔 wlan0 這個介面
+allow-hotplug wlan0 
+
+# 預設設定為 dhcp
+iface default inet dhcp
+
+# 設定 wlan0 這張介面卡為 DHCP 自動取得 IP
+iface wlan0 inet dhcp
+
+# 你的 AP 的 SSID
+wpa-ssid &quot;GGININDER&quot;
+
+# 你的 AP 的密碼
+wpa-psk &quot;password&quot;
+</code></pre>
 
 <p>設定好後，重新啟動 wlan0 介面就可以連線囉</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo ifdown wlan0
-</span><span class='line'>$ sudo ifup wlan0
-</span><span class='line'>$ ifconfig wlan0 # 確認是否取得 IP</span></code></pre></td></tr></table></div></figure>
-
+<pre><code>$ sudo ifdown wlan0
+$ sudo ifup wlan0
+$ ifconfig wlan0 # 確認是否取得 IP
+</code></pre>
 
 <p>reference:</p>
 
 <p>raspberry pi forum: <a href="http://www.raspberrypi.org/forums/viewtopic.php?f=28&amp;t=62371&amp;start=475">http://www.raspberrypi.org/forums/viewtopic.php?f=28&amp;t=62371&amp;start=475</a></p>
 
 <p>網路設定: <a href="http://inpega.blogspot.tw/2013/09/blog-post_15.html">http://inpega.blogspot.tw/2013/09/blog-post_15.html</a></p>
-</div>
-  
-  
 
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-11-11 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/11/01/planning/">Ithome 鐵人賽 - 規劃</a></h1>
-    
-    
-      <p class="meta">
-        
+                        <a href="http://kerkerj.github.io/blog/2014/11/01/2014-10-02-planning/" class="post-title">ithome 鐵人賽 - 規劃</a>
 
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-others" href="http://kerkerj.github.io//categories/others">others</a>
+                            
+                        </p>
+                    </header>
 
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-11-01T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/11/01/planning/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/11/01/planning/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>半個月前不怕死的報名了 ithome 的<a href="http://ithelp.ithome.com.tw/ironman7/app/index">連續三十天不中斷發文鐵人賽</a>，</p>
+                    <div class="post-description">
+                        <p>半個月前不怕死的報名了 ithome 的<a href="http://ithelp.ithome.com.tw/ironman7/app/index">連續三十天不中斷發文鐵人賽</a>，</p>
 
 <p>還報名了兩個主題，真的是太誇張了&hellip;</p>
 
@@ -426,189 +351,91 @@
 
 <p>有任何文章更新也會同步在此篇文章中!</p>
 
-<h2>RESTful API Service:</h2>
-
-<p>Day1  -  <a href="http://kerkerj.github.io/blog/2014/10/02/api-d1/">[API-d1] - 定義 1 - 什麼是 REST/RESTful?</a><br/>
-Day2  -  <a href="http://kerkerj.github.io/blog/2014/10/02/api-d2/">[API-d2] - 定義 2 - RESTful 的優點與要求</a><br/>
-Day3  -  <a href="http://kerkerj.github.io/blog/2014/10/03/api-d3/">[API-d3] - 使用時機與實際 API 參考</a><br/>
-Day4  -  <a href="http://kerkerj.github.io/blog/2014/10/04/api-d4/">[API-d4] - 使用技術與工具介紹及原因</a><br/>
-Day5  -  <a href="http://kerkerj.github.io/blog/2014/10/05/api-d5/">[API-d5] - [Server 番外篇] 建立自己的本機虛擬伺服器 1 - Vagrant + VirtualBox 安裝</a><br/>
-Day6  -  <a href="http://kerkerj.github.io/blog/2014/10/06/api-d6/">[API-d6] - [Server 番外篇] 建立自己的本機虛擬伺服器 2 - Ubuntu 基本設定與安裝 Node.js, MongoDB </a><br/>
-Day7  -  <a href="http://kerkerj.github.io/blog/2014/10/07/api-d7/">[API-d7] - [Server 番外篇] 建立自己的本機虛擬伺服器 3 - 打包環境</a><br/>
-Day8  -  <a href="http://kerkerj.github.io/blog/2014/10/08/api-d8/">[API-d8] - Node.js - Hello World!</a><br/>
-Day9  -  <a href="http://kerkerj.github.io/blog/2014/10/09/api-d9/">[API-d9] - NVM 與 NPM 使用</a><br/>
-Day10 -  <a href="http://kerkerj.github.io/blog/2014/10/10/api-d10/">[API-d10] - Express - Hello World!</a><br/>
-Day11 -  <a href="http://kerkerj.github.io/blog/2014/10/11/api-d11/">[API-d11] - MongoDB - Hello World!</a><br/>
-Day12 -  <a href="http://kerkerj.github.io/blog/2014/10/12/api-d12/">[API-d12] - MongoDB - Hello World! (Client-side) </a><br/>
-Day13 -  <a href="http://kerkerj.github.io/blog/2014/10/13/api-d13/">[API-d13] - [Javascript 番外篇] Javascript require/ module/ Module Pattern</a><br/>
-Day14 -  <a href="http://kerkerj.github.io/blog/2014/10/14/api-d14/">[API-d14] - [Javascript 番外篇] Javascript function scopes 和 closures</a><br/>
-Day15 -  <a href="http://kerkerj.github.io/blog/2014/10/15/api-d15/">[API-d15] - [Javascript 番外篇] Javascript callback, event</a><br/>
-Day16 -  <a href="http://kerkerj.github.io/blog/2014/10/16/api-d16/">[API-d16] - 實戰開發 - 設定主題及規劃</a><br/>
-Day17 -  <a href="http://kerkerj.github.io/blog/2014/10/17/api-d17/">[API-d17] - 實戰開發 - 專案結構</a><br/>
-Day18 -  <a href="http://kerkerj.github.io/blog/2014/10/18/api-d18/">[API-d18] - 實戰開發 - 套件模組</a><br/>
-Day19 -  <a href="http://kerkerj.github.io/blog/2014/10/19/api-d19/">[API-d19] - 實戰開發 - index &amp; route &amp; http status code</a><br/>
-Day20 -  <a href="http://kerkerj.github.io/blog/2014/10/20/api-d20/">[API-d20] - 實戰開發 - Routes 2, get params and request data</a><br/>
-Day21 -  <a href="http://kerkerj.github.io/blog/2014/10/21/api-d21/">[API-d21] - 實戰開發 - 新增 TODO task API with mongoose</a><br/>
-Day22 -  <a href="http://kerkerj.github.io/blog/2014/10/22/api-d22/">[API-d22] - 實戰開發 - 讀取 TODO task API with mongoose</a><br/>
-Day23 -  <a href="http://kerkerj.github.io/blog/2014/10/23/api-d23/">[API-d23] - 實戰開發 - 修改 TODO task API with mongoose</a><br/>
-Day24 -  <a href="http://kerkerj.github.io/blog/2014/10/24/api-d24/">[API-d24] - 實戰開發 - 刪除 TODO task API with mongoose</a><br/>
-Day25 -  <a href="http://kerkerj.github.io/blog/2014/10/25/api-day25/">[API-day25] - 實戰開發 - 處理 404 &amp; 500</a><br/>
-Day26 -  <a href="http://kerkerj.github.io/blog/2014/10/26/api-d26/">[API-d26] - 實戰開發 - API-key</a><br/>
-Day27 -  <a href="http://kerkerj.github.io/blog/2014/10/27/api-d27/">[API-d27] - 實戰開發 - log 處理 及 config (db, apikey)</a><br/>
-Day28 -  <a href="http://kerkerj.github.io/blog/2014/10/28/api-d28/">[API-d28] - 實戰開發 - 發佈 - forever</a><br/>
-Day29 -  <a href="http://kerkerj.github.io/blog/2014/10/29/api-d29/">[API-d29] - 實戰開發 - 發佈 - nginx</a><br/>
+<p>##RESTful API Service:
+Day1  -  <a href="http://kerkerj.github.io/blog/2014/10/02/api-d1/">[API-d1] - 定義 1 - 什麼是 REST/RESTful?</a><br />
+Day2  -  <a href="http://kerkerj.github.io/blog/2014/10/02/api-d2/">[API-d2] - 定義 2 - RESTful 的優點與要求</a><br />
+Day3  -  <a href="http://kerkerj.github.io/blog/2014/10/03/api-d3/">[API-d3] - 使用時機與實際 API 參考</a><br />
+Day4  -  <a href="http://kerkerj.github.io/blog/2014/10/04/api-d4/">[API-d4] - 使用技術與工具介紹及原因</a><br />
+Day5  -  <a href="http://kerkerj.github.io/blog/2014/10/05/api-d5/">[API-d5] - [Server 番外篇] 建立自己的本機虛擬伺服器 1 - Vagrant + VirtualBox 安裝</a><br />
+Day6  -  <a href="http://kerkerj.github.io/blog/2014/10/06/api-d6/">[API-d6] - [Server 番外篇] 建立自己的本機虛擬伺服器 2 - Ubuntu 基本設定與安裝 Node.js, MongoDB </a><br />
+Day7  -  <a href="http://kerkerj.github.io/blog/2014/10/07/api-d7/">[API-d7] - [Server 番外篇] 建立自己的本機虛擬伺服器 3 - 打包環境</a><br />
+Day8  -  <a href="http://kerkerj.github.io/blog/2014/10/08/api-d8/">[API-d8] - Node.js - Hello World!</a><br />
+Day9  -  <a href="http://kerkerj.github.io/blog/2014/10/09/api-d9/">[API-d9] - NVM 與 NPM 使用</a><br />
+Day10 -  <a href="http://kerkerj.github.io/blog/2014/10/10/api-d10/">[API-d10] - Express - Hello World!</a><br />
+Day11 -  <a href="http://kerkerj.github.io/blog/2014/10/11/api-d11/">[API-d11] - MongoDB - Hello World!</a><br />
+Day12 -  <a href="http://kerkerj.github.io/blog/2014/10/12/api-d12/">[API-d12] - MongoDB - Hello World! (Client-side) </a><br />
+Day13 -  <a href="http://kerkerj.github.io/blog/2014/10/13/api-d13/">[API-d13] - [Javascript 番外篇] Javascript require/ module/ Module Pattern</a><br />
+Day14 -  <a href="http://kerkerj.github.io/blog/2014/10/14/api-d14/">[API-d14] - [Javascript 番外篇] Javascript function scopes 和 closures</a><br />
+Day15 -  <a href="http://kerkerj.github.io/blog/2014/10/15/api-d15/">[API-d15] - [Javascript 番外篇] Javascript callback, event</a><br />
+Day16 -  <a href="http://kerkerj.github.io/blog/2014/10/16/api-d16/">[API-d16] - 實戰開發 - 設定主題及規劃</a><br />
+Day17 -  <a href="http://kerkerj.github.io/blog/2014/10/17/api-d17/">[API-d17] - 實戰開發 - 專案結構</a><br />
+Day18 -  <a href="http://kerkerj.github.io/blog/2014/10/18/api-d18/">[API-d18] - 實戰開發 - 套件模組</a><br />
+Day19 -  <a href="http://kerkerj.github.io/blog/2014/10/19/api-d19/">[API-d19] - 實戰開發 - index &amp; route &amp; http status code</a><br />
+Day20 -  <a href="http://kerkerj.github.io/blog/2014/10/20/api-d20/">[API-d20] - 實戰開發 - Routes 2, get params and request data</a><br />
+Day21 -  <a href="http://kerkerj.github.io/blog/2014/10/21/api-d21/">[API-d21] - 實戰開發 - 新增 TODO task API with mongoose</a><br />
+Day22 -  <a href="http://kerkerj.github.io/blog/2014/10/22/api-d22/">[API-d22] - 實戰開發 - 讀取 TODO task API with mongoose</a><br />
+Day23 -  <a href="http://kerkerj.github.io/blog/2014/10/23/api-d23/">[API-d23] - 實戰開發 - 修改 TODO task API with mongoose</a><br />
+Day24 -  <a href="http://kerkerj.github.io/blog/2014/10/24/api-d24/">[API-d24] - 實戰開發 - 刪除 TODO task API with mongoose</a><br />
+Day25 -  <a href="http://kerkerj.github.io/blog/2014/10/25/api-day25/">[API-day25] - 實戰開發 - 處理 404 &amp; 500</a><br />
+Day26 -  <a href="http://kerkerj.github.io/blog/2014/10/26/api-d26/">[API-d26] - 實戰開發 - API-key</a><br />
+Day27 -  <a href="http://kerkerj.github.io/blog/2014/10/27/api-d27/">[API-d27] - 實戰開發 - log 處理 及 config (db, apikey)</a><br />
+Day28 -  <a href="http://kerkerj.github.io/blog/2014/10/28/api-d28/">[API-d28] - 實戰開發 - 發佈 - forever</a><br />
+Day29 -  <a href="http://kerkerj.github.io/blog/2014/10/29/api-d29/">[API-d29] - 實戰開發 - 發佈 - nginx</a><br />
 Day30 -  <a href="http://kerkerj.github.io/blog/2014/10/30/api-d30/">[API-d30] - 總結</a></p>
 
-<h2>Swift:</h2>
-
-<p>Day1  -  <a href="http://kerkerj.github.io/blog/2014/10/02/swift-d1/">[Swift-d1] - 介紹</a><br/>
-Day2  -  <a href="http://kerkerj.github.io/blog/2014/10/02/swift-d2/">[Swift-d2] - 安裝及 Hello World!</a><br/>
-Day3  -  <a href="http://kerkerj.github.io/blog/2014/10/03/swift-d3/">[Swift-d3] - Playground - 變數與常數, 註解, 基本資料型別</a><br/>
-Day4  -  <a href="http://kerkerj.github.io/blog/2014/10/04/swift-d4/">[Swift-d4] - Playground - Optional, ! and ? </a><br/>
-Day5  -  <a href="http://kerkerj.github.io/blog/2014/10/05/swift-d5/">[Swift-d5] - Playground - Array, Dictionary, Controll Flow</a><br/>
-Day6  -  <a href="http://kerkerj.github.io/blog/2014/10/06/swift-d6/">[Swift-d6] - Playground - function</a><br/>
-Day7  -  <a href="http://kerkerj.github.io/blog/2014/10/07/swift-d7/">[Swift-d7] - Playground - Closures</a><br/>
-Day8  -  <a href="http://kerkerj.github.io/blog/2014/10/08/swift-d8/">[Swift-d8] - Playground - Enumerations</a><br/>
-Day9  -  <a href="http://kerkerj.github.io/blog/2014/10/09/swift-d9/">[Swift-d9] - Playground - Class, Struct</a><br/>
-Day10 -  <a href="http://kerkerj.github.io/blog/2014/10/10/swift-d10/">[Swift-d10] 延伸閱讀</a><br/>
-Day11 -  <a href="http://kerkerj.github.io/blog/2014/10/11/swift-d11/">[Swift-d11] - Basic - Hello World!</a><br/>
-Day12 -  <a href="http://kerkerj.github.io/blog/2014/10/12/swift-d12/">[Swift-d12] - Basic - 基本元件 (Label, Button, UIColor, 文字輸入框)</a><br/>
-Day13 -  <a href="http://kerkerj.github.io/blog/2014/10/13/swift-d13/">[Swift-d13] - Basic - Navigation View 1 + ViewController</a><br/>
-Day14 -  <a href="http://kerkerj.github.io/blog/2014/10/14/swift-d14/">[Swift-d14] - Basic - Navigation View 2 + ViewController</a><br/>
-Day15 -  <a href="http://kerkerj.github.io/blog/2014/10/15/swift-d15/">[Swift-d15] - Basic - Table View 1 直接給值 datasource, (table view scroll)</a><br/>
-Day16 -  <a href="http://kerkerj.github.io/blog/2014/10/16/swift-d16/">[Swift-d16] - Basic - Table View 2 換頁 (delegate)</a><br/>
-Day17 -  <a href="http://kerkerj.github.io/blog/2014/10/17/swift-d17/">[Swift-d17] - Basic - Navigation View + TableView</a><br/>
-Day18 -  <a href="http://kerkerj.github.io/blog/2014/10/18/swift-d18/">[Swift-d18] - Basic - Customize TableViewCell</a><br/>
-Day19 -  <a href="http://kerkerj.github.io/blog/2014/10/19/swift-d19/">[Swift-d19] - Basic - 橋接第三方 Objc library - Reachability and Bridge.h</a><br/>
-Day20 -  <a href="http://kerkerj.github.io/blog/2014/10/20/swift-d20/">[Swift-d20] - Basic - 捨棄 Storyboard 使用純程式碼 的方式撰寫 ViewController</a><br/>
-Day21 -  <a href="http://kerkerj.github.io/blog/2014/10/21/swift-d21/">[Swift-d21] - 實戰開發 - TODOList - 前置設定</a><br/>
-Day22 -  <a href="http://kerkerj.github.io/blog/2014/10/22/swift-d22/">[Swift-d22] - 實戰開發 - TODOList - Show View 1</a><br/>
-Day23 -  <a href="http://kerkerj.github.io/blog/2014/10/23/swift-d23/">[Swift-d23] - 實戰開發 - TODOList - Show View 2, Delete View</a><br/>
-Day24 -  <a href="http://kerkerj.github.io/blog/2014/10/24/swift-d24/">[Swift-d24] - 實戰開發 - TODOList - Create View</a><br/>
-Day25 -  <a href="http://kerkerj.github.io/blog/2014/10/25/swift-day25/">[Swift-day25] - 實戰開發 - TODOList - Update View</a><br/>
-Day26 -  <a href="http://kerkerj.github.io/blog/2014/10/26/swift-d26/">[Swift-d26] - 實戰開發 - TODOList - API 前置資料準備</a><br/>
-Day27 -  <a href="http://kerkerj.github.io/blog/2014/10/27/swift-d27/">[Swift-d27] - 實戰開發 - TODOList - API 2 讀取清單資料</a><br/>
-Day28 -  <a href="http://kerkerj.github.io/blog/2014/10/28/swift-d28/">[Swift-d28] - 實戰開發 - TODOList - API 3 新增與更新</a><br/>
-Day29 -  <a href="http://kerkerj.github.io/blog/2014/10/29/swift-d29/">[Swift-d29] - 實戰開發 - TODOList - API 4 刪除</a><br/>
+<p>##Swift:
+Day1  -  <a href="http://kerkerj.github.io/blog/2014/10/02/swift-d1/">[Swift-d1] - 介紹</a><br />
+Day2  -  <a href="http://kerkerj.github.io/blog/2014/10/02/swift-d2/">[Swift-d2] - 安裝及 Hello World!</a><br />
+Day3  -  <a href="http://kerkerj.github.io/blog/2014/10/03/swift-d3/">[Swift-d3] - Playground - 變數與常數, 註解, 基本資料型別</a><br />
+Day4  -  <a href="http://kerkerj.github.io/blog/2014/10/04/swift-d4/">[Swift-d4] - Playground - Optional, ! and ? </a><br />
+Day5  -  <a href="http://kerkerj.github.io/blog/2014/10/05/swift-d5/">[Swift-d5] - Playground - Array, Dictionary, Controll Flow</a><br />
+Day6  -  <a href="http://kerkerj.github.io/blog/2014/10/06/swift-d6/">[Swift-d6] - Playground - function</a><br />
+Day7  -  <a href="http://kerkerj.github.io/blog/2014/10/07/swift-d7/">[Swift-d7] - Playground - Closures</a><br />
+Day8  -  <a href="http://kerkerj.github.io/blog/2014/10/08/swift-d8/">[Swift-d8] - Playground - Enumerations</a><br />
+Day9  -  <a href="http://kerkerj.github.io/blog/2014/10/09/swift-d9/">[Swift-d9] - Playground - Class, Struct</a><br />
+Day10 -  <a href="http://kerkerj.github.io/blog/2014/10/10/swift-d10/">[Swift-d10] 延伸閱讀</a><br />
+Day11 -  <a href="http://kerkerj.github.io/blog/2014/10/11/swift-d11/">[Swift-d11] - Basic - Hello World!</a><br />
+Day12 -  <a href="http://kerkerj.github.io/blog/2014/10/12/swift-d12/">[Swift-d12] - Basic - 基本元件 (Label, Button, UIColor, 文字輸入框)</a><br />
+Day13 -  <a href="http://kerkerj.github.io/blog/2014/10/13/swift-d13/">[Swift-d13] - Basic - Navigation View 1 + ViewController</a><br />
+Day14 -  <a href="http://kerkerj.github.io/blog/2014/10/14/swift-d14/">[Swift-d14] - Basic - Navigation View 2 + ViewController</a><br />
+Day15 -  <a href="http://kerkerj.github.io/blog/2014/10/15/swift-d15/">[Swift-d15] - Basic - Table View 1 直接給值 datasource, (table view scroll)</a><br />
+Day16 -  <a href="http://kerkerj.github.io/blog/2014/10/16/swift-d16/">[Swift-d16] - Basic - Table View 2 換頁 (delegate)</a><br />
+Day17 -  <a href="http://kerkerj.github.io/blog/2014/10/17/swift-d17/">[Swift-d17] - Basic - Navigation View + TableView</a><br />
+Day18 -  <a href="http://kerkerj.github.io/blog/2014/10/18/swift-d18/">[Swift-d18] - Basic - Customize TableViewCell</a><br />
+Day19 -  <a href="http://kerkerj.github.io/blog/2014/10/19/swift-d19/">[Swift-d19] - Basic - 橋接第三方 Objc library - Reachability and Bridge.h</a><br />
+Day20 -  <a href="http://kerkerj.github.io/blog/2014/10/20/swift-d20/">[Swift-d20] - Basic - 捨棄 Storyboard 使用純程式碼 的方式撰寫 ViewController</a><br />
+Day21 -  <a href="http://kerkerj.github.io/blog/2014/10/21/swift-d21/">[Swift-d21] - 實戰開發 - TODOList - 前置設定</a><br />
+Day22 -  <a href="http://kerkerj.github.io/blog/2014/10/22/swift-d22/">[Swift-d22] - 實戰開發 - TODOList - Show View 1</a><br />
+Day23 -  <a href="http://kerkerj.github.io/blog/2014/10/23/swift-d23/">[Swift-d23] - 實戰開發 - TODOList - Show View 2, Delete View</a><br />
+Day24 -  <a href="http://kerkerj.github.io/blog/2014/10/24/swift-d24/">[Swift-d24] - 實戰開發 - TODOList - Create View</a><br />
+Day25 -  <a href="http://kerkerj.github.io/blog/2014/10/25/swift-day25/">[Swift-day25] - 實戰開發 - TODOList - Update View</a><br />
+Day26 -  <a href="http://kerkerj.github.io/blog/2014/10/26/swift-d26/">[Swift-d26] - 實戰開發 - TODOList - API 前置資料準備</a><br />
+Day27 -  <a href="http://kerkerj.github.io/blog/2014/10/27/swift-d27/">[Swift-d27] - 實戰開發 - TODOList - API 2 讀取清單資料</a><br />
+Day28 -  <a href="http://kerkerj.github.io/blog/2014/10/28/swift-d28/">[Swift-d28] - 實戰開發 - TODOList - API 3 新增與更新</a><br />
+Day29 -  <a href="http://kerkerj.github.io/blog/2014/10/29/swift-d29/">[Swift-d29] - 實戰開發 - TODOList - API 4 刪除</a><br />
 Day30 -  <a href="http://kerkerj.github.io/blog/2014/10/30/swift-d30/">[Swift-d30] - 總結</a></p>
-</div>
-  
-  
 
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/30/swift-d30/">[Swift-d30] - 總結</a></h1>
-    
-    
-      <p class="meta">
-        
+                        <a href="http://kerkerj.github.io/blog/2014/10/30/2014-10-30-api-d30/" class="post-title">[API-d30] - 總結</a>
 
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-restful" href="http://kerkerj.github.io//categories/restful">restful</a><a class="post-category post-category-api" href="http://kerkerj.github.io//categories/api">api</a>
+                            
+                        </p>
+                    </header>
 
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-30T01:38:05+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/10/30/swift-d30/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/30/swift-d30/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>30 天下來其實中間受到不少人幫忙</p>
-
-<p>因為第一次寫 iOS 程式，對於 iOS 的基本運作流程還是詢問了不少同事</p>
-
-<p>包含在隔壁棚用 Cocos2d 寫 2D 遊戲的 Andy</p>
-
-<p>還有同事 Henry 和 Felix 都給予了很大的幫忙</p>
-
-<p>最後這隻小 app 其實 code 的品質並沒有很好</p>
-
-<p>主要還是因為寫來 demo 用的，以及老實講也沒什麼時間寫&hellip;</p>
-
-<p>報兩個組別真的是很鐵人哪</p>
-
-<p>還看到隔壁棚一次報三四個主題的大大</p>
-
-<p>真是太厲害了</p>
-
-<p>假設明年還會參賽的話，應該還是會以單一技術來鑽研吧!</p>
-
-<p>Swift 有蠻多特性是 Objective-C 所沒有的</p>
-
-<p>如果有想在新專案嘗試的話</p>
-
-<p>最好還是先多看看網路上的比較</p>
-
-<p>避免踩到雷</p>
-
-<p>像有一點是我們同事曾經踩到的雷</p>
-
-<p>就是 NSDictionary V.S. Dictionary</p>
-
-<p>兩者的速度可以差到 5, 6 倍以上</p>
-
-<p>網路上搜尋也會發現有人在討論 Swift Dictionary 的效能差異</p>
-
-<p>若要在新專案使用還是要查詢一下避免掉一些問題</p>
-
-<p>另外還有就是 Swift on Xcode 的穩定度還是有待加強&hellip;</p>
-
-<p>總而言之, 30 天結束了，ya!</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/30/api-d30/">[API-d30] - 總結</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-30T01:38:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/10/30/api-d30/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/30/api-d30/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>總結三十天下來的 Restful API service 建置</p>
+                    <div class="post-description">
+                        <p>總結三十天下來的 Restful API service 建置</p>
 
 <p>其實接觸到的東西很廣泛</p>
 
@@ -653,218 +480,94 @@ Day30 -  <a href="http://kerkerj.github.io/blog/2014/10/30/swift-d30/">[Swift-d3
 <p>對了突然想到一件事，這個主題的副標最後一句是想要和 APP 結合</p>
 
 <p>APP 在隔壁棚啦 XD</p>
-</div>
-  
-  
 
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/29/swift-d29/">[Swift-d29] - 實戰開發 - TODOList - API 4 刪除</a></h1>
-    
-    
-      <p class="meta">
-        
+                        <a href="http://kerkerj.github.io/blog/2014/10/30/2014-10-30-swift-d30/" class="post-title">[Swift-d30] - 總結</a>
 
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-swift" href="http://kerkerj.github.io//categories/swift">swift</a>
+                            
+                        </p>
+                    </header>
 
+                    <div class="post-description">
+                        <p>30 天下來其實中間受到不少人幫忙</p>
 
+<p>因為第一次寫 iOS 程式，對於 iOS 的基本運作流程還是詢問了不少同事</p>
 
+<p>包含在隔壁棚用 Cocos2d 寫 2D 遊戲的 Andy</p>
 
+<p>還有同事 Henry 和 Felix 都給予了很大的幫忙</p>
 
+<p>最後這隻小 app 其實 code 的品質並沒有很好</p>
 
+<p>主要還是因為寫來 demo 用的，以及老實講也沒什麼時間寫&hellip;</p>
 
-  
+<p>報兩個組別真的是很鐵人哪</p>
 
+<p>還看到隔壁棚一次報三四個主題的大大</p>
 
-<time datetime="2014-10-29T19:33:01+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/10/29/swift-d29/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/29/swift-d29/">Comments</a>
-        
-      </p>
-    
-  </header>
+<p>真是太厲害了</p>
 
+<p>假設明年還會參賽的話，應該還是會以單一技術來鑽研吧!</p>
 
-  <div class="entry-content"><p><a href="https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day29">Github link</a></p>
+<p>Swift 有蠻多特性是 Objective-C 所沒有的</p>
 
-<p>今天要處理刪除</p>
+<p>如果有想在新專案嘗試的話</p>
 
-<p>其實超簡單的</p>
+<p>最好還是先多看看網路上的比較</p>
 
-<p>只是想偷懶一下 XD</p>
+<p>避免踩到雷</p>
 
-<p>一樣將下列程式碼新增到 RestApi class:</p>
+<p>像有一點是我們同事曾經踩到的雷</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">deleteTodoList</span><span class="p">(</span><span class="nl">completionHandler</span><span class="p">:</span> <span class="p">((</span><span class="bp">NSDictionary</span><span class="o">!</span><span class="p">,</span> <span class="bp">NSError</span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Void</span><span class="p">)</span><span class="o">!</span><span class="p">,</span> <span class="nl">todoId</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">var</span> <span class="n">session</span> <span class="o">=</span> <span class="bp">NSURLSession</span><span class="p">.</span><span class="n">sharedSession</span><span class="p">()</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">var</span> <span class="n">request</span> <span class="o">=</span> <span class="bp">NSMutableURLRequest</span><span class="p">(</span><span class="nl">URL</span><span class="p">:</span> <span class="bp">NSURL</span><span class="p">(</span><span class="nl">string</span><span class="p">:</span> <span class="s">&quot;http://192.168.1.158:3000/user/kerkerj/todos/\(todoId)&quot;</span><span class="p">)</span><span class="o">!</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">request</span><span class="p">.</span><span class="n">HTTPMethod</span> <span class="o">=</span> <span class="s">&quot;DELETE&quot;</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">var</span> <span class="nl">err</span><span class="p">:</span> <span class="bp">NSError</span><span class="o">?</span>
-</span><span class='line'>        <span class="n">request</span><span class="p">.</span><span class="n">addValue</span><span class="p">(</span><span class="s">&quot;application/json&quot;</span><span class="p">,</span> <span class="nl">forHTTPHeaderField</span><span class="p">:</span> <span class="s">&quot;Content-Type&quot;</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">request</span><span class="p">.</span><span class="n">addValue</span><span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">API_key</span><span class="p">,</span> <span class="nl">forHTTPHeaderField</span><span class="p">:</span> <span class="s">&quot;API-Key&quot;</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">let</span> <span class="n">task</span> <span class="o">=</span> <span class="n">session</span><span class="p">.</span><span class="n">dataTaskWithRequest</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="nl">completionHandler</span><span class="p">:</span> <span class="p">{</span><span class="n">data</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">error</span> <span class="o">-&gt;</span> <span class="n">Void</span> <span class="k">in</span>
-</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="n">error</span> <span class="o">!=</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>                <span class="k">return</span> <span class="n">completionHandler</span><span class="p">(</span><span class="nb">nil</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
-</span><span class='line'>            <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>            <span class="k">var</span> <span class="nl">error</span><span class="p">:</span> <span class="bp">NSError</span><span class="o">?</span>
-</span><span class='line'>            <span class="k">let</span> <span class="n">json</span> <span class="o">=</span> <span class="bp">NSJSONSerialization</span><span class="p">.</span><span class="n">JSONObjectWithData</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nl">options</span><span class="p">:</span> <span class="n">NSJSONReadingOptions</span><span class="p">.</span><span class="n">MutableContainers</span><span class="p">,</span> <span class="nl">error</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">error</span><span class="p">)</span> <span class="kt">as</span> <span class="bp">NSDictionary</span>
-</span><span class='line'>
-</span><span class='line'>            <span class="n">println</span><span class="p">(</span><span class="n">json</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="n">error</span> <span class="o">!=</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>                <span class="k">return</span> <span class="n">completionHandler</span><span class="p">(</span><span class="nb">nil</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
-</span><span class='line'>            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span><span class='line'>                <span class="k">return</span> <span class="n">completionHandler</span><span class="p">(</span><span class="n">json</span><span class="p">,</span> <span class="nb">nil</span><span class="p">)</span>
-</span><span class='line'>            <span class="p">}</span>
-</span><span class='line'>        <span class="p">})</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">task</span><span class="p">.</span><span class="n">resume</span><span class="p">()</span>
-</span><span class='line'>    <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
+<p>就是 NSDictionary V.S. Dictionary</p>
 
+<p>兩者的速度可以差到 5, 6 倍以上</p>
 
-<p>回到 ViewController 中的 tableView commitEditingStyle 的方法中</p>
+<p>網路上搜尋也會發現有人在討論 Swift Dictionary 的效能差異</p>
 
-<p>將其更新為:</p>
+<p>若要在新專案使用還是要查詢一下避免掉一些問題</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">tableView</span><span class="p">(</span><span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="p">,</span> <span class="n">commitEditingStyle</span> <span class="nl">editingStyle</span><span class="p">:</span> <span class="n">UITableViewCellEditingStyle</span><span class="p">,</span> <span class="n">forRowAtIndexPath</span> <span class="nl">indexPath</span><span class="p">:</span> <span class="bp">NSIndexPath</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">api</span><span class="p">.</span><span class="n">deleteTodoList</span><span class="p">({</span><span class="n">data</span><span class="p">,</span> <span class="n">err</span> <span class="o">-&gt;</span> <span class="n">Void</span> <span class="k">in</span>
-</span><span class='line'>            <span class="k">let</span> <span class="n">alert</span> <span class="o">=</span> <span class="bp">UIAlertView</span><span class="p">()</span>
-</span><span class='line'>            <span class="n">alert</span><span class="p">.</span><span class="n">title</span> <span class="o">=</span> <span class="s">&quot;Alert&quot;</span>
-</span><span class='line'>            <span class="n">alert</span><span class="p">.</span><span class="n">addButtonWithTitle</span><span class="p">(</span><span class="s">&quot;Ok&quot;</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="n">err</span> <span class="o">!=</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>                <span class="n">alert</span><span class="p">.</span><span class="n">message</span> <span class="o">=</span> <span class="s">&quot;Failed to delete: \(err)&quot;</span>
-</span><span class='line'>                <span class="n">alert</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
-</span><span class='line'>            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span><span class='line'>                <span class="n">alert</span><span class="p">.</span><span class="n">message</span> <span class="o">=</span> <span class="s">&quot;ok!&quot;</span>
-</span><span class='line'>
-</span><span class='line'>                <span class="nb">self</span><span class="p">.</span><span class="n">fakeData</span><span class="p">.</span><span class="n">removeAtIndex</span><span class="p">(</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>                <span class="n">dispatch_async</span><span class="p">(</span><span class="n">dispatch_get_main_queue</span><span class="p">(),</span> <span class="p">{</span>
-</span><span class='line'>                    <span class="c1">// must be &quot;tableView!&quot; not &quot;tableView?&quot;</span>
-</span><span class='line'>                    <span class="n">alert</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
-</span><span class='line'>                    <span class="nb">self</span><span class="p">.</span><span class="n">tableView</span><span class="o">!</span><span class="p">.</span><span class="n">reloadData</span><span class="p">()</span>
-</span><span class='line'>                <span class="p">})</span>
-</span><span class='line'>            <span class="p">}</span>
-</span><span class='line'>            <span class="p">},</span> <span class="nl">todoId</span><span class="p">:</span> <span class="n">fakeData</span><span class="p">[</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">][</span><span class="s">&quot;_id&quot;</span><span class="p">]</span><span class="o">!</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
+<p>另外還有就是 Swift on Xcode 的穩定度還是有待加強&hellip;</p>
 
+<p>總而言之, 30 天結束了，ya!</p>
 
-<p>改好程式碼後，執行該程式</p>
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
 
-<p>在清單中將 item 往左滑，就可以看到刪除的按鈕了!</p>
+                        <a href="http://kerkerj.github.io/blog/2014/10/29/2014-10-29-api-d29/" class="post-title">[API-d29] - 實戰開發 - 發佈 - nginx</a>
 
-<p>超簡單的啦!</p>
-</div>
-  
-  
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-restful" href="http://kerkerj.github.io//categories/restful">restful</a><a class="post-category post-category-api" href="http://kerkerj.github.io//categories/api">api</a><a class="post-category post-category-nginx" href="http://kerkerj.github.io//categories/nginx">nginx</a><a class="post-category post-category-nodejs" href="http://kerkerj.github.io//categories/nodejs">nodejs</a><a class="post-category post-category-express" href="http://kerkerj.github.io//categories/express">express</a>
+                            
+                        </p>
+                    </header>
 
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/29/api-d29/">[API-d29] - 實戰開發 - 發佈 - Nginx</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-29T19:32:57+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/10/29/api-d29/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/29/api-d29/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>接下來這篇就會比較偏 server 設定了！</p>
+                    <div class="post-description">
+                        <p>接下來這篇就會比較偏 server 設定了！</p>
 
 <p>nginx 是一套伺服器軟體，和 apache 並駕齊驅</p>
 
-<p>(其實我覺得 nginx >>> apache XD)</p>
+<p>(其實我覺得 nginx &gt;&gt;&gt; apache XD)</p>
 
 <p>主要是 nginx 清量快速</p>
 
@@ -872,7 +575,8 @@ Day30 -  <a href="http://kerkerj.github.io/blog/2014/10/30/swift-d30/">[Swift-d3
 
 <p>所以感覺就會如下圖:</p>
 
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2013.14.16.png" alt="image" /></p>
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2013.14.16.png" alt="image" />
+</p>
 
 <p>可以讓 nginx 當作是 load balancer,</p>
 
@@ -882,12 +586,9 @@ Day30 -  <a href="http://kerkerj.github.io/blog/2014/10/30/swift-d30/">[Swift-d3
 
 <p>所以首先，我們就要先裝 nginx，因此就先進虛擬機吧!</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="nx">sudo</span> <span class="nx">apt</span><span class="o">-</span><span class="nx">get</span> <span class="nx">update</span> <span class="o">&amp;&amp;</span> <span class="nx">sudo</span> <span class="nx">apt</span><span class="o">-</span><span class="nx">get</span> <span class="nx">upgrade</span> <span class="o">-</span><span class="nx">y</span>
-</span><span class='line'><span class="nx">$</span> <span class="nx">sudo</span> <span class="nx">apt</span><span class="o">-</span><span class="nx">get</span> <span class="nx">install</span> <span class="nx">nginx</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<pre><code class="language-javascript">$ sudo apt-get update &amp;&amp; sudo apt-get upgrade -y
+$ sudo apt-get install nginx 
+</code></pre>
 
 <p>這樣就會安裝一個 nginx 了!</p>
 
@@ -901,142 +602,80 @@ Day30 -  <a href="http://kerkerj.github.io/blog/2014/10/30/swift-d30/">[Swift-d3
 
 <p>如果我們進到 <code>/etc/nginx/sites-enable</code> 的話，裡面應該已經有一個 <code>default</code> 的設定檔了</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="nx">sudo</span> <span class="nx">vim</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">nginx</span><span class="o">/</span><span class="nx">sites</span><span class="o">-</span><span class="nx">enable</span><span class="o">/</span><span class="k">default</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<pre><code>$ sudo vim /etc/nginx/sites-enable/default
+</code></pre>
 
 <p>內容應該是:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">server</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">listen</span> <span class="mi">80</span> <span class="nx">default_server</span><span class="p">;</span>
-</span><span class='line'>        <span class="nx">listen</span> <span class="p">[</span><span class="o">::</span><span class="p">]</span><span class="o">:</span><span class="mi">80</span> <span class="nx">default_server</span> <span class="nx">ipv6only</span><span class="o">=</span><span class="nx">on</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="nx">root</span> <span class="o">/</span><span class="nx">usr</span><span class="o">/</span><span class="nx">share</span><span class="o">/</span><span class="nx">nginx</span><span class="o">/</span><span class="nx">html</span><span class="p">;</span>
-</span><span class='line'>        <span class="nx">index</span> <span class="nx">index</span><span class="p">.</span><span class="nx">html</span> <span class="nx">index</span><span class="p">.</span><span class="nx">htm</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="err">#</span> <span class="nx">Make</span> <span class="nx">site</span> <span class="nx">accessible</span> <span class="nx">from</span> <span class="nx">http</span><span class="o">:</span><span class="c1">//localhost/</span>
-</span><span class='line'>        <span class="nx">server_name</span> <span class="nx">localhost</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="nx">location</span> <span class="o">/</span> <span class="p">{</span>
-</span><span class='line'>                <span class="err">#</span> <span class="nx">First</span> <span class="nx">attempt</span> <span class="nx">to</span> <span class="nx">serve</span> <span class="nx">request</span> <span class="nx">as</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">then</span>
-</span><span class='line'>                <span class="err">#</span> <span class="nx">as</span> <span class="nx">directory</span><span class="p">,</span> <span class="nx">then</span> <span class="nx">fall</span> <span class="nx">back</span> <span class="nx">to</span> <span class="nx">displaying</span> <span class="nx">a</span> <span class="mi">404</span><span class="p">.</span>
-</span><span class='line'>                <span class="nx">try_files</span> <span class="nx">$uri</span> <span class="nx">$uri</span><span class="o">/</span> <span class="o">=</span><span class="mi">404</span><span class="p">;</span>
-</span><span class='line'>                <span class="err">#</span> <span class="nx">Uncomment</span> <span class="nx">to</span> <span class="nx">enable</span> <span class="nx">naxsi</span> <span class="nx">on</span> <span class="k">this</span> <span class="nx">location</span>
-</span><span class='line'>                <span class="err">#</span> <span class="nx">include</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">nginx</span><span class="o">/</span><span class="nx">naxsi</span><span class="p">.</span><span class="nx">rules</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="err">#</span> <span class="nx">Only</span> <span class="k">for</span> <span class="nx">nginx</span><span class="o">-</span><span class="nx">naxsi</span> <span class="nx">used</span> <span class="kd">with</span> <span class="nx">nginx</span><span class="o">-</span><span class="nx">naxsi</span><span class="o">-</span><span class="nx">ui</span> <span class="o">:</span> <span class="nx">process</span> <span class="nx">denied</span> <span class="nx">requests</span>
-</span><span class='line'>        <span class="err">#</span><span class="nx">location</span> <span class="o">/</span><span class="nx">RequestDenied</span> <span class="p">{</span>
-</span><span class='line'>        <span class="err">#</span>       <span class="nx">proxy_pass</span> <span class="nx">http</span><span class="o">:</span><span class="c1">//127.0.0.1:8080;</span>
-</span><span class='line'>        <span class="err">#</span><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="p">...</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
+<pre><code>server {
+        listen 80 default_server;
+        listen [::]:80 default_server ipv6only=on;
 
+        root /usr/share/nginx/html;
+        index index.html index.htm;
+
+        # Make site accessible from http://localhost/
+        server_name localhost;
+
+        location / {
+                # First attempt to serve request as file, then
+                # as directory, then fall back to displaying a 404.
+                try_files $uri $uri/ =404;
+                # Uncomment to enable naxsi on this location
+                # include /etc/nginx/naxsi.rules
+        }
+
+        # Only for nginx-naxsi used with nginx-naxsi-ui : process denied requests
+        #location /RequestDenied {
+        #       proxy_pass http://127.0.0.1:8080;
+        #}
+        
+        ...
+}
+</code></pre>
 
 <p>將設定檔改成如下:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">upstream</span> <span class="nx">nodejs</span> <span class="p">{</span>
-</span><span class='line'>  <span class="nx">server</span> <span class="mf">127.0</span><span class="p">.</span><span class="mf">0.1</span><span class="o">:</span><span class="mi">3000</span><span class="p">;</span>
-</span><span class='line'>  <span class="err">#</span><span class="nx">server</span> <span class="mf">127.0</span><span class="p">.</span><span class="mf">0.1</span><span class="o">:</span><span class="mi">3001</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">server</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">listen</span> <span class="mi">80</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nx">server_name</span> <span class="nx">localhost</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nx">location</span> <span class="o">/</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">proxy_pass</span> <span class="nx">http</span><span class="o">:</span><span class="c1">//nodejs;</span>
-</span><span class='line'>        <span class="nx">proxy_http_version</span> <span class="mf">1.1</span><span class="p">;</span>
-</span><span class='line'>        <span class="nx">proxy_set_header</span> <span class="nx">Upgrade</span> <span class="nx">$http_upgrade</span><span class="p">;</span>
-</span><span class='line'>        <span class="nx">proxy_set_header</span> <span class="nx">Connection</span> <span class="s1">&#39;upgrade&#39;</span><span class="p">;</span>
-</span><span class='line'>        <span class="nx">proxy_set_header</span> <span class="nx">Host</span> <span class="nx">$host</span><span class="p">;</span>
-</span><span class='line'>        <span class="nx">proxy_cache_bypass</span> <span class="nx">$http_upgrade</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
+<pre><code>upstream nodejs {
+  server 127.0.0.1:3000;
+  #server 127.0.0.1:3001;
+}
 
+server {
+    listen 80;
+
+    server_name localhost;
+
+    location / {
+        proxy_pass http://nodejs;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+</code></pre>
 
 <p>解釋一下以下這段:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">upstream</span> <span class="nx">nodejs</span> <span class="p">{</span>
-</span><span class='line'>  <span class="nx">server</span> <span class="mf">127.0</span><span class="p">.</span><span class="mf">0.1</span><span class="o">:</span><span class="mi">3000</span><span class="p">;</span>
-</span><span class='line'>  <span class="err">#</span><span class="nx">server</span> <span class="mf">127.0</span><span class="p">.</span><span class="mf">0.1</span><span class="o">:</span><span class="mi">3001</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<pre><code>upstream nodejs {
+  server 127.0.0.1:3000;
+  #server 127.0.0.1:3001;
+}
+</code></pre>
 
 <p>下面這段則是 proxy pass 的部分, 會將 <code>/</code> 的流量導到 nodejs 的 server cluster 裡面，不過因為我們現在只有一台 server 開起來，所以只會被導到 3000 port 的那台機器</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">location</span> <span class="o">/</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">proxy_pass</span> <span class="nx">http</span><span class="o">:</span><span class="c1">//nodejs;</span>
-</span><span class='line'>        <span class="nx">proxy_http_version</span> <span class="mf">1.1</span><span class="p">;</span>
-</span><span class='line'>        <span class="nx">proxy_set_header</span> <span class="nx">Upgrade</span> <span class="nx">$http_upgrade</span><span class="p">;</span>
-</span><span class='line'>        <span class="nx">proxy_set_header</span> <span class="nx">Connection</span> <span class="s1">&#39;upgrade&#39;</span><span class="p">;</span>
-</span><span class='line'>        <span class="nx">proxy_set_header</span> <span class="nx">Host</span> <span class="nx">$host</span><span class="p">;</span>
-</span><span class='line'>        <span class="nx">proxy_cache_bypass</span> <span class="nx">$http_upgrade</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<pre><code>location / {
+        proxy_pass http://nodejs;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+</code></pre>
 
 <p>如果 nodejs server 的承載量不夠，可以開好幾檯，只要 port 不一樣即可</p>
 
@@ -1049,45 +688,126 @@ Day30 -  <a href="http://kerkerj.github.io/blog/2014/10/30/swift-d30/">[Swift-d3
 <p>使用 postman 戳戳看 API</p>
 
 <p>就成功囉~~</p>
-</div>
-  
-  
 
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/28/swift-d28/">[Swift-d28] - 實戰開發 - TODOList - API 3 新增與更新</a></h1>
-    
-    
-      <p class="meta">
+                        <a href="http://kerkerj.github.io/blog/2014/10/29/2014-10-29-swift-d29/" class="post-title">[Swift-d29] - 實戰開發 - TODOList - API 4 刪除</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-swift" href="http://kerkerj.github.io//categories/swift">swift</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p><a href="https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day29">Github link</a></p>
+
+<p>今天要處理刪除</p>
+
+<p>其實超簡單的</p>
+
+<p>只是想偷懶一下 XD</p>
+
+<p>一樣將下列程式碼新增到 RestApi class:</p>
+
+<pre><code class="language-swift">func deleteTodoList(completionHandler: ((NSDictionary!, NSError!) -&gt; Void)!, todoId: String) {
+        var session = NSURLSession.sharedSession()
         
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-28T17:26:52+08:00" pubdate data-updated="true"></time>
+        var request = NSMutableURLRequest(URL: NSURL(string: &quot;http://192.168.1.158:3000/user/kerkerj/todos/\(todoId)&quot;)!)
+        request.HTTPMethod = &quot;DELETE&quot;
         
-           | <a href="/blog/2014/10/28/swift-d28/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/28/swift-d28/">Comments</a>
+        var err: NSError?
+        request.addValue(&quot;application/json&quot;, forHTTPHeaderField: &quot;Content-Type&quot;)
+        request.addValue(self.API_key, forHTTPHeaderField: &quot;API-Key&quot;)
         
-      </p>
-    
-  </header>
+        
+        let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -&gt; Void in
+            if (error != nil) {
+                return completionHandler(nil, error)
+            }
+            
+            var error: NSError?
+            let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &amp;error) as NSDictionary
+            
+            println(json)
+            
+            if (error != nil) {
+                return completionHandler(nil, error)
+            } else {
+                return completionHandler(json, nil)
+            }
+        })
+        
+        task.resume()
+    }
 
+</code></pre>
 
-  <div class="entry-content"><p><a href="day28">Github link</a></p>
+<p>回到 ViewController 中的 tableView commitEditingStyle 的方法中</p>
+
+<p>將其更新為:</p>
+
+<pre><code>func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        api.deleteTodoList({data, err -&gt; Void in
+            let alert = UIAlertView()
+            alert.title = &quot;Alert&quot;
+            alert.addButtonWithTitle(&quot;Ok&quot;)
+            
+            if (err != nil) {
+                alert.message = &quot;Failed to delete: \(err)&quot;
+                alert.show()
+            } else {
+                alert.message = &quot;ok!&quot;
+                
+                self.fakeData.removeAtIndex(indexPath.row)
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    // must be &quot;tableView!&quot; not &quot;tableView?&quot;
+                    alert.show()
+                    self.tableView!.reloadData()
+                })
+            }
+            }, todoId: fakeData[indexPath.row][&quot;_id&quot;]!)
+    }
+</code></pre>
+
+<p>改好程式碼後，執行該程式</p>
+
+<p>在清單中將 item 往左滑，就可以看到刪除的按鈕了!</p>
+
+<p>超簡單的啦!</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/28/2014-10-28-swift-d28/" class="post-title">[Swift-d28] - 實戰開發 - TODOList - API 3 新增與更新</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-swift" href="http://kerkerj.github.io//categories/swift">swift</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p><a href="day28">Github link</a></p>
 
 <p>昨天做了 get list</p>
 
@@ -1109,70 +829,38 @@ Day30 -  <a href="http://kerkerj.github.io/blog/2014/10/30/swift-d30/">[Swift-d3
 
 <p>先到 RestApi.swift 新增 post function</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">addTodoList</span><span class="p">(</span><span class="nl">completionHandler</span><span class="p">:</span> <span class="p">((</span><span class="bp">NSDictionary</span><span class="o">!</span><span class="p">,</span> <span class="bp">NSError</span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Void</span><span class="p">)</span><span class="o">!</span><span class="p">,</span> <span class="nl">content</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">var</span> <span class="n">session</span> <span class="o">=</span> <span class="bp">NSURLSession</span><span class="p">.</span><span class="n">sharedSession</span><span class="p">()</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">var</span> <span class="n">request</span> <span class="o">=</span> <span class="bp">NSMutableURLRequest</span><span class="p">(</span><span class="nl">URL</span><span class="p">:</span> <span class="nb">self</span><span class="p">.</span><span class="n">addTodoUrl</span><span class="o">!</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">request</span><span class="p">.</span><span class="n">HTTPMethod</span> <span class="o">=</span> <span class="s">&quot;POST&quot;</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">var</span> <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;content&quot;</span><span class="o">:</span> <span class="n">content</span><span class="p">]</span> <span class="kt">as</span> <span class="n">Dictionary</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">var</span> <span class="nl">err</span><span class="p">:</span> <span class="bp">NSError</span><span class="o">?</span>
-</span><span class='line'>        <span class="n">request</span><span class="p">.</span><span class="n">HTTPBody</span> <span class="o">=</span> <span class="bp">NSJSONSerialization</span><span class="p">.</span><span class="n">dataWithJSONObject</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="nl">options</span><span class="p">:</span> <span class="nb">nil</span><span class="p">,</span> <span class="nl">error</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">err</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">request</span><span class="p">.</span><span class="n">addValue</span><span class="p">(</span><span class="s">&quot;application/json&quot;</span><span class="p">,</span> <span class="nl">forHTTPHeaderField</span><span class="p">:</span> <span class="s">&quot;Content-Type&quot;</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">request</span><span class="p">.</span><span class="n">addValue</span><span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">API_key</span><span class="p">,</span> <span class="nl">forHTTPHeaderField</span><span class="p">:</span> <span class="s">&quot;API-Key&quot;</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">let</span> <span class="n">task</span> <span class="o">=</span> <span class="n">session</span><span class="p">.</span><span class="n">dataTaskWithRequest</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="nl">completionHandler</span><span class="p">:</span> <span class="p">{</span><span class="n">data</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">error</span> <span class="o">-&gt;</span> <span class="n">Void</span> <span class="k">in</span>
-</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="n">error</span> <span class="o">!=</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>                <span class="k">return</span> <span class="n">completionHandler</span><span class="p">(</span><span class="nb">nil</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
-</span><span class='line'>            <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>            <span class="k">var</span> <span class="nl">error</span><span class="p">:</span> <span class="bp">NSError</span><span class="o">?</span>
-</span><span class='line'>            <span class="k">let</span> <span class="n">json</span> <span class="o">=</span> <span class="bp">NSJSONSerialization</span><span class="p">.</span><span class="n">JSONObjectWithData</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nl">options</span><span class="p">:</span> <span class="n">NSJSONReadingOptions</span><span class="p">.</span><span class="n">MutableContainers</span><span class="p">,</span> <span class="nl">error</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">error</span><span class="p">)</span> <span class="kt">as</span> <span class="bp">NSDictionary</span>
-</span><span class='line'>
-</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="n">error</span> <span class="o">!=</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>                <span class="k">return</span> <span class="n">completionHandler</span><span class="p">(</span><span class="nb">nil</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
-</span><span class='line'>            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span><span class='line'>                <span class="k">return</span> <span class="n">completionHandler</span><span class="p">(</span><span class="n">json</span><span class="p">,</span> <span class="nb">nil</span><span class="p">)</span>
-</span><span class='line'>            <span class="p">}</span>
-</span><span class='line'>        <span class="p">})</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">task</span><span class="p">.</span><span class="n">resume</span><span class="p">()</span>
-</span><span class='line'>    <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<pre><code class="language-swift">func addTodoList(completionHandler: ((NSDictionary!, NSError!) -&gt; Void)!, content: String) {
+        var session = NSURLSession.sharedSession()
+        
+        var request = NSMutableURLRequest(URL: self.addTodoUrl!)
+        request.HTTPMethod = &quot;POST&quot;
+        
+        var params = [&quot;content&quot;: content] as Dictionary&lt;String, String&gt;
+        
+        var err: NSError?
+        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &amp;err)
+        request.addValue(&quot;application/json&quot;, forHTTPHeaderField: &quot;Content-Type&quot;)
+        request.addValue(self.API_key, forHTTPHeaderField: &quot;API-Key&quot;)
+        
+        
+        let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -&gt; Void in
+            if (error != nil) {
+                return completionHandler(nil, error)
+            }
+            
+            var error: NSError?
+            let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &amp;error) as NSDictionary
+            
+            if (error != nil) {
+                return completionHandler(nil, error)
+            } else {
+                return completionHandler(json, nil)
+            }
+        })
+        
+        task.resume()
+    }
+</code></pre>
 
 <p>再來就是在程式中呼叫這隻 API 囉! 我們會在 UpdateViewController 中做這件事</p>
 
@@ -1180,48 +868,27 @@ Day30 -  <a href="http://kerkerj.github.io/blog/2014/10/30/swift-d30/">[Swift-d3
 
 <p>在 save() 這個 function 裡面修改成:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="c1">// 記得 class 中先產生一個 api 物件</span>
-</span><span class='line'><span class="k">var</span> <span class="n">api</span> <span class="o">=</span> <span class="n">RestApi</span><span class="p">()</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">func</span> <span class="n">save</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">if</span> <span class="n">from</span> <span class="o">==</span> <span class="s">&quot;add&quot;</span> <span class="p">{</span>
-</span><span class='line'>            <span class="n">api</span><span class="p">.</span><span class="n">addTodoList</span><span class="p">({</span><span class="n">data</span><span class="p">,</span> <span class="n">error</span> <span class="o">-&gt;</span> <span class="n">Void</span> <span class="k">in</span>
-</span><span class='line'>                <span class="k">if</span> <span class="n">data</span> <span class="o">==</span> <span class="nb">nil</span> <span class="p">{</span>
-</span><span class='line'>                    <span class="n">println</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
-</span><span class='line'>                <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>                <span class="n">dispatch_async</span><span class="p">(</span><span class="n">dispatch_get_main_queue</span><span class="p">(),</span> <span class="p">{</span>
-</span><span class='line'>                    <span class="n">println</span><span class="p">(</span><span class="s">&quot;done&quot;</span><span class="p">)</span>
-</span><span class='line'>                    <span class="nb">self</span><span class="p">.</span><span class="n">navigationController</span><span class="o">?</span><span class="p">.</span><span class="n">popToRootViewControllerAnimated</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
-</span><span class='line'>                <span class="p">})</span>
-</span><span class='line'>            <span class="p">},</span> <span class="nl">content</span><span class="p">:</span> <span class="nb">self</span><span class="p">.</span><span class="n">textField</span><span class="p">.</span><span class="n">text</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="n">from</span> <span class="o">==</span> <span class="s">&quot;edit&quot;</span> <span class="p">{</span>
-</span><span class='line'>            <span class="n">println</span><span class="p">(</span><span class="s">&quot;Save edited data&quot;</span><span class="p">)</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>    <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
+<pre><code>// 記得 class 中先產生一個 api 物件
+var api = RestApi()
 
+func save() {
+        if from == &quot;add&quot; {
+            api.addTodoList({data, error -&gt; Void in
+                if data == nil {
+                    println(error)
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    println(&quot;done&quot;)
+                    self.navigationController?.popToRootViewControllerAnimated(true)
+                })
+            }, content: self.textField.text)
+
+        } else if from == &quot;edit&quot; {
+            println(&quot;Save edited data&quot;)
+        }
+    }
+</code></pre>
 
 <p>打開執行就可以新增 todo 了!</p>
 
@@ -1229,164 +896,88 @@ Day30 -  <a href="http://kerkerj.github.io/blog/2014/10/30/swift-d30/">[Swift-d3
 
 <p>先到 RestApi class 加入 update 的方法:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">updateTodoList</span><span class="p">(</span><span class="nl">completionHandler</span><span class="p">:</span> <span class="p">((</span><span class="bp">NSDictionary</span><span class="o">!</span><span class="p">,</span> <span class="bp">NSError</span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Void</span><span class="p">)</span><span class="o">!</span><span class="p">,</span> <span class="nl">content</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="nl">todoId</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">var</span> <span class="n">session</span> <span class="o">=</span> <span class="bp">NSURLSession</span><span class="p">.</span><span class="n">sharedSession</span><span class="p">()</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">var</span> <span class="n">request</span> <span class="o">=</span> <span class="bp">NSMutableURLRequest</span><span class="p">(</span><span class="nl">URL</span><span class="p">:</span> <span class="bp">NSURL</span><span class="p">(</span><span class="nl">string</span><span class="p">:</span> <span class="s">&quot;http://192.168.1.158:3000/user/kerkerj/todos/\(todoId)&quot;</span><span class="p">)</span><span class="o">!</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">request</span><span class="p">.</span><span class="n">HTTPMethod</span> <span class="o">=</span> <span class="s">&quot;PUT&quot;</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">var</span> <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;content&quot;</span><span class="o">:</span> <span class="n">content</span><span class="p">]</span> <span class="kt">as</span> <span class="n">Dictionary</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">var</span> <span class="nl">err</span><span class="p">:</span> <span class="bp">NSError</span><span class="o">?</span>
-</span><span class='line'>        <span class="n">request</span><span class="p">.</span><span class="n">HTTPBody</span> <span class="o">=</span> <span class="bp">NSJSONSerialization</span><span class="p">.</span><span class="n">dataWithJSONObject</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="nl">options</span><span class="p">:</span> <span class="nb">nil</span><span class="p">,</span> <span class="nl">error</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">err</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">request</span><span class="p">.</span><span class="n">addValue</span><span class="p">(</span><span class="s">&quot;application/json&quot;</span><span class="p">,</span> <span class="nl">forHTTPHeaderField</span><span class="p">:</span> <span class="s">&quot;Content-Type&quot;</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">request</span><span class="p">.</span><span class="n">addValue</span><span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">API_key</span><span class="p">,</span> <span class="nl">forHTTPHeaderField</span><span class="p">:</span> <span class="s">&quot;API-Key&quot;</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">let</span> <span class="n">task</span> <span class="o">=</span> <span class="n">session</span><span class="p">.</span><span class="n">dataTaskWithRequest</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="nl">completionHandler</span><span class="p">:</span> <span class="p">{</span><span class="n">data</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">error</span> <span class="o">-&gt;</span> <span class="n">Void</span> <span class="k">in</span>
-</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="n">error</span> <span class="o">!=</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>                <span class="k">return</span> <span class="n">completionHandler</span><span class="p">(</span><span class="nb">nil</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
-</span><span class='line'>            <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>            <span class="k">var</span> <span class="nl">error</span><span class="p">:</span> <span class="bp">NSError</span><span class="o">?</span>
-</span><span class='line'>            <span class="k">let</span> <span class="n">json</span> <span class="o">=</span> <span class="bp">NSJSONSerialization</span><span class="p">.</span><span class="n">JSONObjectWithData</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nl">options</span><span class="p">:</span> <span class="n">NSJSONReadingOptions</span><span class="p">.</span><span class="n">MutableContainers</span><span class="p">,</span> <span class="nl">error</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">error</span><span class="p">)</span> <span class="kt">as</span> <span class="bp">NSDictionary</span>
-</span><span class='line'>
-</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="n">error</span> <span class="o">!=</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>                <span class="k">return</span> <span class="n">completionHandler</span><span class="p">(</span><span class="nb">nil</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
-</span><span class='line'>            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span><span class='line'>                <span class="k">return</span> <span class="n">completionHandler</span><span class="p">(</span><span class="n">json</span><span class="p">,</span> <span class="nb">nil</span><span class="p">)</span>
-</span><span class='line'>            <span class="p">}</span>
-</span><span class='line'>        <span class="p">})</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">task</span><span class="p">.</span><span class="n">resume</span><span class="p">()</span>
-</span><span class='line'>    <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<pre><code>func updateTodoList(completionHandler: ((NSDictionary!, NSError!) -&gt; Void)!, content: String, todoId: String) {
+        var session = NSURLSession.sharedSession()
+        
+        var request = NSMutableURLRequest(URL: NSURL(string: &quot;http://192.168.1.158:3000/user/kerkerj/todos/\(todoId)&quot;)!)
+        request.HTTPMethod = &quot;PUT&quot;
+        
+        var params = [&quot;content&quot;: content] as Dictionary&lt;String, String&gt;
+        
+        var err: NSError?
+        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &amp;err)
+        request.addValue(&quot;application/json&quot;, forHTTPHeaderField: &quot;Content-Type&quot;)
+        request.addValue(self.API_key, forHTTPHeaderField: &quot;API-Key&quot;)
+        
+        
+        let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -&gt; Void in
+            if (error != nil) {
+                return completionHandler(nil, error)
+            }
+            
+            var error: NSError?
+            let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &amp;error) as NSDictionary
+            
+            if (error != nil) {
+                return completionHandler(nil, error)
+            } else {
+                return completionHandler(json, nil)
+            }
+        })
+        
+        task.resume()
+    }
+</code></pre>
 
 <p>再到剛剛的 UpdateViewController ，把 save() 的另外一個 &ldquo;edit&rdquo; 的區塊改成下面的程式碼</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">else</span> <span class="k">if</span> <span class="n">from</span> <span class="o">==</span> <span class="s">&quot;edit&quot;</span> <span class="p">{</span>
-</span><span class='line'>            <span class="n">println</span><span class="p">(</span><span class="s">&quot;Save edited data&quot;</span><span class="p">)</span>
-</span><span class='line'>            <span class="n">api</span><span class="p">.</span><span class="n">updateTodoList</span><span class="p">({</span><span class="n">data</span><span class="p">,</span> <span class="n">error</span> <span class="o">-&gt;</span> <span class="n">Void</span> <span class="k">in</span>
-</span><span class='line'>                <span class="k">if</span> <span class="n">data</span> <span class="o">==</span> <span class="nb">nil</span> <span class="p">{</span>
-</span><span class='line'>                    <span class="n">println</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
-</span><span class='line'>                <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>                <span class="n">dispatch_async</span><span class="p">(</span><span class="n">dispatch_get_main_queue</span><span class="p">(),</span> <span class="p">{</span>
-</span><span class='line'>                    <span class="n">println</span><span class="p">(</span><span class="s">&quot;done&quot;</span><span class="p">)</span>
-</span><span class='line'>                    <span class="nb">self</span><span class="p">.</span><span class="n">navigationController</span><span class="o">!</span><span class="p">.</span><span class="n">popToRootViewControllerAnimated</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
-</span><span class='line'>                <span class="p">})</span>
-</span><span class='line'>
-</span><span class='line'>            <span class="p">},</span> <span class="nl">content</span><span class="p">:</span> <span class="nb">self</span><span class="p">.</span><span class="n">textField</span><span class="p">.</span><span class="n">text</span><span class="p">,</span> <span class="nl">todoId</span><span class="p">:</span> <span class="nb">self</span><span class="p">.</span><span class="n">index</span><span class="p">)</span>
-</span><span class='line'>        <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<pre><code>else if from == &quot;edit&quot; {
+            println(&quot;Save edited data&quot;)
+            api.updateTodoList({data, error -&gt; Void in
+                if data == nil {
+                    println(error)
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    println(&quot;done&quot;)
+                    self.navigationController!.popToRootViewControllerAnimated(true)
+                })
+                
+            }, content: self.textField.text, todoId: self.index)
+        }
+</code></pre>
 
 <p>所以整個 save() 會長這樣:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">save</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">if</span> <span class="n">from</span> <span class="o">==</span> <span class="s">&quot;add&quot;</span> <span class="p">{</span>
-</span><span class='line'>            <span class="n">api</span><span class="p">.</span><span class="n">addTodoList</span><span class="p">({</span><span class="n">data</span><span class="p">,</span> <span class="n">error</span> <span class="o">-&gt;</span> <span class="n">Void</span> <span class="k">in</span>
-</span><span class='line'>                <span class="k">if</span> <span class="n">data</span> <span class="o">==</span> <span class="nb">nil</span> <span class="p">{</span>
-</span><span class='line'>                    <span class="n">println</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
-</span><span class='line'>                <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>                <span class="n">dispatch_async</span><span class="p">(</span><span class="n">dispatch_get_main_queue</span><span class="p">(),</span> <span class="p">{</span>
-</span><span class='line'>                    <span class="n">println</span><span class="p">(</span><span class="s">&quot;done&quot;</span><span class="p">)</span>
-</span><span class='line'>                    <span class="nb">self</span><span class="p">.</span><span class="n">navigationController</span><span class="o">?</span><span class="p">.</span><span class="n">popToRootViewControllerAnimated</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
-</span><span class='line'>                <span class="p">})</span>
-</span><span class='line'>            <span class="p">},</span> <span class="nl">content</span><span class="p">:</span> <span class="nb">self</span><span class="p">.</span><span class="n">textField</span><span class="p">.</span><span class="n">text</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="n">from</span> <span class="o">==</span> <span class="s">&quot;edit&quot;</span> <span class="p">{</span>
-</span><span class='line'>            <span class="n">println</span><span class="p">(</span><span class="s">&quot;Save edited data&quot;</span><span class="p">)</span>
-</span><span class='line'>            <span class="n">api</span><span class="p">.</span><span class="n">updateTodoList</span><span class="p">({</span><span class="n">data</span><span class="p">,</span> <span class="n">error</span> <span class="o">-&gt;</span> <span class="n">Void</span> <span class="k">in</span>
-</span><span class='line'>                <span class="k">if</span> <span class="n">data</span> <span class="o">==</span> <span class="nb">nil</span> <span class="p">{</span>
-</span><span class='line'>                    <span class="n">println</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
-</span><span class='line'>                <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>                <span class="n">dispatch_async</span><span class="p">(</span><span class="n">dispatch_get_main_queue</span><span class="p">(),</span> <span class="p">{</span>
-</span><span class='line'>                    <span class="n">println</span><span class="p">(</span><span class="s">&quot;done&quot;</span><span class="p">)</span>
-</span><span class='line'>                    <span class="nb">self</span><span class="p">.</span><span class="n">navigationController</span><span class="o">!</span><span class="p">.</span><span class="n">popToRootViewControllerAnimated</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
-</span><span class='line'>                <span class="p">})</span>
-</span><span class='line'>
-</span><span class='line'>            <span class="p">},</span> <span class="nl">content</span><span class="p">:</span> <span class="nb">self</span><span class="p">.</span><span class="n">textField</span><span class="p">.</span><span class="n">text</span><span class="p">,</span> <span class="nl">todoId</span><span class="p">:</span> <span class="nb">self</span><span class="p">.</span><span class="kt">id</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>    <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
+<pre><code>func save() {
+        if from == &quot;add&quot; {
+            api.addTodoList({data, error -&gt; Void in
+                if data == nil {
+                    println(error)
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    println(&quot;done&quot;)
+                    self.navigationController?.popToRootViewControllerAnimated(true)
+                })
+            }, content: self.textField.text)
 
+        } else if from == &quot;edit&quot; {
+            println(&quot;Save edited data&quot;)
+            api.updateTodoList({data, error -&gt; Void in
+                if data == nil {
+                    println(error)
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    println(&quot;done&quot;)
+                    self.navigationController!.popToRootViewControllerAnimated(true)
+                })
+                
+            }, content: self.textField.text, todoId: self.id
+        }
+    }
+</code></pre>
 
 <p>在這邊要再修改一個之前的 bug Orz</p>
 
@@ -1398,16 +989,11 @@ Day30 -  <a href="http://kerkerj.github.io/blog/2014/10/30/swift-d30/">[Swift-d3
 
 <p>ViewController 中的</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="n">showViewController</span><span class="p">.</span><span class="kt">id</span> <span class="o">=</span> <span class="n">fakeData</span><span class="p">[</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">][</span><span class="s">&quot;id&quot;</span><span class="p">]</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// 改成:</span>
-</span><span class='line'><span class="n">showViewController</span><span class="p">.</span><span class="kt">id</span> <span class="o">=</span> <span class="n">fakeData</span><span class="p">[</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">][</span><span class="s">&quot;_id&quot;</span><span class="p">]</span>
-</span></code></pre></td></tr></table></div></figure>
+<pre><code>showViewController.id = fakeData[indexPath.row][&quot;id&quot;]
 
+// 改成:
+showViewController.id = fakeData[indexPath.row][&quot;_id&quot;]
+</code></pre>
 
 <p>因為在 mongodb 中 object id 的名字是 _id</p>
 
@@ -1417,55 +1003,36 @@ Day30 -  <a href="http://kerkerj.github.io/blog/2014/10/30/swift-d30/">[Swift-d3
 
 <p>(因為之前 showView 就已經有拿到 id 了，只是先前的欄位寫錯，加上沒有將 id pass 到 UpdateViewControler 才會發生這種事 XD)</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="n">editViewContronller</span><span class="p">.</span><span class="kt">id</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="kt">id</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<pre><code>editViewContronller.id = self.id
+</code></pre>
 
 <p>應該只有改這樣，最後執行看看</p>
 
 <p>就發現可以編輯成功囉!</p>
 
 <p>快結束啦!</p>
-</div>
-  
-  
 
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/28/api-d28/">[API-d28] - 實戰開發 - 發佈 - Forever</a></h1>
-    
-    
-      <p class="meta">
-        
+                        <a href="http://kerkerj.github.io/blog/2014/10/28/2014-10-28-api-d28/" class="post-title">[API-d28] - 實戰開發 - 發佈 - forever</a>
 
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-restful" href="http://kerkerj.github.io//categories/restful">restful</a><a class="post-category post-category-api" href="http://kerkerj.github.io//categories/api">api</a><a class="post-category post-category-nodejs" href="http://kerkerj.github.io//categories/nodejs">nodejs</a><a class="post-category post-category-express" href="http://kerkerj.github.io//categories/express">express</a><a class="post-category post-category-forever" href="http://kerkerj.github.io//categories/forever">forever</a>
+                            
+                        </p>
+                    </header>
 
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-28T17:26:47+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/10/28/api-d28/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/28/api-d28/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day28">Github 參考</a></p>
+                    <div class="post-description">
+                        <p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day28">Github 參考</a></p>
 
 <p>接下來兩天要講 deploy 的部分</p>
 
@@ -1495,17 +1062,13 @@ Day30 -  <a href="http://kerkerj.github.io/blog/2014/10/30/swift-d30/">[Swift-d3
 
 <p>進到虛擬機</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="nx">npm</span> <span class="nx">install</span> <span class="o">-</span><span class="nx">g</span> <span class="nx">forever</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<pre><code class="language-javascript">$ npm install -g forever
+</code></pre>
 
 <p>p.s. 如果遇到問題，試著跑下面的指令看看?</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="nx">sudo</span> <span class="nx">chown</span> <span class="nx">vagrant</span><span class="o">:</span><span class="nx">vagrant</span> <span class="o">-</span><span class="nx">R</span> <span class="o">~</span><span class="sr">/.npm/</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<pre><code>$ sudo chown vagrant:vagrant -R ~/.npm/
+</code></pre>
 
 <p>接下來我們就可以使用 <code>forever</code> 這個指令了!</p>
 
@@ -1513,71 +1076,49 @@ Day30 -  <a href="http://kerkerj.github.io/blog/2014/10/30/swift-d30/">[Swift-d3
 
 <p>是要下:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="nx">npm</span> <span class="nx">start</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<pre><code>$ npm start 
+</code></pre>
 
 <p>同義於:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="nx">node</span> <span class="p">.</span><span class="o">/</span><span class="nx">bin</span><span class="o">/</span><span class="nx">server</span><span class="p">.</span><span class="nx">js</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<pre><code>$ node ./bin/server.js
+</code></pre>
 
 <p>如果要改用 <code>forever</code> 的話:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// 記得先到專案根目錄</span>
-</span><span class='line'><span class="nx">$</span> <span class="nx">forever</span> <span class="nx">start</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">server</span><span class="p">.</span><span class="nx">js</span>
-</span><span class='line'><span class="nx">warn</span><span class="o">:</span>    <span class="o">--</span><span class="nx">minUptime</span> <span class="nx">not</span> <span class="nx">set</span><span class="p">.</span> <span class="nx">Defaulting</span> <span class="nx">to</span><span class="o">:</span> <span class="mi">1000</span><span class="nx">ms</span>
-</span><span class='line'><span class="nx">warn</span><span class="o">:</span>    <span class="o">--</span><span class="nx">spinSleepTime</span> <span class="nx">not</span> <span class="nx">set</span><span class="p">.</span> <span class="nx">Your</span> <span class="nx">script</span> <span class="nx">will</span> <span class="nx">exit</span> <span class="k">if</span> <span class="nx">it</span> <span class="nx">does</span> <span class="nx">not</span> <span class="nx">stay</span> <span class="nx">up</span> <span class="k">for</span> <span class="nx">at</span> <span class="nx">least</span> <span class="mi">1000</span><span class="nx">ms</span>
-</span><span class='line'><span class="nx">info</span><span class="o">:</span>    <span class="nx">Forever</span> <span class="nx">processing</span> <span class="nx">file</span><span class="o">:</span> <span class="p">.</span><span class="o">/</span><span class="nx">bin</span><span class="o">/</span><span class="nx">server</span><span class="p">.</span><span class="nx">js</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<pre><code>// 記得先到專案根目錄
+$ forever start bin/server.js
+warn:    --minUptime not set. Defaulting to: 1000ms
+warn:    --spinSleepTime not set. Your script will exit if it does not stay up for at least 1000ms
+info:    Forever processing file: ./bin/server.js
+</code></pre>
 
 <p>然後就會被丟到背景執行了</p>
 
 <p>那要怎麼知道我的 server 有跑起來呢?</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="nx">forever</span> <span class="nx">list</span>
-</span><span class='line'><span class="nx">info</span><span class="o">:</span>    <span class="nx">Forever</span> <span class="nx">processes</span> <span class="nx">running</span>
-</span><span class='line'><span class="nx">data</span><span class="o">:</span>        <span class="nx">uid</span>  <span class="nx">command</span>                              <span class="nx">script</span>        <span class="nx">forever</span> <span class="nx">pid</span>   <span class="nx">logfile</span>                         <span class="nx">uptime</span>
-</span><span class='line'><span class="nx">data</span><span class="o">:</span>    <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="mi">6</span><span class="nx">qhd</span> <span class="o">/</span><span class="nx">home</span><span class="o">/</span><span class="nx">vagrant</span><span class="o">/</span><span class="p">.</span><span class="nx">nvm</span><span class="o">/</span><span class="nx">v0</span><span class="p">.</span><span class="mf">10.32</span><span class="o">/</span><span class="nx">bin</span><span class="o">/</span><span class="nx">node</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">server</span><span class="p">.</span><span class="nx">js</span> <span class="mi">13746</span>   <span class="mi">13748</span> <span class="o">/</span><span class="nx">home</span><span class="o">/</span><span class="nx">vagrant</span><span class="o">/</span><span class="p">.</span><span class="nx">forever</span><span class="o">/</span><span class="mi">6</span><span class="nx">qhd</span><span class="p">.</span><span class="nx">log</span> <span class="mi">0</span><span class="o">:</span><span class="mi">0</span><span class="o">:</span><span class="mi">0</span><span class="o">:</span><span class="mf">47.743</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<pre><code>$ forever list
+info:    Forever processes running
+data:        uid  command                              script        forever pid   logfile                         uptime
+data:    [0] 6qhd /home/vagrant/.nvm/v0.10.32/bin/node bin/server.js 13746   13748 /home/vagrant/.forever/6qhd.log 0:0:0:47.743
+</code></pre>
 
 <p>就會列出相關資訊以及 forever 自己的 log file 位置</p>
 
 <p>要關閉的話:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="nx">forever</span> <span class="nx">stop</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">server</span><span class="p">.</span><span class="nx">js</span>
-</span><span class='line'><span class="nx">info</span><span class="o">:</span>    <span class="nx">Forever</span> <span class="nx">stopped</span> <span class="nx">process</span><span class="o">:</span>
-</span><span class='line'><span class="nx">data</span><span class="o">:</span>        <span class="nx">uid</span>  <span class="nx">command</span>                              <span class="nx">script</span>        <span class="nx">forever</span> <span class="nx">pid</span>   <span class="nx">logfile</span>                         <span class="nx">uptime</span>
-</span><span class='line'><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="mi">6</span><span class="nx">qhd</span> <span class="o">/</span><span class="nx">home</span><span class="o">/</span><span class="nx">vagrant</span><span class="o">/</span><span class="p">.</span><span class="nx">nvm</span><span class="o">/</span><span class="nx">v0</span><span class="p">.</span><span class="mf">10.32</span><span class="o">/</span><span class="nx">bin</span><span class="o">/</span><span class="nx">node</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">server</span><span class="p">.</span><span class="nx">js</span> <span class="mi">13746</span>   <span class="mi">14061</span> <span class="o">/</span><span class="nx">home</span><span class="o">/</span><span class="nx">vagrant</span><span class="o">/</span><span class="p">.</span><span class="nx">forever</span><span class="o">/</span><span class="mi">6</span><span class="nx">qhd</span><span class="p">.</span><span class="nx">log</span> <span class="mi">0</span><span class="o">:</span><span class="mi">0</span><span class="o">:</span><span class="mi">0</span><span class="o">:</span><span class="mf">6.595</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<pre><code>$ forever stop bin/server.js
+info:    Forever stopped process:
+data:        uid  command                              script        forever pid   logfile                         uptime
+[0] 6qhd /home/vagrant/.nvm/v0.10.32/bin/node bin/server.js 13746   14061 /home/vagrant/.forever/6qhd.log 0:0:0:6.595
+</code></pre>
 
 <p><code>bin/server.js</code> 也可以替換成 forever uid 或 pid</p>
 
 <p>如果要重開的話</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="nx">forever</span> <span class="nx">restart</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">server</span><span class="p">.</span><span class="nx">js</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<pre><code>$ forever restart bin/server.js
+</code></pre>
 
 <p>超簡單!</p>
 
@@ -1592,361 +1133,185 @@ Day30 -  <a href="http://kerkerj.github.io/blog/2014/10/30/swift-d30/">[Swift-d3
 <p>真正應用在 production 環境還是必須要監控的</p>
 
 <p>今天就分享到這啦!</p>
-</div>
-  
-  
 
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
 
-    </article>
-  
-  
-    <article>
+                        <a href="http://kerkerj.github.io/blog/2014/10/27/2014-10-27-api-d27/" class="post-title">[API-d27] - 實戰開發 - log 處理 及 config (db, apikey)</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-restful" href="http://kerkerj.github.io//categories/restful">restful</a><a class="post-category post-category-api" href="http://kerkerj.github.io//categories/api">api</a><a class="post-category post-category-nodejs" href="http://kerkerj.github.io//categories/nodejs">nodejs</a><a class="post-category post-category-express" href="http://kerkerj.github.io//categories/express">express</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day27">Github 參考</a></p>
+
+<p>##log 處理</p>
+
+<p>今天要來談談 log 的處理，</p>
+
+<p>身為一台自走 (?) node.js API server</p>
+
+<p>也應該要記錄一下 request 的 log 呀！</p>
+
+<p>不然哪天出問題了都不知道是哪個 request 把 server 搞掛了!</p>
+
+<p>因此我們就要加入 log 的 middleware</p>
+
+<p>node.js 的 log 套件也蠻多的, 例如 <code>winston</code></p>
+
+<p>不過我們今天要用的是 <code>log4js</code></p>
+
+<p>會選擇他其實也只是因為之前寫 <code>java</code> 有用過 <code>log4j</code></p>
+
+<p><code>log4js</code> 的設定感覺起來比較相似</p>
+
+<p>所以就使用它了!</p>
+
+<p>再來我們就安裝一下 <code>log4js</code> 吧</p>
+
+<pre><code class="language-javascript">$ npm install log4js -save  
+</code></pre>
+
+<p>並在 <code>app.js</code> 中 require 進去</p>
+
+<pre><code>var log4js = require('log4js');
+</code></pre>
+
+<p>接著在 <code>app.js</code> 的前面區段加入以下程式碼:</p>
+
+<pre><code>log4js.configure({
+    appenders: [
+        { type: 'console' }, //控制台輸出
+        {
+            type: 'file', //文件輸出
+            filename: 'logs/access.log',
+            maxLogSize: 20000000, // 20 MB
+            backups: 10,
+            category: 'normal'
+        }
+    ],
+    replaceConsole: true
+});
+
+var logger = log4js.getLogger('normal');
+logger.setLevel('INFO');
+
+app.use(log4js.connectLogger(logger, {level: 'auto', format:':method :url'}));
+</code></pre>
+
+<p>其實註解已經可以看出一些端倪了</p>
+
+<p>使用 <code>log4js</code> 可以輸出 log 檔案，並且會按照設定的檔案大小來寫入</p>
+
+<p>如果達到 20MB 就會換一個新的檔案寫入，原本的還保留著，不過最多只會保留 10 份</p>
+
+<p>接著就設定 log level, 以及想要 log 的資訊</p>
+
+<p>詳細資訊就可以再多查詢一下</p>
+
+<p>此時我們將 server run 起來吧!</p>
+
+<p>並且對 server 戳幾個 request, 就會發現 log 檔案被建立起來了!</p>
+
+<p>(該程式碼加在 token 檢查前或檢查後是有差異的，加在 token 檢查後面，token error 的話則不會被記錄到 log 裡面)</p>
+
+<p>打開 log 檔看看，就會發現有 log 被寫入囉!</p>
+
+<p>##config (db, apikey)</p>
+
+<p>有些重要的設定檔其實我們並不希望寫在程式碼裡，這時候 config 的設定很有用</p>
+
+<p>建立設定檔有很多種方式，比方說直接寫一個 json 檔案，或是 xml 檔案</p>
+
+<p>今天我們就用最簡單的 js 檔案的方式來建立 config 檔</p>
+
+<p>我們在 config 資料夾裡新增一個 config.js</p>
+
+<p>我們以下面的程式碼當作例子:</p>
+
+<pre><code>module.exports = {
+    &quot;base_url&quot;: &quot;http://localhost:3000&quot;,
+    &quot;test_token&quot;: &quot;55665566&quot;,
+    &quot;db&quot;: {
+        &quot;production&quot;: &quot;mongodb://192.168.33.10:27017/TODOs&quot;,
+        &quot;development&quot;: &quot;mongodb://192.168.33.10:27017/DEV_TODOs&quot;,
+        &quot;test&quot;: &quot;mongodb://192.168.33.10:27017/TEST_TODOs&quot;
+    }
+};
+</code></pre>
+
+<p>要怎麼使用裡面的內容呢?</p>
+
+<p>假設我們要將 db 的連結改成用 config 的方式連結的話:</p>
+
+<pre><code>var config = require('./config/config');
+
+// Set DB
+mongoose.connect(config.db.development);
+</code></pre>
+
+<p>只要先將 config require 進來，然後就直接使用它就好了!</p>
+
+<p>這樣就可以幫助我們將一些重要的設定從程式碼中抽離出來了!</p>
+
+<p>今天就這樣啦!</p>
+
+                    </div>
+                </section>
+                
+            </div>
+            
+<div class="pagination">
+  <nav role="pagination" class="post-list-pagination">
       
-  <header>
+    <span class="post-list-pagination-item post-list-pagination-item-current">Page 1 of 14</span>
     
-      <h1 class="entry-title"><a href="/blog/2014/10/27/swift-d27/">[Swift-d27] - 實戰開發 - TODOList - API 2 讀取清單資料</a></h1>
+      <a href="http://kerkerj.github.io/page/2/" class="post-list-pagination-item pure-button post-list-pagination-item-next">
+        Older&nbsp;<i class="fa fa-angle-double-right"></i>
+      </a>
     
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-27T23:00:04+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/10/27/swift-d27/#disqus_thread"
-             data-disqus-identifier="http://kerkerj.github.io/blog/2014/10/27/swift-d27/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day27">Github link</a></p>
-
-<p>(某一天把兩天份的 commit 在一起了忘了開 branch 了&hellip;)</p>
-
-<p>接下來就要來寫 api utility 了</p>
-
-<p>我們先開一個 swift 檔案 <code>RestApi.swift</code></p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">import</span> <span class="n">Foundation</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">class</span> <span class="n">RestApi</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">var</span> <span class="n">API_key</span> <span class="o">=</span> <span class="s">&quot;55665566&quot;</span>
-</span><span class='line'>  <span class="k">var</span> <span class="n">getListUrl</span> <span class="o">=</span> <span class="bp">NSURL</span><span class="p">(</span><span class="nl">string</span><span class="p">:</span> <span class="s">&quot;http://192.168.1.158:3000/user/kerkerj/todos&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>先做好前置設定，因為 API 有上簡單的小鎖，因此要先寫起來</p>
-
-<p>還有 request 的網址</p>
-
-<p>以下是 get list 的範例:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">getTodoList</span><span class="p">(</span><span class="nl">completionHandler</span><span class="p">:</span> <span class="p">((</span><span class="bp">NSArray</span><span class="o">!</span><span class="p">,</span> <span class="bp">NSError</span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Void</span><span class="p">)</span><span class="o">!</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">var</span> <span class="n">session</span> <span class="o">=</span> <span class="bp">NSURLSession</span><span class="p">.</span><span class="n">sharedSession</span><span class="p">()</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">var</span> <span class="n">request</span> <span class="o">=</span> <span class="bp">NSMutableURLRequest</span><span class="p">(</span><span class="nl">URL</span><span class="p">:</span> <span class="nb">self</span><span class="p">.</span><span class="n">getListUrl</span><span class="o">!</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">request</span><span class="p">.</span><span class="n">HTTPMethod</span> <span class="o">=</span> <span class="s">&quot;GET&quot;</span>
-</span><span class='line'>        <span class="n">request</span><span class="p">.</span><span class="n">addValue</span><span class="p">(</span><span class="s">&quot;application/json&quot;</span><span class="p">,</span> <span class="nl">forHTTPHeaderField</span><span class="p">:</span> <span class="s">&quot;Content-Type&quot;</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">request</span><span class="p">.</span><span class="n">addValue</span><span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">API_key</span><span class="p">,</span> <span class="nl">forHTTPHeaderField</span><span class="p">:</span> <span class="s">&quot;API-Key&quot;</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">let</span> <span class="n">task</span> <span class="o">=</span> <span class="n">session</span><span class="p">.</span><span class="n">dataTaskWithRequest</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="nl">completionHandler</span><span class="p">:</span> <span class="p">{</span><span class="n">data</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">error</span> <span class="o">-&gt;</span> <span class="n">Void</span> <span class="k">in</span>
-</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="n">error</span> <span class="o">!=</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>                <span class="k">return</span> <span class="n">completionHandler</span><span class="p">(</span><span class="nb">nil</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
-</span><span class='line'>            <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>            <span class="k">var</span> <span class="nl">error</span><span class="p">:</span> <span class="bp">NSError</span><span class="o">?</span>
-</span><span class='line'>            <span class="k">let</span> <span class="n">json</span> <span class="o">=</span> <span class="bp">NSJSONSerialization</span><span class="p">.</span><span class="n">JSONObjectWithData</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nl">options</span><span class="p">:</span> <span class="n">NSJSONReadingOptions</span><span class="p">.</span><span class="n">MutableContainers</span><span class="p">,</span> <span class="nl">error</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">error</span><span class="p">)</span> <span class="kt">as</span> <span class="bp">NSArray</span>
-</span><span class='line'>
-</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="n">error</span> <span class="o">!=</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>                <span class="k">return</span> <span class="n">completionHandler</span><span class="p">(</span><span class="nb">nil</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
-</span><span class='line'>            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span><span class='line'>                <span class="k">return</span> <span class="n">completionHandler</span><span class="p">(</span><span class="n">json</span><span class="p">,</span> <span class="nb">nil</span><span class="p">)</span>
-</span><span class='line'>            <span class="p">}</span>
-</span><span class='line'>        <span class="p">})</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">task</span><span class="p">.</span><span class="n">resume</span><span class="p">()</span>
-</span><span class='line'>    <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>我們使用內建的 NSURLSession.sharedSession 以及 NSMutableURLRequest 來建立 request</p>
-
-<p>裡面就是設定一些 header 以及 API-Key</p>
-
-<p>另外在資料回來後，return callback</p>
-
-<p>在這邊有 async，寫隔壁棚的 api 回過頭來看這個感覺很熟悉 XD</p>
-
-<p>設定好 API 後</p>
-
-<p>回到顯示 todo 清單的主頁程式碼</p>
-
-<p>由於我們希望能夠在 view 每次被呼叫時，都可以對 API server 做存取</p>
-
-<p>因此必須要將 getTodoList 寫在該方法裏</p>
-
-<p>該方法為 override func viewWillAppear(animated: Bool) {}</p>
-
-<p>先建立一個 api 物件</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">var</span> <span class="nl">api</span><span class="p">:</span> <span class="n">RestApi</span> <span class="o">=</span> <span class="n">RestApi</span><span class="p">()</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>將原本的假資料刪除或註解, 不過資料物件名稱就繼續用 fakeData XD</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="c1">//        fakeData = [</span>
-</span><span class='line'><span class="c1">//            [&quot;id&quot;: &quot;1&quot;, &quot;content&quot;: &quot;A&quot;],</span>
-</span><span class='line'><span class="c1">//            [&quot;id&quot;: &quot;2&quot;, &quot;content&quot;: &quot;B&quot;],</span>
-</span><span class='line'><span class="c1">//            [&quot;id&quot;: &quot;3&quot;, &quot;content&quot;: &quot;C&quot;],</span>
-</span><span class='line'><span class="c1">//        ]</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>接著在 ViewController override 一個 viewWillAppear 的方法</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="kr">override</span> <span class="k">func</span> <span class="nf">viewWillAppear</span><span class="p">(</span><span class="nl">animated</span><span class="p">:</span> <span class="n">Bool</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nb">super</span><span class="p">.</span><span class="n">viewWillAppear</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">api</span><span class="p">.</span><span class="n">getTodoList</span><span class="p">({</span><span class="n">data</span><span class="p">,</span> <span class="n">error</span> <span class="o">-&gt;</span> <span class="n">Void</span> <span class="k">in</span>
-</span><span class='line'>            <span class="k">if</span> <span class="n">error</span> <span class="o">!=</span> <span class="nb">nil</span> <span class="p">{</span>
-</span><span class='line'>                <span class="n">dispatch_async</span><span class="p">(</span><span class="n">dispatch_get_main_queue</span><span class="p">(),</span> <span class="p">{</span>
-</span><span class='line'>                    <span class="k">let</span> <span class="n">alert</span> <span class="o">=</span> <span class="bp">UIAlertView</span><span class="p">()</span>
-</span><span class='line'>                    <span class="n">alert</span><span class="p">.</span><span class="n">title</span> <span class="o">=</span> <span class="s">&quot;Yoooooooooooooooo&quot;</span>
-</span><span class='line'>                    <span class="n">alert</span><span class="p">.</span><span class="n">message</span> <span class="o">=</span> <span class="s">&quot;Get list faild, maybe check your network: \(error)&quot;</span>
-</span><span class='line'>                    <span class="n">alert</span><span class="p">.</span><span class="n">addButtonWithTitle</span><span class="p">(</span><span class="s">&quot;ok&quot;</span><span class="p">)</span>
-</span><span class='line'>                    <span class="n">alert</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="nb">self</span>
-</span><span class='line'>                    <span class="n">alert</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
-</span><span class='line'>                    <span class="n">println</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
-</span><span class='line'>                <span class="p">})</span>
-</span><span class='line'>            <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="n">data</span> <span class="o">!=</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>                <span class="k">var</span> <span class="n">tmpArr</span> <span class="o">=</span> <span class="p">[[</span><span class="nl">String</span><span class="p">:</span> <span class="n">String</span><span class="p">]]()</span>
-</span><span class='line'>
-</span><span class='line'>                <span class="k">for</span> <span class="n">item</span> <span class="k">in</span> <span class="n">data</span> <span class="p">{</span>
-</span><span class='line'>                    <span class="k">var</span> <span class="n">_id</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s">&quot;_id&quot;</span><span class="p">]</span> <span class="kt">as</span> <span class="n">String</span>
-</span><span class='line'>                    <span class="k">var</span> <span class="n">content</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s">&quot;content&quot;</span><span class="p">]</span> <span class="kt">as</span> <span class="n">String</span>
-</span><span class='line'>                    <span class="k">var</span> <span class="n">dic</span> <span class="o">=</span> <span class="p">[</span><span class="nl">String</span><span class="p">:</span> <span class="n">String</span><span class="p">]()</span>
-</span><span class='line'>
-</span><span class='line'>                    <span class="n">dic</span><span class="p">[</span><span class="s">&quot;_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_id</span>
-</span><span class='line'>                    <span class="n">dic</span><span class="p">[</span><span class="s">&quot;content&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">content</span>
-</span><span class='line'>
-</span><span class='line'>                    <span class="n">tmpArr</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">dic</span><span class="p">)</span>
-</span><span class='line'>                <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>                <span class="nb">self</span><span class="p">.</span><span class="n">arr</span> <span class="o">=</span> <span class="n">tmpArr</span>
-</span><span class='line'>
-</span><span class='line'>                <span class="n">println</span><span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">arr</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>                <span class="n">dispatch_async</span><span class="p">(</span><span class="n">dispatch_get_main_queue</span><span class="p">(),</span> <span class="p">{</span>
-</span><span class='line'>                    <span class="c1">// must be &quot;tableView!&quot; not &quot;tableView?&quot;</span>
-</span><span class='line'>                    <span class="nb">self</span><span class="p">.</span><span class="n">tableView</span><span class="o">!</span><span class="p">.</span><span class="n">reloadData</span><span class="p">()</span>
-</span><span class='line'>                <span class="p">})</span>
-</span><span class='line'>
-</span><span class='line'>            <span class="p">}</span>
-</span><span class='line'>        <span class="p">})</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">dispatch_async</span><span class="p">(</span><span class="n">dispatch_get_main_queue</span><span class="p">(),</span> <span class="p">{</span>
-</span><span class='line'>            <span class="c1">// must be &quot;tableView!&quot; not &quot;tableView?&quot;</span>
-</span><span class='line'>            <span class="nb">self</span><span class="p">.</span><span class="n">tableView</span><span class="o">!</span><span class="p">.</span><span class="n">reloadData</span><span class="p">()</span>
-</span><span class='line'>        <span class="p">})</span>
-</span><span class='line'>    <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>以上方法都是 async 的方式</p>
-
-<p>只要網路錯誤，就會直接跳一個 alert</p>
-
-<p>若有資料的話就 parse</p>
-
-<p>一併轉換成原本定義的 [[String: String]] 中</p>
-
-<p>執行看看吧!</p>
-
-<p>很明顯每次切回主頁時 api console 都會跳一行 request~</p>
-
-<p>如果使用 sync 的方式就會卡很久! 而且更新 UI 還會 crash XD</p>
-
-<p>我覺得這部分是需要好好去做處理的，在這邊的程式碼只是簡單 demo</p>
-
-<p>並沒有考慮到太多 :P</p>
-
-<p>明天繼續!</p>
+  </nav>
 </div>
-  
-  
 
 
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/posts/2">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    
-  
-</aside>
-
+            <div class="footer">
+    <div class="pure-menu pure-menu-horizontal pure-menu-open">
+        <ul>
+            <li>Powered by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a></li>
+        </ul>
     </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2015 - kerkerj -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a> | Themed with <a href="https://github.com/lucaslew/whitespace">Whitespace</a></span>
-</p>
-
-</footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'kerkerj-github';
-      
-        
-        var disqus_script = 'count.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
+</div>
+<script src="http://kerkerj.github.io//js/all.min.js"></script>
+<script>
+hljs.initHighlightingOnLoad();
 </script>
 
+        </div>
+    </div>
+</div>
 
 
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
+ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('send', 'pageview');
 
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id; js.async = true;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = '//platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
+</script>
 
 </body>
 </html>

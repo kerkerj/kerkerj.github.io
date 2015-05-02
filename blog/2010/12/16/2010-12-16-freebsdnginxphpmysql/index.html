@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+     
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="[FreeBSD] FNMP (Nginx) | kerkerj">
+    <meta property="og:url" content="http://kerkerj.github.io/blog/2010/12/16/2010-12-16-freebsdnginxphpmysql/">
+    <meta property="og:description" content="">
+    
+    
+    <meta property="og:site_name" content="kerkerj">
+
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="kerkerj" />
+    <meta name="twitter:title" content="[FreeBSD] FNMP (Nginx) &middot; kerkerj">
+    <meta name="twitter:description" content="">
+
+    
+    <title>[FreeBSD] FNMP (Nginx) &middot; kerkerj</title>
+
+    
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+    
+
+    <link rel="stylesheet" href="http://kerkerj.github.io//css/all.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    
+    
+      <link rel="stylesheet" href="http://kerkerj.github.io//css/highlight/railscasts.css">
+    
+
+    
+    <link href="http://kerkerj.github.io/favicon.ico" rel="icon">
+
+    
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://kerkerj.github.io//index.xml">
+</head>
+<body>
+
+
+<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+    <div class="header">
+        <hgroup>
+            <h1 class="brand-title"><a href="http://kerkerj.github.io/">kerkerj</a></h1>
+            <h2 class="brand-tagline"> Hi. </h2>
+        </hgroup>
+
+        <nav class="nav">
+            
+            <ul class="pure-menu-list">
+              
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//notes/">Notes</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//about/">About</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//mac-app-list/">Mac App List</a>
+                </li>
+              
+            </ul>
+
+            
+            <ul class="nav-list">
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://twitter.com/kerkerj"><i class="fa fa-twitter"></i> Twitter</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://github.com/kerkerj "><i class="fa fa-github-alt"></i> Github</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            
+            <div class="posts">
+                <h1 class="content-subhead">2010-12-12 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2010/12/16/2010-12-16-freebsdnginxphpmysql/" class="post-title">[FreeBSD] FNMP (Nginx)</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-mysql" href="http://kerkerj.github.io//categories/mysql">mysql</a><a class="post-category post-category-php" href="http://kerkerj.github.io//categories/php">php</a><a class="post-category post-category-nginx" href="http://kerkerj.github.io//categories/nginx">nginx</a><a class="post-category post-category-freebsd" href="http://kerkerj.github.io//categories/freebsd">freebsd</a><a class="post-category post-category-fnmp" href="http://kerkerj.github.io//categories/fnmp">fnmp</a>
+                            
+                        </p>
+                    </header>
+                    <div class="post-description">
+                        
+
+<p>就是網頁伺服器 Nginx
+FreeBSD + Nginx + php + MySQL</p>
+
+<p>我個人是直接把 apache 直接換成 Nginx
+其他只是多安裝一些模組而已，因此換起來還好, 不過還是稍微會寫一些安裝上的順序。</p>
+
+<p>#安装MySQL 
+參閱 <a href="http://kerkerj.logdown.com/posts/2010/10/05/freebsd81-famp">此篇文章</a></p>
+
+<p>#安裝PHP
+<code>
+#cd /usr/ports/lang/php5
+#make config install clean
+</code></p>
+
+<p>將下面的模組勾一勾，沒有的選項就不管他了～
+<code>
+[X] CLI        Build CLI version
+[X] CGI        Build CGI version
+[X] FPM        必勾!!! Nginx處理php時是要交給他處理
+[X] APACHE     Build Apache module
+[ ] DEBUG      Enable debug
+[X] SUHOSIN      Enable Suhosin protection system
+[X] MULTIBYTE    Enable zend multibyte support
+[ ] IPV6       Enable ipv6 support
+[ ] REDIRECT   Enable force-cgi-redirect support (CGI only)
+[ ] DISCARD    Enable discard-path support (CGI only)
+[X] FASTCGI    Enable fastcgi support (CGI only)
+[X] PATHINFO   Enable path-info-check support (CGI only)
+</code></p>
+
+<p>#安裝php5-entensions
+```
+#cd /usr/ports/lang/php5-extensions/</p>
+
+<h1 id="make-config-install-clean:673effc6c6269a4e59c5d948bacf2b91">make config install clean</h1>
+
+<pre><code>
+勾選需要的extension，下面必裝，其餘隨意。
+</code></pre>
+
+<p>[X] FTP        FTP support
+[X] GD      
+[X] GETTEXT
+[X] MBSTRING
+[X] MYSQL
+[ ] POSIX //去掉.
+[ ] SQLITE //去掉.
+[X] ZLIB
+```</p>
+
+<pre><code>#cd /usr/local/etc
+# cp php.ini-development php.ini
+</code></pre>
+
+<p>=&gt;修改PHP設定檔</p>
+
+<p>#安裝nginx
+<code>
+#cd /usr/ports/www/nginx/
+#make install clean
+</code>
+安裝nginx就是這麼簡單～</p>
+
+<p>設定nginx的部份：
+編輯 <code>/usr/local/etc/nginx/nginx.conf</code>
+將<code>#user nobody;</code> 改成 <code>user www;</code>
+找到下面的部份：
+<code>
+location / {
+    root    /usr/local/www/nginx;  //網頁目錄可以換，看你網頁放哪 (ex./home/www)
+    index    index.html index.htm;  //記得加入 index.php 等等
+}
+</code></p>
+
+<p>下面是給 FPM 處理 PHP 的部份，記得先將前面的 # 註解刪掉，
+然後將 <code>fastcgi_param</code> 的 <code>/scripts$fastcgi_script.name</code>
+更改為: <code>/你的網頁目錄$fastcgi_script.name</code>
+例如： <code>/home/www$fastcgi_script.name</code></p>
+
+<pre><code>#location ~ \.php$ {
+#    fastcgi_pass    127.0.0.1:9000;
+#    fastcgi_index   index.php;
+#    fastcgi_param     SCRIPT_FILENAME    /scripts$fastcgi_script.name;
+#    include      fastcgi_params;
+#}
+</code></pre>
+
+<p>安裝完後, 記得編輯 <code>/etc/rc.conf</code>, 加入:
+<code>
+mysql_enable=&quot;YES&quot;
+nginx_enable=&quot;YES&quot;
+php_fpm_enable=&quot;YES&quot;
+</code>
+這樣就可以啦~~~
+如果有 phpmyadmin 的話，可以將該資料夾整個複製到網頁根目錄底下，就可以操作了~~</p>
+
+                    </div>
+                    <div class="post-share">
+                        <div class="post-share-links">
+                            <h4 style="">Share</h4>
+                            <a href="#" data-type="facebook" data-url="http://kerkerj.github.io/blog/2010/12/16/2010-12-16-freebsdnginxphpmysql/" data-title="[FreeBSD] FNMP (Nginx)" data-description="" data-media="" class="prettySocial fa fa-facebook"></a>
+                            <a href="#" data-type="googleplus" data-url="http://kerkerj.github.io/blog/2010/12/16/2010-12-16-freebsdnginxphpmysql/" data-description="" class="prettySocial fa fa-google-plus"></a>
+                            
+                            <a href="#" data-type="twitter" data-url="http://kerkerj.github.io/blog/2010/12/16/2010-12-16-freebsdnginxphpmysql/" data-description="" data-via="kerkerj" class="prettySocial fa fa-twitter"></a>
+                            
+
+                        </div>
+                    </div>
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/kerkerj.github.io\/blog\/2010\/12\/16\/2010-12-16-freebsdnginxphpmysql\/';
+    var disqus_title = '[FreeBSD] FNMP (Nginx)';
+    var disqus_url = 'http:\/\/kerkerj.github.io\/blog\/2010\/12\/16\/2010-12-16-freebsdnginxphpmysql\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                </section>
+            </div>
+            <div class="footer">
+    <div class="pure-menu pure-menu-horizontal pure-menu-open">
+        <ul>
+            <li>Powered by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a></li>
+        </ul>
+    </div>
+</div>
+<script src="http://kerkerj.github.io//js/all.min.js"></script>
+<script>
+hljs.initHighlightingOnLoad();
+</script>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

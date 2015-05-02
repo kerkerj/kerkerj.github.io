@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+     
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Capistrano with rails - basic notes | kerkerj">
+    <meta property="og:url" content="http://kerkerj.github.io/blog/2014/08/05/2014-08-05-capistrano-with-rails-basic-notes/">
+    <meta property="og:description" content="">
+    
+    
+    <meta property="og:site_name" content="kerkerj">
+
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="kerkerj" />
+    <meta name="twitter:title" content="Capistrano with rails - basic notes &middot; kerkerj">
+    <meta name="twitter:description" content="">
+
+    
+    <title>Capistrano with rails - basic notes &middot; kerkerj</title>
+
+    
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+    
+
+    <link rel="stylesheet" href="http://kerkerj.github.io//css/all.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    
+    
+      <link rel="stylesheet" href="http://kerkerj.github.io//css/highlight/railscasts.css">
+    
+
+    
+    <link href="http://kerkerj.github.io/favicon.ico" rel="icon">
+
+    
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://kerkerj.github.io//index.xml">
+</head>
+<body>
+
+
+<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+    <div class="header">
+        <hgroup>
+            <h1 class="brand-title"><a href="http://kerkerj.github.io/">kerkerj</a></h1>
+            <h2 class="brand-tagline"> Hi. </h2>
+        </hgroup>
+
+        <nav class="nav">
+            
+            <ul class="pure-menu-list">
+              
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//notes/">Notes</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//about/">About</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//mac-app-list/">Mac App List</a>
+                </li>
+              
+            </ul>
+
+            
+            <ul class="nav-list">
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://twitter.com/kerkerj"><i class="fa fa-twitter"></i> Twitter</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://github.com/kerkerj "><i class="fa fa-github-alt"></i> Github</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            
+            <div class="posts">
+                <h1 class="content-subhead">2014-08-08 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/08/05/2014-08-05-capistrano-with-rails-basic-notes/" class="post-title">Capistrano with rails - basic notes</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-rails" href="http://kerkerj.github.io//categories/rails">rails</a><a class="post-category post-category-capistrano" href="http://kerkerj.github.io//categories/capistrano">capistrano</a>
+                            
+                        </p>
+                    </header>
+                    <div class="post-description">
+                        
+
+<p>詳細的東西還是看 project&rsquo;s github page 比較快 - <a href="https://github.com/capistrano/capistrano">Capistrano@github</a></p>
+
+<p>Capistrano 剛開始寫 deploy script 時真的會有點搞不太懂 XD<br />
+記錄一下使用 &lsquo;capistrano&rsquo; 把特定的 github repo 抓到 remote server</p>
+
+<p>##安裝</p>
+
+<p>先在 Gemfile 加入:</p>
+
+<pre><code>gem 'capistrano', '~&gt; 3.2.0'   
+</code></pre>
+
+<p>然後安裝~</p>
+
+<pre><code>bundle install
+</code></pre>
+
+<p>步驟大概會是：</p>
+
+<p>假設已經寫完 capistrano 了，執行 script 時，<br />
+capistrano 會先利用 script 裡提供的 server ip 以及 public key，<br />
+先連線到 remote server，接著再到 github 上拉 code 到指定的目錄裡，<br />
+再重開 server。</p>
+
+<p>##產生相關檔案</p>
+
+<pre><code>bundle exec cap install 
+</code></pre>
+
+<p>會產生以下檔案:  (copy from <a href="https://github.com/capistrano/capistrano">Capistrano@github</a>)</p>
+
+<pre><code>├── Capfile
+├── config
+│   ├── deploy
+│   │   ├── production.rb
+│   │   └── staging.rb
+│   └── deploy.rb
+└── lib
+    └── capistrano
+            └── tasks
+</code></pre>
+
+<p>deploy.rb 通常是設定 source control 的類型 (可以設定 git, hg, svn)，<br />
+project repo 的路徑，要 deploy 到 server 的哪個目錄等等，<br />
+<code>config/deploy/*</code> 底下的檔案則是根據不同的 stage 分別設定，<br />
+以下是 deploy.rb, production.rb 的一些簡單設定</p>
+
+<p>```ruby deploy.rb</p>
+
+<h1 id="config-valid-only-for-capistrano-3-1:fec4ba4e5c88d61d622b40a3ae8beda5">config valid only for Capistrano 3.1</h1>
+
+<p>lock &lsquo;3.2.1&rsquo;</p>
+
+<p>set :application, &lsquo;application_name&rsquo;
+set :repo_url, &lsquo;github_repo_url&rsquo;</p>
+
+<p>set :deploy_via, :copy</p>
+
+<h1 id="default-branch-is-master:fec4ba4e5c88d61d622b40a3ae8beda5">Default branch is :master</h1>
+
+<h1 id="ask-branch-proc-git-rev-parse-abbrev-ref-head-chomp-call:fec4ba4e5c88d61d622b40a3ae8beda5">ask :branch, proc { <code>git rev-parse --abbrev-ref HEAD</code>.chomp }.call</h1>
+
+<h1 id="default-deploy-to-directory-is-var-www-my-app:fec4ba4e5c88d61d622b40a3ae8beda5">Default deploy_to directory is /var/www/my_app</h1>
+
+<p>set :deploy_to, &lsquo;/server/www/path/&rsquo;</p>
+
+<h1 id="default-value-for-scm-is-git:fec4ba4e5c88d61d622b40a3ae8beda5">Default value for :scm is :git</h1>
+
+<p>set :scm, :git</p>
+
+<h1 id="default-value-for-format-is-pretty:fec4ba4e5c88d61d622b40a3ae8beda5">Default value for :format is :pretty</h1>
+
+<p>set :format, :pretty</p>
+
+<h1 id="default-value-for-log-level-is-debug:fec4ba4e5c88d61d622b40a3ae8beda5">Default value for :log_level is :debug</h1>
+
+<p>set :log_level, :debug</p>
+
+<h1 id="default-value-for-pty-is-false:fec4ba4e5c88d61d622b40a3ae8beda5">Default value for :pty is false</h1>
+
+<h1 id="set-pty-true:fec4ba4e5c88d61d622b40a3ae8beda5">set :pty, true</h1>
+
+<h1 id="default-value-for-linked-files-is:fec4ba4e5c88d61d622b40a3ae8beda5">Default value for :linked_files is []</h1>
+
+<h1 id="set-linked-files-w-config-database-yml:fec4ba4e5c88d61d622b40a3ae8beda5">set :linked_files, %w{config/database.yml}</h1>
+
+<h1 id="default-value-for-linked-dirs-is:fec4ba4e5c88d61d622b40a3ae8beda5">Default value for linked_dirs is []</h1>
+
+<h1 id="set-linked-dirs-w-bin-log-tmp-pids-tmp-cache-tmp-sockets-vendor-bundle-public-system:fec4ba4e5c88d61d622b40a3ae8beda5">set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}</h1>
+
+<h1 id="default-value-for-default-env-is:fec4ba4e5c88d61d622b40a3ae8beda5">Default value for default_env is {}</h1>
+
+<h1 id="set-default-env-path-opt-ruby-bin-path:fec4ba4e5c88d61d622b40a3ae8beda5">set :default_env, { path: &ldquo;/opt/ruby/bin:$PATH&rdquo; }</h1>
+
+<h1 id="default-value-for-keep-releases-is-5:fec4ba4e5c88d61d622b40a3ae8beda5">Default value for keep_releases is 5</h1>
+
+<h1 id="set-keep-releases-5:fec4ba4e5c88d61d622b40a3ae8beda5">set :keep_releases, 5</h1>
+
+<p>namespace :deploy do</p>
+
+<p>desc &lsquo;Restart application&rsquo;
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      # Your restart mechanism here, for example:
+      execute :mkdir, &lsquo;-p&rsquo;, &ldquo;#{ release_path }/tmp&rdquo;
+      execute :touch, release_path.join(&lsquo;tmp/restart.txt&rsquo;)
+    end
+  end</p>
+
+<p>after :publishing, :restart</p>
+
+<p>after :restart, :clear_cache do
+    on roles(:web), in: :groups, limit: 3, wait: 10 do
+      # Here we can do anything such as:
+      # within release_path do
+      #  execute :rake, &lsquo;cache:clear&rsquo;
+      # end
+    end
+  end</p>
+
+<p>end</p>
+
+<pre><code>
+```ruby production.rb
+# Simple Role Syntax
+# ==================
+# Supports bulk-adding hosts to roles, the primary server in each group
+# is considered to be the first unless any hosts have the primary
+# property set.  Don't declare `role :all`, it's a meta role.
+
+role :app, %w{app@server}
+role :web, %w{web@server}
+role :db,  %w{db@server}
+
+
+# Extended Server Syntax
+# ======================
+# This can be used to drop a more detailed server definition into the
+# server list. The second argument is a, or duck-types, Hash and is
+# used to set extended properties on the server.
+
+server 'server_ip', user: 'server_user', roles: %w{app}, my_property: :my_value
+
+
+# Custom SSH Options
+# ==================
+# You may pass any option but keep in mind that net/ssh understands a
+# limited set of options, consult[net/ssh documentation](http://net-ssh.github.io/net-ssh/classes/Net/SSH.html#method-c-start).
+#
+# Global options
+# --------------
+#  set :ssh_options, {
+#    keys: %w(/home/rlisowski/.ssh/id_rsa),
+#    forward_agent: true
+#    auth_methods: %w(password)
+#  }
+#
+# And/or per server (overrides global)
+# ------------------------------------
+ server 'server_ip',
+   user: 'server_user',
+   ssh_options: {
+     keys: %w(/user/.ssh/id_rsa),
+     forward_agent: false,
+     auth_methods: %w(publickey password)
+   }
+
+</code></pre>
+
+<p>設定完後，因為這邊是設定 production.rb<br />
+因此執行以下指令 deploy 到 production server</p>
+
+<pre><code class="language-console">bundle exec cap production deploy
+</code></pre>
+
+<p>如果 <code>exit status 0 (successful).</code><br />
+那就是成功啦~</p>
+
+                    </div>
+                    <div class="post-share">
+                        <div class="post-share-links">
+                            <h4 style="">Share</h4>
+                            <a href="#" data-type="facebook" data-url="http://kerkerj.github.io/blog/2014/08/05/2014-08-05-capistrano-with-rails-basic-notes/" data-title="Capistrano with rails - basic notes" data-description="" data-media="" class="prettySocial fa fa-facebook"></a>
+                            <a href="#" data-type="googleplus" data-url="http://kerkerj.github.io/blog/2014/08/05/2014-08-05-capistrano-with-rails-basic-notes/" data-description="" class="prettySocial fa fa-google-plus"></a>
+                            
+                            <a href="#" data-type="twitter" data-url="http://kerkerj.github.io/blog/2014/08/05/2014-08-05-capistrano-with-rails-basic-notes/" data-description="" data-via="kerkerj" class="prettySocial fa fa-twitter"></a>
+                            
+
+                        </div>
+                    </div>
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/kerkerj.github.io\/blog\/2014\/08\/05\/2014-08-05-capistrano-with-rails-basic-notes\/';
+    var disqus_title = 'Capistrano with rails - basic notes';
+    var disqus_url = 'http:\/\/kerkerj.github.io\/blog\/2014\/08\/05\/2014-08-05-capistrano-with-rails-basic-notes\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                </section>
+            </div>
+            <div class="footer">
+    <div class="pure-menu pure-menu-horizontal pure-menu-open">
+        <ul>
+            <li>Powered by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a></li>
+        </ul>
+    </div>
+</div>
+<script src="http://kerkerj.github.io//js/all.min.js"></script>
+<script>
+hljs.initHighlightingOnLoad();
+</script>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

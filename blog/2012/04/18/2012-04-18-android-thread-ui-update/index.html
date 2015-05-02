@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+     
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="[Android] thread 處理 UI update | kerkerj">
+    <meta property="og:url" content="http://kerkerj.github.io/blog/2012/04/18/2012-04-18-android-thread-ui-update/">
+    <meta property="og:description" content="">
+    
+    
+    <meta property="og:site_name" content="kerkerj">
+
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="kerkerj" />
+    <meta name="twitter:title" content="[Android] thread 處理 UI update &middot; kerkerj">
+    <meta name="twitter:description" content="">
+
+    
+    <title>[Android] thread 處理 UI update &middot; kerkerj</title>
+
+    
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+    
+
+    <link rel="stylesheet" href="http://kerkerj.github.io//css/all.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    
+    
+      <link rel="stylesheet" href="http://kerkerj.github.io//css/highlight/railscasts.css">
+    
+
+    
+    <link href="http://kerkerj.github.io/favicon.ico" rel="icon">
+
+    
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://kerkerj.github.io//index.xml">
+</head>
+<body>
+
+
+<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+    <div class="header">
+        <hgroup>
+            <h1 class="brand-title"><a href="http://kerkerj.github.io/">kerkerj</a></h1>
+            <h2 class="brand-tagline"> Hi. </h2>
+        </hgroup>
+
+        <nav class="nav">
+            
+            <ul class="pure-menu-list">
+              
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//notes/">Notes</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//about/">About</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//mac-app-list/">Mac App List</a>
+                </li>
+              
+            </ul>
+
+            
+            <ul class="nav-list">
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://twitter.com/kerkerj"><i class="fa fa-twitter"></i> Twitter</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://github.com/kerkerj "><i class="fa fa-github-alt"></i> Github</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            
+            <div class="posts">
+                <h1 class="content-subhead">2012-04-04 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2012/04/18/2012-04-18-android-thread-ui-update/" class="post-title">[Android] thread 處理 UI update</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                
+                            
+                        </p>
+                    </header>
+                    <div class="post-description">
+                        <p>不知道大家在寫 Android 用 thread 處理 UI 更新時，有沒有遇過這樣的錯誤：
+&gt; Only the original thread that created a view hierarchy can touch its views.</p>
+
+<p>通常這是因為自己產生的 thread 不能去更動到 原本 main thread 的 view
+只有 main thread 可以去動 UI，因此我們必須透過 runOnUiThread 這個方法來對 UI 做操作
+這裡以下面這個 ProgressDialog 做例子：
+```java PDExample.java<br />
+package org.twgg.kerkerj;</p>
+
+<p>import android.app.Activity;
+import android.app.ProgressDialog;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;</p>
+
+<p>public class PDExample extends Activity implements Runnable {
+    private String pi=&ldquo;null&rdquo;;
+  private Button btn;
+  private TextView text;
+  private ProgressDialog pd;</p>
+
+<p>public void onCreate(Bundle icicle) {
+    super.onCreate(icicle);
+    setContentView(R.layout.main);</p>
+
+<pre><code>text = (TextView) this.findViewById(R.id.text);
+btn = (Button) this.findViewById(R.id.btn);
+
+//按下 Button 則會開始運算，運算的東西放在 thread 裡
+btn.setOnClickListener(new OnClickListener(){
+    public void onClick(View v) {
+    // Progress Dialog 開始跑
+    pd = ProgressDialog.show(PDExample.this, &quot;運算中&quot;, &quot;機哩咕嚕機哩咕嚕...&quot;, true, false);
+    Thread thread = new Thread(PDExample.this);
+
+    //進入 thread
+    thread.start();
+   }
+});
+}
+</code></pre>
+
+<p>public void run() {
+    try {
+        //要運算的東西放這裡
+      Thread.sleep(10000); //在這裡只是讓 thread停久一點感覺一下
+      pi = &ldquo;ya, we&rsquo;re done!&rdquo;;</p>
+
+<pre><code>  //Wrong!! 以下兩行會出錯, 因為這是在新的 thread 裡要求更改 UI view
+  pd.dismiss();
+  text.setText(pi);
+} catch (InterruptedException e) {
+    e.printStackTrace();
+}
+</code></pre>
+
+<p>}<br />
+}<br />
+<code>
+正確的 run() 必須這樣:
+</code>java
+public void run() {
+    try {
+    //要運算的東西放這裡
+    Thread.sleep(10000); //在這裡只是讓 thread停久一點感覺一下
+    pi = &ldquo;ya, we&rsquo;re done!&rdquo;;</p>
+
+<pre><code>runOnUiThread(new Runnable() { // Correct!! 
+    public void run() {
+        //modify View object
+    pd.dismiss();
+    text.setText(pi);
+    }
+});
+} catch (InterruptedException e) {
+e.printStackTrace();
+}  
+</code></pre>
+
+<p>}
+```</p>
+
+<p>p.s. 之前 Google 有另外一種解法是<a href="http://www.helloandroid.com/tutorials/using-threads-and-progressdialog">用 handler 去處理 UI update</a>，<br />
+不過既然都有 runOnUiThread 這個好用的方法就用它吧 :)</p>
+
+<p>2012/06/13續: <a href="http://kerkerj.logdown.com/posts/2012/06/13/android-ui-update-2">[Android] thread 處理 UI update (2)</a></p>
+
+                    </div>
+                    <div class="post-share">
+                        <div class="post-share-links">
+                            <h4 style="">Share</h4>
+                            <a href="#" data-type="facebook" data-url="http://kerkerj.github.io/blog/2012/04/18/2012-04-18-android-thread-ui-update/" data-title="[Android] thread 處理 UI update" data-description="" data-media="" class="prettySocial fa fa-facebook"></a>
+                            <a href="#" data-type="googleplus" data-url="http://kerkerj.github.io/blog/2012/04/18/2012-04-18-android-thread-ui-update/" data-description="" class="prettySocial fa fa-google-plus"></a>
+                            
+                            <a href="#" data-type="twitter" data-url="http://kerkerj.github.io/blog/2012/04/18/2012-04-18-android-thread-ui-update/" data-description="" data-via="kerkerj" class="prettySocial fa fa-twitter"></a>
+                            
+
+                        </div>
+                    </div>
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/kerkerj.github.io\/blog\/2012\/04\/18\/2012-04-18-android-thread-ui-update\/';
+    var disqus_title = '[Android] thread 處理 UI update';
+    var disqus_url = 'http:\/\/kerkerj.github.io\/blog\/2012\/04\/18\/2012-04-18-android-thread-ui-update\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                </section>
+            </div>
+            <div class="footer">
+    <div class="pure-menu pure-menu-horizontal pure-menu-open">
+        <ul>
+            <li>Powered by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a></li>
+        </ul>
+    </div>
+</div>
+<script src="http://kerkerj.github.io//js/all.min.js"></script>
+<script>
+hljs.initHighlightingOnLoad();
+</script>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+     
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="[Swift-d6] - Playground - function | kerkerj">
+    <meta property="og:url" content="http://kerkerj.github.io/blog/2014/10/06/2014-10-06-swift-d6/">
+    <meta property="og:description" content="">
+    
+    
+    <meta property="og:site_name" content="kerkerj">
+
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="kerkerj" />
+    <meta name="twitter:title" content="[Swift-d6] - Playground - function &middot; kerkerj">
+    <meta name="twitter:description" content="">
+
+    
+    <title>[Swift-d6] - Playground - function &middot; kerkerj</title>
+
+    
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+    
+
+    <link rel="stylesheet" href="http://kerkerj.github.io//css/all.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    
+    
+      <link rel="stylesheet" href="http://kerkerj.github.io//css/highlight/railscasts.css">
+    
+
+    
+    <link href="http://kerkerj.github.io/favicon.ico" rel="icon">
+
+    
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://kerkerj.github.io//index.xml">
+</head>
+<body>
+
+
+<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+    <div class="header">
+        <hgroup>
+            <h1 class="brand-title"><a href="http://kerkerj.github.io/">kerkerj</a></h1>
+            <h2 class="brand-tagline"> Hi. </h2>
+        </hgroup>
+
+        <nav class="nav">
+            
+            <ul class="pure-menu-list">
+              
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//notes/">Notes</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//about/">About</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//mac-app-list/">Mac App List</a>
+                </li>
+              
+            </ul>
+
+            
+            <ul class="nav-list">
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://twitter.com/kerkerj"><i class="fa fa-twitter"></i> Twitter</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://github.com/kerkerj "><i class="fa fa-github-alt"></i> Github</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            
+            <div class="posts">
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/06/2014-10-06-swift-d6/" class="post-title">[Swift-d6] - Playground - function</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-swift" href="http://kerkerj.github.io//categories/swift">swift</a>
+                            
+                        </p>
+                    </header>
+                    <div class="post-description">
+                        <p>#Playground - function</p>
+
+<p>來看看 Swift 各種 function 的寫法吧!</p>
+
+<p>Swift 使用 <code>func</code> 當作宣告的保留字</p>
+
+<p>GOLANG 的 fu&hellip;. XD</p>
+
+<p>寫 Swift 的 function 會很開心</p>
+
+<p>##基本的</p>
+
+<pre><code class="language-swift">func say() {
+	println(&quot;Hello!&quot;)
+}
+</code></pre>
+
+<p>##有一個回傳值的</p>
+
+<pre><code class="language-swift">func say() -&gt; String {
+	return &quot;Hello!&quot;
+}
+</code></pre>
+
+<p>##有多個回傳值的!!! (就是回傳 Tuple)</p>
+
+<pre><code class="language-swift">func say() -&gt; (String, Int) {
+	let greeting = &quot;hello&quot;
+	let times = 5
+	return (greeting, times)
+}
+
+say()
+</code></pre>
+
+<p>##有參數的</p>
+
+<pre><code class="language-swift">func say(g: String) {
+	println(g)
+}
+
+say(&quot;Hello&quot;)
+</code></pre>
+
+<p>多個參數</p>
+
+<pre><code class="language-swift">func say(g: String, times: Int) {
+	for index in 1...times {
+		println(g)
+	}
+}
+
+say(&quot;Hello&quot;, 3)
+</code></pre>
+
+<p>##有參數的進階版</p>
+
+<pre><code class="language-swift">func say(greetings g: String) {
+	println(g)
+}
+
+say(&quot;Hello&quot;, 3)
+</code></pre>
+
+<p>此時如果同樣使用 <code>say(&quot;hello&quot;)</code> 會出錯</p>
+
+<p>因為我們剛剛宣告了外部參數名稱</p>
+
+<p>因此需要:</p>
+
+<pre><code class="language-swift">say(greetings: &quot;hello&quot;)
+</code></pre>
+
+<p>這種寫法在必須代入許多參數時，非常好用，會讓程式可讀性變高</p>
+
+<p>另外，方便起見，也可以加上 <code>#</code>，表示外部參數名稱與 func 內部名稱是一樣的</p>
+
+<pre><code class="language-swift">func say(greetings g: String, #times: Int) {
+    for index in 1...times {
+        println(g)
+    }
+}
+say(greetings: &quot;Hello&quot;, times: 3)
+</code></pre>
+
+<p>可以看到第一種寫法和第二種寫法是一樣的功用~</p>
+
+<p>##給參數預設值</p>
+
+<pre><code class="language-swift">func say(greetings g: String = &quot;hello&quot;) {
+	println(g)
+}
+
+say()
+</code></pre>
+
+<p>如果呼叫 <code>say()</code> 而沒有給定參數時，會直接使用預設值</p>
+
+<p>##常數參數與變數參數</p>
+
+<p>簡單看一下以下的程式碼</p>
+
+<pre><code class="language-swift">func say(greetings: String = &quot;hello&quot;) {
+    greetings = &quot;\(greetings), welcome!&quot;
+    println(greetings)
+}
+
+let greetings = &quot;Hello!&quot;
+say(greetings: greetings)
+</code></pre>
+
+<p>我們定義了一個常數，代入 say() 裡面，</p>
+
+<p>但是 say function 裡面必須改變代入的值，於是這個時候 Xcode 就會該了</p>
+
+<p>那要怎麼辦呢?</p>
+
+<p>修改成:</p>
+
+<pre><code class="language-swift">func say(var greetings: String = &quot;hello&quot;) {
+    greetings = &quot;\(greetings), welcome!&quot;
+    println(greetings)
+}
+
+let greetings = &quot;Hello!&quot;
+say(greetings: greetings)
+</code></pre>
+
+<p>多加一個 <code>var</code> 宣告，就會 copy 一份傳入，就可以更改值了!</p>
+
+<p>一樣是非常有用的語法!</p>
+
+<p>##輸入輸出函數</p>
+
+<p>直接看例子</p>
+
+<pre><code class="language-swift">func swapInt(inout a: Int, inout b: Int) {
+    let tmpA = a
+    a = b
+    b = tmpA
+}
+
+var a = 1
+var b = 2
+
+swap(&amp;a, &amp;b)
+
+println(a)
+println(b)
+</code></pre>
+
+<p>酷吧</p>
+
+<p>##function types 函式型別</p>
+
+<p>直接看例子</p>
+
+<pre><code class="language-swift">func addTwoInt(a: Int, b: Int) -&gt; Int {
+    return a + b
+}
+
+func mTwoInt(a: Int, b: Int) -&gt; Int {
+    return a * b
+}
+
+func printHello() {
+    println(&quot;Hello World&quot;)
+}
+
+var mathFunction: (Int, Int) -&gt; Int = addTwoInt
+
+println(&quot;result: \(mathFunction(2, 3))&quot;)
+</code></pre>
+
+<p>前面宣告了三個 function ，</p>
+
+<p>而</p>
+
+<pre><code class="language-swift">var mathFunction: (Int, Int) -&gt; Int = addTwoInt
+</code></pre>
+
+<p>後面的這句的意思是:</p>
+
+<p>我們定義了一個變數叫做 <code>mathFunction</code>，</p>
+
+<p>他的型別是「一個 (Int, Int) 的參數，並且回傳 Int」的 function，</p>
+
+<p>簡單說就是 mathFunction 的型別是一個 Function</p>
+
+<p>並指向 addTwoInt 這個 function</p>
+
+<p>所以上面的例子中，<code>mathFunction</code> 代入的 <code>(2, 3)</code> 會丟給 addTwoInt，</p>
+
+<p>並且最後回傳 Int</p>
+
+<p>有 javascript 的味道:</p>
+
+<pre><code class="language-javascript">var test = function(a, b) {
+  return a + b;
+};
+
+var add = test;
+
+console.log(&quot;result = &quot; + add(2, 3));
+</code></pre>
+
+<p>##function as parameter types</p>
+
+<p>函式也可以拿來當做參數傳入函式中，</p>
+
+<p>接續上面的例子，加入：</p>
+
+<pre><code>func printResult(mathFunction: (Int, Int) -&gt; Int, a: Int, b: Int )  {
+    println(&quot;Result: \(mathFunction(a, b))&quot;)
+}
+printResult(mathFunction, 2, 3)
+</code></pre>
+
+<p>##function as return type</p>
+
+<p>函式也可以拿來當做回傳值</p>
+
+<p>就是在原本的回傳符號 <code>-&gt;</code> 後面代入函式型別</p>
+
+<p>這邊直接借別人的例子來參考吧</p>
+
+<pre><code>// 定義兩個 function 
+func stepForward(input: Int) -&gt; Int {
+    return input + 1
+}
+func stepBackward(input: Int) -&gt; Int {
+    return input - 1
+}
+
+// 再定義一個 function ，透過布林值導往上面不同的 function
+func chooseStepFunction(backwards: Bool) -&gt; (Int) -&gt; Int {
+    return backwards ? stepBackward : stepForward
+}
+
+var currentValue = 3
+
+// 將 chooseStepFunction 指給 moveNearerToZero
+// 所以 moveNearerToZero 現在是一個 function 了!
+let moveNearerToZero = chooseStepFunction(currentValue &gt; 0)
+
+println(&quot;Counting to zero:&quot;)
+// Counting to zero:
+while currentValue != 0 {
+    println(&quot;\(currentValue)... &quot;)
+    currentValue = moveNearerToZero(currentValue)
+}
+println(&quot;zero!&quot;)
+</code></pre>
+
+<p>##Nested Function</p>
+
+<p>就是 funciton 中的 function，變數有分 global、local 變數，function 也有</p>
+
+<p>以上面的例子來改寫:</p>
+
+<pre><code>func chooseStepFunction(backwards: Bool) -&gt; (Int) -&gt; Int {
+    func stepForward(input: Int) -&gt; Int { return input + 1 }
+    func stepBackward(input: Int) -&gt; Int { return input - 1 }
+    return backwards ? stepBackward : stepForward
+}
+</code></pre>
+
+                    </div>
+                    <div class="post-share">
+                        <div class="post-share-links">
+                            <h4 style="">Share</h4>
+                            <a href="#" data-type="facebook" data-url="http://kerkerj.github.io/blog/2014/10/06/2014-10-06-swift-d6/" data-title="[Swift-d6] - Playground - function" data-description="" data-media="" class="prettySocial fa fa-facebook"></a>
+                            <a href="#" data-type="googleplus" data-url="http://kerkerj.github.io/blog/2014/10/06/2014-10-06-swift-d6/" data-description="" class="prettySocial fa fa-google-plus"></a>
+                            
+                            <a href="#" data-type="twitter" data-url="http://kerkerj.github.io/blog/2014/10/06/2014-10-06-swift-d6/" data-description="" data-via="kerkerj" class="prettySocial fa fa-twitter"></a>
+                            
+
+                        </div>
+                    </div>
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/kerkerj.github.io\/blog\/2014\/10\/06\/2014-10-06-swift-d6\/';
+    var disqus_title = '[Swift-d6] - Playground - function';
+    var disqus_url = 'http:\/\/kerkerj.github.io\/blog\/2014\/10\/06\/2014-10-06-swift-d6\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                </section>
+            </div>
+            <div class="footer">
+    <div class="pure-menu pure-menu-horizontal pure-menu-open">
+        <ul>
+            <li>Powered by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a></li>
+        </ul>
+    </div>
+</div>
+<script src="http://kerkerj.github.io//js/all.min.js"></script>
+<script>
+hljs.initHighlightingOnLoad();
+</script>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

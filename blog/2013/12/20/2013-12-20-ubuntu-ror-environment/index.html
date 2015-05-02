@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+     
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="[Ubuntu] RoR environment | kerkerj">
+    <meta property="og:url" content="http://kerkerj.github.io/blog/2013/12/20/2013-12-20-ubuntu-ror-environment/">
+    <meta property="og:description" content="">
+    
+    
+    <meta property="og:site_name" content="kerkerj">
+
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="kerkerj" />
+    <meta name="twitter:title" content="[Ubuntu] RoR environment &middot; kerkerj">
+    <meta name="twitter:description" content="">
+
+    
+    <title>[Ubuntu] RoR environment &middot; kerkerj</title>
+
+    
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+    
+
+    <link rel="stylesheet" href="http://kerkerj.github.io//css/all.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    
+    
+      <link rel="stylesheet" href="http://kerkerj.github.io//css/highlight/railscasts.css">
+    
+
+    
+    <link href="http://kerkerj.github.io/favicon.ico" rel="icon">
+
+    
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://kerkerj.github.io//index.xml">
+</head>
+<body>
+
+
+<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+    <div class="header">
+        <hgroup>
+            <h1 class="brand-title"><a href="http://kerkerj.github.io/">kerkerj</a></h1>
+            <h2 class="brand-tagline"> Hi. </h2>
+        </hgroup>
+
+        <nav class="nav">
+            
+            <ul class="pure-menu-list">
+              
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//notes/">Notes</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//about/">About</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//mac-app-list/">Mac App List</a>
+                </li>
+              
+            </ul>
+
+            
+            <ul class="nav-list">
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://twitter.com/kerkerj"><i class="fa fa-twitter"></i> Twitter</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://github.com/kerkerj "><i class="fa fa-github-alt"></i> Github</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            
+            <div class="posts">
+                <h1 class="content-subhead">2013-12-12 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2013/12/20/2013-12-20-ubuntu-ror-environment/" class="post-title">[Ubuntu] RoR environment</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-mysql" href="http://kerkerj.github.io//categories/mysql">mysql</a><a class="post-category post-category-ubuntu" href="http://kerkerj.github.io//categories/ubuntu">ubuntu</a><a class="post-category post-category-RVM" href="http://kerkerj.github.io//categories/rvm">RVM</a><a class="post-category post-category-nginx" href="http://kerkerj.github.io//categories/nginx">nginx</a><a class="post-category post-category-passenger" href="http://kerkerj.github.io//categories/passenger">passenger</a><a class="post-category post-category-php5-fpm" href="http://kerkerj.github.io//categories/php5-fpm">php5-fpm</a>
+                            
+                        </p>
+                    </header>
+                    <div class="post-description">
+                        <p>##RVM with Ruby2.0.0-p353 + Rails4.0.2 + Ubuntu12.04(precise64) + php-fpm by Vagrant(clean install)
+p.s.
+If you don&rsquo;t use RVM, you can just follow the instruction from <a href="http://www.modrails.com/documentation/Users%20guide%20Nginx.html#install_on_debian_ubuntu">Passenger offcial website</a>. It will be easier.
+Plus, I installed all these things by Vagrant.
+##First thing to do
+<code>
+$ sudo apt-get update
+$ sudo apt-get upgrade
+</code>
+##Pre-setup: install necessary packages
+<code>
+$ sudo apt-get update
+$ sudo apt-get install build-essential libssl-dev libpcre3-dev libncurses5-dev libreadline6-dev git vim curl libcurl4-openssl-dev libreadline6 autoconf openssl git-core zlib1g zlib1g-dev  libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev autoconf libc6-dev libgdbm-dev libncurses5-dev automake libtool bison subversion pkg-config libffi-dev
+</code>
+##Get .bashrc from my repo (Optional)
+<code>
+$ cd
+$ git clone https://github.com/jerry54010/bash-it.git
+$ mv bash-it .bash_it
+$ cd .bash_it
+$ git checkout ubuntu
+$ ln -s ~/.bash_it/.bash_profile ~/.bash_profile
+$ cd
+$ source ~/.bash_profile
+</code>
+##Get .vimrc from my repo (Optional)
+<code>
+$ wget https://gist.github.com/jerry54010/8049575/raw/42ced22651fedf06174457e311d22d17f6591b65/.vimrc
+</code>
+##RVM and Ruby 2.0 (RVM: Ruby version management)
+```
+$ \curl -sSL <a href="https://get.rvm.io">https://get.rvm.io</a> | bash -s stable
+$ source ~/.bash_profile //if you installed my bash_profile.
+//If not, source ~/.profile
+$ rvm requirements
+$ echo &lsquo;gem: &ndash;no-ri &ndash;no-rdoc&rsquo;  &gt;&gt; ~/.gemrc
+$ rvm install 2.0.0
+$ source ~/.bash_profile //if you installed my bash_profile.
+//If not, source ~/.profile</p>
+
+<p>add this line to .bash_rc or .bash_profile (if you don&rsquo;t use my .bash_profile)
+[[ -s &ldquo;$HOME/.rvm/scripts/rvm&rdquo; ]] &amp;&amp; . &ldquo;$HOME/.rvm/scripts/rvm&rdquo; # Load RVM function</p>
+
+<p>$ rvm use 2.0.0 &ndash;default
+<code>
+Now we should be using ruby2.0.0 by RVM, let's check:
+</code>
+$ rvm list
+=* ruby-2.0.0-p353 [ x86_64 ]
+// =&gt; - current
+// =* - current &amp;&amp; default
+//  * - default
+<code>
+##Nodejs, libv8-dev(for javascript) and SQLite3 (sqlite3 libsqlite3-dev)
+</code>
+$ sudo apt-get -y install nodejs libv8-dev sqlite3 libsqlite3-dev
+<code>
+##Passenger with NGINX
+</code>
+$ gem install passenger
+$ rvmsudo passenger-install-nginx-module
+choose 2: customize
+    a. src dir: /home/vagrant/nginx-1.4.4/ (where the nginx you download)
+    b. I installed nginx with passenger in <code>/etc/nginx</code> (default is /opt/nginx)
+    c. default
+<code>
+##Get nginx script 
+If you use /opt/nginx as root dir, you don't need to modify this script.
+If you use /etc/nginx or else dir as root dir like me, you should modify the script.
+(from [linode](https://library.linode.com/web-servers/nginx/installation/ubuntu-12.04-precise-pangolin))
+</code>
+$ wget -O init-deb.sh <a href="http://library.linode.com/assets/1139-init-deb.sh">http://library.linode.com/assets/1139-init-deb.sh</a>
+$ sudo mv init-deb.sh /etc/init.d/nginx
+$ chmod +x /etc/init.d/nginx
+$ sudo /usr/sbin/update-rc.d -f nginx defaults
+<code>
+The nginx default public folder will be in `/etc/nginx/html` 
+check nginx version:
+</code>
+$ /etc/nginx/sbin/nginx -v
+nginx version: nginx/1.4.4
+<code>
+##Install php5-fpm
+</code>
+$ sudo apt-get -y install php5-cli php5-common php5-fpm
+$ sudo vim /etc/php5/fpm/php.ini
+//(find and change to <code>cgi.fix_pathinfo = 0</code> )
+$ sudo vim /etc/php5/fpm/pool.d/www.conf
+//change: listen = 127.0.0.1:9000 to listen = /var/run/php5-fpm.sock
+$ sudo vim /etc/nginx/conf/nginx.conf or /opt/nginx/conf/nginx.conf //find and modify
+location ~ .php$ {
+    fastcgi_split_path_info ^(.+.php)(/.+)$;
+    # NOTE: You should have &ldquo;cgi.fix_pathinfo = 0;&rdquo; in php.ini
+    # With php5-cgi alone:
+    #fastcgi_pass 127.0.0.1:9000;
+    # With php5-fpm:
+    fastcgi_pass unix:/var/run/php5-fpm.sock;
+    fastcgi_index index.php;
+    fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+    include fastcgi_params;
+}
+$ echo &ldquo;&lt;?php phpinfo(); ?&gt;&rdquo; | sudo tee -a /etc/nginx/html/phpinfo.php
+<code>
+Restart all:
+</code>
+$ sudo service php5-fpm restart
+$ sudo service nginx restart
+<code>
+##Install rails
+</code>
+$ gem install rails
+<code>
+##RoR environment check
+</code>
+$ ruby -v
+ruby 2.0.0p353 (2013-11-22 revision 43784) [x86_64-linux]
+$ rails -v
+Rails 4.0.2
+$ rake -V
+rake, version 10.1.0
+```
+If you passed, you are good to go!</p>
+
+<p>##Deploy Rails application by nginx:
+Assume your rails application path is: <code>/home/vagrant/projects/subapp/</code>
+(by <code>rails new subapp</code>)
+then, the <code>/etc/nginx/conf/nginx.conf</code> will be:
+```
+http {
+    &hellip;
+    server {
+        listen 80;
+        server_name localhost;
+        root /etc/nginx/html;</p>
+
+<pre><code>    # This block has been added.
+    location ~ ^/subapp(/.*|$) {
+        passenger_base_uri /subapp;
+        alias /home/vagrant/projects/subapp/public$1;  # &lt;-- be sure to point to 'public'!
+        passenger_app_root /home/vagrant/projects/subapp;
+        passenger_enabled on;
+        rails_env development; # or production
+    }
+}
+...
+</code></pre>
+
+<p>}
+<code>
+restart nginx, you can access the url: `http://localhost/subapp/`  
+##Install MySQL and Mysql adapter  
+</code>
+$ sudo apt-get -y install mysql-server mysql-common mysql-client libmysqlclient-dev<br />
+$ gem install mysql2 //gem mysql2 is faster than gem mysql<br />
+```
+&gt;The gem you installed is placed in RVM&rsquo;s ruby, if you are using RVM&rsquo;s ruby.</p>
+
+<p>If you use MySQL in your rails application, remember to change the database.yml.</p>
+
+<p>p.s. If you want to use phpmyadmin, you can do:<br />
+<code>
+$ sudo apt-get install php5-mysql
+</code>
+download phpmyadmin, then extract to <code>/etc/nginx/html/phpmyadmin</code><br />
+then start the server, access: <code>http://localhost/phpmyadmin/</code></p>
+
+                    </div>
+                    <div class="post-share">
+                        <div class="post-share-links">
+                            <h4 style="">Share</h4>
+                            <a href="#" data-type="facebook" data-url="http://kerkerj.github.io/blog/2013/12/20/2013-12-20-ubuntu-ror-environment/" data-title="[Ubuntu] RoR environment" data-description="" data-media="" class="prettySocial fa fa-facebook"></a>
+                            <a href="#" data-type="googleplus" data-url="http://kerkerj.github.io/blog/2013/12/20/2013-12-20-ubuntu-ror-environment/" data-description="" class="prettySocial fa fa-google-plus"></a>
+                            
+                            <a href="#" data-type="twitter" data-url="http://kerkerj.github.io/blog/2013/12/20/2013-12-20-ubuntu-ror-environment/" data-description="" data-via="kerkerj" class="prettySocial fa fa-twitter"></a>
+                            
+
+                        </div>
+                    </div>
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/kerkerj.github.io\/blog\/2013\/12\/20\/2013-12-20-ubuntu-ror-environment\/';
+    var disqus_title = '[Ubuntu] RoR environment';
+    var disqus_url = 'http:\/\/kerkerj.github.io\/blog\/2013\/12\/20\/2013-12-20-ubuntu-ror-environment\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                </section>
+            </div>
+            <div class="footer">
+    <div class="pure-menu pure-menu-horizontal pure-menu-open">
+        <ul>
+            <li>Powered by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a></li>
+        </ul>
+    </div>
+</div>
+<script src="http://kerkerj.github.io//js/all.min.js"></script>
+<script>
+hljs.initHighlightingOnLoad();
+</script>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+     
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="[Swift-d5] - Playground - Array, Dictionary, Controll Flow | kerkerj">
+    <meta property="og:url" content="http://kerkerj.github.io/blog/2014/10/05/2014-10-05-swift-d5/">
+    <meta property="og:description" content="">
+    
+    
+    <meta property="og:site_name" content="kerkerj">
+
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="kerkerj" />
+    <meta name="twitter:title" content="[Swift-d5] - Playground - Array, Dictionary, Controll Flow &middot; kerkerj">
+    <meta name="twitter:description" content="">
+
+    
+    <title>[Swift-d5] - Playground - Array, Dictionary, Controll Flow &middot; kerkerj</title>
+
+    
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+    
+
+    <link rel="stylesheet" href="http://kerkerj.github.io//css/all.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    
+    
+      <link rel="stylesheet" href="http://kerkerj.github.io//css/highlight/railscasts.css">
+    
+
+    
+    <link href="http://kerkerj.github.io/favicon.ico" rel="icon">
+
+    
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://kerkerj.github.io//index.xml">
+</head>
+<body>
+
+
+<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+    <div class="header">
+        <hgroup>
+            <h1 class="brand-title"><a href="http://kerkerj.github.io/">kerkerj</a></h1>
+            <h2 class="brand-tagline"> Hi. </h2>
+        </hgroup>
+
+        <nav class="nav">
+            
+            <ul class="pure-menu-list">
+              
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//notes/">Notes</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//about/">About</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//mac-app-list/">Mac App List</a>
+                </li>
+              
+            </ul>
+
+            
+            <ul class="nav-list">
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://twitter.com/kerkerj"><i class="fa fa-twitter"></i> Twitter</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://github.com/kerkerj "><i class="fa fa-github-alt"></i> Github</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            
+            <div class="posts">
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/05/2014-10-05-swift-d5/" class="post-title">[Swift-d5] - Playground - Array, Dictionary, Controll Flow</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-swift" href="http://kerkerj.github.io//categories/swift">swift</a>
+                            
+                        </p>
+                    </header>
+                    <div class="post-description">
+                        <p>##Array</p>
+
+<p>###宣告</p>
+
+<pre><code class="language-swift">// var VARIABLE_NAME: [TYPE] = .....
+
+var fruits: [String] = [&quot;apple&quot;, &quot;banana&quot;]
+var nums: [Int] = [1, 2]
+
+// 或是讓 Swift 自行判斷類型:
+var fruits = [&quot;apple&quot;, &quot;banana&quot;]
+var nums = [1, 2]
+
+// 初始化:
+var cars = [String]()
+</code></pre>
+
+<p>ps. Beta 版時的寫法是 <code>var fruits: String[]</code></p>
+
+<p>現在已經變成了 <code>var fruits: [String]</code></p>
+
+<p>###操作</p>
+
+<pre><code>// 判斷該陣列是否有值，回傳 true 或 false
+fruits.isEmpty 
+
+// 增加元素
+fruits.append(&quot;watermelon&quot;)
+fruits += [&quot;lemon&quot;]
+
+// 取值 
+fruits[0]
+fruits[0...2]
+
+// 刪除值 - 將 apple 移除，banana 會自動補上
+fruits.removeAtIndex(0)
+fruits[0]
+
+// 兩個陣列合併 (必須相同類別 e.g. String)
+fruits + cars
+
+// 陣列元素數量
+fruits.count
+</code></pre>
+
+<p>##Dictionary</p>
+
+<p>###宣告</p>
+
+<p>由於 Dictionary 是 key/value 為一組 (pair)，</p>
+
+<p>因此宣告時必須宣告 key 和 value 分別是哪種型別</p>
+
+<pre><code>var httpStatus: Dictionary&lt;Int, String&gt; = Dictionary&lt;Int, String&gt;()
+
+var httpStatus: Dictionary&lt;Int, String&gt; = [200: &quot;Success&quot;, 404: &quot;Not found&quot;]
+</code></pre>
+
+<p>###操作</p>
+
+<pre><code>// 一樣有 isEmpty 方法
+httpStatus.isEmpty
+
+// 取值
+httpStatus[200] // = &quot;Success&quot;
+
+// 加入值
+httpStatus[500] = &quot;Internal Server Error&quot;
+
+// 修改值
+httpStatus[200] = &quot;True&quot;
+httpStatus.updateValue(&quot;internal server error&quot;, forKey: 500)
+
+// 刪除值
+httpStatus.removeValueForKey(200)
+
+// 字典元素數量
+httpStatus.count
+
+</code></pre>
+
+<p>##Controll Flow</p>
+
+<p>###For loop</p>
+
+<pre><code>for fruit in fruits {
+	println(fruit)
+}
+
+for var index = 0; index &lt; fruits.count; ++index {
+	println(fruits[index])
+}
+</code></pre>
+
+<p>###While</p>
+
+<pre><code>var index = 0
+while index &lt; fruits.count {
+    println(fruits[index])
+    index++
+}
+</code></pre>
+
+<p>###Do-while</p>
+
+<pre><code>var index = 0
+do {
+	println(fruits[index])
+	index++ 
+} while (index &lt; fruits.count)
+</code></pre>
+
+<p>###If</p>
+
+<pre><code>var index = 5566
+
+if index = 5566 {
+	println(&quot;5566 不能亡&quot;)
+}
+
+if index = 5566 {
+	println(&quot;5566 不能亡&quot;)
+} else {
+	println(&quot;You are not 5566&quot;)
+}
+
+if index = 5566 {
+	println(&quot;5566 不能亡&quot;)
+} else if index &lt; 5566 {
+	println(&quot;You are less than 5566&quot;)
+} else {
+	println(&quot;You are bigger than 5566&quot;)
+}
+</code></pre>
+
+<p>###Switch</p>
+
+<pre><code>var index = 0
+
+switch index {
+case 0, 1, 2
+	println(&quot;small&quot;)
+case 8, 9, 11 
+	println(&quot;big&quot;)
+default:
+	println(&quot;others&quot;)
+}
+</code></pre>
+
+<p>引入 Tuple</p>
+
+<pre><code>let httpStatus = (200, &quot;Success&quot;)
+
+switch httpStatus {
+case (let statusCode, &quot;Error&quot;):
+    println(&quot;(\(statusCode)) is Error&quot;)
+case (200, let msg):
+    println(&quot;(\(msg))'s statusCode is 200&quot;)
+}
+</code></pre>
+
+<p>##Switch - break, continue, fallthrough</p>
+
+<p>###Continue</p>
+
+<p>continue 會使該次的 loop 停止，並繼續執行下一個 loop</p>
+
+<p>continue 不存在於單一的 switch, 只會在 loop 裡的 switch 語句時才能使用</p>
+
+<pre><code>var fruits = [&quot;apple&quot;, &quot;banana&quot;, &quot;lemon&quot;, &quot;waterlemon&quot;, &quot;orange&quot;]
+for fruit in fruits {
+    println(&quot;Start&quot;)
+
+    switch fruit {
+    case &quot;banana&quot;:
+        continue
+    default:
+        println(fruit)
+    }
+    
+    println(&quot;End&quot;)
+}
+</code></pre>
+
+<p>Start 和 End 理論上都要被印五次，</p>
+
+<p>但是加入了 continue 後，banana case 當次 loop 的 End 就沒有被執行了</p>
+
+<p>###Break</p>
+
+<p>通常是用在不想處理某個 case 或，特別想要處理時 (?) 反之嘛 XD</p>
+
+<p>當使用了 break，會立即中斷 switch 程式碼的執行，並且跳到 switch 區塊程式碼結束的大括號後 (}) 的第一行程式</p>
+
+<p>暫時想不到什麼好例子&hellip;.</p>
+
+<p>先借別人的例子來用吧:</p>
+
+<pre><code>let numberSymbol: Character = &quot;三&quot;  // 簡體中文裡的數字 3
+var possibleIntegerValue: Int?
+switch numberSymbol {
+case &quot;1&quot;, &quot;١&quot;, &quot;一&quot;, &quot;๑&quot;:
+    possibleIntegerValue = 1
+case &quot;2&quot;, &quot;٢&quot;, &quot;二&quot;, &quot;๒&quot;:
+    possibleIntegerValue = 2
+case &quot;3&quot;, &quot;٣&quot;, &quot;三&quot;, &quot;๓&quot;:
+    possibleIntegerValue = 3
+case &quot;4&quot;, &quot;٤&quot;, &quot;四&quot;, &quot;๔&quot;:
+    possibleIntegerValue = 4
+default:
+    break
+}
+if let integerValue = possibleIntegerValue {
+    println(&quot;The integer value of \(numberSymbol) is \(integerValue).&quot;)
+} else {
+    println(&quot;An integer value could not be found for \(numberSymbol).&quot;)
+}
+// 輸出 &quot;The integer value of 三 is 3.
+</code></pre>
+
+<p>###Fallthrough</p>
+
+<p>在 Swift 中，掃到第一個符合的 case 後，就會中斷 switch 的執行了，避免掉入一些 case 處理的錯誤</p>
+
+<p>而 fallthrough, 很有趣, 宣告後，會讓 switch 繼續掃下一個 case</p>
+
+<pre><code>let num = 5
+var description = &quot;\(num) is&quot;
+switch num {
+case 2, 3, 5, 7, 11, 13, 17, 19:
+    description += &quot; a prime, also&quot;
+    fallthrough
+case 5: 
+    println(&quot;I'm here&quot;)
+default:
+    description += &quot; an integer.&quot;
+}
+println(description)
+// I'm here
+// 5 is a prime, also an integer.
+</code></pre>
+
+                    </div>
+                    <div class="post-share">
+                        <div class="post-share-links">
+                            <h4 style="">Share</h4>
+                            <a href="#" data-type="facebook" data-url="http://kerkerj.github.io/blog/2014/10/05/2014-10-05-swift-d5/" data-title="[Swift-d5] - Playground - Array, Dictionary, Controll Flow" data-description="" data-media="" class="prettySocial fa fa-facebook"></a>
+                            <a href="#" data-type="googleplus" data-url="http://kerkerj.github.io/blog/2014/10/05/2014-10-05-swift-d5/" data-description="" class="prettySocial fa fa-google-plus"></a>
+                            
+                            <a href="#" data-type="twitter" data-url="http://kerkerj.github.io/blog/2014/10/05/2014-10-05-swift-d5/" data-description="" data-via="kerkerj" class="prettySocial fa fa-twitter"></a>
+                            
+
+                        </div>
+                    </div>
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/kerkerj.github.io\/blog\/2014\/10\/05\/2014-10-05-swift-d5\/';
+    var disqus_title = '[Swift-d5] - Playground - Array, Dictionary, Controll Flow';
+    var disqus_url = 'http:\/\/kerkerj.github.io\/blog\/2014\/10\/05\/2014-10-05-swift-d5\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                </section>
+            </div>
+            <div class="footer">
+    <div class="pure-menu pure-menu-horizontal pure-menu-open">
+        <ul>
+            <li>Powered by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a></li>
+        </ul>
+    </div>
+</div>
+<script src="http://kerkerj.github.io//js/all.min.js"></script>
+<script>
+hljs.initHighlightingOnLoad();
+</script>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

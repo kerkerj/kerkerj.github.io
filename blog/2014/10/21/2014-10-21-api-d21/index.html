@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+     
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="[API-d21] - 實戰開發 - 新增 TODO task API with mongoose | kerkerj">
+    <meta property="og:url" content="http://kerkerj.github.io/blog/2014/10/21/2014-10-21-api-d21/">
+    <meta property="og:description" content="">
+    
+    
+    <meta property="og:site_name" content="kerkerj">
+
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="kerkerj" />
+    <meta name="twitter:title" content="[API-d21] - 實戰開發 - 新增 TODO task API with mongoose &middot; kerkerj">
+    <meta name="twitter:description" content="">
+
+    
+    <title>[API-d21] - 實戰開發 - 新增 TODO task API with mongoose &middot; kerkerj</title>
+
+    
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+    
+
+    <link rel="stylesheet" href="http://kerkerj.github.io//css/all.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    
+    
+      <link rel="stylesheet" href="http://kerkerj.github.io//css/highlight/railscasts.css">
+    
+
+    
+    <link href="http://kerkerj.github.io/favicon.ico" rel="icon">
+
+    
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://kerkerj.github.io//index.xml">
+</head>
+<body>
+
+
+<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+    <div class="header">
+        <hgroup>
+            <h1 class="brand-title"><a href="http://kerkerj.github.io/">kerkerj</a></h1>
+            <h2 class="brand-tagline"> Hi. </h2>
+        </hgroup>
+
+        <nav class="nav">
+            
+            <ul class="pure-menu-list">
+              
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//notes/">Notes</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//about/">About</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//mac-app-list/">Mac App List</a>
+                </li>
+              
+            </ul>
+
+            
+            <ul class="nav-list">
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://twitter.com/kerkerj"><i class="fa fa-twitter"></i> Twitter</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://github.com/kerkerj "><i class="fa fa-github-alt"></i> Github</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            
+            <div class="posts">
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/21/2014-10-21-api-d21/" class="post-title">[API-d21] - 實戰開發 - 新增 TODO task API with mongoose</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-restful" href="http://kerkerj.github.io//categories/restful">restful</a><a class="post-category post-category-api" href="http://kerkerj.github.io//categories/api">api</a><a class="post-category post-category-nodejs" href="http://kerkerj.github.io//categories/nodejs">nodejs</a><a class="post-category post-category-express" href="http://kerkerj.github.io//categories/express">express</a><a class="post-category post-category-mongoose" href="http://kerkerj.github.io//categories/mongoose">mongoose</a>
+                            
+                        </p>
+                    </header>
+                    <div class="post-description">
+                        <p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day21">Github 參考</a></p>
+
+<p>昨天我們了解了如何拿 url params 以及 request data</p>
+
+<p>今天我們就來使用他，對資料庫做存取</p>
+
+<p>由於使用到資料庫，因此我們要加入資料庫的 driver</p>
+
+<p>我們用的是 <code>mongoose</code> 套件</p>
+
+<p>app.js:</p>
+
+<pre><code class="language-javascript">// 在最上方加入
+var mongoose = require('mongoose');
+
+// 在某個地方連接資料庫
+var db_uri = &quot;mongodb://192.168.33.10:27017/TODOs&quot;;
+mongoose.connect(db_uri);
+</code></pre>
+
+<p>在這邊我是使用了虛擬機的 DB，因此是 <code>mongodb://192.168.33.10:27017/TODOs</code></p>
+
+<p>DB 的名稱為 <code>TODOs</code></p>
+
+<p>這樣在程式一跑起來時，就會連接資料庫了!</p>
+
+<p>再來我們就要設定在對資料庫做 CRUD 時，所需要做的事情</p>
+
+<p>首先我們先要定義 schema，</p>
+
+<p>雖然 mongodb 是 schema-free，但是官方文件也有提到最好還是有固定的 schema 避免記憶體 allocate 時出現問題，而程式撰寫時邏輯也不會因此而過於複雜</p>
+
+<p>這時候我們就需要 model 資料夾了，在 model 資料夾中新增一個 todos.js</p>
+
+<p>裡面要放的就是 todo task 的 schema</p>
+
+<p>內容如下:</p>
+
+<p>models/todos.js:</p>
+
+<pre><code>'use strict';
+
+var mongoose = require('mongoose');
+
+// Define our todo schema
+var TODOschema   = new mongoose.Schema({
+    user_id: String,
+    content: String,
+    created_at: Date,
+    updated_at: Date
+});
+
+// Export the Mongoose model
+module.exports = mongoose.model('TODO', TODOschema);
+</code></pre>
+
+<p>我們定義了幾個東西 user_id, content, created_at, updated_at</p>
+
+<p>其實 ObjectID 中已經有包含建立資訊了，其實 created_at 是可以省略掉的，不過在這邊還是加一下</p>
+
+<p>注意下面這行:</p>
+
+<pre><code>module.exports = mongoose.model('TODO', TODOschema);
+</code></pre>
+
+<p>&lsquo;TODO&rsquo; 在這邊是 Collection (RDBMS 中的 table) 的名稱</p>
+
+<p>在 mongoose 中，會自動複數化，所以在 Mongodb 中的 Collection name 會變成 &lsquo;todos&rsquo; ，</p>
+
+<p>雖然只是小小的一行，但是蠻重要的</p>
+
+<p>最後將這個 model exports 成一個 mongoose.model 物件</p>
+
+<p>那我們什麼時候會用到這個 model 物件呢?</p>
+
+<p>就是在 routes/user.js 中，</p>
+
+<p>routes/users.js:</p>
+
+<pre><code>var TODO = require('../models/todos');
+</code></pre>
+
+<p>這樣在 users.js 中就可以使用 TODO 這個物件了!</p>
+
+<p>我們先試著編輯 POST 的 route，拿到 POST 資料後，將資料轉成 TODO 的物件，存到 mongodb 裏</p>
+
+<p>以下是 routes/users.js 中的 post 程式碼段</p>
+
+<p>簡單來說就是先抓到 uri 的參數以及 post data</p>
+
+<p>並且使用 models/todos.js 的 model 新建立一個 todo 物件</p>
+
+<p>並將該物件用 post data 初始化，</p>
+
+<p>初始化完後就執行寫入 DB 的行為, 若寫入成功則回傳 201 + data</p>
+
+<p>失敗則回傳 400 bad request</p>
+
+<pre><code>// Create a todo task
+router.post('/:user_id/todos', function(req, res) {
+    var user_id = req.params.user_id;
+    var data = req.body;
+
+    // insert to db
+    var todo = new TODO();
+    todo.user_id = user_id;
+    todo.content = data.content;
+    todo.created_at = Date.now();
+    todo.updated_at = Date.now();
+
+    todo.save(function (err) {
+        if (err) {
+            res.status(400).json(
+                { error: &quot;insert db error&quot; }
+            );
+        } else {
+            res.status(201).json(
+                todo
+            );
+        }
+    });
+});
+</code></pre>
+
+<p>試著執行伺服器看看，並且使用 POSTMAN 丟 request 如下:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.54.57.png" alt="image" />
+</p>
+
+<p>POST 的 raw data</p>
+
+<pre><code>{ &quot;content&quot;: &quot;buy milk&quot; }
+</code></pre>
+
+<p>於是就完成了一個 POST 新增 TODO 的 API 了！</p>
+
+                    </div>
+                    <div class="post-share">
+                        <div class="post-share-links">
+                            <h4 style="">Share</h4>
+                            <a href="#" data-type="facebook" data-url="http://kerkerj.github.io/blog/2014/10/21/2014-10-21-api-d21/" data-title="[API-d21] - 實戰開發 - 新增 TODO task API with mongoose" data-description="" data-media="" class="prettySocial fa fa-facebook"></a>
+                            <a href="#" data-type="googleplus" data-url="http://kerkerj.github.io/blog/2014/10/21/2014-10-21-api-d21/" data-description="" class="prettySocial fa fa-google-plus"></a>
+                            
+                            <a href="#" data-type="twitter" data-url="http://kerkerj.github.io/blog/2014/10/21/2014-10-21-api-d21/" data-description="" data-via="kerkerj" class="prettySocial fa fa-twitter"></a>
+                            
+
+                        </div>
+                    </div>
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/kerkerj.github.io\/blog\/2014\/10\/21\/2014-10-21-api-d21\/';
+    var disqus_title = '[API-d21] - 實戰開發 - 新增 TODO task API with mongoose';
+    var disqus_url = 'http:\/\/kerkerj.github.io\/blog\/2014\/10\/21\/2014-10-21-api-d21\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                </section>
+            </div>
+            <div class="footer">
+    <div class="pure-menu pure-menu-horizontal pure-menu-open">
+        <ul>
+            <li>Powered by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a></li>
+        </ul>
+    </div>
+</div>
+<script src="http://kerkerj.github.io//js/all.min.js"></script>
+<script>
+hljs.initHighlightingOnLoad();
+</script>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

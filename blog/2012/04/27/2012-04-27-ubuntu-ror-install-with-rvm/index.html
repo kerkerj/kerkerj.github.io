@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+     
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="[Ubuntu] [RoR] install with rvm | kerkerj">
+    <meta property="og:url" content="http://kerkerj.github.io/blog/2012/04/27/2012-04-27-ubuntu-ror-install-with-rvm/">
+    <meta property="og:description" content="">
+    
+    
+    <meta property="og:site_name" content="kerkerj">
+
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="kerkerj" />
+    <meta name="twitter:title" content="[Ubuntu] [RoR] install with rvm &middot; kerkerj">
+    <meta name="twitter:description" content="">
+
+    
+    <title>[Ubuntu] [RoR] install with rvm &middot; kerkerj</title>
+
+    
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+    
+
+    <link rel="stylesheet" href="http://kerkerj.github.io//css/all.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    
+    
+      <link rel="stylesheet" href="http://kerkerj.github.io//css/highlight/railscasts.css">
+    
+
+    
+    <link href="http://kerkerj.github.io/favicon.ico" rel="icon">
+
+    
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://kerkerj.github.io//index.xml">
+</head>
+<body>
+
+
+<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+    <div class="header">
+        <hgroup>
+            <h1 class="brand-title"><a href="http://kerkerj.github.io/">kerkerj</a></h1>
+            <h2 class="brand-tagline"> Hi. </h2>
+        </hgroup>
+
+        <nav class="nav">
+            
+            <ul class="pure-menu-list">
+              
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//notes/">Notes</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//about/">About</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//mac-app-list/">Mac App List</a>
+                </li>
+              
+            </ul>
+
+            
+            <ul class="nav-list">
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://twitter.com/kerkerj"><i class="fa fa-twitter"></i> Twitter</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://github.com/kerkerj "><i class="fa fa-github-alt"></i> Github</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            
+            <div class="posts">
+                <h1 class="content-subhead">2012-04-04 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2012/04/27/2012-04-27-ubuntu-ror-install-with-rvm/" class="post-title">[Ubuntu] [RoR] install with rvm</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-ruby" href="http://kerkerj.github.io//categories/ruby">ruby</a><a class="post-category post-category-ubuntu" href="http://kerkerj.github.io//categories/ubuntu">ubuntu</a><a class="post-category post-category-RVM" href="http://kerkerj.github.io//categories/rvm">RVM</a><a class="post-category post-category-ROR" href="http://kerkerj.github.io//categories/ror">ROR</a>
+                            
+                        </p>
+                    </header>
+                    <div class="post-description">
+                        <p>以下都是以 Ubuntu 11.10為操作環境
+主要目標為使用 rvm (Ruby Version Manager)來管理 ruby 版本並安裝 ruby 和 rails</p>
+
+<p>先安裝一些必要套件 ( ex. openssl, zlib1g-dev &hellip;.etc. )
+<code>
+$sudo apt-get install build-essential bison openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev nodejs
+</code>
+安裝完基本套件後, 有兩種選擇:
+1. 直接在系統上安裝 ruby ( sudo apt-get install ruby )
+2. 使用 rvm 來管理 ruby 版本
+基本上有 rvm 來管理 ruby 版本是比較方便的, 可以隨時切換不同的 ruby 版本
+(不過在使用一些套件上會有一些問題需要排解, 本篇最底下有 trouble shooting)</p>
+
+<p>#RVM
+安裝:
+<code>
+$bash &lt; &lt;(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer) 
+$echo '[[ -s &quot;$HOME/.rvm/scripts/rvm&quot; ]] &amp;&amp; . &quot;$HOME/.rvm/scripts/rvm&quot;
+</code>
+Load RVM function:  <code>~/.bash_profile</code></p>
+
+<p>指令:<br />
+&gt;rvm info -&gt; 查看 rvm 做的設定
+&gt;rvm list known -&gt; 列出所有可安裝的套件
+&gt;rvm list -&gt; 列出目前已安裝的套件
+&gt;rvm install &ldquo;package_name&rdquo; -&gt; 安裝套件
+&gt;rvm remove &ldquo;package_name&rdquo; -&gt; 移除套件
+&gt;rvm 1.9.2 &ndash;default -&gt; 設定預設的 ruby 版本</p>
+
+<p>假設系統上的 ruby 版本是 1.9.1, 而我用 rvm 安裝了 ruby1.9.3
+那麼目前系統上的預設 ruby 版本是 1.9.3, 用 <code>ruby -v</code> 測試看看
+如果要切換回系統的 ruby 版本, 則使用 <code>rvm system</code>
+要切換回來的話,則:
+        <code>rvm 1.9.3</code> (直接輸入有安裝過的 ruby 版號即可)
+        or
+        <code>rvm use 1.9.3</code>
+以上是 rvm 的一些簡單指令, 因為今天是要安裝 ruby on rails
+所以先安裝 ruby 吧:
+<code>
+$rvm pkg install openssl (詳見最後的 trouble shooting)
+$rvm install 1.9.3 --with-openssl-dir=$rvm_path/usr
+</code>
+#Gem
+指令:
+&gt;gem list -&gt; 列出目前已安裝的套件
+&gt;gem install &ldquo;package_name&rdquo; -&gt; 安裝套件不同的 ruby 版本有不同的 gem</p>
+
+<p>如果 rvm 裡有 1.9.1 和 1.9.3 兩個乾淨的 ruby 版本
+目前使用的 ruby 版本是 1.9.3
+則在 gem install rails 後
+使用 gem list 則會看到 一大堆的套件
+接著切換到 1.9.1 執行 gem list 後則會發現沒有任何東西</p>
+
+<p>在安裝 gem 套件時可以加上一些參數
+如: 不想要有說明文件 (通常這些東西都蠻肥大的) 就可以加上
+<code>gem install &quot;gem_name&quot; --no-ri --no-rdoc</code>
+以上是 gem 在 rvm 裡的一些概念, 因為今天是要安裝 ruby on rails
+所以來安裝 rails 吧:
+<code>gem install rails --no-ri --no-rdoc (不要安裝文件, 速度會比較快)</code>
+如果發現用 gem 安裝套件時需要 root 權限, 表示目前使用的 ruby 版本是系統的版本</p>
+
+<p>#Gemset
+rvm 提供了方便的功能 gemset, 就把它看作 gem 的分類資料夾
+如果說我想要在 ruby 1.9.2 底下安裝兩種 rails 版本, 又怕會衝突該怎麼辦?
+就可以用 gemset 了</p>
+
+<p>樹狀架構大概如下:
+        rvm -&gt; 1.9.1 -&gt; gemset: rails-2.3.9
+                                rails-3.1.1*
+            -&gt; 1.9.3 -&gt; gemset: rails-2.3.9
+                                rails-3.1.1
+可以解釋為: 在 rvm 的 ruby 1.9.1 底下有兩個 gemset, 分別是 rails-2.3.9 和 rails-3.1.1</p>
+
+<p>指令:<br />
+&gt;rvm gemset list -&gt; 查看目前建立的 gemset
+&gt;rvm 1.9.2@rails-3.1.1 -&gt; 在 ruby 1.9.2 版本底下使用 rails-3.1.1 這個 gemset
+&gt;rvm gemset create &ldquo;gemset_name&rdquo; -&gt; 建立 gemset
+&gt;rvm gemset use &ldquo;gemset_name&rdquo; -&gt; 使用某個 gemset
+&gt;rvm gemset empty &ldquo;gemset_name&rdquo; -&gt; 清空某個 gemset (只是清空)
+&gt;rvm gemset delete &ldquo;gemset_name&rdquo; -&gt; 刪除某個 gemset以上就是關於 rvm 的二三事, 做到這邊, ruby 和 rails 套件應該就安裝完了</p>
+
+<p>最後安裝資料庫的 adapter , 這裡是用 sqlite
+<code>gem install sqlite3 --no-ri --no-rdoc</code>
+接著就可以建立第一個 rails 專案:
+&gt;mkdir project
+&gt;cd project
+&gt;rails new demo
+&gt;rails server連上 localhost:3000 就是起始畫面了</p>
+
+<p>#Trouble shooting:
+##Error message1: openssl  LoadError
+&gt;SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificate verify failed (OpenSSL::SSL::SSLError)
+&gt;or
+&gt;Gem::RemoteFetcher::FetchError: SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B</p>
+
+<p>Solution:
+&gt;rvm pkg install openssl
+&gt;rvm remove 1.9.3
+&gt;rvm install 1.9.3 &ndash;with-openssl-dir=$rvm_path/usr
+&gt;然後將 rvm 裡的 ssl certs 資料夾移除, 改成直接讀系統的 ssl certs
+&gt;rmdir $rvm_path/usr/ssl/certs
+&gt;ln -s /etc/ssl/certs $rvm_path/usr/ssl</p>
+
+<p>##Error message2:<br />
+&gt;when excuting the command &ldquo;gem install rails&rdquo;
+&gt;ERROR:  Loading command: install (LoadError)
+&gt;cannot load such file &ndash; zlib
+&gt;ERROR:  While executing gem &hellip; (NameError)
+&gt;uninitialized constant Gem::Commands::InstallCommand</p>
+
+<p>Solution:<br />
+&gt;rvm remove 1.9.3 (depends on your ruby version, if your system also has ruby, remove it, too.)
+&gt;sudo apt-get install zlib1g-dev先將 rvm 的 ruby 和 system 的 ruby 移除
+&gt;然後安裝 zlib1g-dev
+&gt;安裝 system 和 rvm 的 ruby 就可以了
+&gt;Remove system&rsquo;s ruby, and all ruby versions in rvm
+&gt;Install zlib1g-dev, then install ruby in system and rvm.</p>
+
+<p>##Error message3:<br />
+&gt;ExecJS::RuntimeUnavailable</p>
+
+<p>Solution:
+<code>sudo apt-get install nodejs</code>
+Reference:
+<a href="http://www.openfoundry.org/tw/tech-column/8513-rvm-ruby-environment-version-manager">RVM - Ruby enVironment (Version) Manager</a></p>
+
+                    </div>
+                    <div class="post-share">
+                        <div class="post-share-links">
+                            <h4 style="">Share</h4>
+                            <a href="#" data-type="facebook" data-url="http://kerkerj.github.io/blog/2012/04/27/2012-04-27-ubuntu-ror-install-with-rvm/" data-title="[Ubuntu] [RoR] install with rvm" data-description="" data-media="" class="prettySocial fa fa-facebook"></a>
+                            <a href="#" data-type="googleplus" data-url="http://kerkerj.github.io/blog/2012/04/27/2012-04-27-ubuntu-ror-install-with-rvm/" data-description="" class="prettySocial fa fa-google-plus"></a>
+                            
+                            <a href="#" data-type="twitter" data-url="http://kerkerj.github.io/blog/2012/04/27/2012-04-27-ubuntu-ror-install-with-rvm/" data-description="" data-via="kerkerj" class="prettySocial fa fa-twitter"></a>
+                            
+
+                        </div>
+                    </div>
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/kerkerj.github.io\/blog\/2012\/04\/27\/2012-04-27-ubuntu-ror-install-with-rvm\/';
+    var disqus_title = '[Ubuntu] [RoR] install with rvm';
+    var disqus_url = 'http:\/\/kerkerj.github.io\/blog\/2012\/04\/27\/2012-04-27-ubuntu-ror-install-with-rvm\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                </section>
+            </div>
+            <div class="footer">
+    <div class="pure-menu pure-menu-horizontal pure-menu-open">
+        <ul>
+            <li>Powered by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a></li>
+        </ul>
+    </div>
+</div>
+<script src="http://kerkerj.github.io//js/all.min.js"></script>
+<script>
+hljs.initHighlightingOnLoad();
+</script>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

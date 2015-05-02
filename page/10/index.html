@@ -1,0 +1,633 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://kerkerj.github.io/">
+    <meta property="og:title" content="kerkerj">
+    
+    <meta property="og:description" content="如題~ 先假設 pi2 本身的 IP 是 192.168.1.200 首先先進去 server 來更新一下~ $ sudo apt-get update &amp;&amp; sudo apt-get upgrade 再來就裝 motion 他其實是一個 motion detector，不過也可以拿來當作 web cam 用的 streaming server XD $ sudo apt-get install motion 編輯設定檔 /etc/motion/motion.conf $ sudo vi /etc/motion/motion.conf 找到以下幾個值，並分別改成下面 daemon = ON webcam_localhost = OFF control_localhost = OFF webcam_localhost 是 streaming 介面 control_localhost 是設定介面 如果要改預設 port，就找 webcam_port, or control_port 最後設定將 service 啟動 $ sudo vi /etc/default/motion 將 no">
+    
+    
+    
+    <meta property="og:site_name" content="kerkerj">
+
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="kerkerj" />
+    <meta name="twitter:title" content="kerkerj &middot; kerkerj">
+    <meta name="twitter:description" content="Hi.">
+
+    
+    <title>kerkerj &middot; kerkerj</title>
+
+    
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+    
+
+    <link rel="stylesheet" href="http://kerkerj.github.io//css/all.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    
+    
+      <link rel="stylesheet" href="http://kerkerj.github.io//css/highlight/railscasts.css">
+    
+
+    
+    <link href="http://kerkerj.github.io/favicon.ico" rel="icon">
+
+    
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://kerkerj.github.io//index.xml">
+</head>
+<body>
+
+
+<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+    <div class="header">
+        <hgroup>
+            <h1 class="brand-title"><a href="http://kerkerj.github.io/">kerkerj</a></h1>
+            <h2 class="brand-tagline"> Hi. </h2>
+        </hgroup>
+
+        <nav class="nav">
+            
+            <ul class="pure-menu-list">
+              
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//notes/">Notes</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//about/">About</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//mac-app-list/">Mac App List</a>
+                </li>
+              
+            </ul>
+
+            
+            <ul class="nav-list">
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://twitter.com/kerkerj"><i class="fa fa-twitter"></i> Twitter</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://github.com/kerkerj "><i class="fa fa-github-alt"></i> Github</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            
+            <div class="posts">
+                
+                <h1 class="content-subhead">2013-12-12 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2013/12/18/2013-12-18-ubuntu-bash-warning-setlocale-lc-ctype-cannot-change-locale/" class="post-title">[Ubuntu] -bash: warning: setlocale: LC_CTYPE: cannot change locale</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-ubuntu" href="http://kerkerj.github.io//categories/ubuntu">ubuntu</a><a class="post-category post-category-bash" href="http://kerkerj.github.io//categories/bash">bash</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <pre><code>$ sudo locale-gen zh_TW.UTF-8
+$ sudo update-locale LANG=zh_TW.UTF-8
+</code></pre>
+
+<p>reload your bash profile</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2013-12-12 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2013/12/16/2013-12-16-codeigniter-use-markdown-as-library/" class="post-title">[Codeigniter] use markdown as library</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p><a href="https://github.com/erusev/parsedown">https://github.com/erusev/parsedown</a></p>
+
+<p>download the Parsedown.php
+and put it into Library folder
+then edit autoload.php
+<code>
+$autoload['libraries'] = array('Parsedown');
+</code>
+then in the view php for tests:
+<code>
+$text = 'Hello **Parsedown**!';
+$result = Parsedown::instance()-&gt;parse($text);
+echo $result;
+</code>
+No need to require or include the file.
+If you want to load a file with path, you can use the function called file_get_contents:
+<code>
+file_get_contents('./markdown/test.md',true); (true: enable path)
+</code></p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2013-11-11 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2013/11/26/2013-11-26-ubuntu-1204-install-oracle-java/" class="post-title">[Ubuntu] 12.04 install oracle java</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-java" href="http://kerkerj.github.io//categories/java">java</a><a class="post-category post-category-ubuntu" href="http://kerkerj.github.io//categories/ubuntu">ubuntu</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <pre><code>sudo rm /var/lib/dpkg/info/oracle-java7-installer*
+sudo apt-get purge oracle-java7-installer*
+sudo rm /etc/apt/sources.list.d/*java*
+sudo apt-get update
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java7-installer
+</code></pre>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2013-11-11 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2013/11/19/2013-11-19-xcode-emulator-home-keys-are-gone/" class="post-title">[Xcode] 模擬器的 home 鍵不見了?! </a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-iOS" href="http://kerkerj.github.io//categories/ios">iOS</a><a class="post-category post-category-xcode" href="http://kerkerj.github.io//categories/xcode">xcode</a><a class="post-category post-category-simulator" href="http://kerkerj.github.io//categories/simulator">simulator</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>其實有點有趣
+今天由於某些因素在測試 iOS app
+於是開了許久沒動的 xcode
+更新了一下發現多了一些 retina 的模擬器
+也沒想那麼多就把它 run 到模擬器上
+但模擬器一開出來我還以為是模擬器壞掉 XDDDD
+它的 home 鍵勒～～～～～</p>
+
+<p>其實是因為 iOS 5 以後的 simulater 沒有 home 鍵
+&gt;叫出 home 鍵   <code>command</code>+<code>shift</code>+<code>h</code>
+&gt;調整大小               <code>command</code>+ <code>1</code> or <code>2</code> or <code>3</code></p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2013-11-11 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2013/11/13/2013-11-13-mac-osx-bash-it/" class="post-title">[Mac OSX] bash-it</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-mac" href="http://kerkerj.github.io//categories/mac">mac</a><a class="post-category post-category-Homebrew" href="http://kerkerj.github.io//categories/homebrew">Homebrew</a><a class="post-category post-category-bash-it" href="http://kerkerj.github.io//categories/bash-it">bash-it</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>bash-it:
+<code>
+$git clone http://github.com/revans/bash-it.git ~/.bash_it
+$~/.bash_it/install.sh
+</code>
+他會幫你自動備份原來的 <code>.bash_profile</code> 為 <code>.bash_profile.bak</code> 所以別擔心
+當他在問你要使用什麼 completion 或 script 之類的東西時，
+選擇 &lsquo;some&rsquo; 就可以自己選擇~</p>
+
+<p>有許多的 theme 及 package , completion 等等可以用，很方便！</p>
+
+<p><a href="http://www.scholarslab.org/research-and-development/customizing-bash/">http://www.scholarslab.org/research-and-development/customizing-bash/</a></p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2013-11-11 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2013/11/13/2013-11-13-mac-osx-homebrew-update-error/" class="post-title">[Mac OSX] homebrew update error</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-git" href="http://kerkerj.github.io//categories/git">git</a><a class="post-category post-category-mac" href="http://kerkerj.github.io//categories/mac">mac</a><a class="post-category post-category-Homebrew" href="http://kerkerj.github.io//categories/homebrew">Homebrew</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>failed log:
+<code>
+$sudo brew update
+error: Your local changes to the following files would be overwritten by merge:
+    Library/Aliases/gperftools
+    Library/Aliases/hashdeep
+    Library/Aliases/htop
+    Library/Aliases/nodejs
+    Library/Aliases/ocio
+    Library/Aliases/oiio
+        ....
+error: The following untracked working tree files would be overwritten by merge:
+    Library/Aliases/gperftools
+    Library/Aliases/hashdeep
+    Library/Aliases/htop
+    Library/Aliases/nodejs
+    Library/Aliases/ocio
+    Library/Aliases/oiio
+        ....
+Aborting
+Error: Failure while executing: git pull -q origin refs/heads/master:refs/remotes/origin/master
+</code></p>
+
+<p>Solution:
+<code>
+$ cd /usr/local
+$ git fetch origin
+$ git reset --hard origin/master
+</code></p>
+
+<p><a href="http://stackoverflow.com/questions/10762859/brew-update-the-following-untracked-working-tree-files-would-be-overwritten-by">reference</a>
+<a href="http://git-scm.com/2011/07/11/reset.html">[read]</a></p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2013-11-11 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2013/11/13/2013-11-13-mac-osx-slow-opening-terminal-windows/" class="post-title">[Mac OSX] Slow-Opening Terminal Windows</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-mac" href="http://kerkerj.github.io//categories/mac">mac</a><a class="post-category post-category-.bashrc" href="http://kerkerj.github.io//categories/.bashrc">.bashrc</a><a class="post-category post-category-.bash_profile" href="http://kerkerj.github.io//categories/.bash_profile">.bash_profile</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>最近在開 mac 的 iTerm.app 或者是內建的終端機都覺得卡卡的，
+之前以為是 .bashrc 載入太多東西導致的，所以把一些掛載的 bin 目錄都註解掉，
+但是還是沒解決，心想不對勁，就順手 google 了一下&hellip;</p>
+
+<p>我執行了下列語法：
+```
+$ time /usr/libexec/path_helper
+PATH=&ldquo;/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/ABC/android-sdks/platform-tools:/Users/ABC/android-sdks/tools:/Application/Vagrant/bin&rdquo;; export PATH;</p>
+
+<p>real    0m0.043s
+user    0m0.001s
+sys 0m0.002s
+``<code>
+接著我把</code>PATH<code>的內容寫進</code>.bash_profile`，問題竟然就解決了&hellip;
+速度飛快～～</p>
+
+<p>後來看到一篇 <a href="http://www.joshstaiger.org/archives/2005/07/bash_profile_vs.html">.bash_profile vs.bashrc</a>
+雖然大家都知道 <code>.bash_profile</code> 是在登入時執行（即是輸入帳號密碼時），
+而 <code>.bashrc</code> 是在系統內非登入狀態時開啟 prompt 時執行，
+但是！！ Mac OSX 是個例外～是個例外～是個例外～&hellip;&hellip;.=.=</p>
+
+<blockquote>
+<p>Mac OS X — an exception
+An exception to the terminal window guidelines is Mac OS X&rsquo;s Terminal.app, which runs a login shell by default for each new terminal window, calling .bash_profile instead of .bashrc. Other GUI terminal emulators may do the same, but most tend not to.</p>
+</blockquote>
+
+<p>所以通常解決方法是在 <code>.bash_profile</code> 寫入以下 script:
+<code>
+if [ -f ~/.bashrc ]; then
+    source ~/.bashrc
+fi
+</code></p>
+
+<p>不過我之前就這樣做了，這次成功的方式是直接在 <code>.bash_profile</code> 寫入 PATH 路徑&hellip;
+猜想應該是在 <code>.bash_profile</code> 預先讀取而加快速度的
+如果把原本的 <code>.bashrc</code> 的 <code>PATH</code> 註解掉都移到 <code>.bash_profile</code> 會再稍快一些</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2013-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2013/10/22/2013-10-22-vagrant-vagrant-nginx-php5-fpm/" class="post-title">[Vagrant] 使用 Vagrant 安裝 Nginx, php5-fpm, MySQL</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-ubuntu" href="http://kerkerj.github.io//categories/ubuntu">ubuntu</a><a class="post-category post-category-nginx" href="http://kerkerj.github.io//categories/nginx">nginx</a><a class="post-category post-category-vagrant" href="http://kerkerj.github.io//categories/vagrant">vagrant</a><a class="post-category post-category-virtualbox" href="http://kerkerj.github.io//categories/virtualbox">virtualbox</a><a class="post-category post-category-php5-fpm" href="http://kerkerj.github.io//categories/php5-fpm">php5-fpm</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        
+
+<h1 id="vagrant-1-development-environments-made-easy:393c871f756de36d9030b67aea0417c1"><a href="http://www.vagrantup.com/">Vagrant</a> - Development environments made easy.</h1>
+
+<p>就是這個軟體的宗旨，把它想做是 ghost 吧！我們開發網站或是測試一些多機器架構時，常不小心就把自己的電腦或是測試主機搞到爛掉，租機器又慢又花錢，搞到爛重灌更麻煩。因此這個軟體基於 VirtualBox 做出了令人方便設定的功能，讓我們可以快速架設安裝環境並測試，尤其是以多機器架構而言更是方便！例如從最簡單的 Web server + DB server，或是 Web Load Balancer + Application Server * 5 等等的架構，一台電腦就能達成囉！
+今天主要是以安裝 Vagrant 及架設出 Nginx + php5-fpm 的架構，下一篇打算另外建構一台 mongodb server，達到 Vagrant 最主要的多機器設定功能~</p>
+
+<h1 id="vagrant-基本設定:393c871f756de36d9030b67aea0417c1">Vagrant 基本設定</h1>
+
+<ol>
+<li>先下載 VirtualBox 吧！<br /></li>
+<li>下載 Vagarnt 套件 <a href="http://downloads.vagrantup.com/">http://downloads.vagrantup.com/</a><br />
+安裝好後，可能會需要加 path，至少 1.3.0 當時我是自己加的，現在 1.3.5 就不清楚了~<br /></li>
+<li>接下來就可以開始加入 box (可以把它想為 ghost 檔)，並開始設定 Vagrant。
+<code>
+vagrant box add {你想要的Box名稱} {下載網址} 
+</code>
+輸入後就會開始下載該 box 了！ 範例：
+<code>
+$vagrant box add devbox http://ﬁles.vagrantup.com/precise64.box   
+$mkdir my_box  
+$cd my_box  
+$vagrant init devbox (將 my_box 這個專案資料夾以 devbox 這個 box 檔案初始化)  
+</code>
+box 官方有提供 Ubuntu 的，在 <a href="http://www.vagrantbox.es/">vagrantbox.es</a> 很多，可以自己找～ 當然自己做應該也是可以的！<br /></li>
+</ol>
+
+<h1 id="vagrant-基本指令:393c871f756de36d9030b67aea0417c1">Vagrant 基本指令</h1>
+
+<pre><code>vagrant up 開機  
+vagrant ssh 登⼊  
+vagrant suspend 暫停  
+vagrant halt 關機  
+vagrant destroy 刪除  
+</code></pre>
+
+<h1 id="進入新裝好的機器吧:393c871f756de36d9030b67aea0417c1">進入新裝好的機器吧！</h1>
+
+<pre><code>$vagrant up  //開機  
+$vagrant ssh //登入  
+</code></pre>
+
+<h1 id="vagrantfile-設定:393c871f756de36d9030b67aea0417c1">Vagrantfile 設定</h1>
+
+<p>Vagrantfile 這個設定檔可以用很多很強大的設定，在官方網頁裡有教學
+不過首先要先做的是： <code>config.vm.forward_port 80, 8088</code>
+把虛擬機器裡從 80 port 傳送的東西丟到本機的 8088 port
+如此一來在本機瀏覽器輸入 localhost:8088 ，就可以看到網頁了！
+另外就是： <code>config.vm.synced_folder &quot;/vagrant&quot;, &quot;本機目錄&quot;</code>
+如此一來，Ubuntu 底下就有一個 /vargrant 目錄，和自己主機裡的某個目錄是同步的！
+也就是在自己主機上寫好程式後，就可以直接讓虛擬機器抓到 code 去執行，超方便的！
+只要把 nginx 的網頁目錄設定在 /vagrant 上就可以了！ (後面會說)</p>
+
+<h1 id="ubuntu-基本安裝:393c871f756de36d9030b67aea0417c1">Ubuntu 基本安裝</h1>
+
+<p>進去後是乾淨的 Ubuntu 12.04 64位元版，因此需先做點安裝:
+<code>
+$sudo apt-get -y update  
+$sudo apt-get --no-install-recommends -y install build-essential openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev libgdbm-dev ncurses-dev automake libtool bison subversion pkg-config libffi-dev vim  
+</code>
+有些東西其實可以不用裝，就看個人的需求，必裝應該是 build-essential, openssl, curl, git-core, vim XD</p>
+
+<h1 id="nginx-php5-fpm-安裝:393c871f756de36d9030b67aea0417c1">Nginx &amp; php5-fpm 安裝</h1>
+
+<p>安裝 Nginx
+<code>
+$sudo apt-get install nginx  
+</code>
+若要更改 Nginx 的網頁目錄，設定檔在 <code>/etc/nginx/</code> 裡，
+通常應該是更改 <code>/etc/nginx/sites-enable/default</code> 裡的 <code>root /usr/share/nginx/www/</code>
+還要將這段 code 解除註解：
+```
+location ~ .php$ {
+    fastcgi_split_path_info ^(.+.php)(/.+)$;
+    # NOTE: You should have &ldquo;cgi.fix_pathinfo = 0;&rdquo; in php.ini</p>
+
+<pre><code># With php5-cgi alone:
+#fastcgi_pass 127.0.0.1:9000;
+# With php5-fpm:
+fastcgi_pass unix:/var/run/php5-fpm.sock;
+fastcgi_index index.php;
+include fastcgi_params;
+</code></pre>
+
+<p>}
+<code>
+更改後確認一下 `/etc/nginx/nginx.conf` 是否有 `inculde /etc/nginx/sites-enable/*`
+</code>
+$sudo service nginx start (開始服務)
+<code>
+安裝 php5-fpm
+</code>
+$sudo apt-get install php5-fpm<br />
+$sudo vim /etc/php5/fpm/php.ini (找到並更改 cgi.fix_pathinfo = 0 )<br />
+$sudo vim /etc/php5/fpm/pool.d/www.conf<br />
+<code>
+找到 `listen = 127.0.0.1:9000`, 換成 `/var/run/php5-fpm.sock`
+寫個 phpinfo(); 的 php 檔放入資料夾
+</code>
+$sudo service php5-fpm restart (開啟服務)
+```
+在瀏覽器輸入 localhost:8088 就可以看到 nginx 的頁面，再讀取剛剛寫的 php 應該就成功囉！</p>
+
+<p>安裝 MySQL:
+<code>
+$ sudo apt-get install mysql-server
+</code>
+過程中會問 root 的密碼，裝完後就可以登入：
+<code>
+$ mysql -u root -p
+</code></p>
+
+<p>下回就是多機器的設定囉～</p>
+
+<p>reference:<br />
+<a href="http://gogojimmy.net/2013/05/26/vagrant-tutorial/">http://gogojimmy.net/2013/05/26/vagrant-tutorial/</a>
+<a href="http://www.slideshare.net/ihower/vagrant-osdc">http://www.slideshare.net/ihower/vagrant-osdc</a>
+<a href="https://www.digitalocean.com/community/articles/how-to-install-linux-nginx-mysql-php-lemp-stack-on-ubuntu-12-04">https://www.digitalocean.com/community/articles/how-to-install-linux-nginx-mysql-php-lemp-stack-on-ubuntu-12-04</a></p>
+
+<p>p.s. Vagrantfile 產生器：<a href="https://puphpet.com/#vagrantfile">Puphpet.com/#vagrantfile</a>
+這網站有很多值得玩的地方，可以直接幫你產生出這些設定檔真的是太方便了！</p>
+
+<p>p.s.s.有亂入用到的指令記一下：dpkg &ndash;get-selections 列出已安裝的 package
+另外提供一下我在研究 Vagrant 的筆記，很亂超級亂，但是有些東西沒有寫在 blog 裡~
+<a href="https://www.evernote.com/shard/s81/sh/91ccf490-d9cd-468e-943a-d57c79d052f4/71e0a682b024c6e97fd8c79b90f89f67">Evernote by kerkerj</a></p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2012-06-06 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2012/06/12/2012-06-12-android-ui-update-2/" class="post-title">[Android] thread 處理 UI update (2)</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-android" href="http://kerkerj.github.io//categories/android">android</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>這是第一篇: [[Android] thread 處理 UI update]</p>
+
+<p>在那之後自己在寫一些東西時也用到 runOnUiThread<br />
+不過有別的方法可以不用像 runOnUiThread 寫的比較雜亂<br />
+那就是用 AsyncTask , 剛剛自己也順手寫了一個 Test 放在 Github 上<br />
+我覺得使用 AsyncTask 可以不用處理 thread, 而且寫法上比較清楚~<br />
+<script src="https://gist.github.com/kerkerj/7367244.js"></script></p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2012-06-06 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2012/06/12/2012-06-12-php-checkbox-checkuncheck-all/" class="post-title">[PHP] checkbox check/uncheck all</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-php" href="http://kerkerj.github.io//categories/php">php</a><a class="post-category post-category-checkbox" href="http://kerkerj.github.io//categories/checkbox">checkbox</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>今天在做 checkbox 時, 想做全選/取消全選
+多使用一個 checkbox, 若勾選則是全選, 再點一次則全不選
+於是就產生了這段 code&hellip;
+<iframe style="width: 100%; height: 300px" src="http://jsfiddle.net/jerry54010/tmJXb/4/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe></p>
+
+                    </div>
+                </section>
+                
+            </div>
+            
+<div class="pagination">
+  <nav role="pagination" class="post-list-pagination">
+      
+      <a href="http://kerkerj.github.io/page/9/" class="post-list-pagination-item pure-button post-list-pagination-item-prev">
+        <i class="fa fa-angle-double-left"></i>&nbsp;Newer
+      </a>
+      
+    <span class="post-list-pagination-item post-list-pagination-item-current">Page 10 of 14</span>
+    
+      <a href="http://kerkerj.github.io/page/11/" class="post-list-pagination-item pure-button post-list-pagination-item-next">
+        Older&nbsp;<i class="fa fa-angle-double-right"></i>
+      </a>
+    
+  </nav>
+</div>
+
+
+            <div class="footer">
+    <div class="pure-menu pure-menu-horizontal pure-menu-open">
+        <ul>
+            <li>Powered by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a></li>
+        </ul>
+    </div>
+</div>
+<script src="http://kerkerj.github.io//js/all.min.js"></script>
+<script>
+hljs.initHighlightingOnLoad();
+</script>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

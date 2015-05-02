@@ -1,0 +1,970 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://kerkerj.github.io/">
+    <meta property="og:title" content="kerkerj">
+    
+    <meta property="og:description" content="如題~ 先假設 pi2 本身的 IP 是 192.168.1.200 首先先進去 server 來更新一下~ $ sudo apt-get update &amp;&amp; sudo apt-get upgrade 再來就裝 motion 他其實是一個 motion detector，不過也可以拿來當作 web cam 用的 streaming server XD $ sudo apt-get install motion 編輯設定檔 /etc/motion/motion.conf $ sudo vi /etc/motion/motion.conf 找到以下幾個值，並分別改成下面 daemon = ON webcam_localhost = OFF control_localhost = OFF webcam_localhost 是 streaming 介面 control_localhost 是設定介面 如果要改預設 port，就找 webcam_port, or control_port 最後設定將 service 啟動 $ sudo vi /etc/default/motion 將 no">
+    
+    
+    
+    <meta property="og:site_name" content="kerkerj">
+
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="kerkerj" />
+    <meta name="twitter:title" content="kerkerj &middot; kerkerj">
+    <meta name="twitter:description" content="Hi.">
+
+    
+    <title>kerkerj &middot; kerkerj</title>
+
+    
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+    
+
+    <link rel="stylesheet" href="http://kerkerj.github.io//css/all.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    
+    
+      <link rel="stylesheet" href="http://kerkerj.github.io//css/highlight/railscasts.css">
+    
+
+    
+    <link href="http://kerkerj.github.io/favicon.ico" rel="icon">
+
+    
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://kerkerj.github.io//index.xml">
+</head>
+<body>
+
+
+<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+    <div class="header">
+        <hgroup>
+            <h1 class="brand-title"><a href="http://kerkerj.github.io/">kerkerj</a></h1>
+            <h2 class="brand-tagline"> Hi. </h2>
+        </hgroup>
+
+        <nav class="nav">
+            
+            <ul class="pure-menu-list">
+              
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//notes/">Notes</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//about/">About</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//mac-app-list/">Mac App List</a>
+                </li>
+              
+            </ul>
+
+            
+            <ul class="nav-list">
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://twitter.com/kerkerj"><i class="fa fa-twitter"></i> Twitter</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://github.com/kerkerj "><i class="fa fa-github-alt"></i> Github</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            
+            <div class="posts">
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/02/2014-10-02-api-d1/" class="post-title">[API-d1] - 定義 1 - 什麼是 REST/RESTful?</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-RESTful" href="http://kerkerj.github.io//categories/restful">RESTful</a><a class="post-category post-category-API" href="http://kerkerj.github.io//categories/api">API</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>Representational State Transfer，簡稱 <code>REST</code>，<br />
+它是一種網路架構風格，他並不是一種標準。</p>
+
+<p>而 RESTful 可以這樣子想像:<br />
+美麗 (Beauty) 的事物可以稱為 Beautiful<br />
+設計為 REST 的系統就可以稱為 RESTful</p>
+
+<p>以 API 而言，假設我們正在撰寫一組待辦事項的 API，<br />
+可能會有以下方式來作為 API 的 interface:</p>
+
+<pre><code>獲取使用者資料     /getAllUsers
+獲取使用者資料     /getUser/1
+新增使用者資料     /createUser
+更新使用者資料     /updateUser/1
+刪除使用者資料     /deleteUser/1
+</code></pre>
+
+<p>若是以 REST 風格來開發 RESTful API 的話:</p>
+
+<pre><code>獲取使用者資料     /GET            /users
+獲取使用者資料     /GET            /user/1
+新增使用者資料     /POST          /user
+更新使用者資料     /PUT             /user/1
+刪除使用者資料     /DELETE      /user/1
+</code></pre>
+
+<p>兩者差異是在於 RESTful API 充分地使用了 HTTP protocol (GET/POST/PUT/DELETE)，<br />
+達到<br />
+1. 以直觀簡潔的資源 URI<br />
+2. 並且善用 HTTP Verb<br />
+3. 達到對資源的操作<br />
+4. 並使用 Web 所接受的資料類型: JSON, XML, YAML 等，最常見的是 JSON</p>
+
+<p>通常是使用 HTTP, URI, JSON, HTML 這些現有廣泛流行的協議和標準，<br />
+且使用 HTTP status code 來代表該資源的狀態。</p>
+
+<p>框架中強制使用 REST 風格的最有名的應該就是 Ruby on Rails 了!<br />
+(不過我們並不會使用 Rails 來開發 API service :P)</p>
+
+<p>p.s. 因為 REST 並非是一種標準，因此有時候也不一定非得要照著 REST 來做，<br />
+只是在資源的操作面上，可以設計成這類的風格，以達到簡潔易懂，並且可重用。</p>
+
+<p>下一篇會來聊聊 REST 的要求與優點</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/02/2014-10-02-api-d2/" class="post-title">[API-d2] - 定義 2 - RESTful 的優點與要求</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-RESTful" href="http://kerkerj.github.io//categories/restful">RESTful</a><a class="post-category post-category-API" href="http://kerkerj.github.io//categories/api">API</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>承上篇，</p>
+
+<p>RESTful 的優點如下所列:</p>
+
+<pre><code> 1. 瀏覽器即可以作為 client 端
+ 2. 可以更高效地利用 cache 來達到更快的回應速度
+ 3. 界面與資料分離
+ 4. 節省伺服器的計算資源
+ 5. 可重用! web/android/ios 都可以用, 無痛轉換!
+</code></pre>
+
+<p>RESTful 的要求:</p>
+
+<pre><code> 1. client - server 架構  
+ 2. 分層系統  
+ 3. 利用快取機制增加效能  
+      server-side: 在 GET 資源時，若該資源並沒有被變更，就可以利用 cache 機制減少 query，並且加快回應速度  
+      client-side: 透過 client 端 cache 記錄 cache 版本，  
+           若向 server 要求資源時發現 server 最新版與 cache 相同，  
+           則 client 端直接取用本地資源即可，不需要再做一次查詢  
+      省機器運算及流量 = 省錢  
+ 4. 通訊協定具有無狀態性  
+      不能讓兩隻 API 做同一個動作!  
+           假設完成轉賬手續必須先 call A 再 call B 的話，  
+           若做完 A 後斷線導致 B 無法執行，後續要處理 A -&gt; B 的方式會很麻煩  
+      且不應該假設伺服器知道目前的狀態!  
+      因此設計出來的 API 不能有狀態性  
+ 5. 統一界面  
+      使用 HTTP Verb: GET/POST/PUT/DELETE  
+</code></pre>
+
+<p>下一篇會討論什麼時候該打造 RESTful API?  以及看看別人寫的 RESTful API</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/02/2014-10-02-swift-d1/" class="post-title">[Swift-d1] - 介紹</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-Swift" href="http://kerkerj.github.io//categories/swift">Swift</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>Swift 是 2014 年由蘋果公司在其開發者大會 WWDC 上所發佈的程式語言</p>
+
+<p>The Swift Programming Language 一書中提到：</p>
+
+<ol>
+<li>Swift 用來撰寫 iOS 及 Mac OSX 的程式。<br /></li>
+<li>Swift 吸收了 C 和 Objective-C 的優點，使其在設計更具彈性、容易，且撰寫時有更多樂趣。<br /></li>
+<li>Swift 是基於成熟而且倍受喜愛的 Cocoa 和 Cocoa Touch framework，意即 Swift 可以直接使用這些現有的框架<br /></li>
+<li>Swift 兼具編譯語言的性能，以及直譯式語言的特性。<br /></li>
+</ol>
+
+<p>** 什麼是 Cocoa/Cocoa Touch framework:<br />
+Cocoa framework 是 Apple 爲 Mac OSX 所建立的環境，用來開發 OSX 的程式，<br />
+而 Cocoa Touch framework 則是建立於 Cocoa framework 之上，用來開發 iOS 作業系統程式，<br />
+此兩種 framework 皆遵循 MVC 軟體架構，開發時必須遵循此架構。</p>
+
+<p>若之前從未接觸過 Objective-C 但又想嘗試開發 iOS app 的話，<br />
+現在是個入門的好時機，Swift 去除了 Objective-C 的繁瑣語法，<br />
+且相較於 Objective-C 是個更好入門的程式語言。</p>
+
+<p>對於非 Objective-C 開發者而言，若先前有過程式語言開發經驗的話，語法上手不會太難，<br />
+只是需要花時間學習 Cocoa/Cocoa Touch framework，但是，都要學習撰寫 iOS app 了，<br />
+不學 Cocoa/Cocoa Touch framework 應該也說不過去 :D</p>
+
+<p>而對於 Objective-C 開發者而言，由於已經非常熟悉 Cocoa/Cocoa Touch framework 了，<br />
+在 Swift 使用 Cocoa/Cocoa Touch framework 是幾乎無痛轉換的，因為函式、變數名稱完全一樣，<br />
+只需要熟悉 Swift 語法，不出一天即可快速上手，也因此 Objectiv-C 開發者也不需過於擔心飯碗被搶走 XD<br />
+接觸過 Cocoa/Cocoa Touch framework 的開發者來說還是有相當大的優勢的。</p>
+
+<p>由於筆者之前從未接觸過 Objective-C/ Cocoa/ Cocoa Touch framework，<br />
+只有些許 java/php/ruby 撰寫經驗，<br />
+選擇 Swift 的原因之一即是語法上手容易，並且有 playground 可以馬上執行撰寫的程式，<br />
+也因此希望能夠透過學習 Swift ，了解 iOS app 開發架構，實際打造出一款 app！</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/02/2014-10-02-swift-d2/" class="post-title">[Swift-d2] - 安裝及 Hello World!</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-swift" href="http://kerkerj.github.io//categories/swift">swift</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>首先，你必須要有一台 Mac。<br />
+我也不知道要如何用虛擬機 build 一台 Mac VM 出來，<br />
+所以就是，先買一台 Mac XD</p>
+
+<p>若已經有了 Mac，只要到 Appstore 下載 Xcode 即可，<br />
+注意是要 Xcode 6.0 以上， Xcode 6 才有支援 Swift ，舊版的 Xcode 5 是無法開發 Swift 的</p>
+
+<p>安裝完 Xcode 後</p>
+
+<p>首先開啓 Xcode<br />
+選擇 &ldquo;Create a playground&rdquo;<br />
+<img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-02%2011.24.32.png" alt="p1" />
+</p>
+
+<p>輸入 Playground 名稱並選擇儲存位置<br />
+<img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-02%2011.25.13.png" alt="p2" />
+</p>
+
+<p>就進入了 Playground 了！</p>
+
+<p>可以看到 Xcode 已經預先載入了幾行程式碼了
+來稍微看一下:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-02%2011.25.26.png" alt="p4" />
+</p>
+
+<pre><code>// Playground - noun: a place where people can play
+
+import UIKit
+
+var str = &quot;Hello, playground&quot;
+</code></pre>
+
+<p>第一行，使用了 <code>//</code>，有寫過程式的話一定都知道這是註解<br />
+在 Swift 裡面使用 <code>//</code> 及 <code>/* .... */</code> 來註解程式碼</p>
+
+<p>第二行意思則是將 UIKit 引入到 playground 中，<br />
+借此使用 UIKit 的函示物件等等，目前還都不會用到</p>
+
+<p>第三行的意思則是宣告了一個變數，該變數為一個字串，內容為 &ldquo;Hello World!&rdquo;</p>
+
+<p>在 Playground 中，很有意思的是右邊的灰色區塊，<br />
+Xcode 會即時顯示該變數的值、型別、以及輸出結果，<br />
+對於剛入門 Swift 的開發者來說是一個非常好的功能來練習語法，
+也因此未來幾天都會使用 Playground 來練習 Swift 基本語法!</p>
+
+<p>最後當然要不免俗的撰寫最經典的程式 - Hello World!</p>
+
+<p>加入:</p>
+
+<pre><code>println(str)
+</code></pre>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-02%2011.27.21.png" alt="p5" />
+</p>
+
+<p>馬上就可以在右邊看到結果囉!</p>
+
+<p><code>println(args)</code> 是 Swift 標準輸出的函示，算是使用率蠻高的一個 method，只要將參數代入即可顯示該參數的內容，<br />
+有興趣也可以透過 Xcode 的 autocomplete 來看看和 <code>print</code> 有關的 method，<br />
+例如 <code>print()</code>，可以試試看，有些許不一樣哦!</p>
+
+<p>未來一個禮拜都會來練習一些基本語法!</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-09-09 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/09/25/2014-09-25-codeigniter-on-nginx/" class="post-title">Codeigniter on nginx</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-codeigniter" href="http://kerkerj.github.io//categories/codeigniter">codeigniter</a><a class="post-category post-category-nginx" href="http://kerkerj.github.io//categories/nginx">nginx</a><a class="post-category post-category-php5-fpm" href="http://kerkerj.github.io//categories/php5-fpm">php5-fpm</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>I use Ubuntu 14.04, Nginx 1.4.6, php5-fpm, Codeigniter 2.2.0</p>
+
+<p>It will remove index.php, and access Codeigniter site normally.</p>
+
+<p>Clean configuration:</p>
+
+<p>```text &ldquo;/etc/nginx/site-enabled/default&rdquo;
+server {</p>
+
+<p>#&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; START
+        listen 80;
+        listen [::]:80 default_server ipv6only=on;</p>
+
+<pre><code>    root /YOUR/PROJECT/ROOT;
+    index index.html index.htm index.php;
+
+    # Make site accessible from http://localhost/
+    server_name localhost;
+
+    #location ~* .(ico|css|js|gif|jpe?g|png)(?[0-9]+)?$ {
+    #   expires max;
+    #   log_not_found off;
+    #}
+
+    location / {
+            # First attempt to serve request as file, then
+            # as directory, then fall back to displaying a 404.
+            try_files $uri $uri/ /index.php;
+            # Uncomment to enable naxsi on this location
+            # include /etc/nginx/naxsi.rules
+    }
+
+    location ~ .php$ {
+        root           /YOUR/PROJECT/ROOT;
+        try_files $uri =404;
+        fastcgi_pass unix:/var/run/php5-fpm.sock;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+        include        fastcgi_params;
+        fastcgi_buffer_size 128k;
+        fastcgi_buffers 256 4k;
+        fastcgi_busy_buffers_size 256k;
+        fastcgi_temp_file_write_size 256k;
+    }
+</code></pre>
+
+<p>#&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; END</p>
+
+<pre><code>    # Only for nginx-naxsi used with nginx-naxsi-ui : process denied requests
+    #location /RequestDenied {
+    #       proxy_pass http://127.0.0.1:8080;
+
+    #error_page 404 /404.html;
+
+    # redirect server error pages to the static page /50x.html
+    #
+    #error_page 500 502 503 504 /50x.html;
+    #location = /50x.html {
+    #       root /usr/share/nginx/html;
+    #}
+
+    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+    #
+    #location ~ \.php$ {
+    #       fastcgi_split_path_info ^(.+\.php)(/.+)$;
+    #       # NOTE: You should have &quot;cgi.fix_pathinfo = 0;&quot; in php.ini
+    #
+    #       # With php5-cgi alone:
+    #       fastcgi_pass 127.0.0.1:9000;
+    #       # With php5-fpm:
+    #       fastcgi_pass unix:/var/run/php5-fpm.sock;
+    #       fastcgi_index index.php;
+    #       include fastcgi_params;
+    #}
+
+    # deny access to .htaccess files, if Apache's document root
+    # concurs with nginx's one
+    #
+    #location ~ /\.ht {
+    #       deny all;
+    #}
+</code></pre>
+
+<p>}</p>
+
+<pre><code>
+Codeigniter config:
+
+```php config.php
+$config['index_page'] = '';
+$config['uri_protocol'] = 'REQUEST_URI';
+</code></pre>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-08-08 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/08/18/2014-08-18-event-driven-i-slash-o-models-and-coroutine/" class="post-title">Event-driven I/O models and Coroutine Notes</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-event-driven" href="http://kerkerj.github.io//categories/event-driven">event-driven</a><a class="post-category post-category-nodejs" href="http://kerkerj.github.io//categories/nodejs">nodejs</a><a class="post-category post-category-node" href="http://kerkerj.github.io//categories/node">node</a><a class="post-category post-category-ruby" href="http://kerkerj.github.io//categories/ruby">ruby</a><a class="post-category post-category-python" href="http://kerkerj.github.io//categories/python">python</a><a class="post-category post-category-twisted" href="http://kerkerj.github.io//categories/twisted">twisted</a><a class="post-category post-category-eventmachine" href="http://kerkerj.github.io//categories/eventmachine">eventmachine</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        
+
+<h2 id="event-driven-i-o-model:df9d0007e631585c51aa568ee94d06b1">Event-driven I/O model</h2>
+
+<p>首先，聽到 Event-driven 是從 <a href="http://nodejs.org/">Node.js</a> 得知，</p>
+
+<blockquote>
+<p>Node.js® is a platform built on <a href="http://code.google.com/p/v8/">Chrome&rsquo;s JavaScript runtime</a> for easily building fast, scalable network applications.</p>
+
+<p>Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient, perfect for data-intensive real-time applications that run across distributed devices.</p>
+</blockquote>
+
+<p>其實剛聽到這詞會有點陌生，我們可以先從 Victor 所寫的文章開始讀起:
+<a href="http://blog.ez2learn.com/2010/07/17/talk-about-coroutine-and-gevent/">淺談coroutine與gevent</a></p>
+
+<p>裡面提到了幾種網路模型：
+&gt;
+1. 阻塞式單一行程<br />
+2. 阻塞式多行程
+3. 阻塞式多行程多執行序
+4. 非阻塞式事件驅動
+5. 非阻塞式 coroutine</p>
+
+<p>以下是各語言 event-driven 的 model<br />
+(Node.js 就不列出了，本身就是 event-driven 設計)</p>
+
+<pre><code>Event-driven model:
+* Ruby 	-&gt; [Eventmachine](http://rubyeventmachine.com/)  
+			-&gt; [Celluloid::IO](https://github.com/celluloid/celluloid-io)   
+			-&gt; [Thin Server](http://code.macournoyer.com/thin)   
+* Python 	-&gt; [Twisted](https://twistedmatrix.com/trac/)  
+			-&gt; [Tornado](http://www.tornadoweb.org/en/stable)   
+* Perl	 -&gt; [Perl Object Environment (POE)](http://poe.perl.org)    
+* PHP	 	-&gt; [REACT](http://reactphp.org) 
+</code></pre>
+
+<p>以 Ruby 建構 API Service 的話，可以使用 Sinatra + Eventmachine + thin proxy + Nginx 的 Solution:<br />
+<a href="http://recipes.sinatrarb.com/p/embed/event-machine">Embedding Sinatra within EventMachine</a></p>
+
+<p>延伸閱讀:<br />
+<a href="https://www.igvita.com/2008/05/27/ruby-eventmachine-the-speed-demon/">2008 - Eventmachine and Reactor pattern</a><br />
+<a href="http://developwithstyle.com/articles/2012/05/23/lessons-learnt-from-building-a-rest-based-api/">2012 - Lessons Learnt From Building a REST API</a><br />
+<a href="https://docs.google.com/document/d/1dU-juYN25FMXdp6Ju62KAIT_0tuuZAPEgZkj-aT6kPQ/edit#heading=h.lafes4uxj2b0">年份未知 - 針對各 framework 進行評測 Event Driven I/O Web Application Server Analysis</a><br />
+<a href="http://blog.sina.com.cn/s/blog_704b6af70100py9n.html">Twisted 教程</a></p>
+
+<p>####Reactor 模型
+Node.js 處理 concurrency 是 Reactor mode<br />
+Ruby 的 Goliath framework 也是 Reactor mode<br />
+Golang, Erlang 是 CSP (communicating sequential process)</p>
+
+<p>現在比較流行的是 event-driven 的 Reactor mode, e.g. Node.js, Goliath<br />
+但是 Node.js 比較令人詬病的是 code 難維護，太多層層的 callback 會擾亂邏輯<br />
+畢竟線性處理比較符合人類思維<br />
+而 Ruby 使用 Fiber 以避免寫出過多的 callback<br />
+Python 的 Twisted 也已經存在好一陣子，穩定發展中</p>
+
+<p>不過以 Node.js 典型的應用的確是 proxy, API server<br />
+因此我們可以參考 Node.js 的特性，使用其他語言來達到同樣的效果<br />
+那就是 event-driven</p>
+
+<h2 id="coroutine-programming:df9d0007e631585c51aa568ee94d06b1">Coroutine Programming</h2>
+
+<pre><code>* Golang - goroutine (native) 
+* Python - [gevent](http://www.gevent.org/)  
+* Ruby - Fiber (native)   
+* Lua   
+</code></pre>
+
+<p>延伸閱讀:<br />
+<a href="http://www.bigfastblog.com/">Ruby 的 eventmachine 相關討論</a><br />
+<a href="http://www.blogjava.net/killme2008/archive/2010/03/11/315158.html">Ruby Fiber 指南</a><br />
+<a href="http://electronic-blue.herokuapp.com/blog/2012/06/coroutine-an-introduction/">2012 - Lua - Coroutine introduction</a><br />
+<a href="https://www.igvita.com/2009/05/13/fibers-cooperative-scheduling-in-ruby/">2009 - Fibers &amp; Cooperative Scheduling in Ruby</a><br />
+<a href="http://www.blogjava.net/killme2008/archive/2010/03/02/314264.html">2010 - Lua、LuaJIT Coroutine和Ruby Fiber的切換效率對比</a></p>
+
+<hr />
+
+<p>建構 API Service 考慮到的除了 Server 以外，<br />
+語言的特性通常也必須考慮進去，例如<br />
+sync v.s. async<br />
+coroutine v.s. non-coroutine<br />
+但通常以當前需求而言，其實也不需要 over-design<br />
+只要選擇拿手的，能夠快速方便的開發出雛形，<br />
+我想等到真的快要 10000 per/second request 時，再來煩惱更進一步的架構吧</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-08-08 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/08/15/2014-08-15-add-tracked-file-to-gitignore/" class="post-title">Add tracked file to .gitignore</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-git" href="http://kerkerj.github.io//categories/git">git</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <pre><code>git update-index --assume-unchanged &lt;file&gt;
+</code></pre>
+
+<p>If there&rsquo;s a remote server, also do:</p>
+
+<pre><code>git rm --cached &lt;file&gt;
+</code></pre>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-08-08 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/08/06/2014-08-06-writing-lua-on-mac/" class="post-title">Writing Lua on Mac</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-mac" href="http://kerkerj.github.io//categories/mac">mac</a><a class="post-category post-category-lua" href="http://kerkerj.github.io//categories/lua">lua</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>##Install lua on mac</p>
+
+<p>I&rsquo;m not sure that whether Lua is built on mac originally.</p>
+
+<p><span style="color:red;">(Ok, tested on Mac OSX 10.9, there is Lua in it.)</span></p>
+
+<p>So I installed Lua via <a href="http://brew.sh/">Homebrew</a>.</p>
+
+<p>Install homebrew (optional)</p>
+
+<pre><code>ruby -e &quot;$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)&quot;
+</code></pre>
+
+<p>Install Lua by homebrew</p>
+
+<pre><code>brew install lua
+</code></pre>
+
+<p>##Writing Lua</p>
+
+<p>You can use command: <code>lua</code> to interact with lua. (just like <code>php -a</code> or <code>irb</code>)</p>
+
+<p>```lua hello.lua
+print(&ldquo;Hello World&rdquo;)</p>
+
+<pre><code>
+```lua fact.lua
+function fact(n)
+	if n == 0 then
+		return 1
+	else
+		return n * fact(n-1)
+	end
+end
+
+print(&quot;enter a number:&quot;)
+num = io.read(&quot;*number&quot;) 
+print(fact(num))
+		
+</code></pre>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-08-08 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/08/06/2014-08-06-emoji-data-in-mysql/" class="post-title">Emoji data in MySQL</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-mysql" href="http://kerkerj.github.io//categories/mysql">mysql</a><a class="post-category post-category-emoji" href="http://kerkerj.github.io//categories/emoji">emoji</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>Supported MySQL 5.5, 5.6.</p>
+
+<p>First, MySQL should set DB and table to utf8mb4.</p>
+
+<p>utf8 - 3 byte characters</p>
+
+<p>utf8mb4 - 4 byte characters</p>
+
+<pre><code class="language-sql">ALTER DATABASE my_database DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+
+ALTER TABLE my_table DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+ALTER TABLE my_column CHANGE my_column my_column TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;
+</code></pre>
+
+<p>Then, when inserting data or selecting data, execute this statement first:</p>
+
+<pre><code class="language-sql">--Execute this statement first
+SET NAMES utf8mb4;
+
+--then insert or select
+SELECT * FROM my_table
+</code></pre>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-08-08 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/08/05/2014-08-05-capistrano-with-rails-basic-notes/" class="post-title">Capistrano with rails - basic notes</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-rails" href="http://kerkerj.github.io//categories/rails">rails</a><a class="post-category post-category-capistrano" href="http://kerkerj.github.io//categories/capistrano">capistrano</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        
+
+<p>詳細的東西還是看 project&rsquo;s github page 比較快 - <a href="https://github.com/capistrano/capistrano">Capistrano@github</a></p>
+
+<p>Capistrano 剛開始寫 deploy script 時真的會有點搞不太懂 XD<br />
+記錄一下使用 &lsquo;capistrano&rsquo; 把特定的 github repo 抓到 remote server</p>
+
+<p>##安裝</p>
+
+<p>先在 Gemfile 加入:</p>
+
+<pre><code>gem 'capistrano', '~&gt; 3.2.0'   
+</code></pre>
+
+<p>然後安裝~</p>
+
+<pre><code>bundle install
+</code></pre>
+
+<p>步驟大概會是：</p>
+
+<p>假設已經寫完 capistrano 了，執行 script 時，<br />
+capistrano 會先利用 script 裡提供的 server ip 以及 public key，<br />
+先連線到 remote server，接著再到 github 上拉 code 到指定的目錄裡，<br />
+再重開 server。</p>
+
+<p>##產生相關檔案</p>
+
+<pre><code>bundle exec cap install 
+</code></pre>
+
+<p>會產生以下檔案:  (copy from <a href="https://github.com/capistrano/capistrano">Capistrano@github</a>)</p>
+
+<pre><code>├── Capfile
+├── config
+│   ├── deploy
+│   │   ├── production.rb
+│   │   └── staging.rb
+│   └── deploy.rb
+└── lib
+    └── capistrano
+            └── tasks
+</code></pre>
+
+<p>deploy.rb 通常是設定 source control 的類型 (可以設定 git, hg, svn)，<br />
+project repo 的路徑，要 deploy 到 server 的哪個目錄等等，<br />
+<code>config/deploy/*</code> 底下的檔案則是根據不同的 stage 分別設定，<br />
+以下是 deploy.rb, production.rb 的一些簡單設定</p>
+
+<p>```ruby deploy.rb</p>
+
+<h1 id="config-valid-only-for-capistrano-3-1:fec4ba4e5c88d61d622b40a3ae8beda5">config valid only for Capistrano 3.1</h1>
+
+<p>lock &lsquo;3.2.1&rsquo;</p>
+
+<p>set :application, &lsquo;application_name&rsquo;
+set :repo_url, &lsquo;github_repo_url&rsquo;</p>
+
+<p>set :deploy_via, :copy</p>
+
+<h1 id="default-branch-is-master:fec4ba4e5c88d61d622b40a3ae8beda5">Default branch is :master</h1>
+
+<h1 id="ask-branch-proc-git-rev-parse-abbrev-ref-head-chomp-call:fec4ba4e5c88d61d622b40a3ae8beda5">ask :branch, proc { <code>git rev-parse --abbrev-ref HEAD</code>.chomp }.call</h1>
+
+<h1 id="default-deploy-to-directory-is-var-www-my-app:fec4ba4e5c88d61d622b40a3ae8beda5">Default deploy_to directory is /var/www/my_app</h1>
+
+<p>set :deploy_to, &lsquo;/server/www/path/&rsquo;</p>
+
+<h1 id="default-value-for-scm-is-git:fec4ba4e5c88d61d622b40a3ae8beda5">Default value for :scm is :git</h1>
+
+<p>set :scm, :git</p>
+
+<h1 id="default-value-for-format-is-pretty:fec4ba4e5c88d61d622b40a3ae8beda5">Default value for :format is :pretty</h1>
+
+<p>set :format, :pretty</p>
+
+<h1 id="default-value-for-log-level-is-debug:fec4ba4e5c88d61d622b40a3ae8beda5">Default value for :log_level is :debug</h1>
+
+<p>set :log_level, :debug</p>
+
+<h1 id="default-value-for-pty-is-false:fec4ba4e5c88d61d622b40a3ae8beda5">Default value for :pty is false</h1>
+
+<h1 id="set-pty-true:fec4ba4e5c88d61d622b40a3ae8beda5">set :pty, true</h1>
+
+<h1 id="default-value-for-linked-files-is:fec4ba4e5c88d61d622b40a3ae8beda5">Default value for :linked_files is []</h1>
+
+<h1 id="set-linked-files-w-config-database-yml:fec4ba4e5c88d61d622b40a3ae8beda5">set :linked_files, %w{config/database.yml}</h1>
+
+<h1 id="default-value-for-linked-dirs-is:fec4ba4e5c88d61d622b40a3ae8beda5">Default value for linked_dirs is []</h1>
+
+<h1 id="set-linked-dirs-w-bin-log-tmp-pids-tmp-cache-tmp-sockets-vendor-bundle-public-system:fec4ba4e5c88d61d622b40a3ae8beda5">set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}</h1>
+
+<h1 id="default-value-for-default-env-is:fec4ba4e5c88d61d622b40a3ae8beda5">Default value for default_env is {}</h1>
+
+<h1 id="set-default-env-path-opt-ruby-bin-path:fec4ba4e5c88d61d622b40a3ae8beda5">set :default_env, { path: &ldquo;/opt/ruby/bin:$PATH&rdquo; }</h1>
+
+<h1 id="default-value-for-keep-releases-is-5:fec4ba4e5c88d61d622b40a3ae8beda5">Default value for keep_releases is 5</h1>
+
+<h1 id="set-keep-releases-5:fec4ba4e5c88d61d622b40a3ae8beda5">set :keep_releases, 5</h1>
+
+<p>namespace :deploy do</p>
+
+<p>desc &lsquo;Restart application&rsquo;
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      # Your restart mechanism here, for example:
+      execute :mkdir, &lsquo;-p&rsquo;, &ldquo;#{ release_path }/tmp&rdquo;
+      execute :touch, release_path.join(&lsquo;tmp/restart.txt&rsquo;)
+    end
+  end</p>
+
+<p>after :publishing, :restart</p>
+
+<p>after :restart, :clear_cache do
+    on roles(:web), in: :groups, limit: 3, wait: 10 do
+      # Here we can do anything such as:
+      # within release_path do
+      #  execute :rake, &lsquo;cache:clear&rsquo;
+      # end
+    end
+  end</p>
+
+<p>end</p>
+
+<pre><code>
+```ruby production.rb
+# Simple Role Syntax
+# ==================
+# Supports bulk-adding hosts to roles, the primary server in each group
+# is considered to be the first unless any hosts have the primary
+# property set.  Don't declare `role :all`, it's a meta role.
+
+role :app, %w{app@server}
+role :web, %w{web@server}
+role :db,  %w{db@server}
+
+
+# Extended Server Syntax
+# ======================
+# This can be used to drop a more detailed server definition into the
+# server list. The second argument is a, or duck-types, Hash and is
+# used to set extended properties on the server.
+
+server 'server_ip', user: 'server_user', roles: %w{app}, my_property: :my_value
+
+
+# Custom SSH Options
+# ==================
+# You may pass any option but keep in mind that net/ssh understands a
+# limited set of options, consult[net/ssh documentation](http://net-ssh.github.io/net-ssh/classes/Net/SSH.html#method-c-start).
+#
+# Global options
+# --------------
+#  set :ssh_options, {
+#    keys: %w(/home/rlisowski/.ssh/id_rsa),
+#    forward_agent: true
+#    auth_methods: %w(password)
+#  }
+#
+# And/or per server (overrides global)
+# ------------------------------------
+ server 'server_ip',
+   user: 'server_user',
+   ssh_options: {
+     keys: %w(/user/.ssh/id_rsa),
+     forward_agent: false,
+     auth_methods: %w(publickey password)
+   }
+
+</code></pre>
+
+<p>設定完後，因為這邊是設定 production.rb<br />
+因此執行以下指令 deploy 到 production server</p>
+
+<pre><code class="language-console">bundle exec cap production deploy
+</code></pre>
+
+<p>如果 <code>exit status 0 (successful).</code><br />
+那就是成功啦~</p>
+
+                    </div>
+                </section>
+                
+            </div>
+            
+<div class="pagination">
+  <nav role="pagination" class="post-list-pagination">
+      
+      <a href="http://kerkerj.github.io/page/6/" class="post-list-pagination-item pure-button post-list-pagination-item-prev">
+        <i class="fa fa-angle-double-left"></i>&nbsp;Newer
+      </a>
+      
+    <span class="post-list-pagination-item post-list-pagination-item-current">Page 7 of 14</span>
+    
+      <a href="http://kerkerj.github.io/page/8/" class="post-list-pagination-item pure-button post-list-pagination-item-next">
+        Older&nbsp;<i class="fa fa-angle-double-right"></i>
+      </a>
+    
+  </nav>
+</div>
+
+
+            <div class="footer">
+    <div class="pure-menu pure-menu-horizontal pure-menu-open">
+        <ul>
+            <li>Powered by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a></li>
+        </ul>
+    </div>
+</div>
+<script src="http://kerkerj.github.io//js/all.min.js"></script>
+<script>
+hljs.initHighlightingOnLoad();
+</script>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

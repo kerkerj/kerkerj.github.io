@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+     
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="[Android] 程式開發雜記 | kerkerj">
+    <meta property="og:url" content="http://kerkerj.github.io/blog/2011/05/06/2011-05-06-android-notes/">
+    <meta property="og:description" content="">
+    
+    
+    <meta property="og:site_name" content="kerkerj">
+
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="kerkerj" />
+    <meta name="twitter:title" content="[Android] 程式開發雜記 &middot; kerkerj">
+    <meta name="twitter:description" content="">
+
+    
+    <title>[Android] 程式開發雜記 &middot; kerkerj</title>
+
+    
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+    
+
+    <link rel="stylesheet" href="http://kerkerj.github.io//css/all.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    
+    
+      <link rel="stylesheet" href="http://kerkerj.github.io//css/highlight/railscasts.css">
+    
+
+    
+    <link href="http://kerkerj.github.io/favicon.ico" rel="icon">
+
+    
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://kerkerj.github.io//index.xml">
+</head>
+<body>
+
+
+<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+    <div class="header">
+        <hgroup>
+            <h1 class="brand-title"><a href="http://kerkerj.github.io/">kerkerj</a></h1>
+            <h2 class="brand-tagline"> Hi. </h2>
+        </hgroup>
+
+        <nav class="nav">
+            
+            <ul class="pure-menu-list">
+              
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//notes/">Notes</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//about/">About</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//mac-app-list/">Mac App List</a>
+                </li>
+              
+            </ul>
+
+            
+            <ul class="nav-list">
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://twitter.com/kerkerj"><i class="fa fa-twitter"></i> Twitter</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://github.com/kerkerj "><i class="fa fa-github-alt"></i> Github</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            
+            <div class="posts">
+                <h1 class="content-subhead">2011-05-05 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2011/05/06/2011-05-06-android-notes/" class="post-title">[Android] 程式開發雜記</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-android" href="http://kerkerj.github.io//categories/android">android</a>
+                            
+                        </p>
+                    </header>
+                    <div class="post-description">
+                        <p>最近在寫和Android程式，因此把一些重點筆記下來：</p>
+
+<p>#Android中各種JAVA包的功能描述
+(ref: <a href="http://huenlil.pixnet.net/blog/post/24346240">http://huenlil.pixnet.net/blog/post/24346240</a>)</p>
+
+<p>在Android的應用程序開發中，通常使用的是JAVA語言，除了需要熟悉JAVA語言的基礎知識之外，還需要瞭解Android提供的擴展的JAVA功能。
+在Android中，各種包寫成android.*的方式，重要包的描述如下所示：
+<code>
+* android.app        ：提供高層的程序模型、提供基本的運行環境
+* android.content    ：包含各種的對設備上的數據進行訪問和發佈的類
+* android.database   ：通過內容提供者瀏覽和操作數據庫
+* android.graphics   ：底層的圖形庫，包含畫布，顏色過濾，點，矩形，可以將他們直接繪製到屏幕上
+* android.location   ：定位和相關服務的類
+* android.media      ：提供一些類管理多種音頻、視頻的媒體接口
+* android.net        ：提供幫助網絡訪問的類，超過通常的java.net.* 接口
+* android.os         ：提供了系統服務、消息傳輸、IPC機制
+* android.opengl     ：提供OpenGL的工具
+* android.provider   ：提供類訪問Android的內容提供者
+* android.telephony  ：提供與撥打電話相關的API交互
+* android.view       ：提供基礎的用戶界面接口框架
+* android.util       ：涉及工具性的方法，例如時間日期的操作
+* android.webkit     ：默認瀏覽器操作接口
+* android.widget     ：包含各種UI元素（大部分是可見的）在應用程序的屏幕中使用
+</code></p>
+
+<p>#Empty Process, Background Process, Service Process, Visible Process, Foreground Process 初探
+(ref: <a href="http://www.gururu.tw/Android-Process-Thread.html">[Android 教學課程] Empty Process , Background Process , Service Process , Visible Process , Foreground Process 初探</a> )</p>
+
+<pre><code>* 關於 Android 的應用程式組件 ( Application Components ) 的補充
+* 處理程序 ( Process ) 與執行緒 ( Thread )
+* 空白處理程序 ( Empty Process )
+* 背景處理程序 ( Background Process )
+* Service 處理程序 ( Service process )
+* 可視處理程序 ( Visible Process )
+* 前景處理程序 ( Foreground process ) 
+</code></pre>
+
+<p>#Activity , Fragment , Service , Broadcast receiver , Content provider 與 Intent 初探
+( ref: <a href="http://www.gururu.tw/Android-Activity-Fragment-Service-Broadcast-receiver-Content-provider-Intent.html">[Android 教學課程] Activity , Fragment , Service , Broadcast receiver , Content provider 與 Intent 初探</a> )</p>
+
+<pre><code>* 什麼是 Activity？ Activity ：它負責前端使用者介面處理。
+* 什麼是 Fragment？ Fragment ：它在一個具分割畫面( Multi-Pane )的 Activity 應用程式組件之中，負責分割畫面的部份區段或部份行為。
+* 什麼是 Service?  Service ：它負責後端程式運算。
+* 什麼是 Content provider？ Content provider ：它負責應用程式之間資料共享的任務。
+* 什麼是 Broadcast receivers？  Broadcast receivers ：此應用程式組件的中文譯名，多半會翻成廣播接收者或者廣播接收器。
+</code></pre>
+
+<p>#手機截圖：
+(ref:<a href="http://www.eprice.com.tw/mobile/talk/124/4483653/">【教學】Android 手機截圖：一點都不難</a>)</p>
+
+<p>若有裝Android SDK 的話 (一般開發者應該都會裝吧XD)，直接開 Android SDK 的目錄 /tools/ddms.bat，執行此批次檔就可以囉 (使用時不要將該dos畫面關閉), 此時手機必須連接上網路，並設定USB偵錯，
+要截圖時只要到 device/capture screen 即可</p>
+
+                    </div>
+                    <div class="post-share">
+                        <div class="post-share-links">
+                            <h4 style="">Share</h4>
+                            <a href="#" data-type="facebook" data-url="http://kerkerj.github.io/blog/2011/05/06/2011-05-06-android-notes/" data-title="[Android] 程式開發雜記" data-description="" data-media="" class="prettySocial fa fa-facebook"></a>
+                            <a href="#" data-type="googleplus" data-url="http://kerkerj.github.io/blog/2011/05/06/2011-05-06-android-notes/" data-description="" class="prettySocial fa fa-google-plus"></a>
+                            
+                            <a href="#" data-type="twitter" data-url="http://kerkerj.github.io/blog/2011/05/06/2011-05-06-android-notes/" data-description="" data-via="kerkerj" class="prettySocial fa fa-twitter"></a>
+                            
+
+                        </div>
+                    </div>
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/kerkerj.github.io\/blog\/2011\/05\/06\/2011-05-06-android-notes\/';
+    var disqus_title = '[Android] 程式開發雜記';
+    var disqus_url = 'http:\/\/kerkerj.github.io\/blog\/2011\/05\/06\/2011-05-06-android-notes\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                </section>
+            </div>
+            <div class="footer">
+    <div class="pure-menu pure-menu-horizontal pure-menu-open">
+        <ul>
+            <li>Powered by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a></li>
+        </ul>
+    </div>
+</div>
+<script src="http://kerkerj.github.io//js/all.min.js"></script>
+<script>
+hljs.initHighlightingOnLoad();
+</script>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

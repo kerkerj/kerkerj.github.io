@@ -1,0 +1,1687 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://kerkerj.github.io/">
+    <meta property="og:title" content="kerkerj">
+    
+    <meta property="og:description" content="如題~ 先假設 pi2 本身的 IP 是 192.168.1.200 首先先進去 server 來更新一下~ $ sudo apt-get update &amp;&amp; sudo apt-get upgrade 再來就裝 motion 他其實是一個 motion detector，不過也可以拿來當作 web cam 用的 streaming server XD $ sudo apt-get install motion 編輯設定檔 /etc/motion/motion.conf $ sudo vi /etc/motion/motion.conf 找到以下幾個值，並分別改成下面 daemon = ON webcam_localhost = OFF control_localhost = OFF webcam_localhost 是 streaming 介面 control_localhost 是設定介面 如果要改預設 port，就找 webcam_port, or control_port 最後設定將 service 啟動 $ sudo vi /etc/default/motion 將 no">
+    
+    
+    
+    <meta property="og:site_name" content="kerkerj">
+
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="kerkerj" />
+    <meta name="twitter:title" content="kerkerj &middot; kerkerj">
+    <meta name="twitter:description" content="Hi.">
+
+    
+    <title>kerkerj &middot; kerkerj</title>
+
+    
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+    
+
+    <link rel="stylesheet" href="http://kerkerj.github.io//css/all.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    
+    
+      <link rel="stylesheet" href="http://kerkerj.github.io//css/highlight/railscasts.css">
+    
+
+    
+    <link href="http://kerkerj.github.io/favicon.ico" rel="icon">
+
+    
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://kerkerj.github.io//index.xml">
+</head>
+<body>
+
+
+<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+    <div class="header">
+        <hgroup>
+            <h1 class="brand-title"><a href="http://kerkerj.github.io/">kerkerj</a></h1>
+            <h2 class="brand-tagline"> Hi. </h2>
+        </hgroup>
+
+        <nav class="nav">
+            
+            <ul class="pure-menu-list">
+              
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//notes/">Notes</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//about/">About</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//mac-app-list/">Mac App List</a>
+                </li>
+              
+            </ul>
+
+            
+            <ul class="nav-list">
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://twitter.com/kerkerj"><i class="fa fa-twitter"></i> Twitter</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://github.com/kerkerj "><i class="fa fa-github-alt"></i> Github</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            
+            <div class="posts">
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/22/2014-10-22-api-d22/" class="post-title">[API-d22] - 實戰開發 - 讀取 TODO task API with mongoose</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-restful" href="http://kerkerj.github.io//categories/restful">restful</a><a class="post-category post-category-api" href="http://kerkerj.github.io//categories/api">api</a><a class="post-category post-category-nodejs" href="http://kerkerj.github.io//categories/nodejs">nodejs</a><a class="post-category post-category-express" href="http://kerkerj.github.io//categories/express">express</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day22">Github 參考</a></p>
+
+<p>如果有使用 MongoDB client 的話就可以搭配使用會比較有感覺</p>
+
+<p>Mac 我是使用 Robomongo，算很好上手~</p>
+
+<p>今天要來實作讀取的部分</p>
+
+<p>讀取有分兩種，一種是讀取 list</p>
+
+<p>另一種是讀取特定某個 todo task，今天兩種都會實作</p>
+
+<p>首先我們先實作 get todo list</p>
+
+<p>因為若要拿到特定的 todo task，需要 todo task 的 id</p>
+
+<p>而我們現在還不曉得 todo task 的 id 是多少，我們只知道 user_id</p>
+
+<p>因此就先從 list 下手</p>
+
+<p>routes/users.js:</p>
+
+<pre><code class="language-javascript">// Get todo list
+router.get('/:user_id/todos', function(req, res) {
+	var user_id = req.params.user_id;
+
+    TODO.find(
+        {user_id: user_id},
+        function (err, results) {
+            if (err) {
+                res.status(400).json(
+                    { error: &quot;can not find data&quot; }
+                );
+            } else {
+                res.status(200).json(
+                    results
+                );
+            }
+        }
+    );
+});
+</code></pre>
+
+<p>上面程式碼的意思是，先抓到 uri 的 user_id</p>
+
+<p>再來就直接進 db 找，find() 的第一個參數為:</p>
+
+<pre><code>{user_id: user_id},
+</code></pre>
+
+<p>可以想像成是 SQL 語法中的 WHERE 條件</p>
+
+<pre><code>SELECT * WHERE user_id = 'user_id' FROM todos
+</code></pre>
+
+<p>而 callback 則是針對 error 或 results 作處理</p>
+
+<p>試著將 server 跑起來，然後使用 POSTMAN 丟 GET request 試試看</p>
+
+<p>如果沒有資料，就利用昨天實作的 POST API 新增幾個吧！</p>
+
+<p>記得 url 中輸入的 user_id 要在 DB 中有該 user 的資料才找的到資料哦</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%203.17.08.png" alt="images" />
+</p>
+
+<p>如此一來就有 task id 了!</p>
+
+<p>再來就來實作讀取特定 id 的 task API 吧!</p>
+
+<p>程式碼如下</p>
+
+<p>routes/user.js:</p>
+
+<pre><code>// Get a todo task
+router.get('/:user_id/todos/:todo_id', function(req, res) {
+    var user_id = req.params.user_id;
+    var todo_id = req.params.todo_id;
+
+    TODO.find(
+        { _id: todo_id, user_id: user_id},
+        function (err, results) {
+            if (err) {
+                res.status(400).json(
+                    { error: &quot;can not find data&quot; }
+                );
+            } else {
+                res.status(200).json(
+                    results[0]
+                );
+            }
+        }
+    );
+});
+</code></pre>
+
+<p>這次更簡單了，user_id 及 todo_id 都是從 url 上取值</p>
+
+<p>接著一樣使用 where 條件，將值帶入找資料</p>
+
+<p>最後交給 callback 處理回傳值</p>
+
+<p>將 server 跑起來，試著先從todo list 複製某一筆 _id 的值</p>
+
+<p>丟到 url 中試試看</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%203.21.51.png" alt="image" />
+</p>
+
+<p>如此一來，讀取特定 task 的 API 也完成囉!</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/21/2014-10-21-api-d21/" class="post-title">[API-d21] - 實戰開發 - 新增 TODO task API with mongoose</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-restful" href="http://kerkerj.github.io//categories/restful">restful</a><a class="post-category post-category-api" href="http://kerkerj.github.io//categories/api">api</a><a class="post-category post-category-nodejs" href="http://kerkerj.github.io//categories/nodejs">nodejs</a><a class="post-category post-category-express" href="http://kerkerj.github.io//categories/express">express</a><a class="post-category post-category-mongoose" href="http://kerkerj.github.io//categories/mongoose">mongoose</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day21">Github 參考</a></p>
+
+<p>昨天我們了解了如何拿 url params 以及 request data</p>
+
+<p>今天我們就來使用他，對資料庫做存取</p>
+
+<p>由於使用到資料庫，因此我們要加入資料庫的 driver</p>
+
+<p>我們用的是 <code>mongoose</code> 套件</p>
+
+<p>app.js:</p>
+
+<pre><code class="language-javascript">// 在最上方加入
+var mongoose = require('mongoose');
+
+// 在某個地方連接資料庫
+var db_uri = &quot;mongodb://192.168.33.10:27017/TODOs&quot;;
+mongoose.connect(db_uri);
+</code></pre>
+
+<p>在這邊我是使用了虛擬機的 DB，因此是 <code>mongodb://192.168.33.10:27017/TODOs</code></p>
+
+<p>DB 的名稱為 <code>TODOs</code></p>
+
+<p>這樣在程式一跑起來時，就會連接資料庫了!</p>
+
+<p>再來我們就要設定在對資料庫做 CRUD 時，所需要做的事情</p>
+
+<p>首先我們先要定義 schema，</p>
+
+<p>雖然 mongodb 是 schema-free，但是官方文件也有提到最好還是有固定的 schema 避免記憶體 allocate 時出現問題，而程式撰寫時邏輯也不會因此而過於複雜</p>
+
+<p>這時候我們就需要 model 資料夾了，在 model 資料夾中新增一個 todos.js</p>
+
+<p>裡面要放的就是 todo task 的 schema</p>
+
+<p>內容如下:</p>
+
+<p>models/todos.js:</p>
+
+<pre><code>'use strict';
+
+var mongoose = require('mongoose');
+
+// Define our todo schema
+var TODOschema   = new mongoose.Schema({
+    user_id: String,
+    content: String,
+    created_at: Date,
+    updated_at: Date
+});
+
+// Export the Mongoose model
+module.exports = mongoose.model('TODO', TODOschema);
+</code></pre>
+
+<p>我們定義了幾個東西 user_id, content, created_at, updated_at</p>
+
+<p>其實 ObjectID 中已經有包含建立資訊了，其實 created_at 是可以省略掉的，不過在這邊還是加一下</p>
+
+<p>注意下面這行:</p>
+
+<pre><code>module.exports = mongoose.model('TODO', TODOschema);
+</code></pre>
+
+<p>&lsquo;TODO&rsquo; 在這邊是 Collection (RDBMS 中的 table) 的名稱</p>
+
+<p>在 mongoose 中，會自動複數化，所以在 Mongodb 中的 Collection name 會變成 &lsquo;todos&rsquo; ，</p>
+
+<p>雖然只是小小的一行，但是蠻重要的</p>
+
+<p>最後將這個 model exports 成一個 mongoose.model 物件</p>
+
+<p>那我們什麼時候會用到這個 model 物件呢?</p>
+
+<p>就是在 routes/user.js 中，</p>
+
+<p>routes/users.js:</p>
+
+<pre><code>var TODO = require('../models/todos');
+</code></pre>
+
+<p>這樣在 users.js 中就可以使用 TODO 這個物件了!</p>
+
+<p>我們先試著編輯 POST 的 route，拿到 POST 資料後，將資料轉成 TODO 的物件，存到 mongodb 裏</p>
+
+<p>以下是 routes/users.js 中的 post 程式碼段</p>
+
+<p>簡單來說就是先抓到 uri 的參數以及 post data</p>
+
+<p>並且使用 models/todos.js 的 model 新建立一個 todo 物件</p>
+
+<p>並將該物件用 post data 初始化，</p>
+
+<p>初始化完後就執行寫入 DB 的行為, 若寫入成功則回傳 201 + data</p>
+
+<p>失敗則回傳 400 bad request</p>
+
+<pre><code>// Create a todo task
+router.post('/:user_id/todos', function(req, res) {
+    var user_id = req.params.user_id;
+    var data = req.body;
+
+    // insert to db
+    var todo = new TODO();
+    todo.user_id = user_id;
+    todo.content = data.content;
+    todo.created_at = Date.now();
+    todo.updated_at = Date.now();
+
+    todo.save(function (err) {
+        if (err) {
+            res.status(400).json(
+                { error: &quot;insert db error&quot; }
+            );
+        } else {
+            res.status(201).json(
+                todo
+            );
+        }
+    });
+});
+</code></pre>
+
+<p>試著執行伺服器看看，並且使用 POSTMAN 丟 request 如下:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.54.57.png" alt="image" />
+</p>
+
+<p>POST 的 raw data</p>
+
+<pre><code>{ &quot;content&quot;: &quot;buy milk&quot; }
+</code></pre>
+
+<p>於是就完成了一個 POST 新增 TODO 的 API 了！</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/21/2014-10-21-swift-d21/" class="post-title">[Swift-d21] - 實戰開發 - TODOList - 前置設定</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-swift" href="http://kerkerj.github.io//categories/swift">swift</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p><a href="https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day21">Github link</a></p>
+
+<p>首先在開始寫這隻 app 前，</p>
+
+<p>我們要先定義好程式大致上的流程</p>
+
+<p>基本上接下來的程式碼都不會用到 storyboard</p>
+
+<p>只會用到程式 + xib</p>
+
+<p>程式的流程大致上是使用 Navigation controller 來控制 view 的轉換</p>
+
+<p>第一頁 - tableView 顯示 todo items list</p>
+
+<p><img src="http://goo.gl/RKH85d" alt="image" />
+</p>
+
+<p>點進子項目可以觀看內容，進到子頁後可以編輯，</p>
+
+<p>編輯後就即可存檔</p>
+
+<p>新增項目則在主頁的右上角 &ldquo;Add&rdquo; 可以新增</p>
+
+<p>我們會先從建立假的資料開始，也就是我會先刻出程式的流程</p>
+
+<p>先不接 API</p>
+
+<p>實際寫出運作流程後，再加上 API 操作的部分</p>
+
+<p>因此今天的進度就先開一個新專案，將基本的 Navigation + tableView 建立起來吧:</p>
+
+<p>首先建立一個新專案</p>
+
+<p>再來到 project settings</p>
+
+<p>將 Main Interface 及 Launch Screen file 拿掉</p>
+
+<p>並將 deploy target 設成 7.1 (反正用到的程式碼都一樣~ 沒有特別使用 8.0 的 lib)</p>
+
+<p>設定 device orientation - 只限定直的</p>
+
+<p><img src="http://goo.gl/xQ6m25" alt="image" />
+</p>
+
+<p>接著就來編輯 AppDelegate.swift</p>
+
+<p>建立一個 NavigationController + ViewController</p>
+
+<pre><code class="language-swift">@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+
+    var window: UIWindow?
+    var navigationController: UINavigationController?
+    var viewController: ViewController?
+
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -&gt; Bool {
+        // Override point for customization after application launch.
+        
+        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        self.window?.backgroundColor = UIColor.whiteColor()
+        
+        self.viewController = ViewController()
+        self.viewController?.title = &quot;TODO List&quot;
+        
+        self.navigationController = UINavigationController(rootViewController: self.viewController!)
+        
+        self.window?.makeKeyAndVisible()
+        self.window?.rootViewController = navigationController
+        
+        return true
+    }
+</code></pre>
+
+<p>就是之前有用到的程式碼，稍作改寫</p>
+
+<p>再來到 ViewController 中, 將背景色稍改一些</p>
+
+<pre><code>override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        
+        self.view.backgroundColor = UIColor.yellowColor()
+    }
+</code></pre>
+
+<p>最後將 storyboard 以及 launchScreen.xib 刪掉</p>
+
+<p>執行程式，就 OK 囉！</p>
+
+<p><img src="http://goo.gl/n1T0zv" alt="image" />
+</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/20/2014-10-20-api-d20/" class="post-title">[API-d20] - 實戰開發 - Routes 2, get params and request data</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-restful" href="http://kerkerj.github.io//categories/restful">restful</a><a class="post-category post-category-api" href="http://kerkerj.github.io//categories/api">api</a><a class="post-category post-category-nodejs" href="http://kerkerj.github.io//categories/nodejs">nodejs</a><a class="post-category post-category-express" href="http://kerkerj.github.io//categories/express">express</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day20">Github 參考</a></p>
+
+<p>接著我們要根據我們開之前寫好的 <a href="http://docs.todolist7.apiary.io/">文件</a> 來開發:</p>
+
+<p>要有下列 routes</p>
+
+<pre><code class="language-javascript">TODOs
+GET /user/{user_id}/todos/
+POST /user/{user_id}/todos/
+GET /user/{user_id}/todos/{id}
+PUT /user/{user_id}/todos/{id}
+DELETE /user/{user_id}/todos/{id}
+</code></pre>
+
+<p>這樣的需求其實可以用 namespace 實作，不過我們偷懶一點，直接指向 /user 就好</p>
+
+<p>所以在 app.js 加入</p>
+
+<pre><code>var users = require('./routes/users');
+app.use('/user', users);
+</code></pre>
+
+<p>所以會變這樣:</p>
+
+<pre><code>var express = require('express');
+var app = express();
+
+// Set routers
+var index = require('./routes/index');
+var users = require('./routes/users');
+
+app.use('/', index);
+app.use('/user', users);
+
+module.exports = app;
+</code></pre>
+
+<p>不過看起來我們缺少 routes/users.js，所以我們也來新增一個</p>
+
+<p>routes/users.js 內容如下</p>
+
+<pre><code>'use strict';
+
+var express = require('express');
+var router = express.Router();
+
+router.get('/', function(req, res) {
+
+});
+
+router.post('/', function(req, res) {
+
+});
+
+router.get('/', function(req, res) {
+
+});
+
+router.put('/', function(req, res) {
+
+});
+
+router.delete('/', function(req, res) {
+
+});
+
+module.exports = router;
+</code></pre>
+
+<p>好像有那麼一點符合我們要的 routes 了</p>
+
+<p>我們在把每個詳細的 uri 加入</p>
+
+<p>在這邊要注意</p>
+
+<p>因為我們在 app.js 中把 uers.js 加入了 (&lsquo;/users&rsquo;, users)</p>
+
+<p>這個 route</p>
+
+<p>因此在 users.js 中設定的所有 route 都是接在 <code>/users/</code> 後面的</p>
+
+<p>要注意哦</p>
+
+<p>修改後的檔案:</p>
+
+<pre><code>'use strict';
+
+var express = require('express');
+var router = express.Router();
+
+// Get todo list
+router.get('/:user_id/todos', function(req, res) {
+    res.status(200).json( {success: &quot;GET lists&quot;} );
+});
+
+// Create a todo task
+router.post('/:user_id/todos', function(req, res) {
+    res.status(200).json( {success: &quot;POST&quot;} );
+});
+
+// Get a todo task
+router.get('/:user_id/todos/:todo_id', function(req, res) {
+    res.status(200).json( {success: &quot;GET 1 task&quot;} );
+});
+
+// Update a todo task
+router.put('/:user_id/todos/:todo_id', function(req, res) {
+    res.status(200).json( {success: &quot;PUT&quot;} );
+});
+
+// Delete a todo task
+router.delete('/:user_id/todos/:todo_id', function(req, res) {
+    res.status(200).json( {success: &quot;DELETE&quot;} );
+});
+
+module.exports = router;```
+</code></pre>
+
+<p>將 server 重啟，試著對這些網址丟丟看</p>
+
+<p>這時候使用瀏覽器應該就沒辦法丟 GET 以外的要求了對吧?</p>
+
+<p>此時 chrome extension - POSTMAN 就該上場啦！</p>
+
+<p>打開 POSTMAN 就可以送以下的 request 囉!</p>
+
+<pre><code>GET http://localhost:3000/user/kerkerj/todos  
+POST http://localhost:3000/user/kerkerj/todos  
+GET http://localhost:3000/user/kerkerj/todos/1  
+PUT http://localhost:3000/user/kerkerj/todos/1  
+DELETE http://localhost:3000/user/kerkerj/todos/1  
+</code></pre>
+
+<p>因為剛剛程式裡面都只讓他回傳 success，因此還沒有太大的作用，</p>
+
+<p>不過已經有感覺了對吧!! XD</p>
+
+<p>##Get params from url</p>
+
+<p>我們現在先針對以下這段程式碼作進一步的改寫:</p>
+
+<pre><code>// Get a todo task
+router.get('/:user_id/todos/:todo_id', function(req, res) {
+    res.status(200).json( 
+    	{ 
+    		success: &quot;GET 1 task&quot;, 
+    	  	user: req.params.user_id,
+    	  	todo_id: req.params.todo_id
+    	} );
+});
+</code></pre>
+
+<p>存檔並打開 server，存取 <a href="http://localhost:3000/user/test/todos/1">http://localhost:3000/user/test/todos/1</a></p>
+
+<p>就可以看到回傳值是:</p>
+
+<pre><code>{
+    &quot;success&quot;: &quot;GET 1 task&quot;,
+    &quot;user&quot;: &quot;kerkerj&quot;,
+    &quot;todo_id&quot;: &quot;1&quot;
+}
+</code></pre>
+
+<p>所以又學到一招了!</p>
+
+<p>先設定想要抓哪一段網址，例如:</p>
+
+<p><code>/:user_id/todos/:todo_id</code></p>
+
+<p>前面有加冒號的就是這段網址是要被抓成一個參數</p>
+
+<p>而冒號後面接的就是之後在下面要使用到的名字</p>
+
+<p>要接網址的參數的拿法 - req.params.{???}</p>
+
+<p>例如:</p>
+
+<p>req.params.user_id</p>
+
+<p>req.params.todo_id</p>
+
+<p>拿到了網址的參數，就可以對資料庫做進一步的查詢</p>
+
+<p>##Get request data</p>
+
+<p>那要怎麼拿到 request 的 data 呢?</p>
+
+<p>他並不存在于網址列上啊?</p>
+
+<p>這時候就要加入 <code>body-parser</code> 了!</p>
+
+<p>他會在接收到 request 時，幫我們做過處理後，再傳到每個 request 該去的 router 裏</p>
+
+<p>在 app.js 中加入</p>
+
+<pre><code>// 最上面
+var bodyParser = require('body-parser');
+
+// 加在 router 前面，切記!!
+app.use( bodyParser.json() );
+app.use( bodyParser.urlencoded({ extended: true }) );
+
+app.use('/', index);
+app.use('/user', users);
+</code></pre>
+
+<p>接著在 users.js 中的 POST 區塊中加入兩行:</p>
+
+<pre><code>// Create a todo task
+router.post('/:user_id/todos', function(req, res) {
+    var data = req.body;
+
+    res.status(200).json( {success: data } );
+});
+</code></pre>
+
+<p>開啓 server, 用下圖的方式對 server 做 request:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-09%2023.00.10.png" alt="image" />
+</p>
+
+<p>記得要加入 header -</p>
+
+<p>Content-Type - application/json</p>
+
+<p>Data 要選擇 raw data - 使用自己寫的 json 格式</p>
+
+<p>就可以看到下面的回傳格式了!</p>
+
+<p>透過拿到 url params 以及 request data</p>
+
+<p>我們就可以使用這些資料來對資料庫做存取了!</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/20/2014-10-20-swift-d20/" class="post-title">[Swift-d20] - Basic - 捨棄 Storyboard 使用純程式碼 的方式撰寫 ViewController</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-swift" href="http://kerkerj.github.io//categories/swift">swift</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>今天專案的 <a href="https://github.com/kerkerj/ithome-NoStoryboardDemo">Github link</a></p>
+
+<p>其實哦</p>
+
+<p>寫 Swift 也有幾個禮拜了</p>
+
+<p>我一直覺得使用 Interface Builder 的確很方便</p>
+
+<p>但是在程式面與視覺面之間的溝通常常會漏東漏西的</p>
+
+<p>比方說如果要設定 reusable identifier 時</p>
+
+<p>除了程式裡面的字串要設定以外，還要再到 storyboard 裡設定同樣的字串</p>
+
+<p>一個簡單的小程式可能不超過 20 個 View 的情況下</p>
+
+<p>還可以這樣做，當程式長得非常大的時候，好像就很難注意到這件事，</p>
+
+<p>而且 View 太多 storyboard 就會開始變慢&hellip;.</p>
+
+<p>因此今天要來試著在 Swift 中</p>
+
+<p>如何不用 Storyboard，來打造我們的程式</p>
+
+<p>(當然 xib/nib 還是會用到，只是我們單純捨棄 storyboard，用程式來控制流程)</p>
+
+<p>首先，一樣先建立一個測試專案</p>
+
+<p>接著我們要動到的程式碼是 AppDelegate.swift:</p>
+
+<p>編輯它:</p>
+
+<pre><code class="language-swift">@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+
+    var window: UIWindow?
+    var viewController: ViewController?
+
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -&gt; Bool {
+        // Override point for customization after application launch.
+
+        self.viewController = ViewController()
+        self.viewController?.view.backgroundColor = UIColor.redColor()
+        
+        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        self.window?.backgroundColor = UIColor.whiteColor()
+        
+        self.window?.rootViewController = viewController
+        self.window?.makeKeyAndVisible()
+        
+        return true
+    }
+</code></pre>
+
+<p>其實這段程式碼，就是在做 storyboard 的 &ldquo;進入點&rdquo; 這件事</p>
+
+<pre><code>var viewController: ViewController?
+</code></pre>
+
+<p>我們用專案建立時產生的 ViewController 建立了一個物件</p>
+
+<p>並在 application launch 的時候，將該 ViewController 建立起來，設定他的背景顏色為紅色</p>
+
+<pre><code>self.viewController = ViewController()
+self.viewController?.view.backgroundColor = UIColor.redColor()
+</code></pre>
+
+<p>另外對 window 做一些設定</p>
+
+<pre><code>self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        self.window?.backgroundColor = UIColor.whiteColor()
+</code></pre>
+
+<p>設定他 Screen 大小 (根據手機解析度而定)
+並設定 window 的背景顏色為白色</p>
+
+<p>接著是最重要的設定:</p>
+
+<pre><code>self.window?.rootViewController = viewController
+self.window?.makeKeyAndVisible()
+</code></pre>
+
+<p>我們要讓 viewController 指定為是這個 window 的 rootViewController</p>
+
+<p>並且 makeKeyAndVisible</p>
+
+<p>這樣就完成手動設定進入點的程式了</p>
+
+<p>再來我們就可以大膽一點，把 Storyboard 砍掉啦!</p>
+
+<p>接著執行程式，就可以看到一片紅色了!!!</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2015.10.21.png" alt="image" />
+</p>
+
+<p>是不是很簡單!</p>
+
+<p>如果要 NavigationController 也可以直接設定!</p>
+
+<p>接下來的實戰開發專案就會以不使用 Storyboard 的方式開發</p>
+
+<p>增加程式碼可讀性 :P</p>
+
+<p>老是貼圖也很累 XDDDD</p>
+
+<p>接下來就要用 Swift 寫一個 TODOList APP 囉!</p>
+
+<p>並且實際接上隔壁棚的 Restful API XD</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/19/2014-10-19-api-d19/" class="post-title">[API-d19] - 實戰開發 - index &amp; route &amp; http status code</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-reseful" href="http://kerkerj.github.io//categories/reseful">reseful</a><a class="post-category post-category-api" href="http://kerkerj.github.io//categories/api">api</a><a class="post-category post-category-nodejs" href="http://kerkerj.github.io//categories/nodejs">nodejs</a><a class="post-category post-category-express" href="http://kerkerj.github.io//categories/express">express</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day19">Github 參考</a></p>
+
+<p>昨天先把專案目錄初始化，裝完該裝的套件後</p>
+
+<p>在 routes 中加入一個 index.js 檔案</p>
+
+<pre><code class="language-javascript">'use strict';
+
+var express = require('express');
+var router = express.Router();
+
+router.get('/', function(req, res) {
+    res.status(200).json({ greetings: &quot;hello world!&quot;});
+});
+
+module.exports = router;
+</code></pre>
+
+<p>建立一個 <code>app.js</code> 在專案根目錄中:</p>
+
+<p>app.js</p>
+
+<pre><code>var express = require('express');
+var app = express();
+var index = require('./routes/index');
+
+// Set routers
+app.use('/', index);
+
+module.exports = app;
+</code></pre>
+
+<p>然後在 bin 資料夾建立一個 server.js:</p>
+
+<p>bin/server.js:</p>
+
+<pre><code>'use strict';
+
+var debug = require('debug')('TODOAPI');
+var app = require('../app');
+
+app.set('port', process.env.PORT || 3000);
+
+var server = app.listen(app.get('port'), function() {
+    debug('Express server listening on port ' + server.address().port);
+});
+</code></pre>
+
+<p>並且在 package.json 中修改並加入:</p>
+
+<p>加入 <code>start</code> : <code>&quot;start&quot;: &quot;node ./bin/server.js&quot;,</code></p>
+
+<pre><code>&quot;scripts&quot;: {
+    &quot;start&quot;: &quot;node ./bin/server.js&quot;,
+    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
+  },
+</code></pre>
+
+<p>這樣我們就可以透過 <code>npm start</code> 來啟動 server 了!</p>
+
+<p>試著啟動看看 <code>npm start</code></p>
+
+<p>到網址列輸入 <code>http://localhost:3000/</code></p>
+
+<p>就可以看到 <code>{&quot;greetings&quot;:&quot;hello world!&quot;}</code> 了!</p>
+
+<p>我們從本文的後面往回看：其實就是一個 request 會經過的地方:</p>
+
+<p>當我們下了 <code>npm start</code>，npm 會搜尋 package.json 中有沒有 <code>start</code> 指令</p>
+
+<p>若有的話就會執行他所設定的指令 <code>node ./bin/server.js</code></p>
+
+<p>這樣就會執行 server.js 了</p>
+
+<p>我們再看一下 server.js，講解在底下的註解:</p>
+
+<pre><code>// 使用嚴格模式
+'use strict';
+
+// 加入 debugger
+var debug = require('debug')('TODOAPI');
+
+// 將我們寫的 app.js 引入，建立一個 app instance
+var app = require('../app');
+
+// 設定 app instance 的 port, 若環境變數有設定的話就使用環境變數的值
+// 沒有設定環境變數的話則是 3000
+app.set('port', process.env.PORT || 3000);
+
+// 啟動 server，讓 server 監聽剛剛上一行所設定的 port，
+// 並且使用 debugger
+var server = app.listen(app.get('port'), function() {
+    debug('Express server listening on port ' + server.address().port);
+});
+</code></pre>
+
+<p>既然 server.js 啟動了一個 app.js 的 instance</p>
+
+<p>那我們就要來看一下 app.js</p>
+
+<pre><code>// 引入 express 模組
+var express = require('express');
+
+// 初始化一個 express instance
+var app = express();
+
+// 將 route 引入
+var index = require('./routes/index');
+
+// 設定若有 request 進到 http://localhost:3000/ 時，
+// 交給 routes/index.js 來作後續處理
+app.use('/', index);
+
+最後這一行是這個檔案 export 成一個模組
+module.exports = app;
+</code></pre>
+
+<p>那現在我們了解到了，如果有一個要求打進了 <code>http://localhost:3000/</code></p>
+
+<p>它會將該要求轉發給 routes/index.js 來作處理</p>
+
+<p>因此我們再進到 index.js 看看內容</p>
+
+<pre><code>// 使用嚴格模式
+'use strict';
+
+// 引入 express 模組
+var express = require('express');
+
+// 在這邊我們要使用 express 模組中的 Router
+// 因為在 app.js 中，若是使用 app.use('/', index)
+// 該 index 物件必須是一個 Router 物件，
+// 因此在這邊我們才會這樣寫
+// 於是 router 就是一個 express 的 router 物件了
+var router = express.Router();
+
+// 設定該  router 有哪些路徑要來聽
+// 在這邊我們設定當有 request 進到 根目錄，
+// 且是使用 GET 方法時，我們的回覆是:
+// HTTP status code 爲 200
+// 回傳的資料為 json 格式，傳入的內容是一個 javascript 物件
+// .json 方法會幫我們轉成 json 格式回傳給使用者
+router.get('/', function(req, res) {
+    res.status(200).json({ greetings: &quot;hello world!&quot;});
+});
+
+// 最後將這個檔案 export 成一個 router 模組
+module.exports = router;
+</code></pre>
+
+<p>所以透過這樣的方式我們就了解到了一個 request 是如何在模組化後的程式奔跑遊走</p>
+
+<p>另外要特別提到的是 http status code</p>
+
+<p>http status code 其實是一個非常好讓 client 知道這次 API request 發生什麼事的資料，充分利用 HTTP 協議所定義的狀態碼</p>
+
+<p>我們有時候瀏覽網頁會看到: 404 Not found! 或是 500 Internal Server Error</p>
+
+<p>這就是 HTTP status code</p>
+
+<p>那我們可以透過定義好回傳的 http status code 來代表此次 request 的狀態</p>
+
+<p>例如：</p>
+
+<p>client 端輸入的 API 網址錯誤了</p>
+
+<p>我們就回傳 status code: 404</p>
+
+<p>如果是不小心 server 的 code 寫錯了，導致該次 request 完全讓 server 死掉了，</p>
+
+<p>那就可以回傳 500 interanl server error</p>
+
+<p>因此在做 error handling 時，請定義好 status code，他一定會有幫助的!</p>
+
+<p>常用的 status code:</p>
+
+<pre><code>200 - Success
+201 - Created
+400 - Bad request
+401 - Unauthorized
+403 - Forbidden
+404 - Not found
+500 - Internal Server Error
+</code></pre>
+
+<p>詳細還可以參考: <a href="http://zh.wikipedia.org/wiki/HTTP%E7%8A%B6%E6%80%81%E7%A0%81">HTTP status code</a></p>
+
+<p><a href="http://www.restapitutorial.com/httpstatuscodes.html">其他教學</a></p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/19/2014-10-19-swift-d19/" class="post-title">[Swift-d19] - Basic - 橋接第三方 Objc library - Reachability and Bridge.h</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-swift" href="http://kerkerj.github.io//categories/swift">swift</a><a class="post-category post-category-bridge" href="http://kerkerj.github.io//categories/bridge">bridge</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>本日專案的 <a href="https://github.com/kerkerj/ithome-BridgeObjcDemo">Github link</a></p>
+
+<p>由於 Swift 剛推出不到一年</p>
+
+<p>有許多的 third-party library 一定還沒轉換成 Swift</p>
+
+<p>或者是作者沒心力轉會成 Swift</p>
+
+<p>但是有些套件非常方便，那在 Swift 要怎麼使用 Objective-C 的套件呢?</p>
+
+<p>Xcode 有提供橋接的方式，非常好用</p>
+
+<p>接下來就介紹一下如何使用吧!</p>
+
+<p>以下的例子是一個叫做 <code>Reachability</code> 的套件</p>
+
+<p>它可以簡單地幫我們判斷是否有網路連線 3g or wifi 之類的</p>
+
+<p>所以我們先下載這個套件吧!</p>
+
+<p><a href="https://github.com/tonymillion/Reachability">https://github.com/tonymillion/Reachability</a></p>
+
+<p>下載解壓縮後</p>
+
+<p>將 .h 和 .m 檔拖曳進 Xcode 專案中</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2014.27.17.png" alt="image" />
+</p>
+
+<p>接下來 Xcode 就會問一個非常重要的問題!:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2014.26.24.png" alt="image" />
+</p>
+
+<p>是否要建立橋接的 .h 檔案!</p>
+
+<p>當然是選擇建立囉~</p>
+
+<p>此時的專案結構就會變成這樣:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2014.26.38.png" alt="image" />
+</p>
+
+<p>再來編輯 bridge-header.h 檔</p>
+
+<p>將想要橋接的 objc 套件 import 進去</p>
+
+<pre><code class="language-swift">#import &quot;Reachability.h&quot;
+</code></pre>
+
+<p>這樣我們就可以在 Swift 中直接使用該套件的類別與方法了!</p>
+
+<p>接下來就讓我們試試看!</p>
+
+<p>在 ViewController 中加入以下程式碼:</p>
+
+<pre><code>//
+//  ViewController.swift
+//  BridgeObjcDemo
+//
+//  Created by Jerry Huang on 2014/10/18.
+//  Copyright (c) 2014年 kerkerj. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        
+        
+        var isConnected = checkNetworkConnection()
+        
+        let alert = UIAlertView()
+        alert.title = &quot;Network Connection&quot;
+        
+        if isConnected {
+            alert.message = &quot;You're online!&quot;
+        } else {
+            alert.message = &quot;You're offline!&quot;
+        }
+        
+        alert.addButtonWithTitle(&quot;OK&quot;)
+        alert.show()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func checkNetworkConnection() -&gt; Bool {
+        let reachability: Reachability = Reachability.reachabilityForInternetConnection()
+        let networkStatus: NetworkStatus = reachability.currentReachabilityStatus()
+        
+        println(networkStatus.toRaw())
+        
+        switch (networkStatus.toRaw()) {
+        case 0:
+            println(&quot;[Network Status]: NotReachable&quot;)
+        case 1:
+            println(&quot;[Network Status]: ReachableViaWWAN&quot;)
+        case 2:
+            println(&quot;[Network Status]: ReachableViaWiFi&quot;)
+        default:
+            break
+        }
+        
+        return networkStatus.toRaw() != 0
+    }
+}
+</code></pre>
+
+<p>簡單的說，我們寫了一個方法，使用 Reachability 偵測網路連線</p>
+
+<p>在 ViewDidLoad 時，偵測是否有網路連線</p>
+
+<p>跳一個 Alert 會告訴你是有連線還是沒有連線</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2014.42.45.png" alt="image" />
+</p>
+
+<p>不過在這邊，我不曉得如何讓模擬器關掉連線，</p>
+
+<p>所以沒辦法提供 offline 的圖</p>
+
+<p>但是我實際安裝到手機後，將 wifi 功能關掉後的確是有跳出 offline 的</p>
+
+<p>哈哈 雖然說沒圖沒真相但是&hellip;XD</p>
+
+<p>橋接第三方套件就是那麼簡單! :D</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/19/2014-10-19-swift-push-slash-pop-views-delay/" class="post-title">Swift - Push/Pop Views delay</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-swift" href="http://kerkerj.github.io//categories/swift">swift</a><a class="post-category post-category-backgroundColor" href="http://kerkerj.github.io//categories/backgroundcolor">backgroundColor</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>請大家先看看下面的小短片，注意一下過場動畫的流暢度</p>
+
+<p>一開始是沒有加過場動畫，後來改程式碼變成有過場動畫</p>
+
+<p><a href="http://www.youtube.com/watch?feature=player_embedded&v=dqxDFv-iieU
+" target="_blank"><img src="http://img.youtube.com/vi/dqxDFv-iieU/0.jpg" 
+alt="IMAGE ALT TEXT HERE" width="420" height="315" border="10" /></a></p>
+
+<p><a href="https://www.youtube.com/watch?v=dqxDFv-iieU">direct link</a></p>
+
+<p>後來發現給一個預設的 backgroundColor 後就不會發生殘影的問題了</p>
+
+<p>是因為 push 的 view 沒有 backgroundColor</p>
+
+<p>和同事討論後發現:</p>
+
+<p><a href="https://developer.apple.com/library/IOs/documentation/UIKit/Reference/UIView_Class/index.html#//apple_ref/occ/instp/UIView/backgroundColor">Apple Developer Reference</a></p>
+
+<p>UIView 的 backgroundColor 的 default 值是 null!</p>
+
+<blockquote>
+<p>Discussion
+Changes to this property can be animated. The default value is nil, which results in a transparent background color.</p>
+</blockquote>
+
+<p>所以是這個原因導致在轉場的時候有殘影</p>
+
+<p>不過切換 View 時 target view 沒有 backgroundColor 的情況應該比較少吧&hellip;(?)</p>
+
+<p>剛好在寫鐵人賽的 app 想先把流程弄出來時遇到了這個雷 XD</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/18/2014-10-18-api-d18/" class="post-title">[API-d18] - 實戰開發 - 套件模組</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-restful" href="http://kerkerj.github.io//categories/restful">restful</a><a class="post-category post-category-api" href="http://kerkerj.github.io//categories/api">api</a><a class="post-category post-category-nodejs" href="http://kerkerj.github.io//categories/nodejs">nodejs</a><a class="post-category post-category-express" href="http://kerkerj.github.io//categories/express">express</a><a class="post-category post-category-npm" href="http://kerkerj.github.io//categories/npm">npm</a><a class="post-category post-category-mongodb" href="http://kerkerj.github.io//categories/mongodb">mongodb</a><a class="post-category post-category-mongoose" href="http://kerkerj.github.io//categories/mongoose">mongoose</a><a class="post-category post-category-mocha superagent" href="http://kerkerj.github.io//categories/mocha-superagent">mocha superagent</a><a class="post-category post-category-validator" href="http://kerkerj.github.io//categories/validator">validator</a><a class="post-category post-category-expect.js" href="http://kerkerj.github.io//categories/expect.js">expect.js</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>##會使用到的套件:</p>
+
+<pre><code>主體:
+express - web framework
+body-parser - parse request body
+
+測試相關:
+mocha - test framework
+mocha-mongoose - 用來和 mocha 和 mongoose 中間做介接的套件
+superagent - 拿它來丟 http request
+validator - 用來驗證某個物件是否為某個型別
+expect.js - 類似 BDD 的語法，用來寫測試的
+debug - debug package
+
+DB 相關:
+mongoose - mongodb orm
+mongodb - mongodb native driver
+
+開發相關:
+nodemon - detect file change and restart server
+
+生產環境相關:
+log4js - 記錄 request log
+</code></pre>
+
+<p>這是我的 package.json, 可以複製到專案目錄，然後下 <code>npm install</code></p>
+
+<pre><code>{
+  &quot;name&quot;: &quot;TODOAPI&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;app.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;node ./bin/server.js env=development&quot;,
+    &quot;test&quot;: &quot;./node_modules/mocha/bin/mocha&quot;,
+    &quot;test-detail&quot;: &quot;./node_modules/mocha/bin/mocha --reporter list&quot;,
+    &quot;stop&quot;: &quot;pkill -lf server.js&quot;
+  },
+  &quot;author&quot;: &quot;kerkerj&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;dependencies&quot;: {
+    &quot;body-parser&quot;: &quot;^1.9.0&quot;,
+    &quot;debug&quot;: &quot;^2.0.0&quot;,
+    &quot;expect.js&quot;: &quot;^0.3.1&quot;,
+    &quot;express&quot;: &quot;^4.9.5&quot;,
+    &quot;log4js&quot;: &quot;^0.6.21&quot;,
+    &quot;mocha&quot;: &quot;^1.21.4&quot;,
+    &quot;mocha-mongoose&quot;: &quot;^1.0.1&quot;,
+    &quot;mongodb&quot;: &quot;^1.4.19&quot;,
+    &quot;mongoose&quot;: &quot;^3.8.17&quot;,
+    &quot;superagent&quot;: &quot;^0.20.0&quot;,
+    &quot;validator&quot;: &quot;^3.19.1&quot;
+  }
+}
+</code></pre>
+
+<p>##安裝套件，及全域套件 mocha</p>
+
+<pre><code>// in project folder
+$ npm install express body-parser mocha mocha-mongoose superagent validator expect.js debug mongoose mongodb log4js -save 
+$ npm install -g nodemon
+</code></pre>
+
+<p>##各個套件簡單設定</p>
+
+<p>接下來會針對一些套件作說明，但是由於可能有些人不懂整個專案的運作，因此下面看看就好，之後實作上有問題可以再回來看。</p>
+
+<p>##Nodemon 的作用</p>
+
+<p>範例:</p>
+
+<pre><code>$ nodemon ./bin/server.js
+...
+</code></pre>
+
+<p>就可以放著不管它了~ 只要檔案有變動，就會自動重開 server</p>
+
+<p>##使用 logger - log4js</p>
+
+<p>設定 logger - log4js, 並將 log 寫入到 logs/access.log 裏</p>
+
+<pre><code>// Set logger
+var log4js = require('log4js');
+log4js.configure({
+    appenders: [
+        { type: 'console' }, //控制台輸出
+        {
+            type: 'file', //文件輸出
+            filename: 'logs/access.log',
+            maxLogSize: 20000000, // 20 MB
+            backups: 10,
+            category: 'normal'
+        }
+    ],
+    replaceConsole: true
+});
+
+var logger = log4js.getLogger('normal');
+logger.setLevel('INFO');
+
+app.use(log4js.connectLogger(logger, {level: 'auto', format:':method :url'}));
+</code></pre>
+
+<p><a href="http://blog.fens.me/nodejs-log4js/">node log4s</a></p>
+
+<p>##使用 body-parser 處理 request 的資料</p>
+
+<p>加入 middleware</p>
+
+<pre><code>app.use( bodyParser.json() );
+app.use( bodyParser.urlencoded({ extended: true }) );
+</code></pre>
+
+<p>需要加入 { extended: true/false }, 否則會 warning:</p>
+
+<p>body-parser deprecated undefined extended: provide extended</p>
+
+<p>如果要接收 json request</p>
+
+<p>client 端在 Header 中必須先設定 &ldquo;Content-type: applciation/json&rdquo;</p>
+
+<p>才能夠在 router 中使用 <code>req.body</code> 拿到 json 值</p>
+
+<p>##測試套件</p>
+
+<pre><code>mocha - 專案
+expect.js - 專案
+superagent - 專案
+</code></pre>
+
+<p>測試流程 -</p>
+
+<p>先跑 server 起來，透過自動化程式自動丟 request 給 server，測試結束</p>
+
+<pre><code>$ npm start
+$ mocha
+$ npm stop
+</code></pre>
+
+<p>所以必須先在 package.json 中設定好 script</p>
+
+<pre><code>{
+	(...)
+	&quot;scripts&quot;: {
+      &quot;start&quot;: &quot;node ./bin/server.js&quot;,
+      &quot;test&quot;: &quot;mocha&quot;,
+      &quot;stop&quot;: &quot;pkill -lf server.js&quot;
+  },
+  (...)
+}
+</code></pre>
+
+<p>由於我將啟動 server 的 script 放在 bin 資料夾裡，因此</p>
+
+<p><code>npm start</code> 的 script 就會執行:</p>
+
+<pre><code>node ./bin/server.js
+</code></pre>
+
+<p><code>npm stop</code> 的話，用到了 *nix 的指令，會先到 process list 中找到和 server.js 有關的 process，然後 kill process (<code>pkill</code>)</p>
+
+<pre><code>pkill -lf server.js
+</code></pre>
+
+<p>跑測試的話，直接下 <code>mocha</code>，在這邊我們也丟一個 script 指定給 <code>npm test</code></p>
+
+<p>下 <code>npm test</code> 就是等同於下 <code>mocha</code></p>
+
+<p>上面只是大致上講解一下每個套件如何用，接下來我們會以實際的例子來說明</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/18/2014-10-18-swift-d18/" class="post-title">[Swift-d18] - Basic - Customize TableViewCell</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-swift" href="http://kerkerj.github.io//categories/swift">swift</a><a class="post-category post-category-tableviewcell" href="http://kerkerj.github.io//categories/tableviewcell">tableviewcell</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>今天的主題延續昨天的 Navigation + TableView</p>
+
+<p>我們要來客製化 TableViewCell</p>
+
+<p>通常 TableView 可以被拿來做很多事情，不僅只是像是 ListView 而已</p>
+
+<p>而 TableViewCell 可以做更深度的切版，排列元素</p>
+
+<p>因此自定 TableViewCell 是一件算是還蠻重要的事情</p>
+
+<p>下面的 Code 是延續昨天的專案</p>
+
+<p>我先把已更改過的程式碼貼上來:</p>
+
+<pre><code class="language-swift">import UIKit
+
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    @IBOutlet var tableView: UITableView!
+    
+    var arr = [&quot;A&quot;, &quot;B&quot;, &quot;C&quot;]
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {
+        return arr.count;
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell {
+        var cell: CustomTableViewCell? = tableView.dequeueReusableCellWithIdentifier(&quot;cell&quot;) as CustomTableViewCell?
+        
+        if cell == nil {
+            var objects = NSBundle.mainBundle().loadNibNamed(&quot;CustomTableViewCell&quot;, owner: self, options: nil)
+            cell = objects[0] as? CustomTableViewCell
+        }
+        
+        cell!.textLabel?.text = arr[indexPath.row]
+        
+        return cell!
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        var detailViewController = DetailViewController()
+        detailViewController.title = arr[indexPath.row]
+        self.navigationController?.pushViewController(detailViewController, animated: true)
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -&gt; CGFloat {
+        return 165.0
+    }
+}
+</code></pre>
+
+<p>今天要新增一個檔案, 我們就稱之為 CustomTableViewCell</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.36.49.png" alt="image" />
+</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.37.37.png" alt="image" />
+</p>
+
+<p>就會出現一份 .swift 檔案以及 .xib 檔案了</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.38.06.png" alt="image" />
+</p>
+
+<p>接下來我們簡單編輯 .xib 檔案，將背景顏色換成其他顏色，以及將它的長度拉高</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.39.49.png" alt="image" />
+</p>
+
+<p>這樣其實就很簡單地完成了一個小客製化的 TableViewCell 了</p>
+
+<p>那我們要怎麼讓原本的 TableView 吃到這個 TableViewCell 呢?</p>
+
+<p>看以下的 function:</p>
+
+<pre><code>func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell {
+	var cell: CustomTableViewCell? = tableView.dequeueReusableCellWithIdentifier(&quot;cell&quot;) as CustomTableViewCell?
+        
+	if cell == nil {
+		var objects = NSBundle.mainBundle().loadNibNamed(&quot;CustomTableViewCell&quot;, owner: self, options: nil)
+		cell = objects[0] as? CustomTableViewCell
+	}
+        
+	cell!.textLabel?.text = arr[indexPath.row]
+        
+	return cell!
+}
+</code></pre>
+
+<p>我們將 cell 的類別更改成了 CustomTableViewCell</p>
+
+<p>直接使用剛剛產生的 .swift 類別來產生新的 TableViewCell</p>
+
+<p>並且如果 cell == nil ，則會將 Nib 載入</p>
+
+<p>最後設定該 textLabel ，返回 cell</p>
+
+<p>若使用最一開始的程式碼 apply changes</p>
+
+<p>執行！</p>
+
+<p>應該就可以看到成果了!</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2012.01.35.png" alt="image" />
+</p>
+
+<p>p.s. 這篇可能實作上會有 bug (我寫的), 就先跳過吧 XD</p>
+
+                    </div>
+                </section>
+                
+            </div>
+            
+<div class="pagination">
+  <nav role="pagination" class="post-list-pagination">
+      
+      <a href="http://kerkerj.github.io/page/2/" class="post-list-pagination-item pure-button post-list-pagination-item-prev">
+        <i class="fa fa-angle-double-left"></i>&nbsp;Newer
+      </a>
+      
+    <span class="post-list-pagination-item post-list-pagination-item-current">Page 3 of 14</span>
+    
+      <a href="http://kerkerj.github.io/page/4/" class="post-list-pagination-item pure-button post-list-pagination-item-next">
+        Older&nbsp;<i class="fa fa-angle-double-right"></i>
+      </a>
+    
+  </nav>
+</div>
+
+
+            <div class="footer">
+    <div class="pure-menu pure-menu-horizontal pure-menu-open">
+        <ul>
+            <li>Powered by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a></li>
+        </ul>
+    </div>
+</div>
+<script src="http://kerkerj.github.io//js/all.min.js"></script>
+<script>
+hljs.initHighlightingOnLoad();
+</script>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

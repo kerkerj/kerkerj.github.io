@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+     
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Install rails server env with rbenv on Ubuntu 14.04 | kerkerj">
+    <meta property="og:url" content="http://kerkerj.github.io/blog/2014/07/30/2014-07-30-install-rails-server-env-with-rbenv-on-ubuntu-14-dot-04/">
+    <meta property="og:description" content="">
+    
+    
+    <meta property="og:site_name" content="kerkerj">
+
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="kerkerj" />
+    <meta name="twitter:title" content="Install rails server env with rbenv on Ubuntu 14.04 &middot; kerkerj">
+    <meta name="twitter:description" content="">
+
+    
+    <title>Install rails server env with rbenv on Ubuntu 14.04 &middot; kerkerj</title>
+
+    
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+    
+
+    <link rel="stylesheet" href="http://kerkerj.github.io//css/all.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    
+    
+      <link rel="stylesheet" href="http://kerkerj.github.io//css/highlight/railscasts.css">
+    
+
+    
+    <link href="http://kerkerj.github.io/favicon.ico" rel="icon">
+
+    
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://kerkerj.github.io//index.xml">
+</head>
+<body>
+
+
+<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+    <div class="header">
+        <hgroup>
+            <h1 class="brand-title"><a href="http://kerkerj.github.io/">kerkerj</a></h1>
+            <h2 class="brand-tagline"> Hi. </h2>
+        </hgroup>
+
+        <nav class="nav">
+            
+            <ul class="pure-menu-list">
+              
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//notes/">Notes</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//about/">About</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//mac-app-list/">Mac App List</a>
+                </li>
+              
+            </ul>
+
+            
+            <ul class="nav-list">
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://twitter.com/kerkerj"><i class="fa fa-twitter"></i> Twitter</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://github.com/kerkerj "><i class="fa fa-github-alt"></i> Github</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            
+            <div class="posts">
+                <h1 class="content-subhead">2014-07-07 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/07/30/2014-07-30-install-rails-server-env-with-rbenv-on-ubuntu-14-dot-04/" class="post-title">Install rails server env with rbenv on Ubuntu 14.04</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-ubuntu" href="http://kerkerj.github.io//categories/ubuntu">ubuntu</a><a class="post-category post-category-rails" href="http://kerkerj.github.io//categories/rails">rails</a><a class="post-category post-category-rbenv" href="http://kerkerj.github.io//categories/rbenv">rbenv</a><a class="post-category post-category-nginx" href="http://kerkerj.github.io//categories/nginx">nginx</a><a class="post-category post-category-passenger" href="http://kerkerj.github.io//categories/passenger">passenger</a><a class="post-category post-category-mysql" href="http://kerkerj.github.io//categories/mysql">mysql</a>
+                            
+                        </p>
+                    </header>
+                    <div class="post-description">
+                        <pre><code>nodejs v0.10.25 (for rails javascript engine)
+
+rbenv 0.4.0-98-g13a474c
+
+ruby 2.1.2p95 (2014-05-08 revision 45877) [x86_64-linux]
+
+Rails 4.1.4
+
+nginx version: nginx/1.6.0
+
+Phusion Passenger version 4.0.48
+
+mysql  Ver 14.14 Distrib 5.5.38, for debian-linux-gnu (x86_64) using readline 6.3
+
+</code></pre>
+
+<p>##Installing Ruby &amp; Rails</p>
+
+<pre><code>sudo apt-get update &amp;&amp; sudo apt-get upgrade
+sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties nodejs npm
+</code></pre>
+
+<p>Use rbenv</p>
+
+<pre><code>cd
+git clone git://github.com/sstephenson/rbenv.git .rbenv
+echo 'export PATH=&quot;$HOME/.rbenv/bin:$PATH&quot;' &gt;&gt; ~/.bashrc
+echo 'eval &quot;$(rbenv init -)&quot;' &gt;&gt; ~/.bashrc
+exec $SHELL
+
+git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+echo 'export PATH=&quot;$HOME/.rbenv/plugins/ruby-build/bin:$PATH&quot;' &gt;&gt; ~/.bashrc
+exec $SHELL
+
+rbenv install 2.1.2
+exec $SHELL
+
+rbenv global 2.1.2
+ruby -v
+</code></pre>
+
+<p>Don&rsquo;t install rdoc when installing gems</p>
+
+<pre><code>echo &quot;gem: --no-ri --no-rdoc&quot; &gt; ~/.gemrc
+</code></pre>
+
+<p>Install rails</p>
+
+<pre><code>gem install rails
+exec $SHELL
+rails -v
+</code></pre>
+
+<p>##Installing Nginx with passenger</p>
+
+<pre><code># Install Phusion's PGP key to verify packages
+gpg --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7
+gpg --armor --export 561F9B9CAC40B2F7 | sudo apt-key add -
+
+# Add HTTPS support to APT
+sudo apt-get install apt-transport-https
+
+# Add the passenger repository
+sudo sh -c &quot;echo 'deb https://oss-binaries.phusionpassenger.com/apt/passenger trusty main' &gt;&gt; /etc/apt/sources.list.d/passenger.list&quot;
+sudo chown root: /etc/apt/sources.list.d/passenger.list
+sudo chmod 600 /etc/apt/sources.list.d/passenger.list
+sudo apt-get update
+
+# Install nginx and passenger
+sudo apt-get install nginx-full passenger
+</code></pre>
+
+<p>Edit passenger configuration in <code>/etc/nginx/nginx.conf</code></p>
+
+<pre><code>##
+# Phusion Passenger
+##
+# Uncomment it if you installed ruby-passenger or ruby-passenger-enterprise
+##
+
+passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;
+
+passenger_ruby /usr/bin/ruby; #change this line
+
+# passenger_ruby /home/yourpath/.rbenv/shims/ruby; # If you use rbenv
+# Use `which ruby`
+</code></pre>
+
+<p>##Installing MySQL</p>
+
+<pre><code>sudo apt-get install mysql-server mysql-client libmysqlclient-dev
+</code></pre>
+
+<p>Done!</p>
+
+                    </div>
+                    <div class="post-share">
+                        <div class="post-share-links">
+                            <h4 style="">Share</h4>
+                            <a href="#" data-type="facebook" data-url="http://kerkerj.github.io/blog/2014/07/30/2014-07-30-install-rails-server-env-with-rbenv-on-ubuntu-14-dot-04/" data-title="Install rails server env with rbenv on Ubuntu 14.04" data-description="" data-media="" class="prettySocial fa fa-facebook"></a>
+                            <a href="#" data-type="googleplus" data-url="http://kerkerj.github.io/blog/2014/07/30/2014-07-30-install-rails-server-env-with-rbenv-on-ubuntu-14-dot-04/" data-description="" class="prettySocial fa fa-google-plus"></a>
+                            
+                            <a href="#" data-type="twitter" data-url="http://kerkerj.github.io/blog/2014/07/30/2014-07-30-install-rails-server-env-with-rbenv-on-ubuntu-14-dot-04/" data-description="" data-via="kerkerj" class="prettySocial fa fa-twitter"></a>
+                            
+
+                        </div>
+                    </div>
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/kerkerj.github.io\/blog\/2014\/07\/30\/2014-07-30-install-rails-server-env-with-rbenv-on-ubuntu-14-dot-04\/';
+    var disqus_title = 'Install rails server env with rbenv on Ubuntu 14.04';
+    var disqus_url = 'http:\/\/kerkerj.github.io\/blog\/2014\/07\/30\/2014-07-30-install-rails-server-env-with-rbenv-on-ubuntu-14-dot-04\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                </section>
+            </div>
+            <div class="footer">
+    <div class="pure-menu pure-menu-horizontal pure-menu-open">
+        <ul>
+            <li>Powered by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a></li>
+        </ul>
+    </div>
+</div>
+<script src="http://kerkerj.github.io//js/all.min.js"></script>
+<script>
+hljs.initHighlightingOnLoad();
+</script>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

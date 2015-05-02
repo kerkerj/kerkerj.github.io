@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+     
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="[API-d9] - NVM 與 NPM 使用 | kerkerj">
+    <meta property="og:url" content="http://kerkerj.github.io/blog/2014/10/09/2014-10-09-api-d9/">
+    <meta property="og:description" content="">
+    
+    
+    <meta property="og:site_name" content="kerkerj">
+
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="kerkerj" />
+    <meta name="twitter:title" content="[API-d9] - NVM 與 NPM 使用 &middot; kerkerj">
+    <meta name="twitter:description" content="">
+
+    
+    <title>[API-d9] - NVM 與 NPM 使用 &middot; kerkerj</title>
+
+    
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+    
+
+    <link rel="stylesheet" href="http://kerkerj.github.io//css/all.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    
+    
+      <link rel="stylesheet" href="http://kerkerj.github.io//css/highlight/railscasts.css">
+    
+
+    
+    <link href="http://kerkerj.github.io/favicon.ico" rel="icon">
+
+    
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://kerkerj.github.io//index.xml">
+</head>
+<body>
+
+
+<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+    <div class="header">
+        <hgroup>
+            <h1 class="brand-title"><a href="http://kerkerj.github.io/">kerkerj</a></h1>
+            <h2 class="brand-tagline"> Hi. </h2>
+        </hgroup>
+
+        <nav class="nav">
+            
+            <ul class="pure-menu-list">
+              
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//notes/">Notes</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//about/">About</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//mac-app-list/">Mac App List</a>
+                </li>
+              
+            </ul>
+
+            
+            <ul class="nav-list">
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://twitter.com/kerkerj"><i class="fa fa-twitter"></i> Twitter</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://github.com/kerkerj "><i class="fa fa-github-alt"></i> Github</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            
+            <div class="posts">
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2014/10/09/2014-10-09-api-d9/" class="post-title">[API-d9] - NVM 與 NPM 使用</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-restful" href="http://kerkerj.github.io//categories/restful">restful</a><a class="post-category post-category-api" href="http://kerkerj.github.io//categories/api">api</a><a class="post-category post-category-nvm" href="http://kerkerj.github.io//categories/nvm">nvm</a><a class="post-category post-category-npm" href="http://kerkerj.github.io//categories/npm">npm</a>
+                            
+                        </p>
+                    </header>
+                    <div class="post-description">
+                        
+
+<h1 id="nvm-與-npm-使用:1e27a9b7cfbb85bc724a6b869392f952">NVM 與 NPM 使用</h1>
+
+<p>##NVM - Node.js Version Manager</p>
+
+<p>###安裝</p>
+
+<p>如果是 Ubuntu 的話必須先要有 <code>build-essential</code> 和 <code>libssl-dev</code> 套件</p>
+
+<p>不過這個我們之前就裝過了，所以直接安裝 NVM 吧~</p>
+
+<pre><code>$ curl https://raw.githubusercontent.com/creationix/nvm/v0.17.2/install.sh | bash
+$ source ~/.bashrc
+</code></pre>
+
+<p>###使用 NVM 安裝 node.js</p>
+
+<p>先前我們有使用 Ubuntu 本身的 apt-get 安裝 Node.js</p>
+
+<p>不過那是被安裝到 /usr/bin/node</p>
+
+<p>有時候要安裝套件需要 sudo 提供管理者權限</p>
+
+<p>非常麻煩，因此我們使用 NVM 來安裝另一個 Node.js</p>
+
+<p>這個 Node.js 的執行檔就任我們使用，不需要提供管理者權限了</p>
+
+<pre><code>$ nvm install 0.10
+</code></pre>
+
+<p>nvm 就會安裝 0.10 版本，安裝完後就要使用它：</p>
+
+<pre><code>$ nvm use 0.10
+</code></pre>
+
+<p>再來我們把 nvm 的 node.js 設定成預設的 node</p>
+
+<p>否則重開機後，node 指令會變回原本系統的 node</p>
+
+<pre><code>$ nvm alias default 0.10
+</code></pre>
+
+<p>我們觀察一下現在使用的 node 指令是哪裡來的:</p>
+
+<pre><code>$ which node
+/home/vagrant/.nvm/v0.10.32/bin/node
+</code></pre>
+
+<p>Good! 他已經被安裝到我們使用者目錄底下了</p>
+
+<p>原本的系統 Node.js 是在 <code>/usr/bin/node</code></p>
+
+<p>如果要切換回系統的 Node.js:</p>
+
+<pre><code>$ nvm use system
+Now using system version of node: v0.10.32.
+
+// 看一下現在使用 node 的路徑
+$ which node
+/usr/bin/node
+</code></pre>
+
+<p>##NPM - Node.js Package Manager</p>
+
+<p>NPM 顧名思義就是 node.js 的套件管理系統，</p>
+
+<p>世界上有許許多多的開發者為 Node.js 開發了許許多多的套件，</p>
+
+<p>我們受惠于此，也不用再自己造輪子，拿這些佛心的大大的套件來使用，打造出我們想要的服務，</p>
+
+<p>像我們接下來會使用的 Express 和 Mongodb 的 driver 都是別人寫好開放出來給大家用的！</p>
+
+<p>下面簡單介紹 NPM 的使用方式</p>
+
+<p>###初始化專案資料夾</p>
+
+<pre><code>$ npm init 
+</code></pre>
+
+<p>終端機會詢問各種問題來幫忙建立 package.json 的檔案</p>
+
+<p>是在資料夾中建立專案前必下的指令</p>
+
+<p>並且，使用 package.json 有個好處</p>
+
+<p>只要將 package.json 給其他人</p>
+
+<p>其他人只需要將 package.json 放到某個資料夾</p>
+
+<p>並下:</p>
+
+<pre><code>$ npm install
+</code></pre>
+
+<p>就會在該資料夾安裝 package.json 中列出的所有套件</p>
+
+<p>就不需要一個一個尋找及安裝，非常方便！</p>
+
+<p>###安裝套件</p>
+
+<pre><code>// 安裝全域套件
+$ npm install [套件名稱] -g
+
+// 安裝套件在專案資料夾 
+// 會安裝在目前所在的資料夾，所以要下此指令必須先確認自己是否在專案根目錄
+$ npm install [套件名稱]
+
+// 通常專案資料夾底下都會有一個 package.json 來管理套件相依性
+// 如果在專案資料夾底下下此指令，會將你所安裝的套件加入 package.json 中
+// 一樣也是要先確認自己是否在專案目錄底下
+$ npm install [套件名稱] -save
+</code></pre>
+
+<p>###移除套件</p>
+
+<pre><code>// 移除全域套件
+$ npm uninstall [套件名稱] -g
+
+// 移除在專案資料夾的某個套件 
+// 會移除在目前所在的資料夾某個套件，所以要下此指令必須先確認自己是否在專案根目錄
+$ npm uninstall [套件名稱]
+
+// 通常專案資料夾底下都會有一個 package.json 來管理套件相依性
+// 如果在專案資料夾底下下此指令，會將你所移除的套件從 package.json 中刪除
+// 一樣也是要先確認自己是否在專案目錄底下
+$ npm uninstall [套件名稱] -save
+</code></pre>
+
+<p>###列出套件</p>
+
+<pre><code>// 列出全域套件
+$ npm ls -g
+
+// 列出全域套件詳細資訊
+$ npm ls -gl
+
+// 在專案資料夾底下：
+
+// 列出專案資料夾的套件
+$ npm ls 
+
+// 列出專案資料夾的詳細套件資訊
+$ npm ls -l
+</code></pre>
+
+<p>###更新套件</p>
+
+<pre><code>// 更新全域套件
+$ npm update -g
+
+// 在專案資料夾底下：
+
+// 更新專案套件
+$ npm update 
+</code></pre>
+
+<p>###搜尋套件</p>
+
+<pre><code>$ npm search [套件名稱]
+</code></pre>
+
+<p>##注意!!</p>
+
+<p>請注意，使用系統 Node.js 的 npm 所安裝的套件，是屬於系統 Node.js 的</p>
+
+<p>切換到使用者目錄底下的 Node.js 時，是不會共用系統 npm 的套件的</p>
+
+<p>請注意這一點，接下來我們都會使用 nvm 的 node.js</p>
+
+<p>我們可以透過以下例子來驗證:</p>
+
+<pre><code>// 使用系統 node.js
+$ nvm use system
+Now using system version of node: v0.10.32.
+
+// 查看 npm 全域套件
+$ npm list -g  
+/usr/lib
+├─┬ express@4.9.5
+│ ├─┬ accepts@1.1.1
+│ │ ├─┬ mime-types@2.0.2
+│ │ │ └── mime-db@1.1.0
+│ │ └── negotiator@0.4.8
+....
+
+// 使用 nvm node.js
+$ nvm use 0.10
+Now using node v0.10.32
+
+// 查看 npm 全域套件
+$ npm list -g 
+/home/vagrant/.nvm/v0.10.32/lib
+└─┬ npm@1.4.28
+  ├── abbrev@1.0.5
+  ├── ansi@0.3.0
+  ├── ansicolors@0.3.2
+  ├── ansistyles@0.1.3
+  ├── archy@0.0.2
+  ├── block-stream@0.0.7
+  ├── char-spinner@1.0.1
+  ├── child-process-close@0.1.1
+  ├── chmodr@0.1.0
+...
+</code></pre>
+
+<p>主要差別就在於 列出全域套件時，還會提醒你這些套件裝在哪裡，如果不是裝在使用者目錄底下，</p>
+
+<p>表示現在用的是系統的 Node.js</p>
+
+<p>因此發現自己不對了就快換回來吧，如果系統裝爛了，也可以利用先前打包的 box 還原哦!</p>
+
+<p>##怎麼找套件?</p>
+
+<p>套件那麼多，我要到哪裡找？</p>
+
+<p>除了根據自己的需求 Google 外，</p>
+
+<p>下面是 Node.js module 的官方網站: <a href="https://nodejsmodules.org/">https://nodejsmodules.org/</a></p>
+
+<p>有做最受歡迎的套件排名，進去瀏覽一下，有時候會發現一些好用的套件哦!</p>
+
+                    </div>
+                    <div class="post-share">
+                        <div class="post-share-links">
+                            <h4 style="">Share</h4>
+                            <a href="#" data-type="facebook" data-url="http://kerkerj.github.io/blog/2014/10/09/2014-10-09-api-d9/" data-title="[API-d9] - NVM 與 NPM 使用" data-description="" data-media="" class="prettySocial fa fa-facebook"></a>
+                            <a href="#" data-type="googleplus" data-url="http://kerkerj.github.io/blog/2014/10/09/2014-10-09-api-d9/" data-description="" class="prettySocial fa fa-google-plus"></a>
+                            
+                            <a href="#" data-type="twitter" data-url="http://kerkerj.github.io/blog/2014/10/09/2014-10-09-api-d9/" data-description="" data-via="kerkerj" class="prettySocial fa fa-twitter"></a>
+                            
+
+                        </div>
+                    </div>
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/kerkerj.github.io\/blog\/2014\/10\/09\/2014-10-09-api-d9\/';
+    var disqus_title = '[API-d9] - NVM 與 NPM 使用';
+    var disqus_url = 'http:\/\/kerkerj.github.io\/blog\/2014\/10\/09\/2014-10-09-api-d9\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                </section>
+            </div>
+            <div class="footer">
+    <div class="pure-menu pure-menu-horizontal pure-menu-open">
+        <ul>
+            <li>Powered by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a></li>
+        </ul>
+    </div>
+</div>
+<script src="http://kerkerj.github.io//js/all.min.js"></script>
+<script>
+hljs.initHighlightingOnLoad();
+</script>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

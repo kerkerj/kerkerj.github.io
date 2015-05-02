@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+     
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="[PHP] 簡單的資料庫連結 | kerkerj">
+    <meta property="og:url" content="http://kerkerj.github.io/blog/2011/01/26/2011-01-26-php-db/">
+    <meta property="og:description" content="">
+    
+    
+    <meta property="og:site_name" content="kerkerj">
+
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="kerkerj" />
+    <meta name="twitter:title" content="[PHP] 簡單的資料庫連結 &middot; kerkerj">
+    <meta name="twitter:description" content="">
+
+    
+    <title>[PHP] 簡單的資料庫連結 &middot; kerkerj</title>
+
+    
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+    
+
+    <link rel="stylesheet" href="http://kerkerj.github.io//css/all.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    
+    
+      <link rel="stylesheet" href="http://kerkerj.github.io//css/highlight/railscasts.css">
+    
+
+    
+    <link href="http://kerkerj.github.io/favicon.ico" rel="icon">
+
+    
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://kerkerj.github.io//index.xml">
+</head>
+<body>
+
+
+<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+    <div class="header">
+        <hgroup>
+            <h1 class="brand-title"><a href="http://kerkerj.github.io/">kerkerj</a></h1>
+            <h2 class="brand-tagline"> Hi. </h2>
+        </hgroup>
+
+        <nav class="nav">
+            
+            <ul class="pure-menu-list">
+              
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//notes/">Notes</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//about/">About</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//mac-app-list/">Mac App List</a>
+                </li>
+              
+            </ul>
+
+            
+            <ul class="nav-list">
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://twitter.com/kerkerj"><i class="fa fa-twitter"></i> Twitter</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://github.com/kerkerj "><i class="fa fa-github-alt"></i> Github</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            
+            <div class="posts">
+                <h1 class="content-subhead">2011-01-01 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2011/01/26/2011-01-26-php-db/" class="post-title">[PHP] 簡單的資料庫連結</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-php" href="http://kerkerj.github.io//categories/php">php</a>
+                            
+                        </p>
+                    </header>
+                    <div class="post-description">
+                        <p>我是PHP新手，超級嫩，所以就寫寫簡單的東西，今天來寫關於資料庫的連結。<br />
+環境同之前寫的，就是 FreeBSD、MySQL、phpMyadmin 啦~</p>
+
+<p>我將他分成兩個檔案來寫：<br />
+一個是負責連結資料庫：<code>connectDB.inc.php</code><br />
+另一個則是測試的 php ：<code>test.php</code></p>
+
+<p>在 <code>connectDB.inc.php</code> 中設定好 SQL 主機的 IP、使用者名稱密碼等等資料，<br />
+然後由 <code>test.php</code> 來呈現資料，直接看 code 最快：</p>
+
+<p>```php connectDB.inc.php
+&lt;?php
+    $cfgDB_HOST = &ldquo;localhost&rdquo;;      //主機名稱或ip位址
+  $cfgDB_PORT = &ldquo;80&rdquo;;                       //主機開放連線的port
+    $cfgDB_USERNAME = &ldquo;account&rdquo;;    //登入主機帳號
+    $cfgDB_PASSWORD = &ldquo;password&rdquo;;   //登入主機密碼
+    $cfgDB_NAME = &ldquo;db_name&rdquo;;            //資料庫名稱</p>
+
+<p>//建立資料庫連線
+  $link = mysql_connect($cfgDB_HOST . &ldquo;:&rdquo; . $cfgDB_PORT, $cfgDB_USERNAME, $cfgDB_PASSWORD) or die(&ldquo;Could not connect MySQL&rdquo;);
+  //選擇資料庫
+  mysql_select_db($cfgDB_NAME, $link) or die(&ldquo;Could not select database&rdquo;);
+  //讓中文正常顯示
+  mysql_query(&ldquo;SET NAMES &lsquo;utf8&rsquo;&rdquo;);</p>
+
+<p>?&gt;
+```</p>
+
+<p><code>php test.php
+&lt;?php 
+    include (&quot;connectDB.inc.php&quot;);
+    try{
+        $sql=&quot;SELECT * from test&quot;;  //給予SQL指令
+      $result=mysql_query($sql) or die(&quot;invalid query&quot;);//傳給MySQL指令
+      //將所有資料顯示出來
+      while($record=mysql_fetch_array($result)){
+        echo &quot;id: $record[0]&lt;br&gt;&quot;;                      //第一種讀取資料庫欄位的方法，使用欄位序號
+        echo &quot;name: &quot;.$record[&quot;test_string&quot;].&quot;&lt;br&gt;&quot;;    //第二種讀取資料庫欄位方法，使用欄位名稱
+        }
+      mysql_close($link);
+    } catch(Exception $e){
+        echo $e;
+    }
+?&gt;
+</code></p>
+
+<p>若資料庫有資料就可以正確顯示溜</p>
+
+                    </div>
+                    <div class="post-share">
+                        <div class="post-share-links">
+                            <h4 style="">Share</h4>
+                            <a href="#" data-type="facebook" data-url="http://kerkerj.github.io/blog/2011/01/26/2011-01-26-php-db/" data-title="[PHP] 簡單的資料庫連結" data-description="" data-media="" class="prettySocial fa fa-facebook"></a>
+                            <a href="#" data-type="googleplus" data-url="http://kerkerj.github.io/blog/2011/01/26/2011-01-26-php-db/" data-description="" class="prettySocial fa fa-google-plus"></a>
+                            
+                            <a href="#" data-type="twitter" data-url="http://kerkerj.github.io/blog/2011/01/26/2011-01-26-php-db/" data-description="" data-via="kerkerj" class="prettySocial fa fa-twitter"></a>
+                            
+
+                        </div>
+                    </div>
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/kerkerj.github.io\/blog\/2011\/01\/26\/2011-01-26-php-db\/';
+    var disqus_title = '[PHP] 簡單的資料庫連結';
+    var disqus_url = 'http:\/\/kerkerj.github.io\/blog\/2011\/01\/26\/2011-01-26-php-db\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                </section>
+            </div>
+            <div class="footer">
+    <div class="pure-menu pure-menu-horizontal pure-menu-open">
+        <ul>
+            <li>Powered by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a></li>
+        </ul>
+    </div>
+</div>
+<script src="http://kerkerj.github.io//js/all.min.js"></script>
+<script>
+hljs.initHighlightingOnLoad();
+</script>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

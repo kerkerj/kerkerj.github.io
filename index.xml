@@ -1,0 +1,1569 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kerkerj</title>
+    <link>http://kerkerj.github.io/</link>
+    <description>Recent content on kerkerj</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
+    <lastBuildDate>Wed, 22 Apr 2015 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://kerkerj.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Raspberry Pi2 remote webcam</title>
+      <link>http://kerkerj.github.io/blog/2015/04/22/2015-04-22-raspberry-pi2-remote-webcam/</link>
+      <pubDate>Wed, 22 Apr 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://kerkerj.github.io/blog/2015/04/22/2015-04-22-raspberry-pi2-remote-webcam/</guid>
+      <description>&lt;p&gt;如題~&lt;/p&gt;
+
+&lt;p&gt;先假設 pi2 本身的 IP 是 &lt;code&gt;192.168.1.200&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;首先先進去 server 來更新一下~&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;$ sudo apt-get update &amp;amp;&amp;amp; sudo apt-get upgrade
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;再來就裝 &lt;a href=&#34;http://www.lavrsen.dk/foswiki/bin/view/Motion/WebHome&#34;&gt;motion&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;他其實是一個 motion detector，不過也可以拿來當作 web cam 用的 streaming server XD&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;$ sudo apt-get install motion
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;編輯設定檔 &lt;code&gt;/etc/motion/motion.conf&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;$ sudo vi /etc/motion/motion.conf
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;找到以下幾個值，並分別改成下面&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;daemon = ON
+webcam_localhost = OFF
+control_localhost = OFF
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;webcam_localhost&lt;/code&gt; 是 streaming 介面&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;control_localhost&lt;/code&gt; 是設定介面&lt;/p&gt;
+
+&lt;p&gt;如果要改預設 port，就找 &lt;code&gt;webcam_port&lt;/code&gt;, or &lt;code&gt;control_port&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;最後設定將 service 啟動&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;$ sudo vi /etc/default/motion
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;將 no 改成 yes&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;start_motion_daemon = yes
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;啟動 service&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;$ sudo service motion start
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;motion 這個 service 預設的 port 是 8080 / 8081 (可以在前述的設定檔更改)&lt;/p&gt;
+
+&lt;p&gt;開啟瀏覽器, 連入 &lt;code&gt;http://192.168.1.200:8080&lt;/code&gt; or &lt;code&gt;http://192.168.1.200:8081&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;這邊會有個小問題，就是連 8080 時會很正常&lt;/p&gt;
+
+&lt;p&gt;但是 8081 時如果是用 chrome，則怎麼都進不去&lt;/p&gt;
+
+&lt;p&gt;後來發現 &lt;a href=&#34;http://www.lavrsen.dk/foswiki/bin/view/Motion/SupportQuestion2013x09x01x104741&#34;&gt;這篇&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;他說 Chrome 不再支援 raw MJPEG streams 了&lt;/p&gt;
+
+&lt;p&gt;所以就是用其他瀏覽器開吧, 我是用 Safari :D&lt;/p&gt;
+
+&lt;p&gt;記得要和你的 pi2 在同一個 wifi 環境下~&lt;/p&gt;
+
+&lt;p&gt;剩下的還有許多設定可以玩～ 改天再來慢慢玩&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Setup wifi on raspberry pi2</title>
+      <link>http://kerkerj.github.io/blog/2015/04/22/2015-04-22-setup-wifi-on-raspberry-pi2/</link>
+      <pubDate>Wed, 22 Apr 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://kerkerj.github.io/blog/2015/04/22/2015-04-22-setup-wifi-on-raspberry-pi2/</guid>
+      <description>&lt;p&gt;(這是篇筆記)&lt;/p&gt;
+
+&lt;p&gt;前陣子從前同事那接手了一塊 raspberry pi2 的板子&lt;/p&gt;
+
+&lt;p&gt;想要用 wifi 來連網，於是就買了一個 usb 無線網卡&lt;/p&gt;
+
+&lt;p&gt;型號是:&lt;/p&gt;
+
+&lt;p&gt;TP-LINK TL-WN725N 150MbpsUSB無線網卡 (&lt;a href=&#34;http://24h.pchome.com.tw/prod/DRAF4Z-A75333252&#34;&gt;pchome連結&lt;/a&gt;)&lt;/p&gt;
+
+&lt;p&gt;一開始當然還是必須先插網路線，&lt;code&gt;ssh&lt;/code&gt; 進去後&lt;/p&gt;
+
+&lt;p&gt;先檢查 &lt;code&gt;pi2&lt;/code&gt; 的 &lt;code&gt;kernel&lt;/code&gt; 版本&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ uname -r
+3.18.7-v7+ # 這是我的版本
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;接著根據這個 &lt;a href=&#34;https://github.com/lwfinger/rtl8188eu/&#34;&gt;repo&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;將韌體載下來放到 /lib/firmware 裡&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo wget https://github.com/lwfinger/rtl8188eu/raw/c83976d1dfb4793893158461430261562b3a5bf0/rtl8188eufw.bin -O /lib/firmware/rtlwifi/rtl8188eufw.bin 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;再來設定 pi2 的網路&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ifconfig
+eth0      Link encap:Ethernet  
+lo        Link encap:Local Loopback
+wlan0     Link encap:Ethernet 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果網卡有裝成功，應該就會有 &lt;code&gt;wlan0&lt;/code&gt; 或是 &lt;code&gt;wlanX&lt;/code&gt; 之類的 (X 是數字)&lt;/p&gt;
+
+&lt;p&gt;最後就是手動掃描無線網路，並設定連線值囉&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo iwlist scan =&amp;gt; 掃描無線網路 AP
+wlan0     Scan completed :
+          Cell 01 - Address: XX:XX:XX:XX:XX:XX
+                    ESSID:&amp;quot;GGININDER&amp;quot;
+          Cell 02 - Address: XX:XX:XX:XX:XX:XX
+                    ESSID:&amp;quot;TP-LINK_F5566&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;連線的 &lt;code&gt;SSID&lt;/code&gt; 就找 &lt;code&gt;Cell&lt;/code&gt; 裡的 &lt;code&gt;ESSID&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;(通常應該會記得自己家的 AP 啦，可以用來確認一下)&lt;/p&gt;
+
+&lt;p&gt;開啟 &lt;code&gt;/etc/network/interfaces&lt;/code&gt; 來寫入連線值&lt;/p&gt;
+
+&lt;p&gt;我的 AP 的加密機制是 WPA/WPA2，所以使用下面的方式連線&lt;/p&gt;
+
+&lt;p&gt;若是其他方式 (e.g. WEP) 可以參考 &lt;a href=&#34;http://inpega.blogspot.tw/2013/09/blog-post_15.html&#34;&gt;這篇&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vi /etc/network/interfaces
+auto lo
+
+iface lo inet loopback
+iface eth0 inet dhcp
+
+# 重點是下面這段
+
+# 允許熱插拔 wlan0 這個介面
+allow-hotplug wlan0 
+
+# 預設設定為 dhcp
+iface default inet dhcp
+
+# 設定 wlan0 這張介面卡為 DHCP 自動取得 IP
+iface wlan0 inet dhcp
+
+# 你的 AP 的 SSID
+wpa-ssid &amp;quot;GGININDER&amp;quot;
+
+# 你的 AP 的密碼
+wpa-psk &amp;quot;password&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;設定好後，重新啟動 wlan0 介面就可以連線囉&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo ifdown wlan0
+$ sudo ifup wlan0
+$ ifconfig wlan0 # 確認是否取得 IP
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;reference:&lt;/p&gt;
+
+&lt;p&gt;raspberry pi forum: &lt;a href=&#34;http://www.raspberrypi.org/forums/viewtopic.php?f=28&amp;amp;t=62371&amp;amp;start=475&#34;&gt;http://www.raspberrypi.org/forums/viewtopic.php?f=28&amp;amp;t=62371&amp;amp;start=475&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;網路設定: &lt;a href=&#34;http://inpega.blogspot.tw/2013/09/blog-post_15.html&#34;&gt;http://inpega.blogspot.tw/2013/09/blog-post_15.html&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>ithome 鐵人賽 - 規劃</title>
+      <link>http://kerkerj.github.io/blog/2014/11/01/2014-10-02-planning/</link>
+      <pubDate>Sat, 01 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://kerkerj.github.io/blog/2014/11/01/2014-10-02-planning/</guid>
+      <description>&lt;p&gt;半個月前不怕死的報名了 ithome 的&lt;a href=&#34;http://ithelp.ithome.com.tw/ironman7/app/index&#34;&gt;連續三十天不中斷發文鐵人賽&lt;/a&gt;，&lt;/p&gt;
+
+&lt;p&gt;還報名了兩個主題，真的是太誇張了&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;但是由於 ithome 的編輯器其實排版起來沒有很漂亮，&lt;/p&gt;
+
+&lt;p&gt;因此決定利用這邊先發文，再轉文到 ithome 的方式來處理，&lt;/p&gt;
+
+&lt;p&gt;比較順手一些，順便在這篇文章貼上規劃方向，topic 可能隨時會變，但大方向不變&lt;/p&gt;
+
+&lt;p&gt;第一次寫的主題都幾乎不是自己專精的技術，&lt;/p&gt;
+
+&lt;p&gt;規劃表如下： (Evernote 連結)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.evernote.com/l/AFFz7an43x1K46hErAgyJdD5K9BuFFMN9Dg&#34;&gt;https://www.evernote.com/l/AFFz7an43x1K46hErAgyJdD5K9BuFFMN9Dg&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;因此若有錯誤也請有看到的大大們多多幫忙指正囉！&lt;/p&gt;
+
+&lt;p&gt;有時候會因為比較忙，可能文章比較精簡一些，還請大家多多包涵 :P&lt;/p&gt;
+
+&lt;p&gt;有任何文章更新也會同步在此篇文章中!&lt;/p&gt;
+
+&lt;p&gt;##RESTful API Service:
+Day1  -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/02/api-d1/&#34;&gt;[API-d1] - 定義 1 - 什麼是 REST/RESTful?&lt;/a&gt;&lt;br /&gt;
+Day2  -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/02/api-d2/&#34;&gt;[API-d2] - 定義 2 - RESTful 的優點與要求&lt;/a&gt;&lt;br /&gt;
+Day3  -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/03/api-d3/&#34;&gt;[API-d3] - 使用時機與實際 API 參考&lt;/a&gt;&lt;br /&gt;
+Day4  -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/04/api-d4/&#34;&gt;[API-d4] - 使用技術與工具介紹及原因&lt;/a&gt;&lt;br /&gt;
+Day5  -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/05/api-d5/&#34;&gt;[API-d5] - [Server 番外篇] 建立自己的本機虛擬伺服器 1 - Vagrant + VirtualBox 安裝&lt;/a&gt;&lt;br /&gt;
+Day6  -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/06/api-d6/&#34;&gt;[API-d6] - [Server 番外篇] 建立自己的本機虛擬伺服器 2 - Ubuntu 基本設定與安裝 Node.js, MongoDB &lt;/a&gt;&lt;br /&gt;
+Day7  -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/07/api-d7/&#34;&gt;[API-d7] - [Server 番外篇] 建立自己的本機虛擬伺服器 3 - 打包環境&lt;/a&gt;&lt;br /&gt;
+Day8  -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/08/api-d8/&#34;&gt;[API-d8] - Node.js - Hello World!&lt;/a&gt;&lt;br /&gt;
+Day9  -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/09/api-d9/&#34;&gt;[API-d9] - NVM 與 NPM 使用&lt;/a&gt;&lt;br /&gt;
+Day10 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/10/api-d10/&#34;&gt;[API-d10] - Express - Hello World!&lt;/a&gt;&lt;br /&gt;
+Day11 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/11/api-d11/&#34;&gt;[API-d11] - MongoDB - Hello World!&lt;/a&gt;&lt;br /&gt;
+Day12 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/12/api-d12/&#34;&gt;[API-d12] - MongoDB - Hello World! (Client-side) &lt;/a&gt;&lt;br /&gt;
+Day13 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/13/api-d13/&#34;&gt;[API-d13] - [Javascript 番外篇] Javascript require/ module/ Module Pattern&lt;/a&gt;&lt;br /&gt;
+Day14 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/14/api-d14/&#34;&gt;[API-d14] - [Javascript 番外篇] Javascript function scopes 和 closures&lt;/a&gt;&lt;br /&gt;
+Day15 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/15/api-d15/&#34;&gt;[API-d15] - [Javascript 番外篇] Javascript callback, event&lt;/a&gt;&lt;br /&gt;
+Day16 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/16/api-d16/&#34;&gt;[API-d16] - 實戰開發 - 設定主題及規劃&lt;/a&gt;&lt;br /&gt;
+Day17 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/17/api-d17/&#34;&gt;[API-d17] - 實戰開發 - 專案結構&lt;/a&gt;&lt;br /&gt;
+Day18 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/18/api-d18/&#34;&gt;[API-d18] - 實戰開發 - 套件模組&lt;/a&gt;&lt;br /&gt;
+Day19 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/19/api-d19/&#34;&gt;[API-d19] - 實戰開發 - index &amp;amp; route &amp;amp; http status code&lt;/a&gt;&lt;br /&gt;
+Day20 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/20/api-d20/&#34;&gt;[API-d20] - 實戰開發 - Routes 2, get params and request data&lt;/a&gt;&lt;br /&gt;
+Day21 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/21/api-d21/&#34;&gt;[API-d21] - 實戰開發 - 新增 TODO task API with mongoose&lt;/a&gt;&lt;br /&gt;
+Day22 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/22/api-d22/&#34;&gt;[API-d22] - 實戰開發 - 讀取 TODO task API with mongoose&lt;/a&gt;&lt;br /&gt;
+Day23 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/23/api-d23/&#34;&gt;[API-d23] - 實戰開發 - 修改 TODO task API with mongoose&lt;/a&gt;&lt;br /&gt;
+Day24 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/24/api-d24/&#34;&gt;[API-d24] - 實戰開發 - 刪除 TODO task API with mongoose&lt;/a&gt;&lt;br /&gt;
+Day25 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/25/api-day25/&#34;&gt;[API-day25] - 實戰開發 - 處理 404 &amp;amp; 500&lt;/a&gt;&lt;br /&gt;
+Day26 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/26/api-d26/&#34;&gt;[API-d26] - 實戰開發 - API-key&lt;/a&gt;&lt;br /&gt;
+Day27 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/27/api-d27/&#34;&gt;[API-d27] - 實戰開發 - log 處理 及 config (db, apikey)&lt;/a&gt;&lt;br /&gt;
+Day28 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/28/api-d28/&#34;&gt;[API-d28] - 實戰開發 - 發佈 - forever&lt;/a&gt;&lt;br /&gt;
+Day29 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/29/api-d29/&#34;&gt;[API-d29] - 實戰開發 - 發佈 - nginx&lt;/a&gt;&lt;br /&gt;
+Day30 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/30/api-d30/&#34;&gt;[API-d30] - 總結&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;##Swift:
+Day1  -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/02/swift-d1/&#34;&gt;[Swift-d1] - 介紹&lt;/a&gt;&lt;br /&gt;
+Day2  -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/02/swift-d2/&#34;&gt;[Swift-d2] - 安裝及 Hello World!&lt;/a&gt;&lt;br /&gt;
+Day3  -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/03/swift-d3/&#34;&gt;[Swift-d3] - Playground - 變數與常數, 註解, 基本資料型別&lt;/a&gt;&lt;br /&gt;
+Day4  -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/04/swift-d4/&#34;&gt;[Swift-d4] - Playground - Optional, ! and ? &lt;/a&gt;&lt;br /&gt;
+Day5  -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/05/swift-d5/&#34;&gt;[Swift-d5] - Playground - Array, Dictionary, Controll Flow&lt;/a&gt;&lt;br /&gt;
+Day6  -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/06/swift-d6/&#34;&gt;[Swift-d6] - Playground - function&lt;/a&gt;&lt;br /&gt;
+Day7  -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/07/swift-d7/&#34;&gt;[Swift-d7] - Playground - Closures&lt;/a&gt;&lt;br /&gt;
+Day8  -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/08/swift-d8/&#34;&gt;[Swift-d8] - Playground - Enumerations&lt;/a&gt;&lt;br /&gt;
+Day9  -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/09/swift-d9/&#34;&gt;[Swift-d9] - Playground - Class, Struct&lt;/a&gt;&lt;br /&gt;
+Day10 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/10/swift-d10/&#34;&gt;[Swift-d10] 延伸閱讀&lt;/a&gt;&lt;br /&gt;
+Day11 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/11/swift-d11/&#34;&gt;[Swift-d11] - Basic - Hello World!&lt;/a&gt;&lt;br /&gt;
+Day12 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/12/swift-d12/&#34;&gt;[Swift-d12] - Basic - 基本元件 (Label, Button, UIColor, 文字輸入框)&lt;/a&gt;&lt;br /&gt;
+Day13 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/13/swift-d13/&#34;&gt;[Swift-d13] - Basic - Navigation View 1 + ViewController&lt;/a&gt;&lt;br /&gt;
+Day14 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/14/swift-d14/&#34;&gt;[Swift-d14] - Basic - Navigation View 2 + ViewController&lt;/a&gt;&lt;br /&gt;
+Day15 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/15/swift-d15/&#34;&gt;[Swift-d15] - Basic - Table View 1 直接給值 datasource, (table view scroll)&lt;/a&gt;&lt;br /&gt;
+Day16 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/16/swift-d16/&#34;&gt;[Swift-d16] - Basic - Table View 2 換頁 (delegate)&lt;/a&gt;&lt;br /&gt;
+Day17 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/17/swift-d17/&#34;&gt;[Swift-d17] - Basic - Navigation View + TableView&lt;/a&gt;&lt;br /&gt;
+Day18 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/18/swift-d18/&#34;&gt;[Swift-d18] - Basic - Customize TableViewCell&lt;/a&gt;&lt;br /&gt;
+Day19 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/19/swift-d19/&#34;&gt;[Swift-d19] - Basic - 橋接第三方 Objc library - Reachability and Bridge.h&lt;/a&gt;&lt;br /&gt;
+Day20 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/20/swift-d20/&#34;&gt;[Swift-d20] - Basic - 捨棄 Storyboard 使用純程式碼 的方式撰寫 ViewController&lt;/a&gt;&lt;br /&gt;
+Day21 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/21/swift-d21/&#34;&gt;[Swift-d21] - 實戰開發 - TODOList - 前置設定&lt;/a&gt;&lt;br /&gt;
+Day22 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/22/swift-d22/&#34;&gt;[Swift-d22] - 實戰開發 - TODOList - Show View 1&lt;/a&gt;&lt;br /&gt;
+Day23 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/23/swift-d23/&#34;&gt;[Swift-d23] - 實戰開發 - TODOList - Show View 2, Delete View&lt;/a&gt;&lt;br /&gt;
+Day24 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/24/swift-d24/&#34;&gt;[Swift-d24] - 實戰開發 - TODOList - Create View&lt;/a&gt;&lt;br /&gt;
+Day25 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/25/swift-day25/&#34;&gt;[Swift-day25] - 實戰開發 - TODOList - Update View&lt;/a&gt;&lt;br /&gt;
+Day26 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/26/swift-d26/&#34;&gt;[Swift-d26] - 實戰開發 - TODOList - API 前置資料準備&lt;/a&gt;&lt;br /&gt;
+Day27 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/27/swift-d27/&#34;&gt;[Swift-d27] - 實戰開發 - TODOList - API 2 讀取清單資料&lt;/a&gt;&lt;br /&gt;
+Day28 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/28/swift-d28/&#34;&gt;[Swift-d28] - 實戰開發 - TODOList - API 3 新增與更新&lt;/a&gt;&lt;br /&gt;
+Day29 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/29/swift-d29/&#34;&gt;[Swift-d29] - 實戰開發 - TODOList - API 4 刪除&lt;/a&gt;&lt;br /&gt;
+Day30 -  &lt;a href=&#34;http://kerkerj.github.io/blog/2014/10/30/swift-d30/&#34;&gt;[Swift-d30] - 總結&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[API-d30] - 總結</title>
+      <link>http://kerkerj.github.io/blog/2014/10/30/2014-10-30-api-d30/</link>
+      <pubDate>Thu, 30 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://kerkerj.github.io/blog/2014/10/30/2014-10-30-api-d30/</guid>
+      <description>&lt;p&gt;總結三十天下來的 Restful API service 建置&lt;/p&gt;
+
+&lt;p&gt;其實接觸到的東西很廣泛&lt;/p&gt;
+
+&lt;p&gt;從 server 端到程式端，還有虛擬機器的使用都有沾到邊&lt;/p&gt;
+
+&lt;p&gt;其實不管是哪個領域都是要一點一滴累積起來的&lt;/p&gt;
+
+&lt;p&gt;以這次的開發技術來說，&lt;/p&gt;
+
+&lt;p&gt;vagrant 方便在於我在和別人共享 server 環境時非常方便&lt;/p&gt;
+
+&lt;p&gt;自己在架測試環境時也可以先將乾淨的 web serser 打包起來&lt;/p&gt;
+
+&lt;p&gt;供日後隨時要用時開起來馬上 deploy 就可以使用&lt;/p&gt;
+
+&lt;p&gt;另外加上方便的網路設定，&lt;/p&gt;
+
+&lt;p&gt;在測試時非常方便&lt;/p&gt;
+
+&lt;p&gt;另外則是 nodejs，&lt;/p&gt;
+
+&lt;p&gt;這次會選擇 nodejs 主要也是想進入 javascript 的世界&lt;/p&gt;
+
+&lt;p&gt;nodejs 若作為一個後端程式語言來說，我認為是非常輕量且入門非常簡單&lt;/p&gt;
+
+&lt;p&gt;套一句最近常聽到的話&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;javascript is everywhere&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;不管是網頁前後端，nodejs 還可以拿來寫桌面應用、嵌入式系統&lt;/p&gt;
+
+&lt;p&gt;應用領域非常廣泛&lt;/p&gt;
+
+&lt;p&gt;也希望這門語言能夠更標準化，擺脫歷史包袱&lt;/p&gt;
+
+&lt;p&gt;看最近幾年的發展，其實我認為是勢在必行的&lt;/p&gt;
+
+&lt;p&gt;只缺一個領頭羊來帶領大家前往偉大的航道了! XD&lt;/p&gt;
+
+&lt;p&gt;希望三十天的分享能給大家帶來不一樣的感受~&lt;/p&gt;
+
+&lt;p&gt;對了突然想到一件事，這個主題的副標最後一句是想要和 APP 結合&lt;/p&gt;
+
+&lt;p&gt;APP 在隔壁棚啦 XD&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Swift-d30] - 總結</title>
+      <link>http://kerkerj.github.io/blog/2014/10/30/2014-10-30-swift-d30/</link>
+      <pubDate>Thu, 30 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://kerkerj.github.io/blog/2014/10/30/2014-10-30-swift-d30/</guid>
+      <description>&lt;p&gt;30 天下來其實中間受到不少人幫忙&lt;/p&gt;
+
+&lt;p&gt;因為第一次寫 iOS 程式，對於 iOS 的基本運作流程還是詢問了不少同事&lt;/p&gt;
+
+&lt;p&gt;包含在隔壁棚用 Cocos2d 寫 2D 遊戲的 Andy&lt;/p&gt;
+
+&lt;p&gt;還有同事 Henry 和 Felix 都給予了很大的幫忙&lt;/p&gt;
+
+&lt;p&gt;最後這隻小 app 其實 code 的品質並沒有很好&lt;/p&gt;
+
+&lt;p&gt;主要還是因為寫來 demo 用的，以及老實講也沒什麼時間寫&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;報兩個組別真的是很鐵人哪&lt;/p&gt;
+
+&lt;p&gt;還看到隔壁棚一次報三四個主題的大大&lt;/p&gt;
+
+&lt;p&gt;真是太厲害了&lt;/p&gt;
+
+&lt;p&gt;假設明年還會參賽的話，應該還是會以單一技術來鑽研吧!&lt;/p&gt;
+
+&lt;p&gt;Swift 有蠻多特性是 Objective-C 所沒有的&lt;/p&gt;
+
+&lt;p&gt;如果有想在新專案嘗試的話&lt;/p&gt;
+
+&lt;p&gt;最好還是先多看看網路上的比較&lt;/p&gt;
+
+&lt;p&gt;避免踩到雷&lt;/p&gt;
+
+&lt;p&gt;像有一點是我們同事曾經踩到的雷&lt;/p&gt;
+
+&lt;p&gt;就是 NSDictionary V.S. Dictionary&lt;/p&gt;
+
+&lt;p&gt;兩者的速度可以差到 5, 6 倍以上&lt;/p&gt;
+
+&lt;p&gt;網路上搜尋也會發現有人在討論 Swift Dictionary 的效能差異&lt;/p&gt;
+
+&lt;p&gt;若要在新專案使用還是要查詢一下避免掉一些問題&lt;/p&gt;
+
+&lt;p&gt;另外還有就是 Swift on Xcode 的穩定度還是有待加強&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;總而言之, 30 天結束了，ya!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[API-d29] - 實戰開發 - 發佈 - nginx</title>
+      <link>http://kerkerj.github.io/blog/2014/10/29/2014-10-29-api-d29/</link>
+      <pubDate>Wed, 29 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://kerkerj.github.io/blog/2014/10/29/2014-10-29-api-d29/</guid>
+      <description>&lt;p&gt;接下來這篇就會比較偏 server 設定了！&lt;/p&gt;
+
+&lt;p&gt;nginx 是一套伺服器軟體，和 apache 並駕齊驅&lt;/p&gt;
+
+&lt;p&gt;(其實我覺得 nginx &amp;gt;&amp;gt;&amp;gt; apache XD)&lt;/p&gt;
+
+&lt;p&gt;主要是 nginx 清量快速&lt;/p&gt;
+
+&lt;p&gt;我們要拿他幫 nodejs 處理接收 request 的部分，再將 request 導往 nodejs&lt;/p&gt;
+
+&lt;p&gt;所以感覺就會如下圖:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2013.14.16.png&#34; alt=&#34;image&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;可以讓 nginx 當作是 load balancer,&lt;/p&gt;
+
+&lt;p&gt;透過 reverse proxy 的方式轉發 request 給 nodejs, 讓 nginx 承受流量&lt;/p&gt;
+
+&lt;p&gt;這就是我們今天要做的事情，&lt;/p&gt;
+
+&lt;p&gt;所以首先，我們就要先裝 nginx，因此就先進虛擬機吧!&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;$ sudo apt-get update &amp;amp;&amp;amp; sudo apt-get upgrade -y
+$ sudo apt-get install nginx 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這樣就會安裝一個 nginx 了!&lt;/p&gt;
+
+&lt;p&gt;Nginx 的設定檔都是放在 &lt;code&gt;/etc/nginx/&lt;/code&gt; 底下&lt;/p&gt;
+
+&lt;p&gt;個別網站的設定放在 &lt;code&gt;/etc/nginx/sites-available&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;如果要讓該網站上線，則會將 &lt;code&gt;/etc/nginx/sites-available&lt;/code&gt; 的設定檔 link 到 &lt;code&gt;/etc/nginx/sites-enable&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;因此若想自己新增設定檔的話，慣例是會在 available 新增，然後再 link 到 &lt;code&gt;enable&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;如果我們進到 &lt;code&gt;/etc/nginx/sites-enable&lt;/code&gt; 的話，裡面應該已經有一個 &lt;code&gt;default&lt;/code&gt; 的設定檔了&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo vim /etc/nginx/sites-enable/default
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;內容應該是:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;server {
+        listen 80 default_server;
+        listen [::]:80 default_server ipv6only=on;
+
+        root /usr/share/nginx/html;
+        index index.html index.htm;
+
+        # Make site accessible from http://localhost/
+        server_name localhost;
+
+        location / {
+                # First attempt to serve request as file, then
+                # as directory, then fall back to displaying a 404.
+                try_files $uri $uri/ =404;
+                # Uncomment to enable naxsi on this location
+                # include /etc/nginx/naxsi.rules
+        }
+
+        # Only for nginx-naxsi used with nginx-naxsi-ui : process denied requests
+        #location /RequestDenied {
+        #       proxy_pass http://127.0.0.1:8080;
+        #}
+        
+        ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;將設定檔改成如下:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;upstream nodejs {
+  server 127.0.0.1:3000;
+  #server 127.0.0.1:3001;
+}
+
+server {
+    listen 80;
+
+    server_name localhost;
+
+    location / {
+        proxy_pass http://nodejs;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection &#39;upgrade&#39;;
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;解釋一下以下這段:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;upstream nodejs {
+  server 127.0.0.1:3000;
+  #server 127.0.0.1:3001;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;下面這段則是 proxy pass 的部分, 會將 &lt;code&gt;/&lt;/code&gt; 的流量導到 nodejs 的 server cluster 裡面，不過因為我們現在只有一台 server 開起來，所以只會被導到 3000 port 的那台機器&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;location / {
+        proxy_pass http://nodejs;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection &#39;upgrade&#39;;
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果 nodejs server 的承載量不夠，可以開好幾檯，只要 port 不一樣即可&lt;/p&gt;
+
+&lt;p&gt;這樣就可以建立一個 nodejs cluster&lt;/p&gt;
+
+&lt;p&gt;再來使用 forever 開啓 nodejs server&lt;/p&gt;
+
+&lt;p&gt;再重新開啟 nginx&lt;/p&gt;
+
+&lt;p&gt;使用 postman 戳戳看 API&lt;/p&gt;
+
+&lt;p&gt;就成功囉~~&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Swift-d29] - 實戰開發 - TODOList - API 4 刪除</title>
+      <link>http://kerkerj.github.io/blog/2014/10/29/2014-10-29-swift-d29/</link>
+      <pubDate>Wed, 29 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://kerkerj.github.io/blog/2014/10/29/2014-10-29-swift-d29/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day29&#34;&gt;Github link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;今天要處理刪除&lt;/p&gt;
+
+&lt;p&gt;其實超簡單的&lt;/p&gt;
+
+&lt;p&gt;只是想偷懶一下 XD&lt;/p&gt;
+
+&lt;p&gt;一樣將下列程式碼新增到 RestApi class:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;func deleteTodoList(completionHandler: ((NSDictionary!, NSError!) -&amp;gt; Void)!, todoId: String) {
+        var session = NSURLSession.sharedSession()
+        
+        var request = NSMutableURLRequest(URL: NSURL(string: &amp;quot;http://192.168.1.158:3000/user/kerkerj/todos/\(todoId)&amp;quot;)!)
+        request.HTTPMethod = &amp;quot;DELETE&amp;quot;
+        
+        var err: NSError?
+        request.addValue(&amp;quot;application/json&amp;quot;, forHTTPHeaderField: &amp;quot;Content-Type&amp;quot;)
+        request.addValue(self.API_key, forHTTPHeaderField: &amp;quot;API-Key&amp;quot;)
+        
+        
+        let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -&amp;gt; Void in
+            if (error != nil) {
+                return completionHandler(nil, error)
+            }
+            
+            var error: NSError?
+            let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &amp;amp;error) as NSDictionary
+            
+            println(json)
+            
+            if (error != nil) {
+                return completionHandler(nil, error)
+            } else {
+                return completionHandler(json, nil)
+            }
+        })
+        
+        task.resume()
+    }
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;回到 ViewController 中的 tableView commitEditingStyle 的方法中&lt;/p&gt;
+
+&lt;p&gt;將其更新為:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        api.deleteTodoList({data, err -&amp;gt; Void in
+            let alert = UIAlertView()
+            alert.title = &amp;quot;Alert&amp;quot;
+            alert.addButtonWithTitle(&amp;quot;Ok&amp;quot;)
+            
+            if (err != nil) {
+                alert.message = &amp;quot;Failed to delete: \(err)&amp;quot;
+                alert.show()
+            } else {
+                alert.message = &amp;quot;ok!&amp;quot;
+                
+                self.fakeData.removeAtIndex(indexPath.row)
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    // must be &amp;quot;tableView!&amp;quot; not &amp;quot;tableView?&amp;quot;
+                    alert.show()
+                    self.tableView!.reloadData()
+                })
+            }
+            }, todoId: fakeData[indexPath.row][&amp;quot;_id&amp;quot;]!)
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;改好程式碼後，執行該程式&lt;/p&gt;
+
+&lt;p&gt;在清單中將 item 往左滑，就可以看到刪除的按鈕了!&lt;/p&gt;
+
+&lt;p&gt;超簡單的啦!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Swift-d28] - 實戰開發 - TODOList - API 3 新增與更新</title>
+      <link>http://kerkerj.github.io/blog/2014/10/28/2014-10-28-swift-d28/</link>
+      <pubDate>Tue, 28 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://kerkerj.github.io/blog/2014/10/28/2014-10-28-swift-d28/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;day28&#34;&gt;Github link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;昨天做了 get list&lt;/p&gt;
+
+&lt;p&gt;今天就來做 新增和儲存吧!&lt;/p&gt;
+
+&lt;p&gt;可能有人會問說，那讀取一筆 todo 的 API 呢?&lt;/p&gt;
+
+&lt;p&gt;因為在這邊資料量少，所有的東西都可以從最外層的 list 拿到&lt;/p&gt;
+
+&lt;p&gt;所以雖然有換頁的動作，但是節省流量可以不需要實做這件事&lt;/p&gt;
+
+&lt;p&gt;在實際開發中也會如此，case by case，有些情況一次拿完回來處理最好&lt;/p&gt;
+
+&lt;p&gt;不過有些則不是~&lt;/p&gt;
+
+&lt;p&gt;離題了，&lt;/p&gt;
+
+&lt;p&gt;以下是新增 todo 的程式碼:&lt;/p&gt;
+
+&lt;p&gt;先到 RestApi.swift 新增 post function&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;func addTodoList(completionHandler: ((NSDictionary!, NSError!) -&amp;gt; Void)!, content: String) {
+        var session = NSURLSession.sharedSession()
+        
+        var request = NSMutableURLRequest(URL: self.addTodoUrl!)
+        request.HTTPMethod = &amp;quot;POST&amp;quot;
+        
+        var params = [&amp;quot;content&amp;quot;: content] as Dictionary&amp;lt;String, String&amp;gt;
+        
+        var err: NSError?
+        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &amp;amp;err)
+        request.addValue(&amp;quot;application/json&amp;quot;, forHTTPHeaderField: &amp;quot;Content-Type&amp;quot;)
+        request.addValue(self.API_key, forHTTPHeaderField: &amp;quot;API-Key&amp;quot;)
+        
+        
+        let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -&amp;gt; Void in
+            if (error != nil) {
+                return completionHandler(nil, error)
+            }
+            
+            var error: NSError?
+            let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &amp;amp;error) as NSDictionary
+            
+            if (error != nil) {
+                return completionHandler(nil, error)
+            } else {
+                return completionHandler(json, nil)
+            }
+        })
+        
+        task.resume()
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;再來就是在程式中呼叫這隻 API 囉! 我們會在 UpdateViewController 中做這件事&lt;/p&gt;
+
+&lt;p&gt;因為這隻 controler 處理了 &amp;ldquo;Add&amp;rdquo; 和 &amp;ldquo;Update&amp;rdquo; 兩件事&lt;/p&gt;
+
+&lt;p&gt;在 save() 這個 function 裡面修改成:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// 記得 class 中先產生一個 api 物件
+var api = RestApi()
+
+func save() {
+        if from == &amp;quot;add&amp;quot; {
+            api.addTodoList({data, error -&amp;gt; Void in
+                if data == nil {
+                    println(error)
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    println(&amp;quot;done&amp;quot;)
+                    self.navigationController?.popToRootViewControllerAnimated(true)
+                })
+            }, content: self.textField.text)
+
+        } else if from == &amp;quot;edit&amp;quot; {
+            println(&amp;quot;Save edited data&amp;quot;)
+        }
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;打開執行就可以新增 todo 了!&lt;/p&gt;
+
+&lt;p&gt;&amp;ldquo;Update&amp;rdquo; 的行為和新增一樣&lt;/p&gt;
+
+&lt;p&gt;先到 RestApi class 加入 update 的方法:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;func updateTodoList(completionHandler: ((NSDictionary!, NSError!) -&amp;gt; Void)!, content: String, todoId: String) {
+        var session = NSURLSession.sharedSession()
+        
+        var request = NSMutableURLRequest(URL: NSURL(string: &amp;quot;http://192.168.1.158:3000/user/kerkerj/todos/\(todoId)&amp;quot;)!)
+        request.HTTPMethod = &amp;quot;PUT&amp;quot;
+        
+        var params = [&amp;quot;content&amp;quot;: content] as Dictionary&amp;lt;String, String&amp;gt;
+        
+        var err: NSError?
+        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &amp;amp;err)
+        request.addValue(&amp;quot;application/json&amp;quot;, forHTTPHeaderField: &amp;quot;Content-Type&amp;quot;)
+        request.addValue(self.API_key, forHTTPHeaderField: &amp;quot;API-Key&amp;quot;)
+        
+        
+        let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -&amp;gt; Void in
+            if (error != nil) {
+                return completionHandler(nil, error)
+            }
+            
+            var error: NSError?
+            let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &amp;amp;error) as NSDictionary
+            
+            if (error != nil) {
+                return completionHandler(nil, error)
+            } else {
+                return completionHandler(json, nil)
+            }
+        })
+        
+        task.resume()
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;再到剛剛的 UpdateViewController ，把 save() 的另外一個 &amp;ldquo;edit&amp;rdquo; 的區塊改成下面的程式碼&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;else if from == &amp;quot;edit&amp;quot; {
+            println(&amp;quot;Save edited data&amp;quot;)
+            api.updateTodoList({data, error -&amp;gt; Void in
+                if data == nil {
+                    println(error)
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    println(&amp;quot;done&amp;quot;)
+                    self.navigationController!.popToRootViewControllerAnimated(true)
+                })
+                
+            }, content: self.textField.text, todoId: self.index)
+        }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;所以整個 save() 會長這樣:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;func save() {
+        if from == &amp;quot;add&amp;quot; {
+            api.addTodoList({data, error -&amp;gt; Void in
+                if data == nil {
+                    println(error)
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    println(&amp;quot;done&amp;quot;)
+                    self.navigationController?.popToRootViewControllerAnimated(true)
+                })
+            }, content: self.textField.text)
+
+        } else if from == &amp;quot;edit&amp;quot; {
+            println(&amp;quot;Save edited data&amp;quot;)
+            api.updateTodoList({data, error -&amp;gt; Void in
+                if data == nil {
+                    println(error)
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    println(&amp;quot;done&amp;quot;)
+                    self.navigationController!.popToRootViewControllerAnimated(true)
+                })
+                
+            }, content: self.textField.text, todoId: self.id
+        }
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在這邊要再修改一個之前的 bug Orz&lt;/p&gt;
+
+&lt;p&gt;由於我們要更新的時候，必須要使用到該筆資料的 object id&lt;/p&gt;
+
+&lt;p&gt;我們之前在 view 中傳遞的都是 content，都沒有 id，因此要加進去&lt;/p&gt;
+
+&lt;p&gt;首先要先改的地方是&lt;/p&gt;
+
+&lt;p&gt;ViewController 中的&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;showViewController.id = fakeData[indexPath.row][&amp;quot;id&amp;quot;]
+
+// 改成:
+showViewController.id = fakeData[indexPath.row][&amp;quot;_id&amp;quot;]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;因為在 mongodb 中 object id 的名字是 _id&lt;/p&gt;
+
+&lt;p&gt;再來要在 ShowViewController 中加入一個把 id 傳到 UpdateViewController&lt;/p&gt;
+
+&lt;p&gt;在 ShowViewController 中的 editTODO() 加入:&lt;/p&gt;
+
+&lt;p&gt;(因為之前 showView 就已經有拿到 id 了，只是先前的欄位寫錯，加上沒有將 id pass 到 UpdateViewControler 才會發生這種事 XD)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;editViewContronller.id = self.id
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;應該只有改這樣，最後執行看看&lt;/p&gt;
+
+&lt;p&gt;就發現可以編輯成功囉!&lt;/p&gt;
+
+&lt;p&gt;快結束啦!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[API-d28] - 實戰開發 - 發佈 - forever</title>
+      <link>http://kerkerj.github.io/blog/2014/10/28/2014-10-28-api-d28/</link>
+      <pubDate>Tue, 28 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://kerkerj.github.io/blog/2014/10/28/2014-10-28-api-d28/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day28&#34;&gt;Github 參考&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;接下來兩天要講 deploy 的部分&lt;/p&gt;
+
+&lt;p&gt;由於 deploy 的 script 其實非常的麻煩，因此我們就不提 deploy 的 script 了&lt;/p&gt;
+
+&lt;p&gt;我們只專注在 server 上需要什麼東西&lt;/p&gt;
+
+&lt;p&gt;今天要來看看 &lt;code&gt;forever&lt;/code&gt; 這個套件&lt;/p&gt;
+
+&lt;p&gt;這個套件可以幫助 nodejs 的 server 遇上無預警的 server 掛掉時&lt;/p&gt;
+
+&lt;p&gt;會幫你自動重新啟動 nodejs 的 server&lt;/p&gt;
+
+&lt;p&gt;也就是說&lt;/p&gt;
+
+&lt;p&gt;假設說 nodejs 寫的 server 某個 route 有問題，&lt;/p&gt;
+
+&lt;p&gt;送 request 後會因為某些因素造成 server error 造成程式碼 crash 時&lt;/p&gt;
+
+&lt;p&gt;forever 的 monitor 會偵測到，並幫你自動重啟 server&lt;/p&gt;
+
+&lt;p&gt;至少不會造成其他正常存取 server 的使用者遭遇到 server down 的問題&lt;/p&gt;
+
+&lt;p&gt;這個套件可以選擇裝在 global 或是 project&lt;/p&gt;
+
+&lt;p&gt;在這邊我是選擇裝成 global&lt;/p&gt;
+
+&lt;p&gt;進到虛擬機&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;$ npm install -g forever
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;p.s. 如果遇到問題，試著跑下面的指令看看?&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo chown vagrant:vagrant -R ~/.npm/
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;接下來我們就可以使用 &lt;code&gt;forever&lt;/code&gt; 這個指令了!&lt;/p&gt;
+
+&lt;p&gt;原本我們要啟動 server 的話&lt;/p&gt;
+
+&lt;p&gt;是要下:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ npm start 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;同義於:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ node ./bin/server.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果要改用 &lt;code&gt;forever&lt;/code&gt; 的話:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// 記得先到專案根目錄
+$ forever start bin/server.js
+warn:    --minUptime not set. Defaulting to: 1000ms
+warn:    --spinSleepTime not set. Your script will exit if it does not stay up for at least 1000ms
+info:    Forever processing file: ./bin/server.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然後就會被丟到背景執行了&lt;/p&gt;
+
+&lt;p&gt;那要怎麼知道我的 server 有跑起來呢?&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ forever list
+info:    Forever processes running
+data:        uid  command                              script        forever pid   logfile                         uptime
+data:    [0] 6qhd /home/vagrant/.nvm/v0.10.32/bin/node bin/server.js 13746   13748 /home/vagrant/.forever/6qhd.log 0:0:0:47.743
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;就會列出相關資訊以及 forever 自己的 log file 位置&lt;/p&gt;
+
+&lt;p&gt;要關閉的話:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ forever stop bin/server.js
+info:    Forever stopped process:
+data:        uid  command                              script        forever pid   logfile                         uptime
+[0] 6qhd /home/vagrant/.nvm/v0.10.32/bin/node bin/server.js 13746   14061 /home/vagrant/.forever/6qhd.log 0:0:0:6.595
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;bin/server.js&lt;/code&gt; 也可以替換成 forever uid 或 pid&lt;/p&gt;
+
+&lt;p&gt;如果要重開的話&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ forever restart bin/server.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;超簡單!&lt;/p&gt;
+
+&lt;p&gt;這樣就可以不用擔心 server 突然掛掉了&amp;hellip;.嗎?&lt;/p&gt;
+
+&lt;p&gt;錯，還是必須要監控 server 狀態&lt;/p&gt;
+
+&lt;p&gt;畢竟，&lt;code&gt;forever&lt;/code&gt; 也是會有 bug 的&lt;/p&gt;
+
+&lt;p&gt;所以自己的 server 自己顧&lt;/p&gt;
+
+&lt;p&gt;真正應用在 production 環境還是必須要監控的&lt;/p&gt;
+
+&lt;p&gt;今天就分享到這啦!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[API-d27] - 實戰開發 - log 處理 及 config (db, apikey)</title>
+      <link>http://kerkerj.github.io/blog/2014/10/27/2014-10-27-api-d27/</link>
+      <pubDate>Mon, 27 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://kerkerj.github.io/blog/2014/10/27/2014-10-27-api-d27/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day27&#34;&gt;Github 參考&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;##log 處理&lt;/p&gt;
+
+&lt;p&gt;今天要來談談 log 的處理，&lt;/p&gt;
+
+&lt;p&gt;身為一台自走 (?) node.js API server&lt;/p&gt;
+
+&lt;p&gt;也應該要記錄一下 request 的 log 呀！&lt;/p&gt;
+
+&lt;p&gt;不然哪天出問題了都不知道是哪個 request 把 server 搞掛了!&lt;/p&gt;
+
+&lt;p&gt;因此我們就要加入 log 的 middleware&lt;/p&gt;
+
+&lt;p&gt;node.js 的 log 套件也蠻多的, 例如 &lt;code&gt;winston&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;不過我們今天要用的是 &lt;code&gt;log4js&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;會選擇他其實也只是因為之前寫 &lt;code&gt;java&lt;/code&gt; 有用過 &lt;code&gt;log4j&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;log4js&lt;/code&gt; 的設定感覺起來比較相似&lt;/p&gt;
+
+&lt;p&gt;所以就使用它了!&lt;/p&gt;
+
+&lt;p&gt;再來我們就安裝一下 &lt;code&gt;log4js&lt;/code&gt; 吧&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;$ npm install log4js -save  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;並在 &lt;code&gt;app.js&lt;/code&gt; 中 require 進去&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var log4js = require(&#39;log4js&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;接著在 &lt;code&gt;app.js&lt;/code&gt; 的前面區段加入以下程式碼:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;log4js.configure({
+    appenders: [
+        { type: &#39;console&#39; }, //控制台輸出
+        {
+            type: &#39;file&#39;, //文件輸出
+            filename: &#39;logs/access.log&#39;,
+            maxLogSize: 20000000, // 20 MB
+            backups: 10,
+            category: &#39;normal&#39;
+        }
+    ],
+    replaceConsole: true
+});
+
+var logger = log4js.getLogger(&#39;normal&#39;);
+logger.setLevel(&#39;INFO&#39;);
+
+app.use(log4js.connectLogger(logger, {level: &#39;auto&#39;, format:&#39;:method :url&#39;}));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;其實註解已經可以看出一些端倪了&lt;/p&gt;
+
+&lt;p&gt;使用 &lt;code&gt;log4js&lt;/code&gt; 可以輸出 log 檔案，並且會按照設定的檔案大小來寫入&lt;/p&gt;
+
+&lt;p&gt;如果達到 20MB 就會換一個新的檔案寫入，原本的還保留著，不過最多只會保留 10 份&lt;/p&gt;
+
+&lt;p&gt;接著就設定 log level, 以及想要 log 的資訊&lt;/p&gt;
+
+&lt;p&gt;詳細資訊就可以再多查詢一下&lt;/p&gt;
+
+&lt;p&gt;此時我們將 server run 起來吧!&lt;/p&gt;
+
+&lt;p&gt;並且對 server 戳幾個 request, 就會發現 log 檔案被建立起來了!&lt;/p&gt;
+
+&lt;p&gt;(該程式碼加在 token 檢查前或檢查後是有差異的，加在 token 檢查後面，token error 的話則不會被記錄到 log 裡面)&lt;/p&gt;
+
+&lt;p&gt;打開 log 檔看看，就會發現有 log 被寫入囉!&lt;/p&gt;
+
+&lt;p&gt;##config (db, apikey)&lt;/p&gt;
+
+&lt;p&gt;有些重要的設定檔其實我們並不希望寫在程式碼裡，這時候 config 的設定很有用&lt;/p&gt;
+
+&lt;p&gt;建立設定檔有很多種方式，比方說直接寫一個 json 檔案，或是 xml 檔案&lt;/p&gt;
+
+&lt;p&gt;今天我們就用最簡單的 js 檔案的方式來建立 config 檔&lt;/p&gt;
+
+&lt;p&gt;我們在 config 資料夾裡新增一個 config.js&lt;/p&gt;
+
+&lt;p&gt;我們以下面的程式碼當作例子:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;module.exports = {
+    &amp;quot;base_url&amp;quot;: &amp;quot;http://localhost:3000&amp;quot;,
+    &amp;quot;test_token&amp;quot;: &amp;quot;55665566&amp;quot;,
+    &amp;quot;db&amp;quot;: {
+        &amp;quot;production&amp;quot;: &amp;quot;mongodb://192.168.33.10:27017/TODOs&amp;quot;,
+        &amp;quot;development&amp;quot;: &amp;quot;mongodb://192.168.33.10:27017/DEV_TODOs&amp;quot;,
+        &amp;quot;test&amp;quot;: &amp;quot;mongodb://192.168.33.10:27017/TEST_TODOs&amp;quot;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;要怎麼使用裡面的內容呢?&lt;/p&gt;
+
+&lt;p&gt;假設我們要將 db 的連結改成用 config 的方式連結的話:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var config = require(&#39;./config/config&#39;);
+
+// Set DB
+mongoose.connect(config.db.development);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;只要先將 config require 進來，然後就直接使用它就好了!&lt;/p&gt;
+
+&lt;p&gt;這樣就可以幫助我們將一些重要的設定從程式碼中抽離出來了!&lt;/p&gt;
+
+&lt;p&gt;今天就這樣啦!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Swift-d27] - 實戰開發 - TODOList - API 2 讀取清單資料</title>
+      <link>http://kerkerj.github.io/blog/2014/10/27/2014-10-27-swift-d27/</link>
+      <pubDate>Mon, 27 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://kerkerj.github.io/blog/2014/10/27/2014-10-27-swift-d27/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day27&#34;&gt;Github link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;(某一天把兩天份的 commit 在一起了忘了開 branch 了&amp;hellip;)&lt;/p&gt;
+
+&lt;p&gt;接下來就要來寫 api utility 了&lt;/p&gt;
+
+&lt;p&gt;我們先開一個 swift 檔案 &lt;code&gt;RestApi.swift&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;import Foundation
+
+class RestApi {
+	var API_key = &amp;quot;55665566&amp;quot;
+	var getListUrl = NSURL(string: &amp;quot;http://192.168.1.158:3000/user/kerkerj/todos&amp;quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;先做好前置設定，因為 API 有上簡單的小鎖，因此要先寫起來&lt;/p&gt;
+
+&lt;p&gt;還有 request 的網址&lt;/p&gt;
+
+&lt;p&gt;以下是 get list 的範例:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;func getTodoList(completionHandler: ((NSArray!, NSError!) -&amp;gt; Void)!) {
+        var session = NSURLSession.sharedSession()
+        
+        var request = NSMutableURLRequest(URL: self.getListUrl!)
+        request.HTTPMethod = &amp;quot;GET&amp;quot;
+        request.addValue(&amp;quot;application/json&amp;quot;, forHTTPHeaderField: &amp;quot;Content-Type&amp;quot;)
+        request.addValue(self.API_key, forHTTPHeaderField: &amp;quot;API-Key&amp;quot;)
+        
+        let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -&amp;gt; Void in
+            if (error != nil) {
+                return completionHandler(nil, error)
+            }
+            
+            var error: NSError?
+            let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &amp;amp;error) as NSArray
+            
+            if (error != nil) {
+                return completionHandler(nil, error)
+            } else {
+                return completionHandler(json, nil)
+            }
+        })
+        
+        task.resume()
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;我們使用內建的 NSURLSession.sharedSession 以及 NSMutableURLRequest 來建立 request&lt;/p&gt;
+
+&lt;p&gt;裡面就是設定一些 header 以及 API-Key&lt;/p&gt;
+
+&lt;p&gt;另外在資料回來後，return callback&lt;/p&gt;
+
+&lt;p&gt;在這邊有 async，寫隔壁棚的 api 回過頭來看這個感覺很熟悉 XD&lt;/p&gt;
+
+&lt;p&gt;設定好 API 後&lt;/p&gt;
+
+&lt;p&gt;回到顯示 todo 清單的主頁程式碼&lt;/p&gt;
+
+&lt;p&gt;由於我們希望能夠在 view 每次被呼叫時，都可以對 API server 做存取&lt;/p&gt;
+
+&lt;p&gt;因此必須要將 getTodoList 寫在該方法裏&lt;/p&gt;
+
+&lt;p&gt;該方法為 override func viewWillAppear(animated: Bool) {}&lt;/p&gt;
+
+&lt;p&gt;先建立一個 api 物件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var api: RestApi = RestApi()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;將原本的假資料刪除或註解, 不過資料物件名稱就繼續用 fakeData XD&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;//        fakeData = [
+//            [&amp;quot;id&amp;quot;: &amp;quot;1&amp;quot;, &amp;quot;content&amp;quot;: &amp;quot;A&amp;quot;],
+//            [&amp;quot;id&amp;quot;: &amp;quot;2&amp;quot;, &amp;quot;content&amp;quot;: &amp;quot;B&amp;quot;],
+//            [&amp;quot;id&amp;quot;: &amp;quot;3&amp;quot;, &amp;quot;content&amp;quot;: &amp;quot;C&amp;quot;],
+//        ]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;接著在 ViewController override 一個 viewWillAppear 的方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+        
+        api.getTodoList({data, error -&amp;gt; Void in
+            if error != nil {
+                dispatch_async(dispatch_get_main_queue(), {
+                    let alert = UIAlertView()
+                    alert.title = &amp;quot;Yoooooooooooooooo&amp;quot;
+                    alert.message = &amp;quot;Get list faild, maybe check your network: \(error)&amp;quot;
+                    alert.addButtonWithTitle(&amp;quot;ok&amp;quot;)
+                    alert.delegate = self
+                    alert.show()
+                    println(error)
+                })
+            }
+            
+            if (data != nil) {
+                
+                var tmpArr = [[String: String]]()
+                
+                for item in data {
+                    var _id = item[&amp;quot;_id&amp;quot;] as String
+                    var content = item[&amp;quot;content&amp;quot;] as String
+                    var dic = [String: String]()
+                    
+                    dic[&amp;quot;_id&amp;quot;] = _id
+                    dic[&amp;quot;content&amp;quot;] = content
+                    
+                    tmpArr.append(dic)
+                }
+
+                self.arr = tmpArr
+                
+                println(self.arr)
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    // must be &amp;quot;tableView!&amp;quot; not &amp;quot;tableView?&amp;quot;
+                    self.tableView!.reloadData()
+                })
+                
+            }
+        })
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            // must be &amp;quot;tableView!&amp;quot; not &amp;quot;tableView?&amp;quot;
+            self.tableView!.reloadData()
+        })
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上方法都是 async 的方式&lt;/p&gt;
+
+&lt;p&gt;只要網路錯誤，就會直接跳一個 alert&lt;/p&gt;
+
+&lt;p&gt;若有資料的話就 parse&lt;/p&gt;
+
+&lt;p&gt;一併轉換成原本定義的 [[String: String]] 中&lt;/p&gt;
+
+&lt;p&gt;執行看看吧!&lt;/p&gt;
+
+&lt;p&gt;很明顯每次切回主頁時 api console 都會跳一行 request~&lt;/p&gt;
+
+&lt;p&gt;如果使用 sync 的方式就會卡很久! 而且更新 UI 還會 crash XD&lt;/p&gt;
+
+&lt;p&gt;我覺得這部分是需要好好去做處理的，在這邊的程式碼只是簡單 demo&lt;/p&gt;
+
+&lt;p&gt;並沒有考慮到太多 :P&lt;/p&gt;
+
+&lt;p&gt;明天繼續!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Swift-d26] - 實戰開發 - TODOList - API 前置資料準備</title>
+      <link>http://kerkerj.github.io/blog/2014/10/26/2014-10-26-swift-d26/</link>
+      <pubDate>Sun, 26 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://kerkerj.github.io/blog/2014/10/26/2014-10-26-swift-d26/</guid>
+      <description>&lt;p&gt;接下來是要串 &lt;a href=&#34;http://ithelp.ithome.com.tw/ironman7/app/profile/20091343/dev&#34;&gt;隔壁棚的 API&lt;/a&gt; XD&lt;/p&gt;
+
+&lt;p&gt;從前幾天的 APP 組成&lt;/p&gt;
+
+&lt;p&gt;我們所需要的資料大概會是以下幾種:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;GET todo list&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;GET http://192.168.1.158:3000/user/kerkerj/todos
+
+return:
+[
+    {
+        &amp;quot;_id&amp;quot;: &amp;quot;54441f64d84f1ea412db855c&amp;quot;,
+        &amp;quot;updated_at&amp;quot;: &amp;quot;2014-10-19T20:30:28.797Z&amp;quot;,
+        &amp;quot;created_at&amp;quot;: &amp;quot;2014-10-19T20:30:28.797Z&amp;quot;,
+        &amp;quot;content&amp;quot;: &amp;quot;task11syy&amp;quot;,
+        &amp;quot;user_id&amp;quot;: &amp;quot;kerkerj&amp;quot;,
+        &amp;quot;__v&amp;quot;: 0
+    },
+    {
+        &amp;quot;_id&amp;quot;: &amp;quot;54441f6fd84f1ea412db855e&amp;quot;,
+        &amp;quot;updated_at&amp;quot;: &amp;quot;2014-10-19T20:30:39.957Z&amp;quot;,
+        &amp;quot;created_at&amp;quot;: &amp;quot;2014-10-19T20:30:39.957Z&amp;quot;,
+        &amp;quot;content&amp;quot;: &amp;quot;task13&amp;quot;,
+        &amp;quot;user_id&amp;quot;: &amp;quot;kerkerj&amp;quot;,
+        &amp;quot;__v&amp;quot;: 0
+    }
+]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Get a todo task&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;GET http://192.168.1.158:3000/user/kerkerj/todos/54441f64d84f1ea412db855c
+
+return:
+{
+        &amp;quot;_id&amp;quot;: &amp;quot;54441f64d84f1ea412db855c&amp;quot;,
+        &amp;quot;updated_at&amp;quot;: &amp;quot;2014-10-19T20:30:28.797Z&amp;quot;,
+        &amp;quot;created_at&amp;quot;: &amp;quot;2014-10-19T20:30:28.797Z&amp;quot;,
+        &amp;quot;content&amp;quot;: &amp;quot;task11syy&amp;quot;,
+        &amp;quot;user_id&amp;quot;: &amp;quot;kerkerj&amp;quot;,
+        &amp;quot;__v&amp;quot;: 0
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Add a todo task&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;POST http://192.168.1.158:3000/user/kerkerj/todos/
+data: {&amp;quot;content&amp;quot;: &amp;quot;your data&amp;quot;}
+
+return: the data you sent
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Update a todo task&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;PUT http://192.168.1.158:3000/user/kerkerj/todos/
+data: {&amp;quot;content&amp;quot;: &amp;quot;your data&amp;quot;}
+
+return: the data you sent
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Delete a todo task&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;DELETE http://192.168.1.158:3000/user/kerkerj/todos/54441f64d84f1ea412db855c
+
+return 
+{&amp;quot;success&amp;quot;: &amp;quot;true&amp;quot;}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;從以上資料可以知道&lt;/p&gt;
+
+&lt;p&gt;最重要的欄位就是 _id, user_id, content&lt;/p&gt;
+
+&lt;p&gt;user_id 我們在 app 中就直接寫死了&lt;/p&gt;
+
+&lt;p&gt;所以最重要的就是 content 及 _id&lt;/p&gt;
+
+&lt;p&gt;今天先允許我偷懶一下，明天就要開始寫 api utility 給 swift 用&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[API-d26] - 實戰開發 - API-key</title>
+      <link>http://kerkerj.github.io/blog/2014/10/26/2014-10-26-api-d26/</link>
+      <pubDate>Sun, 26 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://kerkerj.github.io/blog/2014/10/26/2014-10-26-api-d26/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day26&#34;&gt;Github 參考&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;假設今天我們的 API 上線了，可能就會面臨到一些問題，&lt;/p&gt;
+
+&lt;p&gt;例如說，任何人都可以存取我們的 API&lt;/p&gt;
+
+&lt;p&gt;當然我們不希望任何人都可以存取，&lt;/p&gt;
+
+&lt;p&gt;因此我們必須加一點驗證機制在裡面，&lt;/p&gt;
+
+&lt;p&gt;其中一種做法是使用 Oauth token&lt;/p&gt;
+
+&lt;p&gt;在拿 API 資料前，先向 Oauth server 要一個 token&lt;/p&gt;
+
+&lt;p&gt;Oauth Server 認可身份後即會核發一個 token 給 client 端&lt;/p&gt;
+
+&lt;p&gt;該 token 具有時效性，6 mins ~ 30 min 不等，看怎麼實作&lt;/p&gt;
+
+&lt;p&gt;接著 client 端就拿該組 token 以及 API url 對 resources server 丟 request&lt;/p&gt;
+
+&lt;p&gt;其實我們現在在做的 API server 就是一個 resources server&lt;/p&gt;
+
+&lt;p&gt;因為我們提供資源&lt;/p&gt;
+
+&lt;p&gt;而 resources server 就會先認 token，&lt;/p&gt;
+
+&lt;p&gt;確保該 token 的時效性以及正確性，以及該 token 可存取的資源範圍&lt;/p&gt;
+
+&lt;p&gt;確認無誤後再回送正確的資料&lt;/p&gt;
+
+&lt;p&gt;不過在這邊我們並沒有要實作 Oauth Server&lt;/p&gt;
+
+&lt;p&gt;單純以一個 resources server 而言，只要認 token 是否正確&lt;/p&gt;
+
+&lt;p&gt;因此我們在這邊用 API-Key 實作即可，簡單的服務只要不被猜到就好&lt;/p&gt;
+
+&lt;p&gt;程式碼如下，記得加在 router 前面&lt;/p&gt;
+
+&lt;p&gt;app.js:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// Set Header Check
+app.use( function(req, res, next) {
+    var api_key = req.get(&#39;API-Key&#39;);
+
+    if (api_key != &amp;quot;55665566&amp;quot;) {
+        res.status(401).send({ error: &amp;quot;Unauthorized&amp;quot;});
+    }
+    else {
+        next();
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;一樣是 middleware 的概念&lt;/p&gt;
+
+&lt;p&gt;不過是會預先作處理&lt;/p&gt;
+
+&lt;p&gt;我們接收到 request 後，分析它的 header 中是否有 &lt;code&gt;API-Key&lt;/code&gt; 這個欄位&lt;/p&gt;
+
+&lt;p&gt;若有的話，確認他的值是否為 &lt;code&gt;55665566&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;若不是的話，回傳 401 Unauthorized&lt;/p&gt;
+
+&lt;p&gt;若正確則繼續走下一個 middleware&lt;/p&gt;
+
+&lt;p&gt;這樣就可以做一道簡單的防線了&lt;/p&gt;
+
+&lt;p&gt;若加了這道防線&lt;/p&gt;
+
+&lt;p&gt;在使用 POSTMAN 做 request 時，必須加入自定 header&lt;/p&gt;
+
+&lt;p&gt;沒加入的話:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%204.11.59.png&#34; alt=&#34;image&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;有加入的話:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%204.12.18.png&#34; alt=&#34;image&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;是不是很簡單呢!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[API-day25] - 實戰開發 - 處理 404 &amp; 500</title>
+      <link>http://kerkerj.github.io/blog/2014/10/25/2014-10-25-api-day25/</link>
+      <pubDate>Sat, 25 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://kerkerj.github.io/blog/2014/10/25/2014-10-25-api-day25/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day25&#34;&gt;Github 參考&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;不知道大家在用 POSTMAN 對前幾天寫的 API 丟 request 有沒有遇過類似下面的情況:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;Cannot GET /user/kerkerj/todoss
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;通常是丟錯網址時會出現的，或是 code 沒寫好會出現 500 error&lt;/p&gt;
+
+&lt;p&gt;這些情況是有辦法接到的，今天我們希望能夠接到後，將 message 轉成 json 格式吐回給 client&lt;/p&gt;
+
+&lt;p&gt;因此程式碼如下&lt;/p&gt;
+
+&lt;p&gt;app.js&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+    var err = new Error(&#39;Not Found&#39;);
+    err.status = 404;
+    res.status(404).jsonp({error: &amp;quot;Not Found&amp;quot;});
+    next();
+});
+
+// catch 500
+app.use(function(err, req, res, next) {
+            res.status(err.status || 500).json({error: err.message});
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;基本上這兩段 code 的意思就是加入了兩個 middleware&lt;/p&gt;
+
+&lt;p&gt;如果進來的 request 是屬於 404 or 500 就會回傳 json 格式&lt;/p&gt;
+
+&lt;p&gt;並且依錯誤碼不同而回傳不同的訊息&lt;/p&gt;
+
+&lt;p&gt;試著將 server 跑起來&lt;/p&gt;
+
+&lt;p&gt;亂丟 request 看看&lt;/p&gt;
+
+&lt;p&gt;原本應該會是&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Cannot GET /user/kerkerj/todoss
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;就會變成了 json&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+    &amp;quot;error&amp;quot;: &amp;quot;Not Found&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這樣一來, client 程式也就能夠統一接收 json 回傳，而不會因為莫名的字串導致解析錯誤而 crash 了!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Swift-day25] - 實戰開發 - TODOList - Update View</title>
+      <link>http://kerkerj.github.io/blog/2014/10/25/2014-10-25-swift-day25/</link>
+      <pubDate>Sat, 25 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://kerkerj.github.io/blog/2014/10/25/2014-10-25-swift-day25/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day27&#34;&gt;Github link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;(忘了是放在哪個 branch 了 Orz)&lt;/p&gt;
+
+&lt;p&gt;接下來就要進到最後一個 Update View 了!&lt;/p&gt;
+
+&lt;p&gt;什麼時候會進到 Update View 呢？&lt;/p&gt;
+
+&lt;p&gt;是在顯示單筆 TODO 的時候的右上方按鈕:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://goo.gl/tNOyRs&#34; alt=&#34;image&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;我們今天只會實作 view 的部分, fakeData 就不實作了&lt;/p&gt;
+
+&lt;p&gt;因為接下來就要直接接 API 啦&lt;/p&gt;
+
+&lt;p&gt;也不需要更新 fakeData 了 :P&lt;/p&gt;
+
+&lt;p&gt;要加入 Edit 這個按鈕&lt;/p&gt;
+
+&lt;p&gt;要到 ShowViewController, 加入 UIBarButtonItem&lt;/p&gt;
+
+&lt;p&gt;並且讓其吃到一個方法，可以讓 Navigation 往下一個 View 前進:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;var id: String!
+
+override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        indexLabel.text = &amp;quot;\(index)&amp;quot;
+        contentLabel.text = content
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: &amp;quot;Edit&amp;quot;, style: UIBarButtonItemStyle.Bordered, target: self, action: Selector(&amp;quot;editTodo&amp;quot;))
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;p.s. 先前忘記加了 id, 現在補回來 XD&lt;/p&gt;
+
+&lt;p&gt;先新增一個 Edit 按鈕後&lt;/p&gt;
+
+&lt;p&gt;並實作 editTodo&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;func editTodo() {
+        var editViewContronller = UpdateViewController(nibName: &amp;quot;UpdateViewController&amp;quot;, bundle: nil)
+        editViewContronller.from = &amp;quot;edit&amp;quot;
+        editViewContronller.content = content
+        editViewContronller.index = index
+        
+        self.navigationController?.pushViewController(editViewContronller, animated: true)
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;由於要先指定資料&lt;/p&gt;
+
+&lt;p&gt;因此再到 UpdateViewController 中再加入兩個參數&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    var index: Int!
+    var content: String!
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;最後在 UpdateController 的 viewDidLoad 中, 加入 add or edit 的判斷&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: &amp;quot;Save&amp;quot;, style: UIBarButtonItemStyle.Done, target: self, action: Selector(&amp;quot;save&amp;quot;))
+			
+		  if self.from == &amp;quot;edit&amp;quot; {
+            self.textField.text = content
+        }
+        
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這時候先前設定的 &amp;ldquo;from&amp;rdquo; 參數就很有用了~&lt;/p&gt;
+
+&lt;p&gt;就可以根據是從 add 的 view 來的或者是 edit 的 view 來的&lt;/p&gt;
+
+&lt;p&gt;以便判定要不要 append 舊資料上去&lt;/p&gt;
+
+&lt;p&gt;此外，也因為如此&lt;/p&gt;
+
+&lt;p&gt;所以 UpdateViewController 的 save 方法也要判斷&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;        if from == &amp;quot;add&amp;quot; {
+            delegate.addData(&amp;quot;g6&amp;quot;, content: self.textField.text)
+            self.navigationController?.popToRootViewControllerAnimated(true)
+        } else if from == &amp;quot;edit&amp;quot; {
+            println(&amp;quot;Save edited data&amp;quot;)
+        }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;不過因為今天我們不做資料更新&lt;/p&gt;
+
+&lt;p&gt;因此流程面大致上到此告一個段落&lt;/p&gt;
+
+&lt;p&gt;接下來就要串 API 了!&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

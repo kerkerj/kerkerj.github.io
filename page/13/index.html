@@ -1,0 +1,734 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://kerkerj.github.io/">
+    <meta property="og:title" content="kerkerj">
+    
+    <meta property="og:description" content="如題~ 先假設 pi2 本身的 IP 是 192.168.1.200 首先先進去 server 來更新一下~ $ sudo apt-get update &amp;&amp; sudo apt-get upgrade 再來就裝 motion 他其實是一個 motion detector，不過也可以拿來當作 web cam 用的 streaming server XD $ sudo apt-get install motion 編輯設定檔 /etc/motion/motion.conf $ sudo vi /etc/motion/motion.conf 找到以下幾個值，並分別改成下面 daemon = ON webcam_localhost = OFF control_localhost = OFF webcam_localhost 是 streaming 介面 control_localhost 是設定介面 如果要改預設 port，就找 webcam_port, or control_port 最後設定將 service 啟動 $ sudo vi /etc/default/motion 將 no">
+    
+    
+    
+    <meta property="og:site_name" content="kerkerj">
+
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="kerkerj" />
+    <meta name="twitter:title" content="kerkerj &middot; kerkerj">
+    <meta name="twitter:description" content="Hi.">
+
+    
+    <title>kerkerj &middot; kerkerj</title>
+
+    
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+    
+
+    <link rel="stylesheet" href="http://kerkerj.github.io//css/all.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    
+    
+      <link rel="stylesheet" href="http://kerkerj.github.io//css/highlight/railscasts.css">
+    
+
+    
+    <link href="http://kerkerj.github.io/favicon.ico" rel="icon">
+
+    
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://kerkerj.github.io//index.xml">
+</head>
+<body>
+
+
+<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+    <div class="header">
+        <hgroup>
+            <h1 class="brand-title"><a href="http://kerkerj.github.io/">kerkerj</a></h1>
+            <h2 class="brand-tagline"> Hi. </h2>
+        </hgroup>
+
+        <nav class="nav">
+            
+            <ul class="pure-menu-list">
+              
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//notes/">Notes</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//about/">About</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//mac-app-list/">Mac App List</a>
+                </li>
+              
+            </ul>
+
+            
+            <ul class="nav-list">
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://twitter.com/kerkerj"><i class="fa fa-twitter"></i> Twitter</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://github.com/kerkerj "><i class="fa fa-github-alt"></i> Github</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            
+            <div class="posts">
+                
+                <h1 class="content-subhead">2011-06-06 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2011/06/01/2011-06-01-java-hex-string-byte-array/" class="post-title">[Java] Hex String &amp; Byte Array 轉換</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-java" href="http://kerkerj.github.io//categories/java">java</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <pre><code class="language-java">public String toHexString(byte[] in){
+    BigInteger temp = new BigInteger(in);
+  return temp.toString(16);
+}
+
+public byte[] fromHexString(String in){
+    BigInteger temp = new BigInteger(in, 16);
+  return temp.toByteArray();
+}  
+</code></pre>
+
+<p>文章參考<a href="http://ranger1976.blogspot.com/2008/07/hex-string-to-byte-array-and-reverse.html">自此</a></p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2011-05-05 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2011/05/31/2011-05-31-apn/" class="post-title">[Anrdroid] 中華電信 APN</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-CHT" href="http://kerkerj.github.io//categories/cht">CHT</a><a class="post-category post-category-APN" href="http://kerkerj.github.io//categories/apn">APN</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>若不小心把APN砍掉了可以新增回來(不過通常會有&rdquo;回復預設值&rdquo;的選項)</p>
+
+<p>CHT emome</p>
+
+<pre><code>1. 名稱：CHT emome
+2. APN：emome
+</code></pre>
+
+<p>CHT internet</p>
+
+<pre><code>1. 名稱：CHT internet
+2. APN：internet
+</code></pre>
+
+<p>CHT mms</p>
+
+<pre><code>1. 名稱：CHT mms
+2. APN：emome
+3. Proxy：10.1.1.1
+4. 連線埠：8080
+5. MMSC：http://mms.emome.net:8002
+6. MMS proxy：10.1.1.1
+7. MMSN連線埠：8080
+8. MCC：466
+9. MNC：92
+10. APN類型：mms
+</code></pre>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2011-05-05 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2011/05/31/2011-05-31-gridbaglayout/" class="post-title">[Java] GridBagLayout</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-java" href="http://kerkerj.github.io//categories/java">java</a><a class="post-category post-category-gridbaglayout" href="http://kerkerj.github.io//categories/gridbaglayout">gridbaglayout</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>只有連結，因為看連結就好了，圖解很累ＸＤ
+<a href="http://1.bp.blogspot.com/-xUK4YkIFTj8/TeUxjstgvoI/AAAAAAAAA0M/CqwnFrzUJQg/s1600/gridlayout.jpg"><img src="http://1.bp.blogspot.com/-xUK4YkIFTj8/TeUxjstgvoI/AAAAAAAAA0M/CqwnFrzUJQg/s1600/gridlayout.jpg" alt="" />
+</a>
+(圖片來源：<a href="http://blog.csdn.net/dmgactive/archive/2009/06/28/4304567.aspx">http://blog.csdn.net/dmgactive/archive/2009/06/28/4304567.aspx</a> )<br />
+<a href="http://download.oracle.com/javase/tutorial/uiswing/layout/gridbag.html">http://download.oracle.com/javase/tutorial/uiswing/layout/gridbag.html</a>
+<a href="http://felixcic.blogspot.com/2010/11/gridbaglayout.html">http://felixcic.blogspot.com/2010/11/gridbaglayout.html</a>
+<a href="http://home.so-net.net.tw/idealist/Java/AWT/GridBagLayout.html">http://home.so-net.net.tw/idealist/Java/AWT/GridBagLayout.html</a></p>
+
+<p>大致上是設定以下參數
+<code>java
+public int anchor  
+public int fill  
+public gridheight  
+Public gridweight  
+public girdx  
+public gridy  
+public Insets insets  
+public int ipadx  
+public int ipady  
+public double weightx  
+public double weighty
+</code>
+大概是這樣</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2011-05-05 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2011/05/31/2011-05-31-ieee-754/" class="post-title">[CS] IEEE 754 表示式</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-IEEE754" href="http://kerkerj.github.io//categories/ieee754">IEEE754</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>2的補數複習一下  <a href="http://scribefire-next/" title="http://entry.hit.edu.tw/~bd92043/1.htm">http://entry.hit.edu.tw/~bd92043/1.htm</a>
+另一篇IEEE 754   <a href="http://tw.myblog.yahoo.com/nicholas-kang/article?mid=39&amp;l=f&amp;fid=5" title="http://tw.myblog.yahoo.com/nicholas-kang/article?mid=39&amp;l=f&amp;fid=5">http://tw.myblog.yahoo.com/nicholas-kang/article?mid=39&amp;l=f&amp;fid=5   </a></p>
+
+<p>作者: Liroy (優白白) 看板: Army-Sir
+標題: [教學] 計概 IEEE754 表示式
+時間: Fri Jan 14 21:47:11 2011
+IEEE754為一種二進位小數的標準表示式，以精確度分成單倍精和雙倍精。</p>
+
+<p>#單倍精(32bit)
+以32個bit來表示一個二進位小數，格式如下
+<code>
+s(1 bit) exp(8 bit)  fraction(23 bit) =&gt; 1+8+23=32 bit(沒錯吧XXXD)
+</code>
+化簡方式分成幾步驟(十進位-&gt;IEEE754)：
+        1. 十進位-&gt;二進位
+        2. 二進位正規化
+        3. exp加上bias值
+        4. fraction扣去隱藏位元
+eg:  -5(10)化成IEEE754表示式
+        1. -5(10) = -101
+        2. -101 = -1.01 x 2^2
+        3. 2 + 127 = 129(10) = 10000001(2) - 這個只要一般二進位表示即可
+                                           不需用二的補數，因為你已經加上bias了
+                s    exp        fraction
+        ＝＞    1 10000001 01000000000000000000000
+  ps:可能有人會問127是什麼？127為bias，再化成IEEE754時都固定要加上這個值, 又有人問，幹麻加這個，因為這樣的化簡可以簡化兩個IEEE754小數做運算時的步驟,怎樣的簡化，就不在這裡討論範圍內了。(詳見白算盤XXXXD)
+  ps2:有人會問幹麻把小數點前的那個1隱藏起來呀。答案是，因為正規化時，小數點前一定是1，所以可以省略，這樣就可以多一個bit來表示小數，可增加小數精確度
+  ps3:exp只需要用二進位表示就好了，因為你已經加上bias了，所以不會變負的，不需要用到二的補數來表示這個部份。</p>
+
+<p>#雙倍精(64 bit)
+以64個bit來表示一個二進位小數，格式如下
+<code>
+s(1 bit) exp(11 bit)  fraction(52 bit) =&gt; 1+11+52=64 bit(沒錯吧XXXD)
+</code>
+化簡方式分成幾步驟(十進位-&gt;IEEE754)：
+        1. 十進位-&gt;二進位
+        2. 二進位正規化
+        3. exp加上bias值
+        4. fraction扣去隱藏位元
+eg:  -5(10)化成IEEE754表示式
+        1. -5(10) = -101
+        2. -101 = -1.01 x 2^2
+        3. 2 + 1023 = 1025(10) = 10000000001(2)  - 這個只要一般二進位表示即可
+        4. 1.01 -&gt; .01 (1被隱藏起來了，剩下小數點後面的東西)
+                s     exp        fraction
+        ＝＞    1 10000000001 0100&hellip;0(好多零～囧 1後面一共有50 bit，自己算吧)
+  備註：雙倍精bias為1023  (因為exp bit一共有11個)</p>
+
+<hr />
+
+<p>另外單倍精exp最多只能到11111110 ，最小也只能到達00000001
+妳會納悶11111111 和 00000000 怎麼不用- -a
+因為呀！！ 這兩個拿來當另外處理的
+exp＝255  fraction≠0   =&gt;NaN (表非數字)
+exp＝255  fraction＝0   =&gt;±∞(依s來區別是正還是負)
+exp＝0    fraction≠0   =&gt;不足位,underflow,denormalized(太小了，小到無法表示)
+exp＝0    fraction＝0   =&gt;用來表示0.0這個數 (有的版本還會分正負零)
+雙倍精依此類推，exp無法使用11111111111 和 00000000000
+例外處理所表示的跟單倍精一樣，只是255改成2047
+<code>
+......|-------------------|..|..|-------------------|......
+      *--可用IEEE754表示--*  0  *--可用IEEE754表示--*
+</code>
+亮粉紅表示overflow，數字太大無法表示，∞
+亮黃色表示underflow，數字太小無法表示，denormalized number
+&ndash; 表示可用IEEE754正規表示式表示的範圍 (中間的0也可以表示喔！！別把他忽略了)</p>
+
+<hr />
+
+<p>此外補充：
+IEEE754 單倍精正規表示範圍最大正數：≒  2 x 10^38
+                          最小正數：≒  2 x 10^-38
+                          最大負數：≒ -2 x 10^-38
+                          最大負數：≒ -2 x 10^38
+IEEE754 雙倍精正規表示範圍最大正數：≒  2 x 10^308
+                          最小正數：≒  2 x 10^-308
+                          最大負數：≒ -2 x 10^-308
+                          最大負數：≒ -2 x 10^308</p>
+
+<hr />
+
+<p>#最大數和最小數證明
+ IEEE754單倍精最大正數-&gt;0 11111110 11111111111111111111111  (IEEE754)
+  =&gt; + 1.11111111111111111111111 x 2^(254-127) ≒ 2.0 x 2^127 ≒  2 x 10^38
+      ^^^^^^^^^^^^^^^^^^^^^^^^^-&gt;大約等於2.0，大家應該沒異議吧！
+ IEEE754單倍精最小正數-&gt;0 00000001 00000000000000000000000  (IEEE754)
+  =&gt; + 1.00000000000000000000000 x 2^(1-127)  ≒ 1.0 x 2^-126 ≒  2 x 10^-38
+其他依此類推，我懶著打了ˊˋ。數零數到我眼睛都花了～ε(┬┬＿┬┬)3
+這應該就全部IEEE754的精隨了！！～有問題再問吧&lt;(<em>.</em>)&gt;</p>
+
+<p>&mdash;以上為轉錄
+以下是我的筆記：
+ IEEE 754 結構 (以下皆只討論Single Precision)
+ ==== S(1) + Exponent(8) + Fraction(23)   共32 bits ====
+ S判斷正負
+ 作業例子：  (-13.625)ten 使用IEEE 754 表示
+ p.s. IEEE 754表示式是在第一個bit來判斷正負
+ 1. 先轉二進位
+ (-13)ten = (-1101)two
+ (0.625)ten = (<sup>5</sup>&frasl;<sub>8</sub>)ten = (<sup>101</sup>&frasl;<sub>1000</sub>)two
+ =&gt; (-13.625)ten = (-1101.101)two
+ 2. 正規化表示 (就像科學記號表示法一樣)
+ =&gt; (-1101.101)two = -1.101101 x 2^3
+ 3. 因此可以得到
+ =&gt; 1 ________ 10110100000000000000000
+ 4. E = 指數加上 bias 即可   不用二的補數  (IEEE 754的偏差設為127)
+ =&gt; 剛剛算出來的指數是3，所以
+ =&gt; 3 + 127 = 130
+ =&gt; 130 轉二進位為：1000 0010
+ 因此 (-13.625)ten = 1 1000 0010 10110100000000000000000  (空白只是觀看容易)
+ 驗證一下ㄎㄎ
+ <a href="http://www.h-schmidt.net/FloatApplet/IEEE754.html" title="http://www.h-schmidt.net/FloatApplet/IEEE754.html">http://www.h-schmidt.net/FloatApplet/IEEE754.html</a></p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2011-05-05 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2011/05/28/2011-05-28-android-29/" class="post-title">[Android] 樣式,主題開發雜記</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-android" href="http://kerkerj.github.io//categories/android">android</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>就是改變Android 預設的介面,主題樣式，例如按鈕的樣子</p>
+
+<p>(以下殘體文)<br />
+1. style属性在某个空间中起作用，而theme属性则会在整个activity和application中起作用。可以用theme统一整个程序的风格，再用 style微调其中的某些风格。andorid中的某些widget并不遵守theme所定义的风格，比如button上的字。如果你在 activity甚至在application范围内使用theme，button的字还是白色的！估计是这个空间没有引用android:textColor风格，此时只能用button的style属性来改变它了。 (<a href="http://blog.csdn.net/lijiecong/archive/2009/11/10/4795306.aspx">引用自此</a>)<br />
+2. <a href="http://www.moandroid.com/?p=909">Android Styles &amp; Themes（上）——Style</a><br />
+3. <a href="http://www.moandroid.com/?p=918">Android Styles &amp; Themes（下）——Theme</a><br />
+4. <a href="http://blog.csdn.net/G_rrrr/archive/2009/12/23/5056654.aspx">去掉默认ACTIVITY背景图</a><br />
+5. <a href="http://icekirin.com/wordpress/?p=81">Button的应用(for android)</a><br />
+6. <a href="http://android.yaohuiji.com/">{ Android学习指南 }</a></p>
+
+<p>(以下為英,中文)<br />
+7. <a href="http://blog.androgames.net/40/custom-button-style-and-theme/">custom-button-style-and-theme</a><br />
+        (好站!! <a href="http://blog.androgames.net/category/android-tutorials/">http://blog.androgames.net/category/android-tutorials/</a>)<br />
+8. <a href="http://jp-lin.blogspot.com/2010/12/%E4%BD%BF%E7%94%A8android-sdk%E6%8F%90%E4%BE%9B%E7%9A%84draw9patch-tool.html">使用Android SDK提供的Draw9Patch Tool </a><br />
+9. <a href="http://jp-lin.blogspot.com/2010/12/android.html">在Android中使用客製化按鈕 </a></p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2011-05-05 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2011/05/26/2011-05-26-git-for-one-hour/" class="post-title">[Git] 一小時搞懂Git</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-git" href="http://kerkerj.github.io//categories/git">git</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>這次只貼 Reference, 因為我也還沒看ＸＤ<br />
+* <a href="http://people.debian.org.tw/%7Echihchun/2009/01/05/understand-git-in-one-hour/">http://people.debian.org.tw/~chihchun/2009/01/05/understand-git-in-one-hour/</a><br />
+文中所說的影片：<br />
+* <a href="http://gitcasts.com/">http://gitcasts.com/</a></p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2011-05-05 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2011/05/26/2011-05-26-bouncy-castle-cryptography/" class="post-title">[Java] Bouncy Castle Cryptography</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-java" href="http://kerkerj.github.io//categories/java">java</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>這是為了ECT作業所作的筆記
+<a href="http://www.bouncycastle.org/docs/docs1.6/index.html">Bouncy Castle Cryptography</a></p>
+
+<p>這次作業用到了密碼學的技術，助教給了這個網站的library讓大家方便實作</p>
+
+<p>作業內容是：可讀取文字, 圖片, 聲音<br />
+先初始化轉成byte後，利用SHA512進行訊息摘要，<br />
+再對檔案做RSA加密, 解密,接著是 AES 加密, 解密,<br />
+最後使用解密後的內容作還原的動作,<br />
+若input的檔案與output的檔案內容一樣表示成功。</p>
+
+<p>以下是這次作業會用到的class<br />
+<code>
+* SHA512Digest 產生訊息摘要MD  
+* AESEngine (對稱式加密)  
+* RSAEngine (非對稱式加密)  
+* RSAKeyParameters ，用來產生RSA的公鑰、私鑰  
+* KeyParameter  
+* BigInteger  
+</code></p>
+
+<p>p.s. 以下是在寫作業時遇到的問題解決網址<br />
+<a href="http://danielroc0108.blogspot.com/2008/06/legion-of-bouncy-castle.html">其實用到了什麼class也是google後從學長的部落格看來的XD</a></p>
+
+<p>SHA512: <a href="http://stackoverflow.com/questions/2208374/how-can-i-create-an-sha512-digest-string-in-java-using-bouncy-castle">SHA512 ouput 問題</a><br />
+發現除了 SHA 的 out 外<br />
+其他的加解密產生 output 值要印出時都可以用到：<br />
+用： <code>String.format(&quot;%0128x&quot;, new BigInteger(1, byteData));</code><br />
+來取代 <code>Hex.encode(byteData);</code></p>
+
+<p>RSA:<br />
+<a href="http://www.javaworld.com.tw/jute/post/view?bid=29&amp;id=90179&amp;tpg=8&amp;ppg=1&amp;sty=1&amp;age=0">JavaWorld - 在RSA 解密時的問題 </a><br />
+<a href="http://borispong.pixnet.net/blog/post/23242319">使用Java進行RSA加解密</a><br />
+<a href="http://ox.no/posts/rsa-using-bouncycastle">RSA using BouncyCastle</a> (有問題 不過解決了 &ndash;&gt; JavaClassCastException)</p>
+
+<p>AES:<br />
+<a href="http://albertsong.iteye.com/blog/196273">用Bouncy Castle实现AES-128-CBC加密解密 (殘體字不喜勿入)</a><br />
+<a href="http://www.itcsolutions.eu/2010/12/28/how-to-encrypt-decrypt-with-aes-from-bouncy-castle-api-in-j2me-applications/">How to encrypt / decrypt with AES from Bouncy Castle API in J2ME applications</a></p>
+
+<p>最後的檔案輸出：<br />
+<a href="http://caterpillar.onlyfun.net/Gossip/JavaGossip-V2/ByteArrayInOutStream.htm">良葛格的學習筆記</a>  (最後寫輸出時才想到有這個網站，因此也修改了輸入檔案時的做法，一氣呵成~~ )</p>
+
+<p>若有一直google的話，會發現有許多做法<br />
+我認為以下做法最省事：(省略了很多作法，自行google)<br />
+<code>java
+Cipher out = Cipher.getInstance(&quot;演算法的名字 (ex. AES)&quot;, &quot;BC&quot;);
+out.init(Cipher.DECRYPT_MODE (或是ENCRYPT_MODE), key, new IvParameterSpec(AESiv));
+outputByteArray = out.doFinal( inputByteArray);   (通常因為長度很長所以會用迴圈去做分段讀取的動作)
+</code></p>
+
+<p>2011/06/02  Updated:<br />
+單純加解密：<br />
+RSA - <a href="http://www.javamex.com/tutorials/cryptography/rsa_encryption.shtml">http://www.javamex.com/tutorials/cryptography/rsa_encryption.shtml</a><br />
+AES - <a href="http://java.sun.com/developer/technicalArticles/Security/AES/AES_v1.html">http://java.sun.com/developer/technicalArticles/Security/AES/AES_v1.html</a><br />
+超級有用 - <a href="http://introcs.cs.princeton.edu/java/78crypto/RSA.java.html">http://introcs.cs.princeton.edu/java/78crypto/RSA.java.html</a></p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2011-05-05 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2011/05/06/2011-05-06-android-notes/" class="post-title">[Android] 程式開發雜記</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-android" href="http://kerkerj.github.io//categories/android">android</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>最近在寫和Android程式，因此把一些重點筆記下來：</p>
+
+<p>#Android中各種JAVA包的功能描述
+(ref: <a href="http://huenlil.pixnet.net/blog/post/24346240">http://huenlil.pixnet.net/blog/post/24346240</a>)</p>
+
+<p>在Android的應用程序開發中，通常使用的是JAVA語言，除了需要熟悉JAVA語言的基礎知識之外，還需要瞭解Android提供的擴展的JAVA功能。
+在Android中，各種包寫成android.*的方式，重要包的描述如下所示：
+<code>
+* android.app        ：提供高層的程序模型、提供基本的運行環境
+* android.content    ：包含各種的對設備上的數據進行訪問和發佈的類
+* android.database   ：通過內容提供者瀏覽和操作數據庫
+* android.graphics   ：底層的圖形庫，包含畫布，顏色過濾，點，矩形，可以將他們直接繪製到屏幕上
+* android.location   ：定位和相關服務的類
+* android.media      ：提供一些類管理多種音頻、視頻的媒體接口
+* android.net        ：提供幫助網絡訪問的類，超過通常的java.net.* 接口
+* android.os         ：提供了系統服務、消息傳輸、IPC機制
+* android.opengl     ：提供OpenGL的工具
+* android.provider   ：提供類訪問Android的內容提供者
+* android.telephony  ：提供與撥打電話相關的API交互
+* android.view       ：提供基礎的用戶界面接口框架
+* android.util       ：涉及工具性的方法，例如時間日期的操作
+* android.webkit     ：默認瀏覽器操作接口
+* android.widget     ：包含各種UI元素（大部分是可見的）在應用程序的屏幕中使用
+</code></p>
+
+<p>#Empty Process, Background Process, Service Process, Visible Process, Foreground Process 初探
+(ref: <a href="http://www.gururu.tw/Android-Process-Thread.html">[Android 教學課程] Empty Process , Background Process , Service Process , Visible Process , Foreground Process 初探</a> )</p>
+
+<pre><code>* 關於 Android 的應用程式組件 ( Application Components ) 的補充
+* 處理程序 ( Process ) 與執行緒 ( Thread )
+* 空白處理程序 ( Empty Process )
+* 背景處理程序 ( Background Process )
+* Service 處理程序 ( Service process )
+* 可視處理程序 ( Visible Process )
+* 前景處理程序 ( Foreground process ) 
+</code></pre>
+
+<p>#Activity , Fragment , Service , Broadcast receiver , Content provider 與 Intent 初探
+( ref: <a href="http://www.gururu.tw/Android-Activity-Fragment-Service-Broadcast-receiver-Content-provider-Intent.html">[Android 教學課程] Activity , Fragment , Service , Broadcast receiver , Content provider 與 Intent 初探</a> )</p>
+
+<pre><code>* 什麼是 Activity？ Activity ：它負責前端使用者介面處理。
+* 什麼是 Fragment？ Fragment ：它在一個具分割畫面( Multi-Pane )的 Activity 應用程式組件之中，負責分割畫面的部份區段或部份行為。
+* 什麼是 Service?  Service ：它負責後端程式運算。
+* 什麼是 Content provider？ Content provider ：它負責應用程式之間資料共享的任務。
+* 什麼是 Broadcast receivers？  Broadcast receivers ：此應用程式組件的中文譯名，多半會翻成廣播接收者或者廣播接收器。
+</code></pre>
+
+<p>#手機截圖：
+(ref:<a href="http://www.eprice.com.tw/mobile/talk/124/4483653/">【教學】Android 手機截圖：一點都不難</a>)</p>
+
+<p>若有裝Android SDK 的話 (一般開發者應該都會裝吧XD)，直接開 Android SDK 的目錄 /tools/ddms.bat，執行此批次檔就可以囉 (使用時不要將該dos畫面關閉), 此時手機必須連接上網路，並設定USB偵錯，
+要截圖時只要到 device/capture screen 即可</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2011-05-05 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2011/05/02/2011-05-02-ubuntu-1104-dropbox/" class="post-title">[Ubuntu] 11.04 Dropbox 啟動問題</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-ubuntu" href="http://kerkerj.github.io//categories/ubuntu">ubuntu</a><a class="post-category post-category-dropbox" href="http://kerkerj.github.io//categories/dropbox">dropbox</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>我從 Dropbox 上下載 for Ubuntu 的套件，安裝完後，設定的頁面卻遲遲不出來，這真是非常的詭異，所以就查了解決方法。<br />
+<a href="http://www.webupd8.org/2011/03/get-dropbox-appindicator-to-work-in.html#more">http://www.webupd8.org/2011/03/get-dropbox-appindicator-to-work-in.html#more</a></p>
+
+<p>1.一樣也是先去下載<br />
+2.然後執行以下指令（一行一行)<br />
+<code>
+$cd  
+$wget http://webupd8.googlecode.com/files/fixdropbox  
+$chmod +x fixdropbox  
+$./fixdropbox  
+</code>
+應該就可以了，如果要多作設定再：<code>gedit ~/.dropbox.sh</code><br />
+好像有什麼秒數的東西設定吧~~</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2011-01-01 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2011/01/26/2011-01-26-php-db/" class="post-title">[PHP] 簡單的資料庫連結</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-php" href="http://kerkerj.github.io//categories/php">php</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>我是PHP新手，超級嫩，所以就寫寫簡單的東西，今天來寫關於資料庫的連結。<br />
+環境同之前寫的，就是 FreeBSD、MySQL、phpMyadmin 啦~</p>
+
+<p>我將他分成兩個檔案來寫：<br />
+一個是負責連結資料庫：<code>connectDB.inc.php</code><br />
+另一個則是測試的 php ：<code>test.php</code></p>
+
+<p>在 <code>connectDB.inc.php</code> 中設定好 SQL 主機的 IP、使用者名稱密碼等等資料，<br />
+然後由 <code>test.php</code> 來呈現資料，直接看 code 最快：</p>
+
+<p>```php connectDB.inc.php
+&lt;?php
+    $cfgDB_HOST = &ldquo;localhost&rdquo;;      //主機名稱或ip位址
+  $cfgDB_PORT = &ldquo;80&rdquo;;                       //主機開放連線的port
+    $cfgDB_USERNAME = &ldquo;account&rdquo;;    //登入主機帳號
+    $cfgDB_PASSWORD = &ldquo;password&rdquo;;   //登入主機密碼
+    $cfgDB_NAME = &ldquo;db_name&rdquo;;            //資料庫名稱</p>
+
+<p>//建立資料庫連線
+  $link = mysql_connect($cfgDB_HOST . &ldquo;:&rdquo; . $cfgDB_PORT, $cfgDB_USERNAME, $cfgDB_PASSWORD) or die(&ldquo;Could not connect MySQL&rdquo;);
+  //選擇資料庫
+  mysql_select_db($cfgDB_NAME, $link) or die(&ldquo;Could not select database&rdquo;);
+  //讓中文正常顯示
+  mysql_query(&ldquo;SET NAMES &lsquo;utf8&rsquo;&rdquo;);</p>
+
+<p>?&gt;
+```</p>
+
+<p><code>php test.php
+&lt;?php 
+    include (&quot;connectDB.inc.php&quot;);
+    try{
+        $sql=&quot;SELECT * from test&quot;;  //給予SQL指令
+      $result=mysql_query($sql) or die(&quot;invalid query&quot;);//傳給MySQL指令
+      //將所有資料顯示出來
+      while($record=mysql_fetch_array($result)){
+        echo &quot;id: $record[0]&lt;br&gt;&quot;;                      //第一種讀取資料庫欄位的方法，使用欄位序號
+        echo &quot;name: &quot;.$record[&quot;test_string&quot;].&quot;&lt;br&gt;&quot;;    //第二種讀取資料庫欄位方法，使用欄位名稱
+        }
+      mysql_close($link);
+    } catch(Exception $e){
+        echo $e;
+    }
+?&gt;
+</code></p>
+
+<p>若資料庫有資料就可以正確顯示溜</p>
+
+                    </div>
+                </section>
+                
+            </div>
+            
+<div class="pagination">
+  <nav role="pagination" class="post-list-pagination">
+      
+      <a href="http://kerkerj.github.io/page/12/" class="post-list-pagination-item pure-button post-list-pagination-item-prev">
+        <i class="fa fa-angle-double-left"></i>&nbsp;Newer
+      </a>
+      
+    <span class="post-list-pagination-item post-list-pagination-item-current">Page 13 of 14</span>
+    
+      <a href="http://kerkerj.github.io/page/14/" class="post-list-pagination-item pure-button post-list-pagination-item-next">
+        Older&nbsp;<i class="fa fa-angle-double-right"></i>
+      </a>
+    
+  </nav>
+</div>
+
+
+            <div class="footer">
+    <div class="pure-menu pure-menu-horizontal pure-menu-open">
+        <ul>
+            <li>Powered by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a></li>
+        </ul>
+    </div>
+</div>
+<script src="http://kerkerj.github.io//js/all.min.js"></script>
+<script>
+hljs.initHighlightingOnLoad();
+</script>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+     
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="[FreeBSD] FAMP | kerkerj">
+    <meta property="og:url" content="http://kerkerj.github.io/blog/2010/10/04/2010-10-04-freebsd81-famp/">
+    <meta property="og:description" content="">
+    
+    
+    <meta property="og:site_name" content="kerkerj">
+
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="kerkerj" />
+    <meta name="twitter:title" content="[FreeBSD] FAMP &middot; kerkerj">
+    <meta name="twitter:description" content="">
+
+    
+    <title>[FreeBSD] FAMP &middot; kerkerj</title>
+
+    
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+    
+
+    <link rel="stylesheet" href="http://kerkerj.github.io//css/all.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    
+    
+      <link rel="stylesheet" href="http://kerkerj.github.io//css/highlight/railscasts.css">
+    
+
+    
+    <link href="http://kerkerj.github.io/favicon.ico" rel="icon">
+
+    
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://kerkerj.github.io//index.xml">
+</head>
+<body>
+
+
+<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+    <div class="header">
+        <hgroup>
+            <h1 class="brand-title"><a href="http://kerkerj.github.io/">kerkerj</a></h1>
+            <h2 class="brand-tagline"> Hi. </h2>
+        </hgroup>
+
+        <nav class="nav">
+            
+            <ul class="pure-menu-list">
+              
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//notes/">Notes</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//about/">About</a>
+                </li>
+              
+                <li class="pure-menu-link">
+                  <a href="http://kerkerj.github.io//mac-app-list/">Mac App List</a>
+                </li>
+              
+            </ul>
+
+            
+            <ul class="nav-list">
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://twitter.com/kerkerj"><i class="fa fa-twitter"></i> Twitter</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://github.com/kerkerj "><i class="fa fa-github-alt"></i> Github</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://www.facebook.com/kerkerj "><i class="fa fa-facebook-alt"></i> Facebook</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="https://tw.linkedin.com/in/fuzanhuang "><i class="fa fa-linkedin-alt"></i> Linkedin</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="http://kerkerj.github.io/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            
+            <div class="posts">
+                <h1 class="content-subhead">2010-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://kerkerj.github.io/blog/2010/10/04/2010-10-04-freebsd81-famp/" class="post-title">[FreeBSD] FAMP</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-mysql" href="http://kerkerj.github.io//categories/mysql">mysql</a><a class="post-category post-category-php" href="http://kerkerj.github.io//categories/php">php</a><a class="post-category post-category-apache" href="http://kerkerj.github.io//categories/apache">apache</a><a class="post-category post-category-freebsd" href="http://kerkerj.github.io//categories/freebsd">freebsd</a><a class="post-category post-category-famp" href="http://kerkerj.github.io//categories/famp">famp</a>
+                            
+                        </p>
+                    </header>
+                    <div class="post-description">
+                        <p>FAMP:
+經典的網頁伺服器組合, 由FreeBSD, Apache, MySQL, PHP所組成 (使用Linux則稱為LAMP)
+以下則是在FreeBSD安裝網頁伺服器的過程簡單紀錄及問題排解。</p>
+
+<p>Env: FreeBSD 8.1　（以&rdquo;此篇&rdquo;安裝好的FreeBSD接續）
+安裝順序為:MySQL-&gt; Apache-&gt; PHP-&gt; PHP-extension -&gt; phpMyAdmin</p>
+
+<p>#MySQL</p>
+
+<pre><code>#cd /usr/ports/databases/mysql50-server  
+#make WITH_CHARSET=utf8 WITH_XCHARSET=all WITH_COLLATION=utf8_unicode_ci BUILD_OPTIMIZED=yes instal clean
+</code></pre>
+
+<p>=&gt;安裝 mysql server 並設定編碼為utf8</p>
+
+<pre><code>#rehash
+#sudo mysql_install_db (記得需要用root權限)
+</code></pre>
+
+<p>=&gt;安裝資料庫</p>
+
+<pre><code>#cp /usr/local/share/mysql/my-medium.cnf /etc/my.cnf  
+</code></pre>
+
+<p>=&gt;複製設定檔</p>
+
+<pre><code>#sudo chown -R mysql:mysql /var/db/mysql
+</code></pre>
+
+<p>=&gt;變更mysql資料庫權限</p>
+
+<pre><code>#sudo mysqld_safe &amp;  
+</code></pre>
+
+<p>=&gt;初始啟動</p>
+
+<pre><code>#sudo mysqladmin -u root -p password 'Your_password'
+也可以是這樣
+#sudo mysqladmin -u root passowrd 'Your_password'  
+</code></pre>
+
+<p>=&gt;新增使用者 root , 前者會出現&rdquo;Enter Password&rdquo;, 就當做是confirm就好了</p>
+
+<pre><code>#sudo mysql -u root
+</code></pre>
+
+<p>=&gt;進入MySQL, 輸入剛剛設定的密碼即可</p>
+
+<p>#Apache</p>
+
+<pre><code># cd /usr/ports/www/apache22
+# make install clean
+</code></pre>
+
+<p>=&gt;安裝apache 皆使用預設設定</p>
+
+<p>#PHP</p>
+
+<pre><code># cd /usr/ports/lang/php5
+# make config install clean
+p.s.勾選 [X] APACHE Build Apache module
+</code></pre>
+
+<p>=&gt;安裝php</p>
+
+<pre><code># cd /usr/ports/lang/php5-extensions/
+# make config install clean
+</code></pre>
+
+<p>=&gt;安裝 php5-entensions, 勾選需要的extension</p>
+
+<pre><code># cd /usr/local/etc
+# cp php.ini-development php.ini
+</code></pre>
+
+<p>=&gt;修改PHP設定檔</p>
+
+<p>修改Apache設定檔:
+編輯 <code>/usr/local/etc/apache22/httpd.conf</code>
+加入:</p>
+
+<pre><code>AddType application/x-httpd-php .php
+AddType application/x-httpd-php-source .phps
+</code></pre>
+
+<p>將 <code>DirectoryIndex index.html</code>
+修改成 <code>DirectoryIndex index.php index.html index.htm</code></p>
+
+<p>*如果要變更網站檔案預設路徑的話請見附註</p>
+
+<p>設定開機啟動Apache以及MySQL
+編輯 <code>/etc/rc.conf</code>
+加入:
+<code>
+apache22_enable=&quot;YES&quot;
+apache22_http_accept_enable=&quot;YES&quot;
+mysql_enable=&quot;YES&quot;
+</code></p>
+
+<p>#phpMyAdmin</p>
+
+<pre><code># cd /usr/ports/databases/phpmyadmin
+# make install clean
+</code></pre>
+
+<pre><code>Alias /phpmyadmin/ &quot;/usr/local/www/phpMyAdmin/&quot;  
+ &lt;Directory &quot;/usr/local/www/phpMyAdmin/&quot;&gt;  
+     Options Indexes FollowSymLinks  
+     AllowOverride None  
+     Order allow,deny  
+     Allow from all  
+ &lt;/Directory&gt;  
+</code></pre>
+
+<p>編輯 <code>httpd.conf</code>:</p>
+
+<pre><code># cd /usr/local/www/phpmyadmin/
+# cp config.sample.inc.php config.inc.php
+# vim config.inc.php
+</code></pre>
+
+<p>=&gt;編輯phpMyAdmin的設定檔</p>
+
+<p>把這行 <code>$cfg['blowfish_secret'] = '';</code>
+改成 <code>$cfg['blowfish_secret'] = 'aabbccdd'; //裡面的字串可以自己修改</code></p>
+
+<p>重新啟動apache之後就可以連到 <code>http://你的網址/phpmyadmin/</code>看到 phpMyAdmin 的登入畫面
+此時可以使用mysql的帳號密碼登入管理資料庫</p>
+
+<p>#安裝後注意：
+啟動： <code>/usr/local/etc/rc.d/mysql-server start</code>
+進入command line： <code>#/usr/local/bin/mysql mysql</code>
+更改root密碼：</p>
+
+<pre><code>UPDATE user SET password=password('你的密碼') where user='root';
+FLUSH PRIVILEGES;
+</code></pre>
+
+<p>新增一使用者（完整權限，localhost登入), 再刪除root</p>
+
+<hr />
+
+<p>狀況A - 若啟動apache時出現以下狀況<br />
+<code>httpd: Could not reliably determine the server's fully qualified domain name, using 127.0.0.1 for ServerName</code></p>
+
+<p>到 <code>httd.conf</code><br />
+找到 <code>#ServerName www.example.com:80</code><br />
+將註解刪除, 並將 <code>www.example.com</code> 改成自己的 domain
+若是自己的測試機就改成 <code>localhost</code> , 這樣重新啟動即可</p>
+
+<hr />
+
+<p>狀況B:</p>
+
+<pre><code># mysql -u root -p  
+Enter password:  
+ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: NO)  
+</code></pre>
+
+<pre><code># sudo /usr/local/etc/rc.d/mysql-server stop
+# sudo mysqld_safe --user=mysql --skip-grant-tables --skip-networking &amp;
+# sudo mysql -u root mysql
+mysql&gt; UPDATE user SET Password=PASSWORD('newpassword') where USER='root';
+mysql&gt; FLUSH PRIVILEGES;
+mysql&gt; quit
+
+# sudo /usr/local/etc/rc.d/mysql-server restart
+# mysql -u root -p
+Enter password: &lt;輸入新設定的密碼&gt;
+
+mysql&gt;
+</code></pre>
+
+<p>done!</p>
+
+<hr />
+
+<p>狀況C: 若遇上**警告提示</p>
+
+<pre><code>Warning: phpinfo() [[function.phpinfo][1]]: It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected 'UTC' for '8.0/no DST' instead in **/.../index.php** on line **2  
+</code></pre>
+
+<p>通常是出現在5.3.0的版本<br />
+只要修改 <code>php.ini</code> , 加上 <code>'date'.timezone = &quot;Asia/Taipei&quot;</code> 即可解決!</p>
+
+<hr />
+
+<p>狀況D: 進入 phpmyadmin 時，出現 <code>無法讀取 mcrypt 模組,&lt;br /&gt;請檢查 PHP 設定</code></p>
+
+<p>解決方法:<br />
+<code>vim config.inc.php</code><br />
+找出 <code>$cfg['Servers'][$i]['auth_type'] = 'cokies';</code><br />
+改成 <code>$cfg['Servers'][$i]['auth_type'] = 'http';</code><br />
+由原本網頁上面輸入帳號密碼變成跳出對話框來輸入帳號密碼</p>
+
+<hr />
+
+<p>補充:<br />
+更改apache的DocumentRoot<br />
+不想把文件放在 <code>/usr/local/www/apache22/data</code><br />
+想把他放在 <code>/home/www/</code><br />
+因此到 home 目錄去 mkdir 一個 www 資料夾<br />
+再到 <code>httpd.conf</code>, 更改兩個地方, 原本為</p>
+
+<pre><code>DocumentRoot &quot;/usr/local/www/apache22/data&quot;
+&lt;Directory &quot;/usr/local/www/apache22/data&quot;&gt;
+</code></pre>
+
+<p>改為</p>
+
+<pre><code>DocumentRoot &quot;/home/www/&quot;  
+&lt;Directory &quot;/home/www/&quot;&gt;  
+</code></pre>
+
+<p>這樣就會連到/home/www/去讀資料了</p>
+
+                    </div>
+                    <div class="post-share">
+                        <div class="post-share-links">
+                            <h4 style="">Share</h4>
+                            <a href="#" data-type="facebook" data-url="http://kerkerj.github.io/blog/2010/10/04/2010-10-04-freebsd81-famp/" data-title="[FreeBSD] FAMP" data-description="" data-media="" class="prettySocial fa fa-facebook"></a>
+                            <a href="#" data-type="googleplus" data-url="http://kerkerj.github.io/blog/2010/10/04/2010-10-04-freebsd81-famp/" data-description="" class="prettySocial fa fa-google-plus"></a>
+                            
+                            <a href="#" data-type="twitter" data-url="http://kerkerj.github.io/blog/2010/10/04/2010-10-04-freebsd81-famp/" data-description="" data-via="kerkerj" class="prettySocial fa fa-twitter"></a>
+                            
+
+                        </div>
+                    </div>
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/kerkerj.github.io\/blog\/2010\/10\/04\/2010-10-04-freebsd81-famp\/';
+    var disqus_title = '[FreeBSD] FAMP';
+    var disqus_url = 'http:\/\/kerkerj.github.io\/blog\/2010\/10\/04\/2010-10-04-freebsd81-famp\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                </section>
+            </div>
+            <div class="footer">
+    <div class="pure-menu pure-menu-horizontal pure-menu-open">
+        <ul>
+            <li>Powered by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a></li>
+        </ul>
+    </div>
+</div>
+<script src="http://kerkerj.github.io//js/all.min.js"></script>
+<script>
+hljs.initHighlightingOnLoad();
+</script>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-xxxxxx-xx', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>
