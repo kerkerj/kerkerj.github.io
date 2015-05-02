@@ -64,15 +64,15 @@
               
               
                 <li class="pure-menu-link">
-                  <a href="http://blog.kerkerj.in//notes/">Notes</a>
+                  <a href="http://blog.kerkerj.in/notes/">Notes</a>
                 </li>
               
                 <li class="pure-menu-link">
-                  <a href="http://blog.kerkerj.in//about/">About</a>
+                  <a href="http://blog.kerkerj.in/about/">About</a>
                 </li>
               
                 <li class="pure-menu-link">
-                  <a href="http://blog.kerkerj.in//mac-app-list/">Mac App List</a>
+                  <a href="http://blog.kerkerj.in/mac-app-list/">Mac App List</a>
                 </li>
               
             </ul>
@@ -299,6 +299,132 @@ $ npm stop
                 <section class="post">
                     <header class="post-header">
 
+                        <a href="http://blog.kerkerj.in/blog/2014/10/17/2014-10-17-api-d17/" class="post-title">[API-d17] - 實戰開發 - 專案結構</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-restful" href="http://blog.kerkerj.in//categories/restful">restful</a><a class="post-category post-category-api" href="http://blog.kerkerj.in//categories/api">api</a><a class="post-category post-category-nodejs" href="http://blog.kerkerj.in//categories/nodejs">nodejs</a><a class="post-category post-category-express" href="http://blog.kerkerj.in//categories/express">express</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        
+
+<p>首先我們就在虛擬機的資料夾底下，建立一個專案資料夾吧!</p>
+
+<p>今天會來簡單切割一下我們的專案目錄</p>
+
+<p>##建立新專案目錄:</p>
+
+<pre><code>$ cd /vagrant/
+$ mkdir TODOAPI
+$ cd TODOAPI
+$ npm init
+// 輸入專案資訊
+$ 
+</code></pre>
+
+<p>##建立專案結構</p>
+
+<pre><code>/
+| - bin/
+| - routes/
+| - model/
+| - node_modules/
+| - logs/
+| - config/
+| - test/
+| - app.js
+| - package.json
+</code></pre>
+
+<p>分別講解一下各個 folder 的工作:</p>
+
+<h3 id="bin:efe06a9cfabcdace1501cb271521a7ea"><code>bin</code></h3>
+
+<p>筆者會在 <code>bin</code> 資料夾底下放一個 <code>server.js</code></p>
+
+<p>這個 <code>server.js</code> 就是會專門用來啟動一個 <code>app.js</code> instance</p>
+
+<p>###<code>routes</code></p>
+
+<p>基本上如果了解 MVC 架構的話，<code>routes</code> 就是 <code>controller</code> 的意思，其實如果讀者本身夠了解的話，這個資料夾也可以改成 <code>controller</code> 也 ok，應該說，其實資料夾怎麼放都是看個人隨意即可，只是若是要模組化的話，筆者會這樣來處理一個專案結構。</p>
+
+<p>###<code>model</code></p>
+
+<p>拿來放資料庫 schema 以及相關的資料庫操作的資料夾</p>
+
+<h3 id="node-modules:efe06a9cfabcdace1501cb271521a7ea"><code>node_modules</code></h3>
+
+<p>這其實是之後安裝的模組會放在這個資料夾裡，在這邊可以先不用建立沒關係</p>
+
+<h3 id="logs:efe06a9cfabcdace1501cb271521a7ea"><code>logs</code></h3>
+
+<p>由於我們是建立一個 restful service，因此 log 的記錄也是很重要的，我們把 log 放在這個資料夾裡</p>
+
+<h3 id="configs:efe06a9cfabcdace1501cb271521a7ea"><code>configs</code></h3>
+
+<p>我們在這個資料夾裡放置一些專案設定，例如 db 設定或者是 log 的設定等等</p>
+
+<h3 id="test:efe06a9cfabcdace1501cb271521a7ea"><code>test</code></h3>
+
+<p>撰寫測試程式的資料夾~</p>
+
+<h3 id="app-js:efe06a9cfabcdace1501cb271521a7ea"><code>app.js</code></h3>
+
+<p>程式的進入點，可以想像成 index.php~</p>
+
+<h3 id="package-json:efe06a9cfabcdace1501cb271521a7ea"><code>package.json</code></h3>
+
+<p>專案的資訊以及相關模組的資訊都會被放在這裡!</p>
+
+<hr />
+
+<p>其實關於專案結構有許多不同的討論，<code>express</code> 也有一個專案自動產生器，不過如果對結構內容不了解而使用產生器的話，很容易變成只知表面不知內部運作，因此我們還是一步一步來，先定義好我們專案的需求結構</p>
+
+<p>另外，因為我們是建立 restful API service，在此並沒有用到 html 頁面，也因此就沒有 <code>view</code> 或 <code>public</code> 這兩個資料夾囉~</p>
+
+<p>延伸閱讀:</p>
+
+<p>我們可以透過觀摩別人的專案來參考他們的專案架構:</p>
+
+<p><a href="http://scotch.io/tutorials/javascript/node-and-angular-to-do-app-application-organization-and-structure">Node and Angular To-Do App: Application Organization and Structure</a></p>
+
+<p><a href="http://stackoverflow.com/questions/18789864/node-js-express-global-modules-best-practices-for-application-structure">node.js &amp; express - global modules &amp; best practices for application structure</a></p>
+
+<p>在 Github 上的討論，非常值得一看: <a href="https://gist.github.com/lancejpollard/1398757">Github discussion</a></p>
+
+<p>後來覺得也可以模仿 rails 的分法:</p>
+
+<pre><code>/
+| - app/
+| - ----controllers/
+| - ----models/
+| - ----views/
+| - ----helpers/
+| - node_modules/
+| - logs/
+| - libs/
+| - public/
+| - config/
+| - test/
+| - server.js
+| - package.json
+</code></pre>
+
+<p>都 OK!</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
                         <a href="http://blog.kerkerj.in/blog/2014/10/17/2014-10-17-swift-d17/" class="post-title">[Swift-d17] - Basic - Navigation View &#43; TableView</a>
 
                         <p class="post-meta">
@@ -459,132 +585,6 @@ $ npm stop
 </p>
 
 <p>這樣就完成啦!</p>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2014-10-10 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://blog.kerkerj.in/blog/2014/10/17/2014-10-17-api-d17/" class="post-title">[API-d17] - 實戰開發 - 專案結構</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-restful" href="http://blog.kerkerj.in//categories/restful">restful</a><a class="post-category post-category-api" href="http://blog.kerkerj.in//categories/api">api</a><a class="post-category post-category-nodejs" href="http://blog.kerkerj.in//categories/nodejs">nodejs</a><a class="post-category post-category-express" href="http://blog.kerkerj.in//categories/express">express</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        
-
-<p>首先我們就在虛擬機的資料夾底下，建立一個專案資料夾吧!</p>
-
-<p>今天會來簡單切割一下我們的專案目錄</p>
-
-<p>##建立新專案目錄:</p>
-
-<pre><code>$ cd /vagrant/
-$ mkdir TODOAPI
-$ cd TODOAPI
-$ npm init
-// 輸入專案資訊
-$ 
-</code></pre>
-
-<p>##建立專案結構</p>
-
-<pre><code>/
-| - bin/
-| - routes/
-| - model/
-| - node_modules/
-| - logs/
-| - config/
-| - test/
-| - app.js
-| - package.json
-</code></pre>
-
-<p>分別講解一下各個 folder 的工作:</p>
-
-<h3 id="bin:efe06a9cfabcdace1501cb271521a7ea"><code>bin</code></h3>
-
-<p>筆者會在 <code>bin</code> 資料夾底下放一個 <code>server.js</code></p>
-
-<p>這個 <code>server.js</code> 就是會專門用來啟動一個 <code>app.js</code> instance</p>
-
-<p>###<code>routes</code></p>
-
-<p>基本上如果了解 MVC 架構的話，<code>routes</code> 就是 <code>controller</code> 的意思，其實如果讀者本身夠了解的話，這個資料夾也可以改成 <code>controller</code> 也 ok，應該說，其實資料夾怎麼放都是看個人隨意即可，只是若是要模組化的話，筆者會這樣來處理一個專案結構。</p>
-
-<p>###<code>model</code></p>
-
-<p>拿來放資料庫 schema 以及相關的資料庫操作的資料夾</p>
-
-<h3 id="node-modules:efe06a9cfabcdace1501cb271521a7ea"><code>node_modules</code></h3>
-
-<p>這其實是之後安裝的模組會放在這個資料夾裡，在這邊可以先不用建立沒關係</p>
-
-<h3 id="logs:efe06a9cfabcdace1501cb271521a7ea"><code>logs</code></h3>
-
-<p>由於我們是建立一個 restful service，因此 log 的記錄也是很重要的，我們把 log 放在這個資料夾裡</p>
-
-<h3 id="configs:efe06a9cfabcdace1501cb271521a7ea"><code>configs</code></h3>
-
-<p>我們在這個資料夾裡放置一些專案設定，例如 db 設定或者是 log 的設定等等</p>
-
-<h3 id="test:efe06a9cfabcdace1501cb271521a7ea"><code>test</code></h3>
-
-<p>撰寫測試程式的資料夾~</p>
-
-<h3 id="app-js:efe06a9cfabcdace1501cb271521a7ea"><code>app.js</code></h3>
-
-<p>程式的進入點，可以想像成 index.php~</p>
-
-<h3 id="package-json:efe06a9cfabcdace1501cb271521a7ea"><code>package.json</code></h3>
-
-<p>專案的資訊以及相關模組的資訊都會被放在這裡!</p>
-
-<hr />
-
-<p>其實關於專案結構有許多不同的討論，<code>express</code> 也有一個專案自動產生器，不過如果對結構內容不了解而使用產生器的話，很容易變成只知表面不知內部運作，因此我們還是一步一步來，先定義好我們專案的需求結構</p>
-
-<p>另外，因為我們是建立 restful API service，在此並沒有用到 html 頁面，也因此就沒有 <code>view</code> 或 <code>public</code> 這兩個資料夾囉~</p>
-
-<p>延伸閱讀:</p>
-
-<p>我們可以透過觀摩別人的專案來參考他們的專案架構:</p>
-
-<p><a href="http://scotch.io/tutorials/javascript/node-and-angular-to-do-app-application-organization-and-structure">Node and Angular To-Do App: Application Organization and Structure</a></p>
-
-<p><a href="http://stackoverflow.com/questions/18789864/node-js-express-global-modules-best-practices-for-application-structure">node.js &amp; express - global modules &amp; best practices for application structure</a></p>
-
-<p>在 Github 上的討論，非常值得一看: <a href="https://gist.github.com/lancejpollard/1398757">Github discussion</a></p>
-
-<p>後來覺得也可以模仿 rails 的分法:</p>
-
-<pre><code>/
-| - app/
-| - ----controllers/
-| - ----models/
-| - ----views/
-| - ----helpers/
-| - node_modules/
-| - logs/
-| - libs/
-| - public/
-| - config/
-| - test/
-| - server.js
-| - package.json
-</code></pre>
-
-<p>都 OK!</p>
 
                     </div>
                 </section>
@@ -1442,184 +1442,106 @@ self.navigationController?.pushViewController(self.storyboard?.instantiateViewCo
                 <section class="post">
                     <header class="post-header">
 
-                        <a href="http://blog.kerkerj.in/blog/2014/10/13/2014-10-13-api-d13/" class="post-title">[API-d13] - [Javascript 番外篇] Javascript require/ module/ Module Pattern</a>
+                        <a href="http://blog.kerkerj.in/blog/2014/10/13/2014-10-13-swift-d13/" class="post-title">[Swift-d13] - Basic - Navigation View 1 &#43; ViewController</a>
 
                         <p class="post-meta">
                             
                             
                                 under
                                 
-                                <a class="post-category post-category-restful" href="http://blog.kerkerj.in//categories/restful">restful</a><a class="post-category post-category-api" href="http://blog.kerkerj.in//categories/api">api</a><a class="post-category post-category-javascript" href="http://blog.kerkerj.in//categories/javascript">javascript</a>
+                                <a class="post-category post-category-swift" href="http://blog.kerkerj.in//categories/swift">swift</a>
                             
                         </p>
                     </header>
 
                     <div class="post-description">
-                        <p>接下來幾天會探討 node.js 的特性，由於比較少在寫 js ，因此有錯請指正</p>
+                        <p>今天來試著拉拉看 Navigation View</p>
 
-<p>在 node.js 裏，要讀取外部模組都是透過 require 和 exports 來做溝通</p>
+<p>什麼是 Navigation View?</p>
 
-<p>以下列出這次最簡單 module 的例子</p>
+<p>就是類似下圖的東西:</p>
 
-<pre><code class="language-javascript">//hello.js
-console.log('Hello World');
-</code></pre>
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.07.37.png" alt="image" />
+</p>
 
-<pre><code>// app.js
-require('./hello.js');
-</code></pre>
+<p>用來控制 View 之間的流程</p>
 
-<p>##Module 也是有 Pattern 的</p>
+<p>今天我們繼續使用 storyboard 來簡單拉拉 Navigation View</p>
 
-<p>第一種: Global (Not so good)</p>
+<p>首先先開一個新 project 吧!</p>
 
-<pre><code>// foo.js
-foo = function() {
-	console.log(&quot;foo!&quot;);
-}
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.09.15.png" alt="image" />
+</p>
 
-// app.js
-require('./foo.js');
-foo();
-</code></pre>
+<p>接著我們到 storyboard，選擇 ViewController</p>
 
-<p>第二種: export an anonymous function</p>
+<p>再來我們要嵌入 Navigation View</p>
 
-<pre><code>// foo.js
-module.exports = function() {
-	console.log(&quot;foo! YA&quot;);
-};
+<p>所以要選擇: Edit -&gt; Embed in -&gt; Navigation View</p>
 
-// app.js
-var test = require(&quot;./foo.js&quot;);
-test();
-</code></pre>
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.10.09.png" alt="image" />
+</p>
 
-<p>第三種： export a named function</p>
+<p>選擇後，就會發現 storyboard 的 layout 改變了</p>
 
-<pre><code>// bar.js
-exports.bar = function() {
-	console.log(&quot;bar&quot;);
-}
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.11.36.png" alt="image" />
+</p>
 
-// app.js
-var bar = require('./bar.js').bar;
-bar();
-</code></pre>
+<p>Navigation View 實際上是透過 NavigationController 來控制</p>
 
-<p>第四種: exports an anoymous object</p>
+<p>原本程式的進入點是 ViewController</p>
 
-<pre><code>// bar4.js
-var Bar4 = function() {};
+<p>由於我們要使用 Navigation View</p>
 
-Bar4.prototype.say = function() {
-    console.log('bar4');
-};
+<p>因此透過 Xcode 將 NavigationController 嵌進去</p>
 
-module.exports = new Bar4();
+<p>讓程式進入點變成 NavigationController</p>
 
-// app.js 
-var b = require('./bar4.js');
-b.say();
-</code></pre>
+<p>再透過 NavigationController 將程式導到 ViewController</p>
 
-<p>第五種: export a named object</p>
+<p>接下來我們命名一下 ViewController:</p>
 
-<pre><code>// bar5.js
-var Bar5 = function() {};
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.14.28.png" alt="image" />
+</p>
 
-Bar5.prototype.say = function() {
-    console.log(&quot;bar5&quot;);
-};
+<p>然後我們從右下角的 Object library 選擇 Bar Button items 加入</p>
 
-exports.Bar5 = new Bar5();
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.14.56.png" alt="image" />
+</p>
 
-// app.js
-var b = require('./bar5.js').Bar5;
-b.say();
-</code></pre>
+<p>並將該物件拉到 NavigationBar 的右方</p>
 
-<p>第六種: export an anonymous prototype</p>
+<p>接下來我們希望點下 item 按鈕，可以到另外一個 ViewController</p>
 
-<pre><code>// cool.js
-var Cool = function() {};
+<p>因此一樣從右下角的 Object library 拉一個 ViewController 到 storyboard 的空白處</p>
 
-Cool.prototype.say = function() {
-    console.log('Cool!');
-};
+<p>直接拉一個過去就好</p>
 
-module.exports = Cool;
+<p>所以會長這樣:</p>
 
-// app.js
-var Cool = require('./cool.js');
-var coo = new Cool();
-coo.say();
-</code></pre>
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.17.30.png" alt="image" />
+</p>
 
-<p>第七種: export a named prototype</p>
+<p>接著就從 ViewController 的 item 上，按著 ctrl + 拖曳，</p>
 
-<pre><code>// ang.js
-var Ang = function () {};
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.18.29.png" alt="image" />
+</p>
 
-Ang.prototype.say = function () {
-    console.log('Ang!');
-};
+<p>往右邊剛剛新增的 ViewController 拉，放開後就會選擇要做的動作，我們選擇 &lsquo;show&rsquo;</p>
 
-exports.Ang = Ang;
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.19.44.png" alt="image" />
+</p>
 
-// app.js
-var Ang = require('./ang.js').Ang;
-var wer = new Ang();
-wer.say();
-</code></pre>
+<p>為了辨識起見，我們點選第二個 ViewController ，加入 Title:</p>
 
-<p>##exports v.s. module.exports</p>
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%201.22.11.png" alt="image" />
+</p>
 
-<p>exports 是 module.exports 的輔助方法</p>
+<p>都設定好後，按下執行，應該就可以看到 Navigation View 正常運作了!</p>
 
-<p>以下有個例子會執行錯誤:</p>
+<p>按下 item 會到 View2, View2 會自動產生 back 鍵，回到 View1</p>
 
-<pre><code>// ya.js
-module.exports = &quot;YA&quot;;
-exports.name = function() {
-    console.log('My name is kerkerj');
-};
-
-// app.js
-var ya = require('./ya.js');
-ya.name(); TypeError: Cannot call method 'name' of undefined
-</code></pre>
-
-<p>在 ya.js 中 module.exports 有屬性了</p>
-
-<p>因此下面的 export.name 就沒有被加入了</p>
-
-<p>如果 module.exports 沒有任何屬性被加入的話，</p>
-
-<p>exports 若有屬性了，則會交給 module.exports</p>
-
-<p>反之就是剛剛的情況，moduel.exports 已經有屬性了，因此 export.name 就沒有作用了</p>
-
-<p><a href="http://www.hacksparrow.com/node-js-exports-vs-module-exports.html">延伸閱讀</a></p>
-
-<p>##Module as class</p>
-
-<p>直接看例子吧 XD</p>
-
-<pre><code>// user.js
-module.exports = function(name, age) {
-    this.name = name;
-    this.age = age;
-    this.about = function() {
-        console.log(this.name +' is '+ this.age +' years old');
-    };
-};
-
-// app.js
-var User = require('./user.js');
-var kerkerj = new User('kerkerj', 18);
-kerkerj.about(); 
-</code></pre>
+<p>是不是很方便呢!</p>
 
                     </div>
                 </section>

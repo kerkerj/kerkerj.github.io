@@ -64,15 +64,15 @@
               
               
                 <li class="pure-menu-link">
-                  <a href="http://blog.kerkerj.in//notes/">Notes</a>
+                  <a href="http://blog.kerkerj.in/notes/">Notes</a>
                 </li>
               
                 <li class="pure-menu-link">
-                  <a href="http://blog.kerkerj.in//about/">About</a>
+                  <a href="http://blog.kerkerj.in/about/">About</a>
                 </li>
               
                 <li class="pure-menu-link">
-                  <a href="http://blog.kerkerj.in//mac-app-list/">Mac App List</a>
+                  <a href="http://blog.kerkerj.in/mac-app-list/">Mac App List</a>
                 </li>
               
             </ul>
@@ -628,6 +628,79 @@ return
                 <section class="post">
                     <header class="post-header">
 
+                        <a href="http://blog.kerkerj.in/blog/2014/10/25/2014-10-25-api-day25/" class="post-title">[API-day25] - 實戰開發 - 處理 404 &amp; 500</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-restful" href="http://blog.kerkerj.in//categories/restful">restful</a><a class="post-category post-category-api" href="http://blog.kerkerj.in//categories/api">api</a><a class="post-category post-category-nodejs" href="http://blog.kerkerj.in//categories/nodejs">nodejs</a><a class="post-category post-category-express" href="http://blog.kerkerj.in//categories/express">express</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day25">Github 參考</a></p>
+
+<p>不知道大家在用 POSTMAN 對前幾天寫的 API 丟 request 有沒有遇過類似下面的情況:</p>
+
+<pre><code class="language-javascript">Cannot GET /user/kerkerj/todoss
+</code></pre>
+
+<p>通常是丟錯網址時會出現的，或是 code 沒寫好會出現 500 error</p>
+
+<p>這些情況是有辦法接到的，今天我們希望能夠接到後，將 message 轉成 json 格式吐回給 client</p>
+
+<p>因此程式碼如下</p>
+
+<p>app.js</p>
+
+<pre><code class="language-javascript">// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    res.status(404).jsonp({error: &quot;Not Found&quot;});
+    next();
+});
+
+// catch 500
+app.use(function(err, req, res, next) {
+            res.status(err.status || 500).json({error: err.message});
+});
+</code></pre>
+
+<p>基本上這兩段 code 的意思就是加入了兩個 middleware</p>
+
+<p>如果進來的 request 是屬於 404 or 500 就會回傳 json 格式</p>
+
+<p>並且依錯誤碼不同而回傳不同的訊息</p>
+
+<p>試著將 server 跑起來</p>
+
+<p>亂丟 request 看看</p>
+
+<p>原本應該會是</p>
+
+<pre><code>Cannot GET /user/kerkerj/todoss
+</code></pre>
+
+<p>就會變成了 json</p>
+
+<pre><code>{
+    &quot;error&quot;: &quot;Not Found&quot;
+}
+</code></pre>
+
+<p>這樣一來, client 程式也就能夠統一接收 json 回傳，而不會因為莫名的字串導致解析錯誤而 crash 了!</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
                         <a href="http://blog.kerkerj.in/blog/2014/10/25/2014-10-25-swift-day25/" class="post-title">[Swift-day25] - 實戰開發 - TODOList - Update View</a>
 
                         <p class="post-meta">
@@ -739,79 +812,6 @@ override func viewDidLoad() {
 <p>因此流程面大致上到此告一個段落</p>
 
 <p>接下來就要串 API 了!</p>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2014-10-10 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://blog.kerkerj.in/blog/2014/10/25/2014-10-25-api-day25/" class="post-title">[API-day25] - 實戰開發 - 處理 404 &amp; 500</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-restful" href="http://blog.kerkerj.in//categories/restful">restful</a><a class="post-category post-category-api" href="http://blog.kerkerj.in//categories/api">api</a><a class="post-category post-category-nodejs" href="http://blog.kerkerj.in//categories/nodejs">nodejs</a><a class="post-category post-category-express" href="http://blog.kerkerj.in//categories/express">express</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day25">Github 參考</a></p>
-
-<p>不知道大家在用 POSTMAN 對前幾天寫的 API 丟 request 有沒有遇過類似下面的情況:</p>
-
-<pre><code class="language-javascript">Cannot GET /user/kerkerj/todoss
-</code></pre>
-
-<p>通常是丟錯網址時會出現的，或是 code 沒寫好會出現 500 error</p>
-
-<p>這些情況是有辦法接到的，今天我們希望能夠接到後，將 message 轉成 json 格式吐回給 client</p>
-
-<p>因此程式碼如下</p>
-
-<p>app.js</p>
-
-<pre><code class="language-javascript">// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    res.status(404).jsonp({error: &quot;Not Found&quot;});
-    next();
-});
-
-// catch 500
-app.use(function(err, req, res, next) {
-            res.status(err.status || 500).json({error: err.message});
-});
-</code></pre>
-
-<p>基本上這兩段 code 的意思就是加入了兩個 middleware</p>
-
-<p>如果進來的 request 是屬於 404 or 500 就會回傳 json 格式</p>
-
-<p>並且依錯誤碼不同而回傳不同的訊息</p>
-
-<p>試著將 server 跑起來</p>
-
-<p>亂丟 request 看看</p>
-
-<p>原本應該會是</p>
-
-<pre><code>Cannot GET /user/kerkerj/todoss
-</code></pre>
-
-<p>就會變成了 json</p>
-
-<pre><code>{
-    &quot;error&quot;: &quot;Not Found&quot;
-}
-</code></pre>
-
-<p>這樣一來, client 程式也就能夠統一接收 json 回傳，而不會因為莫名的字串導致解析錯誤而 crash 了!</p>
 
                     </div>
                 </section>
@@ -1064,109 +1064,6 @@ class UpdateViewController: UIViewController {
                 <section class="post">
                     <header class="post-header">
 
-                        <a href="http://blog.kerkerj.in/blog/2014/10/23/2014-10-23-api-d23/" class="post-title">[API-d23] - 實戰開發 - 修改 TODO task API with mongoose</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-restful" href="http://blog.kerkerj.in//categories/restful">restful</a><a class="post-category post-category-api" href="http://blog.kerkerj.in//categories/api">api</a><a class="post-category post-category-nodejs" href="http://blog.kerkerj.in//categories/nodejs">nodejs</a><a class="post-category post-category-express" href="http://blog.kerkerj.in//categories/express">express</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day23">Github 參考</a></p>
-
-<p>接上篇，我們已經可以拿到 todo list 了</p>
-
-<p>也可以拿到特定的 todo task</p>
-
-<p>再來我們就可以編輯特定的 todo task 了對吧?</p>
-
-<p>不囉唆直接進入程式碼</p>
-
-<p>routes/users.js</p>
-
-<pre><code class="language-javascript">// Update a todo task
-router.put('/:user_id/todos/:todo_id', function(req, res) {
-    var user_id = req.params.user_id;
-    var todo_id = req.params.todo_id;
-    var data = req.body;
-
-    TODO.update(
-        { _id: todo_id, user_id: user_id },
-        { $set: { content: data.content } },
-        function (err, num, raw, results) {
-            if (err) {
-                res.status(400).json(
-                    { error: &quot;update data error&quot; }
-                );
-            } else {
-                TODO.find({ _id: todo_id, user_id: user_id }, function (err, results) {
-                    res.status(201).json(
-                        results[0]
-                    );
-                });
-            }
-        }
-    );
-});
-</code></pre>
-
-<p>這次拿資料要拿三組: user_id, todo_id, 以及 data from req.body</p>
-
-<pre><code>var user_id = req.params.user_id;
-var todo_id = req.params.todo_id;
-var data = req.body;
-</code></pre>
-
-<p>body 的資料很簡單，就是欲修改的 content 的資料:</p>
-
-<pre><code>{ &quot;content&quot;: &quot;想修改的資料&quot; }
-</code></pre>
-
-<p>再來，除了是使用 .update 方法以及同樣要下 WHERE 參數外， .update 方法還多了一個參數:</p>
-
-<pre><code>{ _id: todo_id, user_id: user_id },
-{ $set: { content: data.content } },
-</code></pre>
-
-<p>$set 的意思等同於 SQL 語法中的 SET</p>
-
-<p>如果沒有加 $set 變成下面這樣:</p>
-
-<pre><code>{ _id: todo_id, user_id: user_id },
-{ content: data.content } ,
-</code></pre>
-
-<p>整個資料就會被洗掉，變成只有 <code>{ content: data.content }</code></p>
-
-<p>因此有沒有加 $set 差很多哦</p>
-
-<p>後面一樣是 callback 的處理</p>
-
-<p>都寫好後，實際開 POSTMAN 試試看吧!</p>
-
-<p>記得要使用 <code>PUT</code> 來丟 request</p>
-
-<p>例子如下，我把原本的 buy milk 改成 buy milk and banana</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%203.31.57.png" alt="image" />
-</p>
-
-<p>這樣離完成 API 就不遠啦!</p>
-
-<p>明天就稍微休息一下吧 XD</p>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2014-10-10 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
                         <a href="http://blog.kerkerj.in/blog/2014/10/23/2014-10-23-swift-d23/" class="post-title">[Swift-d23] - 實戰開發 - TODOList - Show View 2, Delete View</a>
 
                         <p class="post-meta">
@@ -1270,6 +1167,109 @@ var content: String!
 </code></pre>
 
 <p>這樣我們就有顯示單筆以及顯示多筆還有刪除可以用了!</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://blog.kerkerj.in/blog/2014/10/23/2014-10-23-api-d23/" class="post-title">[API-d23] - 實戰開發 - 修改 TODO task API with mongoose</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-restful" href="http://blog.kerkerj.in//categories/restful">restful</a><a class="post-category post-category-api" href="http://blog.kerkerj.in//categories/api">api</a><a class="post-category post-category-nodejs" href="http://blog.kerkerj.in//categories/nodejs">nodejs</a><a class="post-category post-category-express" href="http://blog.kerkerj.in//categories/express">express</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day23">Github 參考</a></p>
+
+<p>接上篇，我們已經可以拿到 todo list 了</p>
+
+<p>也可以拿到特定的 todo task</p>
+
+<p>再來我們就可以編輯特定的 todo task 了對吧?</p>
+
+<p>不囉唆直接進入程式碼</p>
+
+<p>routes/users.js</p>
+
+<pre><code class="language-javascript">// Update a todo task
+router.put('/:user_id/todos/:todo_id', function(req, res) {
+    var user_id = req.params.user_id;
+    var todo_id = req.params.todo_id;
+    var data = req.body;
+
+    TODO.update(
+        { _id: todo_id, user_id: user_id },
+        { $set: { content: data.content } },
+        function (err, num, raw, results) {
+            if (err) {
+                res.status(400).json(
+                    { error: &quot;update data error&quot; }
+                );
+            } else {
+                TODO.find({ _id: todo_id, user_id: user_id }, function (err, results) {
+                    res.status(201).json(
+                        results[0]
+                    );
+                });
+            }
+        }
+    );
+});
+</code></pre>
+
+<p>這次拿資料要拿三組: user_id, todo_id, 以及 data from req.body</p>
+
+<pre><code>var user_id = req.params.user_id;
+var todo_id = req.params.todo_id;
+var data = req.body;
+</code></pre>
+
+<p>body 的資料很簡單，就是欲修改的 content 的資料:</p>
+
+<pre><code>{ &quot;content&quot;: &quot;想修改的資料&quot; }
+</code></pre>
+
+<p>再來，除了是使用 .update 方法以及同樣要下 WHERE 參數外， .update 方法還多了一個參數:</p>
+
+<pre><code>{ _id: todo_id, user_id: user_id },
+{ $set: { content: data.content } },
+</code></pre>
+
+<p>$set 的意思等同於 SQL 語法中的 SET</p>
+
+<p>如果沒有加 $set 變成下面這樣:</p>
+
+<pre><code>{ _id: todo_id, user_id: user_id },
+{ content: data.content } ,
+</code></pre>
+
+<p>整個資料就會被洗掉，變成只有 <code>{ content: data.content }</code></p>
+
+<p>因此有沒有加 $set 差很多哦</p>
+
+<p>後面一樣是 callback 的處理</p>
+
+<p>都寫好後，實際開 POSTMAN 試試看吧!</p>
+
+<p>記得要使用 <code>PUT</code> 來丟 request</p>
+
+<p>例子如下，我把原本的 buy milk 改成 buy milk and banana</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%203.31.57.png" alt="image" />
+</p>
+
+<p>這樣離完成 API 就不遠啦!</p>
+
+<p>明天就稍微休息一下吧 XD</p>
 
                     </div>
                 </section>

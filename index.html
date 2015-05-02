@@ -64,15 +64,15 @@
               
               
                 <li class="pure-menu-link">
-                  <a href="http://blog.kerkerj.in//notes/">Notes</a>
+                  <a href="http://blog.kerkerj.in/notes/">Notes</a>
                 </li>
               
                 <li class="pure-menu-link">
-                  <a href="http://blog.kerkerj.in//about/">About</a>
+                  <a href="http://blog.kerkerj.in/about/">About</a>
                 </li>
               
                 <li class="pure-menu-link">
-                  <a href="http://blog.kerkerj.in//mac-app-list/">Mac App List</a>
+                  <a href="http://blog.kerkerj.in/mac-app-list/">Mac App List</a>
                 </li>
               
             </ul>
@@ -917,68 +917,6 @@ Day30 -  <a href="http://kerkerj.github.io/blog/2014/10/30/2014-10-30-swift-d30/
                 <section class="post">
                     <header class="post-header">
 
-                        <a href="http://blog.kerkerj.in/blog/2014/10/30/2014-10-30-swift-d30/" class="post-title">[Swift-d30] - 總結</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-swift" href="http://blog.kerkerj.in//categories/swift">swift</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p>30 天下來其實中間受到不少人幫忙</p>
-
-<p>因為第一次寫 iOS 程式，對於 iOS 的基本運作流程還是詢問了不少同事</p>
-
-<p>包含在隔壁棚用 Cocos2d 寫 2D 遊戲的 Andy</p>
-
-<p>還有同事 Henry 和 Felix 都給予了很大的幫忙</p>
-
-<p>最後這隻小 app 其實 code 的品質並沒有很好</p>
-
-<p>主要還是因為寫來 demo 用的，以及老實講也沒什麼時間寫&hellip;</p>
-
-<p>報兩個組別真的是很鐵人哪</p>
-
-<p>還看到隔壁棚一次報三四個主題的大大</p>
-
-<p>真是太厲害了</p>
-
-<p>假設明年還會參賽的話，應該還是會以單一技術來鑽研吧!</p>
-
-<p>Swift 有蠻多特性是 Objective-C 所沒有的</p>
-
-<p>如果有想在新專案嘗試的話</p>
-
-<p>最好還是先多看看網路上的比較</p>
-
-<p>避免踩到雷</p>
-
-<p>像有一點是我們同事曾經踩到的雷</p>
-
-<p>就是 NSDictionary V.S. Dictionary</p>
-
-<p>兩者的速度可以差到 5, 6 倍以上</p>
-
-<p>網路上搜尋也會發現有人在討論 Swift Dictionary 的效能差異</p>
-
-<p>若要在新專案使用還是要查詢一下避免掉一些問題</p>
-
-<p>另外還有就是 Swift on Xcode 的穩定度還是有待加強&hellip;</p>
-
-<p>總而言之, 30 天結束了，ya!</p>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2014-10-10 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
                         <a href="http://blog.kerkerj.in/blog/2014/10/30/2014-10-30-api-d30/" class="post-title">[API-d30] - 總結</a>
 
                         <p class="post-meta">
@@ -1045,7 +983,7 @@ Day30 -  <a href="http://kerkerj.github.io/blog/2014/10/30/2014-10-30-swift-d30/
                 <section class="post">
                     <header class="post-header">
 
-                        <a href="http://blog.kerkerj.in/blog/2014/10/29/2014-10-29-swift-d29/" class="post-title">[Swift-d29] - 實戰開發 - TODOList - API 4 刪除</a>
+                        <a href="http://blog.kerkerj.in/blog/2014/10/30/2014-10-30-swift-d30/" class="post-title">[Swift-d30] - 總結</a>
 
                         <p class="post-meta">
                             
@@ -1058,83 +996,47 @@ Day30 -  <a href="http://kerkerj.github.io/blog/2014/10/30/2014-10-30-swift-d30/
                     </header>
 
                     <div class="post-description">
-                        <p><a href="https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day29">Github link</a></p>
+                        <p>30 天下來其實中間受到不少人幫忙</p>
 
-<p>今天要處理刪除</p>
+<p>因為第一次寫 iOS 程式，對於 iOS 的基本運作流程還是詢問了不少同事</p>
 
-<p>其實超簡單的</p>
+<p>包含在隔壁棚用 Cocos2d 寫 2D 遊戲的 Andy</p>
 
-<p>只是想偷懶一下 XD</p>
+<p>還有同事 Henry 和 Felix 都給予了很大的幫忙</p>
 
-<p>一樣將下列程式碼新增到 RestApi class:</p>
+<p>最後這隻小 app 其實 code 的品質並沒有很好</p>
 
-<pre><code class="language-swift">func deleteTodoList(completionHandler: ((NSDictionary!, NSError!) -&gt; Void)!, todoId: String) {
-        var session = NSURLSession.sharedSession()
-        
-        var request = NSMutableURLRequest(URL: NSURL(string: &quot;http://192.168.1.158:3000/user/kerkerj/todos/\(todoId)&quot;)!)
-        request.HTTPMethod = &quot;DELETE&quot;
-        
-        var err: NSError?
-        request.addValue(&quot;application/json&quot;, forHTTPHeaderField: &quot;Content-Type&quot;)
-        request.addValue(self.API_key, forHTTPHeaderField: &quot;API-Key&quot;)
-        
-        
-        let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -&gt; Void in
-            if (error != nil) {
-                return completionHandler(nil, error)
-            }
-            
-            var error: NSError?
-            let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &amp;error) as NSDictionary
-            
-            println(json)
-            
-            if (error != nil) {
-                return completionHandler(nil, error)
-            } else {
-                return completionHandler(json, nil)
-            }
-        })
-        
-        task.resume()
-    }
+<p>主要還是因為寫來 demo 用的，以及老實講也沒什麼時間寫&hellip;</p>
 
-</code></pre>
+<p>報兩個組別真的是很鐵人哪</p>
 
-<p>回到 ViewController 中的 tableView commitEditingStyle 的方法中</p>
+<p>還看到隔壁棚一次報三四個主題的大大</p>
 
-<p>將其更新為:</p>
+<p>真是太厲害了</p>
 
-<pre><code>func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        
-        api.deleteTodoList({data, err -&gt; Void in
-            let alert = UIAlertView()
-            alert.title = &quot;Alert&quot;
-            alert.addButtonWithTitle(&quot;Ok&quot;)
-            
-            if (err != nil) {
-                alert.message = &quot;Failed to delete: \(err)&quot;
-                alert.show()
-            } else {
-                alert.message = &quot;ok!&quot;
-                
-                self.fakeData.removeAtIndex(indexPath.row)
-                
-                dispatch_async(dispatch_get_main_queue(), {
-                    // must be &quot;tableView!&quot; not &quot;tableView?&quot;
-                    alert.show()
-                    self.tableView!.reloadData()
-                })
-            }
-            }, todoId: fakeData[indexPath.row][&quot;_id&quot;]!)
-    }
-</code></pre>
+<p>假設明年還會參賽的話，應該還是會以單一技術來鑽研吧!</p>
 
-<p>改好程式碼後，執行該程式</p>
+<p>Swift 有蠻多特性是 Objective-C 所沒有的</p>
 
-<p>在清單中將 item 往左滑，就可以看到刪除的按鈕了!</p>
+<p>如果有想在新專案嘗試的話</p>
 
-<p>超簡單的啦!</p>
+<p>最好還是先多看看網路上的比較</p>
+
+<p>避免踩到雷</p>
+
+<p>像有一點是我們同事曾經踩到的雷</p>
+
+<p>就是 NSDictionary V.S. Dictionary</p>
+
+<p>兩者的速度可以差到 5, 6 倍以上</p>
+
+<p>網路上搜尋也會發現有人在討論 Swift Dictionary 的效能差異</p>
+
+<p>若要在新專案使用還是要查詢一下避免掉一些問題</p>
+
+<p>另外還有就是 Swift on Xcode 的穩定度還是有待加強&hellip;</p>
+
+<p>總而言之, 30 天結束了，ya!</p>
 
                     </div>
                 </section>
@@ -1281,6 +1183,104 @@ server {
 <p>使用 postman 戳戳看 API</p>
 
 <p>就成功囉~~</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://blog.kerkerj.in/blog/2014/10/29/2014-10-29-swift-d29/" class="post-title">[Swift-d29] - 實戰開發 - TODOList - API 4 刪除</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-swift" href="http://blog.kerkerj.in//categories/swift">swift</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p><a href="https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day29">Github link</a></p>
+
+<p>今天要處理刪除</p>
+
+<p>其實超簡單的</p>
+
+<p>只是想偷懶一下 XD</p>
+
+<p>一樣將下列程式碼新增到 RestApi class:</p>
+
+<pre><code class="language-swift">func deleteTodoList(completionHandler: ((NSDictionary!, NSError!) -&gt; Void)!, todoId: String) {
+        var session = NSURLSession.sharedSession()
+        
+        var request = NSMutableURLRequest(URL: NSURL(string: &quot;http://192.168.1.158:3000/user/kerkerj/todos/\(todoId)&quot;)!)
+        request.HTTPMethod = &quot;DELETE&quot;
+        
+        var err: NSError?
+        request.addValue(&quot;application/json&quot;, forHTTPHeaderField: &quot;Content-Type&quot;)
+        request.addValue(self.API_key, forHTTPHeaderField: &quot;API-Key&quot;)
+        
+        
+        let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -&gt; Void in
+            if (error != nil) {
+                return completionHandler(nil, error)
+            }
+            
+            var error: NSError?
+            let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &amp;error) as NSDictionary
+            
+            println(json)
+            
+            if (error != nil) {
+                return completionHandler(nil, error)
+            } else {
+                return completionHandler(json, nil)
+            }
+        })
+        
+        task.resume()
+    }
+
+</code></pre>
+
+<p>回到 ViewController 中的 tableView commitEditingStyle 的方法中</p>
+
+<p>將其更新為:</p>
+
+<pre><code>func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        api.deleteTodoList({data, err -&gt; Void in
+            let alert = UIAlertView()
+            alert.title = &quot;Alert&quot;
+            alert.addButtonWithTitle(&quot;Ok&quot;)
+            
+            if (err != nil) {
+                alert.message = &quot;Failed to delete: \(err)&quot;
+                alert.show()
+            } else {
+                alert.message = &quot;ok!&quot;
+                
+                self.fakeData.removeAtIndex(indexPath.row)
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    // must be &quot;tableView!&quot; not &quot;tableView?&quot;
+                    alert.show()
+                    self.tableView!.reloadData()
+                })
+            }
+            }, todoId: fakeData[indexPath.row][&quot;_id&quot;]!)
+    }
+</code></pre>
+
+<p>改好程式碼後，執行該程式</p>
+
+<p>在清單中將 item 往左滑，就可以看到刪除的按鈕了!</p>
+
+<p>超簡單的啦!</p>
 
                     </div>
                 </section>

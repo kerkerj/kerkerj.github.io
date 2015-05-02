@@ -64,15 +64,15 @@
               
               
                 <li class="pure-menu-link">
-                  <a href="http://blog.kerkerj.in//notes/">Notes</a>
+                  <a href="http://blog.kerkerj.in/notes/">Notes</a>
                 </li>
               
                 <li class="pure-menu-link">
-                  <a href="http://blog.kerkerj.in//about/">About</a>
+                  <a href="http://blog.kerkerj.in/about/">About</a>
                 </li>
               
                 <li class="pure-menu-link">
-                  <a href="http://blog.kerkerj.in//mac-app-list/">Mac App List</a>
+                  <a href="http://blog.kerkerj.in/mac-app-list/">Mac App List</a>
                 </li>
               
             </ul>
@@ -109,136 +109,7 @@
                 <section class="post">
                     <header class="post-header">
 
-                        <a href="http://blog.kerkerj.in/blog/2014/10/03/2014-10-03-swift-d3/" class="post-title">[Swift-d3] - Playground - 變數與常數, 註解, 基本資料型別 </a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-Swift" href="http://blog.kerkerj.in//categories/swift">Swift</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p>##變數與常數</p>
-
-<p>定義一個變數:</p>
-
-<pre><code class="language-Swift">var obj: String = &quot;&quot;
-</code></pre>
-
-<p>var 是保留字，宣告 obj 是一個變數名稱，冒號後面接資料形態<br />
-以此例子來說，宣告了一個字串變數叫做 obj，並且初始化為 &ldquo;&rdquo; 空字串</p>
-
-<pre><code>let obj: String = &quot;&quot;
-</code></pre>
-
-<p>let 同樣是用來宣告一個變數，但是宣告此變數後，該變數的值無法被改變，<br />
-無法被改變的數值其實正正的名字就叫做常數
-以上面的例子來說， 若我們多做一件事:</p>
-
-<pre><code>let obj: String = &quot;&quot;
-obj = &quot;test&quot;
-</code></pre>
-
-<p>若我們試圖去更改 obj，讓 obj 從空字串變成 &ldquo;test&rdquo; 時，<br />
-Xcode 就會報錯，不能更改該值</p>
-
-<p>再來是宣告的變型，其實宣告時不一定要給資料形態，<br />
-Swift 會自動從後面的值來判斷 x 可能是什麼資料形態，<br />
-只是由於筆者的習慣，會儘量在後面加上該變數的資料型別</p>
-
-<pre><code>var x = &quot;test&quot;
-</code></pre>
-
-<p>一行內宣告多值：</p>
-
-<pre><code>var x = 0.0, y = 0.0, z = 0.0
-</code></pre>
-
-<p>我們就可以在 Playground 裡面試著宣告一些變數看看，並且使用昨天的輸出函式來輸出變數:</p>
-
-<pre><code>var str: String = &quot;測試&quot;
-let fixString: String = &quot;fixed&quot;
-
-var x = 0, y = 1, z = 2
-
-println(str)
-println(x)
-println(y)
-println(z)
-</code></pre>
-
-<p>##註解</p>
-
-<pre><code>// 單行註解
-
-/*
-多行註解
-多行註解
-多行註解
-*/
-</code></pre>
-
-<p>##基本資料型別</p>
-
-<p>Swift 是一個強型別語言，意即若是以下的程式碼是會出錯的:</p>
-
-<pre><code>var x = &quot;test&quot;
-x = 2
-</code></pre>
-
-<p>由於 x 已經被先 Swift 判定是 String 了，後面想指定 Int 資料給 x 就會出錯</p>
-
-<p>Int 整數:
-Swift 提供了 Int 還另外提供了 8, 16, 32, 64 位元的有號和無號整數型別<br />
-若在 32 位元平台，宣告 Int 的話， Int 的長度和 Int32 是一樣的<br />
-若在 64 位元平台，宣告 Int 的話， Int 的長度和 Int64 是一樣的</p>
-
-<p>浮點數：
-3.2, 0.0 之類的數字，可以用
-Double - 64 位元浮點數 (至少 15 位數)
-Float - 32 位元浮點數 (至少 6 位數)</p>
-
-<p>布林值：
-true/false</p>
-
-<p>Tuples:
-Tuple 可以將多個值組合成一個值，例如：</p>
-
-<pre><code>//賦值
-let httpSucess = (200, &quot;Success&quot;)
-
-// 反過來接值
-let (statusCode, statusMessage) = httpSucess
-
-// 若只需要其中一個值，另一個值可以用 _ 代替，但是不能沒有 _ 
-let (statusCode, _) = httpSucess
-
-// 也可以用索引的方式拿值
-println(httpSucess.0)
-
-// 宣告 tuples 時也可以直接給予參數一個名稱
-let httpSucess = (statusCode: 200, statusMessage: &quot;Success&quot;)
-
-// 拿值時就可以:
-println(httpSucess.statusCode)
-</code></pre>
-
-<p>同時結合 function 這樣就可以多值回傳了！</p>
-
-<p>下一篇會接續今天變數相關的主題~</p>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2014-10-10 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://blog.kerkerj.in/blog/2014/10/02/2014-10-02-api-d2/" class="post-title">[API-d2] - 定義 2 - RESTful 的優點與要求</a>
+                        <a href="http://blog.kerkerj.in/blog/2014/10/03/2014-10-03-api-d3/" class="post-title">[API-d3] - 使用時機與實際 API 參考</a>
 
                         <p class="post-meta">
                             
@@ -251,38 +122,33 @@ println(httpSucess.statusCode)
                     </header>
 
                     <div class="post-description">
-                        <p>承上篇，</p>
+                        <p>#使用時機與實際 API 參考<br />
+什麼時候需要打造 RESTful API?<br />
+看看別人的 RESTful API (Instagram/Twitter)</p>
 
-<p>RESTful 的優點如下所列:</p>
+<p>什麼時候需要打造 RESTful API?<br />
+我認為當有數組資源要被多種不同平台使用時，就需要打造 RESTful API<br />
+例如，有 Android/ iOS / Web 要對同一 table 做存取時，<br />
+假設有個 MySQL DB，各個平台都使用各自的 mysql-driver 來直接操作 DB<br />
+假設有個 A 專案建立了一套書籍管理系統，資料庫裡記錄了大大小小的書籍，<br />
+而有個新的 B 專案需要使用到書籍的資料，此時 DB 操作的程式碼只能再寫一遍，<br />
+且各個平台重新撰寫，似乎是不大靠譜。</p>
 
-<pre><code> 1. 瀏覽器即可以作為 client 端
- 2. 可以更高效地利用 cache 來達到更快的回應速度
- 3. 界面與資料分離
- 4. 節省伺服器的計算資源
- 5. 可重用! web/android/ios 都可以用, 無痛轉換!
-</code></pre>
+<p>撰寫 RESTful API 的好處之一即是 RESTful 使用 HTTP 協定，<br />
+各個平台皆支援，不需要太複雜的程式，只需要使用各個平台的 http-client，<br />
+各個平台也不需要了解 DB 操作語法，只需要知道 json, xml 習慣的資料格式，<br />
+且開發 API 還能夠對各個資源輕易地上 cache 增進反應速度，<br />
+開發 RESTful API 好處多多，哪天想 Open API 也就不需要再多作處理了～</p>
 
-<p>RESTful 的要求:</p>
+<p>接著讓我們來看看兩個有名網站的 API 吧！</p>
 
-<pre><code> 1. client - server 架構  
- 2. 分層系統  
- 3. 利用快取機制增加效能  
-      server-side: 在 GET 資源時，若該資源並沒有被變更，就可以利用 cache 機制減少 query，並且加快回應速度  
-      client-side: 透過 client 端 cache 記錄 cache 版本，  
-           若向 server 要求資源時發現 server 最新版與 cache 相同，  
-           則 client 端直接取用本地資源即可，不需要再做一次查詢  
-      省機器運算及流量 = 省錢  
- 4. 通訊協定具有無狀態性  
-      不能讓兩隻 API 做同一個動作!  
-           假設完成轉賬手續必須先 call A 再 call B 的話，  
-           若做完 A 後斷線導致 B 無法執行，後續要處理 A -&gt; B 的方式會很麻煩  
-      且不應該假設伺服器知道目前的狀態!  
-      因此設計出來的 API 不能有狀態性  
- 5. 統一界面  
-      使用 HTTP Verb: GET/POST/PUT/DELETE  
-</code></pre>
+<p>Instagram: <a href="http://instagram.com/developer/api-console/">http://instagram.com/developer/api-console/</a><br />
+Twitter: <a href="https://dev.twitter.com/rest/tools/console">https://dev.twitter.com/rest/tools/console</a></p>
 
-<p>下一篇會討論什麼時候該打造 RESTful API?  以及看看別人寫的 RESTful API</p>
+<p>很顯然的，我比較喜歡 Instagram 的 API 資源定義與命名方式 :P</p>
+
+<p>下一篇會介紹我接下來會用到的工具箱，暖身結束，要正式開始了!<br />
+(不好意思前面嘴炮一點 XD)</p>
 
                     </div>
                 </section>
@@ -347,6 +213,113 @@ println(httpSucess.statusCode)
 只是在資源的操作面上，可以設計成這類的風格，以達到簡潔易懂，並且可重用。</p>
 
 <p>下一篇會來聊聊 REST 的要求與優點</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://blog.kerkerj.in/blog/2014/10/02/2014-10-02-api-d2/" class="post-title">[API-d2] - 定義 2 - RESTful 的優點與要求</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-RESTful" href="http://blog.kerkerj.in//categories/restful">RESTful</a><a class="post-category post-category-API" href="http://blog.kerkerj.in//categories/api">API</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>承上篇，</p>
+
+<p>RESTful 的優點如下所列:</p>
+
+<pre><code> 1. 瀏覽器即可以作為 client 端
+ 2. 可以更高效地利用 cache 來達到更快的回應速度
+ 3. 界面與資料分離
+ 4. 節省伺服器的計算資源
+ 5. 可重用! web/android/ios 都可以用, 無痛轉換!
+</code></pre>
+
+<p>RESTful 的要求:</p>
+
+<pre><code> 1. client - server 架構  
+ 2. 分層系統  
+ 3. 利用快取機制增加效能  
+      server-side: 在 GET 資源時，若該資源並沒有被變更，就可以利用 cache 機制減少 query，並且加快回應速度  
+      client-side: 透過 client 端 cache 記錄 cache 版本，  
+           若向 server 要求資源時發現 server 最新版與 cache 相同，  
+           則 client 端直接取用本地資源即可，不需要再做一次查詢  
+      省機器運算及流量 = 省錢  
+ 4. 通訊協定具有無狀態性  
+      不能讓兩隻 API 做同一個動作!  
+           假設完成轉賬手續必須先 call A 再 call B 的話，  
+           若做完 A 後斷線導致 B 無法執行，後續要處理 A -&gt; B 的方式會很麻煩  
+      且不應該假設伺服器知道目前的狀態!  
+      因此設計出來的 API 不能有狀態性  
+ 5. 統一界面  
+      使用 HTTP Verb: GET/POST/PUT/DELETE  
+</code></pre>
+
+<p>下一篇會討論什麼時候該打造 RESTful API?  以及看看別人寫的 RESTful API</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">2014-10-10 00:00</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://blog.kerkerj.in/blog/2014/10/02/2014-10-02-swift-d1/" class="post-title">[Swift-d1] - 介紹</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under
+                                
+                                <a class="post-category post-category-Swift" href="http://blog.kerkerj.in//categories/swift">Swift</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>Swift 是 2014 年由蘋果公司在其開發者大會 WWDC 上所發佈的程式語言</p>
+
+<p>The Swift Programming Language 一書中提到：</p>
+
+<ol>
+<li>Swift 用來撰寫 iOS 及 Mac OSX 的程式。<br /></li>
+<li>Swift 吸收了 C 和 Objective-C 的優點，使其在設計更具彈性、容易，且撰寫時有更多樂趣。<br /></li>
+<li>Swift 是基於成熟而且倍受喜愛的 Cocoa 和 Cocoa Touch framework，意即 Swift 可以直接使用這些現有的框架<br /></li>
+<li>Swift 兼具編譯語言的性能，以及直譯式語言的特性。<br /></li>
+</ol>
+
+<p>** 什麼是 Cocoa/Cocoa Touch framework:<br />
+Cocoa framework 是 Apple 爲 Mac OSX 所建立的環境，用來開發 OSX 的程式，<br />
+而 Cocoa Touch framework 則是建立於 Cocoa framework 之上，用來開發 iOS 作業系統程式，<br />
+此兩種 framework 皆遵循 MVC 軟體架構，開發時必須遵循此架構。</p>
+
+<p>若之前從未接觸過 Objective-C 但又想嘗試開發 iOS app 的話，<br />
+現在是個入門的好時機，Swift 去除了 Objective-C 的繁瑣語法，<br />
+且相較於 Objective-C 是個更好入門的程式語言。</p>
+
+<p>對於非 Objective-C 開發者而言，若先前有過程式語言開發經驗的話，語法上手不會太難，<br />
+只是需要花時間學習 Cocoa/Cocoa Touch framework，但是，都要學習撰寫 iOS app 了，<br />
+不學 Cocoa/Cocoa Touch framework 應該也說不過去 :D</p>
+
+<p>而對於 Objective-C 開發者而言，由於已經非常熟悉 Cocoa/Cocoa Touch framework 了，<br />
+在 Swift 使用 Cocoa/Cocoa Touch framework 是幾乎無痛轉換的，因為函式、變數名稱完全一樣，<br />
+只需要熟悉 Swift 語法，不出一天即可快速上手，也因此 Objectiv-C 開發者也不需過於擔心飯碗被搶走 XD<br />
+接觸過 Cocoa/Cocoa Touch framework 的開發者來說還是有相當大的優勢的。</p>
+
+<p>由於筆者之前從未接觸過 Objective-C/ Cocoa/ Cocoa Touch framework，<br />
+只有些許 java/php/ruby 撰寫經驗，<br />
+選擇 Swift 的原因之一即是語法上手容易，並且有 playground 可以馬上執行撰寫的程式，<br />
+也因此希望能夠透過學習 Swift ，了解 iOS app 開發架構，實際打造出一款 app！</p>
 
                     </div>
                 </section>
@@ -431,60 +404,6 @@ Xcode 會即時顯示該變數的值、型別、以及輸出結果，<br />
 例如 <code>print()</code>，可以試試看，有些許不一樣哦!</p>
 
 <p>未來一個禮拜都會來練習一些基本語法!</p>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2014-10-10 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://blog.kerkerj.in/blog/2014/10/02/2014-10-02-swift-d1/" class="post-title">[Swift-d1] - 介紹</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-Swift" href="http://blog.kerkerj.in//categories/swift">Swift</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p>Swift 是 2014 年由蘋果公司在其開發者大會 WWDC 上所發佈的程式語言</p>
-
-<p>The Swift Programming Language 一書中提到：</p>
-
-<ol>
-<li>Swift 用來撰寫 iOS 及 Mac OSX 的程式。<br /></li>
-<li>Swift 吸收了 C 和 Objective-C 的優點，使其在設計更具彈性、容易，且撰寫時有更多樂趣。<br /></li>
-<li>Swift 是基於成熟而且倍受喜愛的 Cocoa 和 Cocoa Touch framework，意即 Swift 可以直接使用這些現有的框架<br /></li>
-<li>Swift 兼具編譯語言的性能，以及直譯式語言的特性。<br /></li>
-</ol>
-
-<p>** 什麼是 Cocoa/Cocoa Touch framework:<br />
-Cocoa framework 是 Apple 爲 Mac OSX 所建立的環境，用來開發 OSX 的程式，<br />
-而 Cocoa Touch framework 則是建立於 Cocoa framework 之上，用來開發 iOS 作業系統程式，<br />
-此兩種 framework 皆遵循 MVC 軟體架構，開發時必須遵循此架構。</p>
-
-<p>若之前從未接觸過 Objective-C 但又想嘗試開發 iOS app 的話，<br />
-現在是個入門的好時機，Swift 去除了 Objective-C 的繁瑣語法，<br />
-且相較於 Objective-C 是個更好入門的程式語言。</p>
-
-<p>對於非 Objective-C 開發者而言，若先前有過程式語言開發經驗的話，語法上手不會太難，<br />
-只是需要花時間學習 Cocoa/Cocoa Touch framework，但是，都要學習撰寫 iOS app 了，<br />
-不學 Cocoa/Cocoa Touch framework 應該也說不過去 :D</p>
-
-<p>而對於 Objective-C 開發者而言，由於已經非常熟悉 Cocoa/Cocoa Touch framework 了，<br />
-在 Swift 使用 Cocoa/Cocoa Touch framework 是幾乎無痛轉換的，因為函式、變數名稱完全一樣，<br />
-只需要熟悉 Swift 語法，不出一天即可快速上手，也因此 Objectiv-C 開發者也不需過於擔心飯碗被搶走 XD<br />
-接觸過 Cocoa/Cocoa Touch framework 的開發者來說還是有相當大的優勢的。</p>
-
-<p>由於筆者之前從未接觸過 Objective-C/ Cocoa/ Cocoa Touch framework，<br />
-只有些許 java/php/ruby 撰寫經驗，<br />
-選擇 Swift 的原因之一即是語法上手容易，並且有 playground 可以馬上執行撰寫的程式，<br />
-也因此希望能夠透過學習 Swift ，了解 iOS app 開發架構，實際打造出一款 app！</p>
 
                     </div>
                 </section>
