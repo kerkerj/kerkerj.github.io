@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="YOLO~">
+
+<base href="http://localhost:8000/">
+<title>
+
+
+     [Swift-d24] - 實戰開發 - TODOList - Create View 
+
+</title>
+<link rel="canonical" href="http://localhost:8000/blog/swift-d24---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---create-view/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/localhost:8000\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="http://localhost:8000/css/reset.css">
+<link rel="stylesheet" href="http://localhost:8000/css/pygments.css">
+<link rel="stylesheet" href="http://localhost:8000/css/main.css">
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/zenburn.min.css">
+    
+
+
+
+<link rel="shortcut icon"
+
+    href="http://localhost:8000/favicon.png"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="zh-TW">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            <a href="http://localhost:8000/"><div class="name">kerkerj</div></a>
+            <nav>
+                <ul>
+                    <a href="http://localhost:8000/blog/"><li>Blog</li></a>
+                    <a href="http://localhost:8000/about/"><li>About</li></a>
+                    <a href="http://localhost:8000/mac-app-list/"><li>Mac App List</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/kerkerj" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/kerkerj" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/fuzanhuang" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="http://localhost:8000/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    [Swift-d24] - 實戰開發 - TODOList - Create View
+
+</div>
+
+                    <div class="initials"><a href="http://localhost:8000/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Fri Oct 24 2014 00:00:00 UTC">2014-10-10 00:00</div>
+                    <div class="reading-time"><div class="middot"></div>2 minutes read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p><a href="https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day24">Github link</a></p>
+
+<p>今天要來建立 &ldquo;新增資料&rdquo; 的頁面</p>
+
+<p>不過這個頁面我們也會拿來給 &ldquo;更新資料&rdquo; 的頁面使用</p>
+
+<p>原因其實很簡單</p>
+
+<p>兩邊要建立或編輯的資料是一樣的</p>
+
+<p>差別只在於，當今天是編輯資料的 view call 該頁面時，</p>
+
+<p>該頁面除了顯示編輯框外，編輯框內的文字也會預先 load 好舊的資料了</p>
+
+<p>除此之外兩個 view 的排版一模一樣</p>
+
+<p>所以在這邊我們就只建立一個 UpdateViewController 就可以了</p>
+
+<p>那我們一樣建立一組 UpdateViewController.swift + UpdateViewController.xib</p>
+
+<p>也一樣為元件建立關聯</p>
+
+<p><img src="http://goo.gl/4AO4G0" alt="image" /></p>
+
+<p>回到主頁</p>
+
+<p>我們幫 Add 新增一個按鈕吧</p>
+
+<p>在 viewDidLoad 中</p>
+
+<pre><code class="language-swift">self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: &quot;Add&quot;, style: UIBarButtonItemStyle.Done, target: self, action: Selector(&quot;pushToAddTODO&quot;))
+</code></pre>
+
+<p>設定 Navigation 的右邊鍵的功能</p>
+
+<p>並且根據 pushToAddTODO 的方法做事情</p>
+
+<p>因此繼續下去將 pushToAddTODO 方法做一下</p>
+
+<pre><code>	func pushToAddTODO(){
+        var addViewController = UpdateViewController(nibName: &quot;UpdateViewController&quot;, bundle: nil)
+        addViewController.from = &quot;add&quot;
+        
+        self.navigationController?.pushViewController(addViewController, animated: true)
+    }
+</code></pre>
+
+<p>這樣寫完後就可以執行看看了!</p>
+
+<p>剩下的任務就是將資料寫進 fakeData 不過考慮到之後我們是使用 API</p>
+
+<p>因此就先不特別作 ShowViewController 的資料傳遞</p>
+
+<p>再來就做 create view 裡面的 save 按鈕!</p>
+
+<p>接著就要到 UpdateViewController</p>
+
+<p>幫 NavigationController 再多加一個右邊按鈕 &ldquo;Save&rdquo;</p>
+
+<pre><code>import UIKit
+
+class UpdateViewController: UIViewController {
+
+    var from: String!
+    @IBOutlet var textField: UITextField!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: &quot;Save&quot;, style: UIBarButtonItemStyle.Done, target: self, action: Selector(&quot;save&quot;))
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    func save() {
+        self.navigationController?.popToRootViewControllerAnimated(true)
+    }
+}
+</code></pre>
+
+<p>整個程式碼都不難, 只有簡單處理 push/pop 的問題而已!</p>
+
+<p>如果我們要加上對 ViewController 的 fakeData 做存取的話，請看以下：</p>
+
+<p>由於需要資料傳遞，因此就必須寫 protocol</p>
+
+<p>protocol 可簡單可複雜，今天會寫非常簡單版!</p>
+
+<p>首先先新建一個 swift 檔案, 名為 TodoProtocol.swift</p>
+
+<p>內容如下:</p>
+
+<pre><code>protocol UpdateTODOlistDelegate {
+    func addData(id: String, content: String)
+}
+</code></pre>
+
+<p>接著到 UpdateViewController 中新建一個變數 屬於 UpdateTODOlistDelegate protocol:</p>
+
+<pre><code>var delegate: UpdateTODOlistDelegate!
+</code></pre>
+
+<p>並且設定 save 後的行為，會呼叫 protocol 中的</p>
+
+<p><code>addData(id: String, content: String)</code></p>
+
+<p>將欲新增的 id, content 都丟給該方法</p>
+
+<pre><code>func save() {
+		//	&quot;id&quot; 在這邊是直接給死的
+        delegate.addData(&quot;67&quot;, content: self.textField.text!)
+        self.navigationController?.popToRootViewControllerAnimated(true)
+    }
+</code></pre>
+
+<p>接著只要在主頁的程式碼中時做 protocol, 設定接到參數後的動作</p>
+
+<p>就可以在接到參數後，將資料寫入 fakeData 了!</p>
+
+<p>回到主頁的程式碼，class 必須先繼承 protocol，再實作</p>
+
+<p>設定繼承後, 實作 addData, 將接到的資料寫入 fakeData:</p>
+
+<pre><code>func addData(id: String, content: String) {
+        self.fakeData.append([&quot;id&quot;: id, &quot;content&quot;: content])
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            // must be &quot;tableView!&quot; not &quot;tableView?&quot;
+            self.tableView!.reloadData()
+        })
+    }
+</code></pre>
+
+<p>記得將 addViewController 的 delegate 設定成 self</p>
+
+<pre><code>func pushToAddTODO(){
+        var addViewController = UpdateViewController(nibName: &quot;UpdateViewController&quot;, bundle: nil)
+        addViewController.from = &quot;add&quot;
+        addViewController.delegate = self
+        
+        self.navigationController?.pushViewController(addViewController, animated: true)
+    }
+</code></pre>
+
+<p>執行起來就可以增加資料到 fakeData 了!</p>
+
+                <br>
+                <p><a href="http://localhost:8000/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/localhost:8000\/blog\/swift-d24---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---create-view\/';
+    var disqus_title = '[Swift-d24] - 實戰開發 - TODOList - Create View';
+    var disqus_url = 'http:\/\/localhost:8000\/blog\/swift-d24---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---create-view\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer">
+    <div class="">
+        <ul>
+            <li>© 2010 - 2014 kerkerj. powerd by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a>. Theme: <a href="https://github.com/kerkerj/cocoa-hugo-theme">kerkerj-cocoa-hugo-theme</a>, modified from <a href="https://github.com/nishanths/cocoa-hugo-theme">cocoa</a>.</li>
+        </ul>
+    </div>
+</section>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-45583907-2");
+    pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+

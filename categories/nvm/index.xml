@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kerkerj</title>
+    <link>http://localhost:8000/categories/nvm/index.xml</link>
+    <description>Recent content on kerkerj</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
+    <atom:link href="http://localhost:8000/categories/nvm/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>[API-d9] - NVM 與 NPM 使用</title>
+      <link>http://localhost:8000/blog/api-d9---nvm-%E8%88%87-npm-%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Thu, 09 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/api-d9---nvm-%E8%88%87-npm-%E4%BD%BF%E7%94%A8/</guid>
+      <description>
+
+&lt;h1 id=&#34;nvm-與-npm-使用&#34;&gt;NVM 與 NPM 使用&lt;/h1&gt;
+
+&lt;p&gt;##NVM - Node.js Version Manager&lt;/p&gt;
+
+&lt;p&gt;###安裝&lt;/p&gt;
+
+&lt;p&gt;如果是 Ubuntu 的話必須先要有 &lt;code&gt;build-essential&lt;/code&gt; 和 &lt;code&gt;libssl-dev&lt;/code&gt; 套件&lt;/p&gt;
+
+&lt;p&gt;不過這個我們之前就裝過了，所以直接安裝 NVM 吧~&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ curl https://raw.githubusercontent.com/creationix/nvm/v0.17.2/install.sh | bash
+$ source ~/.bashrc
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;###使用 NVM 安裝 node.js&lt;/p&gt;
+
+&lt;p&gt;先前我們有使用 Ubuntu 本身的 apt-get 安裝 Node.js&lt;/p&gt;
+
+&lt;p&gt;不過那是被安裝到 /usr/bin/node&lt;/p&gt;
+
+&lt;p&gt;有時候要安裝套件需要 sudo 提供管理者權限&lt;/p&gt;
+
+&lt;p&gt;非常麻煩，因此我們使用 NVM 來安裝另一個 Node.js&lt;/p&gt;
+
+&lt;p&gt;這個 Node.js 的執行檔就任我們使用，不需要提供管理者權限了&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ nvm install 0.10
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;nvm 就會安裝 0.10 版本，安裝完後就要使用它：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ nvm use 0.10
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;再來我們把 nvm 的 node.js 設定成預設的 node&lt;/p&gt;
+
+&lt;p&gt;否則重開機後，node 指令會變回原本系統的 node&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ nvm alias default 0.10
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;我們觀察一下現在使用的 node 指令是哪裡來的:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ which node
+/home/vagrant/.nvm/v0.10.32/bin/node
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Good! 他已經被安裝到我們使用者目錄底下了&lt;/p&gt;
+
+&lt;p&gt;原本的系統 Node.js 是在 &lt;code&gt;/usr/bin/node&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;如果要切換回系統的 Node.js:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ nvm use system
+Now using system version of node: v0.10.32.
+
+// 看一下現在使用 node 的路徑
+$ which node
+/usr/bin/node
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;##NPM - Node.js Package Manager&lt;/p&gt;
+
+&lt;p&gt;NPM 顧名思義就是 node.js 的套件管理系統，&lt;/p&gt;
+
+&lt;p&gt;世界上有許許多多的開發者為 Node.js 開發了許許多多的套件，&lt;/p&gt;
+
+&lt;p&gt;我們受惠于此，也不用再自己造輪子，拿這些佛心的大大的套件來使用，打造出我們想要的服務，&lt;/p&gt;
+
+&lt;p&gt;像我們接下來會使用的 Express 和 Mongodb 的 driver 都是別人寫好開放出來給大家用的！&lt;/p&gt;
+
+&lt;p&gt;下面簡單介紹 NPM 的使用方式&lt;/p&gt;
+
+&lt;p&gt;###初始化專案資料夾&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ npm init 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;終端機會詢問各種問題來幫忙建立 package.json 的檔案&lt;/p&gt;
+
+&lt;p&gt;是在資料夾中建立專案前必下的指令&lt;/p&gt;
+
+&lt;p&gt;並且，使用 package.json 有個好處&lt;/p&gt;
+
+&lt;p&gt;只要將 package.json 給其他人&lt;/p&gt;
+
+&lt;p&gt;其他人只需要將 package.json 放到某個資料夾&lt;/p&gt;
+
+&lt;p&gt;並下:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ npm install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;就會在該資料夾安裝 package.json 中列出的所有套件&lt;/p&gt;
+
+&lt;p&gt;就不需要一個一個尋找及安裝，非常方便！&lt;/p&gt;
+
+&lt;p&gt;###安裝套件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// 安裝全域套件
+$ npm install [套件名稱] -g
+
+// 安裝套件在專案資料夾 
+// 會安裝在目前所在的資料夾，所以要下此指令必須先確認自己是否在專案根目錄
+$ npm install [套件名稱]
+
+// 通常專案資料夾底下都會有一個 package.json 來管理套件相依性
+// 如果在專案資料夾底下下此指令，會將你所安裝的套件加入 package.json 中
+// 一樣也是要先確認自己是否在專案目錄底下
+$ npm install [套件名稱] -save
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;###移除套件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// 移除全域套件
+$ npm uninstall [套件名稱] -g
+
+// 移除在專案資料夾的某個套件 
+// 會移除在目前所在的資料夾某個套件，所以要下此指令必須先確認自己是否在專案根目錄
+$ npm uninstall [套件名稱]
+
+// 通常專案資料夾底下都會有一個 package.json 來管理套件相依性
+// 如果在專案資料夾底下下此指令，會將你所移除的套件從 package.json 中刪除
+// 一樣也是要先確認自己是否在專案目錄底下
+$ npm uninstall [套件名稱] -save
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;###列出套件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// 列出全域套件
+$ npm ls -g
+
+// 列出全域套件詳細資訊
+$ npm ls -gl
+
+// 在專案資料夾底下：
+
+// 列出專案資料夾的套件
+$ npm ls 
+
+// 列出專案資料夾的詳細套件資訊
+$ npm ls -l
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;###更新套件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// 更新全域套件
+$ npm update -g
+
+// 在專案資料夾底下：
+
+// 更新專案套件
+$ npm update 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;###搜尋套件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ npm search [套件名稱]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;##注意!!&lt;/p&gt;
+
+&lt;p&gt;請注意，使用系統 Node.js 的 npm 所安裝的套件，是屬於系統 Node.js 的&lt;/p&gt;
+
+&lt;p&gt;切換到使用者目錄底下的 Node.js 時，是不會共用系統 npm 的套件的&lt;/p&gt;
+
+&lt;p&gt;請注意這一點，接下來我們都會使用 nvm 的 node.js&lt;/p&gt;
+
+&lt;p&gt;我們可以透過以下例子來驗證:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// 使用系統 node.js
+$ nvm use system
+Now using system version of node: v0.10.32.
+
+// 查看 npm 全域套件
+$ npm list -g  
+/usr/lib
+├─┬ express@4.9.5
+│ ├─┬ accepts@1.1.1
+│ │ ├─┬ mime-types@2.0.2
+│ │ │ └── mime-db@1.1.0
+│ │ └── negotiator@0.4.8
+....
+
+// 使用 nvm node.js
+$ nvm use 0.10
+Now using node v0.10.32
+
+// 查看 npm 全域套件
+$ npm list -g 
+/home/vagrant/.nvm/v0.10.32/lib
+└─┬ npm@1.4.28
+  ├── abbrev@1.0.5
+  ├── ansi@0.3.0
+  ├── ansicolors@0.3.2
+  ├── ansistyles@0.1.3
+  ├── archy@0.0.2
+  ├── block-stream@0.0.7
+  ├── char-spinner@1.0.1
+  ├── child-process-close@0.1.1
+  ├── chmodr@0.1.0
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;主要差別就在於 列出全域套件時，還會提醒你這些套件裝在哪裡，如果不是裝在使用者目錄底下，&lt;/p&gt;
+
+&lt;p&gt;表示現在用的是系統的 Node.js&lt;/p&gt;
+
+&lt;p&gt;因此發現自己不對了就快換回來吧，如果系統裝爛了，也可以利用先前打包的 box 還原哦!&lt;/p&gt;
+
+&lt;p&gt;##怎麼找套件?&lt;/p&gt;
+
+&lt;p&gt;套件那麼多，我要到哪裡找？&lt;/p&gt;
+
+&lt;p&gt;除了根據自己的需求 Google 外，&lt;/p&gt;
+
+&lt;p&gt;下面是 Node.js module 的官方網站: &lt;a href=&#34;https://nodejsmodules.org/&#34;&gt;https://nodejsmodules.org/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;有做最受歡迎的套件排名，進去瀏覽一下，有時候會發現一些好用的套件哦!&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kerkerj</title>
+    <link>http://localhost:8000/categories/openresty/index.xml</link>
+    <description>Recent content on kerkerj</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
+    <atom:link href="http://localhost:8000/categories/openresty/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Openresty on Ubuntu 14.04</title>
+      <link>http://localhost:8000/blog/openresty-on-ubuntu-14.04/</link>
+      <pubDate>Tue, 05 Aug 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/openresty-on-ubuntu-14.04/</guid>
+      <description>
+
+&lt;h2 id=&#34;install&#34;&gt;Install&lt;/h2&gt;
+
+&lt;p&gt;choose the latest version of Openresty&lt;br /&gt;
+I used ngx_openresty-1.7.2.1.tar.gz&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;# install packages
+sudo apt-get install libreadline-dev libpcre3-dev libssl-dev perl  
+
+# get openresty package
+wget http://openresty.org/download/ngx_openresty-1.7.2.1.tar.gz   
+
+# unzip
+tar xzvf ngx_openresty-1.7.2.1.tar.gz
+
+# install
+cd ngx_openresty-1.7.2.1/
+
+# You can setup with ./configure --prefix=&amp;quot;the folder you want to install&amp;quot;, default is &#39;/usr/local/openresty&#39;
+./configure 
+make
+sudo make install # need permission to copy file to target folder
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Default folder: &lt;code&gt;/usr/local/openresty&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;setup&#34;&gt;Setup&lt;/h2&gt;
+
+&lt;p&gt;create work folder in ~&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mkdir ~/work
+cd ~/work
+mkdir logs/ conf/
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;create a new file in &lt;code&gt;~/work/conf/nginx.conf&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;worker_processes  1;
+error_log logs/error.log;
+events {
+    worker_connections 1024;
+}
+http {
+    server {
+        listen 8080;
+        location / {
+            default_type text/html;
+            content_by_lua &#39;
+                ngx.say(&amp;quot;&amp;lt;p&amp;gt;hello, world&amp;lt;/p&amp;gt;&amp;quot;)
+            &#39;;
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;because Openresty is installed in &lt;code&gt;/usr/local/openresty&lt;/code&gt;,&lt;br /&gt;
+we need to add the directory to PATH variable&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;PATH=/usr/local/openresty/nginx/sbin:$PATH
+export PATH
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then use the way below to start nginx server&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;nginx -p `pwd`/ -c conf/nginx.conf
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Assume that you have a nginx server originally, and then you installed Openresty, it can be set up at the same time if the port is not confilcted to the origin nginx.&lt;/p&gt;
+
+&lt;h2 id=&#34;use-external-lua-file-to-keep-conf-clean&#34;&gt;Use external lua file to keep conf clean&lt;/h2&gt;
+
+&lt;p&gt;Edit &lt;code&gt;~/work/conf/nginx.conf&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;worker_processes  1;
+error_log logs/error.log;
+events {
+    worker_connections 1024;
+}
+http {
+    server {
+        listen 8080;
+        location /hello {
+            content_by_lua_file conf/hello.lua;
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-lua&#34;&gt;-- hello.lua
+ngx.say(&amp;quot;Hello World&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

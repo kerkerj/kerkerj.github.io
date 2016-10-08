@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kerkerj</title>
+    <link>http://localhost:8000/categories/.bash_profile/index.xml</link>
+    <description>Recent content on kerkerj</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
+    <atom:link href="http://localhost:8000/categories/.bash_profile/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>[Mac OSX] Slow-Opening Terminal Windows</title>
+      <link>http://localhost:8000/blog/mac-osx-slow-opening-terminal-windows/</link>
+      <pubDate>Wed, 13 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/mac-osx-slow-opening-terminal-windows/</guid>
+      <description>&lt;p&gt;最近在開 mac 的 iTerm.app 或者是內建的終端機都覺得卡卡的，&lt;/p&gt;
+
+&lt;p&gt;之前以為是 .bashrc 載入太多東西導致的，所以把一些掛載的 bin 目錄都註解掉，&lt;/p&gt;
+
+&lt;p&gt;但是還是沒解決，心想不對勁，就順手 google 了一下&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;我執行了下列語法：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ time /usr/libexec/path_helper
+PATH=&amp;quot;/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/ABC/android-sdks/platform-tools:/Users/ABC/android-sdks/tools:/Application/Vagrant/bin&amp;quot;; export PATH;
+
+real    0m0.043s
+user    0m0.001s
+sys 0m0.002s
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;接著我把 &lt;code&gt;PATH&lt;/code&gt; 的內容寫進 &lt;code&gt;.bash_profile&lt;/code&gt;，問題竟然就解決了&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;速度飛快～～&lt;/p&gt;
+
+&lt;p&gt;後來看到一篇 &lt;a href=&#34;http://www.joshstaiger.org/archives/2005/07/bash_profile_vs.html&#34;&gt;.bash_profile vs.bashrc&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;雖然大家都知道 &lt;code&gt;.bash_profile&lt;/code&gt; 是在登入時執行（即是輸入帳號密碼時），&lt;/p&gt;
+
+&lt;p&gt;而 &lt;code&gt;.bashrc&lt;/code&gt; 是在系統內非登入狀態時開啟 prompt 時執行，&lt;/p&gt;
+
+&lt;p&gt;但是！！ Mac OSX 是個例外～是個例外～是個例外～&amp;hellip;&amp;hellip;.=.=&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Mac OS X — an exception&lt;/p&gt;
+
+&lt;p&gt;An exception to the terminal window guidelines is Mac OS X&amp;rsquo;s Terminal.app, which runs a login shell by default for each new terminal window, calling .bash_profile instead of .bashrc. Other GUI terminal emulators may do the same, but most tend not to.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;所以通常解決方法是在 &lt;code&gt;.bash_profile&lt;/code&gt; 寫入以下 script:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if [ -f ~/.bashrc ]; then
+    source ~/.bashrc
+fi
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;不過我之前就這樣做了，這次成功的方式是直接在 &lt;code&gt;.bash_profile&lt;/code&gt; 寫入 PATH 路徑&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;猜想應該是在 &lt;code&gt;.bash_profile&lt;/code&gt; 預先讀取而加快速度的&lt;/p&gt;
+
+&lt;p&gt;如果把原本的 &lt;code&gt;.bashrc&lt;/code&gt; 的 &lt;code&gt;PATH&lt;/code&gt; 註解掉都移到 &lt;code&gt;.bash_profile&lt;/code&gt; 會再稍快一些&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

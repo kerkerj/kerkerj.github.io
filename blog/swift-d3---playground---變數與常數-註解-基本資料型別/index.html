@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="YOLO~">
+
+<base href="http://localhost:8000/">
+<title>
+
+
+     [Swift-d3] - Playground - 變數與常數, 註解, 基本資料型別  
+
+</title>
+<link rel="canonical" href="http://localhost:8000/blog/swift-d3---playground---%E8%AE%8A%E6%95%B8%E8%88%87%E5%B8%B8%E6%95%B8-%E8%A8%BB%E8%A7%A3-%E5%9F%BA%E6%9C%AC%E8%B3%87%E6%96%99%E5%9E%8B%E5%88%A5/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/localhost:8000\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="http://localhost:8000/css/reset.css">
+<link rel="stylesheet" href="http://localhost:8000/css/pygments.css">
+<link rel="stylesheet" href="http://localhost:8000/css/main.css">
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/zenburn.min.css">
+    
+
+
+
+<link rel="shortcut icon"
+
+    href="http://localhost:8000/favicon.png"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="zh-TW">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            <a href="http://localhost:8000/"><div class="name">kerkerj</div></a>
+            <nav>
+                <ul>
+                    <a href="http://localhost:8000/blog/"><li>Blog</li></a>
+                    <a href="http://localhost:8000/about/"><li>About</li></a>
+                    <a href="http://localhost:8000/mac-app-list/"><li>Mac App List</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/kerkerj" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/kerkerj" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/fuzanhuang" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="http://localhost:8000/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    [Swift-d3] - Playground - 變數與常數, 註解, 基本資料型別 
+
+</div>
+
+                    <div class="initials"><a href="http://localhost:8000/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Fri Oct 3 2014 00:00:00 UTC">2014-10-10 00:00</div>
+                    <div class="reading-time"><div class="middot"></div>2 minutes read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p>##變數與常數</p>
+
+<p>定義一個變數:</p>
+
+<pre><code class="language-Swift">var obj: String = &quot;&quot;
+</code></pre>
+
+<p>var 是保留字，宣告 obj 是一個變數名稱，冒號後面接資料形態<br />
+以此例子來說，宣告了一個字串變數叫做 obj，並且初始化為 &ldquo;&rdquo; 空字串</p>
+
+<pre><code>let obj: String = &quot;&quot;
+</code></pre>
+
+<p>let 同樣是用來宣告一個變數，但是宣告此變數後，該變數的值無法被改變，<br />
+無法被改變的數值其實正正的名字就叫做常數
+以上面的例子來說， 若我們多做一件事:</p>
+
+<pre><code>let obj: String = &quot;&quot;
+obj = &quot;test&quot;
+</code></pre>
+
+<p>若我們試圖去更改 obj，讓 obj 從空字串變成 &ldquo;test&rdquo; 時，<br />
+Xcode 就會報錯，不能更改該值</p>
+
+<p>再來是宣告的變型，其實宣告時不一定要給資料形態，<br />
+Swift 會自動從後面的值來判斷 x 可能是什麼資料形態，<br />
+只是由於筆者的習慣，會儘量在後面加上該變數的資料型別</p>
+
+<pre><code>var x = &quot;test&quot;
+</code></pre>
+
+<p>一行內宣告多值：</p>
+
+<pre><code>var x = 0.0, y = 0.0, z = 0.0
+</code></pre>
+
+<p>我們就可以在 Playground 裡面試著宣告一些變數看看，並且使用昨天的輸出函式來輸出變數:</p>
+
+<pre><code>var str: String = &quot;測試&quot;
+let fixString: String = &quot;fixed&quot;
+
+var x = 0, y = 1, z = 2
+
+println(str)
+println(x)
+println(y)
+println(z)
+</code></pre>
+
+<p>##註解</p>
+
+<pre><code>// 單行註解
+
+/*
+多行註解
+多行註解
+多行註解
+*/
+</code></pre>
+
+<p>##基本資料型別</p>
+
+<p>Swift 是一個強型別語言，意即若是以下的程式碼是會出錯的:</p>
+
+<pre><code>var x = &quot;test&quot;
+x = 2
+</code></pre>
+
+<p>由於 x 已經被先 Swift 判定是 String 了，後面想指定 Int 資料給 x 就會出錯</p>
+
+<p>Int 整數:
+Swift 提供了 Int 還另外提供了 8, 16, 32, 64 位元的有號和無號整數型別<br />
+若在 32 位元平台，宣告 Int 的話， Int 的長度和 Int32 是一樣的<br />
+若在 64 位元平台，宣告 Int 的話， Int 的長度和 Int64 是一樣的</p>
+
+<p>浮點數：
+3.2, 0.0 之類的數字，可以用
+Double - 64 位元浮點數 (至少 15 位數)
+Float - 32 位元浮點數 (至少 6 位數)</p>
+
+<p>布林值：
+true/false</p>
+
+<p>Tuples:
+Tuple 可以將多個值組合成一個值，例如：</p>
+
+<pre><code>//賦值
+let httpSucess = (200, &quot;Success&quot;)
+
+// 反過來接值
+let (statusCode, statusMessage) = httpSucess
+
+// 若只需要其中一個值，另一個值可以用 _ 代替，但是不能沒有 _ 
+let (statusCode, _) = httpSucess
+
+// 也可以用索引的方式拿值
+println(httpSucess.0)
+
+// 宣告 tuples 時也可以直接給予參數一個名稱
+let httpSucess = (statusCode: 200, statusMessage: &quot;Success&quot;)
+
+// 拿值時就可以:
+println(httpSucess.statusCode)
+</code></pre>
+
+<p>同時結合 function 這樣就可以多值回傳了！</p>
+
+<p>下一篇會接續今天變數相關的主題~</p>
+
+                <br>
+                <p><a href="http://localhost:8000/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/localhost:8000\/blog\/swift-d3---playground---%E8%AE%8A%E6%95%B8%E8%88%87%E5%B8%B8%E6%95%B8-%E8%A8%BB%E8%A7%A3-%E5%9F%BA%E6%9C%AC%E8%B3%87%E6%96%99%E5%9E%8B%E5%88%A5\/';
+    var disqus_title = '[Swift-d3] - Playground - 變數與常數, 註解, 基本資料型別 ';
+    var disqus_url = 'http:\/\/localhost:8000\/blog\/swift-d3---playground---%E8%AE%8A%E6%95%B8%E8%88%87%E5%B8%B8%E6%95%B8-%E8%A8%BB%E8%A7%A3-%E5%9F%BA%E6%9C%AC%E8%B3%87%E6%96%99%E5%9E%8B%E5%88%A5\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer">
+    <div class="">
+        <ul>
+            <li>© 2010 - 2014 kerkerj. powerd by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a>. Theme: <a href="https://github.com/kerkerj/cocoa-hugo-theme">kerkerj-cocoa-hugo-theme</a>, modified from <a href="https://github.com/nishanths/cocoa-hugo-theme">cocoa</a>.</li>
+        </ul>
+    </div>
+</section>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-45583907-2");
+    pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+

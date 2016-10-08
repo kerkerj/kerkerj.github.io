@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="YOLO~">
+
+<base href="http://localhost:8000/">
+<title>
+
+
+     [API-d4] - 使用技術與工具介紹及原因 
+
+</title>
+<link rel="canonical" href="http://localhost:8000/blog/api-d4---%E4%BD%BF%E7%94%A8%E6%8A%80%E8%A1%93%E8%88%87%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%B4%B9%E5%8F%8A%E5%8E%9F%E5%9B%A0/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/localhost:8000\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="http://localhost:8000/css/reset.css">
+<link rel="stylesheet" href="http://localhost:8000/css/pygments.css">
+<link rel="stylesheet" href="http://localhost:8000/css/main.css">
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/zenburn.min.css">
+    
+
+
+
+<link rel="shortcut icon"
+
+    href="http://localhost:8000/favicon.png"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="zh-TW">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            <a href="http://localhost:8000/"><div class="name">kerkerj</div></a>
+            <nav>
+                <ul>
+                    <a href="http://localhost:8000/blog/"><li>Blog</li></a>
+                    <a href="http://localhost:8000/about/"><li>About</li></a>
+                    <a href="http://localhost:8000/mac-app-list/"><li>Mac App List</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/kerkerj" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/kerkerj" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/fuzanhuang" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="http://localhost:8000/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    [API-d4] - 使用技術與工具介紹及原因
+
+</div>
+
+                    <div class="initials"><a href="http://localhost:8000/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Sat Oct 4 2014 00:00:00 UTC">2014-10-10 00:00</div>
+                    <div class="reading-time"><div class="middot"></div>1 minute read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p>#使用技術與工具介紹及原因</p>
+
+<p>終於要開始進入正題了！</p>
+
+<p>在了解 REST/RESTful 後，</p>
+
+<p>就要從無到有 - 從 Server 到 API endpoint 都由自己打造</p>
+
+<p>今天會先來說明接下來會使用到哪些工具及技術</p>
+
+<p>由於筆者使用 Mac ，因此若是有其他平台的使用者可能需要自行找教學</p>
+
+<p>##Server - Ubuntu with Vagrant + VitrualBox</p>
+
+<p>接下來幾天會先從這個部分開始提起</p>
+
+<p>我們會使用 VirtualBox + Vagrant 的方式來建立自己的虛擬環境</p>
+
+<p>避免一些讀者可能對 Server command line 不熟</p>
+
+<p>這個部分是大家可以跳過的部分，但是我還是會從無到有架起來</p>
+
+<p>##Backend Language - Node.js</p>
+
+<p>後端語言使用了 Node.js，其實本來有考慮使用 Golang，</p>
+
+<p>但顧及自己的時間&hellip; 還是使用 Node.js，方便快速</p>
+
+<p>這幾年是 Javascript 的時代，</p>
+
+<p>優勝美地似乎也可以支援使用 Javascript 撰寫 <a href="https://github.com/tylergaw/js-osx-app-examples">Automation Tool</a></p>
+
+<p>從前端打到後端甚至到 DB 都可以使用到 Javascript ，</p>
+
+<p>是該來看看 Javascript 的語法特性了 :D</p>
+
+<p>而且 Node.js Event-driven 的特性，可以利用少少的資源提供高效能的服務</p>
+
+<p>同時搭配易用性及社群活躍度，這是我選擇 Node.js 而非選擇 Golang 的原因</p>
+
+<p>##Framework - Express</p>
+
+<p>我使用了 Node.js 的 web framework - Express</p>
+
+<p>Node.js 之於 Express 可以把它想像成是 Ruby 之於 Sinatra</p>
+
+<p>我使用 Express 方便處理 Route</p>
+
+<p>並且這套 framework 算是 Node.js 裡最具代表性的 framework</p>
+
+<p>學起來也還不錯</p>
+
+<p>##Database - MongoDB</p>
+
+<p>DB 為了追求簡單快速，我使用了 MongoDB</p>
+
+<p>從 API 到 DB 無縫接軌，簡單的操作模式以及 Schema-free 的特性</p>
+
+<p>應該會讓這整件事情變得更簡單</p>
+
+<p>##Test client - PostMan (chrome extension)</p>
+
+<p>由於 API 是純粹後端 service，我們使用 Express 並不會使用到樣板語言，</p>
+
+<p>也就是我們並不會撰寫 View (HTML, CSS 等等的語法)</p>
+
+<p>因此除了寫測試外，我們就可以使用這套 Chrome Extension 來對 API 做存取!</p>
+
+<hr />
+
+<p>結束! 接下來幾天會教大家建立自己的虛擬機哦~~</p>
+
+                <br>
+                <p><a href="http://localhost:8000/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/localhost:8000\/blog\/api-d4---%E4%BD%BF%E7%94%A8%E6%8A%80%E8%A1%93%E8%88%87%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%B4%B9%E5%8F%8A%E5%8E%9F%E5%9B%A0\/';
+    var disqus_title = '[API-d4] - 使用技術與工具介紹及原因';
+    var disqus_url = 'http:\/\/localhost:8000\/blog\/api-d4---%E4%BD%BF%E7%94%A8%E6%8A%80%E8%A1%93%E8%88%87%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%B4%B9%E5%8F%8A%E5%8E%9F%E5%9B%A0\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer">
+    <div class="">
+        <ul>
+            <li>© 2010 - 2014 kerkerj. powerd by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a>. Theme: <a href="https://github.com/kerkerj/cocoa-hugo-theme">kerkerj-cocoa-hugo-theme</a>, modified from <a href="https://github.com/nishanths/cocoa-hugo-theme">cocoa</a>.</li>
+        </ul>
+    </div>
+</section>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-45583907-2");
+    pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+

@@ -1,0 +1,1728 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kerkerj</title>
+    <link>http://localhost:8000/categories/swift/index.xml</link>
+    <description>Recent content on kerkerj</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
+    <atom:link href="http://localhost:8000/categories/swift/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>[Swift-d30] - 總結</title>
+      <link>http://localhost:8000/blog/swift-d30---%E7%B8%BD%E7%B5%90/</link>
+      <pubDate>Thu, 30 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/swift-d30---%E7%B8%BD%E7%B5%90/</guid>
+      <description>&lt;p&gt;30 天下來其實中間受到不少人幫忙&lt;/p&gt;
+
+&lt;p&gt;因為第一次寫 iOS 程式，對於 iOS 的基本運作流程還是詢問了不少同事&lt;/p&gt;
+
+&lt;p&gt;包含在隔壁棚用 Cocos2d 寫 2D 遊戲的 Andy&lt;/p&gt;
+
+&lt;p&gt;還有同事 Henry 和 Felix 都給予了很大的幫忙&lt;/p&gt;
+
+&lt;p&gt;最後這隻小 app 其實 code 的品質並沒有很好&lt;/p&gt;
+
+&lt;p&gt;主要還是因為寫來 demo 用的，以及老實講也沒什麼時間寫&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;報兩個組別真的是很鐵人哪&lt;/p&gt;
+
+&lt;p&gt;還看到隔壁棚一次報三四個主題的大大&lt;/p&gt;
+
+&lt;p&gt;真是太厲害了&lt;/p&gt;
+
+&lt;p&gt;假設明年還會參賽的話，應該還是會以單一技術來鑽研吧!&lt;/p&gt;
+
+&lt;p&gt;Swift 有蠻多特性是 Objective-C 所沒有的&lt;/p&gt;
+
+&lt;p&gt;如果有想在新專案嘗試的話&lt;/p&gt;
+
+&lt;p&gt;最好還是先多看看網路上的比較&lt;/p&gt;
+
+&lt;p&gt;避免踩到雷&lt;/p&gt;
+
+&lt;p&gt;像有一點是我們同事曾經踩到的雷&lt;/p&gt;
+
+&lt;p&gt;就是 NSDictionary V.S. Dictionary&lt;/p&gt;
+
+&lt;p&gt;兩者的速度可以差到 5, 6 倍以上&lt;/p&gt;
+
+&lt;p&gt;網路上搜尋也會發現有人在討論 Swift Dictionary 的效能差異&lt;/p&gt;
+
+&lt;p&gt;若要在新專案使用還是要查詢一下避免掉一些問題&lt;/p&gt;
+
+&lt;p&gt;另外還有就是 Swift on Xcode 的穩定度還是有待加強&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;總而言之, 30 天結束了，ya!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Swift-d29] - 實戰開發 - TODOList - API 4 刪除</title>
+      <link>http://localhost:8000/blog/swift-d29---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---api-4-%E5%88%AA%E9%99%A4/</link>
+      <pubDate>Wed, 29 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/swift-d29---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---api-4-%E5%88%AA%E9%99%A4/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day29&#34;&gt;Github link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;今天要處理刪除&lt;/p&gt;
+
+&lt;p&gt;其實超簡單的&lt;/p&gt;
+
+&lt;p&gt;只是想偷懶一下 XD&lt;/p&gt;
+
+&lt;p&gt;一樣將下列程式碼新增到 RestApi class:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;func deleteTodoList(completionHandler: ((NSDictionary!, NSError!) -&amp;gt; Void)!, todoId: String) {
+        var session = NSURLSession.sharedSession()
+        
+        var request = NSMutableURLRequest(URL: NSURL(string: &amp;quot;http://192.168.1.158:3000/user/kerkerj/todos/\(todoId)&amp;quot;)!)
+        request.HTTPMethod = &amp;quot;DELETE&amp;quot;
+        
+        var err: NSError?
+        request.addValue(&amp;quot;application/json&amp;quot;, forHTTPHeaderField: &amp;quot;Content-Type&amp;quot;)
+        request.addValue(self.API_key, forHTTPHeaderField: &amp;quot;API-Key&amp;quot;)
+        
+        
+        let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -&amp;gt; Void in
+            if (error != nil) {
+                return completionHandler(nil, error)
+            }
+            
+            var error: NSError?
+            let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &amp;amp;error) as NSDictionary
+            
+            println(json)
+            
+            if (error != nil) {
+                return completionHandler(nil, error)
+            } else {
+                return completionHandler(json, nil)
+            }
+        })
+        
+        task.resume()
+    }
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;回到 ViewController 中的 tableView commitEditingStyle 的方法中&lt;/p&gt;
+
+&lt;p&gt;將其更新為:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        api.deleteTodoList({data, err -&amp;gt; Void in
+            let alert = UIAlertView()
+            alert.title = &amp;quot;Alert&amp;quot;
+            alert.addButtonWithTitle(&amp;quot;Ok&amp;quot;)
+            
+            if (err != nil) {
+                alert.message = &amp;quot;Failed to delete: \(err)&amp;quot;
+                alert.show()
+            } else {
+                alert.message = &amp;quot;ok!&amp;quot;
+                
+                self.fakeData.removeAtIndex(indexPath.row)
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    // must be &amp;quot;tableView!&amp;quot; not &amp;quot;tableView?&amp;quot;
+                    alert.show()
+                    self.tableView!.reloadData()
+                })
+            }
+            }, todoId: fakeData[indexPath.row][&amp;quot;_id&amp;quot;]!)
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;改好程式碼後，執行該程式&lt;/p&gt;
+
+&lt;p&gt;在清單中將 item 往左滑，就可以看到刪除的按鈕了!&lt;/p&gt;
+
+&lt;p&gt;超簡單的啦!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Swift-d28] - 實戰開發 - TODOList - API 3 新增與更新</title>
+      <link>http://localhost:8000/blog/swift-d28---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---api-3-%E6%96%B0%E5%A2%9E%E8%88%87%E6%9B%B4%E6%96%B0/</link>
+      <pubDate>Tue, 28 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/swift-d28---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---api-3-%E6%96%B0%E5%A2%9E%E8%88%87%E6%9B%B4%E6%96%B0/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;day28&#34;&gt;Github link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;昨天做了 get list&lt;/p&gt;
+
+&lt;p&gt;今天就來做 新增和儲存吧!&lt;/p&gt;
+
+&lt;p&gt;可能有人會問說，那讀取一筆 todo 的 API 呢?&lt;/p&gt;
+
+&lt;p&gt;因為在這邊資料量少，所有的東西都可以從最外層的 list 拿到&lt;/p&gt;
+
+&lt;p&gt;所以雖然有換頁的動作，但是節省流量可以不需要實做這件事&lt;/p&gt;
+
+&lt;p&gt;在實際開發中也會如此，case by case，有些情況一次拿完回來處理最好&lt;/p&gt;
+
+&lt;p&gt;不過有些則不是~&lt;/p&gt;
+
+&lt;p&gt;離題了，&lt;/p&gt;
+
+&lt;p&gt;以下是新增 todo 的程式碼:&lt;/p&gt;
+
+&lt;p&gt;先到 RestApi.swift 新增 post function&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;func addTodoList(completionHandler: ((NSDictionary!, NSError!) -&amp;gt; Void)!, content: String) {
+        var session = NSURLSession.sharedSession()
+        
+        var request = NSMutableURLRequest(URL: self.addTodoUrl!)
+        request.HTTPMethod = &amp;quot;POST&amp;quot;
+        
+        var params = [&amp;quot;content&amp;quot;: content] as Dictionary&amp;lt;String, String&amp;gt;
+        
+        var err: NSError?
+        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &amp;amp;err)
+        request.addValue(&amp;quot;application/json&amp;quot;, forHTTPHeaderField: &amp;quot;Content-Type&amp;quot;)
+        request.addValue(self.API_key, forHTTPHeaderField: &amp;quot;API-Key&amp;quot;)
+        
+        
+        let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -&amp;gt; Void in
+            if (error != nil) {
+                return completionHandler(nil, error)
+            }
+            
+            var error: NSError?
+            let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &amp;amp;error) as NSDictionary
+            
+            if (error != nil) {
+                return completionHandler(nil, error)
+            } else {
+                return completionHandler(json, nil)
+            }
+        })
+        
+        task.resume()
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;再來就是在程式中呼叫這隻 API 囉! 我們會在 UpdateViewController 中做這件事&lt;/p&gt;
+
+&lt;p&gt;因為這隻 controler 處理了 &amp;ldquo;Add&amp;rdquo; 和 &amp;ldquo;Update&amp;rdquo; 兩件事&lt;/p&gt;
+
+&lt;p&gt;在 save() 這個 function 裡面修改成:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// 記得 class 中先產生一個 api 物件
+var api = RestApi()
+
+func save() {
+        if from == &amp;quot;add&amp;quot; {
+            api.addTodoList({data, error -&amp;gt; Void in
+                if data == nil {
+                    println(error)
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    println(&amp;quot;done&amp;quot;)
+                    self.navigationController?.popToRootViewControllerAnimated(true)
+                })
+            }, content: self.textField.text)
+
+        } else if from == &amp;quot;edit&amp;quot; {
+            println(&amp;quot;Save edited data&amp;quot;)
+        }
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;打開執行就可以新增 todo 了!&lt;/p&gt;
+
+&lt;p&gt;&amp;ldquo;Update&amp;rdquo; 的行為和新增一樣&lt;/p&gt;
+
+&lt;p&gt;先到 RestApi class 加入 update 的方法:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;func updateTodoList(completionHandler: ((NSDictionary!, NSError!) -&amp;gt; Void)!, content: String, todoId: String) {
+        var session = NSURLSession.sharedSession()
+        
+        var request = NSMutableURLRequest(URL: NSURL(string: &amp;quot;http://192.168.1.158:3000/user/kerkerj/todos/\(todoId)&amp;quot;)!)
+        request.HTTPMethod = &amp;quot;PUT&amp;quot;
+        
+        var params = [&amp;quot;content&amp;quot;: content] as Dictionary&amp;lt;String, String&amp;gt;
+        
+        var err: NSError?
+        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &amp;amp;err)
+        request.addValue(&amp;quot;application/json&amp;quot;, forHTTPHeaderField: &amp;quot;Content-Type&amp;quot;)
+        request.addValue(self.API_key, forHTTPHeaderField: &amp;quot;API-Key&amp;quot;)
+        
+        
+        let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -&amp;gt; Void in
+            if (error != nil) {
+                return completionHandler(nil, error)
+            }
+            
+            var error: NSError?
+            let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &amp;amp;error) as NSDictionary
+            
+            if (error != nil) {
+                return completionHandler(nil, error)
+            } else {
+                return completionHandler(json, nil)
+            }
+        })
+        
+        task.resume()
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;再到剛剛的 UpdateViewController ，把 save() 的另外一個 &amp;ldquo;edit&amp;rdquo; 的區塊改成下面的程式碼&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;else if from == &amp;quot;edit&amp;quot; {
+            println(&amp;quot;Save edited data&amp;quot;)
+            api.updateTodoList({data, error -&amp;gt; Void in
+                if data == nil {
+                    println(error)
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    println(&amp;quot;done&amp;quot;)
+                    self.navigationController!.popToRootViewControllerAnimated(true)
+                })
+                
+            }, content: self.textField.text, todoId: self.index)
+        }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;所以整個 save() 會長這樣:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;func save() {
+        if from == &amp;quot;add&amp;quot; {
+            api.addTodoList({data, error -&amp;gt; Void in
+                if data == nil {
+                    println(error)
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    println(&amp;quot;done&amp;quot;)
+                    self.navigationController?.popToRootViewControllerAnimated(true)
+                })
+            }, content: self.textField.text)
+
+        } else if from == &amp;quot;edit&amp;quot; {
+            println(&amp;quot;Save edited data&amp;quot;)
+            api.updateTodoList({data, error -&amp;gt; Void in
+                if data == nil {
+                    println(error)
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    println(&amp;quot;done&amp;quot;)
+                    self.navigationController!.popToRootViewControllerAnimated(true)
+                })
+                
+            }, content: self.textField.text, todoId: self.id
+        }
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在這邊要再修改一個之前的 bug Orz&lt;/p&gt;
+
+&lt;p&gt;由於我們要更新的時候，必須要使用到該筆資料的 object id&lt;/p&gt;
+
+&lt;p&gt;我們之前在 view 中傳遞的都是 content，都沒有 id，因此要加進去&lt;/p&gt;
+
+&lt;p&gt;首先要先改的地方是&lt;/p&gt;
+
+&lt;p&gt;ViewController 中的&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;showViewController.id = fakeData[indexPath.row][&amp;quot;id&amp;quot;]
+
+// 改成:
+showViewController.id = fakeData[indexPath.row][&amp;quot;_id&amp;quot;]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;因為在 mongodb 中 object id 的名字是 _id&lt;/p&gt;
+
+&lt;p&gt;再來要在 ShowViewController 中加入一個把 id 傳到 UpdateViewController&lt;/p&gt;
+
+&lt;p&gt;在 ShowViewController 中的 editTODO() 加入:&lt;/p&gt;
+
+&lt;p&gt;(因為之前 showView 就已經有拿到 id 了，只是先前的欄位寫錯，加上沒有將 id pass 到 UpdateViewControler 才會發生這種事 XD)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;editViewContronller.id = self.id
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;應該只有改這樣，最後執行看看&lt;/p&gt;
+
+&lt;p&gt;就發現可以編輯成功囉!&lt;/p&gt;
+
+&lt;p&gt;快結束啦!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Swift-d27] - 實戰開發 - TODOList - API 2 讀取清單資料</title>
+      <link>http://localhost:8000/blog/swift-d27---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---api-2-%E8%AE%80%E5%8F%96%E6%B8%85%E5%96%AE%E8%B3%87%E6%96%99/</link>
+      <pubDate>Mon, 27 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/swift-d27---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---api-2-%E8%AE%80%E5%8F%96%E6%B8%85%E5%96%AE%E8%B3%87%E6%96%99/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day27&#34;&gt;Github link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;(某一天把兩天份的 commit 在一起了忘了開 branch 了&amp;hellip;)&lt;/p&gt;
+
+&lt;p&gt;接下來就要來寫 api utility 了&lt;/p&gt;
+
+&lt;p&gt;我們先開一個 swift 檔案 &lt;code&gt;RestApi.swift&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;import Foundation
+
+class RestApi {
+	var API_key = &amp;quot;55665566&amp;quot;
+	var getListUrl = NSURL(string: &amp;quot;http://192.168.1.158:3000/user/kerkerj/todos&amp;quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;先做好前置設定，因為 API 有上簡單的小鎖，因此要先寫起來&lt;/p&gt;
+
+&lt;p&gt;還有 request 的網址&lt;/p&gt;
+
+&lt;p&gt;以下是 get list 的範例:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;func getTodoList(completionHandler: ((NSArray!, NSError!) -&amp;gt; Void)!) {
+        var session = NSURLSession.sharedSession()
+        
+        var request = NSMutableURLRequest(URL: self.getListUrl!)
+        request.HTTPMethod = &amp;quot;GET&amp;quot;
+        request.addValue(&amp;quot;application/json&amp;quot;, forHTTPHeaderField: &amp;quot;Content-Type&amp;quot;)
+        request.addValue(self.API_key, forHTTPHeaderField: &amp;quot;API-Key&amp;quot;)
+        
+        let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -&amp;gt; Void in
+            if (error != nil) {
+                return completionHandler(nil, error)
+            }
+            
+            var error: NSError?
+            let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &amp;amp;error) as NSArray
+            
+            if (error != nil) {
+                return completionHandler(nil, error)
+            } else {
+                return completionHandler(json, nil)
+            }
+        })
+        
+        task.resume()
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;我們使用內建的 NSURLSession.sharedSession 以及 NSMutableURLRequest 來建立 request&lt;/p&gt;
+
+&lt;p&gt;裡面就是設定一些 header 以及 API-Key&lt;/p&gt;
+
+&lt;p&gt;另外在資料回來後，return callback&lt;/p&gt;
+
+&lt;p&gt;在這邊有 async，寫隔壁棚的 api 回過頭來看這個感覺很熟悉 XD&lt;/p&gt;
+
+&lt;p&gt;設定好 API 後&lt;/p&gt;
+
+&lt;p&gt;回到顯示 todo 清單的主頁程式碼&lt;/p&gt;
+
+&lt;p&gt;由於我們希望能夠在 view 每次被呼叫時，都可以對 API server 做存取&lt;/p&gt;
+
+&lt;p&gt;因此必須要將 getTodoList 寫在該方法裏&lt;/p&gt;
+
+&lt;p&gt;該方法為 override func viewWillAppear(animated: Bool) {}&lt;/p&gt;
+
+&lt;p&gt;先建立一個 api 物件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var api: RestApi = RestApi()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;將原本的假資料刪除或註解, 不過資料物件名稱就繼續用 fakeData XD&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;//        fakeData = [
+//            [&amp;quot;id&amp;quot;: &amp;quot;1&amp;quot;, &amp;quot;content&amp;quot;: &amp;quot;A&amp;quot;],
+//            [&amp;quot;id&amp;quot;: &amp;quot;2&amp;quot;, &amp;quot;content&amp;quot;: &amp;quot;B&amp;quot;],
+//            [&amp;quot;id&amp;quot;: &amp;quot;3&amp;quot;, &amp;quot;content&amp;quot;: &amp;quot;C&amp;quot;],
+//        ]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;接著在 ViewController override 一個 viewWillAppear 的方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+        
+        api.getTodoList({data, error -&amp;gt; Void in
+            if error != nil {
+                dispatch_async(dispatch_get_main_queue(), {
+                    let alert = UIAlertView()
+                    alert.title = &amp;quot;Yoooooooooooooooo&amp;quot;
+                    alert.message = &amp;quot;Get list faild, maybe check your network: \(error)&amp;quot;
+                    alert.addButtonWithTitle(&amp;quot;ok&amp;quot;)
+                    alert.delegate = self
+                    alert.show()
+                    println(error)
+                })
+            }
+            
+            if (data != nil) {
+                
+                var tmpArr = [[String: String]]()
+                
+                for item in data {
+                    var _id = item[&amp;quot;_id&amp;quot;] as String
+                    var content = item[&amp;quot;content&amp;quot;] as String
+                    var dic = [String: String]()
+                    
+                    dic[&amp;quot;_id&amp;quot;] = _id
+                    dic[&amp;quot;content&amp;quot;] = content
+                    
+                    tmpArr.append(dic)
+                }
+
+                self.arr = tmpArr
+                
+                println(self.arr)
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    // must be &amp;quot;tableView!&amp;quot; not &amp;quot;tableView?&amp;quot;
+                    self.tableView!.reloadData()
+                })
+                
+            }
+        })
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            // must be &amp;quot;tableView!&amp;quot; not &amp;quot;tableView?&amp;quot;
+            self.tableView!.reloadData()
+        })
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上方法都是 async 的方式&lt;/p&gt;
+
+&lt;p&gt;只要網路錯誤，就會直接跳一個 alert&lt;/p&gt;
+
+&lt;p&gt;若有資料的話就 parse&lt;/p&gt;
+
+&lt;p&gt;一併轉換成原本定義的 [[String: String]] 中&lt;/p&gt;
+
+&lt;p&gt;執行看看吧!&lt;/p&gt;
+
+&lt;p&gt;很明顯每次切回主頁時 api console 都會跳一行 request~&lt;/p&gt;
+
+&lt;p&gt;如果使用 sync 的方式就會卡很久! 而且更新 UI 還會 crash XD&lt;/p&gt;
+
+&lt;p&gt;我覺得這部分是需要好好去做處理的，在這邊的程式碼只是簡單 demo&lt;/p&gt;
+
+&lt;p&gt;並沒有考慮到太多 :P&lt;/p&gt;
+
+&lt;p&gt;明天繼續!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Swift-d26] - 實戰開發 - TODOList - API 前置資料準備</title>
+      <link>http://localhost:8000/blog/swift-d26---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---api-%E5%89%8D%E7%BD%AE%E8%B3%87%E6%96%99%E6%BA%96%E5%82%99/</link>
+      <pubDate>Sun, 26 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/swift-d26---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---api-%E5%89%8D%E7%BD%AE%E8%B3%87%E6%96%99%E6%BA%96%E5%82%99/</guid>
+      <description>&lt;p&gt;接下來是要串 &lt;a href=&#34;http://ithelp.ithome.com.tw/ironman7/app/profile/20091343/dev&#34;&gt;隔壁棚的 API&lt;/a&gt; XD&lt;/p&gt;
+
+&lt;p&gt;從前幾天的 APP 組成&lt;/p&gt;
+
+&lt;p&gt;我們所需要的資料大概會是以下幾種:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;GET todo list&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;GET http://192.168.1.158:3000/user/kerkerj/todos
+
+return:
+[
+    {
+        &amp;quot;_id&amp;quot;: &amp;quot;54441f64d84f1ea412db855c&amp;quot;,
+        &amp;quot;updated_at&amp;quot;: &amp;quot;2014-10-19T20:30:28.797Z&amp;quot;,
+        &amp;quot;created_at&amp;quot;: &amp;quot;2014-10-19T20:30:28.797Z&amp;quot;,
+        &amp;quot;content&amp;quot;: &amp;quot;task11syy&amp;quot;,
+        &amp;quot;user_id&amp;quot;: &amp;quot;kerkerj&amp;quot;,
+        &amp;quot;__v&amp;quot;: 0
+    },
+    {
+        &amp;quot;_id&amp;quot;: &amp;quot;54441f6fd84f1ea412db855e&amp;quot;,
+        &amp;quot;updated_at&amp;quot;: &amp;quot;2014-10-19T20:30:39.957Z&amp;quot;,
+        &amp;quot;created_at&amp;quot;: &amp;quot;2014-10-19T20:30:39.957Z&amp;quot;,
+        &amp;quot;content&amp;quot;: &amp;quot;task13&amp;quot;,
+        &amp;quot;user_id&amp;quot;: &amp;quot;kerkerj&amp;quot;,
+        &amp;quot;__v&amp;quot;: 0
+    }
+]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Get a todo task&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;GET http://192.168.1.158:3000/user/kerkerj/todos/54441f64d84f1ea412db855c
+
+return:
+{
+        &amp;quot;_id&amp;quot;: &amp;quot;54441f64d84f1ea412db855c&amp;quot;,
+        &amp;quot;updated_at&amp;quot;: &amp;quot;2014-10-19T20:30:28.797Z&amp;quot;,
+        &amp;quot;created_at&amp;quot;: &amp;quot;2014-10-19T20:30:28.797Z&amp;quot;,
+        &amp;quot;content&amp;quot;: &amp;quot;task11syy&amp;quot;,
+        &amp;quot;user_id&amp;quot;: &amp;quot;kerkerj&amp;quot;,
+        &amp;quot;__v&amp;quot;: 0
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Add a todo task&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;POST http://192.168.1.158:3000/user/kerkerj/todos/
+data: {&amp;quot;content&amp;quot;: &amp;quot;your data&amp;quot;}
+
+return: the data you sent
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Update a todo task&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;PUT http://192.168.1.158:3000/user/kerkerj/todos/
+data: {&amp;quot;content&amp;quot;: &amp;quot;your data&amp;quot;}
+
+return: the data you sent
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Delete a todo task&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;DELETE http://192.168.1.158:3000/user/kerkerj/todos/54441f64d84f1ea412db855c
+
+return 
+{&amp;quot;success&amp;quot;: &amp;quot;true&amp;quot;}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;從以上資料可以知道&lt;/p&gt;
+
+&lt;p&gt;最重要的欄位就是 _id, user_id, content&lt;/p&gt;
+
+&lt;p&gt;user_id 我們在 app 中就直接寫死了&lt;/p&gt;
+
+&lt;p&gt;所以最重要的就是 content 及 _id&lt;/p&gt;
+
+&lt;p&gt;今天先允許我偷懶一下，明天就要開始寫 api utility 給 swift 用&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Swift-day25] - 實戰開發 - TODOList - Update View</title>
+      <link>http://localhost:8000/blog/swift-day25---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---update-view/</link>
+      <pubDate>Sat, 25 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/swift-day25---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---update-view/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day27&#34;&gt;Github link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;(忘了是放在哪個 branch 了 Orz)&lt;/p&gt;
+
+&lt;p&gt;接下來就要進到最後一個 Update View 了!&lt;/p&gt;
+
+&lt;p&gt;什麼時候會進到 Update View 呢？&lt;/p&gt;
+
+&lt;p&gt;是在顯示單筆 TODO 的時候的右上方按鈕:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://goo.gl/tNOyRs&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;我們今天只會實作 view 的部分, fakeData 就不實作了&lt;/p&gt;
+
+&lt;p&gt;因為接下來就要直接接 API 啦&lt;/p&gt;
+
+&lt;p&gt;也不需要更新 fakeData 了 :P&lt;/p&gt;
+
+&lt;p&gt;要加入 Edit 這個按鈕&lt;/p&gt;
+
+&lt;p&gt;要到 ShowViewController, 加入 UIBarButtonItem&lt;/p&gt;
+
+&lt;p&gt;並且讓其吃到一個方法，可以讓 Navigation 往下一個 View 前進:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;var id: String!
+
+override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        indexLabel.text = &amp;quot;\(index)&amp;quot;
+        contentLabel.text = content
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: &amp;quot;Edit&amp;quot;, style: UIBarButtonItemStyle.Bordered, target: self, action: Selector(&amp;quot;editTodo&amp;quot;))
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;p.s. 先前忘記加了 id, 現在補回來 XD&lt;/p&gt;
+
+&lt;p&gt;先新增一個 Edit 按鈕後&lt;/p&gt;
+
+&lt;p&gt;並實作 editTodo&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;func editTodo() {
+        var editViewContronller = UpdateViewController(nibName: &amp;quot;UpdateViewController&amp;quot;, bundle: nil)
+        editViewContronller.from = &amp;quot;edit&amp;quot;
+        editViewContronller.content = content
+        editViewContronller.index = index
+        
+        self.navigationController?.pushViewController(editViewContronller, animated: true)
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;由於要先指定資料&lt;/p&gt;
+
+&lt;p&gt;因此再到 UpdateViewController 中再加入兩個參數&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    var index: Int!
+    var content: String!
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;最後在 UpdateController 的 viewDidLoad 中, 加入 add or edit 的判斷&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: &amp;quot;Save&amp;quot;, style: UIBarButtonItemStyle.Done, target: self, action: Selector(&amp;quot;save&amp;quot;))
+			
+		  if self.from == &amp;quot;edit&amp;quot; {
+            self.textField.text = content
+        }
+        
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這時候先前設定的 &amp;ldquo;from&amp;rdquo; 參數就很有用了~&lt;/p&gt;
+
+&lt;p&gt;就可以根據是從 add 的 view 來的或者是 edit 的 view 來的&lt;/p&gt;
+
+&lt;p&gt;以便判定要不要 append 舊資料上去&lt;/p&gt;
+
+&lt;p&gt;此外，也因為如此&lt;/p&gt;
+
+&lt;p&gt;所以 UpdateViewController 的 save 方法也要判斷&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;        if from == &amp;quot;add&amp;quot; {
+            delegate.addData(&amp;quot;g6&amp;quot;, content: self.textField.text)
+            self.navigationController?.popToRootViewControllerAnimated(true)
+        } else if from == &amp;quot;edit&amp;quot; {
+            println(&amp;quot;Save edited data&amp;quot;)
+        }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;不過因為今天我們不做資料更新&lt;/p&gt;
+
+&lt;p&gt;因此流程面大致上到此告一個段落&lt;/p&gt;
+
+&lt;p&gt;接下來就要串 API 了!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Swift-d24] - 實戰開發 - TODOList - Create View</title>
+      <link>http://localhost:8000/blog/swift-d24---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---create-view/</link>
+      <pubDate>Fri, 24 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/swift-d24---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---create-view/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day24&#34;&gt;Github link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;今天要來建立 &amp;ldquo;新增資料&amp;rdquo; 的頁面&lt;/p&gt;
+
+&lt;p&gt;不過這個頁面我們也會拿來給 &amp;ldquo;更新資料&amp;rdquo; 的頁面使用&lt;/p&gt;
+
+&lt;p&gt;原因其實很簡單&lt;/p&gt;
+
+&lt;p&gt;兩邊要建立或編輯的資料是一樣的&lt;/p&gt;
+
+&lt;p&gt;差別只在於，當今天是編輯資料的 view call 該頁面時，&lt;/p&gt;
+
+&lt;p&gt;該頁面除了顯示編輯框外，編輯框內的文字也會預先 load 好舊的資料了&lt;/p&gt;
+
+&lt;p&gt;除此之外兩個 view 的排版一模一樣&lt;/p&gt;
+
+&lt;p&gt;所以在這邊我們就只建立一個 UpdateViewController 就可以了&lt;/p&gt;
+
+&lt;p&gt;那我們一樣建立一組 UpdateViewController.swift + UpdateViewController.xib&lt;/p&gt;
+
+&lt;p&gt;也一樣為元件建立關聯&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://goo.gl/4AO4G0&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;回到主頁&lt;/p&gt;
+
+&lt;p&gt;我們幫 Add 新增一個按鈕吧&lt;/p&gt;
+
+&lt;p&gt;在 viewDidLoad 中&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: &amp;quot;Add&amp;quot;, style: UIBarButtonItemStyle.Done, target: self, action: Selector(&amp;quot;pushToAddTODO&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;設定 Navigation 的右邊鍵的功能&lt;/p&gt;
+
+&lt;p&gt;並且根據 pushToAddTODO 的方法做事情&lt;/p&gt;
+
+&lt;p&gt;因此繼續下去將 pushToAddTODO 方法做一下&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;	func pushToAddTODO(){
+        var addViewController = UpdateViewController(nibName: &amp;quot;UpdateViewController&amp;quot;, bundle: nil)
+        addViewController.from = &amp;quot;add&amp;quot;
+        
+        self.navigationController?.pushViewController(addViewController, animated: true)
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這樣寫完後就可以執行看看了!&lt;/p&gt;
+
+&lt;p&gt;剩下的任務就是將資料寫進 fakeData 不過考慮到之後我們是使用 API&lt;/p&gt;
+
+&lt;p&gt;因此就先不特別作 ShowViewController 的資料傳遞&lt;/p&gt;
+
+&lt;p&gt;再來就做 create view 裡面的 save 按鈕!&lt;/p&gt;
+
+&lt;p&gt;接著就要到 UpdateViewController&lt;/p&gt;
+
+&lt;p&gt;幫 NavigationController 再多加一個右邊按鈕 &amp;ldquo;Save&amp;rdquo;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import UIKit
+
+class UpdateViewController: UIViewController {
+
+    var from: String!
+    @IBOutlet var textField: UITextField!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: &amp;quot;Save&amp;quot;, style: UIBarButtonItemStyle.Done, target: self, action: Selector(&amp;quot;save&amp;quot;))
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    func save() {
+        self.navigationController?.popToRootViewControllerAnimated(true)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;整個程式碼都不難, 只有簡單處理 push/pop 的問題而已!&lt;/p&gt;
+
+&lt;p&gt;如果我們要加上對 ViewController 的 fakeData 做存取的話，請看以下：&lt;/p&gt;
+
+&lt;p&gt;由於需要資料傳遞，因此就必須寫 protocol&lt;/p&gt;
+
+&lt;p&gt;protocol 可簡單可複雜，今天會寫非常簡單版!&lt;/p&gt;
+
+&lt;p&gt;首先先新建一個 swift 檔案, 名為 TodoProtocol.swift&lt;/p&gt;
+
+&lt;p&gt;內容如下:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;protocol UpdateTODOlistDelegate {
+    func addData(id: String, content: String)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;接著到 UpdateViewController 中新建一個變數 屬於 UpdateTODOlistDelegate protocol:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var delegate: UpdateTODOlistDelegate!
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;並且設定 save 後的行為，會呼叫 protocol 中的&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;addData(id: String, content: String)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;將欲新增的 id, content 都丟給該方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;func save() {
+		//	&amp;quot;id&amp;quot; 在這邊是直接給死的
+        delegate.addData(&amp;quot;67&amp;quot;, content: self.textField.text!)
+        self.navigationController?.popToRootViewControllerAnimated(true)
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;接著只要在主頁的程式碼中時做 protocol, 設定接到參數後的動作&lt;/p&gt;
+
+&lt;p&gt;就可以在接到參數後，將資料寫入 fakeData 了!&lt;/p&gt;
+
+&lt;p&gt;回到主頁的程式碼，class 必須先繼承 protocol，再實作&lt;/p&gt;
+
+&lt;p&gt;設定繼承後, 實作 addData, 將接到的資料寫入 fakeData:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;func addData(id: String, content: String) {
+        self.fakeData.append([&amp;quot;id&amp;quot;: id, &amp;quot;content&amp;quot;: content])
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            // must be &amp;quot;tableView!&amp;quot; not &amp;quot;tableView?&amp;quot;
+            self.tableView!.reloadData()
+        })
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;記得將 addViewController 的 delegate 設定成 self&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;func pushToAddTODO(){
+        var addViewController = UpdateViewController(nibName: &amp;quot;UpdateViewController&amp;quot;, bundle: nil)
+        addViewController.from = &amp;quot;add&amp;quot;
+        addViewController.delegate = self
+        
+        self.navigationController?.pushViewController(addViewController, animated: true)
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;執行起來就可以增加資料到 fakeData 了!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Swift-d23] - 實戰開發 - TODOList - Show View 2, Delete View</title>
+      <link>http://localhost:8000/blog/swift-d23---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---show-view-2-delete-view/</link>
+      <pubDate>Thu, 23 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/swift-d23---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---show-view-2-delete-view/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day23&#34;&gt;Github link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;延續昨天，接下來要做換頁&lt;/p&gt;
+
+&lt;p&gt;因此我們必須先新建立一個 ShowViewController, 以及他的 xib&lt;/p&gt;
+
+&lt;p&gt;接著我們在 xib 拉幾個元件: 兩個 label, 一個用來顯示目前的 index, 另一個則是顯示內容&lt;/p&gt;
+
+&lt;p&gt;拉好後，將這兩個元件設定連結到 ShowViewController.swift&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://goo.gl/XPjBik&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;另外多在 ShowViewController 中放兩個變數&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var index: Int!
+var content: String!
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;回到 ViewController, 到 tableView didSelectRowAtIndexPath 中&lt;/p&gt;
+
+&lt;p&gt;因為 didSelectRowAtIndexPath 的意思就是當 cell 被選取時要做什麼事情&lt;/p&gt;
+
+&lt;p&gt;因此當 cell 被選取時，我們就要讓他跳到下一頁，並且是使用 ShowViewController 來顯示資料&lt;/p&gt;
+
+&lt;p&gt;因此修改此方法:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        var showViewController = ShowViewController(nibName: &amp;quot;ShowViewController&amp;quot;, bundle: nil)
+        showViewController.index = indexPath.row
+        showViewController.content = fakeData[indexPath.row][&amp;quot;content&amp;quot;]
+        
+        // 回復非選取狀態
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        self.navigationController?.pushViewController(showViewController, animated: true)
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;最後在 ShowViewController 中的 viewDidLoad 加入:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;        indexLabel.text = &amp;quot;\(index)&amp;quot;
+        contentLabel.text = content
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這樣一來在 ShowViewController 被建立時，顯示的 label 就會將上一個 view 設定的 index, content 的值顯示出來了&lt;/p&gt;
+
+&lt;p&gt;執行看看!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://goo.gl/Uib0IA&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;這樣 Show 的部分就完成了!&lt;/p&gt;
+
+&lt;p&gt;接著我們回到主頁&lt;/p&gt;
+
+&lt;p&gt;要來建立將 cell 向左滑可以刪除的事件，這是 iOS 內建的事件，&lt;/p&gt;
+
+&lt;p&gt;因此建立方法也很簡單:&lt;/p&gt;
+
+&lt;p&gt;一樣是覆寫 tableView 的方法&lt;/p&gt;
+
+&lt;p&gt;要讓 tableView 可以編輯 row - canEditRowAtIndexPath&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;	func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -&amp;gt; Bool {
+        return true
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;按下確認刪除後的行為 - 我們在這邊實際上是刪除 fakeData 的值&lt;/p&gt;
+
+&lt;p&gt;所以只要 App 重開後就又會回到三筆資料了&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;	func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+
+        self.fakeData.removeAtIndex(indexPath.row)
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            // must be &amp;quot;tableView!&amp;quot; not &amp;quot;tableView?&amp;quot;
+            self.tableView!.reloadData()
+        })
+
+        let alert = UIAlertView()
+        alert.title = &amp;quot;Alert&amp;quot;
+        alert.message = &amp;quot;Deleted!&amp;quot;
+        alert.addButtonWithTitle(&amp;quot;Ok&amp;quot;)
+        alert.show()
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這樣我們就有顯示單筆以及顯示多筆還有刪除可以用了!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Swift-d22] - 實戰開發 - TODOList - Show View 1</title>
+      <link>http://localhost:8000/blog/swift-d22---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---show-view-1/</link>
+      <pubDate>Wed, 22 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/swift-d22---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---show-view-1/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day22&#34;&gt;Github link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;接著我們要讓主頁顯示一些假資料:&lt;/p&gt;
+
+&lt;p&gt;由於我們未來接的 api 的資料會是 todo_id + content&lt;/p&gt;
+
+&lt;p&gt;因此我們先產生一個 dictionary array 來存放我們的假資料&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;var fakeData = [[String:String]]()
+fakeData = [
+	[&amp;quot;id&amp;quot;: &amp;quot;1&amp;quot;, &amp;quot;content&amp;quot;: &amp;quot;A&amp;quot;],
+	[&amp;quot;id&amp;quot;: &amp;quot;2&amp;quot;, &amp;quot;content&amp;quot;: &amp;quot;B&amp;quot;],
+	[&amp;quot;id&amp;quot;: &amp;quot;3&amp;quot;, &amp;quot;content&amp;quot;: &amp;quot;C&amp;quot;],
+]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;再來對主頁的 controller 新增 tableView 上去&lt;/p&gt;
+
+&lt;p&gt;並且對 UITableView 加入 delegate 以及 datasource&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import UIKit
+
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    var fakeData = [[String:String]]()
+    var tableView: UITableView?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        
+        fakeData = [[&amp;quot;1&amp;quot;: &amp;quot;A&amp;quot;], [&amp;quot;2&amp;quot;: &amp;quot;B&amp;quot;], [&amp;quot;3&amp;quot;: &amp;quot;C&amp;quot;]]
+        self.view.backgroundColor = UIColor.yellowColor()
+        
+        self.tableView = UITableView(frame: self.view.frame)
+        self.tableView?.delegate = self
+        self.tableView?.dataSource = self
+        
+        self.view.addSubview(self.tableView!)
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;此時編譯器就會要求實作 UITableViewDataSource, UITableViewDelegate 的 methods&lt;/p&gt;
+
+&lt;p&gt;實作完就可以讓 TableView 顯示資料, 這我們之前也都有提到過了~&lt;/p&gt;
+
+&lt;p&gt;在這邊我們也同時使用自訂的 CustomTableViewCell, 簡單對 cell 改個顏色，雖然沒什麼多大用處 XD&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&amp;gt; Int {
+        return self.fakeData.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&amp;gt; UITableViewCell {
+        var cell: CustomTableViewCell? = tableView.dequeueReusableCellWithIdentifier(&amp;quot;CustomCell&amp;quot;) as? CustomTableViewCell
+        
+        if cell == nil {
+            var objects = NSBundle.mainBundle().loadNibNamed(&amp;quot;CustomTableViewCell&amp;quot;, owner: self, options: nil)
+            cell = objects[0] as? CustomTableViewCell
+        }
+        
+        cell!.textLabel?.text = (self.fakeData[indexPath.row])[&amp;quot;content&amp;quot;]
+        
+        return cell!
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://goo.gl/8Zis9p&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;不過可以看到有小瑕疵，就是選取後他並不會回覆成原本的模樣&lt;/p&gt;
+
+&lt;p&gt;因此加入 tableView didSelectRowAtIndexPath:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        // 回復非選取狀態
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;明天就會提到換頁以及刪除的作法!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Swift-d21] - 實戰開發 - TODOList - 前置設定</title>
+      <link>http://localhost:8000/blog/swift-d21---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---%E5%89%8D%E7%BD%AE%E8%A8%AD%E5%AE%9A/</link>
+      <pubDate>Tue, 21 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/swift-d21---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---%E5%89%8D%E7%BD%AE%E8%A8%AD%E5%AE%9A/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day21&#34;&gt;Github link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;首先在開始寫這隻 app 前，&lt;/p&gt;
+
+&lt;p&gt;我們要先定義好程式大致上的流程&lt;/p&gt;
+
+&lt;p&gt;基本上接下來的程式碼都不會用到 storyboard&lt;/p&gt;
+
+&lt;p&gt;只會用到程式 + xib&lt;/p&gt;
+
+&lt;p&gt;程式的流程大致上是使用 Navigation controller 來控制 view 的轉換&lt;/p&gt;
+
+&lt;p&gt;第一頁 - tableView 顯示 todo items list&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://goo.gl/RKH85d&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;點進子項目可以觀看內容，進到子頁後可以編輯，&lt;/p&gt;
+
+&lt;p&gt;編輯後就即可存檔&lt;/p&gt;
+
+&lt;p&gt;新增項目則在主頁的右上角 &amp;ldquo;Add&amp;rdquo; 可以新增&lt;/p&gt;
+
+&lt;p&gt;我們會先從建立假的資料開始，也就是我會先刻出程式的流程&lt;/p&gt;
+
+&lt;p&gt;先不接 API&lt;/p&gt;
+
+&lt;p&gt;實際寫出運作流程後，再加上 API 操作的部分&lt;/p&gt;
+
+&lt;p&gt;因此今天的進度就先開一個新專案，將基本的 Navigation + tableView 建立起來吧:&lt;/p&gt;
+
+&lt;p&gt;首先建立一個新專案&lt;/p&gt;
+
+&lt;p&gt;再來到 project settings&lt;/p&gt;
+
+&lt;p&gt;將 Main Interface 及 Launch Screen file 拿掉&lt;/p&gt;
+
+&lt;p&gt;並將 deploy target 設成 7.1 (反正用到的程式碼都一樣~ 沒有特別使用 8.0 的 lib)&lt;/p&gt;
+
+&lt;p&gt;設定 device orientation - 只限定直的&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://goo.gl/xQ6m25&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;接著就來編輯 AppDelegate.swift&lt;/p&gt;
+
+&lt;p&gt;建立一個 NavigationController + ViewController&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+
+    var window: UIWindow?
+    var navigationController: UINavigationController?
+    var viewController: ViewController?
+
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -&amp;gt; Bool {
+        // Override point for customization after application launch.
+        
+        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        self.window?.backgroundColor = UIColor.whiteColor()
+        
+        self.viewController = ViewController()
+        self.viewController?.title = &amp;quot;TODO List&amp;quot;
+        
+        self.navigationController = UINavigationController(rootViewController: self.viewController!)
+        
+        self.window?.makeKeyAndVisible()
+        self.window?.rootViewController = navigationController
+        
+        return true
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;就是之前有用到的程式碼，稍作改寫&lt;/p&gt;
+
+&lt;p&gt;再來到 ViewController 中, 將背景色稍改一些&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        
+        self.view.backgroundColor = UIColor.yellowColor()
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;最後將 storyboard 以及 launchScreen.xib 刪掉&lt;/p&gt;
+
+&lt;p&gt;執行程式，就 OK 囉！&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://goo.gl/n1T0zv&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Swift-d20] - Basic - 捨棄 Storyboard 使用純程式碼 的方式撰寫 ViewController</title>
+      <link>http://localhost:8000/blog/swift-d20---basic---%E6%8D%A8%E6%A3%84-storyboard-%E4%BD%BF%E7%94%A8%E7%B4%94%E7%A8%8B%E5%BC%8F%E7%A2%BC-%E7%9A%84%E6%96%B9%E5%BC%8F%E6%92%B0%E5%AF%AB-viewcontroller/</link>
+      <pubDate>Mon, 20 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/swift-d20---basic---%E6%8D%A8%E6%A3%84-storyboard-%E4%BD%BF%E7%94%A8%E7%B4%94%E7%A8%8B%E5%BC%8F%E7%A2%BC-%E7%9A%84%E6%96%B9%E5%BC%8F%E6%92%B0%E5%AF%AB-viewcontroller/</guid>
+      <description>&lt;p&gt;今天專案的 &lt;a href=&#34;https://github.com/kerkerj/ithome-NoStoryboardDemo&#34;&gt;Github link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;其實哦&lt;/p&gt;
+
+&lt;p&gt;寫 Swift 也有幾個禮拜了&lt;/p&gt;
+
+&lt;p&gt;我一直覺得使用 Interface Builder 的確很方便&lt;/p&gt;
+
+&lt;p&gt;但是在程式面與視覺面之間的溝通常常會漏東漏西的&lt;/p&gt;
+
+&lt;p&gt;比方說如果要設定 reusable identifier 時&lt;/p&gt;
+
+&lt;p&gt;除了程式裡面的字串要設定以外，還要再到 storyboard 裡設定同樣的字串&lt;/p&gt;
+
+&lt;p&gt;一個簡單的小程式可能不超過 20 個 View 的情況下&lt;/p&gt;
+
+&lt;p&gt;還可以這樣做，當程式長得非常大的時候，好像就很難注意到這件事，&lt;/p&gt;
+
+&lt;p&gt;而且 View 太多 storyboard 就會開始變慢&amp;hellip;.&lt;/p&gt;
+
+&lt;p&gt;因此今天要來試著在 Swift 中&lt;/p&gt;
+
+&lt;p&gt;如何不用 Storyboard，來打造我們的程式&lt;/p&gt;
+
+&lt;p&gt;(當然 xib/nib 還是會用到，只是我們單純捨棄 storyboard，用程式來控制流程)&lt;/p&gt;
+
+&lt;p&gt;首先，一樣先建立一個測試專案&lt;/p&gt;
+
+&lt;p&gt;接著我們要動到的程式碼是 AppDelegate.swift:&lt;/p&gt;
+
+&lt;p&gt;編輯它:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+
+    var window: UIWindow?
+    var viewController: ViewController?
+
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -&amp;gt; Bool {
+        // Override point for customization after application launch.
+
+        self.viewController = ViewController()
+        self.viewController?.view.backgroundColor = UIColor.redColor()
+        
+        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        self.window?.backgroundColor = UIColor.whiteColor()
+        
+        self.window?.rootViewController = viewController
+        self.window?.makeKeyAndVisible()
+        
+        return true
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;其實這段程式碼，就是在做 storyboard 的 &amp;ldquo;進入點&amp;rdquo; 這件事&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var viewController: ViewController?
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;我們用專案建立時產生的 ViewController 建立了一個物件&lt;/p&gt;
+
+&lt;p&gt;並在 application launch 的時候，將該 ViewController 建立起來，設定他的背景顏色為紅色&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;self.viewController = ViewController()
+self.viewController?.view.backgroundColor = UIColor.redColor()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;另外對 window 做一些設定&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        self.window?.backgroundColor = UIColor.whiteColor()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;設定他 Screen 大小 (根據手機解析度而定)
+並設定 window 的背景顏色為白色&lt;/p&gt;
+
+&lt;p&gt;接著是最重要的設定:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;self.window?.rootViewController = viewController
+self.window?.makeKeyAndVisible()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;我們要讓 viewController 指定為是這個 window 的 rootViewController&lt;/p&gt;
+
+&lt;p&gt;並且 makeKeyAndVisible&lt;/p&gt;
+
+&lt;p&gt;這樣就完成手動設定進入點的程式了&lt;/p&gt;
+
+&lt;p&gt;再來我們就可以大膽一點，把 Storyboard 砍掉啦!&lt;/p&gt;
+
+&lt;p&gt;接著執行程式，就可以看到一片紅色了!!!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2015.10.21.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;是不是很簡單!&lt;/p&gt;
+
+&lt;p&gt;如果要 NavigationController 也可以直接設定!&lt;/p&gt;
+
+&lt;p&gt;接下來的實戰開發專案就會以不使用 Storyboard 的方式開發&lt;/p&gt;
+
+&lt;p&gt;增加程式碼可讀性 :P&lt;/p&gt;
+
+&lt;p&gt;老是貼圖也很累 XDDDD&lt;/p&gt;
+
+&lt;p&gt;接下來就要用 Swift 寫一個 TODOList APP 囉!&lt;/p&gt;
+
+&lt;p&gt;並且實際接上隔壁棚的 Restful API XD&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Swift - Push/Pop Views delay</title>
+      <link>http://localhost:8000/blog/swift---push/pop-views-delay/</link>
+      <pubDate>Sun, 19 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/swift---push/pop-views-delay/</guid>
+      <description>&lt;p&gt;請大家先看看下面的小短片，注意一下過場動畫的流暢度&lt;/p&gt;
+
+&lt;p&gt;一開始是沒有加過場動畫，後來改程式碼變成有過場動畫&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.youtube.com/watch?feature=player_embedded&amp;v=dqxDFv-iieU
+&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;http://img.youtube.com/vi/dqxDFv-iieU/0.jpg&#34; 
+alt=&#34;IMAGE ALT TEXT HERE&#34; width=&#34;420&#34; height=&#34;315&#34; border=&#34;10&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=dqxDFv-iieU&#34;&gt;direct link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;後來發現給一個預設的 backgroundColor 後就不會發生殘影的問題了&lt;/p&gt;
+
+&lt;p&gt;是因為 push 的 view 沒有 backgroundColor&lt;/p&gt;
+
+&lt;p&gt;和同事討論後發現:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://developer.apple.com/library/IOs/documentation/UIKit/Reference/UIView_Class/index.html#//apple_ref/occ/instp/UIView/backgroundColor&#34;&gt;Apple Developer Reference&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;UIView 的 backgroundColor 的 default 值是 null!&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Discussion
+Changes to this property can be animated. The default value is nil, which results in a transparent background color.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;所以是這個原因導致在轉場的時候有殘影&lt;/p&gt;
+
+&lt;p&gt;不過切換 View 時 target view 沒有 backgroundColor 的情況應該比較少吧&amp;hellip;(?)&lt;/p&gt;
+
+&lt;p&gt;剛好在寫鐵人賽的 app 想先把流程弄出來時遇到了這個雷 XD&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Swift-d19] - Basic - 橋接第三方 Objc library - Reachability and Bridge.h</title>
+      <link>http://localhost:8000/blog/swift-d19---basic---%E6%A9%8B%E6%8E%A5%E7%AC%AC%E4%B8%89%E6%96%B9-objc-library---reachability-and-bridge.h/</link>
+      <pubDate>Sun, 19 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/swift-d19---basic---%E6%A9%8B%E6%8E%A5%E7%AC%AC%E4%B8%89%E6%96%B9-objc-library---reachability-and-bridge.h/</guid>
+      <description>&lt;p&gt;本日專案的 &lt;a href=&#34;https://github.com/kerkerj/ithome-BridgeObjcDemo&#34;&gt;Github link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;由於 Swift 剛推出不到一年&lt;/p&gt;
+
+&lt;p&gt;有許多的 third-party library 一定還沒轉換成 Swift&lt;/p&gt;
+
+&lt;p&gt;或者是作者沒心力轉會成 Swift&lt;/p&gt;
+
+&lt;p&gt;但是有些套件非常方便，那在 Swift 要怎麼使用 Objective-C 的套件呢?&lt;/p&gt;
+
+&lt;p&gt;Xcode 有提供橋接的方式，非常好用&lt;/p&gt;
+
+&lt;p&gt;接下來就介紹一下如何使用吧!&lt;/p&gt;
+
+&lt;p&gt;以下的例子是一個叫做 &lt;code&gt;Reachability&lt;/code&gt; 的套件&lt;/p&gt;
+
+&lt;p&gt;它可以簡單地幫我們判斷是否有網路連線 3g or wifi 之類的&lt;/p&gt;
+
+&lt;p&gt;所以我們先下載這個套件吧!&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/tonymillion/Reachability&#34;&gt;https://github.com/tonymillion/Reachability&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;下載解壓縮後&lt;/p&gt;
+
+&lt;p&gt;將 .h 和 .m 檔拖曳進 Xcode 專案中&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2014.27.17.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;接下來 Xcode 就會問一個非常重要的問題!:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2014.26.24.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;是否要建立橋接的 .h 檔案!&lt;/p&gt;
+
+&lt;p&gt;當然是選擇建立囉~&lt;/p&gt;
+
+&lt;p&gt;此時的專案結構就會變成這樣:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2014.26.38.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;再來編輯 bridge-header.h 檔&lt;/p&gt;
+
+&lt;p&gt;將想要橋接的 objc 套件 import 進去&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;#import &amp;quot;Reachability.h&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這樣我們就可以在 Swift 中直接使用該套件的類別與方法了!&lt;/p&gt;
+
+&lt;p&gt;接下來就讓我們試試看!&lt;/p&gt;
+
+&lt;p&gt;在 ViewController 中加入以下程式碼:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;//
+//  ViewController.swift
+//  BridgeObjcDemo
+//
+//  Created by Jerry Huang on 2014/10/18.
+//  Copyright (c) 2014年 kerkerj. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        
+        
+        var isConnected = checkNetworkConnection()
+        
+        let alert = UIAlertView()
+        alert.title = &amp;quot;Network Connection&amp;quot;
+        
+        if isConnected {
+            alert.message = &amp;quot;You&#39;re online!&amp;quot;
+        } else {
+            alert.message = &amp;quot;You&#39;re offline!&amp;quot;
+        }
+        
+        alert.addButtonWithTitle(&amp;quot;OK&amp;quot;)
+        alert.show()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func checkNetworkConnection() -&amp;gt; Bool {
+        let reachability: Reachability = Reachability.reachabilityForInternetConnection()
+        let networkStatus: NetworkStatus = reachability.currentReachabilityStatus()
+        
+        println(networkStatus.toRaw())
+        
+        switch (networkStatus.toRaw()) {
+        case 0:
+            println(&amp;quot;[Network Status]: NotReachable&amp;quot;)
+        case 1:
+            println(&amp;quot;[Network Status]: ReachableViaWWAN&amp;quot;)
+        case 2:
+            println(&amp;quot;[Network Status]: ReachableViaWiFi&amp;quot;)
+        default:
+            break
+        }
+        
+        return networkStatus.toRaw() != 0
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;簡單的說，我們寫了一個方法，使用 Reachability 偵測網路連線&lt;/p&gt;
+
+&lt;p&gt;在 ViewDidLoad 時，偵測是否有網路連線&lt;/p&gt;
+
+&lt;p&gt;跳一個 Alert 會告訴你是有連線還是沒有連線&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2014.42.45.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;不過在這邊，我不曉得如何讓模擬器關掉連線，&lt;/p&gt;
+
+&lt;p&gt;所以沒辦法提供 offline 的圖&lt;/p&gt;
+
+&lt;p&gt;但是我實際安裝到手機後，將 wifi 功能關掉後的確是有跳出 offline 的&lt;/p&gt;
+
+&lt;p&gt;哈哈 雖然說沒圖沒真相但是&amp;hellip;XD&lt;/p&gt;
+
+&lt;p&gt;橋接第三方套件就是那麼簡單! :D&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Swift-d18] - Basic - Customize TableViewCell</title>
+      <link>http://localhost:8000/blog/swift-d18---basic---customize-tableviewcell/</link>
+      <pubDate>Sat, 18 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/swift-d18---basic---customize-tableviewcell/</guid>
+      <description>&lt;p&gt;今天的主題延續昨天的 Navigation + TableView&lt;/p&gt;
+
+&lt;p&gt;我們要來客製化 TableViewCell&lt;/p&gt;
+
+&lt;p&gt;通常 TableView 可以被拿來做很多事情，不僅只是像是 ListView 而已&lt;/p&gt;
+
+&lt;p&gt;而 TableViewCell 可以做更深度的切版，排列元素&lt;/p&gt;
+
+&lt;p&gt;因此自定 TableViewCell 是一件算是還蠻重要的事情&lt;/p&gt;
+
+&lt;p&gt;下面的 Code 是延續昨天的專案&lt;/p&gt;
+
+&lt;p&gt;我先把已更改過的程式碼貼上來:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;import UIKit
+
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    @IBOutlet var tableView: UITableView!
+    
+    var arr = [&amp;quot;A&amp;quot;, &amp;quot;B&amp;quot;, &amp;quot;C&amp;quot;]
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&amp;gt; Int {
+        return arr.count;
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&amp;gt; UITableViewCell {
+        var cell: CustomTableViewCell? = tableView.dequeueReusableCellWithIdentifier(&amp;quot;cell&amp;quot;) as CustomTableViewCell?
+        
+        if cell == nil {
+            var objects = NSBundle.mainBundle().loadNibNamed(&amp;quot;CustomTableViewCell&amp;quot;, owner: self, options: nil)
+            cell = objects[0] as? CustomTableViewCell
+        }
+        
+        cell!.textLabel?.text = arr[indexPath.row]
+        
+        return cell!
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        var detailViewController = DetailViewController()
+        detailViewController.title = arr[indexPath.row]
+        self.navigationController?.pushViewController(detailViewController, animated: true)
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -&amp;gt; CGFloat {
+        return 165.0
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;今天要新增一個檔案, 我們就稱之為 CustomTableViewCell&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.36.49.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.37.37.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;就會出現一份 .swift 檔案以及 .xib 檔案了&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.38.06.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;接下來我們簡單編輯 .xib 檔案，將背景顏色換成其他顏色，以及將它的長度拉高&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.39.49.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;這樣其實就很簡單地完成了一個小客製化的 TableViewCell 了&lt;/p&gt;
+
+&lt;p&gt;那我們要怎麼讓原本的 TableView 吃到這個 TableViewCell 呢?&lt;/p&gt;
+
+&lt;p&gt;看以下的 function:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&amp;gt; UITableViewCell {
+	var cell: CustomTableViewCell? = tableView.dequeueReusableCellWithIdentifier(&amp;quot;cell&amp;quot;) as CustomTableViewCell?
+        
+	if cell == nil {
+		var objects = NSBundle.mainBundle().loadNibNamed(&amp;quot;CustomTableViewCell&amp;quot;, owner: self, options: nil)
+		cell = objects[0] as? CustomTableViewCell
+	}
+        
+	cell!.textLabel?.text = arr[indexPath.row]
+        
+	return cell!
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;我們將 cell 的類別更改成了 CustomTableViewCell&lt;/p&gt;
+
+&lt;p&gt;直接使用剛剛產生的 .swift 類別來產生新的 TableViewCell&lt;/p&gt;
+
+&lt;p&gt;並且如果 cell == nil ，則會將 Nib 載入&lt;/p&gt;
+
+&lt;p&gt;最後設定該 textLabel ，返回 cell&lt;/p&gt;
+
+&lt;p&gt;若使用最一開始的程式碼 apply changes&lt;/p&gt;
+
+&lt;p&gt;執行！&lt;/p&gt;
+
+&lt;p&gt;應該就可以看到成果了!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2012.01.35.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;p.s. 這篇可能實作上會有 bug (我寫的), 就先跳過吧 XD&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Swift-d17] - Basic - Navigation View &#43; TableView</title>
+      <link>http://localhost:8000/blog/swift-d17---basic---navigation-view-&#43;-tableview/</link>
+      <pubDate>Fri, 17 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/swift-d17---basic---navigation-view-&#43;-tableview/</guid>
+      <description>&lt;p&gt;今天要把 Navigation View 和 Table View 結合起來!&lt;/p&gt;
+
+&lt;p&gt;把 NavigationController 拉進 Storyboard&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2019.47.53.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2019.48.28.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;將程式進入點指向 NavigationController&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2019.48.28.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;把原本程式自動產生的 UIViewController 刪除&lt;/p&gt;
+
+&lt;p&gt;把自動產生的 TableViewController 刪除!&lt;/p&gt;
+
+&lt;p&gt;拉一個新的 UIViewController&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.06.29.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;將 NavigationController 的 RootViewController 指向新的 ViewController&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.07.20.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;把 TableView 拉進 ViewController&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.08.48.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;再將 TableViewCell 拉進 TableView&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.09.16.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;再點選 ViewController, 到右上角中找尋 Custom Class&lt;/p&gt;
+
+&lt;p&gt;將 ViewController.swift 指定給該 ViewController&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.18.11.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;接著把 UITableView 引進程式碼裡做關聯&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.19.25.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;再來就是實作 Table 的 data 了&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;class ViewController: UIViewController, UITableViewDataSource {
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;class ViewController: UIViewController, UITableViewDataSource {
+    
+    @IBOutlet var tableView: UITableView!
+    
+    var arr = [&amp;quot;A&amp;quot;, &amp;quot;B&amp;quot;, &amp;quot;C&amp;quot;]
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&amp;gt; Int {
+        return arr.count;
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&amp;gt; UITableViewCell {
+        
+        var cell: UITableViewCell? = tableView.dequeueReusableCellWithIdentifier(&amp;quot;cell&amp;quot;) as? UITableViewCell
+        
+        if cell == nil {
+            cell = UITableViewCell(style: UITableViewCellStyle.Default , reuseIdentifier: &amp;quot;cell&amp;quot;)
+        }
+        cell!.textLabel?.text = arr[indexPath.row]
+        
+        return cell!
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;code 實作完後，記得拉 dataSource 及 delegate&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.27.19%EF%BC%882%EF%BC%89.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;執行後就是 TableView + NavigationController 了&lt;/p&gt;
+
+&lt;p&gt;接下來就要加入換頁:&lt;/p&gt;
+
+&lt;p&gt;到 storyboard 再加入一個 ViewController，並從 tableView 的 cell 中建立連結到新的 ViewController&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.33.35.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;再來新增一個 DetailViewController, 用來顯示下一頁的資料&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.35.29.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;記得先去做 class 關聯&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.36.03.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;再來加入這個 function:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == &amp;quot;showDetail&amp;quot; {
+            let index = self.tableView.indexPathForSelectedRow()?.row
+            ((segue.destinationViewController) as DetailViewController).title = arr[index!]
+        }
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;回到 storyboard, 點選 UITableView 和 UIView 中間的連線，設定 storyboard 的 identifier&lt;/p&gt;
+
+&lt;p&gt;設定為 &lt;code&gt;showDetail&lt;/code&gt; 以便和程式一樣&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.37.36.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;另外回到 Storyboard 中的 TableView, 設定 cell 的 identifier 和程式一樣&lt;/p&gt;
+
+&lt;p&gt;以便 reuse&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.47.03.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;接著都設定完畢後，就可以執行了!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.49.13.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-17%2020.49.18.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;這樣就完成啦!&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

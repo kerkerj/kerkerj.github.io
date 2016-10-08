@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="YOLO~">
+
+<base href="http://localhost:8000/">
+<title>
+
+
+     [API-d8] - Node.js - Hello World! 
+
+</title>
+<link rel="canonical" href="http://localhost:8000/blog/api-d8---node.js---hello-world/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/localhost:8000\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="http://localhost:8000/css/reset.css">
+<link rel="stylesheet" href="http://localhost:8000/css/pygments.css">
+<link rel="stylesheet" href="http://localhost:8000/css/main.css">
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/zenburn.min.css">
+    
+
+
+
+<link rel="shortcut icon"
+
+    href="http://localhost:8000/favicon.png"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="zh-TW">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            <a href="http://localhost:8000/"><div class="name">kerkerj</div></a>
+            <nav>
+                <ul>
+                    <a href="http://localhost:8000/blog/"><li>Blog</li></a>
+                    <a href="http://localhost:8000/about/"><li>About</li></a>
+                    <a href="http://localhost:8000/mac-app-list/"><li>Mac App List</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/kerkerj" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/kerkerj" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/fuzanhuang" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="http://localhost:8000/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    [API-d8] - Node.js - Hello World!
+
+</div>
+
+                    <div class="initials"><a href="http://localhost:8000/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Wed Oct 8 2014 00:00:00 UTC">2014-10-10 00:00</div>
+                    <div class="reading-time"><div class="middot"></div>2 minutes read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                
+
+<h1 id="node-js-hello-world">Node.js - Hello World!</h1>
+
+<p>一樣先開虛擬機哦~</p>
+
+<p>並且開啟終端機連進 server 裡面~</p>
+
+<p>以下是 <a href="http://nodejs.org/">Node.js</a> 官方網站的 web server 程式範例，我稍作小修改：</p>
+
+<pre><code class="language-javascript">var http = require('http');
+
+http.createServer(function (req, res) {
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.end('Hello World\n');
+}).listen(1337, '0.0.0.0');
+
+console.log('Server running at http://0.0.0.0:1337/');
+</code></pre>
+
+<p>我們先在虛擬機的資料夾建立一個子資料夾 &lsquo;HelloWorld&rsquo;</p>
+
+<p>在 HelloWorld 資料夾裡面建立一個 app.js</p>
+
+<p>內容如上，存檔。</p>
+
+<p>使用終端機進入 server :</p>
+
+<pre><code>$ vagrant ssh
+$ cd /vagrant/HelloWorld
+$ node app.js
+</code></pre>
+
+<p>到瀏覽器輸入 <a href="http://192.168.33.10:1337/">http://192.168.33.10:1337/</a></p>
+
+<p>(或者是你的 Vagrantfile 裡面設定的 private IP)</p>
+
+<p>即可看到 Hello World 了！</p>
+
+<p>要關掉 Server 也非常簡單，回到下指令的地方，按下 ctrl + c 即可中斷程式</p>
+
+<h2 id="分析">分析</h2>
+
+<p>簡單分析一下此段程式：</p>
+
+<pre><code class="language-javascript">var http = require('http');
+</code></pre>
+
+<p>將 http 這個模組引入，並指定給物件 http</p>
+
+<pre><code class="language-javascript">http.createServer(
+	...
+).listen(1337, '0.0.0.0');
+</code></pre>
+
+<p>先略過中間的 function 不看，<br />
+這段 code 的用意即是讓呼叫 http 物件中的 createServer 的方法，
+.listen() 則是設定該 server 要跑在哪個 port、hostname</p>
+
+<pre><code class="language-javascript">function (req, res) {
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.end('Hello World\n');
+}
+</code></pre>
+
+<p>上面的 code 則是原本在 .createServer() 裡的，
+我們可以看一下 Node.js 的 API doc <a href="http://nodejs.org/api/http.html#http_http_createserver_requestlistener">關於此方法的部分</a></p>
+
+<p>.createServer() 要帶入的東西其實是一個 requestListener，<br />
+也就是當 Server 跑起來時，我們開啟瀏覽器，輸入 127.0.0.1:1337 時，<br />
+Node.js Server 要回丟的東西，因此觀察一下此 listener:</p>
+
+<pre><code class="language-javascript">function (req, res) {
+	...
+}
+</code></pre>
+
+<p>function 中帶入參數的是 req, res，意即 request, response，<br />
+request 即是 server 接收到 client 端的訊息，<br />
+response 則是 server 要回丟給 client 的訊息，<br />
+由於在此範例中，我們只是要回丟給 client 端一個 hello world 的訊息，
+因此，我們不處理 client 送給 server 的 request，
+我們只需處理要回丟給 client 的訊息，</p>
+
+<pre><code class="language-javascript">res.writeHead(200, {'Content-Type': 'text/plain'});
+res.end('Hello World\n');
+</code></pre>
+
+<p>寫網頁的開發者應該對一些關鍵字例如 Content-type, text/plain 不陌生，<br />
+第一行代表回傳給使用者的訊息中，HTTP HEAD 的設定是 http status code 200,
+並且 Content-type 設定為 text/plain</p>
+
+<pre><code class="language-javascript">res.writeHead(200, {'Content-Type': 'text/plain'});
+</code></pre>
+
+<p>那麼，以下這行 code 的意思即是，此次要回送給使用者的訊息到這裡結束，以 &ldquo;Hello World&rdquo; 作結尾</p>
+
+<pre><code class="language-javascript">res.end('Hello World\n');
+</code></pre>
+
+<p>因此整段 code 看下來，就是一個非常簡單的 http server，</p>
+
+<p><a href="http://192.168.33.10:1337/">http://192.168.33.10:1337/</a> 總是會回傳 Hello World</p>
+
+<p>今天就完成了我們的 Hello World 了!</p>
+
+                <br>
+                <p><a href="http://localhost:8000/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/localhost:8000\/blog\/api-d8---node.js---hello-world\/';
+    var disqus_title = '[API-d8] - Node.js - Hello World!';
+    var disqus_url = 'http:\/\/localhost:8000\/blog\/api-d8---node.js---hello-world\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer">
+    <div class="">
+        <ul>
+            <li>© 2010 - 2014 kerkerj. powerd by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a>. Theme: <a href="https://github.com/kerkerj/cocoa-hugo-theme">kerkerj-cocoa-hugo-theme</a>, modified from <a href="https://github.com/nishanths/cocoa-hugo-theme">cocoa</a>.</li>
+        </ul>
+    </div>
+</section>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-45583907-2");
+    pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+

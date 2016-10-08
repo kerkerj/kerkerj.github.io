@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="YOLO~">
+
+<base href="http://localhost:8000/">
+<title>
+
+
+     [Java] Bouncy Castle Cryptography 
+
+</title>
+<link rel="canonical" href="http://localhost:8000/blog/java-bouncy-castle-cryptography/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/localhost:8000\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="http://localhost:8000/css/reset.css">
+<link rel="stylesheet" href="http://localhost:8000/css/pygments.css">
+<link rel="stylesheet" href="http://localhost:8000/css/main.css">
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/zenburn.min.css">
+    
+
+
+
+<link rel="shortcut icon"
+
+    href="http://localhost:8000/favicon.png"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="zh-TW">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            <a href="http://localhost:8000/"><div class="name">kerkerj</div></a>
+            <nav>
+                <ul>
+                    <a href="http://localhost:8000/blog/"><li>Blog</li></a>
+                    <a href="http://localhost:8000/about/"><li>About</li></a>
+                    <a href="http://localhost:8000/mac-app-list/"><li>Mac App List</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/kerkerj" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/kerkerj" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/fuzanhuang" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="http://localhost:8000/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    [Java] Bouncy Castle Cryptography
+
+</div>
+
+                    <div class="initials"><a href="http://localhost:8000/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Thu May 26 2011 00:00:00 UTC">2011-05-05 00:00</div>
+                    <div class="reading-time"><div class="middot"></div>1 minute read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p>這是為了ECT作業所作的筆記
+<a href="http://www.bouncycastle.org/docs/docs1.6/index.html">Bouncy Castle Cryptography</a></p>
+
+<p>這次作業用到了密碼學的技術，助教給了這個網站的library讓大家方便實作</p>
+
+<p>作業內容是：可讀取文字, 圖片, 聲音<br />
+先初始化轉成byte後，利用SHA512進行訊息摘要，<br />
+再對檔案做RSA加密, 解密,接著是 AES 加密, 解密,<br />
+最後使用解密後的內容作還原的動作,<br />
+若input的檔案與output的檔案內容一樣表示成功。</p>
+
+<p>以下是這次作業會用到的class</p>
+
+<pre><code>* SHA512Digest 產生訊息摘要MD  
+* AESEngine (對稱式加密)  
+* RSAEngine (非對稱式加密)  
+* RSAKeyParameters ，用來產生RSA的公鑰、私鑰  
+* KeyParameter  
+* BigInteger  
+</code></pre>
+
+<p>p.s. 以下是在寫作業時遇到的問題解決網址<br />
+<a href="http://danielroc0108.blogspot.com/2008/06/legion-of-bouncy-castle.html">其實用到了什麼class也是google後從學長的部落格看來的XD</a></p>
+
+<p>SHA512: <a href="http://stackoverflow.com/questions/2208374/how-can-i-create-an-sha512-digest-string-in-java-using-bouncy-castle">SHA512 ouput 問題</a><br />
+發現除了 SHA 的 out 外<br />
+其他的加解密產生 output 值要印出時都可以用到：<br />
+用： <code>String.format(&quot;%0128x&quot;, new BigInteger(1, byteData));</code><br />
+來取代 <code>Hex.encode(byteData);</code></p>
+
+<p>RSA:<br />
+<a href="http://www.javaworld.com.tw/jute/post/view?bid=29&amp;id=90179&amp;tpg=8&amp;ppg=1&amp;sty=1&amp;age=0">JavaWorld - 在RSA 解密時的問題 </a><br />
+<a href="http://borispong.pixnet.net/blog/post/23242319">使用Java進行RSA加解密</a><br />
+<a href="http://ox.no/posts/rsa-using-bouncycastle">RSA using BouncyCastle</a> (有問題 不過解決了 &ndash;&gt; JavaClassCastException)</p>
+
+<p>AES:<br />
+<a href="http://albertsong.iteye.com/blog/196273">用Bouncy Castle实现AES-128-CBC加密解密 (殘體字不喜勿入)</a><br />
+<a href="http://www.itcsolutions.eu/2010/12/28/how-to-encrypt-decrypt-with-aes-from-bouncy-castle-api-in-j2me-applications/">How to encrypt / decrypt with AES from Bouncy Castle API in J2ME applications</a></p>
+
+<p>最後的檔案輸出：<br />
+<a href="http://caterpillar.onlyfun.net/Gossip/JavaGossip-V2/ByteArrayInOutStream.htm">良葛格的學習筆記</a>  (最後寫輸出時才想到有這個網站，因此也修改了輸入檔案時的做法，一氣呵成~~ )</p>
+
+<p>若有一直google的話，會發現有許多做法<br />
+我認為以下做法最省事：(省略了很多作法，自行google)</p>
+
+<pre><code class="language-java">Cipher out = Cipher.getInstance(&quot;演算法的名字 (ex. AES)&quot;, &quot;BC&quot;);
+out.init(Cipher.DECRYPT_MODE (或是ENCRYPT_MODE), key, new IvParameterSpec(AESiv));
+outputByteArray = out.doFinal( inputByteArray);   (通常因為長度很長所以會用迴圈去做分段讀取的動作)
+</code></pre>
+
+<p>2011/06/02  Updated:<br />
+單純加解密：<br />
+RSA - <a href="http://www.javamex.com/tutorials/cryptography/rsa_encryption.shtml">http://www.javamex.com/tutorials/cryptography/rsa_encryption.shtml</a><br />
+AES - <a href="http://java.sun.com/developer/technicalArticles/Security/AES/AES_v1.html">http://java.sun.com/developer/technicalArticles/Security/AES/AES_v1.html</a><br />
+超級有用 - <a href="http://introcs.cs.princeton.edu/java/78crypto/RSA.java.html">http://introcs.cs.princeton.edu/java/78crypto/RSA.java.html</a></p>
+
+                <br>
+                <p><a href="http://localhost:8000/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/localhost:8000\/blog\/java-bouncy-castle-cryptography\/';
+    var disqus_title = '[Java] Bouncy Castle Cryptography';
+    var disqus_url = 'http:\/\/localhost:8000\/blog\/java-bouncy-castle-cryptography\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer">
+    <div class="">
+        <ul>
+            <li>© 2010 - 2011 kerkerj. powerd by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a>. Theme: <a href="https://github.com/kerkerj/cocoa-hugo-theme">kerkerj-cocoa-hugo-theme</a>, modified from <a href="https://github.com/nishanths/cocoa-hugo-theme">cocoa</a>.</li>
+        </ul>
+    </div>
+</section>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-45583907-2");
+    pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+

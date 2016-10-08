@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="YOLO~">
+
+<base href="http://localhost:8000/">
+<title>
+
+
+     Migrating to Hugo from Octopress 
+
+</title>
+<link rel="canonical" href="http://localhost:8000/blog/migrating-to-hugo-from-octopress/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/localhost:8000\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="http://localhost:8000/css/reset.css">
+<link rel="stylesheet" href="http://localhost:8000/css/pygments.css">
+<link rel="stylesheet" href="http://localhost:8000/css/main.css">
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/zenburn.min.css">
+    
+
+
+
+<link rel="shortcut icon"
+
+    href="http://localhost:8000/favicon.png"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="zh-TW">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            <a href="http://localhost:8000/"><div class="name">kerkerj</div></a>
+            <nav>
+                <ul>
+                    <a href="http://localhost:8000/blog/"><li>Blog</li></a>
+                    <a href="http://localhost:8000/about/"><li>About</li></a>
+                    <a href="http://localhost:8000/mac-app-list/"><li>Mac App List</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/kerkerj" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/kerkerj" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/fuzanhuang" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="http://localhost:8000/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    Migrating to Hugo from Octopress
+
+</div>
+
+                    <div class="initials"><a href="http://localhost:8000/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Sun May 3 2015 02:14:59 CST">2015-05-05 02:14</div>
+                    <div class="reading-time"><div class="middot"></div>5 minutes read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                
+
+<p><a href="https://gohugo.io">hugo</a></p>
+
+<p><l><b>hugo - 快速又現代的靜態網站產生器</b></l></p>
+
+<p>^^^ 這是 spf13 自己說的</p>
+
+<p>繼 spf13-vim 後又一個 spf13 出品的好東西 XD</p>
+
+<p>在靜態網站產生器中最廣為人知的應該就是 <a href="http://jekyllrb.com/"><code>Jekyll</code></a></p>
+
+<p>以及基於 <code>Jekyll</code> 的 <a href="http://octopress.org/"><code>Octopress</code></a> 了</p>
+
+<p>(關於靜態網站產生器，<a href="http://www.sitepoint.com/6-static-blog-generators-arent-jekyll/">這篇文章</a> 介紹了六個除了 <code>Jekyll</code> 以外的產生器)</p>
+
+<h2 id="為什麼要用-hugo">為什麼要用 <code>hugo</code>？</h2>
+
+<p>雖然 <code>Jekyll</code> / <code>Octopress</code> 很紅資源多主題也不少</p>
+
+<p>但是缺點就是要使用它們就必須裝 <code>ruby</code>、裝 <code>gem</code></p>
+
+<p>有在寫 <code>ruby</code> 的人感覺應該還好</p>
+
+<p>沒在寫 <code>ruby</code> 的光想像就覺得應該會被搞死&hellip; XD</p>
+
+<p>而且覺得文章一多時在編譯的時候好慢&hellip;</p>
+
+<p>用 <code>hugo</code> 的好處就是因為他是用 <code>go</code> 寫的</p>
+
+<p>執行速度飛快，而且只要下載一個 <code>binary</code> 檔案後就可以操作了喲~</p>
+
+<h2 id="基本-hugo-安裝與操作">基本 <code>hugo</code> 安裝與操作</h2>
+
+<p>首先先安裝 <code>hugo</code> (我是用 <code>mac</code> 的 <code>homebrew</code>)</p>
+
+<pre><code>$ brew install hugo
+</code></pre>
+
+<p>使用 <code>hugo</code> 產生一個新的網站</p>
+
+<pre><code>$ hugo new site /path/to/the/site
+e.g.
+$ hugo new site /Users/kerkerj/my_hugo_blog
+</code></pre>
+
+<p>到剛剛產生的網站目錄底下</p>
+
+<pre><code>$ cd /path/to/the/site
+e.g.
+$ cd /Users/kerkerj/my_hugo_blog
+</code></pre>
+
+<p>產生一些內容</p>
+
+<pre><code>$ hugo new about.md
+</code></pre>
+
+<p>或是一篇文章</p>
+
+<pre><code>$ hugo new post/first-post.md
+</code></pre>
+
+<p>安裝主題</p>
+
+<pre><code>$ git clone --recursive https://github.com/spf13/hugoThemes themes
+</code></pre>
+
+<p>把 <code>hugo</code> 跑起來!</p>
+
+<pre><code>$ hugo server --theme=hyde-x --buildDrafts --watch
+</code></pre>
+
+<p>指令說明:</p>
+
+<p><code>--theme=hyde-x</code></p>
+
+<blockquote>
+<p>指的是使用哪一個主題，可以在 <code>themes</code> 資料夾裡找，並將 <code>hyde</code> 替換掉就可以換主題，例如換成 <code>greyshade</code></p>
+</blockquote>
+
+<p><code>--buildDrafts</code></p>
+
+<blockquote>
+<p>使用 <code>hugo new post/first-post.md</code> 預設會是草稿 (在 <code>first-post.md</code> 裡會有 <code>draft=true</code>)</p>
+
+<p>如果下 <code>--buildDrafts</code> 的意思就是會把草稿也 build 出來讓你看到</p>
+</blockquote>
+
+<p><code>--watch</code></p>
+
+<blockquote>
+<p>如果在 server 開啟時，編輯文章並儲存的話，server 會幫你根據修改的內容重新產生網頁，</p>
+
+<p>不需要再下指令重新 build 一次</p>
+</blockquote>
+
+<h2 id="migrating-from-octopress">Migrating from <code>octopress</code></h2>
+
+<p>我自己原本是用 <code>octopress</code></p>
+
+<p>為了不要怕改壞原本的 <code>octopress</code> 文章</p>
+
+<p>我把在 <code>octopress</code> 的文章 (<code>source/_posts</code>)</p>
+
+<p>全數複製一份到 <code>my_hugo_blog/content/post/</code> 底下</p>
+
+<p>接著就試著跑 <code>hugo server</code> 起來試試看</p>
+
+<p>當然是炸了一堆 ERROR 出來啦 XD</p>
+
+<p>以下是我遇到的幾個常見問題</p>
+
+<h2 id="meta-data-的-date">Meta-data 的 Date</h2>
+
+<p>這是我的錯誤訊息</p>
+
+<pre><code>ERROR: 2015/05/02 Failed to parse date '2010-10-04 18:25' in page post/2010-10-04-freebsd81-famp.md
+...
+</code></pre>
+
+<p>首先瞭解一下文章的 meta-data 格式</p>
+
+<p><code>octopress</code> 的是 <code>yaml</code> 格式</p>
+
+<pre><code>---
+title: &quot;Setup wifi on raspberry pi2&quot;
+date: 2015-04-22 22:59:11 +0800
+comments: true
+categories: [raspberry]
+keywords: [raspberry, pi, pi2, wifi]
+description: 
+---
+</code></pre>
+
+<p><code>hugo</code> 的則是 <code>toml</code> 格式</p>
+
+<pre><code>+++
+date = &quot;2015-05-02T02:27:21+08:00&quot;
+draft = true
+title = &quot;test&quot;
+
++++
+</code></pre>
+
+<p>現在 <code>hugo</code> 0.13 版開始也可以讀 <code>yaml</code> 格式了</p>
+
+<p>(在 config 中可以設定 <code>metaDataFormat: &quot;yaml&quot;</code>)</p>
+
+<p>不過比較麻煩的是 <code>date</code> 這個屬性，兩邊長得並不太一樣</p>
+
+<p><code>octopress</code> 比較舊的是長這樣 <code>2010-10-04 18:25</code></p>
+
+<p>新一點 (某一次更新後) 的長這樣 <code>2014-10-02 01:37:44 +0800</code></p>
+
+<p>不過不管怎樣，<code>hugo</code> 都不吃</p>
+
+<p>因為 <code>hugo</code> 的長這樣 <code>2015-05-02T02:27:21+08:00</code></p>
+
+<p>囧了</p>
+
+<p>因此必須將 <code>octopress</code> 的格式換成 <code>hugo</code> 的</p>
+
+<p>接下來下的指令最好先 <code>git commit</code> 一下後再做 XD</p>
+
+<pre><code>$ cd my_hugo_blog/content/post/ 
+$ find . -type f -exec sed -i &quot;&quot; -e 's/date: \([0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}\).*$/date: \1/g' {} \;
+</code></pre>
+
+<p>這個指令會將原本的 date 格式換成只有 <code>yyyy-mm-dd</code> 的格式</p>
+
+<p>例如 <code>2014-10-02 01:37:44 +0800</code> 換成只有 <code>2014-10-02</code></p>
+
+<p>這樣 <code>hugo</code> 就看得懂</p>
+
+<h2 id="permallink-的問題">permallink 的問題</h2>
+
+<p>當日期問題修好後，重開 server</p>
+
+<p>發現點擊文章標題進單篇文章網頁時會跳 404</p>
+
+<p>原因是 <code>hugo</code> 預設產生的連結是</p>
+
+<p><code>http://yoursite.com/post/2015-04-22-raspberry-pi2-remote-webcam/</code></p>
+
+<p>而在 <code>octopress</code> 是根據日期區分</p>
+
+<p><code>http://yoursite.com/post/2015/04/22/raspberry-pi2-remote-webcam/</code></p>
+
+<p>這個問題的解法比較簡單</p>
+
+<p>在 <code>config.toml</code> 加入這行就行</p>
+
+<pre><code>[Permalinks]
+	post = &quot;/:year/:month/:day/:filename/&quot;
+</code></pre>
+
+<p>不過因為 <code>octopress</code> 本身在產生檔案時就已經把日期加入檔名中</p>
+
+<p>(e.g. <code>2015-04-22-raspberry-pi2-remote-webcam.md</code>)</p>
+
+<p>因此 <code>octopress</code> 的文章連結看起來就會很長，例如:</p>
+
+<pre><code>http://localhost:1313/2015/04/22/2015-04-22-raspberry-pi2-remote-webcam/
+</code></pre>
+
+<p>這時候就看要不要把檔名改掉啦</p>
+
+<p>例如把 <code>2015-04-22-raspberry-pi2-remote-webcam.md</code></p>
+
+<p>改成 <code>raspberry-pi2-remote-webcam.md</code></p>
+
+<p>或者可以試著改成:</p>
+
+<pre><code>[Permalinks]
+	post = &quot;/:year/:month/:day/:title/&quot;
+</code></pre>
+
+<p>不過我試了一下，會有機會因為標題有特殊符號或中文</p>
+
+<pre><code>e.g.  http://localhost:1313/2014/10/20/swift-d20---basic---%E6%8D%A8%E6%A3%84-storyboard-%E4%BD%BF%E7%94%A8%E7%B4%94%E7%A8%8B%E5%BC%8F%E7%A2%BC-%E7%9A%84%E6%96%B9%E5%BC%8F%E6%92%B0%E5%AF%AB-viewcontroller/
+</code></pre>
+
+<p>產生出奇怪的資料夾名稱而導致該文章無法存取</p>
+
+<p>所以這個方式僅供參考，可以試試 XD</p>
+
+<p>BTW，我個人在撰寫文章時都沒有用到產生器的樣板語言，因此在轉換時比較沒遇到什麼問題</p>
+
+<p>上述問題解法的參考來源:</p>
+
+<p><a href="http://nathanleclaire.com/blog/2014/12/22/migrating-to-hugo-from-octopress/">Migrating to Hugo From Octopress</a></p>
+
+<p><a href="http://deeeet.com/writing/2014/12/25/hugo/">OctopressからHugoへ移行した</a></p>
+
+<h2 id="設定檔-config-toml-config-yml-config-json">設定檔 (config.toml, config.yml, config.json)</h2>
+
+<p><code>hugo</code> 預設的是 <code>config.toml</code>，也支援 <code>yaml</code> 和 <code>json</code></p>
+
+<p>而 <code>hugo</code> 讀取的順位是照上述順序</p>
+
+<p>如果是要將網頁讓 <code>GitHub</code> host 的話，就必須使用 <code>config.yaml</code></p>
+
+<p>因此我就把 <code>config.toml</code> 換成 <code>config.yml</code> 了 (也比較習慣)</p>
+
+<p>以下是我的 <code>config.yml</code> 主要的設定</p>
+
+<pre><code>baseurl:            &quot;http://blog.kerkerj.in/&quot;
+languageCode:       &quot;en-us&quot;
+title:              &quot;My New Hugo Site&quot;
+
+buildDrafts:        false
+config:             &quot;config.yml&quot;
+metaDataFormat:     &quot;yaml&quot;
+
+permalinks:
+  post:             &quot;/blog/:year/:month/:day/:filename/&quot;
+
+theme:              &quot;purehugo&quot;
+</code></pre>
+
+<p>設定 <code>metaDataFormat: &quot;yaml&quot;</code> 的話</p>
+
+<p>使用 <code>hugo new</code> 的文章 meta-data 都會是 <code>yaml</code> 格式喔</p>
+
+<p>要查詢預設的參數在這 <a href="http://gohugo.io/overview/configuration/">Configuring Hugo</a></p>
+
+<h2 id="主題佈景-theme">主題佈景 Theme</h2>
+
+<p>其實在 <code>hugo</code> 裡比較讓我覺得麻煩的還是主題的挑選吧</p>
+
+<p>因為選擇實在不多</p>
+
+<p>我最喜歡的是在 <code>octopress</code> 中的 <a href="https://github.com/shashankmehta/greyshade">greyshade</a></p>
+
+<p>雖然 <code>spf13/hugoThemes</code> 的 repo 中有人 porting，但是完成度似乎不高</p>
+
+<p>改 template 是應該沒什麼難度，照著改就好，不過&hellip;實在沒這麼多時間 Orz</p>
+
+<p>而且 <code>hugo</code> 在二月底 release 了 0.13 版，有一部分的主題佈景都不能動了 XD</p>
+
+<p>這邊列出我試過可以 work 的</p>
+
+<ul>
+<li><a href="https://github.com/spf13/herring-cove">herring-cove</a></li>
+<li><a href="https://github.com/SenjinDarashiva/hugo-uno">hugo-uno</a></li>
+<li><a href="https://github.com/zyro/hyde-x">hyde-x</a></li>
+<li><a href="https://github.com/dplesca/purehugo">purehugo</a></li>
+<li><a href="https://github.com/tmaiaroto/hugo-redlounge">redlounge</a></li>
+<li><a href="https://github.com/AlexFinn/simple-a">simple-a</a></li>
+<li><a href="https://github.com/marloncabrera/tachyons">tachyons</a></li>
+<li><a href="https://github.com/roperzh/tinyce-hugo-theme">tinyce</a></li>
+<li><a href="https://github.com/keichi/vienna">vienna</a></li>
+</ul>
+
+<p><code>vienna</code> 的 index list 壞掉了，不過 single page 能動，佈景也還算漂亮</p>
+
+<p>自己修一下應該就可以</p>
+
+<p>其實其他不少佈景也都是 index page 不能動，其他都能動</p>
+
+<p>另外在試的過程中，發現除非 repo 有特別說</p>
+
+<p>不然 <code>config.yml</code> 的 <code>disqus</code> 的 key 都是 <code>disqusShortname</code></p>
+
+<p>(因為有個佈景的 key 是 <code>disqus_short_name</code>)</p>
+
+<p><code>hyde-x</code> 是最多人 star 的主題佈景，有八種色系可以選擇</p>
+
+<p>功能也蠻齊全，不想自己搞東搞西的話，建議就直接選這個主題</p>
+
+<p>(因為我最後 <a href="https://github.com/dplesca/purehugo">fork 人家的</a> theme <a href="https://github.com/kerkerj/purehugo">自己改了一堆</a> (遮臉) )</p>
+
+<h2 id="syntax-highlight">Syntax highlight</h2>
+
+<p>寫技術筆記的人應該對這個非常執著 XD</p>
+
+<p>我使用的主題是 <code>purehugo</code></p>
+
+<p>不過他的 syntax highlight 是預設的常見的模式</p>
+
+<p>因此我就自己把他抽掉換成 <a href="https://github.com/isagalaev/highlight.js"><code>highlight.js</code></a></p>
+
+<p><code>hugo</code> 在 <a href="http://gohugo.io/extras/highlighting/">這篇文件</a> 中有另外說明關於如何自訂 syntax highlight</p>
+
+<h2 id="支援-disqus-ga-pagination-seo-robot-txt-favcon">支援 (disqus, ga, pagination, SEO, robot.txt, favcon)</h2>
+
+<p><code>disqus</code> 要看佈景有無支援，<code>GA</code> 也是</p>
+
+<p>不過如果主題沒有的話，也是自己寫一個 partial 插進去就好</p>
+
+<p>另外 <code>pagination</code> 也是在最新版 (0.13) 才加入，所以也要看佈景有沒有支援</p>
+
+<p>不然文章多的就會發現首頁往下捲捲不完&hellip; XD</p>
+
+<p><code>SEO</code> 的部分有人特別寫 partial <a href="https://github.com/nozzle/hugo-snippets">nozzle/hugo-snippets</a></p>
+
+<p>自己寫在 theme 的 header.html 當然是最直覺的</p>
+
+<p><code>robot.txt</code>、<code>favcon</code> 就自己加進 <code>static</code> 資料夾，再到 theme 裡面修改</p>
+
+<h2 id="deploy">Deploy</h2>
+
+<p><code>hugo</code> 有一篇 <a href="http://gohugo.io/tutorials/github-pages-blog/">教學文</a> 教你如何放在 <code>GitHub</code> 上</p>
+
+<p>有兩種方式 (Project page or Personl page)</p>
+
+<p>不過都需要先在 <code>config.yml</code> 加入以下資訊</p>
+
+<pre><code>---
+contentdir: &quot;content&quot;
+layoutdir: &quot;layouts&quot;
+publishdir: &quot;public&quot;
+indexes:
+  category: &quot;categories&quot;
+baseurl: &quot;http://kerkerj.github.io/ or http://kerkerj.github.io/hugo_gh_blog/&quot;
+title: &quot;Hugo Blog Template for GitHub Pages&quot;
+canonifyurls: true
+</code></pre>
+
+<h3 id="project-page-e-g-http-your-github-account-github-io-hugo-gh-blog">Project page: e.g. <a href="http://your_github_account.github.io/hugo_gh_blog/">http://your_github_account.github.io/hugo_gh_blog/</a></h3>
+
+<p>先處理好本機端 <code>hugo</code> 的 blog，接著 <code>git init</code> 並且 <code>commit</code> 後</p>
+
+<p>加入 <code>gh-pages</code> 這個 branch (<a href="https://help.github.com/articles/creating-project-pages-manually/">教學</a>)</p>
+
+<p>接著回到 <code>master</code>，照著下列步驟</p>
+
+<pre><code># Fetch the deployment script into the root of your source tree, make it executable.
+wget https://github.com/X1011/git-directory-deploy/raw/master/deploy.sh &amp;&amp; chmod +x deploy.sh
+
+# For setting it up to build to a folder other than &quot;dist&quot;, see the options in deploy.sh.
+# Build the site to /dist.
+hugo -d dist
+
+# Run the deploy.sh script installed above.
+./deploy.sh
+</code></pre>
+
+<p>就可以 deploy 到 github project page 了</p>
+
+<p>存取網址就是 <code>http://your_github_account.github.io/hugo_gh_blog/</code></p>
+
+<h3 id="personal-page-e-g-http-kerkerj-github-io">Personal page: e.g. <a href="http://kerkerj.github.io/">http://kerkerj.github.io/</a></h3>
+
+<p>建立兩個 repo，一個拿來放 <code>my_hugo_blog</code> 本機端的資料</p>
+
+<p>一個就是 <code>your_github_account.github.io</code> 這個 repo</p>
+
+<p>會拿來放 <code>my_hugo_blog/public</code> 資料夾裡的資料</p>
+
+<p>所以就必須先在 <code>GitHub</code> 上有 <code>your_github_account.github.io</code> 這個 repo</p>
+
+<p>這邊會比較簡單</p>
+
+<p>以剛剛的例子的話就會是 <code>my_hugo_blog</code>，這個資料夾裡放了所有剛剛 <code>hugo</code> 產生的資料</p>
+
+<p>先處理 <code>deploy.sh</code>:</p>
+
+<p>可以直接自己把以下內容存成 <code>deploy.sh</code>，並 <code>chmod +x deploy.sh</code> 使其可執行</p>
+
+<pre><code>#!/bin/bash
+# Deploy hugo site to GitHug personal page
+ 
+echo -e &quot;\033[0;32mDeploying updates to GitHub...\033[0m&quot;
+ 
+# Build the project. 
+hugo # if using a theme, replace by `hugo -t &lt;yourtheme&gt;`
+ 
+# Go To Public folder
+cd public
+# Add changes to git.
+git add -A
+ 
+# Commit changes.
+msg=&quot;rebuilding site `date`&quot;
+if [ $# -eq 1 ]
+  then msg=&quot;$1&quot;
+fi
+git commit -m &quot;$msg&quot;
+ 
+# Push source and build repos.
+git push origin master
+ 
+# Come Back
+cd ..
+</code></pre>
+
+<p>或下載 <code>deploy.sh</code> (同時使其可執行)</p>
+
+<pre><code>wget https://gist.githubusercontent.com/kerkerj/18b18a24af8e8a0ec0ee/raw/654dfb7faaa23db24f707c4d746319e458157d89/deploy.sh &amp;&amp; chmod +x deploy.sh
+</code></pre>
+
+<p>如果有使用 theme，記得修改 <code>deploy.sh</code></p>
+
+<p>把</p>
+
+<pre><code>hugo # if using a theme, replace by `hugo -t &lt;yourtheme&gt;`
+</code></pre>
+
+<p>換成</p>
+
+<pre><code>hugo -t yourtheme # if using a theme, replace by `hugo -t &lt;yourtheme&gt;`
+</code></pre>
+
+<p>所以現在已經處理好的東西有:</p>
+
+<ol>
+<li><code>my_hugo_blog</code> 資料夾以及可執行的 <code>deploy.sh</code></li>
+<li>已經在 <code>GitHub</code> 上有 <code>your_github_account.github.io</code> 這個 repo</li>
+</ol>
+
+<p>(p.s. 如果有要設定 CNAME 什麼的，就把 CNAME 檔案放 <code>static</code> 這個資料夾裡)</p>
+
+<p>接下來，先將 server 跑起來</p>
+
+<pre><code>$ hugo server --watch -t &lt;yourtheme&gt;
+</code></pre>
+
+<p>把你想要的網站調整好後，關掉 server 並將 <code>public</code> 資料夾刪除 (等等會重新在 deploy.sh 中產生)</p>
+
+<pre><code>$ rm -rf public
+</code></pre>
+
+<p>接著把 <code>GitHub</code> 的 repo 加到 <code>public</code> 裡</p>
+
+<pre><code>$ git submodule add git@github.com:&lt;username&gt;/&lt;username&gt;.github.io.git public
+</code></pre>
+
+<p>最後就 deploy 到 github 上</p>
+
+<pre><code># 自動產生 commit message
+$ ./deploy.sh 
+
+# 如果要自訂 commit message 的話
+$ ./deploy.sh &quot;Your commit message&quot;
+</code></pre>
+
+<p>如果是第一次 deploy 到 <code>GitHub</code> 的話，需要等待大約 15 ~ 20 分鐘</p>
+
+<p>才會在 <code>GitHub</code> 上看到你的網站喲</p>
+
+                <br>
+                <p><a href="http://localhost:8000/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/localhost:8000\/blog\/migrating-to-hugo-from-octopress\/';
+    var disqus_title = 'Migrating to Hugo from Octopress';
+    var disqus_url = 'http:\/\/localhost:8000\/blog\/migrating-to-hugo-from-octopress\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer">
+    <div class="">
+        <ul>
+            <li>© 2010 - 2015 kerkerj. powerd by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a>. Theme: <a href="https://github.com/kerkerj/cocoa-hugo-theme">kerkerj-cocoa-hugo-theme</a>, modified from <a href="https://github.com/nishanths/cocoa-hugo-theme">cocoa</a>.</li>
+        </ul>
+    </div>
+</section>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-45583907-2");
+    pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="YOLO~">
+
+<base href="http://localhost:8000/">
+<title>
+
+
+     [Swift-d16] - Basic - Table View 2 換頁 (delegate) 
+
+</title>
+<link rel="canonical" href="http://localhost:8000/blog/swift-d16---basic---table-view-2-%E6%8F%9B%E9%A0%81-delegate/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/localhost:8000\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="http://localhost:8000/css/reset.css">
+<link rel="stylesheet" href="http://localhost:8000/css/pygments.css">
+<link rel="stylesheet" href="http://localhost:8000/css/main.css">
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/zenburn.min.css">
+    
+
+
+
+<link rel="shortcut icon"
+
+    href="http://localhost:8000/favicon.png"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="zh-TW">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            <a href="http://localhost:8000/"><div class="name">kerkerj</div></a>
+            <nav>
+                <ul>
+                    <a href="http://localhost:8000/blog/"><li>Blog</li></a>
+                    <a href="http://localhost:8000/about/"><li>About</li></a>
+                    <a href="http://localhost:8000/mac-app-list/"><li>Mac App List</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/kerkerj" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/kerkerj" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/fuzanhuang" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="http://localhost:8000/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    [Swift-d16] - Basic - Table View 2 換頁 (delegate)
+
+</div>
+
+                    <div class="initials"><a href="http://localhost:8000/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Thu Oct 16 2014 00:00:00 UTC">2014-10-10 00:00</div>
+                    <div class="reading-time"><div class="middot"></div>1 minute read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p>昨天我們實際操作了 tableView 的實作，今天要加入換頁</p>
+
+<p>意思就是假設我點了名為 &ldquo;99&rdquo; 的 cell，點擊後會跳轉到另外一頁，同樣顯示 &ldquo;99&rdquo;</p>
+
+<p>所以除了跳頁外，還要加入值的傳遞</p>
+
+<p>首先打開昨天的專案，我們要繼續下去</p>
+
+<p>回到 storyboard 中，昨天我們加入了 dataSource，今天要加入 delegate:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.01.50.png" alt="image" /></p>
+
+<p>回到程式碼中 ViewController.swift</p>
+
+<p>在 class 的宣告再加上 UITableViewDataSource</p>
+
+<pre><code class="language-swift">class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+</code></pre>
+
+<p>再來就要設計換頁的流程了</p>
+
+<p>回到 storyboard</p>
+
+<p>拉一個新的 ViewController 到空白處</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.04.50.png" alt="image" /></p>
+
+<p>接著點擊左邊的 TableViewCell, 按住 ctrl + 拖曳，拉到剛剛建立的 ViewController 上</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.07.11.png" alt="image" /></p>
+
+<p>選擇 show detail</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.07.44.png" alt="image" /></p>
+
+<p>就會長這樣:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.06.55.png" alt="iamge" /></p>
+
+<p>再來新增一個 ViewController</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.09.15.png" alt="image" /></p>
+
+<p>接著讓新的 storyboard viewcontroller 連接到剛剛新增的 DetailViewController 程式碼</p>
+
+<p>記得先點選 ViewController</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.10.36.png" alt="image" /></p>
+
+<p>在 storyboard 的 DetailViewController 中拉一個 label</p>
+
+<p>並且將該 label 連接到 DetailViewController 的程式碼中</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.13.04.png" alt="image" /></p>
+
+<p>因此 DetailViewController 就會變這樣:</p>
+
+<pre><code>class DetailViewController: UIViewController {
+    @IBOutlet var label: UILabel!
+</code></pre>
+
+<p>接著再來把 DetailViewController 加入兩行 code:</p>
+
+<pre><code>class DetailViewController: UIViewController {
+    @IBOutlet var label: UILabel!
+    
+    var index: Int = 0
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Do any additional setup after loading the view.
+        
+        label.text = &quot;\(index)&quot;
+    }
+</code></pre>
+
+<p>新增一個 index 變數，再來就是在 viewDidLoad 時，將該 label 的文字改成 index</p>
+
+<p>這個 index 的值會在 TableView 中傳遞給 DetailViewController</p>
+
+<p>接下來就要改變 index 的值了，回到 ViewController.swift 中</p>
+
+<p>加入以下程式碼:</p>
+
+<pre><code>func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+      
+	let cell = tableView.cellForRowAtIndexPath(indexPath)
+	self.performSegueWithIdentifier(&quot;showDetail&quot;, sender: cell)
+    
+}
+    
+override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if segue.identifier == &quot;showDetail&quot; {
+		let indexPath = self.tableSample.indexPathForSelectedRow()?.row
+	((segue.destinationViewController) as DetailViewController).index=indexPath!
+	}
+}
+</code></pre>
+
+<p>大家可能會覺得好奇裡頭有個 identifier 叫做 &lsquo;showDetail&rsquo;，這個東西是自己自定的，一定要定，不然在傳遞時會不知道要抓哪個 segue</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.30.24.png" alt="image" /></p>
+
+<p>再來確認一下是否 dataSource 與 delegate 是否都有 reference 到</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-15%203.32.38.png" alt="image" /></p>
+
+<p>執行，就可以發現可以點進去了!</p>
+
+<p>不過因為我們還沒有和 NavigationView 做結合，因此要自己做按鈕點回去 XD</p>
+
+<p>在這邊就先不做了，因為明天就可以兩個結合起來了!</p>
+
+                <br>
+                <p><a href="http://localhost:8000/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/localhost:8000\/blog\/swift-d16---basic---table-view-2-%E6%8F%9B%E9%A0%81-delegate\/';
+    var disqus_title = '[Swift-d16] - Basic - Table View 2 換頁 (delegate)';
+    var disqus_url = 'http:\/\/localhost:8000\/blog\/swift-d16---basic---table-view-2-%E6%8F%9B%E9%A0%81-delegate\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer">
+    <div class="">
+        <ul>
+            <li>© 2010 - 2014 kerkerj. powerd by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a>. Theme: <a href="https://github.com/kerkerj/cocoa-hugo-theme">kerkerj-cocoa-hugo-theme</a>, modified from <a href="https://github.com/nishanths/cocoa-hugo-theme">cocoa</a>.</li>
+        </ul>
+    </div>
+</section>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-45583907-2");
+    pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+

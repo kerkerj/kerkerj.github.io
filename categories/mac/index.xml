@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kerkerj</title>
+    <link>http://localhost:8000/categories/mac/index.xml</link>
+    <description>Recent content on kerkerj</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
+    <atom:link href="http://localhost:8000/categories/mac/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Writing Lua on Mac</title>
+      <link>http://localhost:8000/blog/writing-lua-on-mac/</link>
+      <pubDate>Wed, 06 Aug 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/writing-lua-on-mac/</guid>
+      <description>
+
+&lt;h2 id=&#34;install-lua-on-mac&#34;&gt;Install lua on mac&lt;/h2&gt;
+
+&lt;p&gt;I&amp;rsquo;m not sure that whether Lua is built on mac originally.&lt;/p&gt;
+
+&lt;p&gt;&lt;span style=&#34;color:red;&#34;&gt;(Ok, tested on Mac OSX 10.9, there is Lua in it.)&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;So I installed Lua via &lt;a href=&#34;http://brew.sh/&#34;&gt;Homebrew&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Install homebrew (optional)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ruby -e &amp;quot;$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Install Lua by homebrew&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;brew install lua
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;writing-lua&#34;&gt;Writing Lua&lt;/h2&gt;
+
+&lt;p&gt;You can use command: &lt;code&gt;lua&lt;/code&gt; to interact with lua. (just like &lt;code&gt;php -a&lt;/code&gt; or &lt;code&gt;irb&lt;/code&gt;)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-lua&#34;&gt;print(&amp;quot;Hello World&amp;quot;)
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-lua&#34;&gt;function fact(n)
+	if n == 0 then
+		return 1
+	else
+		return n * fact(n-1)
+	end
+end
+
+print(&amp;quot;enter a number:&amp;quot;)
+num = io.read(&amp;quot;*number&amp;quot;) 
+print(fact(num))
+		
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Mac] update openssl on mac</title>
+      <link>http://localhost:8000/blog/mac-update-openssl-on-mac/</link>
+      <pubDate>Mon, 16 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/mac-update-openssl-on-mac/</guid>
+      <description>&lt;p&gt;First of all, you need &amp;lsquo;brew&amp;rsquo; (&lt;a href=&#34;http://brew.sh/&#34;&gt;http://brew.sh/&lt;/a&gt;)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ brew update
+$ brew install openssl
+$ brew link --force openssl
+ 
+$openssl version -a
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If it&amp;rsquo;s still the old version, you shoud:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo rm /usr/bin/openssl  #remove the old binary 
+$ sudo ln -s /usr/local/Cellar/openssl/1.0.1h/bin/openssl /usr/local/bin
+(1.0.1h -&amp;gt; the latest version)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ref: &lt;a href=&#34;http://apple.stackexchange.com/questions/126830/how-to-upgrade-openssl-in-os-x&#34;&gt;http://apple.stackexchange.com/questions/126830/how-to-upgrade-openssl-in-os-x&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Mac OSX] Slow-Opening Terminal Windows</title>
+      <link>http://localhost:8000/blog/mac-osx-slow-opening-terminal-windows/</link>
+      <pubDate>Wed, 13 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/mac-osx-slow-opening-terminal-windows/</guid>
+      <description>&lt;p&gt;最近在開 mac 的 iTerm.app 或者是內建的終端機都覺得卡卡的，&lt;/p&gt;
+
+&lt;p&gt;之前以為是 .bashrc 載入太多東西導致的，所以把一些掛載的 bin 目錄都註解掉，&lt;/p&gt;
+
+&lt;p&gt;但是還是沒解決，心想不對勁，就順手 google 了一下&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;我執行了下列語法：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ time /usr/libexec/path_helper
+PATH=&amp;quot;/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/ABC/android-sdks/platform-tools:/Users/ABC/android-sdks/tools:/Application/Vagrant/bin&amp;quot;; export PATH;
+
+real    0m0.043s
+user    0m0.001s
+sys 0m0.002s
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;接著我把 &lt;code&gt;PATH&lt;/code&gt; 的內容寫進 &lt;code&gt;.bash_profile&lt;/code&gt;，問題竟然就解決了&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;速度飛快～～&lt;/p&gt;
+
+&lt;p&gt;後來看到一篇 &lt;a href=&#34;http://www.joshstaiger.org/archives/2005/07/bash_profile_vs.html&#34;&gt;.bash_profile vs.bashrc&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;雖然大家都知道 &lt;code&gt;.bash_profile&lt;/code&gt; 是在登入時執行（即是輸入帳號密碼時），&lt;/p&gt;
+
+&lt;p&gt;而 &lt;code&gt;.bashrc&lt;/code&gt; 是在系統內非登入狀態時開啟 prompt 時執行，&lt;/p&gt;
+
+&lt;p&gt;但是！！ Mac OSX 是個例外～是個例外～是個例外～&amp;hellip;&amp;hellip;.=.=&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Mac OS X — an exception&lt;/p&gt;
+
+&lt;p&gt;An exception to the terminal window guidelines is Mac OS X&amp;rsquo;s Terminal.app, which runs a login shell by default for each new terminal window, calling .bash_profile instead of .bashrc. Other GUI terminal emulators may do the same, but most tend not to.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;所以通常解決方法是在 &lt;code&gt;.bash_profile&lt;/code&gt; 寫入以下 script:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if [ -f ~/.bashrc ]; then
+    source ~/.bashrc
+fi
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;不過我之前就這樣做了，這次成功的方式是直接在 &lt;code&gt;.bash_profile&lt;/code&gt; 寫入 PATH 路徑&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;猜想應該是在 &lt;code&gt;.bash_profile&lt;/code&gt; 預先讀取而加快速度的&lt;/p&gt;
+
+&lt;p&gt;如果把原本的 &lt;code&gt;.bashrc&lt;/code&gt; 的 &lt;code&gt;PATH&lt;/code&gt; 註解掉都移到 &lt;code&gt;.bash_profile&lt;/code&gt; 會再稍快一些&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Mac OSX] bash-it</title>
+      <link>http://localhost:8000/blog/mac-osx-bash-it/</link>
+      <pubDate>Wed, 13 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/mac-osx-bash-it/</guid>
+      <description>&lt;p&gt;bash-it:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$git clone http://github.com/revans/bash-it.git ~/.bash_it
+$~/.bash_it/install.sh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;他會幫你自動備份原來的 &lt;code&gt;.bash_profile&lt;/code&gt; 為 &lt;code&gt;.bash_profile.bak&lt;/code&gt; 所以別擔心&lt;/p&gt;
+
+&lt;p&gt;當他在問你要使用什麼 completion 或 script 之類的東西時，&lt;/p&gt;
+
+&lt;p&gt;選擇 &amp;lsquo;some&amp;rsquo; 就可以自己選擇~&lt;/p&gt;
+
+&lt;p&gt;有許多的 theme 及 package , completion 等等可以用，很方便！&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.scholarslab.org/research-and-development/customizing-bash/&#34;&gt;http://www.scholarslab.org/research-and-development/customizing-bash/&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Mac OSX] homebrew update error</title>
+      <link>http://localhost:8000/blog/mac-osx-homebrew-update-error/</link>
+      <pubDate>Wed, 13 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/mac-osx-homebrew-update-error/</guid>
+      <description>&lt;p&gt;failed log:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$sudo brew update
+error: Your local changes to the following files would be overwritten by merge:
+    Library/Aliases/gperftools
+    Library/Aliases/hashdeep
+    Library/Aliases/htop
+    Library/Aliases/nodejs
+    Library/Aliases/ocio
+    Library/Aliases/oiio
+        ....
+error: The following untracked working tree files would be overwritten by merge:
+    Library/Aliases/gperftools
+    Library/Aliases/hashdeep
+    Library/Aliases/htop
+    Library/Aliases/nodejs
+    Library/Aliases/ocio
+    Library/Aliases/oiio
+        ....
+Aborting
+Error: Failure while executing: git pull -q origin refs/heads/master:refs/remotes/origin/master
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Solution:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd /usr/local
+$ git fetch origin
+$ git reset --hard origin/master
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://stackoverflow.com/questions/10762859/brew-update-the-following-untracked-working-tree-files-would-be-overwritten-by&#34;&gt;reference&lt;/a&gt;
+&lt;a href=&#34;http://git-scm.com/2011/07/11/reset.html&#34;&gt;[read]&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Mac app list</title>
+      <link>http://localhost:8000/mac-app-list/</link>
+      <pubDate>Thu, 03 May 1990 00:09:33 +0800</pubDate>
+      
+      <guid>http://localhost:8000/mac-app-list/</guid>
+      <description>
+
+&lt;h2 id=&#34;productivity&#34;&gt;Productivity&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Evernote&lt;/li&gt;
+&lt;li&gt;Mou - markdown editor&lt;/li&gt;
+&lt;li&gt;MacDown - another markdown editor&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;social-network&#34;&gt;Social Network&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;LimeChat - IRC client&lt;/li&gt;
+&lt;li&gt;Nally - BBS client&lt;/li&gt;
+&lt;li&gt;LINE&lt;/li&gt;
+&lt;li&gt;Skype&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;tools&#34;&gt;Tools&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;AppCleaner&lt;/li&gt;
+&lt;li&gt;CCleaner&lt;/li&gt;
+&lt;li&gt;DockView - Dock 有 preview 功能&lt;/li&gt;
+&lt;li&gt;iTerm&lt;/li&gt;
+&lt;li&gt;Keka - 強大的壓縮/解壓縮軟體&lt;/li&gt;
+&lt;li&gt;MemoryClean&lt;/li&gt;
+&lt;li&gt;Spectacle - 視窗整理&lt;/li&gt;
+&lt;li&gt;SSH Tunnel Manager&lt;/li&gt;
+&lt;li&gt;XtraFinder ** - 大推，Finder 的替代品，可以右鍵新增純文字檔案，在該目錄開啟終端機，以及支援 command - x 剪下功能等等&lt;/li&gt;
+&lt;li&gt;Dropbox&lt;/li&gt;
+&lt;li&gt;Google 雲端硬碟&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;development&#34;&gt;Development&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Android Studio&lt;/li&gt;
+&lt;li&gt;Anvil - pow&lt;/li&gt;
+&lt;li&gt;Cakebrew ** - homebrew GUI, 另外大推 homebrew&lt;/li&gt;
+&lt;li&gt;Dash - 可下載許多程式語言的文件&lt;/li&gt;
+&lt;li&gt;Github&lt;/li&gt;
+&lt;li&gt;LiveReload - 程式碼存檔自動重整瀏覽器頁面&lt;/li&gt;
+&lt;li&gt;MySQLWorkbench&lt;/li&gt;
+&lt;li&gt;Sequel Pro - view sqlite file&lt;/li&gt;
+&lt;li&gt;Shuttle - ssh url short cut&lt;/li&gt;
+&lt;li&gt;SourceTree&lt;/li&gt;
+&lt;li&gt;Xcode&lt;/li&gt;
+&lt;li&gt;eclipse&lt;/li&gt;
+&lt;li&gt;SublimeText 3 ** - one of my favorite text editor, lots of packages&lt;/li&gt;
+&lt;li&gt;TeamViewer&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;entertainment&#34;&gt;Entertainment&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;MPlayerX&lt;/li&gt;
+&lt;li&gt;Spotify&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;package&#34;&gt;Package&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;vagrant - 搭配 VirtualBox 的好工具&lt;/li&gt;
+&lt;li&gt;homebrew - mac 的 package management system，大推&lt;/li&gt;
+&lt;li&gt;rbenv - ruby 的版本管理工具，比 RVM 輕巧且好用&lt;/li&gt;
+&lt;li&gt;pow&lt;/li&gt;
+&lt;li&gt;Virtualbox&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

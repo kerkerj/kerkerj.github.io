@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="YOLO~">
+
+<base href="http://localhost:8000/">
+<title>
+
+
+     [Swift-d22] - 實戰開發 - TODOList - Show View 1 
+
+</title>
+<link rel="canonical" href="http://localhost:8000/blog/swift-d22---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---show-view-1/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/localhost:8000\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="http://localhost:8000/css/reset.css">
+<link rel="stylesheet" href="http://localhost:8000/css/pygments.css">
+<link rel="stylesheet" href="http://localhost:8000/css/main.css">
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/zenburn.min.css">
+    
+
+
+
+<link rel="shortcut icon"
+
+    href="http://localhost:8000/favicon.png"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="zh-TW">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            <a href="http://localhost:8000/"><div class="name">kerkerj</div></a>
+            <nav>
+                <ul>
+                    <a href="http://localhost:8000/blog/"><li>Blog</li></a>
+                    <a href="http://localhost:8000/about/"><li>About</li></a>
+                    <a href="http://localhost:8000/mac-app-list/"><li>Mac App List</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/kerkerj" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/kerkerj" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/fuzanhuang" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="http://localhost:8000/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    [Swift-d22] - 實戰開發 - TODOList - Show View 1
+
+</div>
+
+                    <div class="initials"><a href="http://localhost:8000/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Wed Oct 22 2014 00:00:00 UTC">2014-10-10 00:00</div>
+                    <div class="reading-time"><div class="middot"></div>1 minute read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p><a href="https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day22">Github link</a></p>
+
+<p>接著我們要讓主頁顯示一些假資料:</p>
+
+<p>由於我們未來接的 api 的資料會是 todo_id + content</p>
+
+<p>因此我們先產生一個 dictionary array 來存放我們的假資料</p>
+
+<pre><code class="language-swift">var fakeData = [[String:String]]()
+fakeData = [
+	[&quot;id&quot;: &quot;1&quot;, &quot;content&quot;: &quot;A&quot;],
+	[&quot;id&quot;: &quot;2&quot;, &quot;content&quot;: &quot;B&quot;],
+	[&quot;id&quot;: &quot;3&quot;, &quot;content&quot;: &quot;C&quot;],
+]
+</code></pre>
+
+<p>再來對主頁的 controller 新增 tableView 上去</p>
+
+<p>並且對 UITableView 加入 delegate 以及 datasource</p>
+
+<pre><code>import UIKit
+
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    var fakeData = [[String:String]]()
+    var tableView: UITableView?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        
+        fakeData = [[&quot;1&quot;: &quot;A&quot;], [&quot;2&quot;: &quot;B&quot;], [&quot;3&quot;: &quot;C&quot;]]
+        self.view.backgroundColor = UIColor.yellowColor()
+        
+        self.tableView = UITableView(frame: self.view.frame)
+        self.tableView?.delegate = self
+        self.tableView?.dataSource = self
+        
+        self.view.addSubview(self.tableView!)
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+
+}
+</code></pre>
+
+<p>此時編譯器就會要求實作 UITableViewDataSource, UITableViewDelegate 的 methods</p>
+
+<p>實作完就可以讓 TableView 顯示資料, 這我們之前也都有提到過了~</p>
+
+<p>在這邊我們也同時使用自訂的 CustomTableViewCell, 簡單對 cell 改個顏色，雖然沒什麼多大用處 XD</p>
+
+<pre><code>	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {
+        return self.fakeData.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell {
+        var cell: CustomTableViewCell? = tableView.dequeueReusableCellWithIdentifier(&quot;CustomCell&quot;) as? CustomTableViewCell
+        
+        if cell == nil {
+            var objects = NSBundle.mainBundle().loadNibNamed(&quot;CustomTableViewCell&quot;, owner: self, options: nil)
+            cell = objects[0] as? CustomTableViewCell
+        }
+        
+        cell!.textLabel?.text = (self.fakeData[indexPath.row])[&quot;content&quot;]
+        
+        return cell!
+    }
+</code></pre>
+
+<p><img src="http://goo.gl/8Zis9p" alt="image" /></p>
+
+<p>不過可以看到有小瑕疵，就是選取後他並不會回覆成原本的模樣</p>
+
+<p>因此加入 tableView didSelectRowAtIndexPath:</p>
+
+<pre><code>	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        // 回復非選取狀態
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+
+</code></pre>
+
+<p>明天就會提到換頁以及刪除的作法!</p>
+
+                <br>
+                <p><a href="http://localhost:8000/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/localhost:8000\/blog\/swift-d22---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---show-view-1\/';
+    var disqus_title = '[Swift-d22] - 實戰開發 - TODOList - Show View 1';
+    var disqus_url = 'http:\/\/localhost:8000\/blog\/swift-d22---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---show-view-1\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer">
+    <div class="">
+        <ul>
+            <li>© 2010 - 2014 kerkerj. powerd by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a>. Theme: <a href="https://github.com/kerkerj/cocoa-hugo-theme">kerkerj-cocoa-hugo-theme</a>, modified from <a href="https://github.com/nishanths/cocoa-hugo-theme">cocoa</a>.</li>
+        </ul>
+    </div>
+</section>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-45583907-2");
+    pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+

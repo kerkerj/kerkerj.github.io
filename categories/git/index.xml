@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kerkerj</title>
+    <link>http://localhost:8000/categories/git/index.xml</link>
+    <description>Recent content on kerkerj</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
+    <atom:link href="http://localhost:8000/categories/git/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Add tracked file to .gitignore</title>
+      <link>http://localhost:8000/blog/add-tracked-file-to-.gitignore/</link>
+      <pubDate>Fri, 15 Aug 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/add-tracked-file-to-.gitignore/</guid>
+      <description>&lt;pre&gt;&lt;code&gt;git update-index --assume-unchanged &amp;lt;file&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If there&amp;rsquo;s a remote server, also do:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git rm --cached &amp;lt;file&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Mac OSX] homebrew update error</title>
+      <link>http://localhost:8000/blog/mac-osx-homebrew-update-error/</link>
+      <pubDate>Wed, 13 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/mac-osx-homebrew-update-error/</guid>
+      <description>&lt;p&gt;failed log:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$sudo brew update
+error: Your local changes to the following files would be overwritten by merge:
+    Library/Aliases/gperftools
+    Library/Aliases/hashdeep
+    Library/Aliases/htop
+    Library/Aliases/nodejs
+    Library/Aliases/ocio
+    Library/Aliases/oiio
+        ....
+error: The following untracked working tree files would be overwritten by merge:
+    Library/Aliases/gperftools
+    Library/Aliases/hashdeep
+    Library/Aliases/htop
+    Library/Aliases/nodejs
+    Library/Aliases/ocio
+    Library/Aliases/oiio
+        ....
+Aborting
+Error: Failure while executing: git pull -q origin refs/heads/master:refs/remotes/origin/master
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Solution:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd /usr/local
+$ git fetch origin
+$ git reset --hard origin/master
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://stackoverflow.com/questions/10762859/brew-update-the-following-untracked-working-tree-files-would-be-overwritten-by&#34;&gt;reference&lt;/a&gt;
+&lt;a href=&#34;http://git-scm.com/2011/07/11/reset.html&#34;&gt;[read]&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Git] 一小時搞懂Git</title>
+      <link>http://localhost:8000/blog/git-%E4%B8%80%E5%B0%8F%E6%99%82%E6%90%9E%E6%87%82git/</link>
+      <pubDate>Thu, 26 May 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/git-%E4%B8%80%E5%B0%8F%E6%99%82%E6%90%9E%E6%87%82git/</guid>
+      <description>&lt;p&gt;這次只貼 Reference, 因為我也還沒看ＸＤ&lt;br /&gt;
+* &lt;a href=&#34;http://people.debian.org.tw/%7Echihchun/2009/01/05/understand-git-in-one-hour/&#34;&gt;http://people.debian.org.tw/~chihchun/2009/01/05/understand-git-in-one-hour/&lt;/a&gt;&lt;br /&gt;
+文中所說的影片：&lt;br /&gt;
+* &lt;a href=&#34;http://gitcasts.com/&#34;&gt;http://gitcasts.com/&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

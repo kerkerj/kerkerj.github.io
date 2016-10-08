@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="YOLO~">
+
+<base href="http://localhost:8000/">
+<title>
+
+
+     [API-d17] - 實戰開發 - 專案結構 
+
+</title>
+<link rel="canonical" href="http://localhost:8000/blog/api-d17---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E5%B0%88%E6%A1%88%E7%B5%90%E6%A7%8B/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/localhost:8000\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="http://localhost:8000/css/reset.css">
+<link rel="stylesheet" href="http://localhost:8000/css/pygments.css">
+<link rel="stylesheet" href="http://localhost:8000/css/main.css">
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/zenburn.min.css">
+    
+
+
+
+<link rel="shortcut icon"
+
+    href="http://localhost:8000/favicon.png"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="zh-TW">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            <a href="http://localhost:8000/"><div class="name">kerkerj</div></a>
+            <nav>
+                <ul>
+                    <a href="http://localhost:8000/blog/"><li>Blog</li></a>
+                    <a href="http://localhost:8000/about/"><li>About</li></a>
+                    <a href="http://localhost:8000/mac-app-list/"><li>Mac App List</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/kerkerj" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/kerkerj" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/fuzanhuang" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="http://localhost:8000/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    [API-d17] - 實戰開發 - 專案結構
+
+</div>
+
+                    <div class="initials"><a href="http://localhost:8000/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Fri Oct 17 2014 00:00:00 UTC">2014-10-10 00:00</div>
+                    <div class="reading-time"><div class="middot"></div>1 minute read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                
+
+<p>首先我們就在虛擬機的資料夾底下，建立一個專案資料夾吧!</p>
+
+<p>今天會來簡單切割一下我們的專案目錄</p>
+
+<p>##建立新專案目錄:</p>
+
+<pre><code>$ cd /vagrant/
+$ mkdir TODOAPI
+$ cd TODOAPI
+$ npm init
+// 輸入專案資訊
+$ 
+</code></pre>
+
+<p>##建立專案結構</p>
+
+<pre><code>/
+| - bin/
+| - routes/
+| - model/
+| - node_modules/
+| - logs/
+| - config/
+| - test/
+| - app.js
+| - package.json
+</code></pre>
+
+<p>分別講解一下各個 folder 的工作:</p>
+
+<h3 id="bin"><code>bin</code></h3>
+
+<p>筆者會在 <code>bin</code> 資料夾底下放一個 <code>server.js</code></p>
+
+<p>這個 <code>server.js</code> 就是會專門用來啟動一個 <code>app.js</code> instance</p>
+
+<p>###<code>routes</code></p>
+
+<p>基本上如果了解 MVC 架構的話，<code>routes</code> 就是 <code>controller</code> 的意思，其實如果讀者本身夠了解的話，這個資料夾也可以改成 <code>controller</code> 也 ok，應該說，其實資料夾怎麼放都是看個人隨意即可，只是若是要模組化的話，筆者會這樣來處理一個專案結構。</p>
+
+<p>###<code>model</code></p>
+
+<p>拿來放資料庫 schema 以及相關的資料庫操作的資料夾</p>
+
+<h3 id="node-modules"><code>node_modules</code></h3>
+
+<p>這其實是之後安裝的模組會放在這個資料夾裡，在這邊可以先不用建立沒關係</p>
+
+<h3 id="logs"><code>logs</code></h3>
+
+<p>由於我們是建立一個 restful service，因此 log 的記錄也是很重要的，我們把 log 放在這個資料夾裡</p>
+
+<h3 id="configs"><code>configs</code></h3>
+
+<p>我們在這個資料夾裡放置一些專案設定，例如 db 設定或者是 log 的設定等等</p>
+
+<h3 id="test"><code>test</code></h3>
+
+<p>撰寫測試程式的資料夾~</p>
+
+<h3 id="app-js"><code>app.js</code></h3>
+
+<p>程式的進入點，可以想像成 index.php~</p>
+
+<h3 id="package-json"><code>package.json</code></h3>
+
+<p>專案的資訊以及相關模組的資訊都會被放在這裡!</p>
+
+<hr />
+
+<p>其實關於專案結構有許多不同的討論，<code>express</code> 也有一個專案自動產生器，不過如果對結構內容不了解而使用產生器的話，很容易變成只知表面不知內部運作，因此我們還是一步一步來，先定義好我們專案的需求結構</p>
+
+<p>另外，因為我們是建立 restful API service，在此並沒有用到 html 頁面，也因此就沒有 <code>view</code> 或 <code>public</code> 這兩個資料夾囉~</p>
+
+<p>延伸閱讀:</p>
+
+<p>我們可以透過觀摩別人的專案來參考他們的專案架構:</p>
+
+<p><a href="http://scotch.io/tutorials/javascript/node-and-angular-to-do-app-application-organization-and-structure">Node and Angular To-Do App: Application Organization and Structure</a></p>
+
+<p><a href="http://stackoverflow.com/questions/18789864/node-js-express-global-modules-best-practices-for-application-structure">node.js &amp; express - global modules &amp; best practices for application structure</a></p>
+
+<p>在 Github 上的討論，非常值得一看: <a href="https://gist.github.com/lancejpollard/1398757">Github discussion</a></p>
+
+<p>後來覺得也可以模仿 rails 的分法:</p>
+
+<pre><code>/
+| - app/
+| - ----controllers/
+| - ----models/
+| - ----views/
+| - ----helpers/
+| - node_modules/
+| - logs/
+| - libs/
+| - public/
+| - config/
+| - test/
+| - server.js
+| - package.json
+</code></pre>
+
+<p>都 OK!</p>
+
+                <br>
+                <p><a href="http://localhost:8000/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/localhost:8000\/blog\/api-d17---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E5%B0%88%E6%A1%88%E7%B5%90%E6%A7%8B\/';
+    var disqus_title = '[API-d17] - 實戰開發 - 專案結構';
+    var disqus_url = 'http:\/\/localhost:8000\/blog\/api-d17---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E5%B0%88%E6%A1%88%E7%B5%90%E6%A7%8B\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer">
+    <div class="">
+        <ul>
+            <li>© 2010 - 2014 kerkerj. powerd by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a>. Theme: <a href="https://github.com/kerkerj/cocoa-hugo-theme">kerkerj-cocoa-hugo-theme</a>, modified from <a href="https://github.com/nishanths/cocoa-hugo-theme">cocoa</a>.</li>
+        </ul>
+    </div>
+</section>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-45583907-2");
+    pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="YOLO~">
+
+<base href="http://localhost:8000/">
+<title>
+
+
+     [Arch linux] 安裝雜記 
+
+</title>
+<link rel="canonical" href="http://localhost:8000/blog/arch-linux-%E5%AE%89%E8%A3%9D%E9%9B%9C%E8%A8%98/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/localhost:8000\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="http://localhost:8000/css/reset.css">
+<link rel="stylesheet" href="http://localhost:8000/css/pygments.css">
+<link rel="stylesheet" href="http://localhost:8000/css/main.css">
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/zenburn.min.css">
+    
+
+
+
+<link rel="shortcut icon"
+
+    href="http://localhost:8000/favicon.png"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="zh-TW">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            <a href="http://localhost:8000/"><div class="name">kerkerj</div></a>
+            <nav>
+                <ul>
+                    <a href="http://localhost:8000/blog/"><li>Blog</li></a>
+                    <a href="http://localhost:8000/about/"><li>About</li></a>
+                    <a href="http://localhost:8000/mac-app-list/"><li>Mac App List</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/kerkerj" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/kerkerj" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/fuzanhuang" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="http://localhost:8000/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    [Arch linux] 安裝雜記
+
+</div>
+
+                    <div class="initials"><a href="http://localhost:8000/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Thu Jun 30 2011 00:00:00 UTC">2011-06-06 00:00</div>
+                    <div class="reading-time"><div class="middot"></div>1 minute read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                
+
+<p>Arch linux 安裝雜記<br />
+本來要研究如何弄到USB上安裝的, 但發現教室有光碟, 所以就沒去研究了<br />
+以下是安裝Arch linux的一點簡單紀錄</p>
+
+<p>首先不得不說<a href="https://wiki.archlinux.org/index.php/">Arch linux的維基</a><br />
+用關鍵字查詢會有許多結果, 包含中文翻譯<br />
+雖然目前還是簡體字較多, 但總比直接看英文還來的快些<br />
+若安裝上有問題或是對某個套件的詳細內容有興趣可以到這查</p>
+
+<p>我這次安裝主要是先參考此篇文章: <a href="http://antimalicious.blogspot.com/2009/04/archlinux.html">ArchLinux 推廣教學起跑！(09.7.5更新)</a><br />
+寫得很詳細, 雖然是2009年的文章, 但仍非常有參考價值</p>
+
+<p>前半段的步驟會和此篇文章有點類似</p>
+
+<ol>
+<li><p>使用光碟開機後<br />
+進入 arch linux 安裝介面, 輸入 arch 或是 root 登入,<br />
+再輸入 <code>/arch/setup</code> 進入安裝程式</p></li>
+
+<li><p>印象中流程和此篇文章不太一樣, 但是就是照螢幕上所提示的, 你的狀況是什麼就選擇什麼<br />
+例如若是用光碟安裝就選擇用光碟安裝, 一步一步由上而下照著主選單目錄作：</p>
+
+<ul>
+<li>Prepare Hard Drive: 我是使用整顆硬碟所以不需要太繁複的步驟<br /></li>
+<li>Select Package: 我使用預設值, 也不需要什麼步驟<br /></li>
+<li>Install package: 不能跳著作,一定要選擇package後才能安裝,沒選擇package也不會繼續往下作<br /></li>
+<li>Configure System: 照網頁作, 他問什麼就回答自己的情況就好<br /></li>
+<li>文字編輯器我選擇 vi (其實之後裝了vim,我比較熟悉vim,不會用vi的話要選nano)<br /></li>
+<li>必須先編輯兩個檔案: <code>/etc/rc.conf</code>   <code>/etc/locale.gen</code><br /></li>
+<li><code>rc.conf</code> 是開機時會讀取的檔案<br /></li>
+<li>因此要開機啟動的服務, 網路設定等等設定都會寫在這裡面, 很重要的檔案<br /></li>
+<li>若是固定 IP 的話照著後面的設定 ( rc.conf 裡應該會有 example, 先找看看有沒有相關的字再編輯)<br /></li>
+<li>接下來編輯 <code>/etc/locale.gen</code><br /></li>
+<li>把中文相關的 <code>zh_TW</code>取消註解(去掉最前面的#)<br /></li>
+<li>還要設定 root 密碼<br /></li>
+</ul></li>
+</ol>
+
+<p>Install Bootloader<br />
+    - 就照預設安裝吧, 會要你選擇要裝在哪, 我是裝在第一個0.0<br />
+Exit Install<br />
+    - 完成後就離開囉, 然後輸入 reboot 重開機</p>
+
+<ol>
+<li><p>進入新系統, 建立新使用者 <code>#adduser</code></p></li>
+
+<li><p>安裝sudo, screen, ssh<br />
+<code>#pacman -S sudo openssh screen</code><br />
+ssh 的設定可以參考 Arch linux 的 wiki:<a href="https://wiki.archlinux.org/index.php/SSH_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)">SSH (簡體中文)</a></p></li>
+
+<li><p>若要安裝桌面環境的話就自行google吧<br />
+個人有安裝最小安裝的KDE<br />
+<code>#pacman -S kdebase-workspace kdebase-konsole</code><br />
+另外加裝了firefox, 主要是因為專題同學不習慣使用命令列<br />
+因此還是裝了個環境讓有急用時可以上網搜尋之類的<br />
+Arch linux wiki 上關於 KDE 的頁面是正體中文<br />
+因此可以參考看看 <a href="https://wiki.archlinux.org/index.php/KDE_(%E6%AD%A3%E9%AB%94%E4%B8%AD%E6%96%87)">KDE (正體中文)</a></p></li>
+</ol>
+
+<p>下篇將會紀錄在 arch linux 上運作 Git 的服務</p>
+
+<h2 id="固定-ip-設定">固定 IP 設定</h2>
+
+<pre><code>    (IP亂打的XD)
+    #Static IP example
+  eth0=&quot;eth0 266.100.200.3 netmask 255.255.255.0 broadcast 266.100.200.255&quot;
+  #eth0=&quot;dhcp&quot;
+  INTERFACES=(eth0)
+  
+  # Routes to start at boot-up (in this order)
+  # Declare each route then list in ROUTES
+  # - prefix an entry in ROUTES with a ! to disable it
+  #  
+  gateway=&quot;default gw 266.100.200.254&quot;
+  ROUTES=(gateway)
+</code></pre>
+
+                <br>
+                <p><a href="http://localhost:8000/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/localhost:8000\/blog\/arch-linux-%E5%AE%89%E8%A3%9D%E9%9B%9C%E8%A8%98\/';
+    var disqus_title = '[Arch linux] 安裝雜記';
+    var disqus_url = 'http:\/\/localhost:8000\/blog\/arch-linux-%E5%AE%89%E8%A3%9D%E9%9B%9C%E8%A8%98\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer">
+    <div class="">
+        <ul>
+            <li>© 2010 - 2011 kerkerj. powerd by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a>. Theme: <a href="https://github.com/kerkerj/cocoa-hugo-theme">kerkerj-cocoa-hugo-theme</a>, modified from <a href="https://github.com/nishanths/cocoa-hugo-theme">cocoa</a>.</li>
+        </ul>
+    </div>
+</section>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-45583907-2");
+    pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+

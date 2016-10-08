@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="YOLO~">
+
+<base href="http://localhost:8000/">
+<title>
+
+
+     [Apache] SSL (self-signed &amp; purchased version)  
+
+</title>
+<link rel="canonical" href="http://localhost:8000/blog/apache-ssl-self-signed--purchased-version/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/localhost:8000\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="http://localhost:8000/css/reset.css">
+<link rel="stylesheet" href="http://localhost:8000/css/pygments.css">
+<link rel="stylesheet" href="http://localhost:8000/css/main.css">
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/zenburn.min.css">
+    
+
+
+
+<link rel="shortcut icon"
+
+    href="http://localhost:8000/favicon.png"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="zh-TW">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            <a href="http://localhost:8000/"><div class="name">kerkerj</div></a>
+            <nav>
+                <ul>
+                    <a href="http://localhost:8000/blog/"><li>Blog</li></a>
+                    <a href="http://localhost:8000/about/"><li>About</li></a>
+                    <a href="http://localhost:8000/mac-app-list/"><li>Mac App List</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/kerkerj" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/kerkerj" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/fuzanhuang" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="http://localhost:8000/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    [Apache] SSL (self-signed &amp; purchased version) 
+
+</div>
+
+                    <div class="initials"><a href="http://localhost:8000/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Thu Jun 19 2014 00:00:00 UTC">2014-06-06 00:00</div>
+                    <div class="reading-time"><div class="middot"></div>1 minute read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                
+
+<h2 id="self-signed">[Self-signed]</h2>
+
+<hr />
+
+<ol>
+<li><p>Generate a host key:</p>
+
+<pre><code>sudo ssh-keygen -f host.key
+</code></pre></li>
+
+<li><p>Generate a certificate request file</p>
+
+<pre><code>sudo openssl req -new -key host.key -out request.csr
+</code></pre></li>
+</ol>
+
+<p>Type what you want:</p>
+
+<pre><code>  Country Name (2 letter code) [AU]:TW
+  State or Province Name (full name) [Some-State]:Taiwan
+  Locality Name (eg, city) []:Taipei
+  Organization Name (eg, company) [Internet Widgits Pty Ltd]:
+  Organizational Unit Name (eg, section) []:
+  Common Name (e.g. server FQDN or YOUR name) []:
+  Email Address []:
+  
+  Please enter the following 'extra' attributes
+  to be sent with your certificate request
+  A challenge password []:
+  An optional company name []:
+</code></pre>
+
+<ol>
+<li><p>Create the SSL certificate
+<code>sudo openssl x509 -req -days 365 -in request.csr -signkey host.key -out server.crt</code></p>
+
+<p>Create a nopass&rsquo; key (optional)
+<code>openssl rsa -in host.key -out host.nopass.key</code></p></li>
+
+<li><p>Configure Apache
+<code>LoadModule ssl_module libexec/apache2/mod_ssl.so</code></p></li>
+</ol>
+
+<pre><code>SSLEngine on 
+SSLCertificateFile &quot;/etc/apache2/ssl/server.crt&quot;
+SSLCertificateKeyFile &quot;/etc/apache2/ssl/host.nopass.key&quot;
+</code></pre>
+
+<pre><code>sudo apachectl configtest 
+sudo apachectl restart 
+</code></pre>
+
+<p>p.s. enable mods: <code>sudo a2enmod ssl</code>
+enable sites: <code>sudo a2ensite default-ssl</code></p>
+
+<h2 id="purchased-symantec">[Purchased (Symantec)]</h2>
+
+<hr />
+
+<p>[<a href="http://www.symantec.com/tv/products/details.jsp?vid=1452855338001">http://www.symantec.com/tv/products/details.jsp?vid=1452855338001</a>]
+<object id="flashObj" width="640" height="360" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,47,0"><param name="movie" value="http://c.brightcove.com/services/viewer/federated_f9?isVid=1&isUI=1" /><param name="bgcolor" value="#FFFFFF" /><param name="flashVars" value="videoId=1452855338001&linkBaseURL=http%3A%2F%2Fwww.symantec.com%2Ftv%2Fproducts%2Fdetails.jsp%3Fvid%3D1452855338001&playerID=1170996384001&playerKey=AQ~~,AAAABuIiy9k~,I8BhasVwr9yry4vRRPOpsSrBvwjFZ03K&domain=embed&dynamicStreaming=true" /><param name="base" value="http://admin.brightcove.com" /><param name="seamlesstabbing" value="false" /><param name="allowFullScreen" value="true" /><param name="swLiveConnect" value="true" /><param name="allowScriptAccess" value="always" /><embed src="http://c.brightcove.com/services/viewer/federated_f9?isVid=1&isUI=1" bgcolor="#FFFFFF" flashVars="videoId=1452855338001&linkBaseURL=http%3A%2F%2Fwww.symantec.com%2Ftv%2Fproducts%2Fdetails.jsp%3Fvid%3D1452855338001&playerID=1170996384001&playerKey=AQ~~,AAAABuIiy9k~,I8BhasVwr9yry4vRRPOpsSrBvwjFZ03K&domain=embed&dynamicStreaming=true" base="http://admin.brightcove.com" name="flashObj" width="640" height="360" seamlesstabbing="false" type="application/x-shockwave-flash" allowFullScreen="true" allowScriptAccess="always" swLiveConnect="true" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"></embed></object></p>
+
+<p><object id="flashObj" width="640" height="360" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,47,0"><param name="movie" value="http://c.brightcove.com/services/viewer/federated_f9?isVid=1&isUI=1" /><param name="bgcolor" value="#FFFFFF" /><param name="flashVars" value="videoId=1452855338001&linkBaseURL=http%3A%2F%2Fwww.symantec.com%2Ftv%2Fproducts%2Fdetails.jsp%3Fvid%3D1452855338001&playerID=1170996384001&playerKey=AQ~~,AAAABuIiy9k~,I8BhasVwr9yry4vRRPOpsSrBvwjFZ03K&domain=embed&dynamicStreaming=true" /><param name="base" value="http://admin.brightcove.com" /><param name="seamlesstabbing" value="false" /><param name="allowFullScreen" value="true" /><param name="swLiveConnect" value="true" /><param name="allowScriptAccess" value="always" /><embed src="http://c.brightcove.com/services/viewer/federated_f9?isVid=1&isUI=1" bgcolor="#FFFFFF" flashVars="videoId=1452855338001&linkBaseURL=http%3A%2F%2Fwww.symantec.com%2Ftv%2Fproducts%2Fdetails.jsp%3Fvid%3D1452855338001&playerID=1170996384001&playerKey=AQ~~,AAAABuIiy9k~,I8BhasVwr9yry4vRRPOpsSrBvwjFZ03K&domain=embed&dynamicStreaming=true" base="http://admin.brightcove.com" name="flashObj" width="640" height="360" seamlesstabbing="false" type="application/x-shockwave-flash" allowFullScreen="true" allowScriptAccess="always" swLiveConnect="true" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"></embed></object></p>
+
+                <br>
+                <p><a href="http://localhost:8000/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/localhost:8000\/blog\/apache-ssl-self-signed--purchased-version\/';
+    var disqus_title = '[Apache] SSL (self-signed \x26 purchased version) ';
+    var disqus_url = 'http:\/\/localhost:8000\/blog\/apache-ssl-self-signed--purchased-version\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer">
+    <div class="">
+        <ul>
+            <li>© 2010 - 2014 kerkerj. powerd by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a>. Theme: <a href="https://github.com/kerkerj/cocoa-hugo-theme">kerkerj-cocoa-hugo-theme</a>, modified from <a href="https://github.com/nishanths/cocoa-hugo-theme">cocoa</a>.</li>
+        </ul>
+    </div>
+</section>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-45583907-2");
+    pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+

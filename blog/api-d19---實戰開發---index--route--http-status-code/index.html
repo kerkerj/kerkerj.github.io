@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="YOLO~">
+
+<base href="http://localhost:8000/">
+<title>
+
+
+     [API-d19] - 實戰開發 - index &amp; route &amp; http status code 
+
+</title>
+<link rel="canonical" href="http://localhost:8000/blog/api-d19---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---index--route--http-status-code/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/localhost:8000\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="http://localhost:8000/css/reset.css">
+<link rel="stylesheet" href="http://localhost:8000/css/pygments.css">
+<link rel="stylesheet" href="http://localhost:8000/css/main.css">
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/zenburn.min.css">
+    
+
+
+
+<link rel="shortcut icon"
+
+    href="http://localhost:8000/favicon.png"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="zh-TW">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            <a href="http://localhost:8000/"><div class="name">kerkerj</div></a>
+            <nav>
+                <ul>
+                    <a href="http://localhost:8000/blog/"><li>Blog</li></a>
+                    <a href="http://localhost:8000/about/"><li>About</li></a>
+                    <a href="http://localhost:8000/mac-app-list/"><li>Mac App List</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/kerkerj" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/kerkerj" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/fuzanhuang" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="http://localhost:8000/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    [API-d19] - 實戰開發 - index &amp; route &amp; http status code
+
+</div>
+
+                    <div class="initials"><a href="http://localhost:8000/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Sun Oct 19 2014 00:00:00 UTC">2014-10-10 00:00</div>
+                    <div class="reading-time"><div class="middot"></div>3 minutes read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day19">Github 參考</a></p>
+
+<p>昨天先把專案目錄初始化，裝完該裝的套件後</p>
+
+<p>在 routes 中加入一個 index.js 檔案</p>
+
+<pre><code class="language-javascript">'use strict';
+
+var express = require('express');
+var router = express.Router();
+
+router.get('/', function(req, res) {
+    res.status(200).json({ greetings: &quot;hello world!&quot;});
+});
+
+module.exports = router;
+</code></pre>
+
+<p>建立一個 <code>app.js</code> 在專案根目錄中:</p>
+
+<p>app.js</p>
+
+<pre><code>var express = require('express');
+var app = express();
+var index = require('./routes/index');
+
+// Set routers
+app.use('/', index);
+
+module.exports = app;
+</code></pre>
+
+<p>然後在 bin 資料夾建立一個 server.js:</p>
+
+<p>bin/server.js:</p>
+
+<pre><code>'use strict';
+
+var debug = require('debug')('TODOAPI');
+var app = require('../app');
+
+app.set('port', process.env.PORT || 3000);
+
+var server = app.listen(app.get('port'), function() {
+    debug('Express server listening on port ' + server.address().port);
+});
+</code></pre>
+
+<p>並且在 package.json 中修改並加入:</p>
+
+<p>加入 <code>start</code> : <code>&quot;start&quot;: &quot;node ./bin/server.js&quot;,</code></p>
+
+<pre><code>&quot;scripts&quot;: {
+    &quot;start&quot;: &quot;node ./bin/server.js&quot;,
+    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
+  },
+</code></pre>
+
+<p>這樣我們就可以透過 <code>npm start</code> 來啟動 server 了!</p>
+
+<p>試著啟動看看 <code>npm start</code></p>
+
+<p>到網址列輸入 <code>http://localhost:3000/</code></p>
+
+<p>就可以看到 <code>{&quot;greetings&quot;:&quot;hello world!&quot;}</code> 了!</p>
+
+<p>我們從本文的後面往回看：其實就是一個 request 會經過的地方:</p>
+
+<p>當我們下了 <code>npm start</code>，npm 會搜尋 package.json 中有沒有 <code>start</code> 指令</p>
+
+<p>若有的話就會執行他所設定的指令 <code>node ./bin/server.js</code></p>
+
+<p>這樣就會執行 server.js 了</p>
+
+<p>我們再看一下 server.js，講解在底下的註解:</p>
+
+<pre><code>// 使用嚴格模式
+'use strict';
+
+// 加入 debugger
+var debug = require('debug')('TODOAPI');
+
+// 將我們寫的 app.js 引入，建立一個 app instance
+var app = require('../app');
+
+// 設定 app instance 的 port, 若環境變數有設定的話就使用環境變數的值
+// 沒有設定環境變數的話則是 3000
+app.set('port', process.env.PORT || 3000);
+
+// 啟動 server，讓 server 監聽剛剛上一行所設定的 port，
+// 並且使用 debugger
+var server = app.listen(app.get('port'), function() {
+    debug('Express server listening on port ' + server.address().port);
+});
+</code></pre>
+
+<p>既然 server.js 啟動了一個 app.js 的 instance</p>
+
+<p>那我們就要來看一下 app.js</p>
+
+<pre><code>// 引入 express 模組
+var express = require('express');
+
+// 初始化一個 express instance
+var app = express();
+
+// 將 route 引入
+var index = require('./routes/index');
+
+// 設定若有 request 進到 http://localhost:3000/ 時，
+// 交給 routes/index.js 來作後續處理
+app.use('/', index);
+
+最後這一行是這個檔案 export 成一個模組
+module.exports = app;
+</code></pre>
+
+<p>那現在我們了解到了，如果有一個要求打進了 <code>http://localhost:3000/</code></p>
+
+<p>它會將該要求轉發給 routes/index.js 來作處理</p>
+
+<p>因此我們再進到 index.js 看看內容</p>
+
+<pre><code>// 使用嚴格模式
+'use strict';
+
+// 引入 express 模組
+var express = require('express');
+
+// 在這邊我們要使用 express 模組中的 Router
+// 因為在 app.js 中，若是使用 app.use('/', index)
+// 該 index 物件必須是一個 Router 物件，
+// 因此在這邊我們才會這樣寫
+// 於是 router 就是一個 express 的 router 物件了
+var router = express.Router();
+
+// 設定該  router 有哪些路徑要來聽
+// 在這邊我們設定當有 request 進到 根目錄，
+// 且是使用 GET 方法時，我們的回覆是:
+// HTTP status code 爲 200
+// 回傳的資料為 json 格式，傳入的內容是一個 javascript 物件
+// .json 方法會幫我們轉成 json 格式回傳給使用者
+router.get('/', function(req, res) {
+    res.status(200).json({ greetings: &quot;hello world!&quot;});
+});
+
+// 最後將這個檔案 export 成一個 router 模組
+module.exports = router;
+</code></pre>
+
+<p>所以透過這樣的方式我們就了解到了一個 request 是如何在模組化後的程式奔跑遊走</p>
+
+<p>另外要特別提到的是 http status code</p>
+
+<p>http status code 其實是一個非常好讓 client 知道這次 API request 發生什麼事的資料，充分利用 HTTP 協議所定義的狀態碼</p>
+
+<p>我們有時候瀏覽網頁會看到: 404 Not found! 或是 500 Internal Server Error</p>
+
+<p>這就是 HTTP status code</p>
+
+<p>那我們可以透過定義好回傳的 http status code 來代表此次 request 的狀態</p>
+
+<p>例如：</p>
+
+<p>client 端輸入的 API 網址錯誤了</p>
+
+<p>我們就回傳 status code: 404</p>
+
+<p>如果是不小心 server 的 code 寫錯了，導致該次 request 完全讓 server 死掉了，</p>
+
+<p>那就可以回傳 500 interanl server error</p>
+
+<p>因此在做 error handling 時，請定義好 status code，他一定會有幫助的!</p>
+
+<p>常用的 status code:</p>
+
+<pre><code>200 - Success
+201 - Created
+400 - Bad request
+401 - Unauthorized
+403 - Forbidden
+404 - Not found
+500 - Internal Server Error
+</code></pre>
+
+<p>詳細還可以參考: <a href="http://zh.wikipedia.org/wiki/HTTP%E7%8A%B6%E6%80%81%E7%A0%81">HTTP status code</a></p>
+
+<p><a href="http://www.restapitutorial.com/httpstatuscodes.html">其他教學</a></p>
+
+                <br>
+                <p><a href="http://localhost:8000/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/localhost:8000\/blog\/api-d19---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---index--route--http-status-code\/';
+    var disqus_title = '[API-d19] - 實戰開發 - index \x26 route \x26 http status code';
+    var disqus_url = 'http:\/\/localhost:8000\/blog\/api-d19---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---index--route--http-status-code\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer">
+    <div class="">
+        <ul>
+            <li>© 2010 - 2014 kerkerj. powerd by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a>. Theme: <a href="https://github.com/kerkerj/cocoa-hugo-theme">kerkerj-cocoa-hugo-theme</a>, modified from <a href="https://github.com/nishanths/cocoa-hugo-theme">cocoa</a>.</li>
+        </ul>
+    </div>
+</section>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-45583907-2");
+    pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+

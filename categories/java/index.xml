@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kerkerj</title>
+    <link>http://localhost:8000/categories/java/index.xml</link>
+    <description>Recent content on kerkerj</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
+    <atom:link href="http://localhost:8000/categories/java/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>[Ubuntu] 12.04 install oracle java</title>
+      <link>http://localhost:8000/blog/ubuntu-12.04-install-oracle-java/</link>
+      <pubDate>Tue, 26 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/ubuntu-12.04-install-oracle-java/</guid>
+      <description>&lt;pre&gt;&lt;code&gt;sudo rm /var/lib/dpkg/info/oracle-java7-installer*
+sudo apt-get purge oracle-java7-installer*
+sudo rm /etc/apt/sources.list.d/*java*
+sudo apt-get update
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java7-installer
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Java] ByteArray 的 toString 函式</title>
+      <link>http://localhost:8000/blog/java-bytearray-%E7%9A%84-tostring-%E5%87%BD%E5%BC%8F/</link>
+      <pubDate>Wed, 15 Jun 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/java-bytearray-%E7%9A%84-tostring-%E5%87%BD%E5%BC%8F/</guid>
+      <description>&lt;p&gt;byte[] 的toString() 是回傳記憶體位置。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Java] String split 字串分割</title>
+      <link>http://localhost:8000/blog/java-string-split-%E5%AD%97%E4%B8%B2%E5%88%86%E5%89%B2/</link>
+      <pubDate>Wed, 15 Jun 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/java-string-split-%E5%AD%97%E4%B8%B2%E5%88%86%E5%89%B2/</guid>
+      <description>&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;    String temp = &amp;quot;data1, data2, data3, data4&amp;quot;; //欲分割的字串
+  String data[] = temp.split(&amp;quot;,&amp;quot;); //分割後存進字串陣列
+  
+  //印出每一個陣列元素
+  for(String result:data){
+    System.out.println(result);
+  }
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Java] Hex String &amp; Byte Array 轉換</title>
+      <link>http://localhost:8000/blog/java-hex-string--byte-array-%E8%BD%89%E6%8F%9B/</link>
+      <pubDate>Wed, 01 Jun 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/java-hex-string--byte-array-%E8%BD%89%E6%8F%9B/</guid>
+      <description>&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public String toHexString(byte[] in){
+    BigInteger temp = new BigInteger(in);
+  return temp.toString(16);
+}
+
+public byte[] fromHexString(String in){
+    BigInteger temp = new BigInteger(in, 16);
+  return temp.toByteArray();
+}  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;文章參考&lt;a href=&#34;http://ranger1976.blogspot.com/2008/07/hex-string-to-byte-array-and-reverse.html&#34;&gt;自此&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Java] GridBagLayout</title>
+      <link>http://localhost:8000/blog/java-gridbaglayout/</link>
+      <pubDate>Tue, 31 May 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/java-gridbaglayout/</guid>
+      <description>&lt;p&gt;只有連結，因為看連結就好了，圖解很累ＸＤ&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://1.bp.blogspot.com/-xUK4YkIFTj8/TeUxjstgvoI/AAAAAAAAA0M/CqwnFrzUJQg/s1600/gridlayout.jpg&#34;&gt;&lt;img src=&#34;http://1.bp.blogspot.com/-xUK4YkIFTj8/TeUxjstgvoI/AAAAAAAAA0M/CqwnFrzUJQg/s1600/gridlayout.jpg&#34; alt=&#34;&#34; /&gt;&lt;/a&gt;
+(圖片來源：&lt;a href=&#34;http://blog.csdn.net/dmgactive/archive/2009/06/28/4304567.aspx&#34;&gt;http://blog.csdn.net/dmgactive/archive/2009/06/28/4304567.aspx&lt;/a&gt; )&lt;br /&gt;
+&lt;a href=&#34;http://download.oracle.com/javase/tutorial/uiswing/layout/gridbag.html&#34;&gt;http://download.oracle.com/javase/tutorial/uiswing/layout/gridbag.html&lt;/a&gt;
+&lt;a href=&#34;http://felixcic.blogspot.com/2010/11/gridbaglayout.html&#34;&gt;http://felixcic.blogspot.com/2010/11/gridbaglayout.html&lt;/a&gt;
+&lt;a href=&#34;http://home.so-net.net.tw/idealist/Java/AWT/GridBagLayout.html&#34;&gt;http://home.so-net.net.tw/idealist/Java/AWT/GridBagLayout.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;大致上是設定以下參數&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public int anchor  
+public int fill  
+public gridheight  
+Public gridweight  
+public girdx  
+public gridy  
+public Insets insets  
+public int ipadx  
+public int ipady  
+public double weightx  
+public double weighty
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;大概是這樣&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Java] Bouncy Castle Cryptography</title>
+      <link>http://localhost:8000/blog/java-bouncy-castle-cryptography/</link>
+      <pubDate>Thu, 26 May 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/java-bouncy-castle-cryptography/</guid>
+      <description>&lt;p&gt;這是為了ECT作業所作的筆記
+&lt;a href=&#34;http://www.bouncycastle.org/docs/docs1.6/index.html&#34;&gt;Bouncy Castle Cryptography&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;這次作業用到了密碼學的技術，助教給了這個網站的library讓大家方便實作&lt;/p&gt;
+
+&lt;p&gt;作業內容是：可讀取文字, 圖片, 聲音&lt;br /&gt;
+先初始化轉成byte後，利用SHA512進行訊息摘要，&lt;br /&gt;
+再對檔案做RSA加密, 解密,接著是 AES 加密, 解密,&lt;br /&gt;
+最後使用解密後的內容作還原的動作,&lt;br /&gt;
+若input的檔案與output的檔案內容一樣表示成功。&lt;/p&gt;
+
+&lt;p&gt;以下是這次作業會用到的class&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;* SHA512Digest 產生訊息摘要MD  
+* AESEngine (對稱式加密)  
+* RSAEngine (非對稱式加密)  
+* RSAKeyParameters ，用來產生RSA的公鑰、私鑰  
+* KeyParameter  
+* BigInteger  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;p.s. 以下是在寫作業時遇到的問題解決網址&lt;br /&gt;
+&lt;a href=&#34;http://danielroc0108.blogspot.com/2008/06/legion-of-bouncy-castle.html&#34;&gt;其實用到了什麼class也是google後從學長的部落格看來的XD&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;SHA512: &lt;a href=&#34;http://stackoverflow.com/questions/2208374/how-can-i-create-an-sha512-digest-string-in-java-using-bouncy-castle&#34;&gt;SHA512 ouput 問題&lt;/a&gt;&lt;br /&gt;
+發現除了 SHA 的 out 外&lt;br /&gt;
+其他的加解密產生 output 值要印出時都可以用到：&lt;br /&gt;
+用： &lt;code&gt;String.format(&amp;quot;%0128x&amp;quot;, new BigInteger(1, byteData));&lt;/code&gt;&lt;br /&gt;
+來取代 &lt;code&gt;Hex.encode(byteData);&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;RSA:&lt;br /&gt;
+&lt;a href=&#34;http://www.javaworld.com.tw/jute/post/view?bid=29&amp;amp;id=90179&amp;amp;tpg=8&amp;amp;ppg=1&amp;amp;sty=1&amp;amp;age=0&#34;&gt;JavaWorld - 在RSA 解密時的問題 &lt;/a&gt;&lt;br /&gt;
+&lt;a href=&#34;http://borispong.pixnet.net/blog/post/23242319&#34;&gt;使用Java進行RSA加解密&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&#34;http://ox.no/posts/rsa-using-bouncycastle&#34;&gt;RSA using BouncyCastle&lt;/a&gt; (有問題 不過解決了 &amp;ndash;&amp;gt; JavaClassCastException)&lt;/p&gt;
+
+&lt;p&gt;AES:&lt;br /&gt;
+&lt;a href=&#34;http://albertsong.iteye.com/blog/196273&#34;&gt;用Bouncy Castle实现AES-128-CBC加密解密 (殘體字不喜勿入)&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&#34;http://www.itcsolutions.eu/2010/12/28/how-to-encrypt-decrypt-with-aes-from-bouncy-castle-api-in-j2me-applications/&#34;&gt;How to encrypt / decrypt with AES from Bouncy Castle API in J2ME applications&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;最後的檔案輸出：&lt;br /&gt;
+&lt;a href=&#34;http://caterpillar.onlyfun.net/Gossip/JavaGossip-V2/ByteArrayInOutStream.htm&#34;&gt;良葛格的學習筆記&lt;/a&gt;  (最後寫輸出時才想到有這個網站，因此也修改了輸入檔案時的做法，一氣呵成~~ )&lt;/p&gt;
+
+&lt;p&gt;若有一直google的話，會發現有許多做法&lt;br /&gt;
+我認為以下做法最省事：(省略了很多作法，自行google)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Cipher out = Cipher.getInstance(&amp;quot;演算法的名字 (ex. AES)&amp;quot;, &amp;quot;BC&amp;quot;);
+out.init(Cipher.DECRYPT_MODE (或是ENCRYPT_MODE), key, new IvParameterSpec(AESiv));
+outputByteArray = out.doFinal( inputByteArray);   (通常因為長度很長所以會用迴圈去做分段讀取的動作)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;2011/06/02  Updated:&lt;br /&gt;
+單純加解密：&lt;br /&gt;
+RSA - &lt;a href=&#34;http://www.javamex.com/tutorials/cryptography/rsa_encryption.shtml&#34;&gt;http://www.javamex.com/tutorials/cryptography/rsa_encryption.shtml&lt;/a&gt;&lt;br /&gt;
+AES - &lt;a href=&#34;http://java.sun.com/developer/technicalArticles/Security/AES/AES_v1.html&#34;&gt;http://java.sun.com/developer/technicalArticles/Security/AES/AES_v1.html&lt;/a&gt;&lt;br /&gt;
+超級有用 - &lt;a href=&#34;http://introcs.cs.princeton.edu/java/78crypto/RSA.java.html&#34;&gt;http://introcs.cs.princeton.edu/java/78crypto/RSA.java.html&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

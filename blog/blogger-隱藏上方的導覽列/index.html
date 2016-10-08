@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="YOLO~">
+
+<base href="http://localhost:8000/">
+<title>
+
+
+     [Blogger] 隱藏上方的導覽列 
+
+</title>
+<link rel="canonical" href="http://localhost:8000/blog/blogger-%E9%9A%B1%E8%97%8F%E4%B8%8A%E6%96%B9%E7%9A%84%E5%B0%8E%E8%A6%BD%E5%88%97/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/localhost:8000\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="http://localhost:8000/css/reset.css">
+<link rel="stylesheet" href="http://localhost:8000/css/pygments.css">
+<link rel="stylesheet" href="http://localhost:8000/css/main.css">
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/zenburn.min.css">
+    
+
+
+
+<link rel="shortcut icon"
+
+    href="http://localhost:8000/favicon.png"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="zh-TW">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            <a href="http://localhost:8000/"><div class="name">kerkerj</div></a>
+            <nav>
+                <ul>
+                    <a href="http://localhost:8000/blog/"><li>Blog</li></a>
+                    <a href="http://localhost:8000/about/"><li>About</li></a>
+                    <a href="http://localhost:8000/mac-app-list/"><li>Mac App List</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/kerkerj" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/kerkerj" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/fuzanhuang" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="http://localhost:8000/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    [Blogger] 隱藏上方的導覽列
+
+</div>
+
+                    <div class="initials"><a href="http://localhost:8000/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Thu Apr 12 2012 00:00:00 UTC">2012-04-04 00:00</div>
+                    <div class="reading-time"><div class="middot"></div>1 minute read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p><a href="http://3.bp.blogspot.com/-6NS8ZaUvZSU/T4bsGpypOdI/AAAAAAAAC4g/UDJ0EXX5jRs/s1600/%E6%9C%AA%E5%91%BD%E5%90%8D.png"><img src="http://3.bp.blogspot.com/-6NS8ZaUvZSU/T4bsGpypOdI/AAAAAAAAC4g/UDJ0EXX5jRs/s1600/%E6%9C%AA%E5%91%BD%E5%90%8D.png" alt="" /></a></p>
+
+<p>新版的Blogger佈景沒有導覽列，</p>
+
+<p>不過應該大部分的人都還是使用舊版的佈景，</p>
+
+<p>如果不是使用自訂佈景的話，內建佈景中上方總是有條導覽列，</p>
+
+<p>我個人是覺得醜醜的想把它拿掉，所以就找了一下資料，</p>
+
+<p>先到這邊：</p>
+
+<p><a href="http://1.bp.blogspot.com/-yR92RTCKlOM/T4bsH2GoQqI/AAAAAAAAC4w/be5bK2vK3-Q/s1600/%E6%9C%AA%E5%91%BD%E5%90%8D3.png"><img src="http://1.bp.blogspot.com/-yR92RTCKlOM/T4bsH2GoQqI/AAAAAAAAC4w/be5bK2vK3-Q/s640/%E6%9C%AA%E5%91%BD%E5%90%8D3.png" alt="" /></a></p>
+
+<p>改的方法有幾種：</p>
+
+<p>1.直接使用 css 的 <code>display:none;</code> 語法把導覽列隱藏，在 <code>&lt;head&gt;</code> 標籤下加入</p>
+
+<p><code>.Navbar {visibility:hidden;display:none;}</code></p>
+
+<p>有個缺點，雖然導覽列不見了，但是導覽列的區塊還是會留著。</p>
+
+<p>2.改變整個 body 的位置，將 body 往上移約 40px，產生導覽列看不見的錯覺XD (我個人使用這種)</p>
+
+<p><code>body {margin: -40px 0 0 0;}</code></p>
+
+<p>最後，導覽列不見了很棒，但是沒辦法方便的登入，怎麼辦？</p>
+
+<p><a href="http://4.bp.blogspot.com/--oXdMgP1MrA/T4bsHAKWbVI/AAAAAAAAC4k/_mXM7x55s6c/s1600/%E6%9C%AA%E5%91%BD%E5%90%8D2.png"><img src="http://4.bp.blogspot.com/--oXdMgP1MrA/T4bsHAKWbVI/AAAAAAAAC4k/_mXM7x55s6c/s640/%E6%9C%AA%E5%91%BD%E5%90%8D2.png" alt="" /></a></p>
+
+<p>加入個 POWER BY BLOGGER 吧，按下去就可以登入了XD</p>
+
+                <br>
+                <p><a href="http://localhost:8000/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/localhost:8000\/blog\/blogger-%E9%9A%B1%E8%97%8F%E4%B8%8A%E6%96%B9%E7%9A%84%E5%B0%8E%E8%A6%BD%E5%88%97\/';
+    var disqus_title = '[Blogger] 隱藏上方的導覽列';
+    var disqus_url = 'http:\/\/localhost:8000\/blog\/blogger-%E9%9A%B1%E8%97%8F%E4%B8%8A%E6%96%B9%E7%9A%84%E5%B0%8E%E8%A6%BD%E5%88%97\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer">
+    <div class="">
+        <ul>
+            <li>© 2010 - 2012 kerkerj. powerd by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a>. Theme: <a href="https://github.com/kerkerj/cocoa-hugo-theme">kerkerj-cocoa-hugo-theme</a>, modified from <a href="https://github.com/nishanths/cocoa-hugo-theme">cocoa</a>.</li>
+        </ul>
+    </div>
+</section>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-45583907-2");
+    pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+

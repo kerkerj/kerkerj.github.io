@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="YOLO~">
+
+<base href="http://localhost:8000/">
+<title>
+
+
+     [Swift-d21] - 實戰開發 - TODOList - 前置設定 
+
+</title>
+<link rel="canonical" href="http://localhost:8000/blog/swift-d21---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---%E5%89%8D%E7%BD%AE%E8%A8%AD%E5%AE%9A/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/localhost:8000\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="http://localhost:8000/css/reset.css">
+<link rel="stylesheet" href="http://localhost:8000/css/pygments.css">
+<link rel="stylesheet" href="http://localhost:8000/css/main.css">
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/zenburn.min.css">
+    
+
+
+
+<link rel="shortcut icon"
+
+    href="http://localhost:8000/favicon.png"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="zh-TW">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            <a href="http://localhost:8000/"><div class="name">kerkerj</div></a>
+            <nav>
+                <ul>
+                    <a href="http://localhost:8000/blog/"><li>Blog</li></a>
+                    <a href="http://localhost:8000/about/"><li>About</li></a>
+                    <a href="http://localhost:8000/mac-app-list/"><li>Mac App List</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/kerkerj" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/kerkerj" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/fuzanhuang" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="http://localhost:8000/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    [Swift-d21] - 實戰開發 - TODOList - 前置設定
+
+</div>
+
+                    <div class="initials"><a href="http://localhost:8000/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Tue Oct 21 2014 00:00:00 UTC">2014-10-10 00:00</div>
+                    <div class="reading-time"><div class="middot"></div>1 minute read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p><a href="https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day21">Github link</a></p>
+
+<p>首先在開始寫這隻 app 前，</p>
+
+<p>我們要先定義好程式大致上的流程</p>
+
+<p>基本上接下來的程式碼都不會用到 storyboard</p>
+
+<p>只會用到程式 + xib</p>
+
+<p>程式的流程大致上是使用 Navigation controller 來控制 view 的轉換</p>
+
+<p>第一頁 - tableView 顯示 todo items list</p>
+
+<p><img src="http://goo.gl/RKH85d" alt="image" /></p>
+
+<p>點進子項目可以觀看內容，進到子頁後可以編輯，</p>
+
+<p>編輯後就即可存檔</p>
+
+<p>新增項目則在主頁的右上角 &ldquo;Add&rdquo; 可以新增</p>
+
+<p>我們會先從建立假的資料開始，也就是我會先刻出程式的流程</p>
+
+<p>先不接 API</p>
+
+<p>實際寫出運作流程後，再加上 API 操作的部分</p>
+
+<p>因此今天的進度就先開一個新專案，將基本的 Navigation + tableView 建立起來吧:</p>
+
+<p>首先建立一個新專案</p>
+
+<p>再來到 project settings</p>
+
+<p>將 Main Interface 及 Launch Screen file 拿掉</p>
+
+<p>並將 deploy target 設成 7.1 (反正用到的程式碼都一樣~ 沒有特別使用 8.0 的 lib)</p>
+
+<p>設定 device orientation - 只限定直的</p>
+
+<p><img src="http://goo.gl/xQ6m25" alt="image" /></p>
+
+<p>接著就來編輯 AppDelegate.swift</p>
+
+<p>建立一個 NavigationController + ViewController</p>
+
+<pre><code class="language-swift">@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+
+    var window: UIWindow?
+    var navigationController: UINavigationController?
+    var viewController: ViewController?
+
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -&gt; Bool {
+        // Override point for customization after application launch.
+        
+        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        self.window?.backgroundColor = UIColor.whiteColor()
+        
+        self.viewController = ViewController()
+        self.viewController?.title = &quot;TODO List&quot;
+        
+        self.navigationController = UINavigationController(rootViewController: self.viewController!)
+        
+        self.window?.makeKeyAndVisible()
+        self.window?.rootViewController = navigationController
+        
+        return true
+    }
+</code></pre>
+
+<p>就是之前有用到的程式碼，稍作改寫</p>
+
+<p>再來到 ViewController 中, 將背景色稍改一些</p>
+
+<pre><code>override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        
+        self.view.backgroundColor = UIColor.yellowColor()
+    }
+</code></pre>
+
+<p>最後將 storyboard 以及 launchScreen.xib 刪掉</p>
+
+<p>執行程式，就 OK 囉！</p>
+
+<p><img src="http://goo.gl/n1T0zv" alt="image" /></p>
+
+                <br>
+                <p><a href="http://localhost:8000/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/localhost:8000\/blog\/swift-d21---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---%E5%89%8D%E7%BD%AE%E8%A8%AD%E5%AE%9A\/';
+    var disqus_title = '[Swift-d21] - 實戰開發 - TODOList - 前置設定';
+    var disqus_url = 'http:\/\/localhost:8000\/blog\/swift-d21---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---%E5%89%8D%E7%BD%AE%E8%A8%AD%E5%AE%9A\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer">
+    <div class="">
+        <ul>
+            <li>© 2010 - 2014 kerkerj. powerd by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a>. Theme: <a href="https://github.com/kerkerj/cocoa-hugo-theme">kerkerj-cocoa-hugo-theme</a>, modified from <a href="https://github.com/nishanths/cocoa-hugo-theme">cocoa</a>.</li>
+        </ul>
+    </div>
+</section>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-45583907-2");
+    pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+

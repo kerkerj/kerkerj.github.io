@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="YOLO~">
+
+<base href="http://localhost:8000/">
+<title>
+
+
+     [Swift-d12] - Basic - 基本元件 (Label, Button, UIColor, 文字輸入框) 
+
+</title>
+<link rel="canonical" href="http://localhost:8000/blog/swift-d12---basic---%E5%9F%BA%E6%9C%AC%E5%85%83%E4%BB%B6-label-button-uicolor-%E6%96%87%E5%AD%97%E8%BC%B8%E5%85%A5%E6%A1%86/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/localhost:8000\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="http://localhost:8000/css/reset.css">
+<link rel="stylesheet" href="http://localhost:8000/css/pygments.css">
+<link rel="stylesheet" href="http://localhost:8000/css/main.css">
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/zenburn.min.css">
+    
+
+
+
+<link rel="shortcut icon"
+
+    href="http://localhost:8000/favicon.png"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="zh-TW">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            <a href="http://localhost:8000/"><div class="name">kerkerj</div></a>
+            <nav>
+                <ul>
+                    <a href="http://localhost:8000/blog/"><li>Blog</li></a>
+                    <a href="http://localhost:8000/about/"><li>About</li></a>
+                    <a href="http://localhost:8000/mac-app-list/"><li>Mac App List</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/kerkerj" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/kerkerj" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/fuzanhuang" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="http://localhost:8000/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    [Swift-d12] - Basic - 基本元件 (Label, Button, UIColor, 文字輸入框)
+
+</div>
+
+                    <div class="initials"><a href="http://localhost:8000/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Sun Oct 12 2014 00:00:00 UTC">2014-10-10 00:00</div>
+                    <div class="reading-time"><div class="middot"></div>1 minute read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p>今天來放一些基本的元件:</p>
+
+<p>放入一個文字輸入框、文字標簽、按鈕，</p>
+
+<p>在文字框輸入一些字後，按下按鈕後，會在文字標簽顯示剛剛輸入的內容：</p>
+
+<p>首先使用右下角的 Object library 中將上述三種元件拉到 storyborad 中</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-12%2018.37.11.png" alt="image" /></p>
+
+<p>圖中依順序是文字標簽、文字輸入框、按鈕</p>
+
+<p>接著我們要使用到的文件是文字標簽以及文字輸入框，另外要將按鈕加入事件</p>
+
+<p>因此程式的流程是:</p>
+
+<p>按下按鈕後-&gt; 執行按鈕事件
+    -&gt; 抓到文字輸入框的輸入內容
+    -&gt; 將文字標簽的內容改變成文字輸入框的內容</p>
+
+<p>因此先使用昨天的方式，將文字標簽及文字輸入框拉到 ViewController 中以便使用它們，在圖中的程式碼 12, 13 行：</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-12%2018.40.48.png" alt="image" /></p>
+
+<p>這樣我們就可以控制文字標簽的文字以及拿到輸入框的文字了</p>
+
+<p>再來就是最重要的按鈕事件了!</p>
+
+<p>一樣使用 ctrl + 拖曳的方式將按鈕拉到程式碼中，但是這次是要選擇 「IBAction」，是事件的意思:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-12%2018.42.57.png" alt="image" /></p>
+
+<p>接著就會產生出一段 function:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-12%2018.43.05.png" alt="image" /></p>
+
+<p>名為 titleButton, 我們在方法中輸入一行程式碼:</p>
+
+<pre><code class="language-swift">titleLabel.text = titleField.text
+</code></pre>
+
+<p>意思就是將文字標簽的字改成文字輸入框的文字</p>
+
+<p>接著我們就把程式跑起來吧!</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-12%2018.46.14.png" alt="image" /></p>
+
+<p>在文字框中輸入文字，按下按鈕，標簽就可以變文字了!</p>
+
+                <br>
+                <p><a href="http://localhost:8000/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/localhost:8000\/blog\/swift-d12---basic---%E5%9F%BA%E6%9C%AC%E5%85%83%E4%BB%B6-label-button-uicolor-%E6%96%87%E5%AD%97%E8%BC%B8%E5%85%A5%E6%A1%86\/';
+    var disqus_title = '[Swift-d12] - Basic - 基本元件 (Label, Button, UIColor, 文字輸入框)';
+    var disqus_url = 'http:\/\/localhost:8000\/blog\/swift-d12---basic---%E5%9F%BA%E6%9C%AC%E5%85%83%E4%BB%B6-label-button-uicolor-%E6%96%87%E5%AD%97%E8%BC%B8%E5%85%A5%E6%A1%86\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer">
+    <div class="">
+        <ul>
+            <li>© 2010 - 2014 kerkerj. powerd by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a>. Theme: <a href="https://github.com/kerkerj/cocoa-hugo-theme">kerkerj-cocoa-hugo-theme</a>, modified from <a href="https://github.com/nishanths/cocoa-hugo-theme">cocoa</a>.</li>
+        </ul>
+    </div>
+</section>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-45583907-2");
+    pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+

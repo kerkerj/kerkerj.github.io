@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="YOLO~">
+
+<base href="http://localhost:8000/">
+<title>
+
+
+     [Swift-day25] - 實戰開發 - TODOList - Update View 
+
+</title>
+<link rel="canonical" href="http://localhost:8000/blog/swift-day25---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---update-view/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/localhost:8000\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="http://localhost:8000/css/reset.css">
+<link rel="stylesheet" href="http://localhost:8000/css/pygments.css">
+<link rel="stylesheet" href="http://localhost:8000/css/main.css">
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/zenburn.min.css">
+    
+
+
+
+<link rel="shortcut icon"
+
+    href="http://localhost:8000/favicon.png"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="zh-TW">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            <a href="http://localhost:8000/"><div class="name">kerkerj</div></a>
+            <nav>
+                <ul>
+                    <a href="http://localhost:8000/blog/"><li>Blog</li></a>
+                    <a href="http://localhost:8000/about/"><li>About</li></a>
+                    <a href="http://localhost:8000/mac-app-list/"><li>Mac App List</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/kerkerj" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/kerkerj" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/fuzanhuang" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="http://localhost:8000/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    [Swift-day25] - 實戰開發 - TODOList - Update View
+
+</div>
+
+                    <div class="initials"><a href="http://localhost:8000/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Sat Oct 25 2014 00:00:00 UTC">2014-10-10 00:00</div>
+                    <div class="reading-time"><div class="middot"></div>1 minute read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p><a href="https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day27">Github link</a></p>
+
+<p>(忘了是放在哪個 branch 了 Orz)</p>
+
+<p>接下來就要進到最後一個 Update View 了!</p>
+
+<p>什麼時候會進到 Update View 呢？</p>
+
+<p>是在顯示單筆 TODO 的時候的右上方按鈕:</p>
+
+<p><img src="http://goo.gl/tNOyRs" alt="image" /></p>
+
+<p>我們今天只會實作 view 的部分, fakeData 就不實作了</p>
+
+<p>因為接下來就要直接接 API 啦</p>
+
+<p>也不需要更新 fakeData 了 :P</p>
+
+<p>要加入 Edit 這個按鈕</p>
+
+<p>要到 ShowViewController, 加入 UIBarButtonItem</p>
+
+<p>並且讓其吃到一個方法，可以讓 Navigation 往下一個 View 前進:</p>
+
+<pre><code class="language-swift">var id: String!
+
+override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        indexLabel.text = &quot;\(index)&quot;
+        contentLabel.text = content
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: &quot;Edit&quot;, style: UIBarButtonItemStyle.Bordered, target: self, action: Selector(&quot;editTodo&quot;))
+    }
+</code></pre>
+
+<p>p.s. 先前忘記加了 id, 現在補回來 XD</p>
+
+<p>先新增一個 Edit 按鈕後</p>
+
+<p>並實作 editTodo</p>
+
+<pre><code>func editTodo() {
+        var editViewContronller = UpdateViewController(nibName: &quot;UpdateViewController&quot;, bundle: nil)
+        editViewContronller.from = &quot;edit&quot;
+        editViewContronller.content = content
+        editViewContronller.index = index
+        
+        self.navigationController?.pushViewController(editViewContronller, animated: true)
+    }
+</code></pre>
+
+<p>由於要先指定資料</p>
+
+<p>因此再到 UpdateViewController 中再加入兩個參數</p>
+
+<pre><code>    var index: Int!
+    var content: String!
+</code></pre>
+
+<p>最後在 UpdateController 的 viewDidLoad 中, 加入 add or edit 的判斷</p>
+
+<pre><code>override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: &quot;Save&quot;, style: UIBarButtonItemStyle.Done, target: self, action: Selector(&quot;save&quot;))
+			
+		  if self.from == &quot;edit&quot; {
+            self.textField.text = content
+        }
+        
+    }
+</code></pre>
+
+<p>這時候先前設定的 &ldquo;from&rdquo; 參數就很有用了~</p>
+
+<p>就可以根據是從 add 的 view 來的或者是 edit 的 view 來的</p>
+
+<p>以便判定要不要 append 舊資料上去</p>
+
+<p>此外，也因為如此</p>
+
+<p>所以 UpdateViewController 的 save 方法也要判斷</p>
+
+<pre><code>        if from == &quot;add&quot; {
+            delegate.addData(&quot;g6&quot;, content: self.textField.text)
+            self.navigationController?.popToRootViewControllerAnimated(true)
+        } else if from == &quot;edit&quot; {
+            println(&quot;Save edited data&quot;)
+        }
+</code></pre>
+
+<p>不過因為今天我們不做資料更新</p>
+
+<p>因此流程面大致上到此告一個段落</p>
+
+<p>接下來就要串 API 了!</p>
+
+                <br>
+                <p><a href="http://localhost:8000/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/localhost:8000\/blog\/swift-day25---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---update-view\/';
+    var disqus_title = '[Swift-day25] - 實戰開發 - TODOList - Update View';
+    var disqus_url = 'http:\/\/localhost:8000\/blog\/swift-day25---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---update-view\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer">
+    <div class="">
+        <ul>
+            <li>© 2010 - 2014 kerkerj. powerd by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a>. Theme: <a href="https://github.com/kerkerj/cocoa-hugo-theme">kerkerj-cocoa-hugo-theme</a>, modified from <a href="https://github.com/nishanths/cocoa-hugo-theme">cocoa</a>.</li>
+        </ul>
+    </div>
+</section>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-45583907-2");
+    pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="YOLO~">
+
+<base href="http://localhost:8000/">
+<title>
+
+
+     [Swift-d27] - 實戰開發 - TODOList - API 2 讀取清單資料 
+
+</title>
+<link rel="canonical" href="http://localhost:8000/blog/swift-d27---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---api-2-%E8%AE%80%E5%8F%96%E6%B8%85%E5%96%AE%E8%B3%87%E6%96%99/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/localhost:8000\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="http://localhost:8000/css/reset.css">
+<link rel="stylesheet" href="http://localhost:8000/css/pygments.css">
+<link rel="stylesheet" href="http://localhost:8000/css/main.css">
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/zenburn.min.css">
+    
+
+
+
+<link rel="shortcut icon"
+
+    href="http://localhost:8000/favicon.png"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="zh-TW">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            <a href="http://localhost:8000/"><div class="name">kerkerj</div></a>
+            <nav>
+                <ul>
+                    <a href="http://localhost:8000/blog/"><li>Blog</li></a>
+                    <a href="http://localhost:8000/about/"><li>About</li></a>
+                    <a href="http://localhost:8000/mac-app-list/"><li>Mac App List</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/kerkerj" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/kerkerj" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/fuzanhuang" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="http://localhost:8000/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    [Swift-d27] - 實戰開發 - TODOList - API 2 讀取清單資料
+
+</div>
+
+                    <div class="initials"><a href="http://localhost:8000/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Mon Oct 27 2014 00:00:00 UTC">2014-10-10 00:00</div>
+                    <div class="reading-time"><div class="middot"></div>2 minutes read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p><a href="https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day27">Github link</a></p>
+
+<p>(某一天把兩天份的 commit 在一起了忘了開 branch 了&hellip;)</p>
+
+<p>接下來就要來寫 api utility 了</p>
+
+<p>我們先開一個 swift 檔案 <code>RestApi.swift</code></p>
+
+<pre><code class="language-swift">import Foundation
+
+class RestApi {
+	var API_key = &quot;55665566&quot;
+	var getListUrl = NSURL(string: &quot;http://192.168.1.158:3000/user/kerkerj/todos&quot;)
+}
+</code></pre>
+
+<p>先做好前置設定，因為 API 有上簡單的小鎖，因此要先寫起來</p>
+
+<p>還有 request 的網址</p>
+
+<p>以下是 get list 的範例:</p>
+
+<pre><code>func getTodoList(completionHandler: ((NSArray!, NSError!) -&gt; Void)!) {
+        var session = NSURLSession.sharedSession()
+        
+        var request = NSMutableURLRequest(URL: self.getListUrl!)
+        request.HTTPMethod = &quot;GET&quot;
+        request.addValue(&quot;application/json&quot;, forHTTPHeaderField: &quot;Content-Type&quot;)
+        request.addValue(self.API_key, forHTTPHeaderField: &quot;API-Key&quot;)
+        
+        let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -&gt; Void in
+            if (error != nil) {
+                return completionHandler(nil, error)
+            }
+            
+            var error: NSError?
+            let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &amp;error) as NSArray
+            
+            if (error != nil) {
+                return completionHandler(nil, error)
+            } else {
+                return completionHandler(json, nil)
+            }
+        })
+        
+        task.resume()
+    }
+</code></pre>
+
+<p>我們使用內建的 NSURLSession.sharedSession 以及 NSMutableURLRequest 來建立 request</p>
+
+<p>裡面就是設定一些 header 以及 API-Key</p>
+
+<p>另外在資料回來後，return callback</p>
+
+<p>在這邊有 async，寫隔壁棚的 api 回過頭來看這個感覺很熟悉 XD</p>
+
+<p>設定好 API 後</p>
+
+<p>回到顯示 todo 清單的主頁程式碼</p>
+
+<p>由於我們希望能夠在 view 每次被呼叫時，都可以對 API server 做存取</p>
+
+<p>因此必須要將 getTodoList 寫在該方法裏</p>
+
+<p>該方法為 override func viewWillAppear(animated: Bool) {}</p>
+
+<p>先建立一個 api 物件</p>
+
+<pre><code>var api: RestApi = RestApi()
+</code></pre>
+
+<p>將原本的假資料刪除或註解, 不過資料物件名稱就繼續用 fakeData XD</p>
+
+<pre><code>//        fakeData = [
+//            [&quot;id&quot;: &quot;1&quot;, &quot;content&quot;: &quot;A&quot;],
+//            [&quot;id&quot;: &quot;2&quot;, &quot;content&quot;: &quot;B&quot;],
+//            [&quot;id&quot;: &quot;3&quot;, &quot;content&quot;: &quot;C&quot;],
+//        ]
+</code></pre>
+
+<p>接著在 ViewController override 一個 viewWillAppear 的方法</p>
+
+<pre><code>override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+        
+        api.getTodoList({data, error -&gt; Void in
+            if error != nil {
+                dispatch_async(dispatch_get_main_queue(), {
+                    let alert = UIAlertView()
+                    alert.title = &quot;Yoooooooooooooooo&quot;
+                    alert.message = &quot;Get list faild, maybe check your network: \(error)&quot;
+                    alert.addButtonWithTitle(&quot;ok&quot;)
+                    alert.delegate = self
+                    alert.show()
+                    println(error)
+                })
+            }
+            
+            if (data != nil) {
+                
+                var tmpArr = [[String: String]]()
+                
+                for item in data {
+                    var _id = item[&quot;_id&quot;] as String
+                    var content = item[&quot;content&quot;] as String
+                    var dic = [String: String]()
+                    
+                    dic[&quot;_id&quot;] = _id
+                    dic[&quot;content&quot;] = content
+                    
+                    tmpArr.append(dic)
+                }
+
+                self.arr = tmpArr
+                
+                println(self.arr)
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    // must be &quot;tableView!&quot; not &quot;tableView?&quot;
+                    self.tableView!.reloadData()
+                })
+                
+            }
+        })
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            // must be &quot;tableView!&quot; not &quot;tableView?&quot;
+            self.tableView!.reloadData()
+        })
+    }
+</code></pre>
+
+<p>以上方法都是 async 的方式</p>
+
+<p>只要網路錯誤，就會直接跳一個 alert</p>
+
+<p>若有資料的話就 parse</p>
+
+<p>一併轉換成原本定義的 [[String: String]] 中</p>
+
+<p>執行看看吧!</p>
+
+<p>很明顯每次切回主頁時 api console 都會跳一行 request~</p>
+
+<p>如果使用 sync 的方式就會卡很久! 而且更新 UI 還會 crash XD</p>
+
+<p>我覺得這部分是需要好好去做處理的，在這邊的程式碼只是簡單 demo</p>
+
+<p>並沒有考慮到太多 :P</p>
+
+<p>明天繼續!</p>
+
+                <br>
+                <p><a href="http://localhost:8000/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/localhost:8000\/blog\/swift-d27---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---api-2-%E8%AE%80%E5%8F%96%E6%B8%85%E5%96%AE%E8%B3%87%E6%96%99\/';
+    var disqus_title = '[Swift-d27] - 實戰開發 - TODOList - API 2 讀取清單資料';
+    var disqus_url = 'http:\/\/localhost:8000\/blog\/swift-d27---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---api-2-%E8%AE%80%E5%8F%96%E6%B8%85%E5%96%AE%E8%B3%87%E6%96%99\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer">
+    <div class="">
+        <ul>
+            <li>© 2010 - 2014 kerkerj. powerd by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a>. Theme: <a href="https://github.com/kerkerj/cocoa-hugo-theme">kerkerj-cocoa-hugo-theme</a>, modified from <a href="https://github.com/nishanths/cocoa-hugo-theme">cocoa</a>.</li>
+        </ul>
+    </div>
+</section>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-45583907-2");
+    pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+

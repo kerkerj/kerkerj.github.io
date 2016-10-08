@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kerkerj</title>
+    <link>http://localhost:8000/categories/validator/index.xml</link>
+    <description>Recent content on kerkerj</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
+    <atom:link href="http://localhost:8000/categories/validator/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>[API-d18] - 實戰開發 - 套件模組</title>
+      <link>http://localhost:8000/blog/api-d18---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E5%A5%97%E4%BB%B6%E6%A8%A1%E7%B5%84/</link>
+      <pubDate>Sat, 18 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/api-d18---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E5%A5%97%E4%BB%B6%E6%A8%A1%E7%B5%84/</guid>
+      <description>&lt;p&gt;##會使用到的套件:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;主體:
+express - web framework
+body-parser - parse request body
+
+測試相關:
+mocha - test framework
+mocha-mongoose - 用來和 mocha 和 mongoose 中間做介接的套件
+superagent - 拿它來丟 http request
+validator - 用來驗證某個物件是否為某個型別
+expect.js - 類似 BDD 的語法，用來寫測試的
+debug - debug package
+
+DB 相關:
+mongoose - mongodb orm
+mongodb - mongodb native driver
+
+開發相關:
+nodemon - detect file change and restart server
+
+生產環境相關:
+log4js - 記錄 request log
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這是我的 package.json, 可以複製到專案目錄，然後下 &lt;code&gt;npm install&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+  &amp;quot;name&amp;quot;: &amp;quot;TODOAPI&amp;quot;,
+  &amp;quot;version&amp;quot;: &amp;quot;1.0.0&amp;quot;,
+  &amp;quot;description&amp;quot;: &amp;quot;&amp;quot;,
+  &amp;quot;main&amp;quot;: &amp;quot;app.js&amp;quot;,
+  &amp;quot;scripts&amp;quot;: {
+    &amp;quot;start&amp;quot;: &amp;quot;node ./bin/server.js env=development&amp;quot;,
+    &amp;quot;test&amp;quot;: &amp;quot;./node_modules/mocha/bin/mocha&amp;quot;,
+    &amp;quot;test-detail&amp;quot;: &amp;quot;./node_modules/mocha/bin/mocha --reporter list&amp;quot;,
+    &amp;quot;stop&amp;quot;: &amp;quot;pkill -lf server.js&amp;quot;
+  },
+  &amp;quot;author&amp;quot;: &amp;quot;kerkerj&amp;quot;,
+  &amp;quot;license&amp;quot;: &amp;quot;ISC&amp;quot;,
+  &amp;quot;dependencies&amp;quot;: {
+    &amp;quot;body-parser&amp;quot;: &amp;quot;^1.9.0&amp;quot;,
+    &amp;quot;debug&amp;quot;: &amp;quot;^2.0.0&amp;quot;,
+    &amp;quot;expect.js&amp;quot;: &amp;quot;^0.3.1&amp;quot;,
+    &amp;quot;express&amp;quot;: &amp;quot;^4.9.5&amp;quot;,
+    &amp;quot;log4js&amp;quot;: &amp;quot;^0.6.21&amp;quot;,
+    &amp;quot;mocha&amp;quot;: &amp;quot;^1.21.4&amp;quot;,
+    &amp;quot;mocha-mongoose&amp;quot;: &amp;quot;^1.0.1&amp;quot;,
+    &amp;quot;mongodb&amp;quot;: &amp;quot;^1.4.19&amp;quot;,
+    &amp;quot;mongoose&amp;quot;: &amp;quot;^3.8.17&amp;quot;,
+    &amp;quot;superagent&amp;quot;: &amp;quot;^0.20.0&amp;quot;,
+    &amp;quot;validator&amp;quot;: &amp;quot;^3.19.1&amp;quot;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;##安裝套件，及全域套件 mocha&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// in project folder
+$ npm install express body-parser mocha mocha-mongoose superagent validator expect.js debug mongoose mongodb log4js -save 
+$ npm install -g nodemon
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;##各個套件簡單設定&lt;/p&gt;
+
+&lt;p&gt;接下來會針對一些套件作說明，但是由於可能有些人不懂整個專案的運作，因此下面看看就好，之後實作上有問題可以再回來看。&lt;/p&gt;
+
+&lt;p&gt;##Nodemon 的作用&lt;/p&gt;
+
+&lt;p&gt;範例:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ nodemon ./bin/server.js
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;就可以放著不管它了~ 只要檔案有變動，就會自動重開 server&lt;/p&gt;
+
+&lt;p&gt;##使用 logger - log4js&lt;/p&gt;
+
+&lt;p&gt;設定 logger - log4js, 並將 log 寫入到 logs/access.log 裏&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// Set logger
+var log4js = require(&#39;log4js&#39;);
+log4js.configure({
+    appenders: [
+        { type: &#39;console&#39; }, //控制台輸出
+        {
+            type: &#39;file&#39;, //文件輸出
+            filename: &#39;logs/access.log&#39;,
+            maxLogSize: 20000000, // 20 MB
+            backups: 10,
+            category: &#39;normal&#39;
+        }
+    ],
+    replaceConsole: true
+});
+
+var logger = log4js.getLogger(&#39;normal&#39;);
+logger.setLevel(&#39;INFO&#39;);
+
+app.use(log4js.connectLogger(logger, {level: &#39;auto&#39;, format:&#39;:method :url&#39;}));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://blog.fens.me/nodejs-log4js/&#34;&gt;node log4s&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;##使用 body-parser 處理 request 的資料&lt;/p&gt;
+
+&lt;p&gt;加入 middleware&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;app.use( bodyParser.json() );
+app.use( bodyParser.urlencoded({ extended: true }) );
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;需要加入 { extended: true/false }, 否則會 warning:&lt;/p&gt;
+
+&lt;p&gt;body-parser deprecated undefined extended: provide extended&lt;/p&gt;
+
+&lt;p&gt;如果要接收 json request&lt;/p&gt;
+
+&lt;p&gt;client 端在 Header 中必須先設定 &amp;ldquo;Content-type: applciation/json&amp;rdquo;&lt;/p&gt;
+
+&lt;p&gt;才能夠在 router 中使用 &lt;code&gt;req.body&lt;/code&gt; 拿到 json 值&lt;/p&gt;
+
+&lt;p&gt;##測試套件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mocha - 專案
+expect.js - 專案
+superagent - 專案
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;測試流程 -&lt;/p&gt;
+
+&lt;p&gt;先跑 server 起來，透過自動化程式自動丟 request 給 server，測試結束&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ npm start
+$ mocha
+$ npm stop
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;所以必須先在 package.json 中設定好 script&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+	(...)
+	&amp;quot;scripts&amp;quot;: {
+      &amp;quot;start&amp;quot;: &amp;quot;node ./bin/server.js&amp;quot;,
+      &amp;quot;test&amp;quot;: &amp;quot;mocha&amp;quot;,
+      &amp;quot;stop&amp;quot;: &amp;quot;pkill -lf server.js&amp;quot;
+  },
+  (...)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;由於我將啟動 server 的 script 放在 bin 資料夾裡，因此&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;npm start&lt;/code&gt; 的 script 就會執行:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;node ./bin/server.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;npm stop&lt;/code&gt; 的話，用到了 *nix 的指令，會先到 process list 中找到和 server.js 有關的 process，然後 kill process (&lt;code&gt;pkill&lt;/code&gt;)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;pkill -lf server.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;跑測試的話，直接下 &lt;code&gt;mocha&lt;/code&gt;，在這邊我們也丟一個 script 指定給 &lt;code&gt;npm test&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;下 &lt;code&gt;npm test&lt;/code&gt; 就是等同於下 &lt;code&gt;mocha&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;上面只是大致上講解一下每個套件如何用，接下來我們會以實際的例子來說明&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

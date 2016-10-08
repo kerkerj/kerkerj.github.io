@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="YOLO~">
+
+<base href="http://localhost:8000/">
+<title>
+
+
+     [API-d11] - MongoDB - Hello World! 
+
+</title>
+<link rel="canonical" href="http://localhost:8000/blog/api-d11---mongodb---hello-world/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/localhost:8000\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="http://localhost:8000/css/reset.css">
+<link rel="stylesheet" href="http://localhost:8000/css/pygments.css">
+<link rel="stylesheet" href="http://localhost:8000/css/main.css">
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/zenburn.min.css">
+    
+
+
+
+<link rel="shortcut icon"
+
+    href="http://localhost:8000/favicon.png"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="zh-TW">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            <a href="http://localhost:8000/"><div class="name">kerkerj</div></a>
+            <nav>
+                <ul>
+                    <a href="http://localhost:8000/blog/"><li>Blog</li></a>
+                    <a href="http://localhost:8000/about/"><li>About</li></a>
+                    <a href="http://localhost:8000/mac-app-list/"><li>Mac App List</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/kerkerj" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/kerkerj" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/fuzanhuang" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="http://localhost:8000/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    [API-d11] - MongoDB - Hello World!
+
+</div>
+
+                    <div class="initials"><a href="http://localhost:8000/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Sat Oct 11 2014 00:00:00 UTC">2014-10-10 00:00</div>
+                    <div class="reading-time"><div class="middot"></div>2 minutes read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p>今天先講在 Server 中如何操作 MongoDB</p>
+
+<p>一樣開啟虛擬機，</p>
+
+<p>我們在先前已經有先安裝過 MongoDB 了，因此，在 Ubuntu Server 中預設是開機啟動的</p>
+
+<p>登入虛擬機吧~</p>
+
+<p>登入虛擬機後，我們要進入 MongoDB，必須使用 <code>mongo</code> 這個 MongoDB Shell</p>
+
+<pre><code>$ mongo
+MongoDB shell version: 2.6.4
+connecting to: test
+Welcome to the MongoDB shell.
+For interactive help, type &quot;help&quot;.
+For more comprehensive documentation, see
+	http://docs.mongodb.org/
+Questions? Try the support group
+	http://groups.google.com/group/mongodb-user
+&gt;  
+</code></pre>
+
+<p>此時會發現輸入指令的地方變成了 <code>&gt;</code> 表示我們已經在 mongodb 裡面了</p>
+
+<p>為什麼不需要帳號密碼即可進入 MongoDB 呢，因為 MongoDB 預設是不需要做登入的</p>
+
+<p>並且加上預設只能由本機存取，也就是說，外部連入的 IP 是進不了 MongoDB 的</p>
+
+<p>這部分後面會再作說明。</p>
+
+<p>傳統的 Table 在 MongoDB 中，稱之為 Collection</p>
+
+<p>一筆 record 在 MongoDB 中，稱之為 document</p>
+
+<p>進入 MongoDB 後，</p>
+
+<p>就可以簡單操作一些指令：</p>
+
+<p>查詢所有的 DB:</p>
+
+<pre><code>&gt; show databases;
+admin  (empty)
+local  0.078GB
+</code></pre>
+
+<p>切換 DB</p>
+
+<pre><code>&gt; use test;
+</code></pre>
+
+<p><code>use DBNAME</code> 若 DBNAME 不存在於 MongoDB 中的話，</p>
+
+<p>等同於建立一個新的 DB，意思就是我們不需要下 &lsquo;建立 DB&rsquo; 這個指令，</p>
+
+<p>直接 <code>use</code> 就是一個新的 DB 了，不過這個 DB 會直到有 Collection 被新增才算真正的被建立</p>
+
+<p>意即如果我們 use 了一個新的 DB，但是並沒有做任何新增 Collection 的動作就離開，</p>
+
+<p>這個 DB 也不會被建立起來</p>
+
+<p>當我們使用 <code>use DBNAME</code> 進入 DB 後：</p>
+
+<p>###新增 Collection</p>
+
+<pre><code>&gt; db.createCollection(&quot;TestCollection&quot;)
+{ &quot;ok&quot; : 1 }
+</code></pre>
+
+<p>###CRUD 操作</p>
+
+<p>此時 Collection &ldquo;TestCollection&rdquo; 就被建立了，
+可以使用:</p>
+
+<p>####新增資料:</p>
+
+<p>example: <code>db.TestCollection.insert(DATA);</code></p>
+
+<p>DATA 就是 javascript 的 array map</p>
+
+<pre><code>&gt; db.TestCollection.insert({data: &quot;test_data&quot;, num: 2, arr: [&quot;arr1&quot;, &quot;arr2&quot;, &quot;arr3&quot;]});
+</code></pre>
+
+<p>####查詢資料</p>
+
+<p>example: <code>db.TestCollection.find(WHERE_CONDITION);</code></p>
+
+<pre><code>&gt; db.TestCollection.find({data: &quot;test_data&quot;});
+{ &quot;_id&quot; : ObjectId(&quot;5430497db94bb4afe2f8b387&quot;), &quot;data&quot; : &quot;test_data&quot;, &quot;num&quot; : 2, &quot;arr&quot; : [ &quot;arr1&quot;, &quot;arr2&quot;, &quot;arr3&quot; ] }
+</code></pre>
+
+<p>p.s. 每插入一筆資料，MongoDB 預設都會給訂一組 ObjectId</p>
+
+<p>####查詢所有資料</p>
+
+<pre><code>&gt; db.TestCollection.find();
+{ &quot;_id&quot; : ObjectId(&quot;5430497db94bb4afe2f8b387&quot;), &quot;data&quot; : &quot;test_data&quot;, &quot;num&quot; : 2, &quot;arr&quot; : [ &quot;arr1&quot;, &quot;arr2&quot;, &quot;arr3&quot; ] }
+</code></pre>
+
+<p>####修改資料</p>
+
+<p>example: <code>db.TestCollection.update(WHERE_CONDITION, SET);</code></p>
+
+<pre><code>&gt; db.TestCollection.update({data: &quot;test_data&quot;}, { $set: {num: 3} });
+WriteResult({ &quot;nMatched&quot; : 1, &quot;nUpserted&quot; : 0, &quot;nModified&quot; : 1 })
+
+// 查看 num 是否從 2 變 3 了
+&gt; db.TestCollection.find({data: &quot;test_data&quot;});
+{ &quot;_id&quot; : ObjectId(&quot;5430497db94bb4afe2f8b387&quot;), &quot;data&quot; : &quot;test_data&quot;, &quot;num&quot; : 3, &quot;arr&quot; : [ &quot;arr1&quot;, &quot;arr2&quot;, &quot;arr3&quot; ] }
+</code></pre>
+
+<p>####刪除資料</p>
+
+<p>exmaple: <code>db.TestCollection.remove(WHERE_CONDITION);</code></p>
+
+<pre><code>&gt; db.TestCollection.remove({data: &quot;test_data&quot;});
+</code></pre>
+
+<p>###刪除 Collection</p>
+
+<pre><code>&gt; db.TestCollection.drop();
+</code></pre>
+
+<p>###查詢有哪些 Collection</p>
+
+<pre><code>&gt; show collections;
+</code></pre>
+
+<p>###砍掉目前所在的整個 DB:</p>
+
+<pre><code>&gt; use test;
+&gt; db.dropDatabase();
+{ &quot;dropped&quot; : &quot;test&quot;, &quot;ok&quot; : 1 }
+</code></pre>
+
+<p>tips: 在 mongo shell 裡有自動補完的功能，可以按下 tab 來查看有什麼方法可以用</p>
+
+<p>ctrl-D 離開 Mongo Shell</p>
+
+<p><a href="http://docs.mongodb.org/manual/">MongoDB 官網文件</a>非常詳細，可以多看看</p>
+
+<p>明天會用 Node.js 的 MongoDB driver 來操作 MongoDB!</p>
+
+                <br>
+                <p><a href="http://localhost:8000/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/localhost:8000\/blog\/api-d11---mongodb---hello-world\/';
+    var disqus_title = '[API-d11] - MongoDB - Hello World!';
+    var disqus_url = 'http:\/\/localhost:8000\/blog\/api-d11---mongodb---hello-world\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer">
+    <div class="">
+        <ul>
+            <li>© 2010 - 2014 kerkerj. powerd by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a>. Theme: <a href="https://github.com/kerkerj/cocoa-hugo-theme">kerkerj-cocoa-hugo-theme</a>, modified from <a href="https://github.com/nishanths/cocoa-hugo-theme">cocoa</a>.</li>
+        </ul>
+    </div>
+</section>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-45583907-2");
+    pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+

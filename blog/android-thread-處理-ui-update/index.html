@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="YOLO~">
+
+<base href="http://localhost:8000/">
+<title>
+
+
+     [Android] thread 處理 UI update 
+
+</title>
+<link rel="canonical" href="http://localhost:8000/blog/android-thread-%E8%99%95%E7%90%86-ui-update/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/localhost:8000\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="http://localhost:8000/css/reset.css">
+<link rel="stylesheet" href="http://localhost:8000/css/pygments.css">
+<link rel="stylesheet" href="http://localhost:8000/css/main.css">
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/zenburn.min.css">
+    
+
+
+
+<link rel="shortcut icon"
+
+    href="http://localhost:8000/favicon.png"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="zh-TW">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            <a href="http://localhost:8000/"><div class="name">kerkerj</div></a>
+            <nav>
+                <ul>
+                    <a href="http://localhost:8000/blog/"><li>Blog</li></a>
+                    <a href="http://localhost:8000/about/"><li>About</li></a>
+                    <a href="http://localhost:8000/mac-app-list/"><li>Mac App List</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/kerkerj" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/kerkerj" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/fuzanhuang" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="http://localhost:8000/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    [Android] thread 處理 UI update
+
+</div>
+
+                    <div class="initials"><a href="http://localhost:8000/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Wed Apr 18 2012 00:00:00 UTC">2012-04-04 00:00</div>
+                    <div class="reading-time"><div class="middot"></div>2 minutes read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p>不知道大家在寫 Android 用 thread 處理 UI 更新時，有沒有遇過這樣的錯誤：</p>
+
+<blockquote>
+<p>Only the original thread that created a view hierarchy can touch its views.</p>
+</blockquote>
+
+<p>通常這是因為自己產生的 thread 不能去更動到 原本 main thread 的 view</p>
+
+<p>只有 main thread 可以去動 UI，因此我們必須透過 runOnUiThread 這個方法來對 UI 做操作</p>
+
+<p>這裡以下面這個 ProgressDialog 做例子：</p>
+
+<pre><code class="language-java">package org.twgg.kerkerj;
+
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
+
+public class PDExample extends Activity implements Runnable {
+	private String pi=&quot;null&quot;;
+  private Button btn;
+  private TextView text;
+  private ProgressDialog pd;
+  
+  public void onCreate(Bundle icicle) {
+  	super.onCreate(icicle);
+    setContentView(R.layout.main);
+    
+    text = (TextView) this.findViewById(R.id.text);
+    btn = (Button) this.findViewById(R.id.btn);
+    
+    //按下 Button 則會開始運算，運算的東西放在 thread 裡
+    btn.setOnClickListener(new OnClickListener(){
+    	public void onClick(View v) {
+      	// Progress Dialog 開始跑
+        pd = ProgressDialog.show(PDExample.this, &quot;運算中&quot;, &quot;機哩咕嚕機哩咕嚕...&quot;, true, false);
+        Thread thread = new Thread(PDExample.this);
+        
+        //進入 thread
+        thread.start();
+       }
+    });
+	}
+  
+  public void run() {
+  	try {
+    	//要運算的東西放這裡
+      Thread.sleep(10000); //在這裡只是讓 thread停久一點感覺一下
+      pi = &quot;ya, we're done!&quot;;
+      
+      //Wrong!! 以下兩行會出錯, 因為這是在新的 thread 裡要求更改 UI view
+      pd.dismiss();
+      text.setText(pi);
+    } catch (InterruptedException e) {
+    	e.printStackTrace();
+    }
+  }  
+}  
+</code></pre>
+
+<p>正確的 run() 必須這樣:</p>
+
+<pre><code class="language-java">public void run() {
+    try {
+    //要運算的東西放這裡
+    Thread.sleep(10000); //在這裡只是讓 thread停久一點感覺一下
+    pi = &quot;ya, we're done!&quot;;
+    
+    runOnUiThread(new Runnable() { // Correct!! 
+        public void run() {
+            //modify View object
+        pd.dismiss();
+        text.setText(pi);
+        }
+    });
+    } catch (InterruptedException e) {
+    e.printStackTrace();
+    }  
+}
+</code></pre>
+
+<p>p.s. 之前 Google 有另外一種解法是<a href="http://www.helloandroid.com/tutorials/using-threads-and-progressdialog">用 handler 去處理 UI update</a>，</p>
+
+<p>不過既然都有 runOnUiThread 這個好用的方法就用它吧 :)</p>
+
+<p>2012/06/13續: <a href="http://blog.kerkerj.in/posts/2012/06/13/android-ui-update-2">[Android] thread 處理 UI update (2)</a></p>
+
+                <br>
+                <p><a href="http://localhost:8000/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/localhost:8000\/blog\/android-thread-%E8%99%95%E7%90%86-ui-update\/';
+    var disqus_title = '[Android] thread 處理 UI update';
+    var disqus_url = 'http:\/\/localhost:8000\/blog\/android-thread-%E8%99%95%E7%90%86-ui-update\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer">
+    <div class="">
+        <ul>
+            <li>© 2010 - 2012 kerkerj. powerd by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a>. Theme: <a href="https://github.com/kerkerj/cocoa-hugo-theme">kerkerj-cocoa-hugo-theme</a>, modified from <a href="https://github.com/nishanths/cocoa-hugo-theme">cocoa</a>.</li>
+        </ul>
+    </div>
+</section>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-45583907-2");
+    pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+

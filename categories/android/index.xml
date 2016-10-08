@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kerkerj</title>
+    <link>http://localhost:8000/categories/android/index.xml</link>
+    <description>Recent content on kerkerj</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
+    <atom:link href="http://localhost:8000/categories/android/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>[Android] thread 處理 UI update (2)</title>
+      <link>http://localhost:8000/blog/android-thread-%E8%99%95%E7%90%86-ui-update-2/</link>
+      <pubDate>Tue, 12 Jun 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/android-thread-%E8%99%95%E7%90%86-ui-update-2/</guid>
+      <description>&lt;p&gt;這是第一篇: [[Android] thread 處理 UI update]&lt;/p&gt;
+
+&lt;p&gt;在那之後自己在寫一些東西時也用到 runOnUiThread&lt;/p&gt;
+
+&lt;p&gt;不過有別的方法可以不用像 runOnUiThread 寫的比較雜亂&lt;/p&gt;
+
+&lt;p&gt;那就是用 AsyncTask , 剛剛自己也順手寫了一個 Test 放在 Github 上&lt;/p&gt;
+
+&lt;p&gt;我覺得使用 AsyncTask 可以不用處理 thread, 而且寫法上比較清楚~&lt;/p&gt;
+
+&lt;script src=&#34;https://gist.github.com/kerkerj/7367244.js&#34;&gt;&lt;/script&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Android] 安裝開發環境</title>
+      <link>http://localhost:8000/blog/android-%E5%AE%89%E8%A3%9D%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83/</link>
+      <pubDate>Wed, 18 Apr 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/android-%E5%AE%89%E8%A3%9D%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83/</guid>
+      <description>&lt;p&gt;最近電腦重裝的關係，順便把 Android 開發環境整理一下，&lt;/p&gt;
+
+&lt;p&gt;不得不說 Android 在 Eclipse 上的外掛開發的越來越不錯了！&lt;/p&gt;
+
+&lt;p&gt;Step1. 到 &lt;a href=&#34;http://oracle%20java%20se%20downloads/&#34;&gt;Oracle Java SE downloads&lt;/a&gt; 點擊 Java Platform (JDK) 並選擇作業系統&lt;/p&gt;
+
+&lt;p&gt;Step2. 安裝 &lt;a href=&#34;http://www.eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/indigosr2&#34;&gt;Eclipse IDE for Java EE Developers&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Step3. 到 &lt;a href=&#34;http://developer.android.com/&#34;&gt;Android Developers&lt;/a&gt; 下載 &lt;a href=&#34;http://developer.android.com/sdk/index.html&#34;&gt;Android SDK&lt;/a&gt; 並安裝  &lt;a href=&#34;http://4.bp.blogspot.com/-B4zRQJ_Hino/T47FNembF_I/AAAAAAAAC5w/onWCdvf2iC8/s1600/android1.png&#34;&gt;&lt;img src=&#34;http://4.bp.blogspot.com/-B4zRQJ_Hino/T47FNembF_I/AAAAAAAAC5w/onWCdvf2iC8/s640/android1.png&#34; alt=&#34;&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Step4. 安裝 ADT Plugin for Eclipse ( &lt;a href=&#34;http://developer.android.com/sdk/eclipse-adt.html#installing&#34;&gt;官方文件&lt;/a&gt; )&lt;/p&gt;
+
+&lt;p&gt;   a. 開啟 Eclipse， [Help] -&amp;gt; [Install New Software&amp;hellip;.]
+   
+   b. 點選 [Add] 輸入名稱及網址 ( APT / &lt;a href=&#34;https://dl-ssl.google.com/android/eclipse/&#34;&gt;https://dl-ssl.google.com/android/eclipse/&lt;/a&gt; )
+   
+   c. 等待 pending 結束後會看到可以勾選的 Developer Tools ，選擇 next 並 accept 開始安裝
+   
+&lt;a href=&#34;http://3.bp.blogspot.com/-QHyb2NYl9Bc/T47FOa_Pj0I/AAAAAAAAC50/Yrskz6l_VrU/s1600/android2.png&#34;&gt;&lt;img src=&#34;http://3.bp.blogspot.com/-QHyb2NYl9Bc/T47FOa_Pj0I/AAAAAAAAC50/Yrskz6l_VrU/s640/android2.png&#34; alt=&#34;&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Step5. 安裝 packages (Platforms and Other Packages)&lt;/p&gt;
+
+&lt;p&gt;   a. 從 Eclipse : [Window] -&amp;gt; [Android SDK Manager]
+   
+   b. 從 Windows : 到 Android SDK 資料夾中點擊 SDK Manager.exe
+   
+   c. 從 Linux/Mac : 到 Android SDK 的 tools 資料夾，並執行 android 指令
+   
+   選擇要開發的版本或package並安裝
+   
+&lt;a href=&#34;http://2.bp.blogspot.com/-K8t_6L2xiBs/T47FOxvM8BI/AAAAAAAAC6A/a7WIq7z-ygw/s1600/android3.png&#34;&gt;&lt;img src=&#34;http://2.bp.blogspot.com/-K8t_6L2xiBs/T47FOxvM8BI/AAAAAAAAC6A/a7WIq7z-ygw/s640/android3.png&#34; alt=&#34;&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;沒記錯的話安裝完 Eclpise 的外掛後，Eclipse 會自動跳出問你的 Android SDK 裝在哪，
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;若這時候已經安裝好 SDK 的話就可以選擇第二個選項，並指定資料夾位址&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://2.bp.blogspot.com/-6bJrhcn2SiM/T47GecGxajI/AAAAAAAAC6Q/eneUabD0cmE/s1600/android4.png&#34;&gt;&lt;img src=&#34;http://2.bp.blogspot.com/-6bJrhcn2SiM/T47GecGxajI/AAAAAAAAC6Q/eneUabD0cmE/s640/android4.png&#34; alt=&#34;&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;接著就可以寫程式了&lt;/p&gt;
+
+&lt;p&gt;開啟模擬器的話就到下圖所示新增即可&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://2.bp.blogspot.com/-aB1Eh5AFUqs/T47HFnNpO9I/AAAAAAAAC6Y/4QhPHIZZcTk/s1600/android5.png&#34;&gt;&lt;img src=&#34;http://2.bp.blogspot.com/-aB1Eh5AFUqs/T47HFnNpO9I/AAAAAAAAC6Y/4QhPHIZZcTk/s640/android5.png&#34; alt=&#34;&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Android] 遠端主機已強制關閉一個現存的連線</title>
+      <link>http://localhost:8000/blog/android-%E9%81%A0%E7%AB%AF%E4%B8%BB%E6%A9%9F%E5%B7%B2%E5%BC%B7%E5%88%B6%E9%97%9C%E9%96%89%E4%B8%80%E5%80%8B%E7%8F%BE%E5%AD%98%E7%9A%84%E9%80%A3%E7%B7%9A/</link>
+      <pubDate>Wed, 11 Apr 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/android-%E9%81%A0%E7%AB%AF%E4%B8%BB%E6%A9%9F%E5%B7%B2%E5%BC%B7%E5%88%B6%E9%97%9C%E9%96%89%E4%B8%80%E5%80%8B%E7%8F%BE%E5%AD%98%E7%9A%84%E9%80%A3%E7%B7%9A/</guid>
+      <description>&lt;p&gt;不知道大家在寫Android程式時使用實體機接PC時會不會很常出現這個錯誤&lt;/p&gt;
+
+&lt;p&gt;我個人還蠻常出現的，在測試時是非常緩慢的&lt;/p&gt;
+
+&lt;p&gt;Google了一下，找到了強者自己寫的adb.exe&lt;/p&gt;
+
+&lt;p&gt;檔案在討論串裡：&lt;a href=&#34;http://code.google.com/p/android/issues/detail?id=12141&#34;&gt;http://code.google.com/p/android/issues/detail?id=12141&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Nov 28, 2011  
+New patched version of adb (1.0.29)   
+Patch (diff) the same as early  
+adb.exe   
+478 KB Download  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Download: &lt;a href=&#34;http://android.googlecode.com/issues/attachment?aid=121410050000&amp;amp;name=adb.exe&amp;amp;token=O8Q8Mzj8XLo6-cOEE6a2H8SG4Bg%3A1334136508184&#34;&gt;adb.exe&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;下載後，到Android的SDK資料夾，進platform-tool資料夾，&lt;/p&gt;
+
+&lt;p&gt;將原本的adb.exe做備份，再將新的複製到原本的exe檔所在的地方，&lt;/p&gt;
+
+&lt;p&gt;重新啟動adb就可以了 (進DDMS重新啟動，或者重新啟動Eclipse也行)&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Android] 開機啟動與解鎖啟動</title>
+      <link>http://localhost:8000/blog/android-%E9%96%8B%E6%A9%9F%E5%95%9F%E5%8B%95%E8%88%87%E8%A7%A3%E9%8E%96%E5%95%9F%E5%8B%95/</link>
+      <pubDate>Wed, 11 Apr 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/android-%E9%96%8B%E6%A9%9F%E5%95%9F%E5%8B%95%E8%88%87%E8%A7%A3%E9%8E%96%E5%95%9F%E5%8B%95/</guid>
+      <description>&lt;p&gt;BroadcastReceiver 開機啟動與解鎖啟動&lt;/p&gt;
+
+&lt;p&gt;主要是這兩個intent:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Intent.ACTION_BOOT_COMPLETED //開機&lt;/p&gt;
+
+&lt;p&gt;Intent.ACTION_USER_PRESENT //解鎖&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;只要建立下面的 Receiver&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class MyReceiver extends BroadcastReceiver {
+    @Override
+    public void onReceive(final Context context, final Intent intent) {
+        final String action = intent.getAction();
+        if (Intent.ACTION_BOOT_COMPLETED.equals(action)) {
+      // TODO 開機啟動
+        } else if (Intent.ACTION_USER_PRESENT.equals(action)) {
+            // TODO 解鎖啟動
+        }
+    }   
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;並且在 AndroidManifest.xml 裡宣告就可以了&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Android] AlertDialog with Edittext</title>
+      <link>http://localhost:8000/blog/android-alertdialog-with-edittext/</link>
+      <pubDate>Tue, 30 Aug 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/android-alertdialog-with-edittext/</guid>
+      <description>&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;  AlertDialog.Builder alert = new AlertDialog.Builder(this);  
+      
+    alert.setTitle(&amp;quot;Title&amp;quot;);  
+    alert.setMessage(&amp;quot;Message&amp;quot;);  
+    // Set an EditText view to get user input   
+    final EditText input = new EditText(this);  
+    alert.setView(input);  
+      
+    alert.setPositiveButton(&amp;quot;Ok&amp;quot;, new DialogInterface.OnClickListener() {  
+     public void onClick(DialogInterface dialog, int whichButton) {  
+     String value = input.getText();  
+     Do something with value!  
+     }  
+    });  
+      
+    alert.setNegativeButton(&amp;quot;Cancel&amp;quot;, new DialogInterface.OnClickListener() {  
+     public void onClick(DialogInterface dialog, int whichButton) {  
+     // Canceled.  
+     }  
+    });  
+      
+    alert.show();  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;就這樣XD&lt;/p&gt;
+
+&lt;p&gt;ref: &lt;a href=&#34;http://www.androidsnippets.com/prompt-user-input-with-an-alertdialog&#34;&gt;http://www.androidsnippets.com/prompt-user-input-with-an-alertdialog&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Android] 移除 Activity的 Title bar</title>
+      <link>http://localhost:8000/blog/android-%E7%A7%BB%E9%99%A4-activity%E7%9A%84-title-bar/</link>
+      <pubDate>Mon, 06 Jun 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/android-%E7%A7%BB%E9%99%A4-activity%E7%9A%84-title-bar/</guid>
+      <description>&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;activity android:name=&amp;quot;.MyMainClass&amp;quot;
+              android:label=&amp;quot;@string/app_name&amp;quot;
+              android:theme=&amp;quot;@android:style/Theme.NoTitleBar&amp;quot;&amp;gt;
+&amp;lt;/activity&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;style/Theme.NoTitleBar&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Android] 樣式,主題開發雜記</title>
+      <link>http://localhost:8000/blog/android-%E6%A8%A3%E5%BC%8F%E4%B8%BB%E9%A1%8C%E9%96%8B%E7%99%BC%E9%9B%9C%E8%A8%98/</link>
+      <pubDate>Sat, 28 May 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/android-%E6%A8%A3%E5%BC%8F%E4%B8%BB%E9%A1%8C%E9%96%8B%E7%99%BC%E9%9B%9C%E8%A8%98/</guid>
+      <description>&lt;p&gt;就是改變Android 預設的介面,主題樣式，例如按鈕的樣子&lt;/p&gt;
+
+&lt;p&gt;(以下殘體文)&lt;br /&gt;
+1. style属性在某个空间中起作用，而theme属性则会在整个activity和application中起作用。可以用theme统一整个程序的风格，再用 style微调其中的某些风格。andorid中的某些widget并不遵守theme所定义的风格，比如button上的字。如果你在 activity甚至在application范围内使用theme，button的字还是白色的！估计是这个空间没有引用android:textColor风格，此时只能用button的style属性来改变它了。 (&lt;a href=&#34;http://blog.csdn.net/lijiecong/archive/2009/11/10/4795306.aspx&#34;&gt;引用自此&lt;/a&gt;)&lt;br /&gt;
+2. &lt;a href=&#34;http://www.moandroid.com/?p=909&#34;&gt;Android Styles &amp;amp; Themes（上）——Style&lt;/a&gt;&lt;br /&gt;
+3. &lt;a href=&#34;http://www.moandroid.com/?p=918&#34;&gt;Android Styles &amp;amp; Themes（下）——Theme&lt;/a&gt;&lt;br /&gt;
+4. &lt;a href=&#34;http://blog.csdn.net/G_rrrr/archive/2009/12/23/5056654.aspx&#34;&gt;去掉默认ACTIVITY背景图&lt;/a&gt;&lt;br /&gt;
+5. &lt;a href=&#34;http://icekirin.com/wordpress/?p=81&#34;&gt;Button的应用(for android)&lt;/a&gt;&lt;br /&gt;
+6. &lt;a href=&#34;http://android.yaohuiji.com/&#34;&gt;{ Android学习指南 }&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;(以下為英,中文)&lt;br /&gt;
+7. &lt;a href=&#34;http://blog.androgames.net/40/custom-button-style-and-theme/&#34;&gt;custom-button-style-and-theme&lt;/a&gt;&lt;br /&gt;
+        (好站!! &lt;a href=&#34;http://blog.androgames.net/category/android-tutorials/&#34;&gt;http://blog.androgames.net/category/android-tutorials/&lt;/a&gt;)&lt;br /&gt;
+8. &lt;a href=&#34;http://jp-lin.blogspot.com/2010/12/%E4%BD%BF%E7%94%A8android-sdk%E6%8F%90%E4%BE%9B%E7%9A%84draw9patch-tool.html&#34;&gt;使用Android SDK提供的Draw9Patch Tool &lt;/a&gt;&lt;br /&gt;
+9. &lt;a href=&#34;http://jp-lin.blogspot.com/2010/12/android.html&#34;&gt;在Android中使用客製化按鈕 &lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Android] 程式開發雜記</title>
+      <link>http://localhost:8000/blog/android-%E7%A8%8B%E5%BC%8F%E9%96%8B%E7%99%BC%E9%9B%9C%E8%A8%98/</link>
+      <pubDate>Fri, 06 May 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/android-%E7%A8%8B%E5%BC%8F%E9%96%8B%E7%99%BC%E9%9B%9C%E8%A8%98/</guid>
+      <description>
+
+&lt;p&gt;最近在寫和Android程式，因此把一些重點筆記下來：&lt;/p&gt;
+
+&lt;h2 id=&#34;android中各種java包的功能描述&#34;&gt;Android中各種JAVA包的功能描述&lt;/h2&gt;
+
+&lt;p&gt;(ref: &lt;a href=&#34;http://huenlil.pixnet.net/blog/post/24346240&#34;&gt;http://huenlil.pixnet.net/blog/post/24346240&lt;/a&gt;)&lt;/p&gt;
+
+&lt;p&gt;在Android的應用程序開發中，通常使用的是JAVA語言，除了需要熟悉JAVA語言的基礎知識之外，還需要瞭解Android提供的擴展的JAVA功能。
+在Android中，各種包寫成android.*的方式，重要包的描述如下所示：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;* android.app        ：提供高層的程序模型、提供基本的運行環境
+* android.content    ：包含各種的對設備上的數據進行訪問和發佈的類
+* android.database   ：通過內容提供者瀏覽和操作數據庫
+* android.graphics   ：底層的圖形庫，包含畫布，顏色過濾，點，矩形，可以將他們直接繪製到屏幕上
+* android.location   ：定位和相關服務的類
+* android.media      ：提供一些類管理多種音頻、視頻的媒體接口
+* android.net        ：提供幫助網絡訪問的類，超過通常的java.net.* 接口
+* android.os         ：提供了系統服務、消息傳輸、IPC機制
+* android.opengl     ：提供OpenGL的工具
+* android.provider   ：提供類訪問Android的內容提供者
+* android.telephony  ：提供與撥打電話相關的API交互
+* android.view       ：提供基礎的用戶界面接口框架
+* android.util       ：涉及工具性的方法，例如時間日期的操作
+* android.webkit     ：默認瀏覽器操作接口
+* android.widget     ：包含各種UI元素（大部分是可見的）在應用程序的屏幕中使用
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;empty-process-background-process-service-process-visible-process-foreground-process-初探&#34;&gt;Empty Process, Background Process, Service Process, Visible Process, Foreground Process 初探&lt;/h2&gt;
+
+&lt;p&gt;(ref: &lt;a href=&#34;http://www.gururu.tw/Android-Process-Thread.html&#34;&gt;[Android 教學課程] Empty Process , Background Process , Service Process , Visible Process , Foreground Process 初探&lt;/a&gt; )&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;* 關於 Android 的應用程式組件 ( Application Components ) 的補充
+* 處理程序 ( Process ) 與執行緒 ( Thread )
+* 空白處理程序 ( Empty Process )
+* 背景處理程序 ( Background Process )
+* Service 處理程序 ( Service process )
+* 可視處理程序 ( Visible Process )
+* 前景處理程序 ( Foreground process ) 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;activity-fragment-service-broadcast-receiver-content-provider-與-intent-初探&#34;&gt;Activity , Fragment , Service , Broadcast receiver , Content provider 與 Intent 初探&lt;/h2&gt;
+
+&lt;p&gt;( ref: &lt;a href=&#34;http://www.gururu.tw/Android-Activity-Fragment-Service-Broadcast-receiver-Content-provider-Intent.html&#34;&gt;[Android 教學課程] Activity , Fragment , Service , Broadcast receiver , Content provider 與 Intent 初探&lt;/a&gt; )&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;* 什麼是 Activity？ Activity ：它負責前端使用者介面處理。
+* 什麼是 Fragment？ Fragment ：它在一個具分割畫面( Multi-Pane )的 Activity 應用程式組件之中，負責分割畫面的部份區段或部份行為。
+* 什麼是 Service?  Service ：它負責後端程式運算。
+* 什麼是 Content provider？ Content provider ：它負責應用程式之間資料共享的任務。
+* 什麼是 Broadcast receivers？  Broadcast receivers ：此應用程式組件的中文譯名，多半會翻成廣播接收者或者廣播接收器。
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;手機截圖&#34;&gt;手機截圖：&lt;/h2&gt;
+
+&lt;p&gt;(ref:&lt;a href=&#34;http://www.eprice.com.tw/mobile/talk/124/4483653/&#34;&gt;【教學】Android 手機截圖：一點都不難&lt;/a&gt;)&lt;/p&gt;
+
+&lt;p&gt;若有裝Android SDK 的話 (一般開發者應該都會裝吧XD)，直接開 Android SDK 的目錄 /tools/ddms.bat，執行此批次檔就可以囉 (使用時不要將該dos畫面關閉), 此時手機必須連接上網路，並設定USB偵錯，
+要截圖時只要到 device/capture screen 即可&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

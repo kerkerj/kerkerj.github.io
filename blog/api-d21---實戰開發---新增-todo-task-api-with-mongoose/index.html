@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="YOLO~">
+
+<base href="http://localhost:8000/">
+<title>
+
+
+     [API-d21] - 實戰開發 - 新增 TODO task API with mongoose 
+
+</title>
+<link rel="canonical" href="http://localhost:8000/blog/api-d21---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E6%96%B0%E5%A2%9E-todo-task-api-with-mongoose/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/localhost:8000\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="http://localhost:8000/css/reset.css">
+<link rel="stylesheet" href="http://localhost:8000/css/pygments.css">
+<link rel="stylesheet" href="http://localhost:8000/css/main.css">
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/zenburn.min.css">
+    
+
+
+
+<link rel="shortcut icon"
+
+    href="http://localhost:8000/favicon.png"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="zh-TW">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            <a href="http://localhost:8000/"><div class="name">kerkerj</div></a>
+            <nav>
+                <ul>
+                    <a href="http://localhost:8000/blog/"><li>Blog</li></a>
+                    <a href="http://localhost:8000/about/"><li>About</li></a>
+                    <a href="http://localhost:8000/mac-app-list/"><li>Mac App List</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/kerkerj" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/kerkerj" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/fuzanhuang" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="http://localhost:8000/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    [API-d21] - 實戰開發 - 新增 TODO task API with mongoose
+
+</div>
+
+                    <div class="initials"><a href="http://localhost:8000/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Tue Oct 21 2014 00:00:00 UTC">2014-10-10 00:00</div>
+                    <div class="reading-time"><div class="middot"></div>2 minutes read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day21">Github 參考</a></p>
+
+<p>昨天我們了解了如何拿 url params 以及 request data</p>
+
+<p>今天我們就來使用他，對資料庫做存取</p>
+
+<p>由於使用到資料庫，因此我們要加入資料庫的 driver</p>
+
+<p>我們用的是 <code>mongoose</code> 套件</p>
+
+<p>app.js:</p>
+
+<pre><code class="language-javascript">// 在最上方加入
+var mongoose = require('mongoose');
+
+// 在某個地方連接資料庫
+var db_uri = &quot;mongodb://192.168.33.10:27017/TODOs&quot;;
+mongoose.connect(db_uri);
+</code></pre>
+
+<p>在這邊我是使用了虛擬機的 DB，因此是 <code>mongodb://192.168.33.10:27017/TODOs</code></p>
+
+<p>DB 的名稱為 <code>TODOs</code></p>
+
+<p>這樣在程式一跑起來時，就會連接資料庫了!</p>
+
+<p>再來我們就要設定在對資料庫做 CRUD 時，所需要做的事情</p>
+
+<p>首先我們先要定義 schema，</p>
+
+<p>雖然 mongodb 是 schema-free，但是官方文件也有提到最好還是有固定的 schema 避免記憶體 allocate 時出現問題，而程式撰寫時邏輯也不會因此而過於複雜</p>
+
+<p>這時候我們就需要 model 資料夾了，在 model 資料夾中新增一個 todos.js</p>
+
+<p>裡面要放的就是 todo task 的 schema</p>
+
+<p>內容如下:</p>
+
+<p>models/todos.js:</p>
+
+<pre><code>'use strict';
+
+var mongoose = require('mongoose');
+
+// Define our todo schema
+var TODOschema   = new mongoose.Schema({
+    user_id: String,
+    content: String,
+    created_at: Date,
+    updated_at: Date
+});
+
+// Export the Mongoose model
+module.exports = mongoose.model('TODO', TODOschema);
+</code></pre>
+
+<p>我們定義了幾個東西 user_id, content, created_at, updated_at</p>
+
+<p>其實 ObjectID 中已經有包含建立資訊了，其實 created_at 是可以省略掉的，不過在這邊還是加一下</p>
+
+<p>注意下面這行:</p>
+
+<pre><code>module.exports = mongoose.model('TODO', TODOschema);
+</code></pre>
+
+<p>&lsquo;TODO&rsquo; 在這邊是 Collection (RDBMS 中的 table) 的名稱</p>
+
+<p>在 mongoose 中，會自動複數化，所以在 Mongodb 中的 Collection name 會變成 &lsquo;todos&rsquo; ，</p>
+
+<p>雖然只是小小的一行，但是蠻重要的</p>
+
+<p>最後將這個 model exports 成一個 mongoose.model 物件</p>
+
+<p>那我們什麼時候會用到這個 model 物件呢?</p>
+
+<p>就是在 routes/user.js 中，</p>
+
+<p>routes/users.js:</p>
+
+<pre><code>var TODO = require('../models/todos');
+</code></pre>
+
+<p>這樣在 users.js 中就可以使用 TODO 這個物件了!</p>
+
+<p>我們先試著編輯 POST 的 route，拿到 POST 資料後，將資料轉成 TODO 的物件，存到 mongodb 裏</p>
+
+<p>以下是 routes/users.js 中的 post 程式碼段</p>
+
+<p>簡單來說就是先抓到 uri 的參數以及 post data</p>
+
+<p>並且使用 models/todos.js 的 model 新建立一個 todo 物件</p>
+
+<p>並將該物件用 post data 初始化，</p>
+
+<p>初始化完後就執行寫入 DB 的行為, 若寫入成功則回傳 201 + data</p>
+
+<p>失敗則回傳 400 bad request</p>
+
+<pre><code>// Create a todo task
+router.post('/:user_id/todos', function(req, res) {
+    var user_id = req.params.user_id;
+    var data = req.body;
+
+    // insert to db
+    var todo = new TODO();
+    todo.user_id = user_id;
+    todo.content = data.content;
+    todo.created_at = Date.now();
+    todo.updated_at = Date.now();
+
+    todo.save(function (err) {
+        if (err) {
+            res.status(400).json(
+                { error: &quot;insert db error&quot; }
+            );
+        } else {
+            res.status(201).json(
+                todo
+            );
+        }
+    });
+});
+</code></pre>
+
+<p>試著執行伺服器看看，並且使用 POSTMAN 丟 request 如下:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.54.57.png" alt="image" /></p>
+
+<p>POST 的 raw data</p>
+
+<pre><code>{ &quot;content&quot;: &quot;buy milk&quot; }
+</code></pre>
+
+<p>於是就完成了一個 POST 新增 TODO 的 API 了！</p>
+
+                <br>
+                <p><a href="http://localhost:8000/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/localhost:8000\/blog\/api-d21---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E6%96%B0%E5%A2%9E-todo-task-api-with-mongoose\/';
+    var disqus_title = '[API-d21] - 實戰開發 - 新增 TODO task API with mongoose';
+    var disqus_url = 'http:\/\/localhost:8000\/blog\/api-d21---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E6%96%B0%E5%A2%9E-todo-task-api-with-mongoose\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer">
+    <div class="">
+        <ul>
+            <li>© 2010 - 2014 kerkerj. powerd by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a>. Theme: <a href="https://github.com/kerkerj/cocoa-hugo-theme">kerkerj-cocoa-hugo-theme</a>, modified from <a href="https://github.com/nishanths/cocoa-hugo-theme">cocoa</a>.</li>
+        </ul>
+    </div>
+</section>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-45583907-2");
+    pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+

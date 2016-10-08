@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="YOLO~">
+
+<base href="http://localhost:8000/">
+<title>
+
+
+     [API-d7] - [Server 番外篇] 建立自己的本機虛擬伺服器 3 - 打包環境 
+
+</title>
+<link rel="canonical" href="http://localhost:8000/blog/api-d7---server-%E7%95%AA%E5%A4%96%E7%AF%87-%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E6%9C%AC%E6%A9%9F%E8%99%9B%E6%93%AC%E4%BC%BA%E6%9C%8D%E5%99%A8-3---%E6%89%93%E5%8C%85%E7%92%B0%E5%A2%83/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/localhost:8000\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="http://localhost:8000/css/reset.css">
+<link rel="stylesheet" href="http://localhost:8000/css/pygments.css">
+<link rel="stylesheet" href="http://localhost:8000/css/main.css">
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/zenburn.min.css">
+    
+
+
+
+<link rel="shortcut icon"
+
+    href="http://localhost:8000/favicon.png"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="zh-TW">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            <a href="http://localhost:8000/"><div class="name">kerkerj</div></a>
+            <nav>
+                <ul>
+                    <a href="http://localhost:8000/blog/"><li>Blog</li></a>
+                    <a href="http://localhost:8000/about/"><li>About</li></a>
+                    <a href="http://localhost:8000/mac-app-list/"><li>Mac App List</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/kerkerj" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/kerkerj" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/fuzanhuang" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="http://localhost:8000/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    [API-d7] - [Server 番外篇] 建立自己的本機虛擬伺服器 3 - 打包環境
+
+</div>
+
+                    <div class="initials"><a href="http://localhost:8000/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Tue Oct 7 2014 00:00:00 UTC">2014-10-10 00:00</div>
+                    <div class="reading-time"><div class="middot"></div>2 minutes read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p>昨天我們已經把一個全新乾淨的環境架起來了</p>
+
+<p>這時候我們不希望因為日後的操作導致 Server 環境髒掉，又要重灌</p>
+
+<p>因此我們今天就來練習一下如何使用 vagrant 打包環境!</p>
+
+<p>##Vagrant 打包</p>
+
+<p>一樣先進入虛擬機資料夾，先確保虛擬機沒有在運作:</p>
+
+<pre><code>$ vagrant status
+Current machine states:
+
+default                   poweroff (virtualbox)
+
+The VM is powered off. To restart the VM, simply run `vagrant up`
+</code></pre>
+
+<p>如果是 poweroff 的話，就可以進行接下來的動作，如果是其他狀態的話，就先下關機指令囉</p>
+
+<pre><code>$ vagrant package
+==&gt; default: Clearing any previously set forwarded ports...
+==&gt; default: Exporting VM...
+==&gt; default: Compressing package to: /Users/.../ithome/package.box
+</code></pre>
+
+<p>vagrant 就會在虛擬機器資料夾底下建立一個 package.box</p>
+
+<p>這個檔案就是整個伺服器環境的檔案了!</p>
+
+<p>假設今天想要讓團隊成員使用，只要他們都有 VirtualBox + Vagrant 的話，</p>
+
+<p>就可以依循下面的指令步驟將你所做的 box 匯入並使用：</p>
+
+<p>首先我們可以先看看原本所使用的 box 清單:</p>
+
+<pre><code>$ vagrant box list
+ubuntu/trusty64                          (virtualbox, 14.04)
+</code></pre>
+
+<p>是 <code>ubuntu/trusty64</code> 沒錯！</p>
+
+<p>那麼我們現在想要加入剛剛所製作的 box ，並重新命名：</p>
+
+<pre><code>$ vagrant box add my_box package.box
+==&gt; box: Adding box 'my_box' (v0) for provider:
+    box: Downloading: file:///Users/.../ithome/package.box
+==&gt; box: Successfully added box 'my_box' (v0) for 'virtualbox'!
+</code></pre>
+
+<p>此時再看看 box 清單:</p>
+
+<pre><code>$ vagrant box list
+ubuntu/trusty64                          (virtualbox, 14.04)
+my_box                                   (virtualbox, 0)
+</code></pre>
+
+<p>就會多一個了!</p>
+
+<p><code>vagrant box add my_box package.box</code></p>
+
+<p>這個指令的意思是將 <code>package.box</code> 加入 box 清單，並以 my_box 命名</p>
+
+<p><code>package.box</code> 可以是本機路徑，也可以是網址，</p>
+
+<p>如果要分享給團隊成員使用，就可以使用 url 分享，其他人就可以下指令來下載 box 並加入 box list</p>
+
+<p>例如:</p>
+
+<pre><code>$ vagrant box add my_box http://my_dropbox.com/package.box
+</code></pre>
+
+<p>接著其他人就可以建立自己的虛擬機資料夾，並且到該資料夾中下指令就可以初始化虛擬機器了，例如：</p>
+
+<pre><code>$ mkdir ~/my_machine/
+$ cd ~/my_machine/
+$ vagrant init my_box 
+</code></pre>
+
+<p>超方便的啦～</p>
+
+<p>如果想要從 box list 中刪除不需要的 box，下此指令即可：</p>
+
+<pre><code>$ vagrant box remove my_box
+Are you sure you want to remove this box? [y/N] y
+</code></pre>
+
+<p>上面只會刪除 box 清單，</p>
+
+<p>如果要刪除虛擬機器資料夾，以及虛擬機器的所有檔案的話，先到虛擬機器資料夾，然後下此指令：</p>
+
+<pre><code>$ vagrant destroy
+    default: Are you sure you want to destroy the 'default' VM? [y/N] y
+</code></pre>
+
+<p>虛擬機就會被移除，再來只要將該資料夾砍掉即可～ 就恢復成乾乾淨淨的了~</p>
+
+<p>是不是很方便勒~~</p>
+
+<p>接下來我們就會開始先寫寫 Node.js 的 Hello World 囉~</p>
+
+                <br>
+                <p><a href="http://localhost:8000/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/localhost:8000\/blog\/api-d7---server-%E7%95%AA%E5%A4%96%E7%AF%87-%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E6%9C%AC%E6%A9%9F%E8%99%9B%E6%93%AC%E4%BC%BA%E6%9C%8D%E5%99%A8-3---%E6%89%93%E5%8C%85%E7%92%B0%E5%A2%83\/';
+    var disqus_title = '[API-d7] - [Server 番外篇] 建立自己的本機虛擬伺服器 3 - 打包環境';
+    var disqus_url = 'http:\/\/localhost:8000\/blog\/api-d7---server-%E7%95%AA%E5%A4%96%E7%AF%87-%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E6%9C%AC%E6%A9%9F%E8%99%9B%E6%93%AC%E4%BC%BA%E6%9C%8D%E5%99%A8-3---%E6%89%93%E5%8C%85%E7%92%B0%E5%A2%83\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer">
+    <div class="">
+        <ul>
+            <li>© 2010 - 2014 kerkerj. powerd by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a>. Theme: <a href="https://github.com/kerkerj/cocoa-hugo-theme">kerkerj-cocoa-hugo-theme</a>, modified from <a href="https://github.com/nishanths/cocoa-hugo-theme">cocoa</a>.</li>
+        </ul>
+    </div>
+</section>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-45583907-2");
+    pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+

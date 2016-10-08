@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="YOLO~">
+
+<base href="http://localhost:8000/">
+<title>
+
+
+     [Swift-d5] - Playground - Array, Dictionary, Controll Flow 
+
+</title>
+<link rel="canonical" href="http://localhost:8000/blog/swift-d5---playground---array-dictionary-controll-flow/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/localhost:8000\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="http://localhost:8000/css/reset.css">
+<link rel="stylesheet" href="http://localhost:8000/css/pygments.css">
+<link rel="stylesheet" href="http://localhost:8000/css/main.css">
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/zenburn.min.css">
+    
+
+
+
+<link rel="shortcut icon"
+
+    href="http://localhost:8000/favicon.png"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="zh-TW">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            <a href="http://localhost:8000/"><div class="name">kerkerj</div></a>
+            <nav>
+                <ul>
+                    <a href="http://localhost:8000/blog/"><li>Blog</li></a>
+                    <a href="http://localhost:8000/about/"><li>About</li></a>
+                    <a href="http://localhost:8000/mac-app-list/"><li>Mac App List</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/kerkerj" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/kerkerj" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/fuzanhuang" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="http://localhost:8000/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    [Swift-d5] - Playground - Array, Dictionary, Controll Flow
+
+</div>
+
+                    <div class="initials"><a href="http://localhost:8000/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Sun Oct 5 2014 00:00:00 UTC">2014-10-10 00:00</div>
+                    <div class="reading-time"><div class="middot"></div>3 minutes read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p>##Array</p>
+
+<p>###宣告</p>
+
+<pre><code class="language-swift">// var VARIABLE_NAME: [TYPE] = .....
+
+var fruits: [String] = [&quot;apple&quot;, &quot;banana&quot;]
+var nums: [Int] = [1, 2]
+
+// 或是讓 Swift 自行判斷類型:
+var fruits = [&quot;apple&quot;, &quot;banana&quot;]
+var nums = [1, 2]
+
+// 初始化:
+var cars = [String]()
+</code></pre>
+
+<p>ps. Beta 版時的寫法是 <code>var fruits: String[]</code></p>
+
+<p>現在已經變成了 <code>var fruits: [String]</code></p>
+
+<p>###操作</p>
+
+<pre><code>// 判斷該陣列是否有值，回傳 true 或 false
+fruits.isEmpty 
+
+// 增加元素
+fruits.append(&quot;watermelon&quot;)
+fruits += [&quot;lemon&quot;]
+
+// 取值 
+fruits[0]
+fruits[0...2]
+
+// 刪除值 - 將 apple 移除，banana 會自動補上
+fruits.removeAtIndex(0)
+fruits[0]
+
+// 兩個陣列合併 (必須相同類別 e.g. String)
+fruits + cars
+
+// 陣列元素數量
+fruits.count
+</code></pre>
+
+<p>##Dictionary</p>
+
+<p>###宣告</p>
+
+<p>由於 Dictionary 是 key/value 為一組 (pair)，</p>
+
+<p>因此宣告時必須宣告 key 和 value 分別是哪種型別</p>
+
+<pre><code>var httpStatus: Dictionary&lt;Int, String&gt; = Dictionary&lt;Int, String&gt;()
+
+var httpStatus: Dictionary&lt;Int, String&gt; = [200: &quot;Success&quot;, 404: &quot;Not found&quot;]
+</code></pre>
+
+<p>###操作</p>
+
+<pre><code>// 一樣有 isEmpty 方法
+httpStatus.isEmpty
+
+// 取值
+httpStatus[200] // = &quot;Success&quot;
+
+// 加入值
+httpStatus[500] = &quot;Internal Server Error&quot;
+
+// 修改值
+httpStatus[200] = &quot;True&quot;
+httpStatus.updateValue(&quot;internal server error&quot;, forKey: 500)
+
+// 刪除值
+httpStatus.removeValueForKey(200)
+
+// 字典元素數量
+httpStatus.count
+
+</code></pre>
+
+<p>##Controll Flow</p>
+
+<p>###For loop</p>
+
+<pre><code>for fruit in fruits {
+	println(fruit)
+}
+
+for var index = 0; index &lt; fruits.count; ++index {
+	println(fruits[index])
+}
+</code></pre>
+
+<p>###While</p>
+
+<pre><code>var index = 0
+while index &lt; fruits.count {
+    println(fruits[index])
+    index++
+}
+</code></pre>
+
+<p>###Do-while</p>
+
+<pre><code>var index = 0
+do {
+	println(fruits[index])
+	index++ 
+} while (index &lt; fruits.count)
+</code></pre>
+
+<p>###If</p>
+
+<pre><code>var index = 5566
+
+if index = 5566 {
+	println(&quot;5566 不能亡&quot;)
+}
+
+if index = 5566 {
+	println(&quot;5566 不能亡&quot;)
+} else {
+	println(&quot;You are not 5566&quot;)
+}
+
+if index = 5566 {
+	println(&quot;5566 不能亡&quot;)
+} else if index &lt; 5566 {
+	println(&quot;You are less than 5566&quot;)
+} else {
+	println(&quot;You are bigger than 5566&quot;)
+}
+</code></pre>
+
+<p>###Switch</p>
+
+<pre><code>var index = 0
+
+switch index {
+case 0, 1, 2
+	println(&quot;small&quot;)
+case 8, 9, 11 
+	println(&quot;big&quot;)
+default:
+	println(&quot;others&quot;)
+}
+</code></pre>
+
+<p>引入 Tuple</p>
+
+<pre><code>let httpStatus = (200, &quot;Success&quot;)
+
+switch httpStatus {
+case (let statusCode, &quot;Error&quot;):
+    println(&quot;(\(statusCode)) is Error&quot;)
+case (200, let msg):
+    println(&quot;(\(msg))'s statusCode is 200&quot;)
+}
+</code></pre>
+
+<p>##Switch - break, continue, fallthrough</p>
+
+<p>###Continue</p>
+
+<p>continue 會使該次的 loop 停止，並繼續執行下一個 loop</p>
+
+<p>continue 不存在於單一的 switch, 只會在 loop 裡的 switch 語句時才能使用</p>
+
+<pre><code>var fruits = [&quot;apple&quot;, &quot;banana&quot;, &quot;lemon&quot;, &quot;waterlemon&quot;, &quot;orange&quot;]
+for fruit in fruits {
+    println(&quot;Start&quot;)
+
+    switch fruit {
+    case &quot;banana&quot;:
+        continue
+    default:
+        println(fruit)
+    }
+    
+    println(&quot;End&quot;)
+}
+</code></pre>
+
+<p>Start 和 End 理論上都要被印五次，</p>
+
+<p>但是加入了 continue 後，banana case 當次 loop 的 End 就沒有被執行了</p>
+
+<p>###Break</p>
+
+<p>通常是用在不想處理某個 case 或，特別想要處理時 (?) 反之嘛 XD</p>
+
+<p>當使用了 break，會立即中斷 switch 程式碼的執行，並且跳到 switch 區塊程式碼結束的大括號後 (}) 的第一行程式</p>
+
+<p>暫時想不到什麼好例子&hellip;.</p>
+
+<p>先借別人的例子來用吧:</p>
+
+<pre><code>let numberSymbol: Character = &quot;三&quot;  // 簡體中文裡的數字 3
+var possibleIntegerValue: Int?
+switch numberSymbol {
+case &quot;1&quot;, &quot;١&quot;, &quot;一&quot;, &quot;๑&quot;:
+    possibleIntegerValue = 1
+case &quot;2&quot;, &quot;٢&quot;, &quot;二&quot;, &quot;๒&quot;:
+    possibleIntegerValue = 2
+case &quot;3&quot;, &quot;٣&quot;, &quot;三&quot;, &quot;๓&quot;:
+    possibleIntegerValue = 3
+case &quot;4&quot;, &quot;٤&quot;, &quot;四&quot;, &quot;๔&quot;:
+    possibleIntegerValue = 4
+default:
+    break
+}
+if let integerValue = possibleIntegerValue {
+    println(&quot;The integer value of \(numberSymbol) is \(integerValue).&quot;)
+} else {
+    println(&quot;An integer value could not be found for \(numberSymbol).&quot;)
+}
+// 輸出 &quot;The integer value of 三 is 3.
+</code></pre>
+
+<p>###Fallthrough</p>
+
+<p>在 Swift 中，掃到第一個符合的 case 後，就會中斷 switch 的執行了，避免掉入一些 case 處理的錯誤</p>
+
+<p>而 fallthrough, 很有趣, 宣告後，會讓 switch 繼續掃下一個 case</p>
+
+<pre><code>let num = 5
+var description = &quot;\(num) is&quot;
+switch num {
+case 2, 3, 5, 7, 11, 13, 17, 19:
+    description += &quot; a prime, also&quot;
+    fallthrough
+case 5: 
+    println(&quot;I'm here&quot;)
+default:
+    description += &quot; an integer.&quot;
+}
+println(description)
+// I'm here
+// 5 is a prime, also an integer.
+</code></pre>
+
+                <br>
+                <p><a href="http://localhost:8000/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/localhost:8000\/blog\/swift-d5---playground---array-dictionary-controll-flow\/';
+    var disqus_title = '[Swift-d5] - Playground - Array, Dictionary, Controll Flow';
+    var disqus_url = 'http:\/\/localhost:8000\/blog\/swift-d5---playground---array-dictionary-controll-flow\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer">
+    <div class="">
+        <ul>
+            <li>© 2010 - 2014 kerkerj. powerd by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a>. Theme: <a href="https://github.com/kerkerj/cocoa-hugo-theme">kerkerj-cocoa-hugo-theme</a>, modified from <a href="https://github.com/nishanths/cocoa-hugo-theme">cocoa</a>.</li>
+        </ul>
+    </div>
+</section>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-45583907-2");
+    pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+

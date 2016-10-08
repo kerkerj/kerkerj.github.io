@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="YOLO~">
+
+<base href="http://localhost:8000/">
+<title>
+
+
+     [API-d1] - 定義 1 - 什麼是 REST/RESTful? 
+
+</title>
+<link rel="canonical" href="http://localhost:8000/blog/api-d1---%E5%AE%9A%E7%BE%A9-1---%E4%BB%80%E9%BA%BC%E6%98%AF-rest/restful/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/localhost:8000\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="http://localhost:8000/css/reset.css">
+<link rel="stylesheet" href="http://localhost:8000/css/pygments.css">
+<link rel="stylesheet" href="http://localhost:8000/css/main.css">
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/zenburn.min.css">
+    
+
+
+
+<link rel="shortcut icon"
+
+    href="http://localhost:8000/favicon.png"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="zh-TW">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            <a href="http://localhost:8000/"><div class="name">kerkerj</div></a>
+            <nav>
+                <ul>
+                    <a href="http://localhost:8000/blog/"><li>Blog</li></a>
+                    <a href="http://localhost:8000/about/"><li>About</li></a>
+                    <a href="http://localhost:8000/mac-app-list/"><li>Mac App List</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/kerkerj" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/kerkerj" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/fuzanhuang" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="http://localhost:8000/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    [API-d1] - 定義 1 - 什麼是 REST/RESTful?
+
+</div>
+
+                    <div class="initials"><a href="http://localhost:8000/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Thu Oct 2 2014 00:00:00 UTC">2014-10-10 00:00</div>
+                    <div class="reading-time"><div class="middot"></div>1 minute read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p>Representational State Transfer，簡稱 <code>REST</code>，<br />
+它是一種網路架構風格，他並不是一種標準。</p>
+
+<p>而 RESTful 可以這樣子想像:<br />
+美麗 (Beauty) 的事物可以稱為 Beautiful<br />
+設計為 REST 的系統就可以稱為 RESTful</p>
+
+<p>以 API 而言，假設我們正在撰寫一組待辦事項的 API，<br />
+可能會有以下方式來作為 API 的 interface:</p>
+
+<pre><code>獲取使用者資料     /getAllUsers
+獲取使用者資料     /getUser/1
+新增使用者資料     /createUser
+更新使用者資料     /updateUser/1
+刪除使用者資料     /deleteUser/1
+</code></pre>
+
+<p>若是以 REST 風格來開發 RESTful API 的話:</p>
+
+<pre><code>獲取使用者資料     /GET            /users
+獲取使用者資料     /GET            /user/1
+新增使用者資料     /POST          /user
+更新使用者資料     /PUT             /user/1
+刪除使用者資料     /DELETE      /user/1
+</code></pre>
+
+<p>兩者差異是在於 RESTful API 充分地使用了 HTTP protocol (GET/POST/PUT/DELETE)，<br />
+達到<br />
+1. 以直觀簡潔的資源 URI<br />
+2. 並且善用 HTTP Verb<br />
+3. 達到對資源的操作<br />
+4. 並使用 Web 所接受的資料類型: JSON, XML, YAML 等，最常見的是 JSON</p>
+
+<p>通常是使用 HTTP, URI, JSON, HTML 這些現有廣泛流行的協議和標準，<br />
+且使用 HTTP status code 來代表該資源的狀態。</p>
+
+<p>框架中強制使用 REST 風格的最有名的應該就是 Ruby on Rails 了!<br />
+(不過我們並不會使用 Rails 來開發 API service :P)</p>
+
+<p>p.s. 因為 REST 並非是一種標準，因此有時候也不一定非得要照著 REST 來做，<br />
+只是在資源的操作面上，可以設計成這類的風格，以達到簡潔易懂，並且可重用。</p>
+
+<p>下一篇會來聊聊 REST 的要求與優點</p>
+
+                <br>
+                <p><a href="http://localhost:8000/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/localhost:8000\/blog\/api-d1---%E5%AE%9A%E7%BE%A9-1---%E4%BB%80%E9%BA%BC%E6%98%AF-rest\/restful\/';
+    var disqus_title = '[API-d1] - 定義 1 - 什麼是 REST\/RESTful?';
+    var disqus_url = 'http:\/\/localhost:8000\/blog\/api-d1---%E5%AE%9A%E7%BE%A9-1---%E4%BB%80%E9%BA%BC%E6%98%AF-rest\/restful\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer">
+    <div class="">
+        <ul>
+            <li>© 2010 - 2014 kerkerj. powerd by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a>. Theme: <a href="https://github.com/kerkerj/cocoa-hugo-theme">kerkerj-cocoa-hugo-theme</a>, modified from <a href="https://github.com/nishanths/cocoa-hugo-theme">cocoa</a>.</li>
+        </ul>
+    </div>
+</section>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-45583907-2");
+    pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+

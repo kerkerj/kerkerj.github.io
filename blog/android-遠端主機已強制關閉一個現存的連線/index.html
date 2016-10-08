@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="YOLO~">
+
+<base href="http://localhost:8000/">
+<title>
+
+
+     [Android] 遠端主機已強制關閉一個現存的連線 
+
+</title>
+<link rel="canonical" href="http://localhost:8000/blog/android-%E9%81%A0%E7%AB%AF%E4%B8%BB%E6%A9%9F%E5%B7%B2%E5%BC%B7%E5%88%B6%E9%97%9C%E9%96%89%E4%B8%80%E5%80%8B%E7%8F%BE%E5%AD%98%E7%9A%84%E9%80%A3%E7%B7%9A/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/localhost:8000\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="http://localhost:8000/css/reset.css">
+<link rel="stylesheet" href="http://localhost:8000/css/pygments.css">
+<link rel="stylesheet" href="http://localhost:8000/css/main.css">
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/zenburn.min.css">
+    
+
+
+
+<link rel="shortcut icon"
+
+    href="http://localhost:8000/favicon.png"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="zh-TW">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            <a href="http://localhost:8000/"><div class="name">kerkerj</div></a>
+            <nav>
+                <ul>
+                    <a href="http://localhost:8000/blog/"><li>Blog</li></a>
+                    <a href="http://localhost:8000/about/"><li>About</li></a>
+                    <a href="http://localhost:8000/mac-app-list/"><li>Mac App List</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/kerkerj" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/kerkerj" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/fuzanhuang" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="http://localhost:8000/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    [Android] 遠端主機已強制關閉一個現存的連線
+
+</div>
+
+                    <div class="initials"><a href="http://localhost:8000/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Wed Apr 11 2012 00:00:00 UTC">2012-04-04 00:00</div>
+                    <div class="reading-time"><div class="middot"></div>1 minute read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p>不知道大家在寫Android程式時使用實體機接PC時會不會很常出現這個錯誤</p>
+
+<p>我個人還蠻常出現的，在測試時是非常緩慢的</p>
+
+<p>Google了一下，找到了強者自己寫的adb.exe</p>
+
+<p>檔案在討論串裡：<a href="http://code.google.com/p/android/issues/detail?id=12141">http://code.google.com/p/android/issues/detail?id=12141</a></p>
+
+<pre><code>Nov 28, 2011  
+New patched version of adb (1.0.29)   
+Patch (diff) the same as early  
+adb.exe   
+478 KB Download  
+</code></pre>
+
+<p>Download: <a href="http://android.googlecode.com/issues/attachment?aid=121410050000&amp;name=adb.exe&amp;token=O8Q8Mzj8XLo6-cOEE6a2H8SG4Bg%3A1334136508184">adb.exe</a></p>
+
+<p>下載後，到Android的SDK資料夾，進platform-tool資料夾，</p>
+
+<p>將原本的adb.exe做備份，再將新的複製到原本的exe檔所在的地方，</p>
+
+<p>重新啟動adb就可以了 (進DDMS重新啟動，或者重新啟動Eclipse也行)</p>
+
+                <br>
+                <p><a href="http://localhost:8000/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/localhost:8000\/blog\/android-%E9%81%A0%E7%AB%AF%E4%B8%BB%E6%A9%9F%E5%B7%B2%E5%BC%B7%E5%88%B6%E9%97%9C%E9%96%89%E4%B8%80%E5%80%8B%E7%8F%BE%E5%AD%98%E7%9A%84%E9%80%A3%E7%B7%9A\/';
+    var disqus_title = '[Android] 遠端主機已強制關閉一個現存的連線';
+    var disqus_url = 'http:\/\/localhost:8000\/blog\/android-%E9%81%A0%E7%AB%AF%E4%B8%BB%E6%A9%9F%E5%B7%B2%E5%BC%B7%E5%88%B6%E9%97%9C%E9%96%89%E4%B8%80%E5%80%8B%E7%8F%BE%E5%AD%98%E7%9A%84%E9%80%A3%E7%B7%9A\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer">
+    <div class="">
+        <ul>
+            <li>© 2010 - 2012 kerkerj. powerd by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a>. Theme: <a href="https://github.com/kerkerj/cocoa-hugo-theme">kerkerj-cocoa-hugo-theme</a>, modified from <a href="https://github.com/nishanths/cocoa-hugo-theme">cocoa</a>.</li>
+        </ul>
+    </div>
+</section>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-45583907-2");
+    pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+

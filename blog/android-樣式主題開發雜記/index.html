@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="YOLO~">
+
+<base href="http://localhost:8000/">
+<title>
+
+
+     [Android] 樣式,主題開發雜記 
+
+</title>
+<link rel="canonical" href="http://localhost:8000/blog/android-%E6%A8%A3%E5%BC%8F%E4%B8%BB%E9%A1%8C%E9%96%8B%E7%99%BC%E9%9B%9C%E8%A8%98/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/localhost:8000\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="http://localhost:8000/css/reset.css">
+<link rel="stylesheet" href="http://localhost:8000/css/pygments.css">
+<link rel="stylesheet" href="http://localhost:8000/css/main.css">
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/zenburn.min.css">
+    
+
+
+
+<link rel="shortcut icon"
+
+    href="http://localhost:8000/favicon.png"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="zh-TW">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            <a href="http://localhost:8000/"><div class="name">kerkerj</div></a>
+            <nav>
+                <ul>
+                    <a href="http://localhost:8000/blog/"><li>Blog</li></a>
+                    <a href="http://localhost:8000/about/"><li>About</li></a>
+                    <a href="http://localhost:8000/mac-app-list/"><li>Mac App List</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/kerkerj" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/kerkerj" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/fuzanhuang" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="http://localhost:8000/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    [Android] 樣式,主題開發雜記
+
+</div>
+
+                    <div class="initials"><a href="http://localhost:8000/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Sat May 28 2011 00:00:00 UTC">2011-05-05 00:00</div>
+                    <div class="reading-time"><div class="middot"></div>1 minute read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p>就是改變Android 預設的介面,主題樣式，例如按鈕的樣子</p>
+
+<p>(以下殘體文)<br />
+1. style属性在某个空间中起作用，而theme属性则会在整个activity和application中起作用。可以用theme统一整个程序的风格，再用 style微调其中的某些风格。andorid中的某些widget并不遵守theme所定义的风格，比如button上的字。如果你在 activity甚至在application范围内使用theme，button的字还是白色的！估计是这个空间没有引用android:textColor风格，此时只能用button的style属性来改变它了。 (<a href="http://blog.csdn.net/lijiecong/archive/2009/11/10/4795306.aspx">引用自此</a>)<br />
+2. <a href="http://www.moandroid.com/?p=909">Android Styles &amp; Themes（上）——Style</a><br />
+3. <a href="http://www.moandroid.com/?p=918">Android Styles &amp; Themes（下）——Theme</a><br />
+4. <a href="http://blog.csdn.net/G_rrrr/archive/2009/12/23/5056654.aspx">去掉默认ACTIVITY背景图</a><br />
+5. <a href="http://icekirin.com/wordpress/?p=81">Button的应用(for android)</a><br />
+6. <a href="http://android.yaohuiji.com/">{ Android学习指南 }</a></p>
+
+<p>(以下為英,中文)<br />
+7. <a href="http://blog.androgames.net/40/custom-button-style-and-theme/">custom-button-style-and-theme</a><br />
+        (好站!! <a href="http://blog.androgames.net/category/android-tutorials/">http://blog.androgames.net/category/android-tutorials/</a>)<br />
+8. <a href="http://jp-lin.blogspot.com/2010/12/%E4%BD%BF%E7%94%A8android-sdk%E6%8F%90%E4%BE%9B%E7%9A%84draw9patch-tool.html">使用Android SDK提供的Draw9Patch Tool </a><br />
+9. <a href="http://jp-lin.blogspot.com/2010/12/android.html">在Android中使用客製化按鈕 </a></p>
+
+                <br>
+                <p><a href="http://localhost:8000/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/localhost:8000\/blog\/android-%E6%A8%A3%E5%BC%8F%E4%B8%BB%E9%A1%8C%E9%96%8B%E7%99%BC%E9%9B%9C%E8%A8%98\/';
+    var disqus_title = '[Android] 樣式,主題開發雜記';
+    var disqus_url = 'http:\/\/localhost:8000\/blog\/android-%E6%A8%A3%E5%BC%8F%E4%B8%BB%E9%A1%8C%E9%96%8B%E7%99%BC%E9%9B%9C%E8%A8%98\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer">
+    <div class="">
+        <ul>
+            <li>© 2010 - 2011 kerkerj. powerd by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a>. Theme: <a href="https://github.com/kerkerj/cocoa-hugo-theme">kerkerj-cocoa-hugo-theme</a>, modified from <a href="https://github.com/nishanths/cocoa-hugo-theme">cocoa</a>.</li>
+        </ul>
+    </div>
+</section>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-45583907-2");
+    pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+

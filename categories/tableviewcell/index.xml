@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kerkerj</title>
+    <link>http://localhost:8000/categories/tableviewcell/index.xml</link>
+    <description>Recent content on kerkerj</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
+    <atom:link href="http://localhost:8000/categories/tableviewcell/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>[Swift-d18] - Basic - Customize TableViewCell</title>
+      <link>http://localhost:8000/blog/swift-d18---basic---customize-tableviewcell/</link>
+      <pubDate>Sat, 18 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/swift-d18---basic---customize-tableviewcell/</guid>
+      <description>&lt;p&gt;今天的主題延續昨天的 Navigation + TableView&lt;/p&gt;
+
+&lt;p&gt;我們要來客製化 TableViewCell&lt;/p&gt;
+
+&lt;p&gt;通常 TableView 可以被拿來做很多事情，不僅只是像是 ListView 而已&lt;/p&gt;
+
+&lt;p&gt;而 TableViewCell 可以做更深度的切版，排列元素&lt;/p&gt;
+
+&lt;p&gt;因此自定 TableViewCell 是一件算是還蠻重要的事情&lt;/p&gt;
+
+&lt;p&gt;下面的 Code 是延續昨天的專案&lt;/p&gt;
+
+&lt;p&gt;我先把已更改過的程式碼貼上來:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;import UIKit
+
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    @IBOutlet var tableView: UITableView!
+    
+    var arr = [&amp;quot;A&amp;quot;, &amp;quot;B&amp;quot;, &amp;quot;C&amp;quot;]
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&amp;gt; Int {
+        return arr.count;
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&amp;gt; UITableViewCell {
+        var cell: CustomTableViewCell? = tableView.dequeueReusableCellWithIdentifier(&amp;quot;cell&amp;quot;) as CustomTableViewCell?
+        
+        if cell == nil {
+            var objects = NSBundle.mainBundle().loadNibNamed(&amp;quot;CustomTableViewCell&amp;quot;, owner: self, options: nil)
+            cell = objects[0] as? CustomTableViewCell
+        }
+        
+        cell!.textLabel?.text = arr[indexPath.row]
+        
+        return cell!
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        var detailViewController = DetailViewController()
+        detailViewController.title = arr[indexPath.row]
+        self.navigationController?.pushViewController(detailViewController, animated: true)
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -&amp;gt; CGFloat {
+        return 165.0
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;今天要新增一個檔案, 我們就稱之為 CustomTableViewCell&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.36.49.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.37.37.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;就會出現一份 .swift 檔案以及 .xib 檔案了&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.38.06.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;接下來我們簡單編輯 .xib 檔案，將背景顏色換成其他顏色，以及將它的長度拉高&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2011.39.49.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;這樣其實就很簡單地完成了一個小客製化的 TableViewCell 了&lt;/p&gt;
+
+&lt;p&gt;那我們要怎麼讓原本的 TableView 吃到這個 TableViewCell 呢?&lt;/p&gt;
+
+&lt;p&gt;看以下的 function:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&amp;gt; UITableViewCell {
+	var cell: CustomTableViewCell? = tableView.dequeueReusableCellWithIdentifier(&amp;quot;cell&amp;quot;) as CustomTableViewCell?
+        
+	if cell == nil {
+		var objects = NSBundle.mainBundle().loadNibNamed(&amp;quot;CustomTableViewCell&amp;quot;, owner: self, options: nil)
+		cell = objects[0] as? CustomTableViewCell
+	}
+        
+	cell!.textLabel?.text = arr[indexPath.row]
+        
+	return cell!
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;我們將 cell 的類別更改成了 CustomTableViewCell&lt;/p&gt;
+
+&lt;p&gt;直接使用剛剛產生的 .swift 類別來產生新的 TableViewCell&lt;/p&gt;
+
+&lt;p&gt;並且如果 cell == nil ，則會將 Nib 載入&lt;/p&gt;
+
+&lt;p&gt;最後設定該 textLabel ，返回 cell&lt;/p&gt;
+
+&lt;p&gt;若使用最一開始的程式碼 apply changes&lt;/p&gt;
+
+&lt;p&gt;執行！&lt;/p&gt;
+
+&lt;p&gt;應該就可以看到成果了!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2012.01.35.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;p.s. 這篇可能實作上會有 bug (我寫的), 就先跳過吧 XD&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

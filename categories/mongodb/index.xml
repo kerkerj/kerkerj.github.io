@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kerkerj</title>
+    <link>http://localhost:8000/categories/mongodb/index.xml</link>
+    <description>Recent content on kerkerj</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
+    <atom:link href="http://localhost:8000/categories/mongodb/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>[API-d18] - 實戰開發 - 套件模組</title>
+      <link>http://localhost:8000/blog/api-d18---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E5%A5%97%E4%BB%B6%E6%A8%A1%E7%B5%84/</link>
+      <pubDate>Sat, 18 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/api-d18---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E5%A5%97%E4%BB%B6%E6%A8%A1%E7%B5%84/</guid>
+      <description>&lt;p&gt;##會使用到的套件:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;主體:
+express - web framework
+body-parser - parse request body
+
+測試相關:
+mocha - test framework
+mocha-mongoose - 用來和 mocha 和 mongoose 中間做介接的套件
+superagent - 拿它來丟 http request
+validator - 用來驗證某個物件是否為某個型別
+expect.js - 類似 BDD 的語法，用來寫測試的
+debug - debug package
+
+DB 相關:
+mongoose - mongodb orm
+mongodb - mongodb native driver
+
+開發相關:
+nodemon - detect file change and restart server
+
+生產環境相關:
+log4js - 記錄 request log
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這是我的 package.json, 可以複製到專案目錄，然後下 &lt;code&gt;npm install&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+  &amp;quot;name&amp;quot;: &amp;quot;TODOAPI&amp;quot;,
+  &amp;quot;version&amp;quot;: &amp;quot;1.0.0&amp;quot;,
+  &amp;quot;description&amp;quot;: &amp;quot;&amp;quot;,
+  &amp;quot;main&amp;quot;: &amp;quot;app.js&amp;quot;,
+  &amp;quot;scripts&amp;quot;: {
+    &amp;quot;start&amp;quot;: &amp;quot;node ./bin/server.js env=development&amp;quot;,
+    &amp;quot;test&amp;quot;: &amp;quot;./node_modules/mocha/bin/mocha&amp;quot;,
+    &amp;quot;test-detail&amp;quot;: &amp;quot;./node_modules/mocha/bin/mocha --reporter list&amp;quot;,
+    &amp;quot;stop&amp;quot;: &amp;quot;pkill -lf server.js&amp;quot;
+  },
+  &amp;quot;author&amp;quot;: &amp;quot;kerkerj&amp;quot;,
+  &amp;quot;license&amp;quot;: &amp;quot;ISC&amp;quot;,
+  &amp;quot;dependencies&amp;quot;: {
+    &amp;quot;body-parser&amp;quot;: &amp;quot;^1.9.0&amp;quot;,
+    &amp;quot;debug&amp;quot;: &amp;quot;^2.0.0&amp;quot;,
+    &amp;quot;expect.js&amp;quot;: &amp;quot;^0.3.1&amp;quot;,
+    &amp;quot;express&amp;quot;: &amp;quot;^4.9.5&amp;quot;,
+    &amp;quot;log4js&amp;quot;: &amp;quot;^0.6.21&amp;quot;,
+    &amp;quot;mocha&amp;quot;: &amp;quot;^1.21.4&amp;quot;,
+    &amp;quot;mocha-mongoose&amp;quot;: &amp;quot;^1.0.1&amp;quot;,
+    &amp;quot;mongodb&amp;quot;: &amp;quot;^1.4.19&amp;quot;,
+    &amp;quot;mongoose&amp;quot;: &amp;quot;^3.8.17&amp;quot;,
+    &amp;quot;superagent&amp;quot;: &amp;quot;^0.20.0&amp;quot;,
+    &amp;quot;validator&amp;quot;: &amp;quot;^3.19.1&amp;quot;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;##安裝套件，及全域套件 mocha&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// in project folder
+$ npm install express body-parser mocha mocha-mongoose superagent validator expect.js debug mongoose mongodb log4js -save 
+$ npm install -g nodemon
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;##各個套件簡單設定&lt;/p&gt;
+
+&lt;p&gt;接下來會針對一些套件作說明，但是由於可能有些人不懂整個專案的運作，因此下面看看就好，之後實作上有問題可以再回來看。&lt;/p&gt;
+
+&lt;p&gt;##Nodemon 的作用&lt;/p&gt;
+
+&lt;p&gt;範例:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ nodemon ./bin/server.js
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;就可以放著不管它了~ 只要檔案有變動，就會自動重開 server&lt;/p&gt;
+
+&lt;p&gt;##使用 logger - log4js&lt;/p&gt;
+
+&lt;p&gt;設定 logger - log4js, 並將 log 寫入到 logs/access.log 裏&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// Set logger
+var log4js = require(&#39;log4js&#39;);
+log4js.configure({
+    appenders: [
+        { type: &#39;console&#39; }, //控制台輸出
+        {
+            type: &#39;file&#39;, //文件輸出
+            filename: &#39;logs/access.log&#39;,
+            maxLogSize: 20000000, // 20 MB
+            backups: 10,
+            category: &#39;normal&#39;
+        }
+    ],
+    replaceConsole: true
+});
+
+var logger = log4js.getLogger(&#39;normal&#39;);
+logger.setLevel(&#39;INFO&#39;);
+
+app.use(log4js.connectLogger(logger, {level: &#39;auto&#39;, format:&#39;:method :url&#39;}));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://blog.fens.me/nodejs-log4js/&#34;&gt;node log4s&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;##使用 body-parser 處理 request 的資料&lt;/p&gt;
+
+&lt;p&gt;加入 middleware&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;app.use( bodyParser.json() );
+app.use( bodyParser.urlencoded({ extended: true }) );
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;需要加入 { extended: true/false }, 否則會 warning:&lt;/p&gt;
+
+&lt;p&gt;body-parser deprecated undefined extended: provide extended&lt;/p&gt;
+
+&lt;p&gt;如果要接收 json request&lt;/p&gt;
+
+&lt;p&gt;client 端在 Header 中必須先設定 &amp;ldquo;Content-type: applciation/json&amp;rdquo;&lt;/p&gt;
+
+&lt;p&gt;才能夠在 router 中使用 &lt;code&gt;req.body&lt;/code&gt; 拿到 json 值&lt;/p&gt;
+
+&lt;p&gt;##測試套件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mocha - 專案
+expect.js - 專案
+superagent - 專案
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;測試流程 -&lt;/p&gt;
+
+&lt;p&gt;先跑 server 起來，透過自動化程式自動丟 request 給 server，測試結束&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ npm start
+$ mocha
+$ npm stop
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;所以必須先在 package.json 中設定好 script&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+	(...)
+	&amp;quot;scripts&amp;quot;: {
+      &amp;quot;start&amp;quot;: &amp;quot;node ./bin/server.js&amp;quot;,
+      &amp;quot;test&amp;quot;: &amp;quot;mocha&amp;quot;,
+      &amp;quot;stop&amp;quot;: &amp;quot;pkill -lf server.js&amp;quot;
+  },
+  (...)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;由於我將啟動 server 的 script 放在 bin 資料夾裡，因此&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;npm start&lt;/code&gt; 的 script 就會執行:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;node ./bin/server.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;npm stop&lt;/code&gt; 的話，用到了 *nix 的指令，會先到 process list 中找到和 server.js 有關的 process，然後 kill process (&lt;code&gt;pkill&lt;/code&gt;)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;pkill -lf server.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;跑測試的話，直接下 &lt;code&gt;mocha&lt;/code&gt;，在這邊我們也丟一個 script 指定給 &lt;code&gt;npm test&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;下 &lt;code&gt;npm test&lt;/code&gt; 就是等同於下 &lt;code&gt;mocha&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;上面只是大致上講解一下每個套件如何用，接下來我們會以實際的例子來說明&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[API-d12] - MongoDB - Hello World! (Client-side) </title>
+      <link>http://localhost:8000/blog/api-d12---mongodb---hello-world-client-side/</link>
+      <pubDate>Sun, 12 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/api-d12---mongodb---hello-world-client-side/</guid>
+      <description>&lt;p&gt;今天要使用 Node.js 的 mongodb driver 來操作 DB&lt;/p&gt;
+
+&lt;p&gt;一樣先開啟虛擬機並且登入吧&lt;/p&gt;
+
+&lt;p&gt;會使用到的套件是:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;mongodb -&amp;gt; mongodb native driver
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;或許有人有看過 &lt;code&gt;mongoose&lt;/code&gt; -&amp;gt; &lt;a href=&#34;http://mongoosejs.com/&#34;&gt;官網&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;算是 MongoDB 的 ORM，我們在這邊如果有時間的話再簡單了解一下，&lt;/p&gt;
+
+&lt;p&gt;現在先使用 native driver 來操作&lt;/p&gt;
+
+&lt;p&gt;我們在這邊就不裝全域套件了，裝在 API 專案裡面&lt;/p&gt;
+
+&lt;p&gt;並且使用 &lt;code&gt;-save&lt;/code&gt; 來將相依性寫入 &lt;code&gt;package.json 裏&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd /vagrant/API/
+$ npm install mongodb -save
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;從虛擬機回到電腦的資料夾中，在虛擬機資料夾的 API 資料夾中，&lt;/p&gt;
+
+&lt;p&gt;今天我們先不和 express 搭配，因此就是純操作 node.js + mongodb module&lt;/p&gt;
+
+&lt;p&gt;新增一個 &lt;code&gt;mongoTest.js&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;我們先來連線到 MongoDB，連線的方式有很多，下面是其中一種方式，&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// 先宣告用的到的東西
+var MongoClient = require(&#39;mongodb&#39;).MongoClient
+    , Server = require(&#39;mongodb&#39;).Server
+    , options = { auto_reconnection: true, poolSize: 10 };
+
+// Server 設定
+var mongoClient = new MongoClient(new Server(&#39;localhost&#39;, 27017, options));
+
+// 開啟連線
+mongoClient.open(function(err, mongoClient) {
+    var db1 = mongoClient.db(&amp;quot;testDB&amp;quot;);
+
+    if (!err) {
+        console.log(&amp;quot;Connected!&amp;quot;);
+    }
+
+    mongoClient.close();
+    console.log(&amp;quot;Closed!&amp;quot;);
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;回到虛擬機執行&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ node mongoTest.js
+Connected!
+Closed!
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;接著用另外一種連接方式，介紹 CRUD 的操作:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var mongoClient = require(&#39;mongodb&#39;).MongoClient;
+
+mongoClient.connect(&#39;mongodb://localhost:27017/testDB&#39;, function(err, db) {
+    if(err) throw err;
+
+    // Data
+    var todo1 = {todo: &amp;quot;Buy books&amp;quot;, time: &amp;quot;2014/10/11&amp;quot;, who: &amp;quot;myself&amp;quot;};
+    var todo2 = {todo: &amp;quot;Buy milk&amp;quot;, time: &amp;quot;2014/10/15&amp;quot;, who: &amp;quot;brother&amp;quot;};
+    var todo3 = {todo: &amp;quot;Wash cats&amp;quot;, time: &amp;quot;2014/11/21&amp;quot;, who: &amp;quot;myself&amp;quot;};
+
+    var collection = db.collection(&#39;todoTest&#39;);
+    var where = {todo: &amp;quot;Buy milk&amp;quot;};
+
+    // 新增資料
+    collection.insert(todo1, function(err, docs) {
+        console.log(docs);
+    });
+
+    collection.insert(todo2, function(err, docs) {
+        console.log(docs);
+    });
+
+    collection.insert(todo3, function(err, docs) {
+        console.log(docs);
+    });
+
+    // 更新資料
+    collection.update(where, { $set: { time: &amp;quot;2014/12/25&amp;quot;} }, function(err) {
+        console.log(err);
+    });
+
+    // 刪除某筆資料
+    collection.remove(where, function(err) {
+        console.log(err);
+    });
+
+    // 查詢某筆資料
+    collection.find(where).toArray(function(err, results) {
+        console.dir(results);
+    });
+
+    // 查詢所有資料
+    collection.find().toArray(function(err, results) {
+        console.dir(results);
+    });
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;請注意，以上操作由於 javascript async 特性的關係，&lt;/p&gt;
+
+&lt;p&gt;每個操作是會同時間送出，不同時間回送，看操作的運算時間而定&lt;/p&gt;
+
+&lt;p&gt;因此若要依順序性的話，一是使用 callback，二是使用 async.js&lt;/p&gt;
+
+&lt;p&gt;後面應該會提到 XD&lt;/p&gt;
+
+&lt;p&gt;將這些程式碼存到 js file 裏，將某些行先註解掉，執行看看就可以略知一二了，&lt;/p&gt;
+
+&lt;p&gt;可以同時搭配終端機直接到 DB 查看&lt;/p&gt;
+
+&lt;p&gt;p.s. 大家可能會覺得這樣的方式很麻煩，MongoDB 有沒有好用的 client 來管理 DB 呢&lt;/p&gt;
+
+&lt;p&gt;我推薦 RoboMongo，多平台，且可以直接輸入指令，蠻方便的，&lt;/p&gt;
+
+&lt;p&gt;那如果是用我們現在的虛擬機的方式，要如何使用 RoboMongo ？&lt;/p&gt;
+
+&lt;p&gt;首先，虛擬機的 DB 必須先開啟外部網路可以連線，&lt;/p&gt;
+
+&lt;p&gt;注意! 我們目前並沒有創立使用者帳號密碼，不需要驗證即可進入 DB，這樣的做法只限於 demo, 與虛擬機中使用&lt;/p&gt;
+
+&lt;p&gt;正式環境還是必須建立使用者帳號密碼&lt;/p&gt;
+
+&lt;p&gt;先進到虛擬機更改 db 設定:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo nano /etc/mongod.conf
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;將 bind_ip = 0.0.0.0&lt;/p&gt;
+
+&lt;p&gt;按下 ctrl+x 選擇 Y 存檔&lt;/p&gt;
+
+&lt;p&gt;重開 mongodb&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo service mongod restart
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;若已經下載過 RoboMongo，開啟並輸入欲連線的 DB 設定：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-06%2013.56.39.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;就可以連進去管理了!&lt;/p&gt;
+
+&lt;p&gt;再次提醒，這樣的做法只限於虛擬機及 demo 中測試&lt;/p&gt;
+
+&lt;p&gt;正式環境要嘛建立使用者帳號密碼&lt;/p&gt;
+
+&lt;p&gt;要嘛就是讓 DB 只限本機存取，請記住這件事情哦~&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

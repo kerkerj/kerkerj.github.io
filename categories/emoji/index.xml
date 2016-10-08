@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kerkerj</title>
+    <link>http://localhost:8000/categories/emoji/index.xml</link>
+    <description>Recent content on kerkerj</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
+    <atom:link href="http://localhost:8000/categories/emoji/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Emoji data in MySQL</title>
+      <link>http://localhost:8000/blog/emoji-data-in-mysql/</link>
+      <pubDate>Wed, 06 Aug 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/emoji-data-in-mysql/</guid>
+      <description>&lt;p&gt;Supported MySQL 5.5, 5.6.&lt;/p&gt;
+
+&lt;p&gt;First, MySQL should set DB and table to utf8mb4.&lt;/p&gt;
+
+&lt;p&gt;utf8 - 3 byte characters&lt;/p&gt;
+
+&lt;p&gt;utf8mb4 - 4 byte characters&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;ALTER DATABASE my_database DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+
+ALTER TABLE my_table DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+ALTER TABLE my_column CHANGE my_column my_column TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then, when inserting data or selecting data, execute this statement first:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;--Execute this statement first
+SET NAMES utf8mb4;
+
+--then insert or select
+SELECT * FROM my_table
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

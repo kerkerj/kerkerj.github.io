@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="YOLO~">
+
+<base href="http://localhost:8000/">
+<title>
+
+
+     [Swift-d19] - Basic - 橋接第三方 Objc library - Reachability and Bridge.h 
+
+</title>
+<link rel="canonical" href="http://localhost:8000/blog/swift-d19---basic---%E6%A9%8B%E6%8E%A5%E7%AC%AC%E4%B8%89%E6%96%B9-objc-library---reachability-and-bridge.h/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/localhost:8000\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="http://localhost:8000/css/reset.css">
+<link rel="stylesheet" href="http://localhost:8000/css/pygments.css">
+<link rel="stylesheet" href="http://localhost:8000/css/main.css">
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/zenburn.min.css">
+    
+
+
+
+<link rel="shortcut icon"
+
+    href="http://localhost:8000/favicon.png"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="zh-TW">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            <a href="http://localhost:8000/"><div class="name">kerkerj</div></a>
+            <nav>
+                <ul>
+                    <a href="http://localhost:8000/blog/"><li>Blog</li></a>
+                    <a href="http://localhost:8000/about/"><li>About</li></a>
+                    <a href="http://localhost:8000/mac-app-list/"><li>Mac App List</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/kerkerj" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/kerkerj" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/fuzanhuang" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="http://localhost:8000/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    [Swift-d19] - Basic - 橋接第三方 Objc library - Reachability and Bridge.h
+
+</div>
+
+                    <div class="initials"><a href="http://localhost:8000/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Sun Oct 19 2014 00:00:00 UTC">2014-10-10 00:00</div>
+                    <div class="reading-time"><div class="middot"></div>2 minutes read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p>本日專案的 <a href="https://github.com/kerkerj/ithome-BridgeObjcDemo">Github link</a></p>
+
+<p>由於 Swift 剛推出不到一年</p>
+
+<p>有許多的 third-party library 一定還沒轉換成 Swift</p>
+
+<p>或者是作者沒心力轉會成 Swift</p>
+
+<p>但是有些套件非常方便，那在 Swift 要怎麼使用 Objective-C 的套件呢?</p>
+
+<p>Xcode 有提供橋接的方式，非常好用</p>
+
+<p>接下來就介紹一下如何使用吧!</p>
+
+<p>以下的例子是一個叫做 <code>Reachability</code> 的套件</p>
+
+<p>它可以簡單地幫我們判斷是否有網路連線 3g or wifi 之類的</p>
+
+<p>所以我們先下載這個套件吧!</p>
+
+<p><a href="https://github.com/tonymillion/Reachability">https://github.com/tonymillion/Reachability</a></p>
+
+<p>下載解壓縮後</p>
+
+<p>將 .h 和 .m 檔拖曳進 Xcode 專案中</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2014.27.17.png" alt="image" /></p>
+
+<p>接下來 Xcode 就會問一個非常重要的問題!:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2014.26.24.png" alt="image" /></p>
+
+<p>是否要建立橋接的 .h 檔案!</p>
+
+<p>當然是選擇建立囉~</p>
+
+<p>此時的專案結構就會變成這樣:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2014.26.38.png" alt="image" /></p>
+
+<p>再來編輯 bridge-header.h 檔</p>
+
+<p>將想要橋接的 objc 套件 import 進去</p>
+
+<pre><code class="language-swift">#import &quot;Reachability.h&quot;
+</code></pre>
+
+<p>這樣我們就可以在 Swift 中直接使用該套件的類別與方法了!</p>
+
+<p>接下來就讓我們試試看!</p>
+
+<p>在 ViewController 中加入以下程式碼:</p>
+
+<pre><code>//
+//  ViewController.swift
+//  BridgeObjcDemo
+//
+//  Created by Jerry Huang on 2014/10/18.
+//  Copyright (c) 2014年 kerkerj. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        
+        
+        var isConnected = checkNetworkConnection()
+        
+        let alert = UIAlertView()
+        alert.title = &quot;Network Connection&quot;
+        
+        if isConnected {
+            alert.message = &quot;You're online!&quot;
+        } else {
+            alert.message = &quot;You're offline!&quot;
+        }
+        
+        alert.addButtonWithTitle(&quot;OK&quot;)
+        alert.show()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func checkNetworkConnection() -&gt; Bool {
+        let reachability: Reachability = Reachability.reachabilityForInternetConnection()
+        let networkStatus: NetworkStatus = reachability.currentReachabilityStatus()
+        
+        println(networkStatus.toRaw())
+        
+        switch (networkStatus.toRaw()) {
+        case 0:
+            println(&quot;[Network Status]: NotReachable&quot;)
+        case 1:
+            println(&quot;[Network Status]: ReachableViaWWAN&quot;)
+        case 2:
+            println(&quot;[Network Status]: ReachableViaWiFi&quot;)
+        default:
+            break
+        }
+        
+        return networkStatus.toRaw() != 0
+    }
+}
+</code></pre>
+
+<p>簡單的說，我們寫了一個方法，使用 Reachability 偵測網路連線</p>
+
+<p>在 ViewDidLoad 時，偵測是否有網路連線</p>
+
+<p>跳一個 Alert 會告訴你是有連線還是沒有連線</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2014.42.45.png" alt="image" /></p>
+
+<p>不過在這邊，我不曉得如何讓模擬器關掉連線，</p>
+
+<p>所以沒辦法提供 offline 的圖</p>
+
+<p>但是我實際安裝到手機後，將 wifi 功能關掉後的確是有跳出 offline 的</p>
+
+<p>哈哈 雖然說沒圖沒真相但是&hellip;XD</p>
+
+<p>橋接第三方套件就是那麼簡單! :D</p>
+
+                <br>
+                <p><a href="http://localhost:8000/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/localhost:8000\/blog\/swift-d19---basic---%E6%A9%8B%E6%8E%A5%E7%AC%AC%E4%B8%89%E6%96%B9-objc-library---reachability-and-bridge.h\/';
+    var disqus_title = '[Swift-d19] - Basic - 橋接第三方 Objc library - Reachability and Bridge.h';
+    var disqus_url = 'http:\/\/localhost:8000\/blog\/swift-d19---basic---%E6%A9%8B%E6%8E%A5%E7%AC%AC%E4%B8%89%E6%96%B9-objc-library---reachability-and-bridge.h\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer">
+    <div class="">
+        <ul>
+            <li>© 2010 - 2014 kerkerj. powerd by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a>. Theme: <a href="https://github.com/kerkerj/cocoa-hugo-theme">kerkerj-cocoa-hugo-theme</a>, modified from <a href="https://github.com/nishanths/cocoa-hugo-theme">cocoa</a>.</li>
+        </ul>
+    </div>
+</section>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-45583907-2");
+    pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+

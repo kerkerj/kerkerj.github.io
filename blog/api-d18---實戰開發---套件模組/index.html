@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="YOLO~">
+
+<base href="http://localhost:8000/">
+<title>
+
+
+     [API-d18] - 實戰開發 - 套件模組 
+
+</title>
+<link rel="canonical" href="http://localhost:8000/blog/api-d18---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E5%A5%97%E4%BB%B6%E6%A8%A1%E7%B5%84/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/localhost:8000\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="http://localhost:8000/css/reset.css">
+<link rel="stylesheet" href="http://localhost:8000/css/pygments.css">
+<link rel="stylesheet" href="http://localhost:8000/css/main.css">
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/zenburn.min.css">
+    
+
+
+
+<link rel="shortcut icon"
+
+    href="http://localhost:8000/favicon.png"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="zh-TW">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            <a href="http://localhost:8000/"><div class="name">kerkerj</div></a>
+            <nav>
+                <ul>
+                    <a href="http://localhost:8000/blog/"><li>Blog</li></a>
+                    <a href="http://localhost:8000/about/"><li>About</li></a>
+                    <a href="http://localhost:8000/mac-app-list/"><li>Mac App List</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/kerkerj" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/kerkerj" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/fuzanhuang" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="http://localhost:8000/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    [API-d18] - 實戰開發 - 套件模組
+
+</div>
+
+                    <div class="initials"><a href="http://localhost:8000/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Sat Oct 18 2014 00:00:00 UTC">2014-10-10 00:00</div>
+                    <div class="reading-time"><div class="middot"></div>2 minutes read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p>##會使用到的套件:</p>
+
+<pre><code>主體:
+express - web framework
+body-parser - parse request body
+
+測試相關:
+mocha - test framework
+mocha-mongoose - 用來和 mocha 和 mongoose 中間做介接的套件
+superagent - 拿它來丟 http request
+validator - 用來驗證某個物件是否為某個型別
+expect.js - 類似 BDD 的語法，用來寫測試的
+debug - debug package
+
+DB 相關:
+mongoose - mongodb orm
+mongodb - mongodb native driver
+
+開發相關:
+nodemon - detect file change and restart server
+
+生產環境相關:
+log4js - 記錄 request log
+</code></pre>
+
+<p>這是我的 package.json, 可以複製到專案目錄，然後下 <code>npm install</code></p>
+
+<pre><code>{
+  &quot;name&quot;: &quot;TODOAPI&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;app.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;node ./bin/server.js env=development&quot;,
+    &quot;test&quot;: &quot;./node_modules/mocha/bin/mocha&quot;,
+    &quot;test-detail&quot;: &quot;./node_modules/mocha/bin/mocha --reporter list&quot;,
+    &quot;stop&quot;: &quot;pkill -lf server.js&quot;
+  },
+  &quot;author&quot;: &quot;kerkerj&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;dependencies&quot;: {
+    &quot;body-parser&quot;: &quot;^1.9.0&quot;,
+    &quot;debug&quot;: &quot;^2.0.0&quot;,
+    &quot;expect.js&quot;: &quot;^0.3.1&quot;,
+    &quot;express&quot;: &quot;^4.9.5&quot;,
+    &quot;log4js&quot;: &quot;^0.6.21&quot;,
+    &quot;mocha&quot;: &quot;^1.21.4&quot;,
+    &quot;mocha-mongoose&quot;: &quot;^1.0.1&quot;,
+    &quot;mongodb&quot;: &quot;^1.4.19&quot;,
+    &quot;mongoose&quot;: &quot;^3.8.17&quot;,
+    &quot;superagent&quot;: &quot;^0.20.0&quot;,
+    &quot;validator&quot;: &quot;^3.19.1&quot;
+  }
+}
+</code></pre>
+
+<p>##安裝套件，及全域套件 mocha</p>
+
+<pre><code>// in project folder
+$ npm install express body-parser mocha mocha-mongoose superagent validator expect.js debug mongoose mongodb log4js -save 
+$ npm install -g nodemon
+</code></pre>
+
+<p>##各個套件簡單設定</p>
+
+<p>接下來會針對一些套件作說明，但是由於可能有些人不懂整個專案的運作，因此下面看看就好，之後實作上有問題可以再回來看。</p>
+
+<p>##Nodemon 的作用</p>
+
+<p>範例:</p>
+
+<pre><code>$ nodemon ./bin/server.js
+...
+</code></pre>
+
+<p>就可以放著不管它了~ 只要檔案有變動，就會自動重開 server</p>
+
+<p>##使用 logger - log4js</p>
+
+<p>設定 logger - log4js, 並將 log 寫入到 logs/access.log 裏</p>
+
+<pre><code>// Set logger
+var log4js = require('log4js');
+log4js.configure({
+    appenders: [
+        { type: 'console' }, //控制台輸出
+        {
+            type: 'file', //文件輸出
+            filename: 'logs/access.log',
+            maxLogSize: 20000000, // 20 MB
+            backups: 10,
+            category: 'normal'
+        }
+    ],
+    replaceConsole: true
+});
+
+var logger = log4js.getLogger('normal');
+logger.setLevel('INFO');
+
+app.use(log4js.connectLogger(logger, {level: 'auto', format:':method :url'}));
+</code></pre>
+
+<p><a href="http://blog.fens.me/nodejs-log4js/">node log4s</a></p>
+
+<p>##使用 body-parser 處理 request 的資料</p>
+
+<p>加入 middleware</p>
+
+<pre><code>app.use( bodyParser.json() );
+app.use( bodyParser.urlencoded({ extended: true }) );
+</code></pre>
+
+<p>需要加入 { extended: true/false }, 否則會 warning:</p>
+
+<p>body-parser deprecated undefined extended: provide extended</p>
+
+<p>如果要接收 json request</p>
+
+<p>client 端在 Header 中必須先設定 &ldquo;Content-type: applciation/json&rdquo;</p>
+
+<p>才能夠在 router 中使用 <code>req.body</code> 拿到 json 值</p>
+
+<p>##測試套件</p>
+
+<pre><code>mocha - 專案
+expect.js - 專案
+superagent - 專案
+</code></pre>
+
+<p>測試流程 -</p>
+
+<p>先跑 server 起來，透過自動化程式自動丟 request 給 server，測試結束</p>
+
+<pre><code>$ npm start
+$ mocha
+$ npm stop
+</code></pre>
+
+<p>所以必須先在 package.json 中設定好 script</p>
+
+<pre><code>{
+	(...)
+	&quot;scripts&quot;: {
+      &quot;start&quot;: &quot;node ./bin/server.js&quot;,
+      &quot;test&quot;: &quot;mocha&quot;,
+      &quot;stop&quot;: &quot;pkill -lf server.js&quot;
+  },
+  (...)
+}
+</code></pre>
+
+<p>由於我將啟動 server 的 script 放在 bin 資料夾裡，因此</p>
+
+<p><code>npm start</code> 的 script 就會執行:</p>
+
+<pre><code>node ./bin/server.js
+</code></pre>
+
+<p><code>npm stop</code> 的話，用到了 *nix 的指令，會先到 process list 中找到和 server.js 有關的 process，然後 kill process (<code>pkill</code>)</p>
+
+<pre><code>pkill -lf server.js
+</code></pre>
+
+<p>跑測試的話，直接下 <code>mocha</code>，在這邊我們也丟一個 script 指定給 <code>npm test</code></p>
+
+<p>下 <code>npm test</code> 就是等同於下 <code>mocha</code></p>
+
+<p>上面只是大致上講解一下每個套件如何用，接下來我們會以實際的例子來說明</p>
+
+                <br>
+                <p><a href="http://localhost:8000/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/localhost:8000\/blog\/api-d18---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E5%A5%97%E4%BB%B6%E6%A8%A1%E7%B5%84\/';
+    var disqus_title = '[API-d18] - 實戰開發 - 套件模組';
+    var disqus_url = 'http:\/\/localhost:8000\/blog\/api-d18---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E5%A5%97%E4%BB%B6%E6%A8%A1%E7%B5%84\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer">
+    <div class="">
+        <ul>
+            <li>© 2010 - 2014 kerkerj. powerd by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a>. Theme: <a href="https://github.com/kerkerj/cocoa-hugo-theme">kerkerj-cocoa-hugo-theme</a>, modified from <a href="https://github.com/nishanths/cocoa-hugo-theme">cocoa</a>.</li>
+        </ul>
+    </div>
+</section>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-45583907-2");
+    pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+

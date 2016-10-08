@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="YOLO~">
+
+<base href="http://localhost:8000/">
+<title>
+
+
+     [CS] IEEE 754 表示式 
+
+</title>
+<link rel="canonical" href="http://localhost:8000/blog/cs-ieee-754-%E8%A1%A8%E7%A4%BA%E5%BC%8F/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/localhost:8000\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="http://localhost:8000/css/reset.css">
+<link rel="stylesheet" href="http://localhost:8000/css/pygments.css">
+<link rel="stylesheet" href="http://localhost:8000/css/main.css">
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/zenburn.min.css">
+    
+
+
+
+<link rel="shortcut icon"
+
+    href="http://localhost:8000/favicon.png"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="zh-TW">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            <a href="http://localhost:8000/"><div class="name">kerkerj</div></a>
+            <nav>
+                <ul>
+                    <a href="http://localhost:8000/blog/"><li>Blog</li></a>
+                    <a href="http://localhost:8000/about/"><li>About</li></a>
+                    <a href="http://localhost:8000/mac-app-list/"><li>Mac App List</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/kerkerj" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/kerkerj" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/fuzanhuang" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="http://localhost:8000/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    [CS] IEEE 754 表示式
+
+</div>
+
+                    <div class="initials"><a href="http://localhost:8000/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Tue May 31 2011 00:00:00 UTC">2011-05-05 00:00</div>
+                    <div class="reading-time"><div class="middot"></div>1 minute read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p>2的補數複習一下  <a href="http://scribefire-next/" title="http://entry.hit.edu.tw/~bd92043/1.htm">http://entry.hit.edu.tw/~bd92043/1.htm</a></p>
+
+<p>另一篇IEEE 754   <a href="http://tw.myblog.yahoo.com/nicholas-kang/article?mid=39&amp;l=f&amp;fid=5" title="http://tw.myblog.yahoo.com/nicholas-kang/article?mid=39&amp;l=f&amp;fid=5">http://tw.myblog.yahoo.com/nicholas-kang/article?mid=39&amp;l=f&amp;fid=5   </a></p>
+
+<p>PTT 轉錄 <a href="https://www.ptt.cc/bbs/CYCU-IM/M.1233932341.A.13C.html">https://www.ptt.cc/bbs/CYCU-IM/M.1233932341.A.13C.html</a></p>
+
+<p>以下是我的筆記：</p>
+
+<p> IEEE 754 結構 (以下皆只討論Single Precision)<br />
+ ==== S(1) + Exponent(8) + Fraction(23)   共32 bits ====<br />
+ S判斷正負<br />
+ 作業例子：  (-13.625)ten 使用IEEE 754 表示<br />
+ p.s. IEEE 754表示式是在第一個bit來判斷正負<br />
+ 1. 先轉二進位<br />
+ (-13)ten = (-1101)two<br />
+ (0.625)ten = (<sup>5</sup>&frasl;<sub>8</sub>)ten = (<sup>101</sup>&frasl;<sub>1000</sub>)two<br />
+ =&gt; (-13.625)ten = (-1101.101)two<br />
+ 2. 正規化表示 (就像科學記號表示法一樣)<br />
+ =&gt; (-1101.101)two = -1.101101 x 2^3<br />
+ 3. 因此可以得到<br />
+ =&gt; 1 ________ 10110100000000000000000<br />
+ 4. E = 指數加上 bias 即可   不用二的補數  (IEEE 754的偏差設為127)<br />
+ =&gt; 剛剛算出來的指數是3，所以<br />
+ =&gt; 3 + 127 = 130<br />
+ =&gt; 130 轉二進位為：1000 0010<br />
+ 因此 (-13.625)ten = 1 1000 0010 10110100000000000000000  (空白只是觀看容易)<br />
+ 驗證一下ㄎㄎ<br />
+ <a href="http://www.h-schmidt.net/FloatApplet/IEEE754.html" title="http://www.h-schmidt.net/FloatApplet/IEEE754.html">http://www.h-schmidt.net/FloatApplet/IEEE754.html</a></p>
+
+                <br>
+                <p><a href="http://localhost:8000/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/localhost:8000\/blog\/cs-ieee-754-%E8%A1%A8%E7%A4%BA%E5%BC%8F\/';
+    var disqus_title = '[CS] IEEE 754 表示式';
+    var disqus_url = 'http:\/\/localhost:8000\/blog\/cs-ieee-754-%E8%A1%A8%E7%A4%BA%E5%BC%8F\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer">
+    <div class="">
+        <ul>
+            <li>© 2010 - 2011 kerkerj. powerd by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a>. Theme: <a href="https://github.com/kerkerj/cocoa-hugo-theme">kerkerj-cocoa-hugo-theme</a>, modified from <a href="https://github.com/nishanths/cocoa-hugo-theme">cocoa</a>.</li>
+        </ul>
+    </div>
+</section>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-45583907-2");
+    pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+

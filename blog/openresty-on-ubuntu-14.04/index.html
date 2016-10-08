@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="YOLO~">
+
+<base href="http://localhost:8000/">
+<title>
+
+
+     Openresty on Ubuntu 14.04 
+
+</title>
+<link rel="canonical" href="http://localhost:8000/blog/openresty-on-ubuntu-14.04/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/localhost:8000\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="http://localhost:8000/css/reset.css">
+<link rel="stylesheet" href="http://localhost:8000/css/pygments.css">
+<link rel="stylesheet" href="http://localhost:8000/css/main.css">
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/zenburn.min.css">
+    
+
+
+
+<link rel="shortcut icon"
+
+    href="http://localhost:8000/favicon.png"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="zh-TW">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            <a href="http://localhost:8000/"><div class="name">kerkerj</div></a>
+            <nav>
+                <ul>
+                    <a href="http://localhost:8000/blog/"><li>Blog</li></a>
+                    <a href="http://localhost:8000/about/"><li>About</li></a>
+                    <a href="http://localhost:8000/mac-app-list/"><li>Mac App List</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/kerkerj" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/kerkerj" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/fuzanhuang" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="http://localhost:8000/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    Openresty on Ubuntu 14.04
+
+</div>
+
+                    <div class="initials"><a href="http://localhost:8000/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Tue Aug 5 2014 00:00:00 UTC">2014-08-08 00:00</div>
+                    <div class="reading-time"><div class="middot"></div>2 minutes read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                
+
+<h2 id="install">Install</h2>
+
+<p>choose the latest version of Openresty<br />
+I used ngx_openresty-1.7.2.1.tar.gz</p>
+
+<pre><code class="language-shell"># install packages
+sudo apt-get install libreadline-dev libpcre3-dev libssl-dev perl  
+
+# get openresty package
+wget http://openresty.org/download/ngx_openresty-1.7.2.1.tar.gz   
+
+# unzip
+tar xzvf ngx_openresty-1.7.2.1.tar.gz
+
+# install
+cd ngx_openresty-1.7.2.1/
+
+# You can setup with ./configure --prefix=&quot;the folder you want to install&quot;, default is '/usr/local/openresty'
+./configure 
+make
+sudo make install # need permission to copy file to target folder
+</code></pre>
+
+<p>Default folder: <code>/usr/local/openresty</code></p>
+
+<h2 id="setup">Setup</h2>
+
+<p>create work folder in ~</p>
+
+<pre><code>mkdir ~/work
+cd ~/work
+mkdir logs/ conf/
+</code></pre>
+
+<p>create a new file in <code>~/work/conf/nginx.conf</code></p>
+
+<pre><code>worker_processes  1;
+error_log logs/error.log;
+events {
+    worker_connections 1024;
+}
+http {
+    server {
+        listen 8080;
+        location / {
+            default_type text/html;
+            content_by_lua '
+                ngx.say(&quot;&lt;p&gt;hello, world&lt;/p&gt;&quot;)
+            ';
+        }
+    }
+}
+</code></pre>
+
+<p>because Openresty is installed in <code>/usr/local/openresty</code>,<br />
+we need to add the directory to PATH variable</p>
+
+<pre><code>PATH=/usr/local/openresty/nginx/sbin:$PATH
+export PATH
+</code></pre>
+
+<p>Then use the way below to start nginx server</p>
+
+<pre><code>nginx -p `pwd`/ -c conf/nginx.conf
+</code></pre>
+
+<p>Assume that you have a nginx server originally, and then you installed Openresty, it can be set up at the same time if the port is not confilcted to the origin nginx.</p>
+
+<h2 id="use-external-lua-file-to-keep-conf-clean">Use external lua file to keep conf clean</h2>
+
+<p>Edit <code>~/work/conf/nginx.conf</code></p>
+
+<pre><code>worker_processes  1;
+error_log logs/error.log;
+events {
+    worker_connections 1024;
+}
+http {
+    server {
+        listen 8080;
+        location /hello {
+            content_by_lua_file conf/hello.lua;
+        }
+    }
+}
+</code></pre>
+
+<pre><code class="language-lua">-- hello.lua
+ngx.say(&quot;Hello World&quot;)
+</code></pre>
+
+                <br>
+                <p><a href="http://localhost:8000/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/localhost:8000\/blog\/openresty-on-ubuntu-14.04\/';
+    var disqus_title = 'Openresty on Ubuntu 14.04';
+    var disqus_url = 'http:\/\/localhost:8000\/blog\/openresty-on-ubuntu-14.04\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer">
+    <div class="">
+        <ul>
+            <li>© 2010 - 2014 kerkerj. powerd by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a>. Theme: <a href="https://github.com/kerkerj/cocoa-hugo-theme">kerkerj-cocoa-hugo-theme</a>, modified from <a href="https://github.com/nishanths/cocoa-hugo-theme">cocoa</a>.</li>
+        </ul>
+    </div>
+</section>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-45583907-2");
+    pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+

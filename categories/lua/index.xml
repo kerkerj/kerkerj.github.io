@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kerkerj</title>
+    <link>http://localhost:8000/categories/lua/index.xml</link>
+    <description>Recent content on kerkerj</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
+    <atom:link href="http://localhost:8000/categories/lua/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Writing Lua on Mac</title>
+      <link>http://localhost:8000/blog/writing-lua-on-mac/</link>
+      <pubDate>Wed, 06 Aug 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/writing-lua-on-mac/</guid>
+      <description>
+
+&lt;h2 id=&#34;install-lua-on-mac&#34;&gt;Install lua on mac&lt;/h2&gt;
+
+&lt;p&gt;I&amp;rsquo;m not sure that whether Lua is built on mac originally.&lt;/p&gt;
+
+&lt;p&gt;&lt;span style=&#34;color:red;&#34;&gt;(Ok, tested on Mac OSX 10.9, there is Lua in it.)&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;So I installed Lua via &lt;a href=&#34;http://brew.sh/&#34;&gt;Homebrew&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Install homebrew (optional)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ruby -e &amp;quot;$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Install Lua by homebrew&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;brew install lua
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;writing-lua&#34;&gt;Writing Lua&lt;/h2&gt;
+
+&lt;p&gt;You can use command: &lt;code&gt;lua&lt;/code&gt; to interact with lua. (just like &lt;code&gt;php -a&lt;/code&gt; or &lt;code&gt;irb&lt;/code&gt;)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-lua&#34;&gt;print(&amp;quot;Hello World&amp;quot;)
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-lua&#34;&gt;function fact(n)
+	if n == 0 then
+		return 1
+	else
+		return n * fact(n-1)
+	end
+end
+
+print(&amp;quot;enter a number:&amp;quot;)
+num = io.read(&amp;quot;*number&amp;quot;) 
+print(fact(num))
+		
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

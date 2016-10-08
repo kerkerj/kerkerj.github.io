@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="YOLO~">
+
+<base href="http://localhost:8000/">
+<title>
+
+
+     [API-d23] - 實戰開發 - 修改 TODO task API with mongoose 
+
+</title>
+<link rel="canonical" href="http://localhost:8000/blog/api-d23---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E4%BF%AE%E6%94%B9-todo-task-api-with-mongoose/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/localhost:8000\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="http://localhost:8000/css/reset.css">
+<link rel="stylesheet" href="http://localhost:8000/css/pygments.css">
+<link rel="stylesheet" href="http://localhost:8000/css/main.css">
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/zenburn.min.css">
+    
+
+
+
+<link rel="shortcut icon"
+
+    href="http://localhost:8000/favicon.png"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="zh-TW">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            <a href="http://localhost:8000/"><div class="name">kerkerj</div></a>
+            <nav>
+                <ul>
+                    <a href="http://localhost:8000/blog/"><li>Blog</li></a>
+                    <a href="http://localhost:8000/about/"><li>About</li></a>
+                    <a href="http://localhost:8000/mac-app-list/"><li>Mac App List</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/kerkerj" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/kerkerj" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/fuzanhuang" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="http://localhost:8000/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    [API-d23] - 實戰開發 - 修改 TODO task API with mongoose
+
+</div>
+
+                    <div class="initials"><a href="http://localhost:8000/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Thu Oct 23 2014 00:00:00 UTC">2014-10-10 00:00</div>
+                    <div class="reading-time"><div class="middot"></div>1 minute read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day23">Github 參考</a></p>
+
+<p>接上篇，我們已經可以拿到 todo list 了</p>
+
+<p>也可以拿到特定的 todo task</p>
+
+<p>再來我們就可以編輯特定的 todo task 了對吧?</p>
+
+<p>不囉唆直接進入程式碼</p>
+
+<p>routes/users.js</p>
+
+<pre><code class="language-javascript">// Update a todo task
+router.put('/:user_id/todos/:todo_id', function(req, res) {
+    var user_id = req.params.user_id;
+    var todo_id = req.params.todo_id;
+    var data = req.body;
+
+    TODO.update(
+        { _id: todo_id, user_id: user_id },
+        { $set: { content: data.content } },
+        function (err, num, raw, results) {
+            if (err) {
+                res.status(400).json(
+                    { error: &quot;update data error&quot; }
+                );
+            } else {
+                TODO.find({ _id: todo_id, user_id: user_id }, function (err, results) {
+                    res.status(201).json(
+                        results[0]
+                    );
+                });
+            }
+        }
+    );
+});
+</code></pre>
+
+<p>這次拿資料要拿三組: user_id, todo_id, 以及 data from req.body</p>
+
+<pre><code>var user_id = req.params.user_id;
+var todo_id = req.params.todo_id;
+var data = req.body;
+</code></pre>
+
+<p>body 的資料很簡單，就是欲修改的 content 的資料:</p>
+
+<pre><code>{ &quot;content&quot;: &quot;想修改的資料&quot; }
+</code></pre>
+
+<p>再來，除了是使用 .update 方法以及同樣要下 WHERE 參數外， .update 方法還多了一個參數:</p>
+
+<pre><code>{ _id: todo_id, user_id: user_id },
+{ $set: { content: data.content } },
+</code></pre>
+
+<p>$set 的意思等同於 SQL 語法中的 SET</p>
+
+<p>如果沒有加 $set 變成下面這樣:</p>
+
+<pre><code>{ _id: todo_id, user_id: user_id },
+{ content: data.content } ,
+</code></pre>
+
+<p>整個資料就會被洗掉，變成只有 <code>{ content: data.content }</code></p>
+
+<p>因此有沒有加 $set 差很多哦</p>
+
+<p>後面一樣是 callback 的處理</p>
+
+<p>都寫好後，實際開 POSTMAN 試試看吧!</p>
+
+<p>記得要使用 <code>PUT</code> 來丟 request</p>
+
+<p>例子如下，我把原本的 buy milk 改成 buy milk and banana</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%203.31.57.png" alt="image" /></p>
+
+<p>這樣離完成 API 就不遠啦!</p>
+
+<p>明天就稍微休息一下吧 XD</p>
+
+                <br>
+                <p><a href="http://localhost:8000/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/localhost:8000\/blog\/api-d23---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E4%BF%AE%E6%94%B9-todo-task-api-with-mongoose\/';
+    var disqus_title = '[API-d23] - 實戰開發 - 修改 TODO task API with mongoose';
+    var disqus_url = 'http:\/\/localhost:8000\/blog\/api-d23---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E4%BF%AE%E6%94%B9-todo-task-api-with-mongoose\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer">
+    <div class="">
+        <ul>
+            <li>© 2010 - 2014 kerkerj. powerd by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a>. Theme: <a href="https://github.com/kerkerj/cocoa-hugo-theme">kerkerj-cocoa-hugo-theme</a>, modified from <a href="https://github.com/nishanths/cocoa-hugo-theme">cocoa</a>.</li>
+        </ul>
+    </div>
+</section>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-45583907-2");
+    pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+

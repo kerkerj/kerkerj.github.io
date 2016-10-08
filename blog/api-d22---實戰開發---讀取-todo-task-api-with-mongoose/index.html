@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="YOLO~">
+
+<base href="http://localhost:8000/">
+<title>
+
+
+     [API-d22] - 實戰開發 - 讀取 TODO task API with mongoose 
+
+</title>
+<link rel="canonical" href="http://localhost:8000/blog/api-d22---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E8%AE%80%E5%8F%96-todo-task-api-with-mongoose/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/localhost:8000\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="http://localhost:8000/css/reset.css">
+<link rel="stylesheet" href="http://localhost:8000/css/pygments.css">
+<link rel="stylesheet" href="http://localhost:8000/css/main.css">
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/zenburn.min.css">
+    
+
+
+
+<link rel="shortcut icon"
+
+    href="http://localhost:8000/favicon.png"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="zh-TW">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            <a href="http://localhost:8000/"><div class="name">kerkerj</div></a>
+            <nav>
+                <ul>
+                    <a href="http://localhost:8000/blog/"><li>Blog</li></a>
+                    <a href="http://localhost:8000/about/"><li>About</li></a>
+                    <a href="http://localhost:8000/mac-app-list/"><li>Mac App List</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/kerkerj" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/kerkerj" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/fuzanhuang" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="http://localhost:8000/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    [API-d22] - 實戰開發 - 讀取 TODO task API with mongoose
+
+</div>
+
+                    <div class="initials"><a href="http://localhost:8000/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Wed Oct 22 2014 00:00:00 UTC">2014-10-10 00:00</div>
+                    <div class="reading-time"><div class="middot"></div>2 minutes read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day22">Github 參考</a></p>
+
+<p>如果有使用 MongoDB client 的話就可以搭配使用會比較有感覺</p>
+
+<p>Mac 我是使用 Robomongo，算很好上手~</p>
+
+<p>今天要來實作讀取的部分</p>
+
+<p>讀取有分兩種，一種是讀取 list</p>
+
+<p>另一種是讀取特定某個 todo task，今天兩種都會實作</p>
+
+<p>首先我們先實作 get todo list</p>
+
+<p>因為若要拿到特定的 todo task，需要 todo task 的 id</p>
+
+<p>而我們現在還不曉得 todo task 的 id 是多少，我們只知道 user_id</p>
+
+<p>因此就先從 list 下手</p>
+
+<p>routes/users.js:</p>
+
+<pre><code class="language-javascript">// Get todo list
+router.get('/:user_id/todos', function(req, res) {
+	var user_id = req.params.user_id;
+
+    TODO.find(
+        {user_id: user_id},
+        function (err, results) {
+            if (err) {
+                res.status(400).json(
+                    { error: &quot;can not find data&quot; }
+                );
+            } else {
+                res.status(200).json(
+                    results
+                );
+            }
+        }
+    );
+});
+</code></pre>
+
+<p>上面程式碼的意思是，先抓到 uri 的 user_id</p>
+
+<p>再來就直接進 db 找，find() 的第一個參數為:</p>
+
+<pre><code>{user_id: user_id},
+</code></pre>
+
+<p>可以想像成是 SQL 語法中的 WHERE 條件</p>
+
+<pre><code>SELECT * WHERE user_id = 'user_id' FROM todos
+</code></pre>
+
+<p>而 callback 則是針對 error 或 results 作處理</p>
+
+<p>試著將 server 跑起來，然後使用 POSTMAN 丟 GET request 試試看</p>
+
+<p>如果沒有資料，就利用昨天實作的 POST API 新增幾個吧！</p>
+
+<p>記得 url 中輸入的 user_id 要在 DB 中有該 user 的資料才找的到資料哦</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%203.17.08.png" alt="images" /></p>
+
+<p>如此一來就有 task id 了!</p>
+
+<p>再來就來實作讀取特定 id 的 task API 吧!</p>
+
+<p>程式碼如下</p>
+
+<p>routes/user.js:</p>
+
+<pre><code>// Get a todo task
+router.get('/:user_id/todos/:todo_id', function(req, res) {
+    var user_id = req.params.user_id;
+    var todo_id = req.params.todo_id;
+
+    TODO.find(
+        { _id: todo_id, user_id: user_id},
+        function (err, results) {
+            if (err) {
+                res.status(400).json(
+                    { error: &quot;can not find data&quot; }
+                );
+            } else {
+                res.status(200).json(
+                    results[0]
+                );
+            }
+        }
+    );
+});
+</code></pre>
+
+<p>這次更簡單了，user_id 及 todo_id 都是從 url 上取值</p>
+
+<p>接著一樣使用 where 條件，將值帶入找資料</p>
+
+<p>最後交給 callback 處理回傳值</p>
+
+<p>將 server 跑起來，試著先從todo list 複製某一筆 _id 的值</p>
+
+<p>丟到 url 中試試看</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%203.21.51.png" alt="image" /></p>
+
+<p>如此一來，讀取特定 task 的 API 也完成囉!</p>
+
+                <br>
+                <p><a href="http://localhost:8000/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/localhost:8000\/blog\/api-d22---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E8%AE%80%E5%8F%96-todo-task-api-with-mongoose\/';
+    var disqus_title = '[API-d22] - 實戰開發 - 讀取 TODO task API with mongoose';
+    var disqus_url = 'http:\/\/localhost:8000\/blog\/api-d22---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E8%AE%80%E5%8F%96-todo-task-api-with-mongoose\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer">
+    <div class="">
+        <ul>
+            <li>© 2010 - 2014 kerkerj. powerd by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a>. Theme: <a href="https://github.com/kerkerj/cocoa-hugo-theme">kerkerj-cocoa-hugo-theme</a>, modified from <a href="https://github.com/nishanths/cocoa-hugo-theme">cocoa</a>.</li>
+        </ul>
+    </div>
+</section>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-45583907-2");
+    pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+

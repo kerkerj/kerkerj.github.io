@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="YOLO~">
+
+<base href="http://localhost:8000/">
+<title>
+
+
+     [Ubuntu] [RoR] install with rvm 
+
+</title>
+<link rel="canonical" href="http://localhost:8000/blog/ubuntu-ror-install-with-rvm/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/localhost:8000\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="http://localhost:8000/css/reset.css">
+<link rel="stylesheet" href="http://localhost:8000/css/pygments.css">
+<link rel="stylesheet" href="http://localhost:8000/css/main.css">
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/zenburn.min.css">
+    
+
+
+
+<link rel="shortcut icon"
+
+    href="http://localhost:8000/favicon.png"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="zh-TW">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            <a href="http://localhost:8000/"><div class="name">kerkerj</div></a>
+            <nav>
+                <ul>
+                    <a href="http://localhost:8000/blog/"><li>Blog</li></a>
+                    <a href="http://localhost:8000/about/"><li>About</li></a>
+                    <a href="http://localhost:8000/mac-app-list/"><li>Mac App List</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/kerkerj" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/kerkerj" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/fuzanhuang" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="http://localhost:8000/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    [Ubuntu] [RoR] install with rvm
+
+</div>
+
+                    <div class="initials"><a href="http://localhost:8000/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Fri Apr 27 2012 00:00:00 UTC">2012-04-04 00:00</div>
+                    <div class="reading-time"><div class="middot"></div>3 minutes read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                
+
+<p>以下都是以 Ubuntu 11.10為操作環境</p>
+
+<p>主要目標為使用 rvm (Ruby Version Manager)來管理 ruby 版本並安裝 ruby 和 rails</p>
+
+<p>先安裝一些必要套件 ( ex. openssl, zlib1g-dev &hellip;.etc. )</p>
+
+<pre><code>$sudo apt-get install build-essential bison openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev nodejs
+</code></pre>
+
+<p>安裝完基本套件後, 有兩種選擇:</p>
+
+<ol>
+<li>直接在系統上安裝 ruby ( sudo apt-get install ruby )</li>
+<li>使用 rvm 來管理 ruby 版本</li>
+</ol>
+
+<p>基本上有 rvm 來管理 ruby 版本是比較方便的, 可以隨時切換不同的 ruby 版本</p>
+
+<p>(不過在使用一些套件上會有一些問題需要排解, 本篇最底下有 trouble shooting)</p>
+
+<h2 id="rvm">RVM</h2>
+
+<p>安裝:</p>
+
+<pre><code>$bash &lt; &lt;(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer) 
+$echo '[[ -s &quot;$HOME/.rvm/scripts/rvm&quot; ]] &amp;&amp; . &quot;$HOME/.rvm/scripts/rvm&quot;
+</code></pre>
+
+<p>Load RVM function:  <code>~/.bash_profile</code></p>
+
+<p>指令:</p>
+
+<blockquote>
+<p>rvm info -&gt; 查看 rvm 做的設定</p>
+
+<p>rvm list known -&gt; 列出所有可安裝的套件</p>
+
+<p>rvm list -&gt; 列出目前已安裝的套件</p>
+
+<p>rvm install &ldquo;package_name&rdquo; -&gt; 安裝套件</p>
+
+<p>rvm remove &ldquo;package_name&rdquo; -&gt; 移除套件</p>
+
+<p>rvm 1.9.2 &ndash;default -&gt; 設定預設的 ruby 版本</p>
+</blockquote>
+
+<p>假設系統上的 ruby 版本是 1.9.1, 而我用 rvm 安裝了 ruby1.9.3</p>
+
+<p>那麼目前系統上的預設 ruby 版本是 1.9.3, 用 <code>ruby -v</code> 測試看看</p>
+
+<p>如果要切換回系統的 ruby 版本, 則使用 <code>rvm system</code></p>
+
+<p>要切換回來的話,則:</p>
+
+<p><code>rvm 1.9.3</code> (直接輸入有安裝過的 ruby 版號即可)</p>
+
+<p>or</p>
+
+<p><code>rvm use 1.9.3</code></p>
+
+<p>以上是 rvm 的一些簡單指令, 因為今天是要安裝 ruby on rails</p>
+
+<p>所以先安裝 ruby 吧:</p>
+
+<pre><code>$rvm pkg install openssl (詳見最後的 trouble shooting)
+$rvm install 1.9.3 --with-openssl-dir=$rvm_path/usr
+</code></pre>
+
+<h2 id="gem">Gem</h2>
+
+<p>指令:</p>
+
+<blockquote>
+<p>gem list -&gt; 列出目前已安裝的套件</p>
+
+<p>gem install &ldquo;package_name&rdquo; -&gt; 安裝套件不同的 ruby 版本有不同的 gem</p>
+</blockquote>
+
+<p>如果 rvm 裡有 1.9.1 和 1.9.3 兩個乾淨的 ruby 版本</p>
+
+<p>目前使用的 ruby 版本是 1.9.3</p>
+
+<p>則在 gem install rails 後</p>
+
+<p>使用 gem list 則會看到 一大堆的套件</p>
+
+<p>接著切換到 1.9.1 執行 gem list 後則會發現沒有任何東西</p>
+
+<p>在安裝 gem 套件時可以加上一些參數</p>
+
+<p>如: 不想要有說明文件 (通常這些東西都蠻肥大的) 就可以加上</p>
+
+<p><code>gem install &quot;gem_name&quot; --no-ri --no-rdoc</code></p>
+
+<p>以上是 gem 在 rvm 裡的一些概念, 因為今天是要安裝 ruby on rails</p>
+
+<p>所以來安裝 rails 吧:</p>
+
+<p><code>gem install rails --no-ri --no-rdoc (不要安裝文件, 速度會比較快)</code></p>
+
+<p>如果發現用 gem 安裝套件時需要 root 權限, 表示目前使用的 ruby 版本是系統的版本</p>
+
+<h2 id="gemset">Gemset</h2>
+
+<p>rvm 提供了方便的功能 gemset, 就把它看作 gem 的分類資料夾</p>
+
+<p>如果說我想要在 ruby 1.9.2 底下安裝兩種 rails 版本, 又怕會衝突該怎麼辦?</p>
+
+<p>就可以用 gemset 了</p>
+
+<p>樹狀架構大概如下:</p>
+
+<pre><code>        rvm -&gt; 1.9.1 -&gt; gemset: rails-2.3.9
+                                rails-3.1.1*
+            -&gt; 1.9.3 -&gt; gemset: rails-2.3.9
+                                rails-3.1.1
+</code></pre>
+
+<p>可以解釋為: 在 rvm 的 ruby 1.9.1 底下有兩個 gemset, 分別是 rails-2.3.9 和 rails-3.1.1</p>
+
+<p>指令:</p>
+
+<blockquote>
+<p>rvm gemset list -&gt; 查看目前建立的 gemset</p>
+
+<p>rvm 1.9.2@rails-3.1.1 -&gt; 在 ruby 1.9.2 版本底下使用 rails-3.1.1 這個 gemset</p>
+
+<p>rvm gemset create &ldquo;gemset_name&rdquo; -&gt; 建立 gemset</p>
+
+<p>rvm gemset use &ldquo;gemset_name&rdquo; -&gt; 使用某個 gemset</p>
+
+<p>rvm gemset empty &ldquo;gemset_name&rdquo; -&gt; 清空某個 gemset (只是清空)</p>
+
+<p>rvm gemset delete &ldquo;gemset_name&rdquo; -&gt; 刪除某個 gemset以上就是關於 rvm 的二三事, 做到這邊, ruby 和 rails 套件應該就安裝完了</p>
+</blockquote>
+
+<p>最後安裝資料庫的 adapter , 這裡是用 sqlite</p>
+
+<p><code>gem install sqlite3 --no-ri --no-rdoc</code></p>
+
+<p>接著就可以建立第一個 rails 專案:</p>
+
+<blockquote>
+<p>mkdir project</p>
+
+<p>cd project</p>
+
+<p>rails new demo</p>
+
+<p>rails server連上 localhost:3000 就是起始畫面了</p>
+</blockquote>
+
+<h2 id="trouble-shooting">Trouble shooting:</h2>
+
+<h3 id="error-message1-openssl-loaderror">Error message1: openssl  LoadError</h3>
+
+<blockquote>
+<p>SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificate verify failed (OpenSSL::SSL::SSLError)</p>
+
+<p>or</p>
+
+<p>Gem::RemoteFetcher::FetchError: SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B</p>
+</blockquote>
+
+<p>Solution:</p>
+
+<blockquote>
+<p>rvm pkg install openssl</p>
+
+<p>rvm remove 1.9.3</p>
+
+<p>rvm install 1.9.3 &ndash;with-openssl-dir=$rvm_path/usr</p>
+
+<p>然後將 rvm 裡的 ssl certs 資料夾移除, 改成直接讀系統的 ssl certs</p>
+
+<p>rmdir $rvm_path/usr/ssl/certs</p>
+
+<p>ln -s /etc/ssl/certs $rvm_path/usr/ssl</p>
+</blockquote>
+
+<h3 id="error-message2">Error message2:</h3>
+
+<blockquote>
+<p>when excuting the command &ldquo;gem install rails&rdquo;</p>
+
+<p>ERROR:  Loading command: install (LoadError)</p>
+
+<p>cannot load such file &ndash; zlib</p>
+
+<p>ERROR:  While executing gem &hellip; (NameError)</p>
+
+<p>uninitialized constant Gem::Commands::InstallCommand</p>
+</blockquote>
+
+<p>Solution:</p>
+
+<blockquote>
+<p>rvm remove 1.9.3 (depends on your ruby version, if your system also has ruby, remove it, too.)</p>
+
+<p>sudo apt-get install zlib1g-dev先將 rvm 的 ruby 和 system 的 ruby 移除</p>
+
+<p>然後安裝 zlib1g-dev</p>
+
+<p>安裝 system 和 rvm 的 ruby 就可以了</p>
+
+<p>Remove system&rsquo;s ruby, and all ruby versions in rvm</p>
+
+<p>Install zlib1g-dev, then install ruby in system and rvm.</p>
+</blockquote>
+
+<h3 id="error-message3">Error message3:</h3>
+
+<blockquote>
+<p>ExecJS::RuntimeUnavailable</p>
+</blockquote>
+
+<p>Solution:</p>
+
+<p><code>sudo apt-get install nodejs</code></p>
+
+<p>Reference:</p>
+
+<p><a href="http://www.openfoundry.org/tw/tech-column/8513-rvm-ruby-environment-version-manager">RVM - Ruby enVironment (Version) Manager</a></p>
+
+                <br>
+                <p><a href="http://localhost:8000/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/localhost:8000\/blog\/ubuntu-ror-install-with-rvm\/';
+    var disqus_title = '[Ubuntu] [RoR] install with rvm';
+    var disqus_url = 'http:\/\/localhost:8000\/blog\/ubuntu-ror-install-with-rvm\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer">
+    <div class="">
+        <ul>
+            <li>© 2010 - 2012 kerkerj. powerd by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a>. Theme: <a href="https://github.com/kerkerj/cocoa-hugo-theme">kerkerj-cocoa-hugo-theme</a>, modified from <a href="https://github.com/nishanths/cocoa-hugo-theme">cocoa</a>.</li>
+        </ul>
+    </div>
+</section>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-45583907-2");
+    pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+

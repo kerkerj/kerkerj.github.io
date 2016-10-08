@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="YOLO~">
+
+<base href="http://localhost:8000/">
+<title>
+
+
+     [API-d27] - 實戰開發 - log 處理 及 config (db, apikey) 
+
+</title>
+<link rel="canonical" href="http://localhost:8000/blog/api-d27---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---log-%E8%99%95%E7%90%86-%E5%8F%8A-config-db-apikey/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/localhost:8000\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="http://localhost:8000/css/reset.css">
+<link rel="stylesheet" href="http://localhost:8000/css/pygments.css">
+<link rel="stylesheet" href="http://localhost:8000/css/main.css">
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/zenburn.min.css">
+    
+
+
+
+<link rel="shortcut icon"
+
+    href="http://localhost:8000/favicon.png"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="zh-TW">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            <a href="http://localhost:8000/"><div class="name">kerkerj</div></a>
+            <nav>
+                <ul>
+                    <a href="http://localhost:8000/blog/"><li>Blog</li></a>
+                    <a href="http://localhost:8000/about/"><li>About</li></a>
+                    <a href="http://localhost:8000/mac-app-list/"><li>Mac App List</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/kerkerj" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/kerkerj" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/fuzanhuang" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="http://localhost:8000/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    [API-d27] - 實戰開發 - log 處理 及 config (db, apikey)
+
+</div>
+
+                    <div class="initials"><a href="http://localhost:8000/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Mon Oct 27 2014 00:00:00 UTC">2014-10-10 00:00</div>
+                    <div class="reading-time"><div class="middot"></div>1 minute read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p><a href="https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day27">Github 參考</a></p>
+
+<p>##log 處理</p>
+
+<p>今天要來談談 log 的處理，</p>
+
+<p>身為一台自走 (?) node.js API server</p>
+
+<p>也應該要記錄一下 request 的 log 呀！</p>
+
+<p>不然哪天出問題了都不知道是哪個 request 把 server 搞掛了!</p>
+
+<p>因此我們就要加入 log 的 middleware</p>
+
+<p>node.js 的 log 套件也蠻多的, 例如 <code>winston</code></p>
+
+<p>不過我們今天要用的是 <code>log4js</code></p>
+
+<p>會選擇他其實也只是因為之前寫 <code>java</code> 有用過 <code>log4j</code></p>
+
+<p><code>log4js</code> 的設定感覺起來比較相似</p>
+
+<p>所以就使用它了!</p>
+
+<p>再來我們就安裝一下 <code>log4js</code> 吧</p>
+
+<pre><code class="language-javascript">$ npm install log4js -save  
+</code></pre>
+
+<p>並在 <code>app.js</code> 中 require 進去</p>
+
+<pre><code>var log4js = require('log4js');
+</code></pre>
+
+<p>接著在 <code>app.js</code> 的前面區段加入以下程式碼:</p>
+
+<pre><code>log4js.configure({
+    appenders: [
+        { type: 'console' }, //控制台輸出
+        {
+            type: 'file', //文件輸出
+            filename: 'logs/access.log',
+            maxLogSize: 20000000, // 20 MB
+            backups: 10,
+            category: 'normal'
+        }
+    ],
+    replaceConsole: true
+});
+
+var logger = log4js.getLogger('normal');
+logger.setLevel('INFO');
+
+app.use(log4js.connectLogger(logger, {level: 'auto', format:':method :url'}));
+</code></pre>
+
+<p>其實註解已經可以看出一些端倪了</p>
+
+<p>使用 <code>log4js</code> 可以輸出 log 檔案，並且會按照設定的檔案大小來寫入</p>
+
+<p>如果達到 20MB 就會換一個新的檔案寫入，原本的還保留著，不過最多只會保留 10 份</p>
+
+<p>接著就設定 log level, 以及想要 log 的資訊</p>
+
+<p>詳細資訊就可以再多查詢一下</p>
+
+<p>此時我們將 server run 起來吧!</p>
+
+<p>並且對 server 戳幾個 request, 就會發現 log 檔案被建立起來了!</p>
+
+<p>(該程式碼加在 token 檢查前或檢查後是有差異的，加在 token 檢查後面，token error 的話則不會被記錄到 log 裡面)</p>
+
+<p>打開 log 檔看看，就會發現有 log 被寫入囉!</p>
+
+<p>##config (db, apikey)</p>
+
+<p>有些重要的設定檔其實我們並不希望寫在程式碼裡，這時候 config 的設定很有用</p>
+
+<p>建立設定檔有很多種方式，比方說直接寫一個 json 檔案，或是 xml 檔案</p>
+
+<p>今天我們就用最簡單的 js 檔案的方式來建立 config 檔</p>
+
+<p>我們在 config 資料夾裡新增一個 config.js</p>
+
+<p>我們以下面的程式碼當作例子:</p>
+
+<pre><code>module.exports = {
+    &quot;base_url&quot;: &quot;http://localhost:3000&quot;,
+    &quot;test_token&quot;: &quot;55665566&quot;,
+    &quot;db&quot;: {
+        &quot;production&quot;: &quot;mongodb://192.168.33.10:27017/TODOs&quot;,
+        &quot;development&quot;: &quot;mongodb://192.168.33.10:27017/DEV_TODOs&quot;,
+        &quot;test&quot;: &quot;mongodb://192.168.33.10:27017/TEST_TODOs&quot;
+    }
+};
+</code></pre>
+
+<p>要怎麼使用裡面的內容呢?</p>
+
+<p>假設我們要將 db 的連結改成用 config 的方式連結的話:</p>
+
+<pre><code>var config = require('./config/config');
+
+// Set DB
+mongoose.connect(config.db.development);
+</code></pre>
+
+<p>只要先將 config require 進來，然後就直接使用它就好了!</p>
+
+<p>這樣就可以幫助我們將一些重要的設定從程式碼中抽離出來了!</p>
+
+<p>今天就這樣啦!</p>
+
+                <br>
+                <p><a href="http://localhost:8000/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/localhost:8000\/blog\/api-d27---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---log-%E8%99%95%E7%90%86-%E5%8F%8A-config-db-apikey\/';
+    var disqus_title = '[API-d27] - 實戰開發 - log 處理 及 config (db, apikey)';
+    var disqus_url = 'http:\/\/localhost:8000\/blog\/api-d27---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---log-%E8%99%95%E7%90%86-%E5%8F%8A-config-db-apikey\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer">
+    <div class="">
+        <ul>
+            <li>© 2010 - 2014 kerkerj. powerd by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a>. Theme: <a href="https://github.com/kerkerj/cocoa-hugo-theme">kerkerj-cocoa-hugo-theme</a>, modified from <a href="https://github.com/nishanths/cocoa-hugo-theme">cocoa</a>.</li>
+        </ul>
+    </div>
+</section>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-45583907-2");
+    pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+

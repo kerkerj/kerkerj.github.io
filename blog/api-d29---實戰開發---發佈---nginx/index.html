@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="YOLO~">
+
+<base href="http://localhost:8000/">
+<title>
+
+
+     [API-d29] - 實戰開發 - 發佈 - nginx 
+
+</title>
+<link rel="canonical" href="http://localhost:8000/blog/api-d29---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E7%99%BC%E4%BD%88---nginx/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/localhost:8000\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="http://localhost:8000/css/reset.css">
+<link rel="stylesheet" href="http://localhost:8000/css/pygments.css">
+<link rel="stylesheet" href="http://localhost:8000/css/main.css">
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/zenburn.min.css">
+    
+
+
+
+<link rel="shortcut icon"
+
+    href="http://localhost:8000/favicon.png"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="zh-TW">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            <a href="http://localhost:8000/"><div class="name">kerkerj</div></a>
+            <nav>
+                <ul>
+                    <a href="http://localhost:8000/blog/"><li>Blog</li></a>
+                    <a href="http://localhost:8000/about/"><li>About</li></a>
+                    <a href="http://localhost:8000/mac-app-list/"><li>Mac App List</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/kerkerj" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/kerkerj" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/fuzanhuang" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="http://localhost:8000/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    [API-d29] - 實戰開發 - 發佈 - nginx
+
+</div>
+
+                    <div class="initials"><a href="http://localhost:8000/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Wed Oct 29 2014 00:00:00 UTC">2014-10-10 00:00</div>
+                    <div class="reading-time"><div class="middot"></div>2 minutes read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p>接下來這篇就會比較偏 server 設定了！</p>
+
+<p>nginx 是一套伺服器軟體，和 apache 並駕齊驅</p>
+
+<p>(其實我覺得 nginx &gt;&gt;&gt; apache XD)</p>
+
+<p>主要是 nginx 清量快速</p>
+
+<p>我們要拿他幫 nodejs 處理接收 request 的部分，再將 request 導往 nodejs</p>
+
+<p>所以感覺就會如下圖:</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2013.14.16.png" alt="image" /></p>
+
+<p>可以讓 nginx 當作是 load balancer,</p>
+
+<p>透過 reverse proxy 的方式轉發 request 給 nodejs, 讓 nginx 承受流量</p>
+
+<p>這就是我們今天要做的事情，</p>
+
+<p>所以首先，我們就要先裝 nginx，因此就先進虛擬機吧!</p>
+
+<pre><code class="language-javascript">$ sudo apt-get update &amp;&amp; sudo apt-get upgrade -y
+$ sudo apt-get install nginx 
+</code></pre>
+
+<p>這樣就會安裝一個 nginx 了!</p>
+
+<p>Nginx 的設定檔都是放在 <code>/etc/nginx/</code> 底下</p>
+
+<p>個別網站的設定放在 <code>/etc/nginx/sites-available</code></p>
+
+<p>如果要讓該網站上線，則會將 <code>/etc/nginx/sites-available</code> 的設定檔 link 到 <code>/etc/nginx/sites-enable</code></p>
+
+<p>因此若想自己新增設定檔的話，慣例是會在 available 新增，然後再 link 到 <code>enable</code></p>
+
+<p>如果我們進到 <code>/etc/nginx/sites-enable</code> 的話，裡面應該已經有一個 <code>default</code> 的設定檔了</p>
+
+<pre><code>$ sudo vim /etc/nginx/sites-enable/default
+</code></pre>
+
+<p>內容應該是:</p>
+
+<pre><code>server {
+        listen 80 default_server;
+        listen [::]:80 default_server ipv6only=on;
+
+        root /usr/share/nginx/html;
+        index index.html index.htm;
+
+        # Make site accessible from http://localhost/
+        server_name localhost;
+
+        location / {
+                # First attempt to serve request as file, then
+                # as directory, then fall back to displaying a 404.
+                try_files $uri $uri/ =404;
+                # Uncomment to enable naxsi on this location
+                # include /etc/nginx/naxsi.rules
+        }
+
+        # Only for nginx-naxsi used with nginx-naxsi-ui : process denied requests
+        #location /RequestDenied {
+        #       proxy_pass http://127.0.0.1:8080;
+        #}
+        
+        ...
+}
+</code></pre>
+
+<p>將設定檔改成如下:</p>
+
+<pre><code>upstream nodejs {
+  server 127.0.0.1:3000;
+  #server 127.0.0.1:3001;
+}
+
+server {
+    listen 80;
+
+    server_name localhost;
+
+    location / {
+        proxy_pass http://nodejs;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+</code></pre>
+
+<p>解釋一下以下這段:</p>
+
+<pre><code>upstream nodejs {
+  server 127.0.0.1:3000;
+  #server 127.0.0.1:3001;
+}
+</code></pre>
+
+<p>下面這段則是 proxy pass 的部分, 會將 <code>/</code> 的流量導到 nodejs 的 server cluster 裡面，不過因為我們現在只有一台 server 開起來，所以只會被導到 3000 port 的那台機器</p>
+
+<pre><code>location / {
+        proxy_pass http://nodejs;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+</code></pre>
+
+<p>如果 nodejs server 的承載量不夠，可以開好幾檯，只要 port 不一樣即可</p>
+
+<p>這樣就可以建立一個 nodejs cluster</p>
+
+<p>再來使用 forever 開啓 nodejs server</p>
+
+<p>再重新開啟 nginx</p>
+
+<p>使用 postman 戳戳看 API</p>
+
+<p>就成功囉~~</p>
+
+                <br>
+                <p><a href="http://localhost:8000/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/localhost:8000\/blog\/api-d29---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E7%99%BC%E4%BD%88---nginx\/';
+    var disqus_title = '[API-d29] - 實戰開發 - 發佈 - nginx';
+    var disqus_url = 'http:\/\/localhost:8000\/blog\/api-d29---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E7%99%BC%E4%BD%88---nginx\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer">
+    <div class="">
+        <ul>
+            <li>© 2010 - 2014 kerkerj. powerd by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a>. Theme: <a href="https://github.com/kerkerj/cocoa-hugo-theme">kerkerj-cocoa-hugo-theme</a>, modified from <a href="https://github.com/nishanths/cocoa-hugo-theme">cocoa</a>.</li>
+        </ul>
+    </div>
+</section>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-45583907-2");
+    pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+

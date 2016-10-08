@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kerkerj</title>
+    <link>http://localhost:8000/categories/group_concat/index.xml</link>
+    <description>Recent content on kerkerj</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
+    <atom:link href="http://localhost:8000/categories/group_concat/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>[MySQL] Several useful statements (GROUP_CONCAT, ifnull, DATE_FORMAT)</title>
+      <link>http://localhost:8000/blog/mysql-several-useful-statements-group_concat-ifnull-date_format/</link>
+      <pubDate>Tue, 06 May 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/mysql-several-useful-statements-group_concat-ifnull-date_format/</guid>
+      <description>&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;將 query 出來的多筆記錄結合成一個欄位&lt;br /&gt;
+例如原本的 query 結果為：&lt;br /&gt;
+&lt;code&gt;SELECT &#39;fruits&#39; FROM &#39;fruits_table&#39;&lt;/code&gt;&lt;br /&gt;
+apple&lt;br /&gt;
+banana&lt;br /&gt;
+kiwi&lt;br /&gt;
+&lt;code&gt;SELECT group_concat(&#39;fruits&#39; separator &#39;,&#39;) FROM &#39;fruits_table&#39;&lt;/code&gt;&lt;br /&gt;
+result: apple,banana,kiwi&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;改變 datetime 欄位的顯示結果&lt;br /&gt;
+&lt;code&gt;SELECT DATE_FORMAT( &#39;created_at&#39;, &#39;%Y/%m/%d %H:%i&#39;) AS &#39;created_at&#39; FROM &#39;message_table&#39;&lt;/code&gt;&lt;br /&gt;
+result: 2014/05/06 18:20&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;若某個欄位的值為空，則給予預設值&lt;br /&gt;
+&lt;code&gt;SELECT ifnull(&#39;is_success&#39;, 0) AS &#39;is_success&#39; FROM ....&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,1784 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kerkerj</title>
+    <link>http://localhost:8000/categories/api/index.xml</link>
+    <description>Recent content on kerkerj</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
+    <atom:link href="http://localhost:8000/categories/api/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>[API-d30] - 總結</title>
+      <link>http://localhost:8000/blog/api-d30---%E7%B8%BD%E7%B5%90/</link>
+      <pubDate>Thu, 30 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/api-d30---%E7%B8%BD%E7%B5%90/</guid>
+      <description>&lt;p&gt;總結三十天下來的 Restful API service 建置&lt;/p&gt;
+
+&lt;p&gt;其實接觸到的東西很廣泛&lt;/p&gt;
+
+&lt;p&gt;從 server 端到程式端，還有虛擬機器的使用都有沾到邊&lt;/p&gt;
+
+&lt;p&gt;其實不管是哪個領域都是要一點一滴累積起來的&lt;/p&gt;
+
+&lt;p&gt;以這次的開發技術來說，&lt;/p&gt;
+
+&lt;p&gt;vagrant 方便在於我在和別人共享 server 環境時非常方便&lt;/p&gt;
+
+&lt;p&gt;自己在架測試環境時也可以先將乾淨的 web serser 打包起來&lt;/p&gt;
+
+&lt;p&gt;供日後隨時要用時開起來馬上 deploy 就可以使用&lt;/p&gt;
+
+&lt;p&gt;另外加上方便的網路設定，&lt;/p&gt;
+
+&lt;p&gt;在測試時非常方便&lt;/p&gt;
+
+&lt;p&gt;另外則是 nodejs，&lt;/p&gt;
+
+&lt;p&gt;這次會選擇 nodejs 主要也是想進入 javascript 的世界&lt;/p&gt;
+
+&lt;p&gt;nodejs 若作為一個後端程式語言來說，我認為是非常輕量且入門非常簡單&lt;/p&gt;
+
+&lt;p&gt;套一句最近常聽到的話&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;javascript is everywhere&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;不管是網頁前後端，nodejs 還可以拿來寫桌面應用、嵌入式系統&lt;/p&gt;
+
+&lt;p&gt;應用領域非常廣泛&lt;/p&gt;
+
+&lt;p&gt;也希望這門語言能夠更標準化，擺脫歷史包袱&lt;/p&gt;
+
+&lt;p&gt;看最近幾年的發展，其實我認為是勢在必行的&lt;/p&gt;
+
+&lt;p&gt;只缺一個領頭羊來帶領大家前往偉大的航道了! XD&lt;/p&gt;
+
+&lt;p&gt;希望三十天的分享能給大家帶來不一樣的感受~&lt;/p&gt;
+
+&lt;p&gt;對了突然想到一件事，這個主題的副標最後一句是想要和 APP 結合&lt;/p&gt;
+
+&lt;p&gt;APP 在隔壁棚啦 XD&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[API-d29] - 實戰開發 - 發佈 - nginx</title>
+      <link>http://localhost:8000/blog/api-d29---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E7%99%BC%E4%BD%88---nginx/</link>
+      <pubDate>Wed, 29 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/api-d29---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E7%99%BC%E4%BD%88---nginx/</guid>
+      <description>&lt;p&gt;接下來這篇就會比較偏 server 設定了！&lt;/p&gt;
+
+&lt;p&gt;nginx 是一套伺服器軟體，和 apache 並駕齊驅&lt;/p&gt;
+
+&lt;p&gt;(其實我覺得 nginx &amp;gt;&amp;gt;&amp;gt; apache XD)&lt;/p&gt;
+
+&lt;p&gt;主要是 nginx 清量快速&lt;/p&gt;
+
+&lt;p&gt;我們要拿他幫 nodejs 處理接收 request 的部分，再將 request 導往 nodejs&lt;/p&gt;
+
+&lt;p&gt;所以感覺就會如下圖:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2013.14.16.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;可以讓 nginx 當作是 load balancer,&lt;/p&gt;
+
+&lt;p&gt;透過 reverse proxy 的方式轉發 request 給 nodejs, 讓 nginx 承受流量&lt;/p&gt;
+
+&lt;p&gt;這就是我們今天要做的事情，&lt;/p&gt;
+
+&lt;p&gt;所以首先，我們就要先裝 nginx，因此就先進虛擬機吧!&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;$ sudo apt-get update &amp;amp;&amp;amp; sudo apt-get upgrade -y
+$ sudo apt-get install nginx 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這樣就會安裝一個 nginx 了!&lt;/p&gt;
+
+&lt;p&gt;Nginx 的設定檔都是放在 &lt;code&gt;/etc/nginx/&lt;/code&gt; 底下&lt;/p&gt;
+
+&lt;p&gt;個別網站的設定放在 &lt;code&gt;/etc/nginx/sites-available&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;如果要讓該網站上線，則會將 &lt;code&gt;/etc/nginx/sites-available&lt;/code&gt; 的設定檔 link 到 &lt;code&gt;/etc/nginx/sites-enable&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;因此若想自己新增設定檔的話，慣例是會在 available 新增，然後再 link 到 &lt;code&gt;enable&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;如果我們進到 &lt;code&gt;/etc/nginx/sites-enable&lt;/code&gt; 的話，裡面應該已經有一個 &lt;code&gt;default&lt;/code&gt; 的設定檔了&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo vim /etc/nginx/sites-enable/default
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;內容應該是:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;server {
+        listen 80 default_server;
+        listen [::]:80 default_server ipv6only=on;
+
+        root /usr/share/nginx/html;
+        index index.html index.htm;
+
+        # Make site accessible from http://localhost/
+        server_name localhost;
+
+        location / {
+                # First attempt to serve request as file, then
+                # as directory, then fall back to displaying a 404.
+                try_files $uri $uri/ =404;
+                # Uncomment to enable naxsi on this location
+                # include /etc/nginx/naxsi.rules
+        }
+
+        # Only for nginx-naxsi used with nginx-naxsi-ui : process denied requests
+        #location /RequestDenied {
+        #       proxy_pass http://127.0.0.1:8080;
+        #}
+        
+        ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;將設定檔改成如下:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;upstream nodejs {
+  server 127.0.0.1:3000;
+  #server 127.0.0.1:3001;
+}
+
+server {
+    listen 80;
+
+    server_name localhost;
+
+    location / {
+        proxy_pass http://nodejs;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection &#39;upgrade&#39;;
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;解釋一下以下這段:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;upstream nodejs {
+  server 127.0.0.1:3000;
+  #server 127.0.0.1:3001;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;下面這段則是 proxy pass 的部分, 會將 &lt;code&gt;/&lt;/code&gt; 的流量導到 nodejs 的 server cluster 裡面，不過因為我們現在只有一台 server 開起來，所以只會被導到 3000 port 的那台機器&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;location / {
+        proxy_pass http://nodejs;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection &#39;upgrade&#39;;
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果 nodejs server 的承載量不夠，可以開好幾檯，只要 port 不一樣即可&lt;/p&gt;
+
+&lt;p&gt;這樣就可以建立一個 nodejs cluster&lt;/p&gt;
+
+&lt;p&gt;再來使用 forever 開啓 nodejs server&lt;/p&gt;
+
+&lt;p&gt;再重新開啟 nginx&lt;/p&gt;
+
+&lt;p&gt;使用 postman 戳戳看 API&lt;/p&gt;
+
+&lt;p&gt;就成功囉~~&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[API-d28] - 實戰開發 - 發佈 - forever</title>
+      <link>http://localhost:8000/blog/api-d28---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E7%99%BC%E4%BD%88---forever/</link>
+      <pubDate>Tue, 28 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/api-d28---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E7%99%BC%E4%BD%88---forever/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day28&#34;&gt;Github 參考&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;接下來兩天要講 deploy 的部分&lt;/p&gt;
+
+&lt;p&gt;由於 deploy 的 script 其實非常的麻煩，因此我們就不提 deploy 的 script 了&lt;/p&gt;
+
+&lt;p&gt;我們只專注在 server 上需要什麼東西&lt;/p&gt;
+
+&lt;p&gt;今天要來看看 &lt;code&gt;forever&lt;/code&gt; 這個套件&lt;/p&gt;
+
+&lt;p&gt;這個套件可以幫助 nodejs 的 server 遇上無預警的 server 掛掉時&lt;/p&gt;
+
+&lt;p&gt;會幫你自動重新啟動 nodejs 的 server&lt;/p&gt;
+
+&lt;p&gt;也就是說&lt;/p&gt;
+
+&lt;p&gt;假設說 nodejs 寫的 server 某個 route 有問題，&lt;/p&gt;
+
+&lt;p&gt;送 request 後會因為某些因素造成 server error 造成程式碼 crash 時&lt;/p&gt;
+
+&lt;p&gt;forever 的 monitor 會偵測到，並幫你自動重啟 server&lt;/p&gt;
+
+&lt;p&gt;至少不會造成其他正常存取 server 的使用者遭遇到 server down 的問題&lt;/p&gt;
+
+&lt;p&gt;這個套件可以選擇裝在 global 或是 project&lt;/p&gt;
+
+&lt;p&gt;在這邊我是選擇裝成 global&lt;/p&gt;
+
+&lt;p&gt;進到虛擬機&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;$ npm install -g forever
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;p.s. 如果遇到問題，試著跑下面的指令看看?&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo chown vagrant:vagrant -R ~/.npm/
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;接下來我們就可以使用 &lt;code&gt;forever&lt;/code&gt; 這個指令了!&lt;/p&gt;
+
+&lt;p&gt;原本我們要啟動 server 的話&lt;/p&gt;
+
+&lt;p&gt;是要下:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ npm start 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;同義於:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ node ./bin/server.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果要改用 &lt;code&gt;forever&lt;/code&gt; 的話:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// 記得先到專案根目錄
+$ forever start bin/server.js
+warn:    --minUptime not set. Defaulting to: 1000ms
+warn:    --spinSleepTime not set. Your script will exit if it does not stay up for at least 1000ms
+info:    Forever processing file: ./bin/server.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然後就會被丟到背景執行了&lt;/p&gt;
+
+&lt;p&gt;那要怎麼知道我的 server 有跑起來呢?&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ forever list
+info:    Forever processes running
+data:        uid  command                              script        forever pid   logfile                         uptime
+data:    [0] 6qhd /home/vagrant/.nvm/v0.10.32/bin/node bin/server.js 13746   13748 /home/vagrant/.forever/6qhd.log 0:0:0:47.743
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;就會列出相關資訊以及 forever 自己的 log file 位置&lt;/p&gt;
+
+&lt;p&gt;要關閉的話:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ forever stop bin/server.js
+info:    Forever stopped process:
+data:        uid  command                              script        forever pid   logfile                         uptime
+[0] 6qhd /home/vagrant/.nvm/v0.10.32/bin/node bin/server.js 13746   14061 /home/vagrant/.forever/6qhd.log 0:0:0:6.595
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;bin/server.js&lt;/code&gt; 也可以替換成 forever uid 或 pid&lt;/p&gt;
+
+&lt;p&gt;如果要重開的話&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ forever restart bin/server.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;超簡單!&lt;/p&gt;
+
+&lt;p&gt;這樣就可以不用擔心 server 突然掛掉了&amp;hellip;.嗎?&lt;/p&gt;
+
+&lt;p&gt;錯，還是必須要監控 server 狀態&lt;/p&gt;
+
+&lt;p&gt;畢竟，&lt;code&gt;forever&lt;/code&gt; 也是會有 bug 的&lt;/p&gt;
+
+&lt;p&gt;所以自己的 server 自己顧&lt;/p&gt;
+
+&lt;p&gt;真正應用在 production 環境還是必須要監控的&lt;/p&gt;
+
+&lt;p&gt;今天就分享到這啦!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[API-d27] - 實戰開發 - log 處理 及 config (db, apikey)</title>
+      <link>http://localhost:8000/blog/api-d27---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---log-%E8%99%95%E7%90%86-%E5%8F%8A-config-db-apikey/</link>
+      <pubDate>Mon, 27 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/api-d27---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---log-%E8%99%95%E7%90%86-%E5%8F%8A-config-db-apikey/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day27&#34;&gt;Github 參考&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;##log 處理&lt;/p&gt;
+
+&lt;p&gt;今天要來談談 log 的處理，&lt;/p&gt;
+
+&lt;p&gt;身為一台自走 (?) node.js API server&lt;/p&gt;
+
+&lt;p&gt;也應該要記錄一下 request 的 log 呀！&lt;/p&gt;
+
+&lt;p&gt;不然哪天出問題了都不知道是哪個 request 把 server 搞掛了!&lt;/p&gt;
+
+&lt;p&gt;因此我們就要加入 log 的 middleware&lt;/p&gt;
+
+&lt;p&gt;node.js 的 log 套件也蠻多的, 例如 &lt;code&gt;winston&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;不過我們今天要用的是 &lt;code&gt;log4js&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;會選擇他其實也只是因為之前寫 &lt;code&gt;java&lt;/code&gt; 有用過 &lt;code&gt;log4j&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;log4js&lt;/code&gt; 的設定感覺起來比較相似&lt;/p&gt;
+
+&lt;p&gt;所以就使用它了!&lt;/p&gt;
+
+&lt;p&gt;再來我們就安裝一下 &lt;code&gt;log4js&lt;/code&gt; 吧&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;$ npm install log4js -save  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;並在 &lt;code&gt;app.js&lt;/code&gt; 中 require 進去&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var log4js = require(&#39;log4js&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;接著在 &lt;code&gt;app.js&lt;/code&gt; 的前面區段加入以下程式碼:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;log4js.configure({
+    appenders: [
+        { type: &#39;console&#39; }, //控制台輸出
+        {
+            type: &#39;file&#39;, //文件輸出
+            filename: &#39;logs/access.log&#39;,
+            maxLogSize: 20000000, // 20 MB
+            backups: 10,
+            category: &#39;normal&#39;
+        }
+    ],
+    replaceConsole: true
+});
+
+var logger = log4js.getLogger(&#39;normal&#39;);
+logger.setLevel(&#39;INFO&#39;);
+
+app.use(log4js.connectLogger(logger, {level: &#39;auto&#39;, format:&#39;:method :url&#39;}));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;其實註解已經可以看出一些端倪了&lt;/p&gt;
+
+&lt;p&gt;使用 &lt;code&gt;log4js&lt;/code&gt; 可以輸出 log 檔案，並且會按照設定的檔案大小來寫入&lt;/p&gt;
+
+&lt;p&gt;如果達到 20MB 就會換一個新的檔案寫入，原本的還保留著，不過最多只會保留 10 份&lt;/p&gt;
+
+&lt;p&gt;接著就設定 log level, 以及想要 log 的資訊&lt;/p&gt;
+
+&lt;p&gt;詳細資訊就可以再多查詢一下&lt;/p&gt;
+
+&lt;p&gt;此時我們將 server run 起來吧!&lt;/p&gt;
+
+&lt;p&gt;並且對 server 戳幾個 request, 就會發現 log 檔案被建立起來了!&lt;/p&gt;
+
+&lt;p&gt;(該程式碼加在 token 檢查前或檢查後是有差異的，加在 token 檢查後面，token error 的話則不會被記錄到 log 裡面)&lt;/p&gt;
+
+&lt;p&gt;打開 log 檔看看，就會發現有 log 被寫入囉!&lt;/p&gt;
+
+&lt;p&gt;##config (db, apikey)&lt;/p&gt;
+
+&lt;p&gt;有些重要的設定檔其實我們並不希望寫在程式碼裡，這時候 config 的設定很有用&lt;/p&gt;
+
+&lt;p&gt;建立設定檔有很多種方式，比方說直接寫一個 json 檔案，或是 xml 檔案&lt;/p&gt;
+
+&lt;p&gt;今天我們就用最簡單的 js 檔案的方式來建立 config 檔&lt;/p&gt;
+
+&lt;p&gt;我們在 config 資料夾裡新增一個 config.js&lt;/p&gt;
+
+&lt;p&gt;我們以下面的程式碼當作例子:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;module.exports = {
+    &amp;quot;base_url&amp;quot;: &amp;quot;http://localhost:3000&amp;quot;,
+    &amp;quot;test_token&amp;quot;: &amp;quot;55665566&amp;quot;,
+    &amp;quot;db&amp;quot;: {
+        &amp;quot;production&amp;quot;: &amp;quot;mongodb://192.168.33.10:27017/TODOs&amp;quot;,
+        &amp;quot;development&amp;quot;: &amp;quot;mongodb://192.168.33.10:27017/DEV_TODOs&amp;quot;,
+        &amp;quot;test&amp;quot;: &amp;quot;mongodb://192.168.33.10:27017/TEST_TODOs&amp;quot;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;要怎麼使用裡面的內容呢?&lt;/p&gt;
+
+&lt;p&gt;假設我們要將 db 的連結改成用 config 的方式連結的話:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var config = require(&#39;./config/config&#39;);
+
+// Set DB
+mongoose.connect(config.db.development);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;只要先將 config require 進來，然後就直接使用它就好了!&lt;/p&gt;
+
+&lt;p&gt;這樣就可以幫助我們將一些重要的設定從程式碼中抽離出來了!&lt;/p&gt;
+
+&lt;p&gt;今天就這樣啦!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[API-d26] - 實戰開發 - API-key</title>
+      <link>http://localhost:8000/blog/api-d26---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---api-key/</link>
+      <pubDate>Sun, 26 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/api-d26---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---api-key/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day26&#34;&gt;Github 參考&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;假設今天我們的 API 上線了，可能就會面臨到一些問題，&lt;/p&gt;
+
+&lt;p&gt;例如說，任何人都可以存取我們的 API&lt;/p&gt;
+
+&lt;p&gt;當然我們不希望任何人都可以存取，&lt;/p&gt;
+
+&lt;p&gt;因此我們必須加一點驗證機制在裡面，&lt;/p&gt;
+
+&lt;p&gt;其中一種做法是使用 Oauth token&lt;/p&gt;
+
+&lt;p&gt;在拿 API 資料前，先向 Oauth server 要一個 token&lt;/p&gt;
+
+&lt;p&gt;Oauth Server 認可身份後即會核發一個 token 給 client 端&lt;/p&gt;
+
+&lt;p&gt;該 token 具有時效性，6 mins ~ 30 min 不等，看怎麼實作&lt;/p&gt;
+
+&lt;p&gt;接著 client 端就拿該組 token 以及 API url 對 resources server 丟 request&lt;/p&gt;
+
+&lt;p&gt;其實我們現在在做的 API server 就是一個 resources server&lt;/p&gt;
+
+&lt;p&gt;因為我們提供資源&lt;/p&gt;
+
+&lt;p&gt;而 resources server 就會先認 token，&lt;/p&gt;
+
+&lt;p&gt;確保該 token 的時效性以及正確性，以及該 token 可存取的資源範圍&lt;/p&gt;
+
+&lt;p&gt;確認無誤後再回送正確的資料&lt;/p&gt;
+
+&lt;p&gt;不過在這邊我們並沒有要實作 Oauth Server&lt;/p&gt;
+
+&lt;p&gt;單純以一個 resources server 而言，只要認 token 是否正確&lt;/p&gt;
+
+&lt;p&gt;因此我們在這邊用 API-Key 實作即可，簡單的服務只要不被猜到就好&lt;/p&gt;
+
+&lt;p&gt;程式碼如下，記得加在 router 前面&lt;/p&gt;
+
+&lt;p&gt;app.js:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// Set Header Check
+app.use( function(req, res, next) {
+    var api_key = req.get(&#39;API-Key&#39;);
+
+    if (api_key != &amp;quot;55665566&amp;quot;) {
+        res.status(401).send({ error: &amp;quot;Unauthorized&amp;quot;});
+    }
+    else {
+        next();
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;一樣是 middleware 的概念&lt;/p&gt;
+
+&lt;p&gt;不過是會預先作處理&lt;/p&gt;
+
+&lt;p&gt;我們接收到 request 後，分析它的 header 中是否有 &lt;code&gt;API-Key&lt;/code&gt; 這個欄位&lt;/p&gt;
+
+&lt;p&gt;若有的話，確認他的值是否為 &lt;code&gt;55665566&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;若不是的話，回傳 401 Unauthorized&lt;/p&gt;
+
+&lt;p&gt;若正確則繼續走下一個 middleware&lt;/p&gt;
+
+&lt;p&gt;這樣就可以做一道簡單的防線了&lt;/p&gt;
+
+&lt;p&gt;若加了這道防線&lt;/p&gt;
+
+&lt;p&gt;在使用 POSTMAN 做 request 時，必須加入自定 header&lt;/p&gt;
+
+&lt;p&gt;沒加入的話:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%204.11.59.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;有加入的話:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%204.12.18.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;是不是很簡單呢!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[API-day25] - 實戰開發 - 處理 404 &amp; 500</title>
+      <link>http://localhost:8000/blog/api-day25---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E8%99%95%E7%90%86-404--500/</link>
+      <pubDate>Sat, 25 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/api-day25---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E8%99%95%E7%90%86-404--500/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day25&#34;&gt;Github 參考&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;不知道大家在用 POSTMAN 對前幾天寫的 API 丟 request 有沒有遇過類似下面的情況:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;Cannot GET /user/kerkerj/todoss
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;通常是丟錯網址時會出現的，或是 code 沒寫好會出現 500 error&lt;/p&gt;
+
+&lt;p&gt;這些情況是有辦法接到的，今天我們希望能夠接到後，將 message 轉成 json 格式吐回給 client&lt;/p&gt;
+
+&lt;p&gt;因此程式碼如下&lt;/p&gt;
+
+&lt;p&gt;app.js&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+    var err = new Error(&#39;Not Found&#39;);
+    err.status = 404;
+    res.status(404).jsonp({error: &amp;quot;Not Found&amp;quot;});
+    next();
+});
+
+// catch 500
+app.use(function(err, req, res, next) {
+            res.status(err.status || 500).json({error: err.message});
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;基本上這兩段 code 的意思就是加入了兩個 middleware&lt;/p&gt;
+
+&lt;p&gt;如果進來的 request 是屬於 404 or 500 就會回傳 json 格式&lt;/p&gt;
+
+&lt;p&gt;並且依錯誤碼不同而回傳不同的訊息&lt;/p&gt;
+
+&lt;p&gt;試著將 server 跑起來&lt;/p&gt;
+
+&lt;p&gt;亂丟 request 看看&lt;/p&gt;
+
+&lt;p&gt;原本應該會是&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Cannot GET /user/kerkerj/todoss
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;就會變成了 json&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+    &amp;quot;error&amp;quot;: &amp;quot;Not Found&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這樣一來, client 程式也就能夠統一接收 json 回傳，而不會因為莫名的字串導致解析錯誤而 crash 了!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[API-d24] - 實戰開發 - 刪除 TODO task API with mongoose</title>
+      <link>http://localhost:8000/blog/api-d24---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E5%88%AA%E9%99%A4-todo-task-api-with-mongoose/</link>
+      <pubDate>Fri, 24 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/api-d24---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E5%88%AA%E9%99%A4-todo-task-api-with-mongoose/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day24&#34;&gt;Github 參考&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;還記得昨天說要偷懶一下嗎 XD&lt;/p&gt;
+
+&lt;p&gt;因為刪除真的很簡單!&lt;/p&gt;
+
+&lt;p&gt;我們前面走過了新增、修改、讀取了&lt;/p&gt;
+
+&lt;p&gt;刪除？哪有什麼困難的呢! XD&lt;/p&gt;
+
+&lt;p&gt;直接看 code 吧!&lt;/p&gt;
+
+&lt;p&gt;routes/users.js:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// Delete a todo task
+router.delete(&#39;/:user_id/todos/:todo_id&#39;, function(req, res) {
+    var user_id = req.params.user_id;
+    var todo_id = req.params.todo_id;
+
+    TODO.remove(
+        { _id: todo_id, user_id: user_id },
+        function (err) {
+            if (err) {
+                res.status(400).json(
+                    { error: &amp;quot;delete data error&amp;quot;}
+                );
+            } else {
+                res.status(201).json(
+                    { success: &amp;quot;true&amp;quot; }
+                );
+            }
+        }
+    );
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;非常的簡單!&lt;/p&gt;
+
+&lt;p&gt;先抓到 user_id, todo_id 後&lt;/p&gt;
+
+&lt;p&gt;使用 .remove 的方法，下 WHERE 條件，並在 callback 作處理&lt;/p&gt;
+
+&lt;p&gt;就完成了!&lt;/p&gt;
+
+&lt;p&gt;試試看吧!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%203.39.09.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;是不是非常的簡單呢！&lt;/p&gt;
+
+&lt;p&gt;我們已經完成 CRUD API 操作了！&lt;/p&gt;
+
+&lt;p&gt;接下來幾天會稍作一些細節上的處理!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[API-d23] - 實戰開發 - 修改 TODO task API with mongoose</title>
+      <link>http://localhost:8000/blog/api-d23---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E4%BF%AE%E6%94%B9-todo-task-api-with-mongoose/</link>
+      <pubDate>Thu, 23 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/api-d23---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E4%BF%AE%E6%94%B9-todo-task-api-with-mongoose/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day23&#34;&gt;Github 參考&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;接上篇，我們已經可以拿到 todo list 了&lt;/p&gt;
+
+&lt;p&gt;也可以拿到特定的 todo task&lt;/p&gt;
+
+&lt;p&gt;再來我們就可以編輯特定的 todo task 了對吧?&lt;/p&gt;
+
+&lt;p&gt;不囉唆直接進入程式碼&lt;/p&gt;
+
+&lt;p&gt;routes/users.js&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// Update a todo task
+router.put(&#39;/:user_id/todos/:todo_id&#39;, function(req, res) {
+    var user_id = req.params.user_id;
+    var todo_id = req.params.todo_id;
+    var data = req.body;
+
+    TODO.update(
+        { _id: todo_id, user_id: user_id },
+        { $set: { content: data.content } },
+        function (err, num, raw, results) {
+            if (err) {
+                res.status(400).json(
+                    { error: &amp;quot;update data error&amp;quot; }
+                );
+            } else {
+                TODO.find({ _id: todo_id, user_id: user_id }, function (err, results) {
+                    res.status(201).json(
+                        results[0]
+                    );
+                });
+            }
+        }
+    );
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這次拿資料要拿三組: user_id, todo_id, 以及 data from req.body&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var user_id = req.params.user_id;
+var todo_id = req.params.todo_id;
+var data = req.body;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;body 的資料很簡單，就是欲修改的 content 的資料:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{ &amp;quot;content&amp;quot;: &amp;quot;想修改的資料&amp;quot; }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;再來，除了是使用 .update 方法以及同樣要下 WHERE 參數外， .update 方法還多了一個參數:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{ _id: todo_id, user_id: user_id },
+{ $set: { content: data.content } },
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;$set 的意思等同於 SQL 語法中的 SET&lt;/p&gt;
+
+&lt;p&gt;如果沒有加 $set 變成下面這樣:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{ _id: todo_id, user_id: user_id },
+{ content: data.content } ,
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;整個資料就會被洗掉，變成只有 &lt;code&gt;{ content: data.content }&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;因此有沒有加 $set 差很多哦&lt;/p&gt;
+
+&lt;p&gt;後面一樣是 callback 的處理&lt;/p&gt;
+
+&lt;p&gt;都寫好後，實際開 POSTMAN 試試看吧!&lt;/p&gt;
+
+&lt;p&gt;記得要使用 &lt;code&gt;PUT&lt;/code&gt; 來丟 request&lt;/p&gt;
+
+&lt;p&gt;例子如下，我把原本的 buy milk 改成 buy milk and banana&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%203.31.57.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;這樣離完成 API 就不遠啦!&lt;/p&gt;
+
+&lt;p&gt;明天就稍微休息一下吧 XD&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[API-d22] - 實戰開發 - 讀取 TODO task API with mongoose</title>
+      <link>http://localhost:8000/blog/api-d22---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E8%AE%80%E5%8F%96-todo-task-api-with-mongoose/</link>
+      <pubDate>Wed, 22 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/api-d22---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E8%AE%80%E5%8F%96-todo-task-api-with-mongoose/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day22&#34;&gt;Github 參考&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;如果有使用 MongoDB client 的話就可以搭配使用會比較有感覺&lt;/p&gt;
+
+&lt;p&gt;Mac 我是使用 Robomongo，算很好上手~&lt;/p&gt;
+
+&lt;p&gt;今天要來實作讀取的部分&lt;/p&gt;
+
+&lt;p&gt;讀取有分兩種，一種是讀取 list&lt;/p&gt;
+
+&lt;p&gt;另一種是讀取特定某個 todo task，今天兩種都會實作&lt;/p&gt;
+
+&lt;p&gt;首先我們先實作 get todo list&lt;/p&gt;
+
+&lt;p&gt;因為若要拿到特定的 todo task，需要 todo task 的 id&lt;/p&gt;
+
+&lt;p&gt;而我們現在還不曉得 todo task 的 id 是多少，我們只知道 user_id&lt;/p&gt;
+
+&lt;p&gt;因此就先從 list 下手&lt;/p&gt;
+
+&lt;p&gt;routes/users.js:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// Get todo list
+router.get(&#39;/:user_id/todos&#39;, function(req, res) {
+	var user_id = req.params.user_id;
+
+    TODO.find(
+        {user_id: user_id},
+        function (err, results) {
+            if (err) {
+                res.status(400).json(
+                    { error: &amp;quot;can not find data&amp;quot; }
+                );
+            } else {
+                res.status(200).json(
+                    results
+                );
+            }
+        }
+    );
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上面程式碼的意思是，先抓到 uri 的 user_id&lt;/p&gt;
+
+&lt;p&gt;再來就直接進 db 找，find() 的第一個參數為:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{user_id: user_id},
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可以想像成是 SQL 語法中的 WHERE 條件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;SELECT * WHERE user_id = &#39;user_id&#39; FROM todos
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;而 callback 則是針對 error 或 results 作處理&lt;/p&gt;
+
+&lt;p&gt;試著將 server 跑起來，然後使用 POSTMAN 丟 GET request 試試看&lt;/p&gt;
+
+&lt;p&gt;如果沒有資料，就利用昨天實作的 POST API 新增幾個吧！&lt;/p&gt;
+
+&lt;p&gt;記得 url 中輸入的 user_id 要在 DB 中有該 user 的資料才找的到資料哦&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%203.17.08.png&#34; alt=&#34;images&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;如此一來就有 task id 了!&lt;/p&gt;
+
+&lt;p&gt;再來就來實作讀取特定 id 的 task API 吧!&lt;/p&gt;
+
+&lt;p&gt;程式碼如下&lt;/p&gt;
+
+&lt;p&gt;routes/user.js:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// Get a todo task
+router.get(&#39;/:user_id/todos/:todo_id&#39;, function(req, res) {
+    var user_id = req.params.user_id;
+    var todo_id = req.params.todo_id;
+
+    TODO.find(
+        { _id: todo_id, user_id: user_id},
+        function (err, results) {
+            if (err) {
+                res.status(400).json(
+                    { error: &amp;quot;can not find data&amp;quot; }
+                );
+            } else {
+                res.status(200).json(
+                    results[0]
+                );
+            }
+        }
+    );
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這次更簡單了，user_id 及 todo_id 都是從 url 上取值&lt;/p&gt;
+
+&lt;p&gt;接著一樣使用 where 條件，將值帶入找資料&lt;/p&gt;
+
+&lt;p&gt;最後交給 callback 處理回傳值&lt;/p&gt;
+
+&lt;p&gt;將 server 跑起來，試著先從todo list 複製某一筆 _id 的值&lt;/p&gt;
+
+&lt;p&gt;丟到 url 中試試看&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%203.21.51.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;如此一來，讀取特定 task 的 API 也完成囉!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[API-d21] - 實戰開發 - 新增 TODO task API with mongoose</title>
+      <link>http://localhost:8000/blog/api-d21---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E6%96%B0%E5%A2%9E-todo-task-api-with-mongoose/</link>
+      <pubDate>Tue, 21 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/api-d21---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E6%96%B0%E5%A2%9E-todo-task-api-with-mongoose/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day21&#34;&gt;Github 參考&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;昨天我們了解了如何拿 url params 以及 request data&lt;/p&gt;
+
+&lt;p&gt;今天我們就來使用他，對資料庫做存取&lt;/p&gt;
+
+&lt;p&gt;由於使用到資料庫，因此我們要加入資料庫的 driver&lt;/p&gt;
+
+&lt;p&gt;我們用的是 &lt;code&gt;mongoose&lt;/code&gt; 套件&lt;/p&gt;
+
+&lt;p&gt;app.js:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 在最上方加入
+var mongoose = require(&#39;mongoose&#39;);
+
+// 在某個地方連接資料庫
+var db_uri = &amp;quot;mongodb://192.168.33.10:27017/TODOs&amp;quot;;
+mongoose.connect(db_uri);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在這邊我是使用了虛擬機的 DB，因此是 &lt;code&gt;mongodb://192.168.33.10:27017/TODOs&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;DB 的名稱為 &lt;code&gt;TODOs&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;這樣在程式一跑起來時，就會連接資料庫了!&lt;/p&gt;
+
+&lt;p&gt;再來我們就要設定在對資料庫做 CRUD 時，所需要做的事情&lt;/p&gt;
+
+&lt;p&gt;首先我們先要定義 schema，&lt;/p&gt;
+
+&lt;p&gt;雖然 mongodb 是 schema-free，但是官方文件也有提到最好還是有固定的 schema 避免記憶體 allocate 時出現問題，而程式撰寫時邏輯也不會因此而過於複雜&lt;/p&gt;
+
+&lt;p&gt;這時候我們就需要 model 資料夾了，在 model 資料夾中新增一個 todos.js&lt;/p&gt;
+
+&lt;p&gt;裡面要放的就是 todo task 的 schema&lt;/p&gt;
+
+&lt;p&gt;內容如下:&lt;/p&gt;
+
+&lt;p&gt;models/todos.js:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&#39;use strict&#39;;
+
+var mongoose = require(&#39;mongoose&#39;);
+
+// Define our todo schema
+var TODOschema   = new mongoose.Schema({
+    user_id: String,
+    content: String,
+    created_at: Date,
+    updated_at: Date
+});
+
+// Export the Mongoose model
+module.exports = mongoose.model(&#39;TODO&#39;, TODOschema);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;我們定義了幾個東西 user_id, content, created_at, updated_at&lt;/p&gt;
+
+&lt;p&gt;其實 ObjectID 中已經有包含建立資訊了，其實 created_at 是可以省略掉的，不過在這邊還是加一下&lt;/p&gt;
+
+&lt;p&gt;注意下面這行:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;module.exports = mongoose.model(&#39;TODO&#39;, TODOschema);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&amp;lsquo;TODO&amp;rsquo; 在這邊是 Collection (RDBMS 中的 table) 的名稱&lt;/p&gt;
+
+&lt;p&gt;在 mongoose 中，會自動複數化，所以在 Mongodb 中的 Collection name 會變成 &amp;lsquo;todos&amp;rsquo; ，&lt;/p&gt;
+
+&lt;p&gt;雖然只是小小的一行，但是蠻重要的&lt;/p&gt;
+
+&lt;p&gt;最後將這個 model exports 成一個 mongoose.model 物件&lt;/p&gt;
+
+&lt;p&gt;那我們什麼時候會用到這個 model 物件呢?&lt;/p&gt;
+
+&lt;p&gt;就是在 routes/user.js 中，&lt;/p&gt;
+
+&lt;p&gt;routes/users.js:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var TODO = require(&#39;../models/todos&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這樣在 users.js 中就可以使用 TODO 這個物件了!&lt;/p&gt;
+
+&lt;p&gt;我們先試著編輯 POST 的 route，拿到 POST 資料後，將資料轉成 TODO 的物件，存到 mongodb 裏&lt;/p&gt;
+
+&lt;p&gt;以下是 routes/users.js 中的 post 程式碼段&lt;/p&gt;
+
+&lt;p&gt;簡單來說就是先抓到 uri 的參數以及 post data&lt;/p&gt;
+
+&lt;p&gt;並且使用 models/todos.js 的 model 新建立一個 todo 物件&lt;/p&gt;
+
+&lt;p&gt;並將該物件用 post data 初始化，&lt;/p&gt;
+
+&lt;p&gt;初始化完後就執行寫入 DB 的行為, 若寫入成功則回傳 201 + data&lt;/p&gt;
+
+&lt;p&gt;失敗則回傳 400 bad request&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// Create a todo task
+router.post(&#39;/:user_id/todos&#39;, function(req, res) {
+    var user_id = req.params.user_id;
+    var data = req.body;
+
+    // insert to db
+    var todo = new TODO();
+    todo.user_id = user_id;
+    todo.content = data.content;
+    todo.created_at = Date.now();
+    todo.updated_at = Date.now();
+
+    todo.save(function (err) {
+        if (err) {
+            res.status(400).json(
+                { error: &amp;quot;insert db error&amp;quot; }
+            );
+        } else {
+            res.status(201).json(
+                todo
+            );
+        }
+    });
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;試著執行伺服器看看，並且使用 POSTMAN 丟 request 如下:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%202.54.57.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;POST 的 raw data&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{ &amp;quot;content&amp;quot;: &amp;quot;buy milk&amp;quot; }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;於是就完成了一個 POST 新增 TODO 的 API 了！&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[API-d20] - 實戰開發 - Routes 2, get params and request data</title>
+      <link>http://localhost:8000/blog/api-d20---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---routes-2-get-params-and-request-data/</link>
+      <pubDate>Mon, 20 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/api-d20---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---routes-2-get-params-and-request-data/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day20&#34;&gt;Github 參考&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;接著我們要根據我們開之前寫好的 &lt;a href=&#34;http://docs.todolist7.apiary.io/&#34;&gt;文件&lt;/a&gt; 來開發:&lt;/p&gt;
+
+&lt;p&gt;要有下列 routes&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;TODOs
+GET /user/{user_id}/todos/
+POST /user/{user_id}/todos/
+GET /user/{user_id}/todos/{id}
+PUT /user/{user_id}/todos/{id}
+DELETE /user/{user_id}/todos/{id}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這樣的需求其實可以用 namespace 實作，不過我們偷懶一點，直接指向 /user 就好&lt;/p&gt;
+
+&lt;p&gt;所以在 app.js 加入&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var users = require(&#39;./routes/users&#39;);
+app.use(&#39;/user&#39;, users);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;所以會變這樣:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var express = require(&#39;express&#39;);
+var app = express();
+
+// Set routers
+var index = require(&#39;./routes/index&#39;);
+var users = require(&#39;./routes/users&#39;);
+
+app.use(&#39;/&#39;, index);
+app.use(&#39;/user&#39;, users);
+
+module.exports = app;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;不過看起來我們缺少 routes/users.js，所以我們也來新增一個&lt;/p&gt;
+
+&lt;p&gt;routes/users.js 內容如下&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&#39;use strict&#39;;
+
+var express = require(&#39;express&#39;);
+var router = express.Router();
+
+router.get(&#39;/&#39;, function(req, res) {
+
+});
+
+router.post(&#39;/&#39;, function(req, res) {
+
+});
+
+router.get(&#39;/&#39;, function(req, res) {
+
+});
+
+router.put(&#39;/&#39;, function(req, res) {
+
+});
+
+router.delete(&#39;/&#39;, function(req, res) {
+
+});
+
+module.exports = router;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;好像有那麼一點符合我們要的 routes 了&lt;/p&gt;
+
+&lt;p&gt;我們在把每個詳細的 uri 加入&lt;/p&gt;
+
+&lt;p&gt;在這邊要注意&lt;/p&gt;
+
+&lt;p&gt;因為我們在 app.js 中把 uers.js 加入了 (&amp;lsquo;/users&amp;rsquo;, users)&lt;/p&gt;
+
+&lt;p&gt;這個 route&lt;/p&gt;
+
+&lt;p&gt;因此在 users.js 中設定的所有 route 都是接在 &lt;code&gt;/users/&lt;/code&gt; 後面的&lt;/p&gt;
+
+&lt;p&gt;要注意哦&lt;/p&gt;
+
+&lt;p&gt;修改後的檔案:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&#39;use strict&#39;;
+
+var express = require(&#39;express&#39;);
+var router = express.Router();
+
+// Get todo list
+router.get(&#39;/:user_id/todos&#39;, function(req, res) {
+    res.status(200).json( {success: &amp;quot;GET lists&amp;quot;} );
+});
+
+// Create a todo task
+router.post(&#39;/:user_id/todos&#39;, function(req, res) {
+    res.status(200).json( {success: &amp;quot;POST&amp;quot;} );
+});
+
+// Get a todo task
+router.get(&#39;/:user_id/todos/:todo_id&#39;, function(req, res) {
+    res.status(200).json( {success: &amp;quot;GET 1 task&amp;quot;} );
+});
+
+// Update a todo task
+router.put(&#39;/:user_id/todos/:todo_id&#39;, function(req, res) {
+    res.status(200).json( {success: &amp;quot;PUT&amp;quot;} );
+});
+
+// Delete a todo task
+router.delete(&#39;/:user_id/todos/:todo_id&#39;, function(req, res) {
+    res.status(200).json( {success: &amp;quot;DELETE&amp;quot;} );
+});
+
+module.exports = router;```
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;將 server 重啟，試著對這些網址丟丟看&lt;/p&gt;
+
+&lt;p&gt;這時候使用瀏覽器應該就沒辦法丟 GET 以外的要求了對吧?&lt;/p&gt;
+
+&lt;p&gt;此時 chrome extension - POSTMAN 就該上場啦！&lt;/p&gt;
+
+&lt;p&gt;打開 POSTMAN 就可以送以下的 request 囉!&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;GET http://localhost:3000/user/kerkerj/todos  
+POST http://localhost:3000/user/kerkerj/todos  
+GET http://localhost:3000/user/kerkerj/todos/1  
+PUT http://localhost:3000/user/kerkerj/todos/1  
+DELETE http://localhost:3000/user/kerkerj/todos/1  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;因為剛剛程式裡面都只讓他回傳 success，因此還沒有太大的作用，&lt;/p&gt;
+
+&lt;p&gt;不過已經有感覺了對吧!! XD&lt;/p&gt;
+
+&lt;p&gt;##Get params from url&lt;/p&gt;
+
+&lt;p&gt;我們現在先針對以下這段程式碼作進一步的改寫:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// Get a todo task
+router.get(&#39;/:user_id/todos/:todo_id&#39;, function(req, res) {
+    res.status(200).json( 
+    	{ 
+    		success: &amp;quot;GET 1 task&amp;quot;, 
+    	  	user: req.params.user_id,
+    	  	todo_id: req.params.todo_id
+    	} );
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;存檔並打開 server，存取 &lt;a href=&#34;http://localhost:3000/user/test/todos/1&#34;&gt;http://localhost:3000/user/test/todos/1&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;就可以看到回傳值是:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+    &amp;quot;success&amp;quot;: &amp;quot;GET 1 task&amp;quot;,
+    &amp;quot;user&amp;quot;: &amp;quot;kerkerj&amp;quot;,
+    &amp;quot;todo_id&amp;quot;: &amp;quot;1&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;所以又學到一招了!&lt;/p&gt;
+
+&lt;p&gt;先設定想要抓哪一段網址，例如:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;/:user_id/todos/:todo_id&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;前面有加冒號的就是這段網址是要被抓成一個參數&lt;/p&gt;
+
+&lt;p&gt;而冒號後面接的就是之後在下面要使用到的名字&lt;/p&gt;
+
+&lt;p&gt;要接網址的參數的拿法 - req.params.{???}&lt;/p&gt;
+
+&lt;p&gt;例如:&lt;/p&gt;
+
+&lt;p&gt;req.params.user_id&lt;/p&gt;
+
+&lt;p&gt;req.params.todo_id&lt;/p&gt;
+
+&lt;p&gt;拿到了網址的參數，就可以對資料庫做進一步的查詢&lt;/p&gt;
+
+&lt;p&gt;##Get request data&lt;/p&gt;
+
+&lt;p&gt;那要怎麼拿到 request 的 data 呢?&lt;/p&gt;
+
+&lt;p&gt;他並不存在于網址列上啊?&lt;/p&gt;
+
+&lt;p&gt;這時候就要加入 &lt;code&gt;body-parser&lt;/code&gt; 了!&lt;/p&gt;
+
+&lt;p&gt;他會在接收到 request 時，幫我們做過處理後，再傳到每個 request 該去的 router 裏&lt;/p&gt;
+
+&lt;p&gt;在 app.js 中加入&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// 最上面
+var bodyParser = require(&#39;body-parser&#39;);
+
+// 加在 router 前面，切記!!
+app.use( bodyParser.json() );
+app.use( bodyParser.urlencoded({ extended: true }) );
+
+app.use(&#39;/&#39;, index);
+app.use(&#39;/user&#39;, users);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;接著在 users.js 中的 POST 區塊中加入兩行:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// Create a todo task
+router.post(&#39;/:user_id/todos&#39;, function(req, res) {
+    var data = req.body;
+
+    res.status(200).json( {success: data } );
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;開啓 server, 用下圖的方式對 server 做 request:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-09%2023.00.10.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;記得要加入 header -&lt;/p&gt;
+
+&lt;p&gt;Content-Type - application/json&lt;/p&gt;
+
+&lt;p&gt;Data 要選擇 raw data - 使用自己寫的 json 格式&lt;/p&gt;
+
+&lt;p&gt;就可以看到下面的回傳格式了!&lt;/p&gt;
+
+&lt;p&gt;透過拿到 url params 以及 request data&lt;/p&gt;
+
+&lt;p&gt;我們就可以使用這些資料來對資料庫做存取了!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[API-d19] - 實戰開發 - index &amp; route &amp; http status code</title>
+      <link>http://localhost:8000/blog/api-d19---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---index--route--http-status-code/</link>
+      <pubDate>Sun, 19 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/api-d19---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---index--route--http-status-code/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day19&#34;&gt;Github 參考&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;昨天先把專案目錄初始化，裝完該裝的套件後&lt;/p&gt;
+
+&lt;p&gt;在 routes 中加入一個 index.js 檔案&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;&#39;use strict&#39;;
+
+var express = require(&#39;express&#39;);
+var router = express.Router();
+
+router.get(&#39;/&#39;, function(req, res) {
+    res.status(200).json({ greetings: &amp;quot;hello world!&amp;quot;});
+});
+
+module.exports = router;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;建立一個 &lt;code&gt;app.js&lt;/code&gt; 在專案根目錄中:&lt;/p&gt;
+
+&lt;p&gt;app.js&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var express = require(&#39;express&#39;);
+var app = express();
+var index = require(&#39;./routes/index&#39;);
+
+// Set routers
+app.use(&#39;/&#39;, index);
+
+module.exports = app;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然後在 bin 資料夾建立一個 server.js:&lt;/p&gt;
+
+&lt;p&gt;bin/server.js:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&#39;use strict&#39;;
+
+var debug = require(&#39;debug&#39;)(&#39;TODOAPI&#39;);
+var app = require(&#39;../app&#39;);
+
+app.set(&#39;port&#39;, process.env.PORT || 3000);
+
+var server = app.listen(app.get(&#39;port&#39;), function() {
+    debug(&#39;Express server listening on port &#39; + server.address().port);
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;並且在 package.json 中修改並加入:&lt;/p&gt;
+
+&lt;p&gt;加入 &lt;code&gt;start&lt;/code&gt; : &lt;code&gt;&amp;quot;start&amp;quot;: &amp;quot;node ./bin/server.js&amp;quot;,&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;quot;scripts&amp;quot;: {
+    &amp;quot;start&amp;quot;: &amp;quot;node ./bin/server.js&amp;quot;,
+    &amp;quot;test&amp;quot;: &amp;quot;echo \&amp;quot;Error: no test specified\&amp;quot; &amp;amp;&amp;amp; exit 1&amp;quot;
+  },
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這樣我們就可以透過 &lt;code&gt;npm start&lt;/code&gt; 來啟動 server 了!&lt;/p&gt;
+
+&lt;p&gt;試著啟動看看 &lt;code&gt;npm start&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;到網址列輸入 &lt;code&gt;http://localhost:3000/&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;就可以看到 &lt;code&gt;{&amp;quot;greetings&amp;quot;:&amp;quot;hello world!&amp;quot;}&lt;/code&gt; 了!&lt;/p&gt;
+
+&lt;p&gt;我們從本文的後面往回看：其實就是一個 request 會經過的地方:&lt;/p&gt;
+
+&lt;p&gt;當我們下了 &lt;code&gt;npm start&lt;/code&gt;，npm 會搜尋 package.json 中有沒有 &lt;code&gt;start&lt;/code&gt; 指令&lt;/p&gt;
+
+&lt;p&gt;若有的話就會執行他所設定的指令 &lt;code&gt;node ./bin/server.js&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;這樣就會執行 server.js 了&lt;/p&gt;
+
+&lt;p&gt;我們再看一下 server.js，講解在底下的註解:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// 使用嚴格模式
+&#39;use strict&#39;;
+
+// 加入 debugger
+var debug = require(&#39;debug&#39;)(&#39;TODOAPI&#39;);
+
+// 將我們寫的 app.js 引入，建立一個 app instance
+var app = require(&#39;../app&#39;);
+
+// 設定 app instance 的 port, 若環境變數有設定的話就使用環境變數的值
+// 沒有設定環境變數的話則是 3000
+app.set(&#39;port&#39;, process.env.PORT || 3000);
+
+// 啟動 server，讓 server 監聽剛剛上一行所設定的 port，
+// 並且使用 debugger
+var server = app.listen(app.get(&#39;port&#39;), function() {
+    debug(&#39;Express server listening on port &#39; + server.address().port);
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;既然 server.js 啟動了一個 app.js 的 instance&lt;/p&gt;
+
+&lt;p&gt;那我們就要來看一下 app.js&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// 引入 express 模組
+var express = require(&#39;express&#39;);
+
+// 初始化一個 express instance
+var app = express();
+
+// 將 route 引入
+var index = require(&#39;./routes/index&#39;);
+
+// 設定若有 request 進到 http://localhost:3000/ 時，
+// 交給 routes/index.js 來作後續處理
+app.use(&#39;/&#39;, index);
+
+最後這一行是這個檔案 export 成一個模組
+module.exports = app;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;那現在我們了解到了，如果有一個要求打進了 &lt;code&gt;http://localhost:3000/&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;它會將該要求轉發給 routes/index.js 來作處理&lt;/p&gt;
+
+&lt;p&gt;因此我們再進到 index.js 看看內容&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// 使用嚴格模式
+&#39;use strict&#39;;
+
+// 引入 express 模組
+var express = require(&#39;express&#39;);
+
+// 在這邊我們要使用 express 模組中的 Router
+// 因為在 app.js 中，若是使用 app.use(&#39;/&#39;, index)
+// 該 index 物件必須是一個 Router 物件，
+// 因此在這邊我們才會這樣寫
+// 於是 router 就是一個 express 的 router 物件了
+var router = express.Router();
+
+// 設定該  router 有哪些路徑要來聽
+// 在這邊我們設定當有 request 進到 根目錄，
+// 且是使用 GET 方法時，我們的回覆是:
+// HTTP status code 爲 200
+// 回傳的資料為 json 格式，傳入的內容是一個 javascript 物件
+// .json 方法會幫我們轉成 json 格式回傳給使用者
+router.get(&#39;/&#39;, function(req, res) {
+    res.status(200).json({ greetings: &amp;quot;hello world!&amp;quot;});
+});
+
+// 最後將這個檔案 export 成一個 router 模組
+module.exports = router;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;所以透過這樣的方式我們就了解到了一個 request 是如何在模組化後的程式奔跑遊走&lt;/p&gt;
+
+&lt;p&gt;另外要特別提到的是 http status code&lt;/p&gt;
+
+&lt;p&gt;http status code 其實是一個非常好讓 client 知道這次 API request 發生什麼事的資料，充分利用 HTTP 協議所定義的狀態碼&lt;/p&gt;
+
+&lt;p&gt;我們有時候瀏覽網頁會看到: 404 Not found! 或是 500 Internal Server Error&lt;/p&gt;
+
+&lt;p&gt;這就是 HTTP status code&lt;/p&gt;
+
+&lt;p&gt;那我們可以透過定義好回傳的 http status code 來代表此次 request 的狀態&lt;/p&gt;
+
+&lt;p&gt;例如：&lt;/p&gt;
+
+&lt;p&gt;client 端輸入的 API 網址錯誤了&lt;/p&gt;
+
+&lt;p&gt;我們就回傳 status code: 404&lt;/p&gt;
+
+&lt;p&gt;如果是不小心 server 的 code 寫錯了，導致該次 request 完全讓 server 死掉了，&lt;/p&gt;
+
+&lt;p&gt;那就可以回傳 500 interanl server error&lt;/p&gt;
+
+&lt;p&gt;因此在做 error handling 時，請定義好 status code，他一定會有幫助的!&lt;/p&gt;
+
+&lt;p&gt;常用的 status code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;200 - Success
+201 - Created
+400 - Bad request
+401 - Unauthorized
+403 - Forbidden
+404 - Not found
+500 - Internal Server Error
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;詳細還可以參考: &lt;a href=&#34;http://zh.wikipedia.org/wiki/HTTP%E7%8A%B6%E6%80%81%E7%A0%81&#34;&gt;HTTP status code&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.restapitutorial.com/httpstatuscodes.html&#34;&gt;其他教學&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[API-d18] - 實戰開發 - 套件模組</title>
+      <link>http://localhost:8000/blog/api-d18---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E5%A5%97%E4%BB%B6%E6%A8%A1%E7%B5%84/</link>
+      <pubDate>Sat, 18 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/api-d18---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E5%A5%97%E4%BB%B6%E6%A8%A1%E7%B5%84/</guid>
+      <description>&lt;p&gt;##會使用到的套件:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;主體:
+express - web framework
+body-parser - parse request body
+
+測試相關:
+mocha - test framework
+mocha-mongoose - 用來和 mocha 和 mongoose 中間做介接的套件
+superagent - 拿它來丟 http request
+validator - 用來驗證某個物件是否為某個型別
+expect.js - 類似 BDD 的語法，用來寫測試的
+debug - debug package
+
+DB 相關:
+mongoose - mongodb orm
+mongodb - mongodb native driver
+
+開發相關:
+nodemon - detect file change and restart server
+
+生產環境相關:
+log4js - 記錄 request log
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這是我的 package.json, 可以複製到專案目錄，然後下 &lt;code&gt;npm install&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+  &amp;quot;name&amp;quot;: &amp;quot;TODOAPI&amp;quot;,
+  &amp;quot;version&amp;quot;: &amp;quot;1.0.0&amp;quot;,
+  &amp;quot;description&amp;quot;: &amp;quot;&amp;quot;,
+  &amp;quot;main&amp;quot;: &amp;quot;app.js&amp;quot;,
+  &amp;quot;scripts&amp;quot;: {
+    &amp;quot;start&amp;quot;: &amp;quot;node ./bin/server.js env=development&amp;quot;,
+    &amp;quot;test&amp;quot;: &amp;quot;./node_modules/mocha/bin/mocha&amp;quot;,
+    &amp;quot;test-detail&amp;quot;: &amp;quot;./node_modules/mocha/bin/mocha --reporter list&amp;quot;,
+    &amp;quot;stop&amp;quot;: &amp;quot;pkill -lf server.js&amp;quot;
+  },
+  &amp;quot;author&amp;quot;: &amp;quot;kerkerj&amp;quot;,
+  &amp;quot;license&amp;quot;: &amp;quot;ISC&amp;quot;,
+  &amp;quot;dependencies&amp;quot;: {
+    &amp;quot;body-parser&amp;quot;: &amp;quot;^1.9.0&amp;quot;,
+    &amp;quot;debug&amp;quot;: &amp;quot;^2.0.0&amp;quot;,
+    &amp;quot;expect.js&amp;quot;: &amp;quot;^0.3.1&amp;quot;,
+    &amp;quot;express&amp;quot;: &amp;quot;^4.9.5&amp;quot;,
+    &amp;quot;log4js&amp;quot;: &amp;quot;^0.6.21&amp;quot;,
+    &amp;quot;mocha&amp;quot;: &amp;quot;^1.21.4&amp;quot;,
+    &amp;quot;mocha-mongoose&amp;quot;: &amp;quot;^1.0.1&amp;quot;,
+    &amp;quot;mongodb&amp;quot;: &amp;quot;^1.4.19&amp;quot;,
+    &amp;quot;mongoose&amp;quot;: &amp;quot;^3.8.17&amp;quot;,
+    &amp;quot;superagent&amp;quot;: &amp;quot;^0.20.0&amp;quot;,
+    &amp;quot;validator&amp;quot;: &amp;quot;^3.19.1&amp;quot;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;##安裝套件，及全域套件 mocha&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// in project folder
+$ npm install express body-parser mocha mocha-mongoose superagent validator expect.js debug mongoose mongodb log4js -save 
+$ npm install -g nodemon
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;##各個套件簡單設定&lt;/p&gt;
+
+&lt;p&gt;接下來會針對一些套件作說明，但是由於可能有些人不懂整個專案的運作，因此下面看看就好，之後實作上有問題可以再回來看。&lt;/p&gt;
+
+&lt;p&gt;##Nodemon 的作用&lt;/p&gt;
+
+&lt;p&gt;範例:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ nodemon ./bin/server.js
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;就可以放著不管它了~ 只要檔案有變動，就會自動重開 server&lt;/p&gt;
+
+&lt;p&gt;##使用 logger - log4js&lt;/p&gt;
+
+&lt;p&gt;設定 logger - log4js, 並將 log 寫入到 logs/access.log 裏&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// Set logger
+var log4js = require(&#39;log4js&#39;);
+log4js.configure({
+    appenders: [
+        { type: &#39;console&#39; }, //控制台輸出
+        {
+            type: &#39;file&#39;, //文件輸出
+            filename: &#39;logs/access.log&#39;,
+            maxLogSize: 20000000, // 20 MB
+            backups: 10,
+            category: &#39;normal&#39;
+        }
+    ],
+    replaceConsole: true
+});
+
+var logger = log4js.getLogger(&#39;normal&#39;);
+logger.setLevel(&#39;INFO&#39;);
+
+app.use(log4js.connectLogger(logger, {level: &#39;auto&#39;, format:&#39;:method :url&#39;}));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://blog.fens.me/nodejs-log4js/&#34;&gt;node log4s&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;##使用 body-parser 處理 request 的資料&lt;/p&gt;
+
+&lt;p&gt;加入 middleware&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;app.use( bodyParser.json() );
+app.use( bodyParser.urlencoded({ extended: true }) );
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;需要加入 { extended: true/false }, 否則會 warning:&lt;/p&gt;
+
+&lt;p&gt;body-parser deprecated undefined extended: provide extended&lt;/p&gt;
+
+&lt;p&gt;如果要接收 json request&lt;/p&gt;
+
+&lt;p&gt;client 端在 Header 中必須先設定 &amp;ldquo;Content-type: applciation/json&amp;rdquo;&lt;/p&gt;
+
+&lt;p&gt;才能夠在 router 中使用 &lt;code&gt;req.body&lt;/code&gt; 拿到 json 值&lt;/p&gt;
+
+&lt;p&gt;##測試套件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mocha - 專案
+expect.js - 專案
+superagent - 專案
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;測試流程 -&lt;/p&gt;
+
+&lt;p&gt;先跑 server 起來，透過自動化程式自動丟 request 給 server，測試結束&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ npm start
+$ mocha
+$ npm stop
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;所以必須先在 package.json 中設定好 script&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+	(...)
+	&amp;quot;scripts&amp;quot;: {
+      &amp;quot;start&amp;quot;: &amp;quot;node ./bin/server.js&amp;quot;,
+      &amp;quot;test&amp;quot;: &amp;quot;mocha&amp;quot;,
+      &amp;quot;stop&amp;quot;: &amp;quot;pkill -lf server.js&amp;quot;
+  },
+  (...)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;由於我將啟動 server 的 script 放在 bin 資料夾裡，因此&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;npm start&lt;/code&gt; 的 script 就會執行:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;node ./bin/server.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;npm stop&lt;/code&gt; 的話，用到了 *nix 的指令，會先到 process list 中找到和 server.js 有關的 process，然後 kill process (&lt;code&gt;pkill&lt;/code&gt;)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;pkill -lf server.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;跑測試的話，直接下 &lt;code&gt;mocha&lt;/code&gt;，在這邊我們也丟一個 script 指定給 &lt;code&gt;npm test&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;下 &lt;code&gt;npm test&lt;/code&gt; 就是等同於下 &lt;code&gt;mocha&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;上面只是大致上講解一下每個套件如何用，接下來我們會以實際的例子來說明&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[API-d17] - 實戰開發 - 專案結構</title>
+      <link>http://localhost:8000/blog/api-d17---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E5%B0%88%E6%A1%88%E7%B5%90%E6%A7%8B/</link>
+      <pubDate>Fri, 17 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/api-d17---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E5%B0%88%E6%A1%88%E7%B5%90%E6%A7%8B/</guid>
+      <description>
+
+&lt;p&gt;首先我們就在虛擬機的資料夾底下，建立一個專案資料夾吧!&lt;/p&gt;
+
+&lt;p&gt;今天會來簡單切割一下我們的專案目錄&lt;/p&gt;
+
+&lt;p&gt;##建立新專案目錄:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd /vagrant/
+$ mkdir TODOAPI
+$ cd TODOAPI
+$ npm init
+// 輸入專案資訊
+$ 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;##建立專案結構&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/
+| - bin/
+| - routes/
+| - model/
+| - node_modules/
+| - logs/
+| - config/
+| - test/
+| - app.js
+| - package.json
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;分別講解一下各個 folder 的工作:&lt;/p&gt;
+
+&lt;h3 id=&#34;bin&#34;&gt;&lt;code&gt;bin&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;筆者會在 &lt;code&gt;bin&lt;/code&gt; 資料夾底下放一個 &lt;code&gt;server.js&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;這個 &lt;code&gt;server.js&lt;/code&gt; 就是會專門用來啟動一個 &lt;code&gt;app.js&lt;/code&gt; instance&lt;/p&gt;
+
+&lt;p&gt;###&lt;code&gt;routes&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;基本上如果了解 MVC 架構的話，&lt;code&gt;routes&lt;/code&gt; 就是 &lt;code&gt;controller&lt;/code&gt; 的意思，其實如果讀者本身夠了解的話，這個資料夾也可以改成 &lt;code&gt;controller&lt;/code&gt; 也 ok，應該說，其實資料夾怎麼放都是看個人隨意即可，只是若是要模組化的話，筆者會這樣來處理一個專案結構。&lt;/p&gt;
+
+&lt;p&gt;###&lt;code&gt;model&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;拿來放資料庫 schema 以及相關的資料庫操作的資料夾&lt;/p&gt;
+
+&lt;h3 id=&#34;node-modules&#34;&gt;&lt;code&gt;node_modules&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;這其實是之後安裝的模組會放在這個資料夾裡，在這邊可以先不用建立沒關係&lt;/p&gt;
+
+&lt;h3 id=&#34;logs&#34;&gt;&lt;code&gt;logs&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;由於我們是建立一個 restful service，因此 log 的記錄也是很重要的，我們把 log 放在這個資料夾裡&lt;/p&gt;
+
+&lt;h3 id=&#34;configs&#34;&gt;&lt;code&gt;configs&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;我們在這個資料夾裡放置一些專案設定，例如 db 設定或者是 log 的設定等等&lt;/p&gt;
+
+&lt;h3 id=&#34;test&#34;&gt;&lt;code&gt;test&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;撰寫測試程式的資料夾~&lt;/p&gt;
+
+&lt;h3 id=&#34;app-js&#34;&gt;&lt;code&gt;app.js&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;程式的進入點，可以想像成 index.php~&lt;/p&gt;
+
+&lt;h3 id=&#34;package-json&#34;&gt;&lt;code&gt;package.json&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;專案的資訊以及相關模組的資訊都會被放在這裡!&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;其實關於專案結構有許多不同的討論，&lt;code&gt;express&lt;/code&gt; 也有一個專案自動產生器，不過如果對結構內容不了解而使用產生器的話，很容易變成只知表面不知內部運作，因此我們還是一步一步來，先定義好我們專案的需求結構&lt;/p&gt;
+
+&lt;p&gt;另外，因為我們是建立 restful API service，在此並沒有用到 html 頁面，也因此就沒有 &lt;code&gt;view&lt;/code&gt; 或 &lt;code&gt;public&lt;/code&gt; 這兩個資料夾囉~&lt;/p&gt;
+
+&lt;p&gt;延伸閱讀:&lt;/p&gt;
+
+&lt;p&gt;我們可以透過觀摩別人的專案來參考他們的專案架構:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://scotch.io/tutorials/javascript/node-and-angular-to-do-app-application-organization-and-structure&#34;&gt;Node and Angular To-Do App: Application Organization and Structure&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://stackoverflow.com/questions/18789864/node-js-express-global-modules-best-practices-for-application-structure&#34;&gt;node.js &amp;amp; express - global modules &amp;amp; best practices for application structure&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;在 Github 上的討論，非常值得一看: &lt;a href=&#34;https://gist.github.com/lancejpollard/1398757&#34;&gt;Github discussion&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;後來覺得也可以模仿 rails 的分法:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/
+| - app/
+| - ----controllers/
+| - ----models/
+| - ----views/
+| - ----helpers/
+| - node_modules/
+| - logs/
+| - libs/
+| - public/
+| - config/
+| - test/
+| - server.js
+| - package.json
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;都 OK!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[API-d16] - 實戰開發 - 設定主題及規劃</title>
+      <link>http://localhost:8000/blog/api-d16---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E8%A8%AD%E5%AE%9A%E4%B8%BB%E9%A1%8C%E5%8F%8A%E8%A6%8F%E5%8A%83/</link>
+      <pubDate>Thu, 16 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/api-d16---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E8%A8%AD%E5%AE%9A%E4%B8%BB%E9%A1%8C%E5%8F%8A%E8%A6%8F%E5%8A%83/</guid>
+      <description>&lt;p&gt;接下來我們想要做到的是一個 TODO list 的 RESTful API&lt;/p&gt;
+
+&lt;p&gt;並且會先使用 &lt;a href=&#34;http://apiary.io/&#34;&gt;apiary.io&lt;/a&gt; 做規劃&lt;/p&gt;
+
+&lt;p&gt;實際看看感覺如何&lt;/p&gt;
+
+&lt;p&gt;進入網站後，註冊登入後&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-07%201.04.07.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;左上角的 dropdown list 選擇 create new API&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-07%201.04.18.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;產生後下方就會跑出範例文擋&lt;/p&gt;
+
+&lt;p&gt;這個網站會透過特定格式的編排自己希望的 API endpoint 及範例回傳值後，產生出一份漂亮的文件&lt;/p&gt;
+
+&lt;p&gt;網站中間是模式的選擇&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-07%201.10.33.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Documentation 是實際讓其他人看的，Editor 則是編輯模式&lt;/p&gt;
+
+&lt;p&gt;我們就稍微簡單規劃一下 TODO List 的 RESTful API 吧!&lt;/p&gt;
+
+&lt;p&gt;這是我自己規劃的 &lt;a href=&#34;http://docs.todolist7.apiary.io/&#34;&gt;文件&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;基本上 route 會長這個樣子:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;TODOs
+GET /user/{user_id}/todos/
+POST /user/{user_id}/todos/
+GET /user/{user_id}/todos/{id}
+PUT /user/{user_id}/todos/{id}
+DELETE /user/{user_id}/todos/{id}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;資料格式也都在該文件整理好了&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;/user/{user_id}/&lt;/code&gt; 只是用來辨識是哪個 user 的 todo task data&lt;/p&gt;
+
+&lt;p&gt;在這個小 API 不會琢磨在使用者系統的建立，只會專注在操作 todo task data&lt;/p&gt;
+
+&lt;p&gt;我們可以直接透過 PostMan 來丟丟看&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-07%201.43.06.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;我們設定必須要使用 API-key 才能存取 API，比較進階的做法就是使用 Oauth 的方式取得 token 來存取 API&lt;/p&gt;
+
+&lt;p&gt;不過在這個小 API 也不會建立一個 Oauth Server，我們簡單使用 API-key 來認證即可&lt;/p&gt;
+
+&lt;p&gt;接下來的時間我們就會開始依據規劃好的文件，使用 Node.js + express + mongodb 來實作囉!&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

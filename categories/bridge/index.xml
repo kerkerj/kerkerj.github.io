@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kerkerj</title>
+    <link>http://localhost:8000/categories/bridge/index.xml</link>
+    <description>Recent content on kerkerj</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
+    <atom:link href="http://localhost:8000/categories/bridge/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>[Swift-d19] - Basic - 橋接第三方 Objc library - Reachability and Bridge.h</title>
+      <link>http://localhost:8000/blog/swift-d19---basic---%E6%A9%8B%E6%8E%A5%E7%AC%AC%E4%B8%89%E6%96%B9-objc-library---reachability-and-bridge.h/</link>
+      <pubDate>Sun, 19 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:8000/blog/swift-d19---basic---%E6%A9%8B%E6%8E%A5%E7%AC%AC%E4%B8%89%E6%96%B9-objc-library---reachability-and-bridge.h/</guid>
+      <description>&lt;p&gt;本日專案的 &lt;a href=&#34;https://github.com/kerkerj/ithome-BridgeObjcDemo&#34;&gt;Github link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;由於 Swift 剛推出不到一年&lt;/p&gt;
+
+&lt;p&gt;有許多的 third-party library 一定還沒轉換成 Swift&lt;/p&gt;
+
+&lt;p&gt;或者是作者沒心力轉會成 Swift&lt;/p&gt;
+
+&lt;p&gt;但是有些套件非常方便，那在 Swift 要怎麼使用 Objective-C 的套件呢?&lt;/p&gt;
+
+&lt;p&gt;Xcode 有提供橋接的方式，非常好用&lt;/p&gt;
+
+&lt;p&gt;接下來就介紹一下如何使用吧!&lt;/p&gt;
+
+&lt;p&gt;以下的例子是一個叫做 &lt;code&gt;Reachability&lt;/code&gt; 的套件&lt;/p&gt;
+
+&lt;p&gt;它可以簡單地幫我們判斷是否有網路連線 3g or wifi 之類的&lt;/p&gt;
+
+&lt;p&gt;所以我們先下載這個套件吧!&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/tonymillion/Reachability&#34;&gt;https://github.com/tonymillion/Reachability&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;下載解壓縮後&lt;/p&gt;
+
+&lt;p&gt;將 .h 和 .m 檔拖曳進 Xcode 專案中&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2014.27.17.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;接下來 Xcode 就會問一個非常重要的問題!:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2014.26.24.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;是否要建立橋接的 .h 檔案!&lt;/p&gt;
+
+&lt;p&gt;當然是選擇建立囉~&lt;/p&gt;
+
+&lt;p&gt;此時的專案結構就會變成這樣:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2014.26.38.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;再來編輯 bridge-header.h 檔&lt;/p&gt;
+
+&lt;p&gt;將想要橋接的 objc 套件 import 進去&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;#import &amp;quot;Reachability.h&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這樣我們就可以在 Swift 中直接使用該套件的類別與方法了!&lt;/p&gt;
+
+&lt;p&gt;接下來就讓我們試試看!&lt;/p&gt;
+
+&lt;p&gt;在 ViewController 中加入以下程式碼:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;//
+//  ViewController.swift
+//  BridgeObjcDemo
+//
+//  Created by Jerry Huang on 2014/10/18.
+//  Copyright (c) 2014年 kerkerj. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        
+        
+        var isConnected = checkNetworkConnection()
+        
+        let alert = UIAlertView()
+        alert.title = &amp;quot;Network Connection&amp;quot;
+        
+        if isConnected {
+            alert.message = &amp;quot;You&#39;re online!&amp;quot;
+        } else {
+            alert.message = &amp;quot;You&#39;re offline!&amp;quot;
+        }
+        
+        alert.addButtonWithTitle(&amp;quot;OK&amp;quot;)
+        alert.show()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func checkNetworkConnection() -&amp;gt; Bool {
+        let reachability: Reachability = Reachability.reachabilityForInternetConnection()
+        let networkStatus: NetworkStatus = reachability.currentReachabilityStatus()
+        
+        println(networkStatus.toRaw())
+        
+        switch (networkStatus.toRaw()) {
+        case 0:
+            println(&amp;quot;[Network Status]: NotReachable&amp;quot;)
+        case 1:
+            println(&amp;quot;[Network Status]: ReachableViaWWAN&amp;quot;)
+        case 2:
+            println(&amp;quot;[Network Status]: ReachableViaWiFi&amp;quot;)
+        default:
+            break
+        }
+        
+        return networkStatus.toRaw() != 0
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;簡單的說，我們寫了一個方法，使用 Reachability 偵測網路連線&lt;/p&gt;
+
+&lt;p&gt;在 ViewDidLoad 時，偵測是否有網路連線&lt;/p&gt;
+
+&lt;p&gt;跳一個 Alert 會告訴你是有連線還是沒有連線&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2014.42.45.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;不過在這邊，我不曉得如何讓模擬器關掉連線，&lt;/p&gt;
+
+&lt;p&gt;所以沒辦法提供 offline 的圖&lt;/p&gt;
+
+&lt;p&gt;但是我實際安裝到手機後，將 wifi 功能關掉後的確是有跳出 offline 的&lt;/p&gt;
+
+&lt;p&gt;哈哈 雖然說沒圖沒真相但是&amp;hellip;XD&lt;/p&gt;
+
+&lt;p&gt;橋接第三方套件就是那麼簡單! :D&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
