@@ -7,8 +7,35 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
-    <lastBuildDate>Sun, 09 Oct 2016 00:47:31 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 11 Oct 2016 11:10:52 +0800</lastBuildDate>
     <atom:link href="http://blog.kerkerj.in/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>[tool] diff-so-fancy</title>
+      <link>http://blog.kerkerj.in/blog/tool-diff-so-fancy/</link>
+      <pubDate>Tue, 11 Oct 2016 11:10:52 +0800</pubDate>
+      
+      <guid>http://blog.kerkerj.in/blog/tool-diff-so-fancy/</guid>
+      <description>&lt;p&gt;現在想到什麼都來 PO 一下 XD&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/so-fancy/diff-so-fancy&#34;&gt;https://github.com/so-fancy/diff-so-fancy&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;拿來幫你把 &lt;code&gt;git diff&lt;/code&gt; 變漂亮的東東&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;// install
+$ brew install diff-so-fancy
+
+// Setup
+$ git config --global core.pager &amp;quot;diff-so-fancy | less --tabs=4 -RFX&amp;quot;
+
+// make it more fancier
+$ git config --global color.diff-highlight.oldNormal &amp;quot;red bold&amp;quot;
+$ git config --global color.diff-highlight.oldHighlight &amp;quot;red bold 52&amp;quot;
+$ git config --global color.diff-highlight.newNormal &amp;quot;green bold&amp;quot;
+$ git config --global color.diff-highlight.newHighlight &amp;quot;green bold 22&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>New theme</title>
@@ -1720,95 +1747,6 @@ class RestApi {
 &lt;p&gt;並沒有考慮到太多 :P&lt;/p&gt;
 
 &lt;p&gt;明天繼續!&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>[API-d26] - 實戰開發 - API-key</title>
-      <link>http://blog.kerkerj.in/blog/api-d26---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---api-key/</link>
-      <pubDate>Sun, 26 Oct 2014 00:00:00 +0000</pubDate>
-      
-      <guid>http://blog.kerkerj.in/blog/api-d26---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---api-key/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day26&#34;&gt;Github 參考&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;假設今天我們的 API 上線了，可能就會面臨到一些問題，&lt;/p&gt;
-
-&lt;p&gt;例如說，任何人都可以存取我們的 API&lt;/p&gt;
-
-&lt;p&gt;當然我們不希望任何人都可以存取，&lt;/p&gt;
-
-&lt;p&gt;因此我們必須加一點驗證機制在裡面，&lt;/p&gt;
-
-&lt;p&gt;其中一種做法是使用 Oauth token&lt;/p&gt;
-
-&lt;p&gt;在拿 API 資料前，先向 Oauth server 要一個 token&lt;/p&gt;
-
-&lt;p&gt;Oauth Server 認可身份後即會核發一個 token 給 client 端&lt;/p&gt;
-
-&lt;p&gt;該 token 具有時效性，6 mins ~ 30 min 不等，看怎麼實作&lt;/p&gt;
-
-&lt;p&gt;接著 client 端就拿該組 token 以及 API url 對 resources server 丟 request&lt;/p&gt;
-
-&lt;p&gt;其實我們現在在做的 API server 就是一個 resources server&lt;/p&gt;
-
-&lt;p&gt;因為我們提供資源&lt;/p&gt;
-
-&lt;p&gt;而 resources server 就會先認 token，&lt;/p&gt;
-
-&lt;p&gt;確保該 token 的時效性以及正確性，以及該 token 可存取的資源範圍&lt;/p&gt;
-
-&lt;p&gt;確認無誤後再回送正確的資料&lt;/p&gt;
-
-&lt;p&gt;不過在這邊我們並沒有要實作 Oauth Server&lt;/p&gt;
-
-&lt;p&gt;單純以一個 resources server 而言，只要認 token 是否正確&lt;/p&gt;
-
-&lt;p&gt;因此我們在這邊用 API-Key 實作即可，簡單的服務只要不被猜到就好&lt;/p&gt;
-
-&lt;p&gt;程式碼如下，記得加在 router 前面&lt;/p&gt;
-
-&lt;p&gt;app.js:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// Set Header Check
-app.use( function(req, res, next) {
-    var api_key = req.get(&#39;API-Key&#39;);
-
-    if (api_key != &amp;quot;55665566&amp;quot;) {
-        res.status(401).send({ error: &amp;quot;Unauthorized&amp;quot;});
-    }
-    else {
-        next();
-    }
-});
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;一樣是 middleware 的概念&lt;/p&gt;
-
-&lt;p&gt;不過是會預先作處理&lt;/p&gt;
-
-&lt;p&gt;我們接收到 request 後，分析它的 header 中是否有 &lt;code&gt;API-Key&lt;/code&gt; 這個欄位&lt;/p&gt;
-
-&lt;p&gt;若有的話，確認他的值是否為 &lt;code&gt;55665566&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;若不是的話，回傳 401 Unauthorized&lt;/p&gt;
-
-&lt;p&gt;若正確則繼續走下一個 middleware&lt;/p&gt;
-
-&lt;p&gt;這樣就可以做一道簡單的防線了&lt;/p&gt;
-
-&lt;p&gt;若加了這道防線&lt;/p&gt;
-
-&lt;p&gt;在使用 POSTMAN 做 request 時，必須加入自定 header&lt;/p&gt;
-
-&lt;p&gt;沒加入的話:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%204.11.59.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;有加入的話:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%204.12.18.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;是不是很簡單呢!&lt;/p&gt;
 </description>
     </item>
     

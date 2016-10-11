@@ -7,8 +7,35 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
-    <lastBuildDate>Sun, 09 Oct 2016 00:47:31 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 11 Oct 2016 11:10:52 +0800</lastBuildDate>
     <atom:link href="http://blog.kerkerj.in/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>[tool] diff-so-fancy</title>
+      <link>http://blog.kerkerj.in/blog/tool-diff-so-fancy/</link>
+      <pubDate>Tue, 11 Oct 2016 11:10:52 +0800</pubDate>
+      
+      <guid>http://blog.kerkerj.in/blog/tool-diff-so-fancy/</guid>
+      <description>&lt;p&gt;現在想到什麼都來 PO 一下 XD&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/so-fancy/diff-so-fancy&#34;&gt;https://github.com/so-fancy/diff-so-fancy&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;拿來幫你把 &lt;code&gt;git diff&lt;/code&gt; 變漂亮的東東&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;// install
+$ brew install diff-so-fancy
+
+// Setup
+$ git config --global core.pager &amp;quot;diff-so-fancy | less --tabs=4 -RFX&amp;quot;
+
+// make it more fancier
+$ git config --global color.diff-highlight.oldNormal &amp;quot;red bold&amp;quot;
+$ git config --global color.diff-highlight.oldHighlight &amp;quot;red bold 52&amp;quot;
+$ git config --global color.diff-highlight.newNormal &amp;quot;green bold&amp;quot;
+$ git config --global color.diff-highlight.newHighlight &amp;quot;green bold 22&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>New theme</title>
@@ -1795,104 +1822,6 @@ app.use( function(req, res, next) {
 &lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%204.12.18.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;是不是很簡單呢!&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>[Swift-d26] - 實戰開發 - TODOList - API 前置資料準備</title>
-      <link>http://blog.kerkerj.in/blog/swift-d26---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---api-%E5%89%8D%E7%BD%AE%E8%B3%87%E6%96%99%E6%BA%96%E5%82%99/</link>
-      <pubDate>Sun, 26 Oct 2014 00:00:00 +0000</pubDate>
-      
-      <guid>http://blog.kerkerj.in/blog/swift-d26---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---api-%E5%89%8D%E7%BD%AE%E8%B3%87%E6%96%99%E6%BA%96%E5%82%99/</guid>
-      <description>&lt;p&gt;接下來是要串 &lt;a href=&#34;http://ithelp.ithome.com.tw/ironman7/app/profile/20091343/dev&#34;&gt;隔壁棚的 API&lt;/a&gt; XD&lt;/p&gt;
-
-&lt;p&gt;從前幾天的 APP 組成&lt;/p&gt;
-
-&lt;p&gt;我們所需要的資料大概會是以下幾種:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;GET todo list&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;GET http://192.168.1.158:3000/user/kerkerj/todos
-
-return:
-[
-    {
-        &amp;quot;_id&amp;quot;: &amp;quot;54441f64d84f1ea412db855c&amp;quot;,
-        &amp;quot;updated_at&amp;quot;: &amp;quot;2014-10-19T20:30:28.797Z&amp;quot;,
-        &amp;quot;created_at&amp;quot;: &amp;quot;2014-10-19T20:30:28.797Z&amp;quot;,
-        &amp;quot;content&amp;quot;: &amp;quot;task11syy&amp;quot;,
-        &amp;quot;user_id&amp;quot;: &amp;quot;kerkerj&amp;quot;,
-        &amp;quot;__v&amp;quot;: 0
-    },
-    {
-        &amp;quot;_id&amp;quot;: &amp;quot;54441f6fd84f1ea412db855e&amp;quot;,
-        &amp;quot;updated_at&amp;quot;: &amp;quot;2014-10-19T20:30:39.957Z&amp;quot;,
-        &amp;quot;created_at&amp;quot;: &amp;quot;2014-10-19T20:30:39.957Z&amp;quot;,
-        &amp;quot;content&amp;quot;: &amp;quot;task13&amp;quot;,
-        &amp;quot;user_id&amp;quot;: &amp;quot;kerkerj&amp;quot;,
-        &amp;quot;__v&amp;quot;: 0
-    }
-]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Get a todo task&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code&gt;GET http://192.168.1.158:3000/user/kerkerj/todos/54441f64d84f1ea412db855c
-
-return:
-{
-        &amp;quot;_id&amp;quot;: &amp;quot;54441f64d84f1ea412db855c&amp;quot;,
-        &amp;quot;updated_at&amp;quot;: &amp;quot;2014-10-19T20:30:28.797Z&amp;quot;,
-        &amp;quot;created_at&amp;quot;: &amp;quot;2014-10-19T20:30:28.797Z&amp;quot;,
-        &amp;quot;content&amp;quot;: &amp;quot;task11syy&amp;quot;,
-        &amp;quot;user_id&amp;quot;: &amp;quot;kerkerj&amp;quot;,
-        &amp;quot;__v&amp;quot;: 0
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Add a todo task&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code&gt;POST http://192.168.1.158:3000/user/kerkerj/todos/
-data: {&amp;quot;content&amp;quot;: &amp;quot;your data&amp;quot;}
-
-return: the data you sent
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Update a todo task&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code&gt;PUT http://192.168.1.158:3000/user/kerkerj/todos/
-data: {&amp;quot;content&amp;quot;: &amp;quot;your data&amp;quot;}
-
-return: the data you sent
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Delete a todo task&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code&gt;DELETE http://192.168.1.158:3000/user/kerkerj/todos/54441f64d84f1ea412db855c
-
-return 
-{&amp;quot;success&amp;quot;: &amp;quot;true&amp;quot;}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;從以上資料可以知道&lt;/p&gt;
-
-&lt;p&gt;最重要的欄位就是 _id, user_id, content&lt;/p&gt;
-
-&lt;p&gt;user_id 我們在 app 中就直接寫死了&lt;/p&gt;
-
-&lt;p&gt;所以最重要的就是 content 及 _id&lt;/p&gt;
-
-&lt;p&gt;今天先允許我偷懶一下，明天就要開始寫 api utility 給 swift 用&lt;/p&gt;
 </description>
     </item>
     

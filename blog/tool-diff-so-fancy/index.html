@@ -13,10 +13,10 @@
 <title>
 
 
-     Git 
+     [tool] diff-so-fancy 
 
 </title>
-<link rel="canonical" href="http://blog.kerkerj.in/categories/git/">
+<link rel="canonical" href="http://blog.kerkerj.in/blog/tool-diff-so-fancy/">
 
 
 <script type="text/javascript">
@@ -56,8 +56,6 @@
 >
 
 
-
-  <link href="http://blog.kerkerj.in/categories/git/index.xml" rel="alternate" type="application/rss+xml" title="kerkerj" />
 
 
 
@@ -119,40 +117,70 @@
     </div>
 </section>
 
-<section class="main">
+
+<section class="main post non-narrow">
     <div class="container">
         <div class="content">
-            <div class="page-heading">Posts</div>
-            <ul>
-                
-                <li class="post-item">
-    <span class="meta">2016-10-10 11:10</span>
-    <a href="http://blog.kerkerj.in/blog/tool-diff-so-fancy/"><span>[tool] diff-so-fancy</span></a>
-</li>
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
 
-                
-                <li class="post-item">
-    <span class="meta">2014-08-08 00:00</span>
-    <a href="http://blog.kerkerj.in/blog/add-tracked-file-to-.gitignore/"><span>Add tracked file to .gitignore</span></a>
-</li>
+    [tool] diff-so-fancy
 
-                
-                <li class="post-item">
-    <span class="meta">2013-11-11 00:00</span>
-    <a href="http://blog.kerkerj.in/blog/mac-osx-homebrew-update-error/"><span>[Mac OSX] homebrew update error</span></a>
-</li>
+</div>
 
-                
-                <li class="post-item">
-    <span class="meta">2011-05-05 00:00</span>
-    <a href="http://blog.kerkerj.in/blog/git-%E4%B8%80%E5%B0%8F%E6%99%82%E6%90%9E%E6%87%82git/"><span>[Git] 一小時搞懂Git</span></a>
-</li>
+                    <div class="initials"><a href="http://blog.kerkerj.in/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Tue Oct 11 2016 11:10:52 CST">2016-10-10 11:10</div>
+                    <div class="reading-time"><div class="middot"></div>1 minute read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p>現在想到什麼都來 PO 一下 XD</p>
 
-                
-            </ul>
+<p><a href="https://github.com/so-fancy/diff-so-fancy">https://github.com/so-fancy/diff-so-fancy</a></p>
+
+<p>拿來幫你把 <code>git diff</code> 變漂亮的東東</p>
+
+<pre><code class="language-ruby">// install
+$ brew install diff-so-fancy
+
+// Setup
+$ git config --global core.pager &quot;diff-so-fancy | less --tabs=4 -RFX&quot;
+
+// make it more fancier
+$ git config --global color.diff-highlight.oldNormal &quot;red bold&quot;
+$ git config --global color.diff-highlight.oldHighlight &quot;red bold 52&quot;
+$ git config --global color.diff-highlight.newNormal &quot;green bold&quot;
+$ git config --global color.diff-highlight.newHighlight &quot;green bold 22&quot;
+</code></pre>
+
+                <br>
+                <p><a href="http://blog.kerkerj.in/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/blog.kerkerj.in\/blog\/tool-diff-so-fancy\/';
+    var disqus_title = '[tool] diff-so-fancy';
+    var disqus_url = 'http:\/\/blog.kerkerj.in\/blog\/tool-diff-so-fancy\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
         </div>
     </div>
 </section>
+
 <section class="footer">
     <div class="">
         <ul>
@@ -186,5 +214,4 @@ try {
 
 </body>
 </html>
-
 
