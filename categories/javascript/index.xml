@@ -209,9 +209,11 @@ doHouseWork(function(){
       <pubDate>Tue, 14 Oct 2014 00:00:00 +0000</pubDate>
       
       <guid>http://blog.kerkerj.in/blog/api-d14---javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-function-scopes-%E5%92%8C-closures/</guid>
-      <description>&lt;p&gt;這幾天會探討 javascript 的特性，由於比較少在寫 js ，因此有錯請指正&lt;/p&gt;
+      <description>
 
-&lt;p&gt;##Scope&lt;/p&gt;
+&lt;p&gt;這幾天會探討 javascript 的特性，由於比較少在寫 js ，因此有錯請指正&lt;/p&gt;
+
+&lt;h2 id=&#34;scope&#34;&gt;Scope&lt;/h2&gt;
 
 &lt;p&gt;例子:&lt;/p&gt;
 
@@ -247,7 +249,7 @@ hi();
 
 &lt;p&gt;例如 sayCool function&lt;/p&gt;
 
-&lt;p&gt;##Closure&lt;/p&gt;
+&lt;h2 id=&#34;closure&#34;&gt;Closure&lt;/h2&gt;
 
 &lt;p&gt;例子:&lt;/p&gt;
 
@@ -270,7 +272,7 @@ me.changeName(&amp;quot;kerkerj&amp;quot;);
 me.greetings();
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;##Self-Executing Anonymous Functions&lt;/p&gt;
+&lt;h2 id=&#34;self-executing-anonymous-functions&#34;&gt;Self-Executing Anonymous Functions&lt;/h2&gt;
 
 &lt;p&gt;使用這種方式通常是避免和其他 js 檔案造成變數混淆&lt;/p&gt;
 
@@ -306,7 +308,9 @@ console.log(hi); // &amp;lt;- 這會失敗
       <pubDate>Mon, 13 Oct 2014 00:00:00 +0000</pubDate>
       
       <guid>http://blog.kerkerj.in/blog/api-d13---javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-require/-module/-module-pattern/</guid>
-      <description>&lt;p&gt;接下來幾天會探討 node.js 的特性，由於比較少在寫 js ，因此有錯請指正&lt;/p&gt;
+      <description>
+
+&lt;p&gt;接下來幾天會探討 node.js 的特性，由於比較少在寫 js ，因此有錯請指正&lt;/p&gt;
 
 &lt;p&gt;在 node.js 裏，要讀取外部模組都是透過 require 和 exports 來做溝通&lt;/p&gt;
 
@@ -320,7 +324,7 @@ console.log(&#39;Hello World&#39;);
 require(&#39;./hello.js&#39;);
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;##Module 也是有 Pattern 的&lt;/p&gt;
+&lt;h2 id=&#34;module-也是有-pattern-的&#34;&gt;Module 也是有 Pattern 的&lt;/h2&gt;
 
 &lt;p&gt;第一種: Global (Not so good)&lt;/p&gt;
 
@@ -424,7 +428,7 @@ var wer = new Ang();
 wer.say();
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;##exports v.s. module.exports&lt;/p&gt;
+&lt;h2 id=&#34;exports-v-s-module-exports&#34;&gt;exports v.s. module.exports&lt;/h2&gt;
 
 &lt;p&gt;exports 是 module.exports 的輔助方法&lt;/p&gt;
 
@@ -453,7 +457,7 @@ ya.name(); TypeError: Cannot call method &#39;name&#39; of undefined
 
 &lt;p&gt;&lt;a href=&#34;http://www.hacksparrow.com/node-js-exports-vs-module-exports.html&#34;&gt;延伸閱讀&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;##Module as class&lt;/p&gt;
+&lt;h2 id=&#34;module-as-class&#34;&gt;Module as class&lt;/h2&gt;
 
 &lt;p&gt;直接看例子吧 XD&lt;/p&gt;
 

@@ -132,12 +132,14 @@
                     <div class="initials"><a href="http://blog.kerkerj.in/"></a></div>
                 </div>
                 <div class="meta">
-                    <div class="date" title="Sat Oct 18 2014 00:00:00 UTC">2014-10-10 00:00</div>
+                    <div class="date" title="2014-10-12 00:00:14 UTC">2014-10-18 00:00</div>
                     <div class="reading-time"><div class="middot"></div>2 minutes read</div>
                 </div>
             </div>
             <div class="markdown">
-                <p>##會使用到的套件:</p>
+                
+
+<h2 id="會使用到的套件">會使用到的套件:</h2>
 
 <pre><code>主體:
 express - web framework
@@ -193,18 +195,18 @@ log4js - 記錄 request log
 }
 </code></pre>
 
-<p>##安裝套件，及全域套件 mocha</p>
+<h2 id="安裝套件-及全域套件-mocha">安裝套件，及全域套件 mocha</h2>
 
 <pre><code>// in project folder
 $ npm install express body-parser mocha mocha-mongoose superagent validator expect.js debug mongoose mongodb log4js -save 
 $ npm install -g nodemon
 </code></pre>
 
-<p>##各個套件簡單設定</p>
+<h2 id="各個套件簡單設定">各個套件簡單設定</h2>
 
 <p>接下來會針對一些套件作說明，但是由於可能有些人不懂整個專案的運作，因此下面看看就好，之後實作上有問題可以再回來看。</p>
 
-<p>##Nodemon 的作用</p>
+<h2 id="nodemon-的作用">Nodemon 的作用</h2>
 
 <p>範例:</p>
 
@@ -214,7 +216,7 @@ $ npm install -g nodemon
 
 <p>就可以放著不管它了~ 只要檔案有變動，就會自動重開 server</p>
 
-<p>##使用 logger - log4js</p>
+<h2 id="使用-logger-log4js">使用 logger - log4js</h2>
 
 <p>設定 logger - log4js, 並將 log 寫入到 logs/access.log 裏</p>
 
@@ -242,7 +244,7 @@ app.use(log4js.connectLogger(logger, {level: 'auto', format:':method :url'}));
 
 <p><a href="http://blog.fens.me/nodejs-log4js/">node log4s</a></p>
 
-<p>##使用 body-parser 處理 request 的資料</p>
+<h2 id="使用-body-parser-處理-request-的資料">使用 body-parser 處理 request 的資料</h2>
 
 <p>加入 middleware</p>
 
@@ -260,7 +262,7 @@ app.use( bodyParser.urlencoded({ extended: true }) );
 
 <p>才能夠在 router 中使用 <code>req.body</code> 拿到 json 值</p>
 
-<p>##測試套件</p>
+<h2 id="測試套件">測試套件</h2>
 
 <pre><code>mocha - 專案
 expect.js - 專案

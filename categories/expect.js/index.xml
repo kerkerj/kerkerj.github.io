@@ -15,7 +15,9 @@
       <pubDate>Sat, 18 Oct 2014 00:00:00 +0000</pubDate>
       
       <guid>http://blog.kerkerj.in/blog/api-d18---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E5%A5%97%E4%BB%B6%E6%A8%A1%E7%B5%84/</guid>
-      <description>&lt;p&gt;##會使用到的套件:&lt;/p&gt;
+      <description>
+
+&lt;h2 id=&#34;會使用到的套件&#34;&gt;會使用到的套件:&lt;/h2&gt;
 
 &lt;pre&gt;&lt;code&gt;主體:
 express - web framework
@@ -71,18 +73,18 @@ log4js - 記錄 request log
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;##安裝套件，及全域套件 mocha&lt;/p&gt;
+&lt;h2 id=&#34;安裝套件-及全域套件-mocha&#34;&gt;安裝套件，及全域套件 mocha&lt;/h2&gt;
 
 &lt;pre&gt;&lt;code&gt;// in project folder
 $ npm install express body-parser mocha mocha-mongoose superagent validator expect.js debug mongoose mongodb log4js -save 
 $ npm install -g nodemon
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;##各個套件簡單設定&lt;/p&gt;
+&lt;h2 id=&#34;各個套件簡單設定&#34;&gt;各個套件簡單設定&lt;/h2&gt;
 
 &lt;p&gt;接下來會針對一些套件作說明，但是由於可能有些人不懂整個專案的運作，因此下面看看就好，之後實作上有問題可以再回來看。&lt;/p&gt;
 
-&lt;p&gt;##Nodemon 的作用&lt;/p&gt;
+&lt;h2 id=&#34;nodemon-的作用&#34;&gt;Nodemon 的作用&lt;/h2&gt;
 
 &lt;p&gt;範例:&lt;/p&gt;
 
@@ -92,7 +94,7 @@ $ npm install -g nodemon
 
 &lt;p&gt;就可以放著不管它了~ 只要檔案有變動，就會自動重開 server&lt;/p&gt;
 
-&lt;p&gt;##使用 logger - log4js&lt;/p&gt;
+&lt;h2 id=&#34;使用-logger-log4js&#34;&gt;使用 logger - log4js&lt;/h2&gt;
 
 &lt;p&gt;設定 logger - log4js, 並將 log 寫入到 logs/access.log 裏&lt;/p&gt;
 
@@ -120,7 +122,7 @@ app.use(log4js.connectLogger(logger, {level: &#39;auto&#39;, format:&#39;:method
 
 &lt;p&gt;&lt;a href=&#34;http://blog.fens.me/nodejs-log4js/&#34;&gt;node log4s&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;##使用 body-parser 處理 request 的資料&lt;/p&gt;
+&lt;h2 id=&#34;使用-body-parser-處理-request-的資料&#34;&gt;使用 body-parser 處理 request 的資料&lt;/h2&gt;
 
 &lt;p&gt;加入 middleware&lt;/p&gt;
 
@@ -138,7 +140,7 @@ app.use( bodyParser.urlencoded({ extended: true }) );
 
 &lt;p&gt;才能夠在 router 中使用 &lt;code&gt;req.body&lt;/code&gt; 拿到 json 值&lt;/p&gt;
 
-&lt;p&gt;##測試套件&lt;/p&gt;
+&lt;h2 id=&#34;測試套件&#34;&gt;測試套件&lt;/h2&gt;
 
 &lt;pre&gt;&lt;code&gt;mocha - 專案
 expect.js - 專案

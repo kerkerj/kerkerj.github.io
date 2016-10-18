@@ -132,12 +132,14 @@
                     <div class="initials"><a href="http://blog.kerkerj.in/"></a></div>
                 </div>
                 <div class="meta">
-                    <div class="date" title="Mon Oct 6 2014 00:00:00 UTC">2014-10-10 00:00</div>
+                    <div class="date" title="2014-10-12 00:00:14 UTC">2014-10-06 00:00</div>
                     <div class="reading-time"><div class="middot"></div>3 minutes read</div>
                 </div>
             </div>
             <div class="markdown">
-                <p>#Playground - function</p>
+                
+
+<h1 id="playground-function">Playground - function</h1>
 
 <p>來看看 Swift 各種 function 的寫法吧!</p>
 
@@ -147,21 +149,21 @@
 
 <p>寫 Swift 的 function 會很開心</p>
 
-<p>##基本的</p>
+<h2 id="基本的">基本的</h2>
 
 <pre><code class="language-swift">func say() {
 	println(&quot;Hello!&quot;)
 }
 </code></pre>
 
-<p>##有一個回傳值的</p>
+<h2 id="有一個回傳值的">有一個回傳值的</h2>
 
 <pre><code class="language-swift">func say() -&gt; String {
 	return &quot;Hello!&quot;
 }
 </code></pre>
 
-<p>##有多個回傳值的!!! (就是回傳 Tuple)</p>
+<h2 id="有多個回傳值的-就是回傳-tuple">有多個回傳值的!!! (就是回傳 Tuple)</h2>
 
 <pre><code class="language-swift">func say() -&gt; (String, Int) {
 	let greeting = &quot;hello&quot;
@@ -172,7 +174,7 @@
 say()
 </code></pre>
 
-<p>##有參數的</p>
+<h2 id="有參數的">有參數的</h2>
 
 <pre><code class="language-swift">func say(g: String) {
 	println(g)
@@ -192,7 +194,7 @@ say(&quot;Hello&quot;)
 say(&quot;Hello&quot;, 3)
 </code></pre>
 
-<p>##有參數的進階版</p>
+<h2 id="有參數的進階版">有參數的進階版</h2>
 
 <pre><code class="language-swift">func say(greetings g: String) {
 	println(g)
@@ -224,7 +226,7 @@ say(greetings: &quot;Hello&quot;, times: 3)
 
 <p>可以看到第一種寫法和第二種寫法是一樣的功用~</p>
 
-<p>##給參數預設值</p>
+<h2 id="給參數預設值">給參數預設值</h2>
 
 <pre><code class="language-swift">func say(greetings g: String = &quot;hello&quot;) {
 	println(g)
@@ -235,7 +237,7 @@ say()
 
 <p>如果呼叫 <code>say()</code> 而沒有給定參數時，會直接使用預設值</p>
 
-<p>##常數參數與變數參數</p>
+<h2 id="常數參數與變數參數">常數參數與變數參數</h2>
 
 <p>簡單看一下以下的程式碼</p>
 
@@ -269,7 +271,7 @@ say(greetings: greetings)
 
 <p>一樣是非常有用的語法!</p>
 
-<p>##輸入輸出函數</p>
+<h2 id="輸入輸出函數">輸入輸出函數</h2>
 
 <p>直接看例子</p>
 
@@ -290,7 +292,7 @@ println(b)
 
 <p>酷吧</p>
 
-<p>##function types 函式型別</p>
+<h2 id="function-types-函式型別">function types 函式型別</h2>
 
 <p>直接看例子</p>
 
@@ -343,7 +345,7 @@ var add = test;
 console.log(&quot;result = &quot; + add(2, 3));
 </code></pre>
 
-<p>##function as parameter types</p>
+<h2 id="function-as-parameter-types">function as parameter types</h2>
 
 <p>函式也可以拿來當做參數傳入函式中，</p>
 
@@ -355,7 +357,7 @@ console.log(&quot;result = &quot; + add(2, 3));
 printResult(mathFunction, 2, 3)
 </code></pre>
 
-<p>##function as return type</p>
+<h2 id="function-as-return-type">function as return type</h2>
 
 <p>函式也可以拿來當做回傳值</p>
 
@@ -391,7 +393,7 @@ while currentValue != 0 {
 println(&quot;zero!&quot;)
 </code></pre>
 
-<p>##Nested Function</p>
+<h2 id="nested-function">Nested Function</h2>
 
 <p>就是 funciton 中的 function，變數有分 global、local 變數，function 也有</p>
 

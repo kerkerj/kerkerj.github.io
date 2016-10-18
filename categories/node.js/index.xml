@@ -15,7 +15,9 @@
       <pubDate>Sat, 11 Oct 2014 00:00:00 +0000</pubDate>
       
       <guid>http://blog.kerkerj.in/blog/api-d11---mongodb---hello-world/</guid>
-      <description>&lt;p&gt;今天先講在 Server 中如何操作 MongoDB&lt;/p&gt;
+      <description>
+
+&lt;p&gt;今天先講在 Server 中如何操作 MongoDB&lt;/p&gt;
 
 &lt;p&gt;一樣開啟虛擬機，&lt;/p&gt;
 
@@ -77,18 +79,18 @@ local  0.078GB
 
 &lt;p&gt;當我們使用 &lt;code&gt;use DBNAME&lt;/code&gt; 進入 DB 後：&lt;/p&gt;
 
-&lt;p&gt;###新增 Collection&lt;/p&gt;
+&lt;h3 id=&#34;新增-collection&#34;&gt;新增 Collection&lt;/h3&gt;
 
 &lt;pre&gt;&lt;code&gt;&amp;gt; db.createCollection(&amp;quot;TestCollection&amp;quot;)
 { &amp;quot;ok&amp;quot; : 1 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;###CRUD 操作&lt;/p&gt;
+&lt;h3 id=&#34;crud-操作&#34;&gt;CRUD 操作&lt;/h3&gt;
 
 &lt;p&gt;此時 Collection &amp;ldquo;TestCollection&amp;rdquo; 就被建立了，
 可以使用:&lt;/p&gt;
 
-&lt;p&gt;####新增資料:&lt;/p&gt;
+&lt;h4 id=&#34;新增資料&#34;&gt;新增資料:&lt;/h4&gt;
 
 &lt;p&gt;example: &lt;code&gt;db.TestCollection.insert(DATA);&lt;/code&gt;&lt;/p&gt;
 
@@ -97,7 +99,7 @@ local  0.078GB
 &lt;pre&gt;&lt;code&gt;&amp;gt; db.TestCollection.insert({data: &amp;quot;test_data&amp;quot;, num: 2, arr: [&amp;quot;arr1&amp;quot;, &amp;quot;arr2&amp;quot;, &amp;quot;arr3&amp;quot;]});
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;####查詢資料&lt;/p&gt;
+&lt;h4 id=&#34;查詢資料&#34;&gt;查詢資料&lt;/h4&gt;
 
 &lt;p&gt;example: &lt;code&gt;db.TestCollection.find(WHERE_CONDITION);&lt;/code&gt;&lt;/p&gt;
 
@@ -107,13 +109,13 @@ local  0.078GB
 
 &lt;p&gt;p.s. 每插入一筆資料，MongoDB 預設都會給訂一組 ObjectId&lt;/p&gt;
 
-&lt;p&gt;####查詢所有資料&lt;/p&gt;
+&lt;h4 id=&#34;查詢所有資料&#34;&gt;查詢所有資料&lt;/h4&gt;
 
 &lt;pre&gt;&lt;code&gt;&amp;gt; db.TestCollection.find();
 { &amp;quot;_id&amp;quot; : ObjectId(&amp;quot;5430497db94bb4afe2f8b387&amp;quot;), &amp;quot;data&amp;quot; : &amp;quot;test_data&amp;quot;, &amp;quot;num&amp;quot; : 2, &amp;quot;arr&amp;quot; : [ &amp;quot;arr1&amp;quot;, &amp;quot;arr2&amp;quot;, &amp;quot;arr3&amp;quot; ] }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;####修改資料&lt;/p&gt;
+&lt;h4 id=&#34;修改資料&#34;&gt;修改資料&lt;/h4&gt;
 
 &lt;p&gt;example: &lt;code&gt;db.TestCollection.update(WHERE_CONDITION, SET);&lt;/code&gt;&lt;/p&gt;
 
@@ -125,24 +127,24 @@ WriteResult({ &amp;quot;nMatched&amp;quot; : 1, &amp;quot;nUpserted&amp;quot; : 
 { &amp;quot;_id&amp;quot; : ObjectId(&amp;quot;5430497db94bb4afe2f8b387&amp;quot;), &amp;quot;data&amp;quot; : &amp;quot;test_data&amp;quot;, &amp;quot;num&amp;quot; : 3, &amp;quot;arr&amp;quot; : [ &amp;quot;arr1&amp;quot;, &amp;quot;arr2&amp;quot;, &amp;quot;arr3&amp;quot; ] }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;####刪除資料&lt;/p&gt;
+&lt;h4 id=&#34;刪除資料&#34;&gt;刪除資料&lt;/h4&gt;
 
 &lt;p&gt;exmaple: &lt;code&gt;db.TestCollection.remove(WHERE_CONDITION);&lt;/code&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;&amp;gt; db.TestCollection.remove({data: &amp;quot;test_data&amp;quot;});
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;###刪除 Collection&lt;/p&gt;
+&lt;h3 id=&#34;刪除-collection&#34;&gt;刪除 Collection&lt;/h3&gt;
 
 &lt;pre&gt;&lt;code&gt;&amp;gt; db.TestCollection.drop();
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;###查詢有哪些 Collection&lt;/p&gt;
+&lt;h3 id=&#34;查詢有哪些-collection&#34;&gt;查詢有哪些 Collection&lt;/h3&gt;
 
 &lt;pre&gt;&lt;code&gt;&amp;gt; show collections;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;###砍掉目前所在的整個 DB:&lt;/p&gt;
+&lt;h3 id=&#34;砍掉目前所在的整個-db&#34;&gt;砍掉目前所在的整個 DB:&lt;/h3&gt;
 
 &lt;pre&gt;&lt;code&gt;&amp;gt; use test;
 &amp;gt; db.dropDatabase();

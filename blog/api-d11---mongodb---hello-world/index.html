@@ -132,12 +132,14 @@
                     <div class="initials"><a href="http://blog.kerkerj.in/"></a></div>
                 </div>
                 <div class="meta">
-                    <div class="date" title="Sat Oct 11 2014 00:00:00 UTC">2014-10-10 00:00</div>
+                    <div class="date" title="2014-10-12 00:00:14 UTC">2014-10-11 00:00</div>
                     <div class="reading-time"><div class="middot"></div>2 minutes read</div>
                 </div>
             </div>
             <div class="markdown">
-                <p>今天先講在 Server 中如何操作 MongoDB</p>
+                
+
+<p>今天先講在 Server 中如何操作 MongoDB</p>
 
 <p>一樣開啟虛擬機，</p>
 
@@ -199,18 +201,18 @@ local  0.078GB
 
 <p>當我們使用 <code>use DBNAME</code> 進入 DB 後：</p>
 
-<p>###新增 Collection</p>
+<h3 id="新增-collection">新增 Collection</h3>
 
 <pre><code>&gt; db.createCollection(&quot;TestCollection&quot;)
 { &quot;ok&quot; : 1 }
 </code></pre>
 
-<p>###CRUD 操作</p>
+<h3 id="crud-操作">CRUD 操作</h3>
 
 <p>此時 Collection &ldquo;TestCollection&rdquo; 就被建立了，
 可以使用:</p>
 
-<p>####新增資料:</p>
+<h4 id="新增資料">新增資料:</h4>
 
 <p>example: <code>db.TestCollection.insert(DATA);</code></p>
 
@@ -219,7 +221,7 @@ local  0.078GB
 <pre><code>&gt; db.TestCollection.insert({data: &quot;test_data&quot;, num: 2, arr: [&quot;arr1&quot;, &quot;arr2&quot;, &quot;arr3&quot;]});
 </code></pre>
 
-<p>####查詢資料</p>
+<h4 id="查詢資料">查詢資料</h4>
 
 <p>example: <code>db.TestCollection.find(WHERE_CONDITION);</code></p>
 
@@ -229,13 +231,13 @@ local  0.078GB
 
 <p>p.s. 每插入一筆資料，MongoDB 預設都會給訂一組 ObjectId</p>
 
-<p>####查詢所有資料</p>
+<h4 id="查詢所有資料">查詢所有資料</h4>
 
 <pre><code>&gt; db.TestCollection.find();
 { &quot;_id&quot; : ObjectId(&quot;5430497db94bb4afe2f8b387&quot;), &quot;data&quot; : &quot;test_data&quot;, &quot;num&quot; : 2, &quot;arr&quot; : [ &quot;arr1&quot;, &quot;arr2&quot;, &quot;arr3&quot; ] }
 </code></pre>
 
-<p>####修改資料</p>
+<h4 id="修改資料">修改資料</h4>
 
 <p>example: <code>db.TestCollection.update(WHERE_CONDITION, SET);</code></p>
 
@@ -247,24 +249,24 @@ WriteResult({ &quot;nMatched&quot; : 1, &quot;nUpserted&quot; : 0, &quot;nModifi
 { &quot;_id&quot; : ObjectId(&quot;5430497db94bb4afe2f8b387&quot;), &quot;data&quot; : &quot;test_data&quot;, &quot;num&quot; : 3, &quot;arr&quot; : [ &quot;arr1&quot;, &quot;arr2&quot;, &quot;arr3&quot; ] }
 </code></pre>
 
-<p>####刪除資料</p>
+<h4 id="刪除資料">刪除資料</h4>
 
 <p>exmaple: <code>db.TestCollection.remove(WHERE_CONDITION);</code></p>
 
 <pre><code>&gt; db.TestCollection.remove({data: &quot;test_data&quot;});
 </code></pre>
 
-<p>###刪除 Collection</p>
+<h3 id="刪除-collection">刪除 Collection</h3>
 
 <pre><code>&gt; db.TestCollection.drop();
 </code></pre>
 
-<p>###查詢有哪些 Collection</p>
+<h3 id="查詢有哪些-collection">查詢有哪些 Collection</h3>
 
 <pre><code>&gt; show collections;
 </code></pre>
 
-<p>###砍掉目前所在的整個 DB:</p>
+<h3 id="砍掉目前所在的整個-db">砍掉目前所在的整個 DB:</h3>
 
 <pre><code>&gt; use test;
 &gt; db.dropDatabase();
