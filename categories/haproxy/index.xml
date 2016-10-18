@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kerkerj</title>
+    <link>http://blog.kerkerj.in/categories/haproxy/index.xml</link>
+    <description>Recent content on kerkerj</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
+    <atom:link href="http://blog.kerkerj.in/categories/haproxy/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>docker HA proxy</title>
+      <link>http://blog.kerkerj.in/blog/docker-ha-proxy/</link>
+      <pubDate>Tue, 18 Oct 2016 23:36:40 +0800</pubDate>
+      
+      <guid>http://blog.kerkerj.in/blog/docker-ha-proxy/</guid>
+      <description>&lt;p&gt;不知道標題該下啥&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;前陣子因為工作需要，需要測試一個 web app 分布在多台機器下的狀況&lt;/p&gt;
+
+&lt;p&gt;想說使用 docker 來做這件事，但又懶得弄 nginx 的設定&lt;/p&gt;
+
+&lt;p&gt;稍微查了一下發現有 &lt;a href=&#34;https://github.com/docker/dockercloud-haproxy&#34;&gt;dockercloud/haproxy&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;我使用的情境是 web app * 3 + ha * 1 + redis * 1&lt;/p&gt;
+
+&lt;p&gt;web 使用了兩個 port 7788, 7789&lt;/p&gt;
+
+&lt;p&gt;但是不想讓 ha 把流量導去 7788，所以可以設定 EXCLUDE_PORTS&lt;/p&gt;
+
+&lt;script src=&#34;https://gist.github.com/kerkerj/32333fb07cb34541d9134735d531bcb3.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;如此一來，在 &lt;code&gt;docker-compse up&lt;/code&gt; 後，就可以透過 &lt;code&gt;http://192.168.99.100:5566/&lt;/code&gt; 來連上了&lt;/p&gt;
+
+&lt;p&gt;並且可以透過 &lt;code&gt;docker stats $(docker ps -q)&lt;/code&gt; 這個指令來觀察正在執行中的 containers 的基本 metrics~&lt;/p&gt;
+
+&lt;p&gt;快速簡單!&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

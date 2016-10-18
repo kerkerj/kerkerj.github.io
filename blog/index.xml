@@ -7,8 +7,65 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
-    <lastBuildDate>Tue, 11 Oct 2016 11:10:52 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 19 Oct 2016 00:01:04 +0800</lastBuildDate>
     <atom:link href="http://blog.kerkerj.in/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Use goconvey in projects maganged by gb</title>
+      <link>http://blog.kerkerj.in/blog/use-goconvey-in-projects-maganged-by-gb/</link>
+      <pubDate>Wed, 19 Oct 2016 00:01:04 +0800</pubDate>
+      
+      <guid>http://blog.kerkerj.in/blog/use-goconvey-in-projects-maganged-by-gb/</guid>
+      <description>&lt;p&gt;這是前陣子在工作上用到的&lt;/p&gt;
+
+&lt;p&gt;有個 golang 的專案，使用了 &lt;a href=&#34;https://getgb.io/&#34;&gt;gb&lt;/a&gt; 來管理第三方套件&lt;/p&gt;
+
+&lt;p&gt;當時想套 &lt;a href=&#34;http://goconvey.co/&#34;&gt;goconvey&lt;/a&gt; 進來&lt;/p&gt;
+
+&lt;p&gt;但是一直搞不定執行的方式&lt;/p&gt;
+
+&lt;p&gt;後來在 &lt;a href=&#34;https://github.com/smartystreets/goconvey/issues/345#issuecomment-150949311&#34;&gt;github goconvey issue&lt;/a&gt; 裡找到了方式&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd /to/your/gb_projects
+$ PROJECT_DIR=`pwd`
+$ GOPATH=&amp;quot;$PROJECT_DIR/vendor:$PROJECT_DIR&amp;quot; goconvey -packages=1 -port 8899
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這樣就會跑 web ui 出來摟&lt;/p&gt;
+
+&lt;p&gt;不想跑 web ui 就執行 &lt;code&gt;gb test -v&lt;/code&gt; 就可以了&amp;hellip;上面這樣只是單純想跑 web ui 而已 XD&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>docker HA proxy</title>
+      <link>http://blog.kerkerj.in/blog/docker-ha-proxy/</link>
+      <pubDate>Tue, 18 Oct 2016 23:36:40 +0800</pubDate>
+      
+      <guid>http://blog.kerkerj.in/blog/docker-ha-proxy/</guid>
+      <description>&lt;p&gt;不知道標題該下啥&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;前陣子因為工作需要，需要測試一個 web app 分布在多台機器下的狀況&lt;/p&gt;
+
+&lt;p&gt;想說使用 docker 來做這件事，但又懶得弄 nginx 的設定&lt;/p&gt;
+
+&lt;p&gt;稍微查了一下發現有 &lt;a href=&#34;https://github.com/docker/dockercloud-haproxy&#34;&gt;dockercloud/haproxy&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;我使用的情境是 web app * 3 + ha * 1 + redis * 1&lt;/p&gt;
+
+&lt;p&gt;web 使用了兩個 port 7788, 7789&lt;/p&gt;
+
+&lt;p&gt;但是不想讓 ha 把流量導去 7788，所以可以設定 EXCLUDE_PORTS&lt;/p&gt;
+
+&lt;script src=&#34;https://gist.github.com/kerkerj/32333fb07cb34541d9134735d531bcb3.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;如此一來，在 &lt;code&gt;docker-compse up&lt;/code&gt; 後，就可以透過 &lt;code&gt;http://192.168.99.100:5566/&lt;/code&gt; 來連上了&lt;/p&gt;
+
+&lt;p&gt;並且可以透過 &lt;code&gt;docker stats $(docker ps -q)&lt;/code&gt; 這個指令來觀察正在執行中的 containers 的基本 metrics~&lt;/p&gt;
+
+&lt;p&gt;快速簡單!&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>[tool] diff-so-fancy</title>
@@ -1572,256 +1629,6 @@ mongoose.connect(config.db.development);
 &lt;p&gt;這樣就可以幫助我們將一些重要的設定從程式碼中抽離出來了!&lt;/p&gt;
 
 &lt;p&gt;今天就這樣啦!&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>[Swift-d27] - 實戰開發 - TODOList - API 2 讀取清單資料</title>
-      <link>http://blog.kerkerj.in/blog/swift-d27---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---api-2-%E8%AE%80%E5%8F%96%E6%B8%85%E5%96%AE%E8%B3%87%E6%96%99/</link>
-      <pubDate>Mon, 27 Oct 2014 00:00:00 +0000</pubDate>
-      
-      <guid>http://blog.kerkerj.in/blog/swift-d27---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---api-2-%E8%AE%80%E5%8F%96%E6%B8%85%E5%96%AE%E8%B3%87%E6%96%99/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/kerkerj/ithome-SwiftTodoApp/tree/Day27&#34;&gt;Github link&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;(某一天把兩天份的 commit 在一起了忘了開 branch 了&amp;hellip;)&lt;/p&gt;
-
-&lt;p&gt;接下來就要來寫 api utility 了&lt;/p&gt;
-
-&lt;p&gt;我們先開一個 swift 檔案 &lt;code&gt;RestApi.swift&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;import Foundation
-
-class RestApi {
-	var API_key = &amp;quot;55665566&amp;quot;
-	var getListUrl = NSURL(string: &amp;quot;http://192.168.1.158:3000/user/kerkerj/todos&amp;quot;)
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;先做好前置設定，因為 API 有上簡單的小鎖，因此要先寫起來&lt;/p&gt;
-
-&lt;p&gt;還有 request 的網址&lt;/p&gt;
-
-&lt;p&gt;以下是 get list 的範例:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;func getTodoList(completionHandler: ((NSArray!, NSError!) -&amp;gt; Void)!) {
-        var session = NSURLSession.sharedSession()
-        
-        var request = NSMutableURLRequest(URL: self.getListUrl!)
-        request.HTTPMethod = &amp;quot;GET&amp;quot;
-        request.addValue(&amp;quot;application/json&amp;quot;, forHTTPHeaderField: &amp;quot;Content-Type&amp;quot;)
-        request.addValue(self.API_key, forHTTPHeaderField: &amp;quot;API-Key&amp;quot;)
-        
-        let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -&amp;gt; Void in
-            if (error != nil) {
-                return completionHandler(nil, error)
-            }
-            
-            var error: NSError?
-            let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &amp;amp;error) as NSArray
-            
-            if (error != nil) {
-                return completionHandler(nil, error)
-            } else {
-                return completionHandler(json, nil)
-            }
-        })
-        
-        task.resume()
-    }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;我們使用內建的 NSURLSession.sharedSession 以及 NSMutableURLRequest 來建立 request&lt;/p&gt;
-
-&lt;p&gt;裡面就是設定一些 header 以及 API-Key&lt;/p&gt;
-
-&lt;p&gt;另外在資料回來後，return callback&lt;/p&gt;
-
-&lt;p&gt;在這邊有 async，寫隔壁棚的 api 回過頭來看這個感覺很熟悉 XD&lt;/p&gt;
-
-&lt;p&gt;設定好 API 後&lt;/p&gt;
-
-&lt;p&gt;回到顯示 todo 清單的主頁程式碼&lt;/p&gt;
-
-&lt;p&gt;由於我們希望能夠在 view 每次被呼叫時，都可以對 API server 做存取&lt;/p&gt;
-
-&lt;p&gt;因此必須要將 getTodoList 寫在該方法裏&lt;/p&gt;
-
-&lt;p&gt;該方法為 override func viewWillAppear(animated: Bool) {}&lt;/p&gt;
-
-&lt;p&gt;先建立一個 api 物件&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;var api: RestApi = RestApi()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;將原本的假資料刪除或註解, 不過資料物件名稱就繼續用 fakeData XD&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;//        fakeData = [
-//            [&amp;quot;id&amp;quot;: &amp;quot;1&amp;quot;, &amp;quot;content&amp;quot;: &amp;quot;A&amp;quot;],
-//            [&amp;quot;id&amp;quot;: &amp;quot;2&amp;quot;, &amp;quot;content&amp;quot;: &amp;quot;B&amp;quot;],
-//            [&amp;quot;id&amp;quot;: &amp;quot;3&amp;quot;, &amp;quot;content&amp;quot;: &amp;quot;C&amp;quot;],
-//        ]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;接著在 ViewController override 一個 viewWillAppear 的方法&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(true)
-        
-        api.getTodoList({data, error -&amp;gt; Void in
-            if error != nil {
-                dispatch_async(dispatch_get_main_queue(), {
-                    let alert = UIAlertView()
-                    alert.title = &amp;quot;Yoooooooooooooooo&amp;quot;
-                    alert.message = &amp;quot;Get list faild, maybe check your network: \(error)&amp;quot;
-                    alert.addButtonWithTitle(&amp;quot;ok&amp;quot;)
-                    alert.delegate = self
-                    alert.show()
-                    println(error)
-                })
-            }
-            
-            if (data != nil) {
-                
-                var tmpArr = [[String: String]]()
-                
-                for item in data {
-                    var _id = item[&amp;quot;_id&amp;quot;] as String
-                    var content = item[&amp;quot;content&amp;quot;] as String
-                    var dic = [String: String]()
-                    
-                    dic[&amp;quot;_id&amp;quot;] = _id
-                    dic[&amp;quot;content&amp;quot;] = content
-                    
-                    tmpArr.append(dic)
-                }
-
-                self.arr = tmpArr
-                
-                println(self.arr)
-                
-                dispatch_async(dispatch_get_main_queue(), {
-                    // must be &amp;quot;tableView!&amp;quot; not &amp;quot;tableView?&amp;quot;
-                    self.tableView!.reloadData()
-                })
-                
-            }
-        })
-        
-        dispatch_async(dispatch_get_main_queue(), {
-            // must be &amp;quot;tableView!&amp;quot; not &amp;quot;tableView?&amp;quot;
-            self.tableView!.reloadData()
-        })
-    }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;以上方法都是 async 的方式&lt;/p&gt;
-
-&lt;p&gt;只要網路錯誤，就會直接跳一個 alert&lt;/p&gt;
-
-&lt;p&gt;若有資料的話就 parse&lt;/p&gt;
-
-&lt;p&gt;一併轉換成原本定義的 [[String: String]] 中&lt;/p&gt;
-
-&lt;p&gt;執行看看吧!&lt;/p&gt;
-
-&lt;p&gt;很明顯每次切回主頁時 api console 都會跳一行 request~&lt;/p&gt;
-
-&lt;p&gt;如果使用 sync 的方式就會卡很久! 而且更新 UI 還會 crash XD&lt;/p&gt;
-
-&lt;p&gt;我覺得這部分是需要好好去做處理的，在這邊的程式碼只是簡單 demo&lt;/p&gt;
-
-&lt;p&gt;並沒有考慮到太多 :P&lt;/p&gt;
-
-&lt;p&gt;明天繼續!&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>[API-d26] - 實戰開發 - API-key</title>
-      <link>http://blog.kerkerj.in/blog/api-d26---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---api-key/</link>
-      <pubDate>Sun, 26 Oct 2014 00:00:00 +0000</pubDate>
-      
-      <guid>http://blog.kerkerj.in/blog/api-d26---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---api-key/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day26&#34;&gt;Github 參考&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;假設今天我們的 API 上線了，可能就會面臨到一些問題，&lt;/p&gt;
-
-&lt;p&gt;例如說，任何人都可以存取我們的 API&lt;/p&gt;
-
-&lt;p&gt;當然我們不希望任何人都可以存取，&lt;/p&gt;
-
-&lt;p&gt;因此我們必須加一點驗證機制在裡面，&lt;/p&gt;
-
-&lt;p&gt;其中一種做法是使用 Oauth token&lt;/p&gt;
-
-&lt;p&gt;在拿 API 資料前，先向 Oauth server 要一個 token&lt;/p&gt;
-
-&lt;p&gt;Oauth Server 認可身份後即會核發一個 token 給 client 端&lt;/p&gt;
-
-&lt;p&gt;該 token 具有時效性，6 mins ~ 30 min 不等，看怎麼實作&lt;/p&gt;
-
-&lt;p&gt;接著 client 端就拿該組 token 以及 API url 對 resources server 丟 request&lt;/p&gt;
-
-&lt;p&gt;其實我們現在在做的 API server 就是一個 resources server&lt;/p&gt;
-
-&lt;p&gt;因為我們提供資源&lt;/p&gt;
-
-&lt;p&gt;而 resources server 就會先認 token，&lt;/p&gt;
-
-&lt;p&gt;確保該 token 的時效性以及正確性，以及該 token 可存取的資源範圍&lt;/p&gt;
-
-&lt;p&gt;確認無誤後再回送正確的資料&lt;/p&gt;
-
-&lt;p&gt;不過在這邊我們並沒有要實作 Oauth Server&lt;/p&gt;
-
-&lt;p&gt;單純以一個 resources server 而言，只要認 token 是否正確&lt;/p&gt;
-
-&lt;p&gt;因此我們在這邊用 API-Key 實作即可，簡單的服務只要不被猜到就好&lt;/p&gt;
-
-&lt;p&gt;程式碼如下，記得加在 router 前面&lt;/p&gt;
-
-&lt;p&gt;app.js:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// Set Header Check
-app.use( function(req, res, next) {
-    var api_key = req.get(&#39;API-Key&#39;);
-
-    if (api_key != &amp;quot;55665566&amp;quot;) {
-        res.status(401).send({ error: &amp;quot;Unauthorized&amp;quot;});
-    }
-    else {
-        next();
-    }
-});
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;一樣是 middleware 的概念&lt;/p&gt;
-
-&lt;p&gt;不過是會預先作處理&lt;/p&gt;
-
-&lt;p&gt;我們接收到 request 後，分析它的 header 中是否有 &lt;code&gt;API-Key&lt;/code&gt; 這個欄位&lt;/p&gt;
-
-&lt;p&gt;若有的話，確認他的值是否為 &lt;code&gt;55665566&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;若不是的話，回傳 401 Unauthorized&lt;/p&gt;
-
-&lt;p&gt;若正確則繼續走下一個 middleware&lt;/p&gt;
-
-&lt;p&gt;這樣就可以做一道簡單的防線了&lt;/p&gt;
-
-&lt;p&gt;若加了這道防線&lt;/p&gt;
-
-&lt;p&gt;在使用 POSTMAN 做 request 時，必須加入自定 header&lt;/p&gt;
-
-&lt;p&gt;沒加入的話:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%204.11.59.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;有加入的話:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-13%204.12.18.png&#34; alt=&#34;image&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;是不是很簡單呢!&lt;/p&gt;
 </description>
     </item>
     

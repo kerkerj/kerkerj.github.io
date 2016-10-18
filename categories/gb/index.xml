@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kerkerj</title>
+    <link>http://blog.kerkerj.in/categories/gb/index.xml</link>
+    <description>Recent content on kerkerj</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
+    <atom:link href="http://blog.kerkerj.in/categories/gb/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Use goconvey in projects maganged by gb</title>
+      <link>http://blog.kerkerj.in/blog/use-goconvey-in-projects-maganged-by-gb/</link>
+      <pubDate>Wed, 19 Oct 2016 00:01:04 +0800</pubDate>
+      
+      <guid>http://blog.kerkerj.in/blog/use-goconvey-in-projects-maganged-by-gb/</guid>
+      <description>&lt;p&gt;這是前陣子在工作上用到的&lt;/p&gt;
+
+&lt;p&gt;有個 golang 的專案，使用了 &lt;a href=&#34;https://getgb.io/&#34;&gt;gb&lt;/a&gt; 來管理第三方套件&lt;/p&gt;
+
+&lt;p&gt;當時想套 &lt;a href=&#34;http://goconvey.co/&#34;&gt;goconvey&lt;/a&gt; 進來&lt;/p&gt;
+
+&lt;p&gt;但是一直搞不定執行的方式&lt;/p&gt;
+
+&lt;p&gt;後來在 &lt;a href=&#34;https://github.com/smartystreets/goconvey/issues/345#issuecomment-150949311&#34;&gt;github goconvey issue&lt;/a&gt; 裡找到了方式&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd /to/your/gb_projects
+$ PROJECT_DIR=`pwd`
+$ GOPATH=&amp;quot;$PROJECT_DIR/vendor:$PROJECT_DIR&amp;quot; goconvey -packages=1 -port 8899
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這樣就會跑 web ui 出來摟&lt;/p&gt;
+
+&lt;p&gt;不想跑 web ui 就執行 &lt;code&gt;gb test -v&lt;/code&gt; 就可以了&amp;hellip;上面這樣只是單純想跑 web ui 而已 XD&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
