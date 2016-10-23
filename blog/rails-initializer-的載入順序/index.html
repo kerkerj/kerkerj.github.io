@@ -13,10 +13,10 @@
 <title>
 
 
-     Rails 
+     Rails initializer 的載入順序 
 
 </title>
-<link rel="canonical" href="http://blog.kerkerj.in/categories/rails/">
+<link rel="canonical" href="http://blog.kerkerj.in/blog/rails-initializer-%E7%9A%84%E8%BC%89%E5%85%A5%E9%A0%86%E5%BA%8F/">
 
 
 <script type="text/javascript">
@@ -56,8 +56,6 @@
 >
 
 
-
-  <link href="http://blog.kerkerj.in/categories/rails/index.xml" rel="alternate" type="application/rss+xml" title="kerkerj" />
 
 
 
@@ -119,58 +117,61 @@
     </div>
 </section>
 
-<section class="main">
+
+<section class="main post non-narrow">
     <div class="container">
         <div class="content">
-            <div class="page-heading">Posts</div>
-            <ul>
-                
-                <li class="post-item">
-    <span class="meta">2016-10-20 10:47</span>
-    <a href="http://blog.kerkerj.in/blog/tld_length-%E5%9C%A8-rails-session_store-%E8%88%87-http-url-%E7%9A%84%E8%A8%AD%E5%AE%9A/"><span>tld_length 在 Rails session_store 與 HTTP URL 的設定</span></a>
-</li>
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
 
-                
-                <li class="post-item">
-    <span class="meta">2016-10-20 10:39</span>
-    <a href="http://blog.kerkerj.in/blog/rails-initializer-%E7%9A%84%E8%BC%89%E5%85%A5%E9%A0%86%E5%BA%8F/"><span>Rails initializer 的載入順序</span></a>
-</li>
+    Rails initializer 的載入順序
 
-                
-                <li class="post-item">
-    <span class="meta">2014-08-05 00:00</span>
-    <a href="http://blog.kerkerj.in/blog/capistrano-with-rails---basic-notes/"><span>Capistrano with rails - basic notes</span></a>
-</li>
+</div>
 
-                
-                <li class="post-item">
-    <span class="meta">2014-07-30 00:00</span>
-    <a href="http://blog.kerkerj.in/blog/install-rails-server-env-with-rbenv-on-ubuntu-14.04/"><span>Install rails server env with rbenv on Ubuntu 14.04</span></a>
-</li>
+                    <div class="initials"><a href="http://blog.kerkerj.in/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="2016-10-10 10:39:16 CST">2016-10-20 10:39</div>
+                    <div class="reading-time"><div class="middot"></div>1 minute read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p>如果 rails app 裡的 initializer 有載入順序的需求的話</p>
 
-                
-                <li class="post-item">
-    <span class="meta">2014-07-03 00:00</span>
-    <a href="http://blog.kerkerj.in/blog/rails-actioncontrollerinvalidauthenticitytoken-when-useing-rails4-as-api/"><span>[Rails] ActionController::InvalidAuthenticityToken when useing Rails4 as API </span></a>
-</li>
+<p>可以照著 <a href="http://guides.rubyonrails.org/configuring.html#using-initializer-files">Ruby On Rails Guide</a> 這篇來設定</p>
 
-                
-                <li class="post-item">
-    <span class="meta">2014-01-02 00:00</span>
-    <a href="http://blog.kerkerj.in/blog/rails-list-of-rails-model-type-mysql/"><span>[Rails] List of Rails Model Type (MySQL)</span></a>
-</li>
+<blockquote>
+<p>If you have any ordering dependency in your initializers, you can control the load order through naming. Initializer files are loaded in alphabetical order by their path. For example, <code>01_critical.rb</code> will be loaded before <code>02_normal.rb</code>.</p>
+</blockquote>
 
-                
-                <li class="post-item">
-    <span class="meta">2014-01-02 00:00</span>
-    <a href="http://blog.kerkerj.in/blog/rails-put-v.s.-patch/"><span>[Rails] PUT v.s. PATCH</span></a>
-</li>
+<p>檔名加個數字前綴，rails 就會以數字順序來依序載入~</p>
 
-                
-            </ul>
+                <br>
+                <p><a href="http://blog.kerkerj.in/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/blog.kerkerj.in\/blog\/rails-initializer-%E7%9A%84%E8%BC%89%E5%85%A5%E9%A0%86%E5%BA%8F\/';
+    var disqus_title = 'Rails initializer 的載入順序';
+    var disqus_url = 'http:\/\/blog.kerkerj.in\/blog\/rails-initializer-%E7%9A%84%E8%BC%89%E5%85%A5%E9%A0%86%E5%BA%8F\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
         </div>
     </div>
 </section>
+
 <section class="footer">
     <div class="">
         <ul>
@@ -204,5 +205,4 @@ try {
 
 </body>
 </html>
-
 

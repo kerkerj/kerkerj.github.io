@@ -7,8 +7,79 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
-    <lastBuildDate>Wed, 19 Oct 2016 00:01:04 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 20 Oct 2016 10:47:58 +0800</lastBuildDate>
     <atom:link href="http://blog.kerkerj.in/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>tld_length 在 Rails session_store 與 HTTP URL 的設定</title>
+      <link>http://blog.kerkerj.in/blog/tld_length-%E5%9C%A8-rails-session_store-%E8%88%87-http-url-%E7%9A%84%E8%A8%AD%E5%AE%9A/</link>
+      <pubDate>Thu, 20 Oct 2016 10:47:58 +0800</pubDate>
+      
+      <guid>http://blog.kerkerj.in/blog/tld_length-%E5%9C%A8-rails-session_store-%E8%88%87-http-url-%E7%9A%84%E8%A8%AD%E5%AE%9A/</guid>
+      <description>&lt;p&gt;工作上 rails 在每個 stage 的 domain 長度都不太一樣&lt;/p&gt;
+
+&lt;p&gt;例如 production 是 &lt;code&gt;example.com&lt;/code&gt;，staging 是 &lt;code&gt;kerkerj.staging.example.com&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;MyApp::Application.config.session_store :redis_session_store, {
+  key: &#39;example_session_token&#39;,
+  domain: :all,
+  tld_length: 4,
+  serializer: :hybrid,
+  redis: {
+    host: &amp;quot;....&amp;quot;,
+    key_prefix: &amp;quot;...&amp;quot;,
+    expire_after: 7.day,
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;相關原始碼: &lt;a href=&#34;https://github.com/rails/rails/blob/ee30661a3cf93ebf0f99905434f4989344549820/actionpack/lib/action_dispatch/middleware/cookies.rb#L283-L299&#34;&gt;action_dispatch/middleware/cookies.rb&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;在這裡的 &lt;code&gt;tld_length&lt;/code&gt; 就是看你 domain 的 tld 想設定到哪就寫多少&lt;/p&gt;
+
+&lt;p&gt;以 &lt;code&gt;kerkerj.staging.example.com&lt;/code&gt; 為例，想要 &lt;code&gt;example.com&lt;/code&gt; 就是 2，想要 &lt;code&gt;kerkerj.staging.example.com&lt;/code&gt; 就是 4&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;而在 Rails App 裡，在 &lt;code&gt;config.action_dispatch.tld_length&lt;/code&gt; (或 &lt;code&gt;ActionDispatch::Http::URL.tld_length&lt;/code&gt; ) 設定的 &lt;code&gt;tld_length&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;在 &lt;a href=&#34;http://api.rubyonrails.org/classes/ActionDispatch/Http/URL.html#method-i-domain&#34;&gt;rails api document&lt;/a&gt; 的 &lt;code&gt;#domain&lt;/code&gt; 有用法&lt;/p&gt;
+
+&lt;p&gt;原始碼則解釋得更清楚 &lt;a href=&#34;https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/http/url.rb#L38-L43&#34;&gt;actionpack/lib/action_dispatch/http/url.rb&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt; ActionDispatch::Http::URL.extract_domain(&amp;quot;kerkerj.staging.example.com&amp;quot;, 1)
+=&amp;gt; &amp;quot;example.com&amp;quot;
+&amp;gt; ActionDispatch::Http::URL.extract_domain(&amp;quot;kerkerj.staging.example.com&amp;quot;, 2)
+=&amp;gt; &amp;quot;staging.example.com&amp;quot;
+&amp;gt; ActionDispatch::Http::URL.extract_domain(&amp;quot;kerkerj.staging.example.com&amp;quot;, 3)
+=&amp;gt; &amp;quot;kerkerj.staging.example.com&amp;quot;
+&amp;gt; ActionDispatch::Http::URL.extract_domain(&amp;quot;example.com&amp;quot;, 1)
+=&amp;gt; &amp;quot;example.com&amp;quot;
+&amp;gt; ActionDispatch::Http::URL.extract_domain(&amp;quot;example.com&amp;quot;, 3)
+=&amp;gt; &amp;quot;example.com&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;tld_length&lt;/code&gt; 在兩邊的實作與意義上不同，需要注意。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Rails initializer 的載入順序</title>
+      <link>http://blog.kerkerj.in/blog/rails-initializer-%E7%9A%84%E8%BC%89%E5%85%A5%E9%A0%86%E5%BA%8F/</link>
+      <pubDate>Thu, 20 Oct 2016 10:39:30 +0800</pubDate>
+      
+      <guid>http://blog.kerkerj.in/blog/rails-initializer-%E7%9A%84%E8%BC%89%E5%85%A5%E9%A0%86%E5%BA%8F/</guid>
+      <description>&lt;p&gt;如果 rails app 裡的 initializer 有載入順序的需求的話&lt;/p&gt;
+
+&lt;p&gt;可以照著 &lt;a href=&#34;http://guides.rubyonrails.org/configuring.html#using-initializer-files&#34;&gt;Ruby On Rails Guide&lt;/a&gt; 這篇來設定&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;If you have any ordering dependency in your initializers, you can control the load order through naming. Initializer files are loaded in alphabetical order by their path. For example, &lt;code&gt;01_critical.rb&lt;/code&gt; will be loaded before &lt;code&gt;02_normal.rb&lt;/code&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;檔名加個數字前綴，rails 就會以數字順序來依序載入~&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Use goconvey in projects maganged by gb</title>
@@ -1199,329 +1270,6 @@ server {
 &lt;p&gt;在清單中將 item 往左滑，就可以看到刪除的按鈕了!&lt;/p&gt;
 
 &lt;p&gt;超簡單的啦!&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>[API-d28] - 實戰開發 - 發佈 - forever</title>
-      <link>http://blog.kerkerj.in/blog/api-d28---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E7%99%BC%E4%BD%88---forever/</link>
-      <pubDate>Tue, 28 Oct 2014 00:00:00 +0000</pubDate>
-      
-      <guid>http://blog.kerkerj.in/blog/api-d28---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E7%99%BC%E4%BD%88---forever/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/kerkerj/ithome-RestfulAPIDemo/tree/Day28&#34;&gt;Github 參考&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;接下來兩天要講 deploy 的部分&lt;/p&gt;
-
-&lt;p&gt;由於 deploy 的 script 其實非常的麻煩，因此我們就不提 deploy 的 script 了&lt;/p&gt;
-
-&lt;p&gt;我們只專注在 server 上需要什麼東西&lt;/p&gt;
-
-&lt;p&gt;今天要來看看 &lt;code&gt;forever&lt;/code&gt; 這個套件&lt;/p&gt;
-
-&lt;p&gt;這個套件可以幫助 nodejs 的 server 遇上無預警的 server 掛掉時&lt;/p&gt;
-
-&lt;p&gt;會幫你自動重新啟動 nodejs 的 server&lt;/p&gt;
-
-&lt;p&gt;也就是說&lt;/p&gt;
-
-&lt;p&gt;假設說 nodejs 寫的 server 某個 route 有問題，&lt;/p&gt;
-
-&lt;p&gt;送 request 後會因為某些因素造成 server error 造成程式碼 crash 時&lt;/p&gt;
-
-&lt;p&gt;forever 的 monitor 會偵測到，並幫你自動重啟 server&lt;/p&gt;
-
-&lt;p&gt;至少不會造成其他正常存取 server 的使用者遭遇到 server down 的問題&lt;/p&gt;
-
-&lt;p&gt;這個套件可以選擇裝在 global 或是 project&lt;/p&gt;
-
-&lt;p&gt;在這邊我是選擇裝成 global&lt;/p&gt;
-
-&lt;p&gt;進到虛擬機&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;$ npm install -g forever
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;p.s. 如果遇到問題，試著跑下面的指令看看?&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ sudo chown vagrant:vagrant -R ~/.npm/
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;接下來我們就可以使用 &lt;code&gt;forever&lt;/code&gt; 這個指令了!&lt;/p&gt;
-
-&lt;p&gt;原本我們要啟動 server 的話&lt;/p&gt;
-
-&lt;p&gt;是要下:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ npm start 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;同義於:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ node ./bin/server.js
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;如果要改用 &lt;code&gt;forever&lt;/code&gt; 的話:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;// 記得先到專案根目錄
-$ forever start bin/server.js
-warn:    --minUptime not set. Defaulting to: 1000ms
-warn:    --spinSleepTime not set. Your script will exit if it does not stay up for at least 1000ms
-info:    Forever processing file: ./bin/server.js
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;然後就會被丟到背景執行了&lt;/p&gt;
-
-&lt;p&gt;那要怎麼知道我的 server 有跑起來呢?&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ forever list
-info:    Forever processes running
-data:        uid  command                              script        forever pid   logfile                         uptime
-data:    [0] 6qhd /home/vagrant/.nvm/v0.10.32/bin/node bin/server.js 13746   13748 /home/vagrant/.forever/6qhd.log 0:0:0:47.743
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;就會列出相關資訊以及 forever 自己的 log file 位置&lt;/p&gt;
-
-&lt;p&gt;要關閉的話:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ forever stop bin/server.js
-info:    Forever stopped process:
-data:        uid  command                              script        forever pid   logfile                         uptime
-[0] 6qhd /home/vagrant/.nvm/v0.10.32/bin/node bin/server.js 13746   14061 /home/vagrant/.forever/6qhd.log 0:0:0:6.595
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;bin/server.js&lt;/code&gt; 也可以替換成 forever uid 或 pid&lt;/p&gt;
-
-&lt;p&gt;如果要重開的話&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ forever restart bin/server.js
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;超簡單!&lt;/p&gt;
-
-&lt;p&gt;這樣就可以不用擔心 server 突然掛掉了&amp;hellip;.嗎?&lt;/p&gt;
-
-&lt;p&gt;錯，還是必須要監控 server 狀態&lt;/p&gt;
-
-&lt;p&gt;畢竟，&lt;code&gt;forever&lt;/code&gt; 也是會有 bug 的&lt;/p&gt;
-
-&lt;p&gt;所以自己的 server 自己顧&lt;/p&gt;
-
-&lt;p&gt;真正應用在 production 環境還是必須要監控的&lt;/p&gt;
-
-&lt;p&gt;今天就分享到這啦!&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>[Swift-d28] - 實戰開發 - TODOList - API 3 新增與更新</title>
-      <link>http://blog.kerkerj.in/blog/swift-d28---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---api-3-%E6%96%B0%E5%A2%9E%E8%88%87%E6%9B%B4%E6%96%B0/</link>
-      <pubDate>Tue, 28 Oct 2014 00:00:00 +0000</pubDate>
-      
-      <guid>http://blog.kerkerj.in/blog/swift-d28---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---api-3-%E6%96%B0%E5%A2%9E%E8%88%87%E6%9B%B4%E6%96%B0/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;day28&#34;&gt;Github link&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;昨天做了 get list&lt;/p&gt;
-
-&lt;p&gt;今天就來做 新增和儲存吧!&lt;/p&gt;
-
-&lt;p&gt;可能有人會問說，那讀取一筆 todo 的 API 呢?&lt;/p&gt;
-
-&lt;p&gt;因為在這邊資料量少，所有的東西都可以從最外層的 list 拿到&lt;/p&gt;
-
-&lt;p&gt;所以雖然有換頁的動作，但是節省流量可以不需要實做這件事&lt;/p&gt;
-
-&lt;p&gt;在實際開發中也會如此，case by case，有些情況一次拿完回來處理最好&lt;/p&gt;
-
-&lt;p&gt;不過有些則不是~&lt;/p&gt;
-
-&lt;p&gt;離題了，&lt;/p&gt;
-
-&lt;p&gt;以下是新增 todo 的程式碼:&lt;/p&gt;
-
-&lt;p&gt;先到 RestApi.swift 新增 post function&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;func addTodoList(completionHandler: ((NSDictionary!, NSError!) -&amp;gt; Void)!, content: String) {
-        var session = NSURLSession.sharedSession()
-        
-        var request = NSMutableURLRequest(URL: self.addTodoUrl!)
-        request.HTTPMethod = &amp;quot;POST&amp;quot;
-        
-        var params = [&amp;quot;content&amp;quot;: content] as Dictionary&amp;lt;String, String&amp;gt;
-        
-        var err: NSError?
-        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &amp;amp;err)
-        request.addValue(&amp;quot;application/json&amp;quot;, forHTTPHeaderField: &amp;quot;Content-Type&amp;quot;)
-        request.addValue(self.API_key, forHTTPHeaderField: &amp;quot;API-Key&amp;quot;)
-        
-        
-        let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -&amp;gt; Void in
-            if (error != nil) {
-                return completionHandler(nil, error)
-            }
-            
-            var error: NSError?
-            let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &amp;amp;error) as NSDictionary
-            
-            if (error != nil) {
-                return completionHandler(nil, error)
-            } else {
-                return completionHandler(json, nil)
-            }
-        })
-        
-        task.resume()
-    }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;再來就是在程式中呼叫這隻 API 囉! 我們會在 UpdateViewController 中做這件事&lt;/p&gt;
-
-&lt;p&gt;因為這隻 controler 處理了 &amp;ldquo;Add&amp;rdquo; 和 &amp;ldquo;Update&amp;rdquo; 兩件事&lt;/p&gt;
-
-&lt;p&gt;在 save() 這個 function 裡面修改成:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;// 記得 class 中先產生一個 api 物件
-var api = RestApi()
-
-func save() {
-        if from == &amp;quot;add&amp;quot; {
-            api.addTodoList({data, error -&amp;gt; Void in
-                if data == nil {
-                    println(error)
-                }
-                
-                dispatch_async(dispatch_get_main_queue(), {
-                    println(&amp;quot;done&amp;quot;)
-                    self.navigationController?.popToRootViewControllerAnimated(true)
-                })
-            }, content: self.textField.text)
-
-        } else if from == &amp;quot;edit&amp;quot; {
-            println(&amp;quot;Save edited data&amp;quot;)
-        }
-    }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;打開執行就可以新增 todo 了!&lt;/p&gt;
-
-&lt;p&gt;&amp;ldquo;Update&amp;rdquo; 的行為和新增一樣&lt;/p&gt;
-
-&lt;p&gt;先到 RestApi class 加入 update 的方法:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;func updateTodoList(completionHandler: ((NSDictionary!, NSError!) -&amp;gt; Void)!, content: String, todoId: String) {
-        var session = NSURLSession.sharedSession()
-        
-        var request = NSMutableURLRequest(URL: NSURL(string: &amp;quot;http://192.168.1.158:3000/user/kerkerj/todos/\(todoId)&amp;quot;)!)
-        request.HTTPMethod = &amp;quot;PUT&amp;quot;
-        
-        var params = [&amp;quot;content&amp;quot;: content] as Dictionary&amp;lt;String, String&amp;gt;
-        
-        var err: NSError?
-        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &amp;amp;err)
-        request.addValue(&amp;quot;application/json&amp;quot;, forHTTPHeaderField: &amp;quot;Content-Type&amp;quot;)
-        request.addValue(self.API_key, forHTTPHeaderField: &amp;quot;API-Key&amp;quot;)
-        
-        
-        let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -&amp;gt; Void in
-            if (error != nil) {
-                return completionHandler(nil, error)
-            }
-            
-            var error: NSError?
-            let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &amp;amp;error) as NSDictionary
-            
-            if (error != nil) {
-                return completionHandler(nil, error)
-            } else {
-                return completionHandler(json, nil)
-            }
-        })
-        
-        task.resume()
-    }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;再到剛剛的 UpdateViewController ，把 save() 的另外一個 &amp;ldquo;edit&amp;rdquo; 的區塊改成下面的程式碼&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;else if from == &amp;quot;edit&amp;quot; {
-            println(&amp;quot;Save edited data&amp;quot;)
-            api.updateTodoList({data, error -&amp;gt; Void in
-                if data == nil {
-                    println(error)
-                }
-                
-                dispatch_async(dispatch_get_main_queue(), {
-                    println(&amp;quot;done&amp;quot;)
-                    self.navigationController!.popToRootViewControllerAnimated(true)
-                })
-                
-            }, content: self.textField.text, todoId: self.index)
-        }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;所以整個 save() 會長這樣:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;func save() {
-        if from == &amp;quot;add&amp;quot; {
-            api.addTodoList({data, error -&amp;gt; Void in
-                if data == nil {
-                    println(error)
-                }
-                
-                dispatch_async(dispatch_get_main_queue(), {
-                    println(&amp;quot;done&amp;quot;)
-                    self.navigationController?.popToRootViewControllerAnimated(true)
-                })
-            }, content: self.textField.text)
-
-        } else if from == &amp;quot;edit&amp;quot; {
-            println(&amp;quot;Save edited data&amp;quot;)
-            api.updateTodoList({data, error -&amp;gt; Void in
-                if data == nil {
-                    println(error)
-                }
-                
-                dispatch_async(dispatch_get_main_queue(), {
-                    println(&amp;quot;done&amp;quot;)
-                    self.navigationController!.popToRootViewControllerAnimated(true)
-                })
-                
-            }, content: self.textField.text, todoId: self.id
-        }
-    }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;在這邊要再修改一個之前的 bug Orz&lt;/p&gt;
-
-&lt;p&gt;由於我們要更新的時候，必須要使用到該筆資料的 object id&lt;/p&gt;
-
-&lt;p&gt;我們之前在 view 中傳遞的都是 content，都沒有 id，因此要加進去&lt;/p&gt;
-
-&lt;p&gt;首先要先改的地方是&lt;/p&gt;
-
-&lt;p&gt;ViewController 中的&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;showViewController.id = fakeData[indexPath.row][&amp;quot;id&amp;quot;]
-
-// 改成:
-showViewController.id = fakeData[indexPath.row][&amp;quot;_id&amp;quot;]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;因為在 mongodb 中 object id 的名字是 _id&lt;/p&gt;
-
-&lt;p&gt;再來要在 ShowViewController 中加入一個把 id 傳到 UpdateViewController&lt;/p&gt;
-
-&lt;p&gt;在 ShowViewController 中的 editTODO() 加入:&lt;/p&gt;
-
-&lt;p&gt;(因為之前 showView 就已經有拿到 id 了，只是先前的欄位寫錯，加上沒有將 id pass 到 UpdateViewControler 才會發生這種事 XD)&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;editViewContronller.id = self.id
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;應該只有改這樣，最後執行看看&lt;/p&gt;
-
-&lt;p&gt;就發現可以編輯成功囉!&lt;/p&gt;
-
-&lt;p&gt;快結束啦!&lt;/p&gt;
 </description>
     </item>
     
