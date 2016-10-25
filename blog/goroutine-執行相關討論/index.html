@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="YOLO~">
+
+<base href="http://blog.kerkerj.in/">
+<title>
+
+
+     goroutine 執行相關討論 
+
+</title>
+<link rel="canonical" href="http://blog.kerkerj.in/blog/goroutine-%E5%9F%B7%E8%A1%8C%E7%9B%B8%E9%97%9C%E8%A8%8E%E8%AB%96/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/blog.kerkerj.in\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="http://blog.kerkerj.in/css/reset.css">
+<link rel="stylesheet" href="http://blog.kerkerj.in/css/pygments.css">
+<link rel="stylesheet" href="http://blog.kerkerj.in/css/main.css">
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/zenburn.min.css">
+    
+
+
+
+<link rel="shortcut icon"
+
+    href="http://blog.kerkerj.in/favicon.png"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="zh-TW">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            <a href="http://blog.kerkerj.in/"><div class="name">kerkerj</div></a>
+            <nav>
+                <ul>
+                    <a href="http://blog.kerkerj.in/blog/"><li>Blog</li></a>
+                    <a href="http://blog.kerkerj.in/about/"><li>About</li></a>
+                    <a href="http://blog.kerkerj.in/mac-app-list/"><li>Mac App List</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/kerkerj" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/kerkerj" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/fuzanhuang" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="http://blog.kerkerj.in/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    goroutine 執行相關討論
+
+</div>
+
+                    <div class="initials"><a href="http://blog.kerkerj.in/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="2016-10-12 12:32:16 CST">2016-10-25 12:32</div>
+                    <div class="reading-time"><div class="middot"></div>2 minutes read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p>幾天前在 Golang Taiwan 的 slack 裡看到了一些關於 goroutine 的討論</p>
+
+<p>有人問了以下程式碼 (from <a href="http://blog.mergermarket.it/now-youre-thinking-with-channels/">http://blog.mergermarket.it/now-youre-thinking-with-channels/</a>)</p>
+
+<pre><code class="language-c">package main
+
+import &quot;fmt&quot;
+
+func main() {
+	channelForInts := make(chan int)
+	go printIntFromChannel(channelForInts)
+	channelForInts &lt;- 5
+}
+
+func printIntFromChannel(channel chan int) {
+	number := &lt;-channel
+	fmt.Println(&quot;The number is:&quot;, number)
+}
+</code></pre>
+
+<p>提到上述程式碼在 goplayground 上測試好幾次都會印出 <code>The number is:5</code></p>
+
+<p>但<strong>他自己在本機跑是怎樣執行都不會出現 5</strong></p>
+
+<p>看到這個問題第一個想到的是 <code>sync.Waitgroup</code></p>
+
+<p>之前剛開始學 goroutine 的概念時，就在 stackoverflow 上看到有人討論相關的議題</p>
+
+<p>加個 <code>sync.Waitgroup</code> 就可以保證看到 goroutine 執行完後的結果。</p>
+
+<p>而事實上會這樣子的原因 <a href="https://golang.org/ref/spec#Program_execution">Go Programming Language Specification</a> 有寫</p>
+
+<blockquote>
+<p>Program execution begins by initializing the main package and then invoking the function <code>main</code>. When that function invocation returns, the program exits. It does not wait for other (non-<code>main</code>) goroutines to complete.</p>
+</blockquote>
+
+<p>所以在 main 執行完後也不管 goroutine 了，反正我就是要關掉了～這樣</p>
+
+<p>改成用 <code>sync.Waitgroup</code> 的話大概就是長下面這樣，有稍微變形一下，多另外一個 goroutine 來往 channel 丟值</p>
+
+<pre><code class="language-c">package main
+
+import (
+	&quot;fmt&quot;
+	&quot;sync&quot;
+)
+
+var wg sync.WaitGroup
+
+func main() {
+	channelForInts := make(chan int)
+
+	wg.Add(2)
+	go setNum(channelForInts)
+	go printIntFromChannel(channelForInts)
+
+	wg.Wait()
+}
+
+func setNum(channel chan int) {
+	defer wg.Done()
+	
+	for i := 0; i &lt; 100; i++ {
+		channel &lt;- i
+	}
+	close(channel)
+}
+
+func printIntFromChannel(channel chan int) {
+	defer wg.Done()
+
+	for {
+		number, ok := &lt;-channel
+
+		if !ok {
+			break
+		}
+
+		fmt.Println(&quot;The number is:&quot;, number)
+	}
+}
+</code></pre>
+
+<p>另外社群朋友也提到另一個觀點，那就是將 <code>GOMAXPROCS</code> 設成 <code>1</code></p>
+
+<blockquote>
+<p>The GOMAXPROCS variable limits the number of operating system threads that can execute user-level Go code simultaneously. There is no limit to the number of threads that can be blocked in system calls on behalf of Go code; those do not count against the GOMAXPROCS limit.</p>
+</blockquote>
+
+<p>且 goroutine 內沒有 system call，就不會有 context switch</p>
+
+<p>所以會等 goroutine 跑完後回 main 把整個 process 完成</p>
+
+<p>也是挺有趣的，從沒想過這個地方。</p>
+
+<p>最後就是看起來這兩個來源值得一讀</p>
+
+<ol>
+<li>Golang 的 spec <a href="https://golang.org/ref/spec">https://golang.org/ref/spec</a></li>
+<li>Golang Memory Model <a href="https://golang.org/ref/mem">https://golang.org/ref/mem</a></li>
+</ol>
+
+                <br>
+                <p><a href="http://blog.kerkerj.in/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerkerj-hugo';
+    var disqus_identifier = 'http:\/\/blog.kerkerj.in\/blog\/goroutine-%E5%9F%B7%E8%A1%8C%E7%9B%B8%E9%97%9C%E8%A8%8E%E8%AB%96\/';
+    var disqus_title = 'goroutine 執行相關討論';
+    var disqus_url = 'http:\/\/blog.kerkerj.in\/blog\/goroutine-%E5%9F%B7%E8%A1%8C%E7%9B%B8%E9%97%9C%E8%A8%8E%E8%AB%96\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer">
+    <div class="">
+        <ul>
+            <li>© 2010 - 2016 kerkerj. powerd by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a>. Theme: <a href="https://github.com/kerkerj/cocoa-hugo-theme">kerkerj-cocoa-hugo-theme</a>, modified from <a href="https://github.com/nishanths/cocoa-hugo-theme">cocoa</a>.</li>
+        </ul>
+    </div>
+</section>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-45583907-2");
+    pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+
