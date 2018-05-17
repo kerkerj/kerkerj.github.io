@@ -1,0 +1,811 @@
+
+
+  
+    
+  
+
+
+  
+
+
+
+
+  
+
+
+  
+
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Hugo 0.40.3 with theme Tranquilpeak 0.4.3-BETA">
+    <title>[Swift-d20] - Basic - 捨棄 Storyboard 使用純程式碼 的方式撰寫 ViewController</title>
+    <meta name="author" content="kerkerj">
+    <meta name="keywords" content="swift">
+
+    <link rel="icon" href="https://blog.kerkerj.in/favicon.png">
+    
+
+    
+    <meta name="description" content="">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="[Swift-d20] - Basic - 捨棄 Storyboard 使用純程式碼 的方式撰寫 ViewController">
+    <meta property="og:url" content="/2014/10/swift-d20---basic---%E6%8D%A8%E6%A3%84-storyboard-%E4%BD%BF%E7%94%A8%E7%B4%94%E7%A8%8B%E5%BC%8F%E7%A2%BC-%E7%9A%84%E6%96%B9%E5%BC%8F%E6%92%B0%E5%AF%AB-viewcontroller/">
+    <meta property="og:site_name" content="kerkerj">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="kerkerj">
+    <meta name="twitter:description" content="">
+    
+      <meta name="twitter:creator" content="@kerkerj">
+    
+    
+
+    
+    
+
+    
+      <meta property="og:image" content="//www.gravatar.com/avatar/269d15bf3b48dc4edd4a72f5637a54a8?s=640">
+    
+
+    
+    
+    
+
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://blog.kerkerj.in/css/style-jsjn0006wyhpyzivf6yceb31gvpjatbcs3qzjvlumobfnugccvobqwxnnaj8.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://blog.kerkerj.in/">kerkerj</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://blog.kerkerj.in/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="//www.gravatar.com/avatar/269d15bf3b48dc4edd4a72f5637a54a8?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://blog.kerkerj.in/#about">
+          <img class="sidebar-profile-picture" src="//www.gravatar.com/avatar/269d15bf3b48dc4edd4a72f5637a54a8?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">kerkerj</h4>
+        
+          <h5 class="sidebar-profile-bio">Cat lover &lt;3</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/kerkerj" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/page/cats/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-angle-right"></i>
+      
+      <span class="sidebar-button-desc">Cats</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/page/mac-app-list/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-angle-right"></i>
+      
+      <span class="sidebar-button-desc">Mac App List</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="5"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      [Swift-d20] - Basic - 捨棄 Storyboard 使用純程式碼 的方式撰寫 ViewController
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2014-10-20T00:00:00Z">
+        
+  October 20, 2014
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/swift">swift</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p></p>
+
+<p>今天專案的 <a href="https://github.com/kerkerj/ithome-NoStoryboardDemo">Github link</a></p>
+
+<p>其實哦</p>
+
+<p>寫 Swift 也有幾個禮拜了</p>
+
+<p>我一直覺得使用 Interface Builder 的確很方便</p>
+
+<p>但是在程式面與視覺面之間的溝通常常會漏東漏西的</p>
+
+<p>比方說如果要設定 reusable identifier 時</p>
+
+<p>除了程式裡面的字串要設定以外，還要再到 storyboard 裡設定同樣的字串</p>
+
+<p>一個簡單的小程式可能不超過 20 個 View 的情況下</p>
+
+<p>還可以這樣做，當程式長得非常大的時候，好像就很難注意到這件事，</p>
+
+<p>而且 View 太多 storyboard 就會開始變慢&hellip;.</p>
+
+<p>因此今天要來試著在 Swift 中</p>
+
+<p>如何不用 Storyboard，來打造我們的程式</p>
+
+<p>(當然 xib/nib 還是會用到，只是我們單純捨棄 storyboard，用程式來控制流程)</p>
+
+<p>首先，一樣先建立一個測試專案</p>
+
+<p>接著我們要動到的程式碼是 AppDelegate.swift:</p>
+
+<p>編輯它:</p>
+
+<pre><code class="language-swift">@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+
+    var window: UIWindow?
+    var viewController: ViewController?
+
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -&gt; Bool {
+        // Override point for customization after application launch.
+
+        self.viewController = ViewController()
+        self.viewController?.view.backgroundColor = UIColor.redColor()
+        
+        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        self.window?.backgroundColor = UIColor.whiteColor()
+        
+        self.window?.rootViewController = viewController
+        self.window?.makeKeyAndVisible()
+        
+        return true
+    }
+</code></pre>
+
+<p>其實這段程式碼，就是在做 storyboard 的 &ldquo;進入點&rdquo; 這件事</p>
+
+<pre><code>var viewController: ViewController?
+</code></pre>
+
+<p>我們用專案建立時產生的 ViewController 建立了一個物件</p>
+
+<p>並在 application launch 的時候，將該 ViewController 建立起來，設定他的背景顏色為紅色</p>
+
+<pre><code>self.viewController = ViewController()
+self.viewController?.view.backgroundColor = UIColor.redColor()
+</code></pre>
+
+<p>另外對 window 做一些設定</p>
+
+<pre><code>self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        self.window?.backgroundColor = UIColor.whiteColor()
+</code></pre>
+
+<p>設定他 Screen 大小 (根據手機解析度而定)
+並設定 window 的背景顏色為白色</p>
+
+<p>接著是最重要的設定:</p>
+
+<pre><code>self.window?.rootViewController = viewController
+self.window?.makeKeyAndVisible()
+</code></pre>
+
+<p>我們要讓 viewController 指定為是這個 window 的 rootViewController</p>
+
+<p>並且 makeKeyAndVisible</p>
+
+<p>這樣就完成手動設定進入點的程式了</p>
+
+<p>再來我們就可以大膽一點，把 Storyboard 砍掉啦!</p>
+
+<p>接著執行程式，就可以看到一片紅色了!!!</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-18%2015.10.21.png" alt="image" /></p>
+
+<p>是不是很簡單!</p>
+
+<p>如果要 NavigationController 也可以直接設定!</p>
+
+<p>接下來的實戰開發專案就會以不使用 Storyboard 的方式開發</p>
+
+<p>增加程式碼可讀性 :P</p>
+
+<p>老是貼圖也很累 XDDDD</p>
+
+<p>接下來就要用 Swift 寫一個 TODOList APP 囉!</p>
+
+<p>並且實際接上隔壁棚的 Restful API XD</p>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://blog.kerkerj.in/tags/%E9%90%B5%E4%BA%BA%E8%B3%BD/">鐵人賽</a>
+
+                  </div>
+                
+              
+            
+            
+  <div class="post-actions-wrap">
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://blog.kerkerj.in/2014/10/api-d20---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---routes-2-get-params-and-request-data/" data-tooltip="[API-d20] - 實戰開發 - Routes 2, get params and request data">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://blog.kerkerj.in/2014/10/swift---push/pop-views-delay/" data-tooltip="Swift - Push/Pop Views delay">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.kerkerj.in/2014/10/swift-d20---basic---%E6%8D%A8%E6%A3%84-storyboard-%E4%BD%BF%E7%94%A8%E7%B4%94%E7%A8%8B%E5%BC%8F%E7%A2%BC-%E7%9A%84%E6%96%B9%E5%BC%8F%E6%92%B0%E5%AF%AB-viewcontroller/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://blog.kerkerj.in/2014/10/swift-d20---basic---%E6%8D%A8%E6%A3%84-storyboard-%E4%BD%BF%E7%94%A8%E7%B4%94%E7%A8%8B%E5%BC%8F%E7%A2%BC-%E7%9A%84%E6%96%B9%E5%BC%8F%E6%92%B0%E5%AF%AB-viewcontroller/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://blog.kerkerj.in/2014/10/swift-d20---basic---%E6%8D%A8%E6%A3%84-storyboard-%E4%BD%BF%E7%94%A8%E7%B4%94%E7%A8%8B%E5%BC%8F%E7%A2%BC-%E7%9A%84%E6%96%B9%E5%BC%8F%E6%92%B0%E5%AF%AB-viewcontroller/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+
+            
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2018 <a href="https://github.com/kerkerj">kerkerj</a>. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        
+  <div class="post-actions-wrap">
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://blog.kerkerj.in/2014/10/api-d20---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---routes-2-get-params-and-request-data/" data-tooltip="[API-d20] - 實戰開發 - Routes 2, get params and request data">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://blog.kerkerj.in/2014/10/swift---push/pop-views-delay/" data-tooltip="Swift - Push/Pop Views delay">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.kerkerj.in/2014/10/swift-d20---basic---%E6%8D%A8%E6%A3%84-storyboard-%E4%BD%BF%E7%94%A8%E7%B4%94%E7%A8%8B%E5%BC%8F%E7%A2%BC-%E7%9A%84%E6%96%B9%E5%BC%8F%E6%92%B0%E5%AF%AB-viewcontroller/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://blog.kerkerj.in/2014/10/swift-d20---basic---%E6%8D%A8%E6%A3%84-storyboard-%E4%BD%BF%E7%94%A8%E7%B4%94%E7%A8%8B%E5%BC%8F%E7%A2%BC-%E7%9A%84%E6%96%B9%E5%BC%8F%E6%92%B0%E5%AF%AB-viewcontroller/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://blog.kerkerj.in/2014/10/swift-d20---basic---%E6%8D%A8%E6%A3%84-storyboard-%E4%BD%BF%E7%94%A8%E7%B4%94%E7%A8%8B%E5%BC%8F%E7%A2%BC-%E7%9A%84%E6%96%B9%E5%BC%8F%E6%92%B0%E5%AF%AB-viewcontroller/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fblog.kerkerj.in%2F2014%2F10%2Fswift-d20---basic---%25E6%258D%25A8%25E6%25A3%2584-storyboard-%25E4%25BD%25BF%25E7%2594%25A8%25E7%25B4%2594%25E7%25A8%258B%25E5%25BC%258F%25E7%25A2%25BC-%25E7%259A%2584%25E6%2596%25B9%25E5%25BC%258F%25E6%2592%25B0%25E5%25AF%25AB-viewcontroller%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fblog.kerkerj.in%2F2014%2F10%2Fswift-d20---basic---%25E6%258D%25A8%25E6%25A3%2584-storyboard-%25E4%25BD%25BF%25E7%2594%25A8%25E7%25B4%2594%25E7%25A8%258B%25E5%25BC%258F%25E7%25A2%25BC-%25E7%259A%2584%25E6%2596%25B9%25E5%25BC%258F%25E6%2592%25B0%25E5%25AF%25AB-viewcontroller%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fblog.kerkerj.in%2F2014%2F10%2Fswift-d20---basic---%25E6%258D%25A8%25E6%25A3%2584-storyboard-%25E4%25BD%25BF%25E7%2594%25A8%25E7%25B4%2594%25E7%25A8%258B%25E5%25BC%258F%25E7%25A2%25BC-%25E7%259A%2584%25E6%2596%25B9%25E5%25BC%258F%25E6%2592%25B0%25E5%25AF%25AB-viewcontroller%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="//www.gravatar.com/avatar/269d15bf3b48dc4edd4a72f5637a54a8?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">kerkerj</h4>
+    
+      <div id="about-card-bio">Cat lover &lt;3</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Backend Engineer
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Taiwan
+      </div>
+    
+  </div>
+</div>
+
+    <div id="algolia-search-modal" class="modal-container">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="close-button"><i class="fa fa-close"></i></span>
+      <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+        <span class="searchby-algolia-text text-color-light text-small">by</span>
+        <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+      </a>
+      <i class="search-icon fa fa-search"></i>
+      <form id="algolia-search-form">
+        <input type="text" id="algolia-search-input" name="search"
+          class="form-control input--large search-input" placeholder="Search" />
+      </form>
+    </div>
+    <div class="modal-body">
+      <div class="no-result text-color-light text-center">no post found</div>
+      <div class="results">
+        
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2018/05/again/">
+                <h3 class="media-heading">Again</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  May 5, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p>嗯，我又把 theme 換掉了。其實還有個原因是裝了最新版的 hugo 後，就 build 不出來了，只好順便換個新的 theme。</p>
+
+<p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/11/%E8%AE%80%E6%9B%B8-%E5%B7%A5%E4%BD%9C%E5%A4%A7%E8%A7%A3%E6%94%BE%E9%80%99%E6%A8%A3%E5%81%9A%E4%BA%8B%E5%8F%8D%E8%80%8C%E6%9B%B4%E6%88%90%E5%8A%9F/">
+                <h3 class="media-heading">[讀書] 工作大解放：這樣做事反而更成功</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Nov 11, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/goroutine-%E5%9F%B7%E8%A1%8C%E7%9B%B8%E9%97%9C%E8%A8%8E%E8%AB%96/">
+                <h3 class="media-heading">goroutine 執行相關討論</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/tld_length-%E5%9C%A8-rails-session_store-%E8%88%87-http-url-%E7%9A%84%E8%A8%AD%E5%AE%9A/">
+                <h3 class="media-heading">tld_length 在 Rails session_store 與 HTTP URL 的設定</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/rails-initializer-%E7%9A%84%E8%BC%89%E5%85%A5%E9%A0%86%E5%BA%8F/">
+                <h3 class="media-heading">Rails initializer 的載入順序</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/use-goconvey-in-projects-maganged-by-gb/">
+                <h3 class="media-heading">Use goconvey in projects maganged by gb</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/docker-ha-proxy/">
+                <h3 class="media-heading">docker HA proxy</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/tool-diff-so-fancy/">
+                <h3 class="media-heading">[tool] diff-so-fancy</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/new-theme/">
+                <h3 class="media-heading">New theme</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2015/05/migrating-to-hugo-from-octopress/">
+                <h3 class="media-heading">Migrating to Hugo from Octopress</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  May 5, 2015
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+      </div>
+    </div>
+    <div class="modal-footer">
+      <p class="results-count text-medium"
+         data-message-zero="no post found"
+         data-message-one="1 post found"
+         data-message-other="{n} posts found">
+         141 posts found
+      </p>
+    </div>
+  </div>
+</div>
+    
+  
+    
+    <div id="cover" style="background-image:url('http://res.cloudinary.com/kerkerj/image/upload/e_blur:1265,q_auto:eco/v1526483175/everaldo-coelho-486011-unsplash-min.jpg');"></div>
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="https://blog.kerkerj.in/js/script-qi9wbxp2ya2j6p7wx1i6tgavftewndznf4v0hy2gvivk1rxgc3lm7njqb6bz.min.js"></script>
+
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+  
+
+
+
+    
+  </body>
+</html>
+

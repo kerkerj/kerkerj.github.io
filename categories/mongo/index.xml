@@ -1,164 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>kerkerj</title>
-    <link>http://blog.kerkerj.in/categories/mongo/index.xml</link>
-    <description>Recent content on kerkerj</description>
+    <title>Mongo on kerkerj</title>
+    <link>https://blog.kerkerj.in/categories/mongo/</link>
+    <description>Recent content in Mongo on kerkerj</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
-    <atom:link href="http://blog.kerkerj.in/categories/mongo/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 11 Oct 2014 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.kerkerj.in/categories/mongo/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>[API-d11] - MongoDB - Hello World!</title>
-      <link>http://blog.kerkerj.in/blog/api-d11---mongodb---hello-world/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d11---mongodb---hello-world/</link>
       <pubDate>Sat, 11 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.kerkerj.in/blog/api-d11---mongodb---hello-world/</guid>
-      <description>
-
-&lt;p&gt;今天先講在 Server 中如何操作 MongoDB&lt;/p&gt;
-
-&lt;p&gt;一樣開啟虛擬機，&lt;/p&gt;
-
-&lt;p&gt;我們在先前已經有先安裝過 MongoDB 了，因此，在 Ubuntu Server 中預設是開機啟動的&lt;/p&gt;
-
-&lt;p&gt;登入虛擬機吧~&lt;/p&gt;
-
-&lt;p&gt;登入虛擬機後，我們要進入 MongoDB，必須使用 &lt;code&gt;mongo&lt;/code&gt; 這個 MongoDB Shell&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ mongo
-MongoDB shell version: 2.6.4
-connecting to: test
-Welcome to the MongoDB shell.
-For interactive help, type &amp;quot;help&amp;quot;.
-For more comprehensive documentation, see
-	http://docs.mongodb.org/
-Questions? Try the support group
-	http://groups.google.com/group/mongodb-user
-&amp;gt;  
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;此時會發現輸入指令的地方變成了 &lt;code&gt;&amp;gt;&lt;/code&gt; 表示我們已經在 mongodb 裡面了&lt;/p&gt;
-
-&lt;p&gt;為什麼不需要帳號密碼即可進入 MongoDB 呢，因為 MongoDB 預設是不需要做登入的&lt;/p&gt;
-
-&lt;p&gt;並且加上預設只能由本機存取，也就是說，外部連入的 IP 是進不了 MongoDB 的&lt;/p&gt;
-
-&lt;p&gt;這部分後面會再作說明。&lt;/p&gt;
-
-&lt;p&gt;傳統的 Table 在 MongoDB 中，稱之為 Collection&lt;/p&gt;
-
-&lt;p&gt;一筆 record 在 MongoDB 中，稱之為 document&lt;/p&gt;
-
-&lt;p&gt;進入 MongoDB 後，&lt;/p&gt;
-
-&lt;p&gt;就可以簡單操作一些指令：&lt;/p&gt;
-
-&lt;p&gt;查詢所有的 DB:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;gt; show databases;
-admin  (empty)
-local  0.078GB
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;切換 DB&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;gt; use test;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;use DBNAME&lt;/code&gt; 若 DBNAME 不存在於 MongoDB 中的話，&lt;/p&gt;
-
-&lt;p&gt;等同於建立一個新的 DB，意思就是我們不需要下 &amp;lsquo;建立 DB&amp;rsquo; 這個指令，&lt;/p&gt;
-
-&lt;p&gt;直接 &lt;code&gt;use&lt;/code&gt; 就是一個新的 DB 了，不過這個 DB 會直到有 Collection 被新增才算真正的被建立&lt;/p&gt;
-
-&lt;p&gt;意即如果我們 use 了一個新的 DB，但是並沒有做任何新增 Collection 的動作就離開，&lt;/p&gt;
-
-&lt;p&gt;這個 DB 也不會被建立起來&lt;/p&gt;
-
-&lt;p&gt;當我們使用 &lt;code&gt;use DBNAME&lt;/code&gt; 進入 DB 後：&lt;/p&gt;
-
-&lt;h3 id=&#34;新增-collection&#34;&gt;新增 Collection&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;gt; db.createCollection(&amp;quot;TestCollection&amp;quot;)
-{ &amp;quot;ok&amp;quot; : 1 }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;crud-操作&#34;&gt;CRUD 操作&lt;/h3&gt;
-
-&lt;p&gt;此時 Collection &amp;ldquo;TestCollection&amp;rdquo; 就被建立了，
-可以使用:&lt;/p&gt;
-
-&lt;h4 id=&#34;新增資料&#34;&gt;新增資料:&lt;/h4&gt;
-
-&lt;p&gt;example: &lt;code&gt;db.TestCollection.insert(DATA);&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;DATA 就是 javascript 的 array map&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;gt; db.TestCollection.insert({data: &amp;quot;test_data&amp;quot;, num: 2, arr: [&amp;quot;arr1&amp;quot;, &amp;quot;arr2&amp;quot;, &amp;quot;arr3&amp;quot;]});
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;查詢資料&#34;&gt;查詢資料&lt;/h4&gt;
-
-&lt;p&gt;example: &lt;code&gt;db.TestCollection.find(WHERE_CONDITION);&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;gt; db.TestCollection.find({data: &amp;quot;test_data&amp;quot;});
-{ &amp;quot;_id&amp;quot; : ObjectId(&amp;quot;5430497db94bb4afe2f8b387&amp;quot;), &amp;quot;data&amp;quot; : &amp;quot;test_data&amp;quot;, &amp;quot;num&amp;quot; : 2, &amp;quot;arr&amp;quot; : [ &amp;quot;arr1&amp;quot;, &amp;quot;arr2&amp;quot;, &amp;quot;arr3&amp;quot; ] }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;p.s. 每插入一筆資料，MongoDB 預設都會給訂一組 ObjectId&lt;/p&gt;
-
-&lt;h4 id=&#34;查詢所有資料&#34;&gt;查詢所有資料&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;gt; db.TestCollection.find();
-{ &amp;quot;_id&amp;quot; : ObjectId(&amp;quot;5430497db94bb4afe2f8b387&amp;quot;), &amp;quot;data&amp;quot; : &amp;quot;test_data&amp;quot;, &amp;quot;num&amp;quot; : 2, &amp;quot;arr&amp;quot; : [ &amp;quot;arr1&amp;quot;, &amp;quot;arr2&amp;quot;, &amp;quot;arr3&amp;quot; ] }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;修改資料&#34;&gt;修改資料&lt;/h4&gt;
-
-&lt;p&gt;example: &lt;code&gt;db.TestCollection.update(WHERE_CONDITION, SET);&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;gt; db.TestCollection.update({data: &amp;quot;test_data&amp;quot;}, { $set: {num: 3} });
-WriteResult({ &amp;quot;nMatched&amp;quot; : 1, &amp;quot;nUpserted&amp;quot; : 0, &amp;quot;nModified&amp;quot; : 1 })
-
-// 查看 num 是否從 2 變 3 了
-&amp;gt; db.TestCollection.find({data: &amp;quot;test_data&amp;quot;});
-{ &amp;quot;_id&amp;quot; : ObjectId(&amp;quot;5430497db94bb4afe2f8b387&amp;quot;), &amp;quot;data&amp;quot; : &amp;quot;test_data&amp;quot;, &amp;quot;num&amp;quot; : 3, &amp;quot;arr&amp;quot; : [ &amp;quot;arr1&amp;quot;, &amp;quot;arr2&amp;quot;, &amp;quot;arr3&amp;quot; ] }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;刪除資料&#34;&gt;刪除資料&lt;/h4&gt;
-
-&lt;p&gt;exmaple: &lt;code&gt;db.TestCollection.remove(WHERE_CONDITION);&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;gt; db.TestCollection.remove({data: &amp;quot;test_data&amp;quot;});
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;刪除-collection&#34;&gt;刪除 Collection&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;gt; db.TestCollection.drop();
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;查詢有哪些-collection&#34;&gt;查詢有哪些 Collection&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;gt; show collections;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;砍掉目前所在的整個-db&#34;&gt;砍掉目前所在的整個 DB:&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;gt; use test;
-&amp;gt; db.dropDatabase();
-{ &amp;quot;dropped&amp;quot; : &amp;quot;test&amp;quot;, &amp;quot;ok&amp;quot; : 1 }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;tips: 在 mongo shell 裡有自動補完的功能，可以按下 tab 來查看有什麼方法可以用&lt;/p&gt;
-
-&lt;p&gt;ctrl-D 離開 Mongo Shell&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://docs.mongodb.org/manual/&#34;&gt;MongoDB 官網文件&lt;/a&gt;非常詳細，可以多看看&lt;/p&gt;
-
-&lt;p&gt;明天會用 Node.js 的 MongoDB driver 來操作 MongoDB!&lt;/p&gt;
-</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d11---mongodb---hello-world/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

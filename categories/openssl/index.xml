@@ -1,116 +1,32 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>kerkerj</title>
-    <link>http://blog.kerkerj.in/categories/openssl/index.xml</link>
-    <description>Recent content on kerkerj</description>
+    <title>Openssl on kerkerj</title>
+    <link>https://blog.kerkerj.in/categories/openssl/</link>
+    <description>Recent content in Openssl on kerkerj</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
-    <atom:link href="http://blog.kerkerj.in/categories/openssl/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 16 Jun 2014 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.kerkerj.in/categories/openssl/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>[Mac] update openssl on mac</title>
-      <link>http://blog.kerkerj.in/blog/mac-update-openssl-on-mac/</link>
+      <link>https://blog.kerkerj.in/2014/06/mac-update-openssl-on-mac/</link>
       <pubDate>Mon, 16 Jun 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.kerkerj.in/blog/mac-update-openssl-on-mac/</guid>
-      <description>&lt;p&gt;First of all, you need &amp;lsquo;brew&amp;rsquo; (&lt;a href=&#34;http://brew.sh/&#34;&gt;http://brew.sh/&lt;/a&gt;)&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ brew update
-$ brew install openssl
-$ brew link --force openssl
- 
-$openssl version -a
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;If it&amp;rsquo;s still the old version, you shoud:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ sudo rm /usr/bin/openssl  #remove the old binary 
-$ sudo ln -s /usr/local/Cellar/openssl/1.0.1h/bin/openssl /usr/local/bin
-(1.0.1h -&amp;gt; the latest version)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;ref: &lt;a href=&#34;http://apple.stackexchange.com/questions/126830/how-to-upgrade-openssl-in-os-x&#34;&gt;http://apple.stackexchange.com/questions/126830/how-to-upgrade-openssl-in-os-x&lt;/a&gt;&lt;/p&gt;
-</description>
+      <guid>https://blog.kerkerj.in/2014/06/mac-update-openssl-on-mac/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>[Ubuntu] update OpenSSL</title>
-      <link>http://blog.kerkerj.in/blog/ubuntu-update-openssl/</link>
+      <link>https://blog.kerkerj.in/2014/04/ubuntu-update-openssl/</link>
       <pubDate>Wed, 16 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.kerkerj.in/blog/ubuntu-update-openssl/</guid>
-      <description>&lt;p&gt;Easy way:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Below the single command line to compiling and install the last openssl version.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code&gt;$ curl https://www.openssl.org/source/openssl-1.0.1h.tar.gz | tar xz &amp;amp;&amp;amp; cd openssl-1.0.1h &amp;amp;&amp;amp; sudo ./config &amp;amp;&amp;amp; sudo make &amp;amp;&amp;amp; sudo make install
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Replace old openssl binary file by the new one via a symlink.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code&gt;$ sudo ln -sf /usr/local/ssl/bin/openssl `which openssl`
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;how to check version:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ openssl version -b
-built on: Mon Apr  7 20:33:29 UTC 2014
-$ openssl version -a
-OpenSSL 1.0.1 14 Mar 2012
-built on: Mon Apr  7 20:33:29 UTC 2014
-platform: debian-amd64
-options:  bn(64,64) rc4(16x,int) des(idx,cisc,16,int) blowfish(idx)
-compiler: ..........
-OPENSSLDIR: &amp;quot;/usr/lib/ssl&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;from: &lt;a href=&#34;http://superuser.com/questions/740930/apt-get-upgrade-openssl-wont-bring-ubuntu-12-04-to-latest-version&#34;&gt;http://superuser.com/questions/740930/apt-get-upgrade-openssl-wont-bring-ubuntu-12-04-to-latest-version&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Hard way:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;#!/bin/bash
-
-###
-# Need to upgrade an Ubuntu 13.04 server to use OpenSSL 1.0.1g?
-# Read and execute this script :D
-###
-# License: WTFPL, GPLv3, MIT, whatever; just patch your shit
-# http://askubuntu.com/questions/444702/how-to-patch-cve-2014-0160-in-openssl
-###
-
-if [[ $EUID -ne 0 ]]; then
-    echo &amp;quot;This script must be run as root&amp;quot; 1&amp;gt;&amp;amp;2
-    exit 1
-fi
-wget https://www.openssl.org/source/openssl-1.0.1g.tar.gz
-wget https://www.openssl.org/source/openssl-1.0.1g.tar.gz.asc
-
-gpg --recv-key 0xD3577507FA40E9E2
-# Dr Stephen Henson
-# IMPORTANT! Manually verify that this is the correct key ID:
-# http://pgp.mit.edu:11371/pks/lookup?op=vindex&amp;amp;search=0xD3577507FA40E9E2
-# https://www.openssl.org/about/
-
-gpg --verify openssl-1.0.1g.tar.gz.asc openssl-1.0.1g.tar.gz
-
-if [[ $? -eq 0 ]]; then
-    tar xzvf openssl-1.0.1g.tar.gz
-    cd openssl-1.0.1g &amp;amp;&amp;amp; sudo ./config &amp;amp;&amp;amp; sudo make &amp;amp;&amp;amp; sudo make install
-    # To link the old openssl library to a new version
-    sudo ln -sf /usr/local/ssl/bin/openssl `which openssl`
-    echo
-    echo &amp;quot;DONE!&amp;quot;
-fi
-
-# eof
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <guid>https://blog.kerkerj.in/2014/04/ubuntu-update-openssl/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

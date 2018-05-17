@@ -1,430 +1,78 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>kerkerj</title>
-    <link>http://blog.kerkerj.in/categories/rails/index.xml</link>
-    <description>Recent content on kerkerj</description>
+    <title>Rails on kerkerj</title>
+    <link>https://blog.kerkerj.in/categories/rails/</link>
+    <description>Recent content in Rails on kerkerj</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
-    <atom:link href="http://blog.kerkerj.in/categories/rails/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 20 Oct 2016 10:47:58 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.kerkerj.in/categories/rails/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>tld_length 在 Rails session_store 與 HTTP URL 的設定</title>
-      <link>http://blog.kerkerj.in/blog/tld_length-%E5%9C%A8-rails-session_store-%E8%88%87-http-url-%E7%9A%84%E8%A8%AD%E5%AE%9A/</link>
+      <link>https://blog.kerkerj.in/2016/10/tld_length-%E5%9C%A8-rails-session_store-%E8%88%87-http-url-%E7%9A%84%E8%A8%AD%E5%AE%9A/</link>
       <pubDate>Thu, 20 Oct 2016 10:47:58 +0800</pubDate>
       
-      <guid>http://blog.kerkerj.in/blog/tld_length-%E5%9C%A8-rails-session_store-%E8%88%87-http-url-%E7%9A%84%E8%A8%AD%E5%AE%9A/</guid>
-      <description>&lt;p&gt;工作上 rails 在每個 stage 的 domain 長度都不太一樣&lt;/p&gt;
-
-&lt;p&gt;例如 production 是 &lt;code&gt;example.com&lt;/code&gt;，staging 是 &lt;code&gt;kerkerj.staging.example.com&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;MyApp::Application.config.session_store :redis_session_store, {
-  key: &#39;example_session_token&#39;,
-  domain: :all,
-  tld_length: 4,
-  serializer: :hybrid,
-  redis: {
-    host: &amp;quot;....&amp;quot;,
-    key_prefix: &amp;quot;...&amp;quot;,
-    expire_after: 7.day,
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;相關原始碼: &lt;a href=&#34;https://github.com/rails/rails/blob/ee30661a3cf93ebf0f99905434f4989344549820/actionpack/lib/action_dispatch/middleware/cookies.rb#L283-L299&#34;&gt;action_dispatch/middleware/cookies.rb&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;在這裡的 &lt;code&gt;tld_length&lt;/code&gt; 就是看你 domain 的 tld 想設定到哪就寫多少&lt;/p&gt;
-
-&lt;p&gt;以 &lt;code&gt;kerkerj.staging.example.com&lt;/code&gt; 為例，想要 &lt;code&gt;example.com&lt;/code&gt; 就是 2，想要 &lt;code&gt;kerkerj.staging.example.com&lt;/code&gt; 就是 4&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;而在 Rails App 裡，在 &lt;code&gt;config.action_dispatch.tld_length&lt;/code&gt; (或 &lt;code&gt;ActionDispatch::Http::URL.tld_length&lt;/code&gt; ) 設定的 &lt;code&gt;tld_length&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;在 &lt;a href=&#34;http://api.rubyonrails.org/classes/ActionDispatch/Http/URL.html#method-i-domain&#34;&gt;rails api document&lt;/a&gt; 的 &lt;code&gt;#domain&lt;/code&gt; 有用法&lt;/p&gt;
-
-&lt;p&gt;原始碼則解釋得更清楚 &lt;a href=&#34;https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/http/url.rb#L38-L43&#34;&gt;actionpack/lib/action_dispatch/http/url.rb&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;gt; ActionDispatch::Http::URL.extract_domain(&amp;quot;kerkerj.staging.example.com&amp;quot;, 1)
-=&amp;gt; &amp;quot;example.com&amp;quot;
-&amp;gt; ActionDispatch::Http::URL.extract_domain(&amp;quot;kerkerj.staging.example.com&amp;quot;, 2)
-=&amp;gt; &amp;quot;staging.example.com&amp;quot;
-&amp;gt; ActionDispatch::Http::URL.extract_domain(&amp;quot;kerkerj.staging.example.com&amp;quot;, 3)
-=&amp;gt; &amp;quot;kerkerj.staging.example.com&amp;quot;
-&amp;gt; ActionDispatch::Http::URL.extract_domain(&amp;quot;example.com&amp;quot;, 1)
-=&amp;gt; &amp;quot;example.com&amp;quot;
-&amp;gt; ActionDispatch::Http::URL.extract_domain(&amp;quot;example.com&amp;quot;, 3)
-=&amp;gt; &amp;quot;example.com&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;tld_length&lt;/code&gt; 在兩邊的實作與意義上不同，需要注意。&lt;/p&gt;
-</description>
+      <guid>https://blog.kerkerj.in/2016/10/tld_length-%E5%9C%A8-rails-session_store-%E8%88%87-http-url-%E7%9A%84%E8%A8%AD%E5%AE%9A/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Rails initializer 的載入順序</title>
-      <link>http://blog.kerkerj.in/blog/rails-initializer-%E7%9A%84%E8%BC%89%E5%85%A5%E9%A0%86%E5%BA%8F/</link>
+      <link>https://blog.kerkerj.in/2016/10/rails-initializer-%E7%9A%84%E8%BC%89%E5%85%A5%E9%A0%86%E5%BA%8F/</link>
       <pubDate>Thu, 20 Oct 2016 10:39:30 +0800</pubDate>
       
-      <guid>http://blog.kerkerj.in/blog/rails-initializer-%E7%9A%84%E8%BC%89%E5%85%A5%E9%A0%86%E5%BA%8F/</guid>
-      <description>&lt;p&gt;如果 rails app 裡的 initializer 有載入順序的需求的話&lt;/p&gt;
-
-&lt;p&gt;可以照著 &lt;a href=&#34;http://guides.rubyonrails.org/configuring.html#using-initializer-files&#34;&gt;Ruby On Rails Guide&lt;/a&gt; 這篇來設定&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;If you have any ordering dependency in your initializers, you can control the load order through naming. Initializer files are loaded in alphabetical order by their path. For example, &lt;code&gt;01_critical.rb&lt;/code&gt; will be loaded before &lt;code&gt;02_normal.rb&lt;/code&gt;.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;檔名加個數字前綴，rails 就會以數字順序來依序載入~&lt;/p&gt;
-</description>
+      <guid>https://blog.kerkerj.in/2016/10/rails-initializer-%E7%9A%84%E8%BC%89%E5%85%A5%E9%A0%86%E5%BA%8F/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Capistrano with rails - basic notes</title>
-      <link>http://blog.kerkerj.in/blog/capistrano-with-rails---basic-notes/</link>
+      <link>https://blog.kerkerj.in/2014/08/capistrano-with-rails---basic-notes/</link>
       <pubDate>Tue, 05 Aug 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.kerkerj.in/blog/capistrano-with-rails---basic-notes/</guid>
-      <description>
-
-&lt;p&gt;詳細的東西還是看 project&amp;rsquo;s github page 比較快 - &lt;a href=&#34;https://github.com/capistrano/capistrano&#34;&gt;Capistrano@github&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Capistrano 剛開始寫 deploy script 時真的會有點搞不太懂 XD&lt;br /&gt;
-記錄一下使用 &amp;lsquo;capistrano&amp;rsquo; 把特定的 github repo 抓到 remote server&lt;/p&gt;
-
-&lt;h2 id=&#34;安裝&#34;&gt;安裝&lt;/h2&gt;
-
-&lt;p&gt;先在 Gemfile 加入:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;gem &#39;capistrano&#39;, &#39;~&amp;gt; 3.2.0&#39;   
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;然後安裝~&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;bundle install
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;步驟大概會是：&lt;/p&gt;
-
-&lt;p&gt;假設已經寫完 capistrano 了，執行 script 時，&lt;br /&gt;
-capistrano 會先利用 script 裡提供的 server ip 以及 public key，&lt;br /&gt;
-先連線到 remote server，接著再到 github 上拉 code 到指定的目錄裡，&lt;br /&gt;
-再重開 server。&lt;/p&gt;
-
-&lt;h2 id=&#34;產生相關檔案&#34;&gt;產生相關檔案&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;bundle exec cap install 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;會產生以下檔案:  (copy from &lt;a href=&#34;https://github.com/capistrano/capistrano&#34;&gt;Capistrano@github&lt;/a&gt;)&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;├── Capfile
-├── config
-│   ├── deploy
-│   │   ├── production.rb
-│   │   └── staging.rb
-│   └── deploy.rb
-└── lib
-    └── capistrano
-            └── tasks
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;deploy.rb 通常是設定 source control 的類型 (可以設定 git, hg, svn)，&lt;br /&gt;
-project repo 的路徑，要 deploy 到 server 的哪個目錄等等，&lt;br /&gt;
-&lt;code&gt;config/deploy/*&lt;/code&gt; 底下的檔案則是根據不同的 stage 分別設定，&lt;br /&gt;
-以下是 deploy.rb, production.rb 的一些簡單設定&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# config valid only for Capistrano 3.1
-lock &#39;3.2.1&#39;
-
-set :application, &#39;application_name&#39;
-set :repo_url, &#39;github_repo_url&#39;
-
-set :deploy_via, :copy
-
-# Default branch is :master
-# ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
-
-# Default deploy_to directory is /var/www/my_app
-set :deploy_to, &#39;/server/www/path/&#39;
-
-# Default value for :scm is :git
-set :scm, :git
-
-# Default value for :format is :pretty
-set :format, :pretty
-
-# Default value for :log_level is :debug
-set :log_level, :debug
-
-# Default value for :pty is false
-# set :pty, true
-
-# Default value for :linked_files is []
-# set :linked_files, %w{config/database.yml}
-
-# Default value for linked_dirs is []
-# set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
-
-# Default value for default_env is {}
-# set :default_env, { path: &amp;quot;/opt/ruby/bin:$PATH&amp;quot; }
-
-# Default value for keep_releases is 5
-# set :keep_releases, 5
-
-namespace :deploy do
-
-  desc &#39;Restart application&#39;
-  task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      # Your restart mechanism here, for example:
-      execute :mkdir, &#39;-p&#39;, &amp;quot;#{ release_path }/tmp&amp;quot;
-      execute :touch, release_path.join(&#39;tmp/restart.txt&#39;)
-    end
-  end
-
-  after :publishing, :restart
-
-  after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
-      # Here we can do anything such as:
-      # within release_path do
-      #  execute :rake, &#39;cache:clear&#39;
-      # end
-    end
-  end
-
-end
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;production.rb:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# Simple Role Syntax
-# ==================
-# Supports bulk-adding hosts to roles, the primary server in each group
-# is considered to be the first unless any hosts have the primary
-# property set.  Don&#39;t declare `role :all`, it&#39;s a meta role.
-
-role :app, %w{app@server}
-role :web, %w{web@server}
-role :db,  %w{db@server}
-
-
-# Extended Server Syntax
-# ======================
-# This can be used to drop a more detailed server definition into the
-# server list. The second argument is a, or duck-types, Hash and is
-# used to set extended properties on the server.
-
-server &#39;server_ip&#39;, user: &#39;server_user&#39;, roles: %w{app}, my_property: :my_value
-
-
-# Custom SSH Options
-# ==================
-# You may pass any option but keep in mind that net/ssh understands a
-# limited set of options, consult[net/ssh documentation](http://net-ssh.github.io/net-ssh/classes/Net/SSH.html#method-c-start).
-#
-# Global options
-# --------------
-#  set :ssh_options, {
-#    keys: %w(/home/rlisowski/.ssh/id_rsa),
-#    forward_agent: true
-#    auth_methods: %w(password)
-#  }
-#
-# And/or per server (overrides global)
-# ------------------------------------
- server &#39;server_ip&#39;,
-   user: &#39;server_user&#39;,
-   ssh_options: {
-     keys: %w(/user/.ssh/id_rsa),
-     forward_agent: false,
-     auth_methods: %w(publickey password)
-   }
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;設定完後，因為這邊是設定 production.rb&lt;br /&gt;
-因此執行以下指令 deploy 到 production server&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;$ bundle exec cap production deploy
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;如果 &lt;code&gt;exit status 0 (successful).&lt;/code&gt;&lt;br /&gt;
-那就是成功啦~&lt;/p&gt;
-</description>
+      <guid>https://blog.kerkerj.in/2014/08/capistrano-with-rails---basic-notes/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Install rails server env with rbenv on Ubuntu 14.04</title>
-      <link>http://blog.kerkerj.in/blog/install-rails-server-env-with-rbenv-on-ubuntu-14.04/</link>
+      <link>https://blog.kerkerj.in/2014/07/install-rails-server-env-with-rbenv-on-ubuntu-14.04/</link>
       <pubDate>Wed, 30 Jul 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.kerkerj.in/blog/install-rails-server-env-with-rbenv-on-ubuntu-14.04/</guid>
-      <description>
-
-&lt;pre&gt;&lt;code&gt;nodejs v0.10.25 (for rails javascript engine)
-
-rbenv 0.4.0-98-g13a474c
-
-ruby 2.1.2p95 (2014-05-08 revision 45877) [x86_64-linux]
-
-Rails 4.1.4
-
-nginx version: nginx/1.6.0
-
-Phusion Passenger version 4.0.48
-
-mysql  Ver 14.14 Distrib 5.5.38, for debian-linux-gnu (x86_64) using readline 6.3
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;installing-ruby-rails&#34;&gt;Installing Ruby &amp;amp; Rails&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;sudo apt-get update &amp;amp;&amp;amp; sudo apt-get upgrade
-sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties nodejs npm
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Use rbenv&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;cd
-git clone git://github.com/sstephenson/rbenv.git .rbenv
-echo &#39;export PATH=&amp;quot;$HOME/.rbenv/bin:$PATH&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bashrc
-echo &#39;eval &amp;quot;$(rbenv init -)&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bashrc
-exec $SHELL
-
-git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
-echo &#39;export PATH=&amp;quot;$HOME/.rbenv/plugins/ruby-build/bin:$PATH&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bashrc
-exec $SHELL
-
-rbenv install 2.1.2
-exec $SHELL
-
-rbenv global 2.1.2
-ruby -v
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Don&amp;rsquo;t install rdoc when installing gems&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;echo &amp;quot;gem: --no-ri --no-rdoc&amp;quot; &amp;gt; ~/.gemrc
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Install rails&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;gem install rails
-exec $SHELL
-rails -v
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;installing-nginx-with-passenger&#34;&gt;Installing Nginx with passenger&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;# Install Phusion&#39;s PGP key to verify packages
-gpg --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7
-gpg --armor --export 561F9B9CAC40B2F7 | sudo apt-key add -
-
-# Add HTTPS support to APT
-sudo apt-get install apt-transport-https
-
-# Add the passenger repository
-sudo sh -c &amp;quot;echo &#39;deb https://oss-binaries.phusionpassenger.com/apt/passenger trusty main&#39; &amp;gt;&amp;gt; /etc/apt/sources.list.d/passenger.list&amp;quot;
-sudo chown root: /etc/apt/sources.list.d/passenger.list
-sudo chmod 600 /etc/apt/sources.list.d/passenger.list
-sudo apt-get update
-
-# Install nginx and passenger
-sudo apt-get install nginx-full passenger
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Edit passenger configuration in &lt;code&gt;/etc/nginx/nginx.conf&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;##
-# Phusion Passenger
-##
-# Uncomment it if you installed ruby-passenger or ruby-passenger-enterprise
-##
-
-passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;
-
-passenger_ruby /usr/bin/ruby; #change this line
-
-# passenger_ruby /home/yourpath/.rbenv/shims/ruby; # If you use rbenv
-# Use `which ruby`
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;installing-mysql&#34;&gt;Installing MySQL&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;sudo apt-get install mysql-server mysql-client libmysqlclient-dev
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Done!&lt;/p&gt;
-</description>
+      <guid>https://blog.kerkerj.in/2014/07/install-rails-server-env-with-rbenv-on-ubuntu-14.04/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>[Rails] ActionController::InvalidAuthenticityToken when useing Rails4 as API </title>
-      <link>http://blog.kerkerj.in/blog/rails-actioncontrollerinvalidauthenticitytoken-when-useing-rails4-as-api/</link>
+      <link>https://blog.kerkerj.in/2014/07/rails-actioncontrollerinvalidauthenticitytoken-when-useing-rails4-as-api/</link>
       <pubDate>Thu, 03 Jul 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.kerkerj.in/blog/rails-actioncontrollerinvalidauthenticitytoken-when-useing-rails4-as-api/</guid>
-      <description>&lt;p&gt;change&lt;br /&gt;
-&lt;code&gt;protect_from_forgery with: :exception&lt;/code&gt;&lt;br /&gt;
-to&lt;br /&gt;
-&lt;code&gt;protect_from_forgery with: :null_session&lt;/code&gt;&lt;br /&gt;
-in &lt;code&gt;ApplicationController&lt;/code&gt;&lt;/p&gt;
-</description>
+      <guid>https://blog.kerkerj.in/2014/07/rails-actioncontrollerinvalidauthenticitytoken-when-useing-rails4-as-api/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>[Rails] List of Rails Model Type (MySQL)</title>
-      <link>http://blog.kerkerj.in/blog/rails-list-of-rails-model-type-mysql/</link>
+      <link>https://blog.kerkerj.in/2014/01/rails-list-of-rails-model-type-mysql/</link>
       <pubDate>Thu, 02 Jan 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.kerkerj.in/blog/rails-list-of-rails-model-type-mysql/</guid>
-      <description>&lt;p&gt;:binary&lt;br /&gt;
-:boolean&lt;br /&gt;
-:date&lt;br /&gt;
-:datetime&lt;br /&gt;
-:decimal&lt;br /&gt;
-:float&lt;br /&gt;
-:integer&lt;br /&gt;
-:primary_key&lt;br /&gt;
-:string&lt;br /&gt;
-:text&lt;br /&gt;
-:time&lt;br /&gt;
-:timestamp&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters/TableDefinition.html#method-i-column&#34;&gt;http://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters/TableDefinition.html#method-i-column&lt;/a&gt;&lt;/p&gt;
-</description>
+      <guid>https://blog.kerkerj.in/2014/01/rails-list-of-rails-model-type-mysql/</guid>
+      <description>&lt;dl&gt;
+&lt;dt&gt;</description>
     </item>
     
     <item>
       <title>[Rails] PUT v.s. PATCH</title>
-      <link>http://blog.kerkerj.in/blog/rails-put-v.s.-patch/</link>
+      <link>https://blog.kerkerj.in/2014/01/rails-put-v.s.-patch/</link>
       <pubDate>Thu, 02 Jan 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.kerkerj.in/blog/rails-put-v.s.-patch/</guid>
-      <description>&lt;p&gt;According to rails convention,&lt;/p&gt;
-
-&lt;p&gt;PUT is used for updating an existing resource&lt;/p&gt;
-
-&lt;p&gt;POST is used for creating a new resource&lt;/p&gt;
-
-&lt;p&gt;In rails 4, PUT has been changed to PATCH to avoid confusion.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;     posts GET    /posts(.:format)                            {:action=&amp;gt;&amp;quot;index&amp;quot;, :controller=&amp;gt;&amp;quot;posts&amp;quot;}
-          POST   /posts(.:format)                            {:action=&amp;gt;&amp;quot;create&amp;quot;, :controller=&amp;gt;&amp;quot;posts&amp;quot;}
- new_post GET    /posts/new(.:format)                        {:action=&amp;gt;&amp;quot;new&amp;quot;, :controller=&amp;gt;&amp;quot;posts&amp;quot;}
-edit_post GET    /posts/:id/edit(.:format)                   {:action=&amp;gt;&amp;quot;edit&amp;quot;, :controller=&amp;gt;&amp;quot;posts&amp;quot;}
-     post GET    /posts/:id(.:format)                        {:action=&amp;gt;&amp;quot;show&amp;quot;, :controller=&amp;gt;&amp;quot;posts&amp;quot;}
-          PUT    /posts/:id(.:format)                        {:action=&amp;gt;&amp;quot;update&amp;quot;, :controller=&amp;gt;&amp;quot;posts&amp;quot;}
-          DELETE /posts/:id(.:format)                        {:action=&amp;gt;&amp;quot;destroy&amp;quot;, :controller=&amp;gt;&amp;quot;posts&amp;quot;}
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;延伸閱讀：ihower - &lt;a href=&#34;http://ihower.tw/blog/archives/6483&#34;&gt;HTTP Verbs: 談 POST, PUT 和 PATCH 的應用&lt;/a&gt;&lt;/p&gt;
-</description>
+      <guid>https://blog.kerkerj.in/2014/01/rails-put-v.s.-patch/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

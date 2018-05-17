@@ -1,315 +1,32 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>kerkerj</title>
-    <link>http://blog.kerkerj.in/categories/passenger/index.xml</link>
-    <description>Recent content on kerkerj</description>
+    <title>Passenger on kerkerj</title>
+    <link>https://blog.kerkerj.in/categories/passenger/</link>
+    <description>Recent content in Passenger on kerkerj</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
-    <atom:link href="http://blog.kerkerj.in/categories/passenger/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 30 Jul 2014 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.kerkerj.in/categories/passenger/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Install rails server env with rbenv on Ubuntu 14.04</title>
-      <link>http://blog.kerkerj.in/blog/install-rails-server-env-with-rbenv-on-ubuntu-14.04/</link>
+      <link>https://blog.kerkerj.in/2014/07/install-rails-server-env-with-rbenv-on-ubuntu-14.04/</link>
       <pubDate>Wed, 30 Jul 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.kerkerj.in/blog/install-rails-server-env-with-rbenv-on-ubuntu-14.04/</guid>
-      <description>
-
-&lt;pre&gt;&lt;code&gt;nodejs v0.10.25 (for rails javascript engine)
-
-rbenv 0.4.0-98-g13a474c
-
-ruby 2.1.2p95 (2014-05-08 revision 45877) [x86_64-linux]
-
-Rails 4.1.4
-
-nginx version: nginx/1.6.0
-
-Phusion Passenger version 4.0.48
-
-mysql  Ver 14.14 Distrib 5.5.38, for debian-linux-gnu (x86_64) using readline 6.3
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;installing-ruby-rails&#34;&gt;Installing Ruby &amp;amp; Rails&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;sudo apt-get update &amp;amp;&amp;amp; sudo apt-get upgrade
-sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties nodejs npm
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Use rbenv&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;cd
-git clone git://github.com/sstephenson/rbenv.git .rbenv
-echo &#39;export PATH=&amp;quot;$HOME/.rbenv/bin:$PATH&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bashrc
-echo &#39;eval &amp;quot;$(rbenv init -)&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bashrc
-exec $SHELL
-
-git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
-echo &#39;export PATH=&amp;quot;$HOME/.rbenv/plugins/ruby-build/bin:$PATH&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bashrc
-exec $SHELL
-
-rbenv install 2.1.2
-exec $SHELL
-
-rbenv global 2.1.2
-ruby -v
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Don&amp;rsquo;t install rdoc when installing gems&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;echo &amp;quot;gem: --no-ri --no-rdoc&amp;quot; &amp;gt; ~/.gemrc
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Install rails&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;gem install rails
-exec $SHELL
-rails -v
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;installing-nginx-with-passenger&#34;&gt;Installing Nginx with passenger&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;# Install Phusion&#39;s PGP key to verify packages
-gpg --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7
-gpg --armor --export 561F9B9CAC40B2F7 | sudo apt-key add -
-
-# Add HTTPS support to APT
-sudo apt-get install apt-transport-https
-
-# Add the passenger repository
-sudo sh -c &amp;quot;echo &#39;deb https://oss-binaries.phusionpassenger.com/apt/passenger trusty main&#39; &amp;gt;&amp;gt; /etc/apt/sources.list.d/passenger.list&amp;quot;
-sudo chown root: /etc/apt/sources.list.d/passenger.list
-sudo chmod 600 /etc/apt/sources.list.d/passenger.list
-sudo apt-get update
-
-# Install nginx and passenger
-sudo apt-get install nginx-full passenger
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Edit passenger configuration in &lt;code&gt;/etc/nginx/nginx.conf&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;##
-# Phusion Passenger
-##
-# Uncomment it if you installed ruby-passenger or ruby-passenger-enterprise
-##
-
-passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;
-
-passenger_ruby /usr/bin/ruby; #change this line
-
-# passenger_ruby /home/yourpath/.rbenv/shims/ruby; # If you use rbenv
-# Use `which ruby`
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;installing-mysql&#34;&gt;Installing MySQL&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;sudo apt-get install mysql-server mysql-client libmysqlclient-dev
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Done!&lt;/p&gt;
-</description>
+      <guid>https://blog.kerkerj.in/2014/07/install-rails-server-env-with-rbenv-on-ubuntu-14.04/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>[Ubuntu] RoR environment</title>
-      <link>http://blog.kerkerj.in/blog/ubuntu-ror-environment/</link>
+      <link>https://blog.kerkerj.in/2013/12/ubuntu-ror-environment/</link>
       <pubDate>Fri, 20 Dec 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.kerkerj.in/blog/ubuntu-ror-environment/</guid>
-      <description>
-
-&lt;h2 id=&#34;rvm-with-ruby2-0-0-p353-rails4-0-2-ubuntu12-04-precise64-php-fpm-by-vagrant-clean-install&#34;&gt;RVM with Ruby2.0.0-p353 + Rails4.0.2 + Ubuntu12.04(precise64) + php-fpm by Vagrant(clean install)&lt;/h2&gt;
-
-&lt;p&gt;p.s.
-If you don&amp;rsquo;t use RVM, you can just follow the instruction from &lt;a href=&#34;http://www.modrails.com/documentation/Users%20guide%20Nginx.html#install_on_debian_ubuntu&#34;&gt;Passenger offcial website&lt;/a&gt;. It will be easier.
-Plus, I installed all these things by Vagrant.&lt;/p&gt;
-
-&lt;h2 id=&#34;first-thing-to-do&#34;&gt;First thing to do&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;$ sudo apt-get update
-$ sudo apt-get upgrade
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;pre-setup-install-necessary-packages&#34;&gt;Pre-setup: install necessary packages&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;$ sudo apt-get update
-$ sudo apt-get install build-essential libssl-dev libpcre3-dev libncurses5-dev libreadline6-dev git vim curl libcurl4-openssl-dev libreadline6 autoconf openssl git-core zlib1g zlib1g-dev  libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev autoconf libc6-dev libgdbm-dev libncurses5-dev automake libtool bison subversion pkg-config libffi-dev
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;get-bashrc-from-my-repo-optional&#34;&gt;Get .bashrc from my repo (Optional)&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;$ cd
-$ git clone https://github.com/jerry54010/bash-it.git
-$ mv bash-it .bash_it
-$ cd .bash_it
-$ git checkout ubuntu
-$ ln -s ~/.bash_it/.bash_profile ~/.bash_profile
-$ cd
-$ source ~/.bash_profile
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;get-vimrc-from-my-repo-optional&#34;&gt;Get .vimrc from my repo (Optional)&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;$ wget https://gist.github.com/jerry54010/8049575/raw/42ced22651fedf06174457e311d22d17f6591b65/.vimrc
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;rvm-and-ruby-2-0-rvm-ruby-version-management&#34;&gt;RVM and Ruby 2.0 (RVM: Ruby version management)&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;$ \curl -sSL https://get.rvm.io | bash -s stable
-$ source ~/.bash_profile //if you installed my bash_profile. 
-//If not, source ~/.profile
-$ rvm requirements
-$ echo &#39;gem: --no-ri --no-rdoc&#39;  &amp;gt;&amp;gt; ~/.gemrc
-$ rvm install 2.0.0
-$ source ~/.bash_profile //if you installed my bash_profile. 
-//If not, source ~/.profile
-
-add this line to .bash_rc or .bash_profile (if you don&#39;t use my .bash_profile)
-[[ -s &amp;quot;$HOME/.rvm/scripts/rvm&amp;quot; ]] &amp;amp;&amp;amp; . &amp;quot;$HOME/.rvm/scripts/rvm&amp;quot; # Load RVM function
-
-$ rvm use 2.0.0 --default
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now we should be using ruby2.0.0 by RVM, let&amp;rsquo;s check:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ rvm list
-=* ruby-2.0.0-p353 [ x86_64 ] 
-// =&amp;gt; - current
-// =* - current &amp;amp;&amp;amp; default
-//  * - default
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;nodejs-libv8-dev-for-javascript-and-sqlite3-sqlite3-libsqlite3-dev&#34;&gt;Nodejs, libv8-dev(for javascript) and SQLite3 (sqlite3 libsqlite3-dev)&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;$ sudo apt-get -y install nodejs libv8-dev sqlite3 libsqlite3-dev 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;passenger-with-nginx&#34;&gt;Passenger with NGINX&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;$ gem install passenger 
-$ rvmsudo passenger-install-nginx-module
-choose 2: customize
-    a. src dir: /home/vagrant/nginx-1.4.4/ (where the nginx you download)
-    b. I installed nginx with passenger in `/etc/nginx` (default is /opt/nginx)
-    c. default
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;get-nginx-script&#34;&gt;Get nginx script&lt;/h2&gt;
-
-&lt;p&gt;If you use /opt/nginx as root dir, you don&amp;rsquo;t need to modify this script.
-If you use /etc/nginx or else dir as root dir like me, you should modify the script.
-(from &lt;a href=&#34;https://library.linode.com/web-servers/nginx/installation/ubuntu-12.04-precise-pangolin&#34;&gt;linode&lt;/a&gt;)&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ wget -O init-deb.sh http://library.linode.com/assets/1139-init-deb.sh
-$ sudo mv init-deb.sh /etc/init.d/nginx
-$ chmod +x /etc/init.d/nginx
-$ sudo /usr/sbin/update-rc.d -f nginx defaults
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The nginx default public folder will be in &lt;code&gt;/etc/nginx/html&lt;/code&gt;
-check nginx version:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ /etc/nginx/sbin/nginx -v
-nginx version: nginx/1.4.4
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;install-php5-fpm&#34;&gt;Install php5-fpm&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;$ sudo apt-get -y install php5-cli php5-common php5-fpm
-$ sudo vim /etc/php5/fpm/php.ini 
-//(find and change to `cgi.fix_pathinfo = 0` )
-$ sudo vim /etc/php5/fpm/pool.d/www.conf 
-//change: listen = 127.0.0.1:9000 to listen = /var/run/php5-fpm.sock
-$ sudo vim /etc/nginx/conf/nginx.conf or /opt/nginx/conf/nginx.conf //find and modify 
-location ~ \.php$ {
-    fastcgi_split_path_info ^(.+\.php)(/.+)$;
-    # NOTE: You should have &amp;quot;cgi.fix_pathinfo = 0;&amp;quot; in php.ini
-    # With php5-cgi alone:
-    #fastcgi_pass 127.0.0.1:9000;
-    # With php5-fpm:
-    fastcgi_pass unix:/var/run/php5-fpm.sock;
-    fastcgi_index index.php;
-    fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
-    include fastcgi_params;
-}
-$ echo &amp;quot;&amp;lt;?php phpinfo(); ?&amp;gt;&amp;quot; | sudo tee -a /etc/nginx/html/phpinfo.php
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Restart all:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ sudo service php5-fpm restart
-$ sudo service nginx restart
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;install-rails&#34;&gt;Install rails&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;$ gem install rails
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;ror-environment-check&#34;&gt;RoR environment check&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;$ ruby -v 
-ruby 2.0.0p353 (2013-11-22 revision 43784) [x86_64-linux]
-$ rails -v
-Rails 4.0.2
-$ rake -V
-rake, version 10.1.0
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;If you passed, you are good to go!&lt;/p&gt;
-
-&lt;h2 id=&#34;deploy-rails-application-by-nginx&#34;&gt;Deploy Rails application by nginx:&lt;/h2&gt;
-
-&lt;p&gt;Assume your rails application path is: &lt;code&gt;/home/vagrant/projects/subapp/&lt;/code&gt;
-(by &lt;code&gt;rails new subapp&lt;/code&gt;)
-then, the &lt;code&gt;/etc/nginx/conf/nginx.conf&lt;/code&gt; will be:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;http {
-    ...
-    server {
-        listen 80;
-        server_name localhost;
-        root /etc/nginx/html;
-
-        # This block has been added.
-        location ~ ^/subapp(/.*|$) {
-            passenger_base_uri /subapp;
-            alias /home/vagrant/projects/subapp/public$1;  # &amp;lt;-- be sure to point to &#39;public&#39;!
-            passenger_app_root /home/vagrant/projects/subapp;
-            passenger_enabled on;
-            rails_env development; # or production
-        }
-    }
-    ...
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;restart nginx, you can access the url: &lt;code&gt;http://localhost/subapp/&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;install-mysql-and-mysql-adapter&#34;&gt;Install MySQL and Mysql adapter&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;$ sudo apt-get -y install mysql-server mysql-common mysql-client libmysqlclient-dev  
-$ gem install mysql2 //gem mysql2 is faster than gem mysql  
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;The gem you installed is placed in RVM&amp;rsquo;s ruby, if you are using RVM&amp;rsquo;s ruby.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;If you use MySQL in your rails application, remember to change the database.yml.&lt;/p&gt;
-
-&lt;p&gt;p.s. If you want to use phpmyadmin, you can do:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ sudo apt-get install php5-mysql
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;download phpmyadmin, then extract to &lt;code&gt;/etc/nginx/html/phpmyadmin&lt;/code&gt;&lt;br /&gt;
-then start the server, access: &lt;code&gt;http://localhost/phpmyadmin/&lt;/code&gt;&lt;/p&gt;
-</description>
+      <guid>https://blog.kerkerj.in/2013/12/ubuntu-ror-environment/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

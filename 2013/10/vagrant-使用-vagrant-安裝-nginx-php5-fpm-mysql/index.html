@@ -1,0 +1,845 @@
+
+
+  
+    
+  
+
+
+  
+
+
+
+
+  
+
+
+  
+
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Hugo 0.40.3 with theme Tranquilpeak 0.4.3-BETA">
+    <title>[Vagrant] 使用 Vagrant 安裝 Nginx, php5-fpm, MySQL</title>
+    <meta name="author" content="kerkerj">
+    <meta name="keywords" content="">
+
+    <link rel="icon" href="https://blog.kerkerj.in/favicon.png">
+    
+
+    
+    <meta name="description" content="">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="[Vagrant] 使用 Vagrant 安裝 Nginx, php5-fpm, MySQL">
+    <meta property="og:url" content="/2013/10/vagrant-%E4%BD%BF%E7%94%A8-vagrant-%E5%AE%89%E8%A3%9D-nginx-php5-fpm-mysql/">
+    <meta property="og:site_name" content="kerkerj">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="kerkerj">
+    <meta name="twitter:description" content="">
+    
+      <meta name="twitter:creator" content="@kerkerj">
+    
+    
+
+    
+    
+
+    
+      <meta property="og:image" content="//www.gravatar.com/avatar/269d15bf3b48dc4edd4a72f5637a54a8?s=640">
+    
+
+    
+    
+    
+
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://blog.kerkerj.in/css/style-jsjn0006wyhpyzivf6yceb31gvpjatbcs3qzjvlumobfnugccvobqwxnnaj8.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://blog.kerkerj.in/">kerkerj</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://blog.kerkerj.in/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="//www.gravatar.com/avatar/269d15bf3b48dc4edd4a72f5637a54a8?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://blog.kerkerj.in/#about">
+          <img class="sidebar-profile-picture" src="//www.gravatar.com/avatar/269d15bf3b48dc4edd4a72f5637a54a8?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">kerkerj</h4>
+        
+          <h5 class="sidebar-profile-bio">Cat lover &lt;3</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/kerkerj" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/page/cats/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-angle-right"></i>
+      
+      <span class="sidebar-button-desc">Cats</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/page/mac-app-list/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-angle-right"></i>
+      
+      <span class="sidebar-button-desc">Mac App List</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="5"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      [Vagrant] 使用 Vagrant 安裝 Nginx, php5-fpm, MySQL
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2013-10-22T00:00:00Z">
+        
+  October 22, 2013
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/ubuntu">ubuntu</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/nginx">nginx</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/vagrant">vagrant</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/virtualbox">virtualbox</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/php5-fpm">php5-fpm</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p></p>
+
+<h2 id="vagrant-1-development-environments-made-easy"><a href="http://www.vagrantup.com/">Vagrant</a> - Development environments made easy.</h2>
+
+<p>就是這個軟體的宗旨，把它想做是 ghost 吧！我們開發網站或是測試一些多機器架構時，常不小心就把自己的電腦或是測試主機搞到爛掉，租機器又慢又花錢，搞到爛重灌更麻煩。因此這個軟體基於 VirtualBox 做出了令人方便設定的功能，讓我們可以快速架設安裝環境並測試，尤其是以多機器架構而言更是方便！例如從最簡單的 Web server + DB server，或是 Web Load Balancer + Application Server * 5 等等的架構，一台電腦就能達成囉！
+今天主要是以安裝 Vagrant 及架設出 Nginx + php5-fpm 的架構，下一篇打算另外建構一台 mongodb server，達到 Vagrant 最主要的多機器設定功能~</p>
+
+<h2 id="vagrant-基本設定">Vagrant 基本設定</h2>
+
+<ol>
+<li>先下載 VirtualBox 吧！<br /></li>
+<li>下載 Vagarnt 套件 <a href="http://downloads.vagrantup.com/">http://downloads.vagrantup.com/</a><br />
+安裝好後，可能會需要加 path，至少 1.3.0 當時我是自己加的，現在 1.3.5 就不清楚了~<br /></li>
+<li>接下來就可以開始加入 box (可以把它想為 ghost 檔)，並開始設定 Vagrant。</li>
+</ol>
+
+<pre><code>vagrant box add {你想要的Box名稱} {下載網址} 
+</code></pre>
+
+<p>輸入後就會開始下載該 box 了！ 範例：</p>
+
+<pre><code>$vagrant box add devbox http://ﬁles.vagrantup.com/precise64.box   
+$mkdir my_box  
+$cd my_box  
+$vagrant init devbox (將 my_box 這個專案資料夾以 devbox 這個 box 檔案初始化)  
+</code></pre>
+
+<p>box 官方有提供 Ubuntu 的，在 <a href="http://www.vagrantbox.es/">vagrantbox.es</a> 很多，可以自己找～ 當然自己做應該也是可以的！</p>
+
+<h2 id="vagrant-基本指令">Vagrant 基本指令</h2>
+
+<pre><code>vagrant up 開機  
+vagrant ssh 登⼊  
+vagrant suspend 暫停  
+vagrant halt 關機  
+vagrant destroy 刪除  
+</code></pre>
+
+<h2 id="進入新裝好的機器吧">進入新裝好的機器吧！</h2>
+
+<pre><code>$vagrant up  //開機  
+$vagrant ssh //登入  
+</code></pre>
+
+<h2 id="vagrantfile-設定">Vagrantfile 設定</h2>
+
+<p>Vagrantfile 這個設定檔可以用很多很強大的設定，在官方網頁裡有教學</p>
+
+<p>不過首先要先做的是： <code>config.vm.forward_port 80, 8088</code></p>
+
+<p>把虛擬機器裡從 80 port 傳送的東西丟到本機的 8088 port</p>
+
+<p>如此一來在本機瀏覽器輸入 localhost:8088 ，就可以看到網頁了！</p>
+
+<p>另外就是： <code>config.vm.synced_folder &quot;/vagrant&quot;, &quot;本機目錄&quot;</code></p>
+
+<p>如此一來，Ubuntu 底下就有一個 /vargrant 目錄，和自己主機裡的某個目錄是同步的！</p>
+
+<p>也就是在自己主機上寫好程式後，就可以直接讓虛擬機器抓到 code 去執行，超方便的！</p>
+
+<p>只要把 nginx 的網頁目錄設定在 /vagrant 上就可以了！ (後面會說)</p>
+
+<h2 id="ubuntu-基本安裝">Ubuntu 基本安裝</h2>
+
+<p>進去後是乾淨的 Ubuntu 12.04 64位元版，因此需先做點安裝:</p>
+
+<pre><code>$sudo apt-get -y update  
+$sudo apt-get --no-install-recommends -y install build-essential openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev libgdbm-dev ncurses-dev automake libtool bison subversion pkg-config libffi-dev vim  
+</code></pre>
+
+<p>有些東西其實可以不用裝，就看個人的需求，必裝應該是 build-essential, openssl, curl, git-core, vim XD</p>
+
+<h2 id="nginx-php5-fpm-安裝">Nginx &amp; php5-fpm 安裝</h2>
+
+<p>安裝 Nginx</p>
+
+<pre><code>$sudo apt-get install nginx  
+</code></pre>
+
+<p>若要更改 Nginx 的網頁目錄，設定檔在 <code>/etc/nginx/</code> 裡，</p>
+
+<p>通常應該是更改 <code>/etc/nginx/sites-enable/default</code> 裡的 <code>root /usr/share/nginx/www/</code></p>
+
+<p>還要將這段 code 解除註解：</p>
+
+<pre><code>location ~ \.php$ {
+    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+    # NOTE: You should have &quot;cgi.fix_pathinfo = 0;&quot; in php.ini
+
+    # With php5-cgi alone:
+    #fastcgi_pass 127.0.0.1:9000;
+    # With php5-fpm:
+    fastcgi_pass unix:/var/run/php5-fpm.sock;
+    fastcgi_index index.php;
+    include fastcgi_params;
+}
+</code></pre>
+
+<p>更改後確認一下 <code>/etc/nginx/nginx.conf</code> 是否有 <code>inculde /etc/nginx/sites-enable/*</code></p>
+
+<pre><code>$sudo service nginx start (開始服務)
+</code></pre>
+
+<p>安裝 php5-fpm</p>
+
+<pre><code>$sudo apt-get install php5-fpm  
+$sudo vim /etc/php5/fpm/php.ini (找到並更改 cgi.fix_pathinfo = 0 )  
+$sudo vim /etc/php5/fpm/pool.d/www.conf  
+</code></pre>
+
+<p>找到 <code>listen = 127.0.0.1:9000</code>, 換成 <code>/var/run/php5-fpm.sock</code>
+寫個 phpinfo(); 的 php 檔放入資料夾</p>
+
+<pre><code>$sudo service php5-fpm restart (開啟服務)
+</code></pre>
+
+<p>在瀏覽器輸入 localhost:8088 就可以看到 nginx 的頁面，再讀取剛剛寫的 php 應該就成功囉！</p>
+
+<p>安裝 MySQL:</p>
+
+<pre><code>$ sudo apt-get install mysql-server
+</code></pre>
+
+<p>過程中會問 root 的密碼，裝完後就可以登入：</p>
+
+<pre><code>$ mysql -u root -p
+</code></pre>
+
+<p>下回就是多機器的設定囉～</p>
+
+<p>reference:<br />
+<a href="http://gogojimmy.net/2013/05/26/vagrant-tutorial/">http://gogojimmy.net/2013/05/26/vagrant-tutorial/</a></p>
+
+<p><a href="http://www.slideshare.net/ihower/vagrant-osdc">http://www.slideshare.net/ihower/vagrant-osdc</a></p>
+
+<p><a href="https://www.digitalocean.com/community/articles/how-to-install-linux-nginx-mysql-php-lemp-stack-on-ubuntu-12-04">https://www.digitalocean.com/community/articles/how-to-install-linux-nginx-mysql-php-lemp-stack-on-ubuntu-12-04</a></p>
+
+<p>p.s. Vagrantfile 產生器：<a href="https://puphpet.com/#vagrantfile">Puphpet.com/#vagrantfile</a></p>
+
+<p>這網站有很多值得玩的地方，可以直接幫你產生出這些設定檔真的是太方便了！</p>
+
+<p>p.s.s.有亂入用到的指令記一下：dpkg &ndash;get-selections 列出已安裝的 package</p>
+
+<p>另外提供一下我在研究 Vagrant 的筆記，很亂超級亂，但是有些東西沒有寫在 blog 裡~
+<a href="https://www.evernote.com/shard/s81/sh/91ccf490-d9cd-468e-943a-d57c79d052f4/71e0a682b024c6e97fd8c79b90f89f67">Evernote by kerkerj</a></p>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+            
+            
+  <div class="post-actions-wrap">
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://blog.kerkerj.in/2013/11/mac-osx-homebrew-update-error/" data-tooltip="[Mac OSX] homebrew update error">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://blog.kerkerj.in/2012/06/android-thread-%E8%99%95%E7%90%86-ui-update-2/" data-tooltip="[Android] thread 處理 UI update (2)">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.kerkerj.in/2013/10/vagrant-%E4%BD%BF%E7%94%A8-vagrant-%E5%AE%89%E8%A3%9D-nginx-php5-fpm-mysql/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://blog.kerkerj.in/2013/10/vagrant-%E4%BD%BF%E7%94%A8-vagrant-%E5%AE%89%E8%A3%9D-nginx-php5-fpm-mysql/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://blog.kerkerj.in/2013/10/vagrant-%E4%BD%BF%E7%94%A8-vagrant-%E5%AE%89%E8%A3%9D-nginx-php5-fpm-mysql/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+
+            
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2018 <a href="https://github.com/kerkerj">kerkerj</a>. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        
+  <div class="post-actions-wrap">
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://blog.kerkerj.in/2013/11/mac-osx-homebrew-update-error/" data-tooltip="[Mac OSX] homebrew update error">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://blog.kerkerj.in/2012/06/android-thread-%E8%99%95%E7%90%86-ui-update-2/" data-tooltip="[Android] thread 處理 UI update (2)">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.kerkerj.in/2013/10/vagrant-%E4%BD%BF%E7%94%A8-vagrant-%E5%AE%89%E8%A3%9D-nginx-php5-fpm-mysql/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://blog.kerkerj.in/2013/10/vagrant-%E4%BD%BF%E7%94%A8-vagrant-%E5%AE%89%E8%A3%9D-nginx-php5-fpm-mysql/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://blog.kerkerj.in/2013/10/vagrant-%E4%BD%BF%E7%94%A8-vagrant-%E5%AE%89%E8%A3%9D-nginx-php5-fpm-mysql/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fblog.kerkerj.in%2F2013%2F10%2Fvagrant-%25E4%25BD%25BF%25E7%2594%25A8-vagrant-%25E5%25AE%2589%25E8%25A3%259D-nginx-php5-fpm-mysql%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fblog.kerkerj.in%2F2013%2F10%2Fvagrant-%25E4%25BD%25BF%25E7%2594%25A8-vagrant-%25E5%25AE%2589%25E8%25A3%259D-nginx-php5-fpm-mysql%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fblog.kerkerj.in%2F2013%2F10%2Fvagrant-%25E4%25BD%25BF%25E7%2594%25A8-vagrant-%25E5%25AE%2589%25E8%25A3%259D-nginx-php5-fpm-mysql%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="//www.gravatar.com/avatar/269d15bf3b48dc4edd4a72f5637a54a8?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">kerkerj</h4>
+    
+      <div id="about-card-bio">Cat lover &lt;3</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Backend Engineer
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Taiwan
+      </div>
+    
+  </div>
+</div>
+
+    <div id="algolia-search-modal" class="modal-container">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="close-button"><i class="fa fa-close"></i></span>
+      <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+        <span class="searchby-algolia-text text-color-light text-small">by</span>
+        <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+      </a>
+      <i class="search-icon fa fa-search"></i>
+      <form id="algolia-search-form">
+        <input type="text" id="algolia-search-input" name="search"
+          class="form-control input--large search-input" placeholder="Search" />
+      </form>
+    </div>
+    <div class="modal-body">
+      <div class="no-result text-color-light text-center">no post found</div>
+      <div class="results">
+        
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2018/05/again/">
+                <h3 class="media-heading">Again</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  May 5, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p>嗯，我又把 theme 換掉了。其實還有個原因是裝了最新版的 hugo 後，就 build 不出來了，只好順便換個新的 theme。</p>
+
+<p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/11/%E8%AE%80%E6%9B%B8-%E5%B7%A5%E4%BD%9C%E5%A4%A7%E8%A7%A3%E6%94%BE%E9%80%99%E6%A8%A3%E5%81%9A%E4%BA%8B%E5%8F%8D%E8%80%8C%E6%9B%B4%E6%88%90%E5%8A%9F/">
+                <h3 class="media-heading">[讀書] 工作大解放：這樣做事反而更成功</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Nov 11, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/goroutine-%E5%9F%B7%E8%A1%8C%E7%9B%B8%E9%97%9C%E8%A8%8E%E8%AB%96/">
+                <h3 class="media-heading">goroutine 執行相關討論</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/tld_length-%E5%9C%A8-rails-session_store-%E8%88%87-http-url-%E7%9A%84%E8%A8%AD%E5%AE%9A/">
+                <h3 class="media-heading">tld_length 在 Rails session_store 與 HTTP URL 的設定</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/rails-initializer-%E7%9A%84%E8%BC%89%E5%85%A5%E9%A0%86%E5%BA%8F/">
+                <h3 class="media-heading">Rails initializer 的載入順序</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/use-goconvey-in-projects-maganged-by-gb/">
+                <h3 class="media-heading">Use goconvey in projects maganged by gb</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/docker-ha-proxy/">
+                <h3 class="media-heading">docker HA proxy</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/tool-diff-so-fancy/">
+                <h3 class="media-heading">[tool] diff-so-fancy</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/new-theme/">
+                <h3 class="media-heading">New theme</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2015/05/migrating-to-hugo-from-octopress/">
+                <h3 class="media-heading">Migrating to Hugo from Octopress</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  May 5, 2015
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+      </div>
+    </div>
+    <div class="modal-footer">
+      <p class="results-count text-medium"
+         data-message-zero="no post found"
+         data-message-one="1 post found"
+         data-message-other="{n} posts found">
+         141 posts found
+      </p>
+    </div>
+  </div>
+</div>
+    
+  
+    
+    <div id="cover" style="background-image:url('http://res.cloudinary.com/kerkerj/image/upload/e_blur:1265,q_auto:eco/v1526483175/everaldo-coelho-486011-unsplash-min.jpg');"></div>
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="https://blog.kerkerj.in/js/script-qi9wbxp2ya2j6p7wx1i6tgavftewndznf4v0hy2gvivk1rxgc3lm7njqb6bz.min.js"></script>
+
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+  
+
+
+
+    
+  </body>
+</html>
+

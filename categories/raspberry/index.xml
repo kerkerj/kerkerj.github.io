@@ -1,187 +1,32 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>kerkerj</title>
-    <link>http://blog.kerkerj.in/categories/raspberry/index.xml</link>
-    <description>Recent content on kerkerj</description>
+    <title>Raspberry on kerkerj</title>
+    <link>https://blog.kerkerj.in/categories/raspberry/</link>
+    <description>Recent content in Raspberry on kerkerj</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
-    <atom:link href="http://blog.kerkerj.in/categories/raspberry/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 22 Apr 2015 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.kerkerj.in/categories/raspberry/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Raspberry Pi2 remote webcam</title>
-      <link>http://blog.kerkerj.in/blog/raspberry-pi2-remote-webcam/</link>
+      <link>https://blog.kerkerj.in/2015/04/raspberry-pi2-remote-webcam/</link>
       <pubDate>Wed, 22 Apr 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.kerkerj.in/blog/raspberry-pi2-remote-webcam/</guid>
-      <description>&lt;p&gt;如題~&lt;/p&gt;
-
-&lt;p&gt;先假設 pi2 本身的 IP 是 &lt;code&gt;192.168.1.200&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;首先先進去 server 來更新一下~&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;$ sudo apt-get update &amp;amp;&amp;amp; sudo apt-get upgrade
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;再來就裝 &lt;a href=&#34;http://www.lavrsen.dk/foswiki/bin/view/Motion/WebHome&#34;&gt;motion&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;他其實是一個 motion detector，不過也可以拿來當作 web cam 用的 streaming server XD&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;$ sudo apt-get install motion
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;編輯設定檔 &lt;code&gt;/etc/motion/motion.conf&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;$ sudo vi /etc/motion/motion.conf
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;找到以下幾個值，並分別改成下面&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;daemon = ON
-webcam_localhost = OFF
-control_localhost = OFF
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;webcam_localhost&lt;/code&gt; 是 streaming 介面&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;control_localhost&lt;/code&gt; 是設定介面&lt;/p&gt;
-
-&lt;p&gt;如果要改預設 port，就找 &lt;code&gt;webcam_port&lt;/code&gt;, or &lt;code&gt;control_port&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;最後設定將 service 啟動&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;$ sudo vi /etc/default/motion
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;將 no 改成 yes&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;start_motion_daemon = yes
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;啟動 service&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;$ sudo service motion start
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;motion 這個 service 預設的 port 是 8080 / 8081 (可以在前述的設定檔更改)&lt;/p&gt;
-
-&lt;p&gt;開啟瀏覽器, 連入 &lt;code&gt;http://192.168.1.200:8080&lt;/code&gt; or &lt;code&gt;http://192.168.1.200:8081&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;這邊會有個小問題，就是連 8080 時會很正常&lt;/p&gt;
-
-&lt;p&gt;但是 8081 時如果是用 chrome，則怎麼都進不去&lt;/p&gt;
-
-&lt;p&gt;後來發現 &lt;a href=&#34;http://www.lavrsen.dk/foswiki/bin/view/Motion/SupportQuestion2013x09x01x104741&#34;&gt;這篇&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;他說 Chrome 不再支援 raw MJPEG streams 了&lt;/p&gt;
-
-&lt;p&gt;所以就是用其他瀏覽器開吧, 我是用 Safari :D&lt;/p&gt;
-
-&lt;p&gt;記得要和你的 pi2 在同一個 wifi 環境下~&lt;/p&gt;
-
-&lt;p&gt;剩下的還有許多設定可以玩～ 改天再來慢慢玩&lt;/p&gt;
-</description>
+      <guid>https://blog.kerkerj.in/2015/04/raspberry-pi2-remote-webcam/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Setup wifi on raspberry pi2</title>
-      <link>http://blog.kerkerj.in/blog/setup-wifi-on-raspberry-pi2/</link>
+      <link>https://blog.kerkerj.in/2015/04/setup-wifi-on-raspberry-pi2/</link>
       <pubDate>Wed, 22 Apr 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.kerkerj.in/blog/setup-wifi-on-raspberry-pi2/</guid>
-      <description>&lt;p&gt;(這是篇筆記)&lt;/p&gt;
-
-&lt;p&gt;前陣子從前同事那接手了一塊 raspberry pi2 的板子&lt;/p&gt;
-
-&lt;p&gt;想要用 wifi 來連網，於是就買了一個 usb 無線網卡&lt;/p&gt;
-
-&lt;p&gt;型號是:&lt;/p&gt;
-
-&lt;p&gt;TP-LINK TL-WN725N 150MbpsUSB無線網卡 (&lt;a href=&#34;http://24h.pchome.com.tw/prod/DRAF4Z-A75333252&#34;&gt;pchome連結&lt;/a&gt;)&lt;/p&gt;
-
-&lt;p&gt;一開始當然還是必須先插網路線，&lt;code&gt;ssh&lt;/code&gt; 進去後&lt;/p&gt;
-
-&lt;p&gt;先檢查 &lt;code&gt;pi2&lt;/code&gt; 的 &lt;code&gt;kernel&lt;/code&gt; 版本&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ uname -r
-3.18.7-v7+ # 這是我的版本
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;接著根據這個 &lt;a href=&#34;https://github.com/lwfinger/rtl8188eu/&#34;&gt;repo&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;將韌體載下來放到 /lib/firmware 裡&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ sudo wget https://github.com/lwfinger/rtl8188eu/raw/c83976d1dfb4793893158461430261562b3a5bf0/rtl8188eufw.bin -O /lib/firmware/rtlwifi/rtl8188eufw.bin 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;再來設定 pi2 的網路&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ ifconfig
-eth0      Link encap:Ethernet  
-lo        Link encap:Local Loopback
-wlan0     Link encap:Ethernet 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;如果網卡有裝成功，應該就會有 &lt;code&gt;wlan0&lt;/code&gt; 或是 &lt;code&gt;wlanX&lt;/code&gt; 之類的 (X 是數字)&lt;/p&gt;
-
-&lt;p&gt;最後就是手動掃描無線網路，並設定連線值囉&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ sudo iwlist scan =&amp;gt; 掃描無線網路 AP
-wlan0     Scan completed :
-          Cell 01 - Address: XX:XX:XX:XX:XX:XX
-                    ESSID:&amp;quot;GGININDER&amp;quot;
-          Cell 02 - Address: XX:XX:XX:XX:XX:XX
-                    ESSID:&amp;quot;TP-LINK_F5566&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;連線的 &lt;code&gt;SSID&lt;/code&gt; 就找 &lt;code&gt;Cell&lt;/code&gt; 裡的 &lt;code&gt;ESSID&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;(通常應該會記得自己家的 AP 啦，可以用來確認一下)&lt;/p&gt;
-
-&lt;p&gt;開啟 &lt;code&gt;/etc/network/interfaces&lt;/code&gt; 來寫入連線值&lt;/p&gt;
-
-&lt;p&gt;我的 AP 的加密機制是 WPA/WPA2，所以使用下面的方式連線&lt;/p&gt;
-
-&lt;p&gt;若是其他方式 (e.g. WEP) 可以參考 &lt;a href=&#34;http://inpega.blogspot.tw/2013/09/blog-post_15.html&#34;&gt;這篇&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ vi /etc/network/interfaces
-auto lo
-
-iface lo inet loopback
-iface eth0 inet dhcp
-
-# 重點是下面這段
-
-# 允許熱插拔 wlan0 這個介面
-allow-hotplug wlan0 
-
-# 預設設定為 dhcp
-iface default inet dhcp
-
-# 設定 wlan0 這張介面卡為 DHCP 自動取得 IP
-iface wlan0 inet dhcp
-
-# 你的 AP 的 SSID
-wpa-ssid &amp;quot;GGININDER&amp;quot;
-
-# 你的 AP 的密碼
-wpa-psk &amp;quot;password&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;設定好後，重新啟動 wlan0 介面就可以連線囉&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ sudo ifdown wlan0
-$ sudo ifup wlan0
-$ ifconfig wlan0 # 確認是否取得 IP
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;reference:&lt;/p&gt;
-
-&lt;p&gt;raspberry pi forum: &lt;a href=&#34;http://www.raspberrypi.org/forums/viewtopic.php?f=28&amp;amp;t=62371&amp;amp;start=475&#34;&gt;http://www.raspberrypi.org/forums/viewtopic.php?f=28&amp;amp;t=62371&amp;amp;start=475&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;網路設定: &lt;a href=&#34;http://inpega.blogspot.tw/2013/09/blog-post_15.html&#34;&gt;http://inpega.blogspot.tw/2013/09/blog-post_15.html&lt;/a&gt;&lt;/p&gt;
-</description>
+      <guid>https://blog.kerkerj.in/2015/04/setup-wifi-on-raspberry-pi2/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

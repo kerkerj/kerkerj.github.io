@@ -1,0 +1,761 @@
+
+
+  
+    
+  
+
+
+  
+
+
+
+
+  
+
+
+  
+
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Hugo 0.40.3 with theme Tranquilpeak 0.4.3-BETA">
+    <title>[API-d16] - 實戰開發 - 設定主題及規劃</title>
+    <meta name="author" content="kerkerj">
+    <meta name="keywords" content="restful,, api,, apiary">
+
+    <link rel="icon" href="https://blog.kerkerj.in/favicon.png">
+    
+
+    
+    <meta name="description" content="">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="[API-d16] - 實戰開發 - 設定主題及規劃">
+    <meta property="og:url" content="/2014/10/api-d16---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E8%A8%AD%E5%AE%9A%E4%B8%BB%E9%A1%8C%E5%8F%8A%E8%A6%8F%E5%8A%83/">
+    <meta property="og:site_name" content="kerkerj">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="kerkerj">
+    <meta name="twitter:description" content="">
+    
+      <meta name="twitter:creator" content="@kerkerj">
+    
+    
+
+    
+    
+
+    
+      <meta property="og:image" content="//www.gravatar.com/avatar/269d15bf3b48dc4edd4a72f5637a54a8?s=640">
+    
+
+    
+    
+    
+
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://blog.kerkerj.in/css/style-jsjn0006wyhpyzivf6yceb31gvpjatbcs3qzjvlumobfnugccvobqwxnnaj8.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://blog.kerkerj.in/">kerkerj</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://blog.kerkerj.in/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="//www.gravatar.com/avatar/269d15bf3b48dc4edd4a72f5637a54a8?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://blog.kerkerj.in/#about">
+          <img class="sidebar-profile-picture" src="//www.gravatar.com/avatar/269d15bf3b48dc4edd4a72f5637a54a8?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">kerkerj</h4>
+        
+          <h5 class="sidebar-profile-bio">Cat lover &lt;3</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/kerkerj" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/page/cats/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-angle-right"></i>
+      
+      <span class="sidebar-button-desc">Cats</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/page/mac-app-list/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-angle-right"></i>
+      
+      <span class="sidebar-button-desc">Mac App List</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="5"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      [API-d16] - 實戰開發 - 設定主題及規劃
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2014-10-16T00:00:00Z">
+        
+  October 16, 2014
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/restful">restful</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/api">api</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/apiary">apiary</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p></p>
+
+<p>接下來我們想要做到的是一個 TODO list 的 RESTful API</p>
+
+<p>並且會先使用 <a href="http://apiary.io/">apiary.io</a> 做規劃</p>
+
+<p>實際看看感覺如何</p>
+
+<p>進入網站後，註冊登入後</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-07%201.04.07.png" alt="image" /></p>
+
+<p>左上角的 dropdown list 選擇 create new API</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-07%201.04.18.png" alt="image" /></p>
+
+<p>產生後下方就會跑出範例文擋</p>
+
+<p>這個網站會透過特定格式的編排自己希望的 API endpoint 及範例回傳值後，產生出一份漂亮的文件</p>
+
+<p>網站中間是模式的選擇</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-07%201.10.33.png" alt="image" /></p>
+
+<p>Documentation 是實際讓其他人看的，Editor 則是編輯模式</p>
+
+<p>我們就稍微簡單規劃一下 TODO List 的 RESTful API 吧!</p>
+
+<p>這是我自己規劃的 <a href="http://docs.todolist7.apiary.io/">文件</a></p>
+
+<p>基本上 route 會長這個樣子:</p>
+
+<pre><code>TODOs
+GET /user/{user_id}/todos/
+POST /user/{user_id}/todos/
+GET /user/{user_id}/todos/{id}
+PUT /user/{user_id}/todos/{id}
+DELETE /user/{user_id}/todos/{id}
+</code></pre>
+
+<p>資料格式也都在該文件整理好了</p>
+
+<p><code>/user/{user_id}/</code> 只是用來辨識是哪個 user 的 todo task data</p>
+
+<p>在這個小 API 不會琢磨在使用者系統的建立，只會專注在操作 todo task data</p>
+
+<p>我們可以直接透過 PostMan 來丟丟看</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/12400343/images/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-10-07%201.43.06.png" alt="image" /></p>
+
+<p>我們設定必須要使用 API-key 才能存取 API，比較進階的做法就是使用 Oauth 的方式取得 token 來存取 API</p>
+
+<p>不過在這個小 API 也不會建立一個 Oauth Server，我們簡單使用 API-key 來認證即可</p>
+
+<p>接下來的時間我們就會開始依據規劃好的文件，使用 Node.js + express + mongodb 來實作囉!</p>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://blog.kerkerj.in/tags/%E9%90%B5%E4%BA%BA%E8%B3%BD/">鐵人賽</a>
+
+                  </div>
+                
+              
+            
+            
+  <div class="post-actions-wrap">
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://blog.kerkerj.in/2014/10/swift-d17---basic---navigation-view---tableview/" data-tooltip="[Swift-d17] - Basic - Navigation View &#43; TableView">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://blog.kerkerj.in/2014/10/swift-d16---basic---table-view-2-%E6%8F%9B%E9%A0%81-delegate/" data-tooltip="[Swift-d16] - Basic - Table View 2 換頁 (delegate)">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.kerkerj.in/2014/10/api-d16---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E8%A8%AD%E5%AE%9A%E4%B8%BB%E9%A1%8C%E5%8F%8A%E8%A6%8F%E5%8A%83/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://blog.kerkerj.in/2014/10/api-d16---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E8%A8%AD%E5%AE%9A%E4%B8%BB%E9%A1%8C%E5%8F%8A%E8%A6%8F%E5%8A%83/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://blog.kerkerj.in/2014/10/api-d16---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E8%A8%AD%E5%AE%9A%E4%B8%BB%E9%A1%8C%E5%8F%8A%E8%A6%8F%E5%8A%83/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+
+            
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2018 <a href="https://github.com/kerkerj">kerkerj</a>. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        
+  <div class="post-actions-wrap">
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://blog.kerkerj.in/2014/10/swift-d17---basic---navigation-view---tableview/" data-tooltip="[Swift-d17] - Basic - Navigation View &#43; TableView">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://blog.kerkerj.in/2014/10/swift-d16---basic---table-view-2-%E6%8F%9B%E9%A0%81-delegate/" data-tooltip="[Swift-d16] - Basic - Table View 2 換頁 (delegate)">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.kerkerj.in/2014/10/api-d16---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E8%A8%AD%E5%AE%9A%E4%B8%BB%E9%A1%8C%E5%8F%8A%E8%A6%8F%E5%8A%83/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://blog.kerkerj.in/2014/10/api-d16---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E8%A8%AD%E5%AE%9A%E4%B8%BB%E9%A1%8C%E5%8F%8A%E8%A6%8F%E5%8A%83/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://blog.kerkerj.in/2014/10/api-d16---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E8%A8%AD%E5%AE%9A%E4%B8%BB%E9%A1%8C%E5%8F%8A%E8%A6%8F%E5%8A%83/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fblog.kerkerj.in%2F2014%2F10%2Fapi-d16---%25E5%25AF%25A6%25E6%2588%25B0%25E9%2596%258B%25E7%2599%25BC---%25E8%25A8%25AD%25E5%25AE%259A%25E4%25B8%25BB%25E9%25A1%258C%25E5%258F%258A%25E8%25A6%258F%25E5%258A%2583%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fblog.kerkerj.in%2F2014%2F10%2Fapi-d16---%25E5%25AF%25A6%25E6%2588%25B0%25E9%2596%258B%25E7%2599%25BC---%25E8%25A8%25AD%25E5%25AE%259A%25E4%25B8%25BB%25E9%25A1%258C%25E5%258F%258A%25E8%25A6%258F%25E5%258A%2583%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fblog.kerkerj.in%2F2014%2F10%2Fapi-d16---%25E5%25AF%25A6%25E6%2588%25B0%25E9%2596%258B%25E7%2599%25BC---%25E8%25A8%25AD%25E5%25AE%259A%25E4%25B8%25BB%25E9%25A1%258C%25E5%258F%258A%25E8%25A6%258F%25E5%258A%2583%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="//www.gravatar.com/avatar/269d15bf3b48dc4edd4a72f5637a54a8?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">kerkerj</h4>
+    
+      <div id="about-card-bio">Cat lover &lt;3</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Backend Engineer
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Taiwan
+      </div>
+    
+  </div>
+</div>
+
+    <div id="algolia-search-modal" class="modal-container">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="close-button"><i class="fa fa-close"></i></span>
+      <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+        <span class="searchby-algolia-text text-color-light text-small">by</span>
+        <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+      </a>
+      <i class="search-icon fa fa-search"></i>
+      <form id="algolia-search-form">
+        <input type="text" id="algolia-search-input" name="search"
+          class="form-control input--large search-input" placeholder="Search" />
+      </form>
+    </div>
+    <div class="modal-body">
+      <div class="no-result text-color-light text-center">no post found</div>
+      <div class="results">
+        
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2018/05/again/">
+                <h3 class="media-heading">Again</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  May 5, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p>嗯，我又把 theme 換掉了。其實還有個原因是裝了最新版的 hugo 後，就 build 不出來了，只好順便換個新的 theme。</p>
+
+<p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/11/%E8%AE%80%E6%9B%B8-%E5%B7%A5%E4%BD%9C%E5%A4%A7%E8%A7%A3%E6%94%BE%E9%80%99%E6%A8%A3%E5%81%9A%E4%BA%8B%E5%8F%8D%E8%80%8C%E6%9B%B4%E6%88%90%E5%8A%9F/">
+                <h3 class="media-heading">[讀書] 工作大解放：這樣做事反而更成功</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Nov 11, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/goroutine-%E5%9F%B7%E8%A1%8C%E7%9B%B8%E9%97%9C%E8%A8%8E%E8%AB%96/">
+                <h3 class="media-heading">goroutine 執行相關討論</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/tld_length-%E5%9C%A8-rails-session_store-%E8%88%87-http-url-%E7%9A%84%E8%A8%AD%E5%AE%9A/">
+                <h3 class="media-heading">tld_length 在 Rails session_store 與 HTTP URL 的設定</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/rails-initializer-%E7%9A%84%E8%BC%89%E5%85%A5%E9%A0%86%E5%BA%8F/">
+                <h3 class="media-heading">Rails initializer 的載入順序</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/use-goconvey-in-projects-maganged-by-gb/">
+                <h3 class="media-heading">Use goconvey in projects maganged by gb</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/docker-ha-proxy/">
+                <h3 class="media-heading">docker HA proxy</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/tool-diff-so-fancy/">
+                <h3 class="media-heading">[tool] diff-so-fancy</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/new-theme/">
+                <h3 class="media-heading">New theme</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2015/05/migrating-to-hugo-from-octopress/">
+                <h3 class="media-heading">Migrating to Hugo from Octopress</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  May 5, 2015
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+      </div>
+    </div>
+    <div class="modal-footer">
+      <p class="results-count text-medium"
+         data-message-zero="no post found"
+         data-message-one="1 post found"
+         data-message-other="{n} posts found">
+         141 posts found
+      </p>
+    </div>
+  </div>
+</div>
+    
+  
+    
+    <div id="cover" style="background-image:url('http://res.cloudinary.com/kerkerj/image/upload/e_blur:1265,q_auto:eco/v1526483175/everaldo-coelho-486011-unsplash-min.jpg');"></div>
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="https://blog.kerkerj.in/js/script-qi9wbxp2ya2j6p7wx1i6tgavftewndznf4v0hy2gvivk1rxgc3lm7njqb6bz.min.js"></script>
+
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+  
+
+
+
+    
+  </body>
+</html>
+

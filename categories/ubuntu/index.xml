@@ -1,1057 +1,140 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>kerkerj</title>
-    <link>http://blog.kerkerj.in/categories/ubuntu/index.xml</link>
-    <description>Recent content on kerkerj</description>
+    <title>Ubuntu on kerkerj</title>
+    <link>https://blog.kerkerj.in/categories/ubuntu/</link>
+    <description>Recent content in Ubuntu on kerkerj</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
-    <atom:link href="http://blog.kerkerj.in/categories/ubuntu/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 05 Aug 2014 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.kerkerj.in/categories/ubuntu/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Openresty on Ubuntu 14.04</title>
-      <link>http://blog.kerkerj.in/blog/openresty-on-ubuntu-14.04/</link>
+      <link>https://blog.kerkerj.in/2014/08/openresty-on-ubuntu-14.04/</link>
       <pubDate>Tue, 05 Aug 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.kerkerj.in/blog/openresty-on-ubuntu-14.04/</guid>
-      <description>
-
-&lt;h2 id=&#34;install&#34;&gt;Install&lt;/h2&gt;
-
-&lt;p&gt;choose the latest version of Openresty&lt;br /&gt;
-I used ngx_openresty-1.7.2.1.tar.gz&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;# install packages
-sudo apt-get install libreadline-dev libpcre3-dev libssl-dev perl  
-
-# get openresty package
-wget http://openresty.org/download/ngx_openresty-1.7.2.1.tar.gz   
-
-# unzip
-tar xzvf ngx_openresty-1.7.2.1.tar.gz
-
-# install
-cd ngx_openresty-1.7.2.1/
-
-# You can setup with ./configure --prefix=&amp;quot;the folder you want to install&amp;quot;, default is &#39;/usr/local/openresty&#39;
-./configure 
-make
-sudo make install # need permission to copy file to target folder
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Default folder: &lt;code&gt;/usr/local/openresty&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;setup&#34;&gt;Setup&lt;/h2&gt;
-
-&lt;p&gt;create work folder in ~&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;mkdir ~/work
-cd ~/work
-mkdir logs/ conf/
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;create a new file in &lt;code&gt;~/work/conf/nginx.conf&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;worker_processes  1;
-error_log logs/error.log;
-events {
-    worker_connections 1024;
-}
-http {
-    server {
-        listen 8080;
-        location / {
-            default_type text/html;
-            content_by_lua &#39;
-                ngx.say(&amp;quot;&amp;lt;p&amp;gt;hello, world&amp;lt;/p&amp;gt;&amp;quot;)
-            &#39;;
-        }
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;because Openresty is installed in &lt;code&gt;/usr/local/openresty&lt;/code&gt;,&lt;br /&gt;
-we need to add the directory to PATH variable&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;PATH=/usr/local/openresty/nginx/sbin:$PATH
-export PATH
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Then use the way below to start nginx server&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;nginx -p `pwd`/ -c conf/nginx.conf
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Assume that you have a nginx server originally, and then you installed Openresty, it can be set up at the same time if the port is not confilcted to the origin nginx.&lt;/p&gt;
-
-&lt;h2 id=&#34;use-external-lua-file-to-keep-conf-clean&#34;&gt;Use external lua file to keep conf clean&lt;/h2&gt;
-
-&lt;p&gt;Edit &lt;code&gt;~/work/conf/nginx.conf&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;worker_processes  1;
-error_log logs/error.log;
-events {
-    worker_connections 1024;
-}
-http {
-    server {
-        listen 8080;
-        location /hello {
-            content_by_lua_file conf/hello.lua;
-        }
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-lua&#34;&gt;-- hello.lua
-ngx.say(&amp;quot;Hello World&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <guid>https://blog.kerkerj.in/2014/08/openresty-on-ubuntu-14.04/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Install rails server env with rbenv on Ubuntu 14.04</title>
-      <link>http://blog.kerkerj.in/blog/install-rails-server-env-with-rbenv-on-ubuntu-14.04/</link>
+      <link>https://blog.kerkerj.in/2014/07/install-rails-server-env-with-rbenv-on-ubuntu-14.04/</link>
       <pubDate>Wed, 30 Jul 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.kerkerj.in/blog/install-rails-server-env-with-rbenv-on-ubuntu-14.04/</guid>
-      <description>
-
-&lt;pre&gt;&lt;code&gt;nodejs v0.10.25 (for rails javascript engine)
-
-rbenv 0.4.0-98-g13a474c
-
-ruby 2.1.2p95 (2014-05-08 revision 45877) [x86_64-linux]
-
-Rails 4.1.4
-
-nginx version: nginx/1.6.0
-
-Phusion Passenger version 4.0.48
-
-mysql  Ver 14.14 Distrib 5.5.38, for debian-linux-gnu (x86_64) using readline 6.3
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;installing-ruby-rails&#34;&gt;Installing Ruby &amp;amp; Rails&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;sudo apt-get update &amp;amp;&amp;amp; sudo apt-get upgrade
-sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties nodejs npm
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Use rbenv&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;cd
-git clone git://github.com/sstephenson/rbenv.git .rbenv
-echo &#39;export PATH=&amp;quot;$HOME/.rbenv/bin:$PATH&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bashrc
-echo &#39;eval &amp;quot;$(rbenv init -)&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bashrc
-exec $SHELL
-
-git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
-echo &#39;export PATH=&amp;quot;$HOME/.rbenv/plugins/ruby-build/bin:$PATH&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bashrc
-exec $SHELL
-
-rbenv install 2.1.2
-exec $SHELL
-
-rbenv global 2.1.2
-ruby -v
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Don&amp;rsquo;t install rdoc when installing gems&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;echo &amp;quot;gem: --no-ri --no-rdoc&amp;quot; &amp;gt; ~/.gemrc
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Install rails&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;gem install rails
-exec $SHELL
-rails -v
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;installing-nginx-with-passenger&#34;&gt;Installing Nginx with passenger&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;# Install Phusion&#39;s PGP key to verify packages
-gpg --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7
-gpg --armor --export 561F9B9CAC40B2F7 | sudo apt-key add -
-
-# Add HTTPS support to APT
-sudo apt-get install apt-transport-https
-
-# Add the passenger repository
-sudo sh -c &amp;quot;echo &#39;deb https://oss-binaries.phusionpassenger.com/apt/passenger trusty main&#39; &amp;gt;&amp;gt; /etc/apt/sources.list.d/passenger.list&amp;quot;
-sudo chown root: /etc/apt/sources.list.d/passenger.list
-sudo chmod 600 /etc/apt/sources.list.d/passenger.list
-sudo apt-get update
-
-# Install nginx and passenger
-sudo apt-get install nginx-full passenger
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Edit passenger configuration in &lt;code&gt;/etc/nginx/nginx.conf&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;##
-# Phusion Passenger
-##
-# Uncomment it if you installed ruby-passenger or ruby-passenger-enterprise
-##
-
-passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;
-
-passenger_ruby /usr/bin/ruby; #change this line
-
-# passenger_ruby /home/yourpath/.rbenv/shims/ruby; # If you use rbenv
-# Use `which ruby`
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;installing-mysql&#34;&gt;Installing MySQL&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;sudo apt-get install mysql-server mysql-client libmysqlclient-dev
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Done!&lt;/p&gt;
-</description>
+      <guid>https://blog.kerkerj.in/2014/07/install-rails-server-env-with-rbenv-on-ubuntu-14.04/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>[Ubuntu] enable/disable services on start-up</title>
-      <link>http://blog.kerkerj.in/blog/ubuntu-enable/disable-services-on-start-up/</link>
+      <link>https://blog.kerkerj.in/2014/05/ubuntu-enable/disable-services-on-start-up/</link>
       <pubDate>Fri, 30 May 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.kerkerj.in/blog/ubuntu-enable/disable-services-on-start-up/</guid>
-      <description>&lt;p&gt;Take apache for example:&lt;/p&gt;
-
-&lt;p&gt;Disable - &lt;code&gt;update-rc.d -f apache2 remove&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Enable - &lt;code&gt;update-rc.d apache2 defaults&lt;/code&gt;&lt;/p&gt;
-</description>
+      <guid>https://blog.kerkerj.in/2014/05/ubuntu-enable/disable-services-on-start-up/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>[Ubuntu] update OpenSSL</title>
-      <link>http://blog.kerkerj.in/blog/ubuntu-update-openssl/</link>
+      <link>https://blog.kerkerj.in/2014/04/ubuntu-update-openssl/</link>
       <pubDate>Wed, 16 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.kerkerj.in/blog/ubuntu-update-openssl/</guid>
-      <description>&lt;p&gt;Easy way:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Below the single command line to compiling and install the last openssl version.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code&gt;$ curl https://www.openssl.org/source/openssl-1.0.1h.tar.gz | tar xz &amp;amp;&amp;amp; cd openssl-1.0.1h &amp;amp;&amp;amp; sudo ./config &amp;amp;&amp;amp; sudo make &amp;amp;&amp;amp; sudo make install
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Replace old openssl binary file by the new one via a symlink.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code&gt;$ sudo ln -sf /usr/local/ssl/bin/openssl `which openssl`
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;how to check version:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ openssl version -b
-built on: Mon Apr  7 20:33:29 UTC 2014
-$ openssl version -a
-OpenSSL 1.0.1 14 Mar 2012
-built on: Mon Apr  7 20:33:29 UTC 2014
-platform: debian-amd64
-options:  bn(64,64) rc4(16x,int) des(idx,cisc,16,int) blowfish(idx)
-compiler: ..........
-OPENSSLDIR: &amp;quot;/usr/lib/ssl&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;from: &lt;a href=&#34;http://superuser.com/questions/740930/apt-get-upgrade-openssl-wont-bring-ubuntu-12-04-to-latest-version&#34;&gt;http://superuser.com/questions/740930/apt-get-upgrade-openssl-wont-bring-ubuntu-12-04-to-latest-version&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Hard way:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;#!/bin/bash
-
-###
-# Need to upgrade an Ubuntu 13.04 server to use OpenSSL 1.0.1g?
-# Read and execute this script :D
-###
-# License: WTFPL, GPLv3, MIT, whatever; just patch your shit
-# http://askubuntu.com/questions/444702/how-to-patch-cve-2014-0160-in-openssl
-###
-
-if [[ $EUID -ne 0 ]]; then
-    echo &amp;quot;This script must be run as root&amp;quot; 1&amp;gt;&amp;amp;2
-    exit 1
-fi
-wget https://www.openssl.org/source/openssl-1.0.1g.tar.gz
-wget https://www.openssl.org/source/openssl-1.0.1g.tar.gz.asc
-
-gpg --recv-key 0xD3577507FA40E9E2
-# Dr Stephen Henson
-# IMPORTANT! Manually verify that this is the correct key ID:
-# http://pgp.mit.edu:11371/pks/lookup?op=vindex&amp;amp;search=0xD3577507FA40E9E2
-# https://www.openssl.org/about/
-
-gpg --verify openssl-1.0.1g.tar.gz.asc openssl-1.0.1g.tar.gz
-
-if [[ $? -eq 0 ]]; then
-    tar xzvf openssl-1.0.1g.tar.gz
-    cd openssl-1.0.1g &amp;amp;&amp;amp; sudo ./config &amp;amp;&amp;amp; sudo make &amp;amp;&amp;amp; sudo make install
-    # To link the old openssl library to a new version
-    sudo ln -sf /usr/local/ssl/bin/openssl `which openssl`
-    echo
-    echo &amp;quot;DONE!&amp;quot;
-fi
-
-# eof
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <guid>https://blog.kerkerj.in/2014/04/ubuntu-update-openssl/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>[AWS] ubuntu swap</title>
-      <link>http://blog.kerkerj.in/blog/aws-ubuntu-swap/</link>
+      <link>https://blog.kerkerj.in/2013/12/aws-ubuntu-swap/</link>
       <pubDate>Thu, 26 Dec 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.kerkerj.in/blog/aws-ubuntu-swap/</guid>
-      <description>&lt;p&gt;Add swap for an instance&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ sudo /bin/dd if=/dev/zero of=/var/swap.1 bs=1M count=1024
-$ sudo /sbin/mkswap /var/swap.1
-$ sudo /sbin/swapon /var/swap.1
-$ echo &amp;quot;/var/swap.1 swap swap defaults 0 0&amp;quot; &amp;gt;&amp;gt; /etc/fstab #將 swap 加入 開機啟動
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;在 Amazon EC2 micro plan，加入 swap 很容易 I/O 過量，
-因此最好是需要時才開啟 swap，不用時關閉 swap 以免被收錢~&lt;/p&gt;
-
-&lt;p&gt;swap usage&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-console&#34;&gt;$ swapon -s   
-$ free -k  
----
-$ swapoff -a  
-$ swapon  -a  
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <guid>https://blog.kerkerj.in/2013/12/aws-ubuntu-swap/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>[Ubuntu] RoR environment</title>
-      <link>http://blog.kerkerj.in/blog/ubuntu-ror-environment/</link>
+      <link>https://blog.kerkerj.in/2013/12/ubuntu-ror-environment/</link>
       <pubDate>Fri, 20 Dec 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.kerkerj.in/blog/ubuntu-ror-environment/</guid>
-      <description>
-
-&lt;h2 id=&#34;rvm-with-ruby2-0-0-p353-rails4-0-2-ubuntu12-04-precise64-php-fpm-by-vagrant-clean-install&#34;&gt;RVM with Ruby2.0.0-p353 + Rails4.0.2 + Ubuntu12.04(precise64) + php-fpm by Vagrant(clean install)&lt;/h2&gt;
-
-&lt;p&gt;p.s.
-If you don&amp;rsquo;t use RVM, you can just follow the instruction from &lt;a href=&#34;http://www.modrails.com/documentation/Users%20guide%20Nginx.html#install_on_debian_ubuntu&#34;&gt;Passenger offcial website&lt;/a&gt;. It will be easier.
-Plus, I installed all these things by Vagrant.&lt;/p&gt;
-
-&lt;h2 id=&#34;first-thing-to-do&#34;&gt;First thing to do&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;$ sudo apt-get update
-$ sudo apt-get upgrade
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;pre-setup-install-necessary-packages&#34;&gt;Pre-setup: install necessary packages&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;$ sudo apt-get update
-$ sudo apt-get install build-essential libssl-dev libpcre3-dev libncurses5-dev libreadline6-dev git vim curl libcurl4-openssl-dev libreadline6 autoconf openssl git-core zlib1g zlib1g-dev  libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev autoconf libc6-dev libgdbm-dev libncurses5-dev automake libtool bison subversion pkg-config libffi-dev
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;get-bashrc-from-my-repo-optional&#34;&gt;Get .bashrc from my repo (Optional)&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;$ cd
-$ git clone https://github.com/jerry54010/bash-it.git
-$ mv bash-it .bash_it
-$ cd .bash_it
-$ git checkout ubuntu
-$ ln -s ~/.bash_it/.bash_profile ~/.bash_profile
-$ cd
-$ source ~/.bash_profile
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;get-vimrc-from-my-repo-optional&#34;&gt;Get .vimrc from my repo (Optional)&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;$ wget https://gist.github.com/jerry54010/8049575/raw/42ced22651fedf06174457e311d22d17f6591b65/.vimrc
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;rvm-and-ruby-2-0-rvm-ruby-version-management&#34;&gt;RVM and Ruby 2.0 (RVM: Ruby version management)&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;$ \curl -sSL https://get.rvm.io | bash -s stable
-$ source ~/.bash_profile //if you installed my bash_profile. 
-//If not, source ~/.profile
-$ rvm requirements
-$ echo &#39;gem: --no-ri --no-rdoc&#39;  &amp;gt;&amp;gt; ~/.gemrc
-$ rvm install 2.0.0
-$ source ~/.bash_profile //if you installed my bash_profile. 
-//If not, source ~/.profile
-
-add this line to .bash_rc or .bash_profile (if you don&#39;t use my .bash_profile)
-[[ -s &amp;quot;$HOME/.rvm/scripts/rvm&amp;quot; ]] &amp;amp;&amp;amp; . &amp;quot;$HOME/.rvm/scripts/rvm&amp;quot; # Load RVM function
-
-$ rvm use 2.0.0 --default
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now we should be using ruby2.0.0 by RVM, let&amp;rsquo;s check:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ rvm list
-=* ruby-2.0.0-p353 [ x86_64 ] 
-// =&amp;gt; - current
-// =* - current &amp;amp;&amp;amp; default
-//  * - default
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;nodejs-libv8-dev-for-javascript-and-sqlite3-sqlite3-libsqlite3-dev&#34;&gt;Nodejs, libv8-dev(for javascript) and SQLite3 (sqlite3 libsqlite3-dev)&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;$ sudo apt-get -y install nodejs libv8-dev sqlite3 libsqlite3-dev 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;passenger-with-nginx&#34;&gt;Passenger with NGINX&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;$ gem install passenger 
-$ rvmsudo passenger-install-nginx-module
-choose 2: customize
-    a. src dir: /home/vagrant/nginx-1.4.4/ (where the nginx you download)
-    b. I installed nginx with passenger in `/etc/nginx` (default is /opt/nginx)
-    c. default
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;get-nginx-script&#34;&gt;Get nginx script&lt;/h2&gt;
-
-&lt;p&gt;If you use /opt/nginx as root dir, you don&amp;rsquo;t need to modify this script.
-If you use /etc/nginx or else dir as root dir like me, you should modify the script.
-(from &lt;a href=&#34;https://library.linode.com/web-servers/nginx/installation/ubuntu-12.04-precise-pangolin&#34;&gt;linode&lt;/a&gt;)&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ wget -O init-deb.sh http://library.linode.com/assets/1139-init-deb.sh
-$ sudo mv init-deb.sh /etc/init.d/nginx
-$ chmod +x /etc/init.d/nginx
-$ sudo /usr/sbin/update-rc.d -f nginx defaults
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The nginx default public folder will be in &lt;code&gt;/etc/nginx/html&lt;/code&gt;
-check nginx version:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ /etc/nginx/sbin/nginx -v
-nginx version: nginx/1.4.4
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;install-php5-fpm&#34;&gt;Install php5-fpm&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;$ sudo apt-get -y install php5-cli php5-common php5-fpm
-$ sudo vim /etc/php5/fpm/php.ini 
-//(find and change to `cgi.fix_pathinfo = 0` )
-$ sudo vim /etc/php5/fpm/pool.d/www.conf 
-//change: listen = 127.0.0.1:9000 to listen = /var/run/php5-fpm.sock
-$ sudo vim /etc/nginx/conf/nginx.conf or /opt/nginx/conf/nginx.conf //find and modify 
-location ~ \.php$ {
-    fastcgi_split_path_info ^(.+\.php)(/.+)$;
-    # NOTE: You should have &amp;quot;cgi.fix_pathinfo = 0;&amp;quot; in php.ini
-    # With php5-cgi alone:
-    #fastcgi_pass 127.0.0.1:9000;
-    # With php5-fpm:
-    fastcgi_pass unix:/var/run/php5-fpm.sock;
-    fastcgi_index index.php;
-    fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
-    include fastcgi_params;
-}
-$ echo &amp;quot;&amp;lt;?php phpinfo(); ?&amp;gt;&amp;quot; | sudo tee -a /etc/nginx/html/phpinfo.php
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Restart all:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ sudo service php5-fpm restart
-$ sudo service nginx restart
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;install-rails&#34;&gt;Install rails&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;$ gem install rails
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;ror-environment-check&#34;&gt;RoR environment check&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;$ ruby -v 
-ruby 2.0.0p353 (2013-11-22 revision 43784) [x86_64-linux]
-$ rails -v
-Rails 4.0.2
-$ rake -V
-rake, version 10.1.0
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;If you passed, you are good to go!&lt;/p&gt;
-
-&lt;h2 id=&#34;deploy-rails-application-by-nginx&#34;&gt;Deploy Rails application by nginx:&lt;/h2&gt;
-
-&lt;p&gt;Assume your rails application path is: &lt;code&gt;/home/vagrant/projects/subapp/&lt;/code&gt;
-(by &lt;code&gt;rails new subapp&lt;/code&gt;)
-then, the &lt;code&gt;/etc/nginx/conf/nginx.conf&lt;/code&gt; will be:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;http {
-    ...
-    server {
-        listen 80;
-        server_name localhost;
-        root /etc/nginx/html;
-
-        # This block has been added.
-        location ~ ^/subapp(/.*|$) {
-            passenger_base_uri /subapp;
-            alias /home/vagrant/projects/subapp/public$1;  # &amp;lt;-- be sure to point to &#39;public&#39;!
-            passenger_app_root /home/vagrant/projects/subapp;
-            passenger_enabled on;
-            rails_env development; # or production
-        }
-    }
-    ...
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;restart nginx, you can access the url: &lt;code&gt;http://localhost/subapp/&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;install-mysql-and-mysql-adapter&#34;&gt;Install MySQL and Mysql adapter&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;$ sudo apt-get -y install mysql-server mysql-common mysql-client libmysqlclient-dev  
-$ gem install mysql2 //gem mysql2 is faster than gem mysql  
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;The gem you installed is placed in RVM&amp;rsquo;s ruby, if you are using RVM&amp;rsquo;s ruby.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;If you use MySQL in your rails application, remember to change the database.yml.&lt;/p&gt;
-
-&lt;p&gt;p.s. If you want to use phpmyadmin, you can do:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ sudo apt-get install php5-mysql
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;download phpmyadmin, then extract to &lt;code&gt;/etc/nginx/html/phpmyadmin&lt;/code&gt;&lt;br /&gt;
-then start the server, access: &lt;code&gt;http://localhost/phpmyadmin/&lt;/code&gt;&lt;/p&gt;
-</description>
+      <guid>https://blog.kerkerj.in/2013/12/ubuntu-ror-environment/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>[Ubuntu] -bash: warning: setlocale: LC_CTYPE: cannot change locale</title>
-      <link>http://blog.kerkerj.in/blog/ubuntu--bash-warning-setlocale-lc_ctype-cannot-change-locale/</link>
+      <link>https://blog.kerkerj.in/2013/12/ubuntu--bash-warning-setlocale-lc_ctype-cannot-change-locale/</link>
       <pubDate>Wed, 18 Dec 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.kerkerj.in/blog/ubuntu--bash-warning-setlocale-lc_ctype-cannot-change-locale/</guid>
-      <description>&lt;pre&gt;&lt;code&gt;$ sudo locale-gen zh_TW.UTF-8
-$ sudo update-locale LANG=zh_TW.UTF-8
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;reload your bash profile&lt;/p&gt;
-</description>
+      <guid>https://blog.kerkerj.in/2013/12/ubuntu--bash-warning-setlocale-lc_ctype-cannot-change-locale/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>[Ubuntu] 12.04 install oracle java</title>
-      <link>http://blog.kerkerj.in/blog/ubuntu-12.04-install-oracle-java/</link>
+      <link>https://blog.kerkerj.in/2013/11/ubuntu-12.04-install-oracle-java/</link>
       <pubDate>Tue, 26 Nov 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.kerkerj.in/blog/ubuntu-12.04-install-oracle-java/</guid>
-      <description>&lt;pre&gt;&lt;code&gt;sudo rm /var/lib/dpkg/info/oracle-java7-installer*
-sudo apt-get purge oracle-java7-installer*
-sudo rm /etc/apt/sources.list.d/*java*
-sudo apt-get update
-sudo add-apt-repository ppa:webupd8team/java
-sudo apt-get update
-sudo apt-get install oracle-java7-installer
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <guid>https://blog.kerkerj.in/2013/11/ubuntu-12.04-install-oracle-java/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>[Vagrant] 使用 Vagrant 安裝 Nginx, php5-fpm, MySQL</title>
-      <link>http://blog.kerkerj.in/blog/vagrant-%E4%BD%BF%E7%94%A8-vagrant-%E5%AE%89%E8%A3%9D-nginx-php5-fpm-mysql/</link>
+      <link>https://blog.kerkerj.in/2013/10/vagrant-%E4%BD%BF%E7%94%A8-vagrant-%E5%AE%89%E8%A3%9D-nginx-php5-fpm-mysql/</link>
       <pubDate>Tue, 22 Oct 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.kerkerj.in/blog/vagrant-%E4%BD%BF%E7%94%A8-vagrant-%E5%AE%89%E8%A3%9D-nginx-php5-fpm-mysql/</guid>
-      <description>
-
-&lt;h2 id=&#34;vagrant-1-development-environments-made-easy&#34;&gt;&lt;a href=&#34;http://www.vagrantup.com/&#34;&gt;Vagrant&lt;/a&gt; - Development environments made easy.&lt;/h2&gt;
-
-&lt;p&gt;就是這個軟體的宗旨，把它想做是 ghost 吧！我們開發網站或是測試一些多機器架構時，常不小心就把自己的電腦或是測試主機搞到爛掉，租機器又慢又花錢，搞到爛重灌更麻煩。因此這個軟體基於 VirtualBox 做出了令人方便設定的功能，讓我們可以快速架設安裝環境並測試，尤其是以多機器架構而言更是方便！例如從最簡單的 Web server + DB server，或是 Web Load Balancer + Application Server * 5 等等的架構，一台電腦就能達成囉！
-今天主要是以安裝 Vagrant 及架設出 Nginx + php5-fpm 的架構，下一篇打算另外建構一台 mongodb server，達到 Vagrant 最主要的多機器設定功能~&lt;/p&gt;
-
-&lt;h2 id=&#34;vagrant-基本設定&#34;&gt;Vagrant 基本設定&lt;/h2&gt;
-
-&lt;ol&gt;
-&lt;li&gt;先下載 VirtualBox 吧！&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;下載 Vagarnt 套件 &lt;a href=&#34;http://downloads.vagrantup.com/&#34;&gt;http://downloads.vagrantup.com/&lt;/a&gt;&lt;br /&gt;
-安裝好後，可能會需要加 path，至少 1.3.0 當時我是自己加的，現在 1.3.5 就不清楚了~&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;接下來就可以開始加入 box (可以把它想為 ghost 檔)，並開始設定 Vagrant。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;pre&gt;&lt;code&gt;vagrant box add {你想要的Box名稱} {下載網址} 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;輸入後就會開始下載該 box 了！ 範例：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$vagrant box add devbox http://ﬁles.vagrantup.com/precise64.box   
-$mkdir my_box  
-$cd my_box  
-$vagrant init devbox (將 my_box 這個專案資料夾以 devbox 這個 box 檔案初始化)  
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;box 官方有提供 Ubuntu 的，在 &lt;a href=&#34;http://www.vagrantbox.es/&#34;&gt;vagrantbox.es&lt;/a&gt; 很多，可以自己找～ 當然自己做應該也是可以的！&lt;/p&gt;
-
-&lt;h2 id=&#34;vagrant-基本指令&#34;&gt;Vagrant 基本指令&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;vagrant up 開機  
-vagrant ssh 登⼊  
-vagrant suspend 暫停  
-vagrant halt 關機  
-vagrant destroy 刪除  
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;進入新裝好的機器吧&#34;&gt;進入新裝好的機器吧！&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;$vagrant up  //開機  
-$vagrant ssh //登入  
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;vagrantfile-設定&#34;&gt;Vagrantfile 設定&lt;/h2&gt;
-
-&lt;p&gt;Vagrantfile 這個設定檔可以用很多很強大的設定，在官方網頁裡有教學&lt;/p&gt;
-
-&lt;p&gt;不過首先要先做的是： &lt;code&gt;config.vm.forward_port 80, 8088&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;把虛擬機器裡從 80 port 傳送的東西丟到本機的 8088 port&lt;/p&gt;
-
-&lt;p&gt;如此一來在本機瀏覽器輸入 localhost:8088 ，就可以看到網頁了！&lt;/p&gt;
-
-&lt;p&gt;另外就是： &lt;code&gt;config.vm.synced_folder &amp;quot;/vagrant&amp;quot;, &amp;quot;本機目錄&amp;quot;&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;如此一來，Ubuntu 底下就有一個 /vargrant 目錄，和自己主機裡的某個目錄是同步的！&lt;/p&gt;
-
-&lt;p&gt;也就是在自己主機上寫好程式後，就可以直接讓虛擬機器抓到 code 去執行，超方便的！&lt;/p&gt;
-
-&lt;p&gt;只要把 nginx 的網頁目錄設定在 /vagrant 上就可以了！ (後面會說)&lt;/p&gt;
-
-&lt;h2 id=&#34;ubuntu-基本安裝&#34;&gt;Ubuntu 基本安裝&lt;/h2&gt;
-
-&lt;p&gt;進去後是乾淨的 Ubuntu 12.04 64位元版，因此需先做點安裝:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$sudo apt-get -y update  
-$sudo apt-get --no-install-recommends -y install build-essential openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev libgdbm-dev ncurses-dev automake libtool bison subversion pkg-config libffi-dev vim  
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;有些東西其實可以不用裝，就看個人的需求，必裝應該是 build-essential, openssl, curl, git-core, vim XD&lt;/p&gt;
-
-&lt;h2 id=&#34;nginx-php5-fpm-安裝&#34;&gt;Nginx &amp;amp; php5-fpm 安裝&lt;/h2&gt;
-
-&lt;p&gt;安裝 Nginx&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$sudo apt-get install nginx  
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;若要更改 Nginx 的網頁目錄，設定檔在 &lt;code&gt;/etc/nginx/&lt;/code&gt; 裡，&lt;/p&gt;
-
-&lt;p&gt;通常應該是更改 &lt;code&gt;/etc/nginx/sites-enable/default&lt;/code&gt; 裡的 &lt;code&gt;root /usr/share/nginx/www/&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;還要將這段 code 解除註解：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;location ~ \.php$ {
-    fastcgi_split_path_info ^(.+\.php)(/.+)$;
-    # NOTE: You should have &amp;quot;cgi.fix_pathinfo = 0;&amp;quot; in php.ini
-
-    # With php5-cgi alone:
-    #fastcgi_pass 127.0.0.1:9000;
-    # With php5-fpm:
-    fastcgi_pass unix:/var/run/php5-fpm.sock;
-    fastcgi_index index.php;
-    include fastcgi_params;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;更改後確認一下 &lt;code&gt;/etc/nginx/nginx.conf&lt;/code&gt; 是否有 &lt;code&gt;inculde /etc/nginx/sites-enable/*&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$sudo service nginx start (開始服務)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;安裝 php5-fpm&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$sudo apt-get install php5-fpm  
-$sudo vim /etc/php5/fpm/php.ini (找到並更改 cgi.fix_pathinfo = 0 )  
-$sudo vim /etc/php5/fpm/pool.d/www.conf  
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;找到 &lt;code&gt;listen = 127.0.0.1:9000&lt;/code&gt;, 換成 &lt;code&gt;/var/run/php5-fpm.sock&lt;/code&gt;
-寫個 phpinfo(); 的 php 檔放入資料夾&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$sudo service php5-fpm restart (開啟服務)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;在瀏覽器輸入 localhost:8088 就可以看到 nginx 的頁面，再讀取剛剛寫的 php 應該就成功囉！&lt;/p&gt;
-
-&lt;p&gt;安裝 MySQL:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ sudo apt-get install mysql-server
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;過程中會問 root 的密碼，裝完後就可以登入：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ mysql -u root -p
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;下回就是多機器的設定囉～&lt;/p&gt;
-
-&lt;p&gt;reference:&lt;br /&gt;
-&lt;a href=&#34;http://gogojimmy.net/2013/05/26/vagrant-tutorial/&#34;&gt;http://gogojimmy.net/2013/05/26/vagrant-tutorial/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://www.slideshare.net/ihower/vagrant-osdc&#34;&gt;http://www.slideshare.net/ihower/vagrant-osdc&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://www.digitalocean.com/community/articles/how-to-install-linux-nginx-mysql-php-lemp-stack-on-ubuntu-12-04&#34;&gt;https://www.digitalocean.com/community/articles/how-to-install-linux-nginx-mysql-php-lemp-stack-on-ubuntu-12-04&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;p.s. Vagrantfile 產生器：&lt;a href=&#34;https://puphpet.com/#vagrantfile&#34;&gt;Puphpet.com/#vagrantfile&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;這網站有很多值得玩的地方，可以直接幫你產生出這些設定檔真的是太方便了！&lt;/p&gt;
-
-&lt;p&gt;p.s.s.有亂入用到的指令記一下：dpkg &amp;ndash;get-selections 列出已安裝的 package&lt;/p&gt;
-
-&lt;p&gt;另外提供一下我在研究 Vagrant 的筆記，很亂超級亂，但是有些東西沒有寫在 blog 裡~
-&lt;a href=&#34;https://www.evernote.com/shard/s81/sh/91ccf490-d9cd-468e-943a-d57c79d052f4/71e0a682b024c6e97fd8c79b90f89f67&#34;&gt;Evernote by kerkerj&lt;/a&gt;&lt;/p&gt;
-</description>
+      <guid>https://blog.kerkerj.in/2013/10/vagrant-%E4%BD%BF%E7%94%A8-vagrant-%E5%AE%89%E8%A3%9D-nginx-php5-fpm-mysql/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>[Ubuntu] [RoR] install with rvm</title>
-      <link>http://blog.kerkerj.in/blog/ubuntu-ror-install-with-rvm/</link>
+      <link>https://blog.kerkerj.in/2012/04/ubuntu-ror-install-with-rvm/</link>
       <pubDate>Fri, 27 Apr 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.kerkerj.in/blog/ubuntu-ror-install-with-rvm/</guid>
-      <description>
-
-&lt;p&gt;以下都是以 Ubuntu 11.10為操作環境&lt;/p&gt;
-
-&lt;p&gt;主要目標為使用 rvm (Ruby Version Manager)來管理 ruby 版本並安裝 ruby 和 rails&lt;/p&gt;
-
-&lt;p&gt;先安裝一些必要套件 ( ex. openssl, zlib1g-dev &amp;hellip;.etc. )&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$sudo apt-get install build-essential bison openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev nodejs
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;安裝完基本套件後, 有兩種選擇:&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;直接在系統上安裝 ruby ( sudo apt-get install ruby )&lt;/li&gt;
-&lt;li&gt;使用 rvm 來管理 ruby 版本&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;基本上有 rvm 來管理 ruby 版本是比較方便的, 可以隨時切換不同的 ruby 版本&lt;/p&gt;
-
-&lt;p&gt;(不過在使用一些套件上會有一些問題需要排解, 本篇最底下有 trouble shooting)&lt;/p&gt;
-
-&lt;h2 id=&#34;rvm&#34;&gt;RVM&lt;/h2&gt;
-
-&lt;p&gt;安裝:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$bash &amp;lt; &amp;lt;(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer) 
-$echo &#39;[[ -s &amp;quot;$HOME/.rvm/scripts/rvm&amp;quot; ]] &amp;amp;&amp;amp; . &amp;quot;$HOME/.rvm/scripts/rvm&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Load RVM function:  &lt;code&gt;~/.bash_profile&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;指令:&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;rvm info -&amp;gt; 查看 rvm 做的設定&lt;/p&gt;
-
-&lt;p&gt;rvm list known -&amp;gt; 列出所有可安裝的套件&lt;/p&gt;
-
-&lt;p&gt;rvm list -&amp;gt; 列出目前已安裝的套件&lt;/p&gt;
-
-&lt;p&gt;rvm install &amp;ldquo;package_name&amp;rdquo; -&amp;gt; 安裝套件&lt;/p&gt;
-
-&lt;p&gt;rvm remove &amp;ldquo;package_name&amp;rdquo; -&amp;gt; 移除套件&lt;/p&gt;
-
-&lt;p&gt;rvm 1.9.2 &amp;ndash;default -&amp;gt; 設定預設的 ruby 版本&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;假設系統上的 ruby 版本是 1.9.1, 而我用 rvm 安裝了 ruby1.9.3&lt;/p&gt;
-
-&lt;p&gt;那麼目前系統上的預設 ruby 版本是 1.9.3, 用 &lt;code&gt;ruby -v&lt;/code&gt; 測試看看&lt;/p&gt;
-
-&lt;p&gt;如果要切換回系統的 ruby 版本, 則使用 &lt;code&gt;rvm system&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;要切換回來的話,則:&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;rvm 1.9.3&lt;/code&gt; (直接輸入有安裝過的 ruby 版號即可)&lt;/p&gt;
-
-&lt;p&gt;or&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;rvm use 1.9.3&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;以上是 rvm 的一些簡單指令, 因為今天是要安裝 ruby on rails&lt;/p&gt;
-
-&lt;p&gt;所以先安裝 ruby 吧:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$rvm pkg install openssl (詳見最後的 trouble shooting)
-$rvm install 1.9.3 --with-openssl-dir=$rvm_path/usr
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;gem&#34;&gt;Gem&lt;/h2&gt;
-
-&lt;p&gt;指令:&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;gem list -&amp;gt; 列出目前已安裝的套件&lt;/p&gt;
-
-&lt;p&gt;gem install &amp;ldquo;package_name&amp;rdquo; -&amp;gt; 安裝套件不同的 ruby 版本有不同的 gem&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;如果 rvm 裡有 1.9.1 和 1.9.3 兩個乾淨的 ruby 版本&lt;/p&gt;
-
-&lt;p&gt;目前使用的 ruby 版本是 1.9.3&lt;/p&gt;
-
-&lt;p&gt;則在 gem install rails 後&lt;/p&gt;
-
-&lt;p&gt;使用 gem list 則會看到 一大堆的套件&lt;/p&gt;
-
-&lt;p&gt;接著切換到 1.9.1 執行 gem list 後則會發現沒有任何東西&lt;/p&gt;
-
-&lt;p&gt;在安裝 gem 套件時可以加上一些參數&lt;/p&gt;
-
-&lt;p&gt;如: 不想要有說明文件 (通常這些東西都蠻肥大的) 就可以加上&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;gem install &amp;quot;gem_name&amp;quot; --no-ri --no-rdoc&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;以上是 gem 在 rvm 裡的一些概念, 因為今天是要安裝 ruby on rails&lt;/p&gt;
-
-&lt;p&gt;所以來安裝 rails 吧:&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;gem install rails --no-ri --no-rdoc (不要安裝文件, 速度會比較快)&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;如果發現用 gem 安裝套件時需要 root 權限, 表示目前使用的 ruby 版本是系統的版本&lt;/p&gt;
-
-&lt;h2 id=&#34;gemset&#34;&gt;Gemset&lt;/h2&gt;
-
-&lt;p&gt;rvm 提供了方便的功能 gemset, 就把它看作 gem 的分類資料夾&lt;/p&gt;
-
-&lt;p&gt;如果說我想要在 ruby 1.9.2 底下安裝兩種 rails 版本, 又怕會衝突該怎麼辦?&lt;/p&gt;
-
-&lt;p&gt;就可以用 gemset 了&lt;/p&gt;
-
-&lt;p&gt;樹狀架構大概如下:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;        rvm -&amp;gt; 1.9.1 -&amp;gt; gemset: rails-2.3.9
-                                rails-3.1.1*
-            -&amp;gt; 1.9.3 -&amp;gt; gemset: rails-2.3.9
-                                rails-3.1.1
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;可以解釋為: 在 rvm 的 ruby 1.9.1 底下有兩個 gemset, 分別是 rails-2.3.9 和 rails-3.1.1&lt;/p&gt;
-
-&lt;p&gt;指令:&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;rvm gemset list -&amp;gt; 查看目前建立的 gemset&lt;/p&gt;
-
-&lt;p&gt;rvm 1.9.2@rails-3.1.1 -&amp;gt; 在 ruby 1.9.2 版本底下使用 rails-3.1.1 這個 gemset&lt;/p&gt;
-
-&lt;p&gt;rvm gemset create &amp;ldquo;gemset_name&amp;rdquo; -&amp;gt; 建立 gemset&lt;/p&gt;
-
-&lt;p&gt;rvm gemset use &amp;ldquo;gemset_name&amp;rdquo; -&amp;gt; 使用某個 gemset&lt;/p&gt;
-
-&lt;p&gt;rvm gemset empty &amp;ldquo;gemset_name&amp;rdquo; -&amp;gt; 清空某個 gemset (只是清空)&lt;/p&gt;
-
-&lt;p&gt;rvm gemset delete &amp;ldquo;gemset_name&amp;rdquo; -&amp;gt; 刪除某個 gemset以上就是關於 rvm 的二三事, 做到這邊, ruby 和 rails 套件應該就安裝完了&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;最後安裝資料庫的 adapter , 這裡是用 sqlite&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;gem install sqlite3 --no-ri --no-rdoc&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;接著就可以建立第一個 rails 專案:&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;mkdir project&lt;/p&gt;
-
-&lt;p&gt;cd project&lt;/p&gt;
-
-&lt;p&gt;rails new demo&lt;/p&gt;
-
-&lt;p&gt;rails server連上 localhost:3000 就是起始畫面了&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&#34;trouble-shooting&#34;&gt;Trouble shooting:&lt;/h2&gt;
-
-&lt;h3 id=&#34;error-message1-openssl-loaderror&#34;&gt;Error message1: openssl  LoadError&lt;/h3&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificate verify failed (OpenSSL::SSL::SSLError)&lt;/p&gt;
-
-&lt;p&gt;or&lt;/p&gt;
-
-&lt;p&gt;Gem::RemoteFetcher::FetchError: SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Solution:&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;rvm pkg install openssl&lt;/p&gt;
-
-&lt;p&gt;rvm remove 1.9.3&lt;/p&gt;
-
-&lt;p&gt;rvm install 1.9.3 &amp;ndash;with-openssl-dir=$rvm_path/usr&lt;/p&gt;
-
-&lt;p&gt;然後將 rvm 裡的 ssl certs 資料夾移除, 改成直接讀系統的 ssl certs&lt;/p&gt;
-
-&lt;p&gt;rmdir $rvm_path/usr/ssl/certs&lt;/p&gt;
-
-&lt;p&gt;ln -s /etc/ssl/certs $rvm_path/usr/ssl&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&#34;error-message2&#34;&gt;Error message2:&lt;/h3&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;when excuting the command &amp;ldquo;gem install rails&amp;rdquo;&lt;/p&gt;
-
-&lt;p&gt;ERROR:  Loading command: install (LoadError)&lt;/p&gt;
-
-&lt;p&gt;cannot load such file &amp;ndash; zlib&lt;/p&gt;
-
-&lt;p&gt;ERROR:  While executing gem &amp;hellip; (NameError)&lt;/p&gt;
-
-&lt;p&gt;uninitialized constant Gem::Commands::InstallCommand&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Solution:&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;rvm remove 1.9.3 (depends on your ruby version, if your system also has ruby, remove it, too.)&lt;/p&gt;
-
-&lt;p&gt;sudo apt-get install zlib1g-dev先將 rvm 的 ruby 和 system 的 ruby 移除&lt;/p&gt;
-
-&lt;p&gt;然後安裝 zlib1g-dev&lt;/p&gt;
-
-&lt;p&gt;安裝 system 和 rvm 的 ruby 就可以了&lt;/p&gt;
-
-&lt;p&gt;Remove system&amp;rsquo;s ruby, and all ruby versions in rvm&lt;/p&gt;
-
-&lt;p&gt;Install zlib1g-dev, then install ruby in system and rvm.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&#34;error-message3&#34;&gt;Error message3:&lt;/h3&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;ExecJS::RuntimeUnavailable&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Solution:&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;sudo apt-get install nodejs&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Reference:&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://www.openfoundry.org/tw/tech-column/8513-rvm-ruby-environment-version-manager&#34;&gt;RVM - Ruby enVironment (Version) Manager&lt;/a&gt;&lt;/p&gt;
-</description>
+      <guid>https://blog.kerkerj.in/2012/04/ubuntu-ror-install-with-rvm/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>[Ubuntu] 安裝設定ssh</title>
-      <link>http://blog.kerkerj.in/blog/ubuntu-%E5%AE%89%E8%A3%9D%E8%A8%AD%E5%AE%9Assh/</link>
+      <link>https://blog.kerkerj.in/2012/04/ubuntu-%E5%AE%89%E8%A3%9D%E8%A8%AD%E5%AE%9Assh/</link>
       <pubDate>Fri, 20 Apr 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.kerkerj.in/blog/ubuntu-%E5%AE%89%E8%A3%9D%E8%A8%AD%E5%AE%9Assh/</guid>
-      <description>&lt;p&gt;Ubuntu 裝完是沒辦法透過別台機器 ssh 進這台機器&lt;/p&gt;
-
-&lt;p&gt;只能夠 ssh 出去, 所以來安裝一下&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$sudo apt-get update  
-$sudo apt-get install ssh  
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;裝完後修改一下設定檔 : &lt;code&gt;$sudo vi /etc/ssh/sshd_config&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;預設 port 為 22 可以改成別的 ( 可以到 &lt;code&gt;/etc/services&lt;/code&gt; 看有沒有沒再用的 port 並指給它 ) (optional)&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;Port 22&lt;/code&gt; 找到這行, 意思為允許 root 登入 (optional)&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;PermitRootLogin yes&lt;/code&gt; 將 yes 改成 no, 不允許 root 登入.&lt;/p&gt;
-
-&lt;p&gt;另外可以設定 &lt;code&gt;/etc/hosts.allow&lt;/code&gt; 和 &lt;code&gt;/etc/hosts.deny&lt;/code&gt; 更精準的限制連線 (optional)&lt;/p&gt;
-
-&lt;p&gt;例如: 我只要 192.168.11.11 登入我這台機器&lt;/p&gt;
-
-&lt;p&gt;則編輯 &lt;code&gt;/etc/hosts.allow&lt;/code&gt; , 加入: &lt;code&gt;sshd:192.168.11.11 :allow&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;編輯 &lt;code&gt;/etc/hosts.deny&lt;/code&gt; , 讓其他人都無法連入, 加入這行: &lt;code&gt;sshd:all:deny&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;全數編輯完畢後, 重新啟動 ssh 服務 &lt;code&gt;$sudo /etc/init.d/ssh restart&lt;/code&gt;&lt;/p&gt;
-</description>
+      <guid>https://blog.kerkerj.in/2012/04/ubuntu-%E5%AE%89%E8%A3%9D%E8%A8%AD%E5%AE%9Assh/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>[Ubuntu] 磁碟分配</title>
-      <link>http://blog.kerkerj.in/blog/ubuntu-%E7%A3%81%E7%A2%9F%E5%88%86%E9%85%8D/</link>
+      <link>https://blog.kerkerj.in/2012/04/ubuntu-%E7%A3%81%E7%A2%9F%E5%88%86%E9%85%8D/</link>
       <pubDate>Mon, 16 Apr 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.kerkerj.in/blog/ubuntu-%E7%A3%81%E7%A2%9F%E5%88%86%E9%85%8D/</guid>
-      <description>&lt;p&gt;我的筆電分割大概是這樣：&lt;/p&gt;
-
-&lt;p&gt;HD: 250G&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;/boot     : 200MB&lt;br /&gt;
-/              : 5GB&lt;br /&gt;
-/usr           :10GB&lt;br /&gt;
-/var           : 5GB&lt;br /&gt;
-/usr/local : 10GB&lt;br /&gt;
-/tmp           : 5GB&lt;br /&gt;
-swap           : 5GB&lt;br /&gt;
-/home      : 40GB&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;no use: 170G ( 可以拿來灌Win7 )&lt;/p&gt;
-</description>
+      <guid>https://blog.kerkerj.in/2012/04/ubuntu-%E7%A3%81%E7%A2%9F%E5%88%86%E9%85%8D/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>[Ubuntu] 將 Big5 文字檔轉成 UTF-8 </title>
-      <link>http://blog.kerkerj.in/blog/ubuntu-%E5%B0%87-big5-%E6%96%87%E5%AD%97%E6%AA%94%E8%BD%89%E6%88%90-utf-8/</link>
+      <link>https://blog.kerkerj.in/2011/08/ubuntu-%E5%B0%87-big5-%E6%96%87%E5%AD%97%E6%AA%94%E8%BD%89%E6%88%90-utf-8/</link>
       <pubDate>Mon, 15 Aug 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.kerkerj.in/blog/ubuntu-%E5%B0%87-big5-%E6%96%87%E5%AD%97%E6%AA%94%E8%BD%89%E6%88%90-utf-8/</guid>
-      <description>&lt;pre&gt;&lt;code&gt;$ iconv -f big5 -t utf-8 &amp;quot;要轉的big5檔案路徑&amp;quot; -o  &amp;quot;轉好後要輸出的檔案名&amp;quot;  
-$ iconv -f big5 -t utf-8 /home/test/bigtext.txt -o  /home/test/utf8text.txt  
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;也可以輸入和輸出是同一個檔案&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ iconv -f big5 -t utf-8 /home/test/text.txt -o  /home/test/text.txt  
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <guid>https://blog.kerkerj.in/2011/08/ubuntu-%E5%B0%87-big5-%E6%96%87%E5%AD%97%E6%AA%94%E8%BD%89%E6%88%90-utf-8/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>[Ubuntu] 11.04 Dropbox 啟動問題</title>
-      <link>http://blog.kerkerj.in/blog/ubuntu-11.04-dropbox-%E5%95%9F%E5%8B%95%E5%95%8F%E9%A1%8C/</link>
+      <link>https://blog.kerkerj.in/2011/05/ubuntu-11.04-dropbox-%E5%95%9F%E5%8B%95%E5%95%8F%E9%A1%8C/</link>
       <pubDate>Mon, 02 May 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.kerkerj.in/blog/ubuntu-11.04-dropbox-%E5%95%9F%E5%8B%95%E5%95%8F%E9%A1%8C/</guid>
-      <description>&lt;p&gt;我從 Dropbox 上下載 for Ubuntu 的套件，安裝完後，設定的頁面卻遲遲不出來，這真是非常的詭異，所以就查了解決方法。&lt;br /&gt;
-&lt;a href=&#34;http://www.webupd8.org/2011/03/get-dropbox-appindicator-to-work-in.html#more&#34;&gt;http://www.webupd8.org/2011/03/get-dropbox-appindicator-to-work-in.html#more&lt;/a&gt;&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;一樣也是先去下載&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;然後執行以下指令（一行一行)&lt;br /&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;pre&gt;&lt;code&gt;$cd  
-$wget http://webupd8.googlecode.com/files/fixdropbox  
-$chmod +x fixdropbox  
-$./fixdropbox  
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;應該就可以了，如果要多作設定再：&lt;code&gt;gedit ~/.dropbox.sh&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;好像有什麼秒數的東西設定吧~~&lt;/p&gt;
-</description>
+      <guid>https://blog.kerkerj.in/2011/05/ubuntu-11.04-dropbox-%E5%95%9F%E5%8B%95%E5%95%8F%E9%A1%8C/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

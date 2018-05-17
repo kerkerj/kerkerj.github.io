@@ -1,0 +1,806 @@
+
+
+  
+    
+  
+
+
+  
+
+
+
+
+  
+
+
+  
+
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Hugo 0.40.3 with theme Tranquilpeak 0.4.3-BETA">
+    <title>[API-d7] - [Server 番外篇] 建立自己的本機虛擬伺服器 3 - 打包環境</title>
+    <meta name="author" content="kerkerj">
+    <meta name="keywords" content="restful,, api">
+
+    <link rel="icon" href="https://blog.kerkerj.in/favicon.png">
+    
+
+    
+    <meta name="description" content="">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="[API-d7] - [Server 番外篇] 建立自己的本機虛擬伺服器 3 - 打包環境">
+    <meta property="og:url" content="/2014/10/api-d7---server-%E7%95%AA%E5%A4%96%E7%AF%87-%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E6%9C%AC%E6%A9%9F%E8%99%9B%E6%93%AC%E4%BC%BA%E6%9C%8D%E5%99%A8-3---%E6%89%93%E5%8C%85%E7%92%B0%E5%A2%83/">
+    <meta property="og:site_name" content="kerkerj">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="kerkerj">
+    <meta name="twitter:description" content="">
+    
+      <meta name="twitter:creator" content="@kerkerj">
+    
+    
+
+    
+    
+
+    
+      <meta property="og:image" content="//www.gravatar.com/avatar/269d15bf3b48dc4edd4a72f5637a54a8?s=640">
+    
+
+    
+    
+    
+
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://blog.kerkerj.in/css/style-jsjn0006wyhpyzivf6yceb31gvpjatbcs3qzjvlumobfnugccvobqwxnnaj8.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://blog.kerkerj.in/">kerkerj</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://blog.kerkerj.in/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="//www.gravatar.com/avatar/269d15bf3b48dc4edd4a72f5637a54a8?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://blog.kerkerj.in/#about">
+          <img class="sidebar-profile-picture" src="//www.gravatar.com/avatar/269d15bf3b48dc4edd4a72f5637a54a8?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">kerkerj</h4>
+        
+          <h5 class="sidebar-profile-bio">Cat lover &lt;3</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/kerkerj" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/page/cats/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-angle-right"></i>
+      
+      <span class="sidebar-button-desc">Cats</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/page/mac-app-list/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-angle-right"></i>
+      
+      <span class="sidebar-button-desc">Mac App List</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="5"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      [API-d7] - [Server 番外篇] 建立自己的本機虛擬伺服器 3 - 打包環境
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2014-10-07T00:00:00Z">
+        
+  October 7, 2014
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/restful">restful</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/api">api</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p></p>
+
+<p>昨天我們已經把一個全新乾淨的環境架起來了</p>
+
+<p>這時候我們不希望因為日後的操作導致 Server 環境髒掉，又要重灌</p>
+
+<p>因此我們今天就來練習一下如何使用 vagrant 打包環境!</p>
+
+<h2 id="vagrant-打包">Vagrant 打包</h2>
+
+<p>一樣先進入虛擬機資料夾，先確保虛擬機沒有在運作:</p>
+
+<pre><code>$ vagrant status
+Current machine states:
+
+default                   poweroff (virtualbox)
+
+The VM is powered off. To restart the VM, simply run `vagrant up`
+</code></pre>
+
+<p>如果是 poweroff 的話，就可以進行接下來的動作，如果是其他狀態的話，就先下關機指令囉</p>
+
+<pre><code>$ vagrant package
+==&gt; default: Clearing any previously set forwarded ports...
+==&gt; default: Exporting VM...
+==&gt; default: Compressing package to: /Users/.../ithome/package.box
+</code></pre>
+
+<p>vagrant 就會在虛擬機器資料夾底下建立一個 package.box</p>
+
+<p>這個檔案就是整個伺服器環境的檔案了!</p>
+
+<p>假設今天想要讓團隊成員使用，只要他們都有 VirtualBox + Vagrant 的話，</p>
+
+<p>就可以依循下面的指令步驟將你所做的 box 匯入並使用：</p>
+
+<p>首先我們可以先看看原本所使用的 box 清單:</p>
+
+<pre><code>$ vagrant box list
+ubuntu/trusty64                          (virtualbox, 14.04)
+</code></pre>
+
+<p>是 <code>ubuntu/trusty64</code> 沒錯！</p>
+
+<p>那麼我們現在想要加入剛剛所製作的 box ，並重新命名：</p>
+
+<pre><code>$ vagrant box add my_box package.box
+==&gt; box: Adding box 'my_box' (v0) for provider:
+    box: Downloading: file:///Users/.../ithome/package.box
+==&gt; box: Successfully added box 'my_box' (v0) for 'virtualbox'!
+</code></pre>
+
+<p>此時再看看 box 清單:</p>
+
+<pre><code>$ vagrant box list
+ubuntu/trusty64                          (virtualbox, 14.04)
+my_box                                   (virtualbox, 0)
+</code></pre>
+
+<p>就會多一個了!</p>
+
+<p><code>vagrant box add my_box package.box</code></p>
+
+<p>這個指令的意思是將 <code>package.box</code> 加入 box 清單，並以 my_box 命名</p>
+
+<p><code>package.box</code> 可以是本機路徑，也可以是網址，</p>
+
+<p>如果要分享給團隊成員使用，就可以使用 url 分享，其他人就可以下指令來下載 box 並加入 box list</p>
+
+<p>例如:</p>
+
+<pre><code>$ vagrant box add my_box http://my_dropbox.com/package.box
+</code></pre>
+
+<p>接著其他人就可以建立自己的虛擬機資料夾，並且到該資料夾中下指令就可以初始化虛擬機器了，例如：</p>
+
+<pre><code>$ mkdir ~/my_machine/
+$ cd ~/my_machine/
+$ vagrant init my_box 
+</code></pre>
+
+<p>超方便的啦～</p>
+
+<p>如果想要從 box list 中刪除不需要的 box，下此指令即可：</p>
+
+<pre><code>$ vagrant box remove my_box
+Are you sure you want to remove this box? [y/N] y
+</code></pre>
+
+<p>上面只會刪除 box 清單，</p>
+
+<p>如果要刪除虛擬機器資料夾，以及虛擬機器的所有檔案的話，先到虛擬機器資料夾，然後下此指令：</p>
+
+<pre><code>$ vagrant destroy
+    default: Are you sure you want to destroy the 'default' VM? [y/N] y
+</code></pre>
+
+<p>虛擬機就會被移除，再來只要將該資料夾砍掉即可～ 就恢復成乾乾淨淨的了~</p>
+
+<p>是不是很方便勒~~</p>
+
+<p>接下來我們就會開始先寫寫 Node.js 的 Hello World 囉~</p>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://blog.kerkerj.in/tags/%E9%90%B5%E4%BA%BA%E8%B3%BD/">鐵人賽</a>
+
+                  </div>
+                
+              
+            
+            
+  <div class="post-actions-wrap">
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://blog.kerkerj.in/2014/10/swift-d8---playground---enumerations/" data-tooltip="[Swift-d8] - Playground - Enumerations">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://blog.kerkerj.in/2014/10/swift-d7---playground---closures/" data-tooltip="[Swift-d7] - Playground - Closures">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.kerkerj.in/2014/10/api-d7---server-%E7%95%AA%E5%A4%96%E7%AF%87-%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E6%9C%AC%E6%A9%9F%E8%99%9B%E6%93%AC%E4%BC%BA%E6%9C%8D%E5%99%A8-3---%E6%89%93%E5%8C%85%E7%92%B0%E5%A2%83/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://blog.kerkerj.in/2014/10/api-d7---server-%E7%95%AA%E5%A4%96%E7%AF%87-%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E6%9C%AC%E6%A9%9F%E8%99%9B%E6%93%AC%E4%BC%BA%E6%9C%8D%E5%99%A8-3---%E6%89%93%E5%8C%85%E7%92%B0%E5%A2%83/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://blog.kerkerj.in/2014/10/api-d7---server-%E7%95%AA%E5%A4%96%E7%AF%87-%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E6%9C%AC%E6%A9%9F%E8%99%9B%E6%93%AC%E4%BC%BA%E6%9C%8D%E5%99%A8-3---%E6%89%93%E5%8C%85%E7%92%B0%E5%A2%83/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+
+            
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2018 <a href="https://github.com/kerkerj">kerkerj</a>. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        
+  <div class="post-actions-wrap">
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://blog.kerkerj.in/2014/10/swift-d8---playground---enumerations/" data-tooltip="[Swift-d8] - Playground - Enumerations">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://blog.kerkerj.in/2014/10/swift-d7---playground---closures/" data-tooltip="[Swift-d7] - Playground - Closures">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.kerkerj.in/2014/10/api-d7---server-%E7%95%AA%E5%A4%96%E7%AF%87-%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E6%9C%AC%E6%A9%9F%E8%99%9B%E6%93%AC%E4%BC%BA%E6%9C%8D%E5%99%A8-3---%E6%89%93%E5%8C%85%E7%92%B0%E5%A2%83/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://blog.kerkerj.in/2014/10/api-d7---server-%E7%95%AA%E5%A4%96%E7%AF%87-%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E6%9C%AC%E6%A9%9F%E8%99%9B%E6%93%AC%E4%BC%BA%E6%9C%8D%E5%99%A8-3---%E6%89%93%E5%8C%85%E7%92%B0%E5%A2%83/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://blog.kerkerj.in/2014/10/api-d7---server-%E7%95%AA%E5%A4%96%E7%AF%87-%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E6%9C%AC%E6%A9%9F%E8%99%9B%E6%93%AC%E4%BC%BA%E6%9C%8D%E5%99%A8-3---%E6%89%93%E5%8C%85%E7%92%B0%E5%A2%83/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fblog.kerkerj.in%2F2014%2F10%2Fapi-d7---server-%25E7%2595%25AA%25E5%25A4%2596%25E7%25AF%2587-%25E5%25BB%25BA%25E7%25AB%258B%25E8%2587%25AA%25E5%25B7%25B1%25E7%259A%2584%25E6%259C%25AC%25E6%25A9%259F%25E8%2599%259B%25E6%2593%25AC%25E4%25BC%25BA%25E6%259C%258D%25E5%2599%25A8-3---%25E6%2589%2593%25E5%258C%2585%25E7%2592%25B0%25E5%25A2%2583%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fblog.kerkerj.in%2F2014%2F10%2Fapi-d7---server-%25E7%2595%25AA%25E5%25A4%2596%25E7%25AF%2587-%25E5%25BB%25BA%25E7%25AB%258B%25E8%2587%25AA%25E5%25B7%25B1%25E7%259A%2584%25E6%259C%25AC%25E6%25A9%259F%25E8%2599%259B%25E6%2593%25AC%25E4%25BC%25BA%25E6%259C%258D%25E5%2599%25A8-3---%25E6%2589%2593%25E5%258C%2585%25E7%2592%25B0%25E5%25A2%2583%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fblog.kerkerj.in%2F2014%2F10%2Fapi-d7---server-%25E7%2595%25AA%25E5%25A4%2596%25E7%25AF%2587-%25E5%25BB%25BA%25E7%25AB%258B%25E8%2587%25AA%25E5%25B7%25B1%25E7%259A%2584%25E6%259C%25AC%25E6%25A9%259F%25E8%2599%259B%25E6%2593%25AC%25E4%25BC%25BA%25E6%259C%258D%25E5%2599%25A8-3---%25E6%2589%2593%25E5%258C%2585%25E7%2592%25B0%25E5%25A2%2583%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="//www.gravatar.com/avatar/269d15bf3b48dc4edd4a72f5637a54a8?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">kerkerj</h4>
+    
+      <div id="about-card-bio">Cat lover &lt;3</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Backend Engineer
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Taiwan
+      </div>
+    
+  </div>
+</div>
+
+    <div id="algolia-search-modal" class="modal-container">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="close-button"><i class="fa fa-close"></i></span>
+      <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+        <span class="searchby-algolia-text text-color-light text-small">by</span>
+        <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+      </a>
+      <i class="search-icon fa fa-search"></i>
+      <form id="algolia-search-form">
+        <input type="text" id="algolia-search-input" name="search"
+          class="form-control input--large search-input" placeholder="Search" />
+      </form>
+    </div>
+    <div class="modal-body">
+      <div class="no-result text-color-light text-center">no post found</div>
+      <div class="results">
+        
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2018/05/again/">
+                <h3 class="media-heading">Again</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  May 5, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p>嗯，我又把 theme 換掉了。其實還有個原因是裝了最新版的 hugo 後，就 build 不出來了，只好順便換個新的 theme。</p>
+
+<p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/11/%E8%AE%80%E6%9B%B8-%E5%B7%A5%E4%BD%9C%E5%A4%A7%E8%A7%A3%E6%94%BE%E9%80%99%E6%A8%A3%E5%81%9A%E4%BA%8B%E5%8F%8D%E8%80%8C%E6%9B%B4%E6%88%90%E5%8A%9F/">
+                <h3 class="media-heading">[讀書] 工作大解放：這樣做事反而更成功</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Nov 11, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/goroutine-%E5%9F%B7%E8%A1%8C%E7%9B%B8%E9%97%9C%E8%A8%8E%E8%AB%96/">
+                <h3 class="media-heading">goroutine 執行相關討論</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/tld_length-%E5%9C%A8-rails-session_store-%E8%88%87-http-url-%E7%9A%84%E8%A8%AD%E5%AE%9A/">
+                <h3 class="media-heading">tld_length 在 Rails session_store 與 HTTP URL 的設定</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/rails-initializer-%E7%9A%84%E8%BC%89%E5%85%A5%E9%A0%86%E5%BA%8F/">
+                <h3 class="media-heading">Rails initializer 的載入順序</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/use-goconvey-in-projects-maganged-by-gb/">
+                <h3 class="media-heading">Use goconvey in projects maganged by gb</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/docker-ha-proxy/">
+                <h3 class="media-heading">docker HA proxy</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/tool-diff-so-fancy/">
+                <h3 class="media-heading">[tool] diff-so-fancy</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/new-theme/">
+                <h3 class="media-heading">New theme</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2015/05/migrating-to-hugo-from-octopress/">
+                <h3 class="media-heading">Migrating to Hugo from Octopress</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  May 5, 2015
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+      </div>
+    </div>
+    <div class="modal-footer">
+      <p class="results-count text-medium"
+         data-message-zero="no post found"
+         data-message-one="1 post found"
+         data-message-other="{n} posts found">
+         141 posts found
+      </p>
+    </div>
+  </div>
+</div>
+    
+  
+    
+    <div id="cover" style="background-image:url('http://res.cloudinary.com/kerkerj/image/upload/e_blur:1265,q_auto:eco/v1526483175/everaldo-coelho-486011-unsplash-min.jpg');"></div>
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="https://blog.kerkerj.in/js/script-qi9wbxp2ya2j6p7wx1i6tgavftewndznf4v0hy2gvivk1rxgc3lm7njqb6bz.min.js"></script>
+
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+  
+
+
+
+    
+  </body>
+</html>
+

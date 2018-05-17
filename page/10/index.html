@@ -1,680 +1,983 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+  
+
+
+
+
+  
+
+
+  
+
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Hugo 0.40.3 with theme Tranquilpeak 0.4.3-BETA">
+    <title>kerkerj</title>
+    <meta name="author" content="kerkerj">
+    <meta name="keywords" content="">
+
+    <link rel="icon" href="https://blog.kerkerj.in/favicon.png">
+    
+      <link rel="alternate" type="application/rss+xml" title="RSS" href="https://blog.kerkerj.in/index.xml">
+    
 
     
-    
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="http://blog.kerkerj.in/">
+    <meta name="description" content="">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="blog">
     <meta property="og:title" content="kerkerj">
-    
-    <meta property="og:description" content="hugo hugo - 快速又現代的靜態網站產生器 ^^^ 這是 spf13 自己說的 繼 spf13-vim 後又一個 spf13 出品的好東西 XD 在靜態網站產生器中最廣為人知的應該就是 Jekyll 以及基於 Jekyll 的 Octopress 了 (關於靜態網站產生器，這篇文章 介紹了六個除了 Jekyll 以外的產生器) 為什麼要用 hugo？ 雖然 Jekyll / Octopress 很紅資源多主題也不少 但是缺點就是要使用它們就必須裝 ruby、裝 gem 有在寫 ruby 的人感覺應該還好 沒在寫 ruby 的光想像就覺得應該會被搞死&hellip; XD 而且覺得文章一多時在編譯的時候好慢&hellip; 用 hugo 的好處就是因為他是用 go 寫的 執行速度飛快，而且只要下載一個 binary 檔案後就可以操作了喲~ 基本 hugo 安裝與操作 首先先安裝 hugo (我是用 mac 的 homebrew) $ brew install hugo 使用 hugo 產生一個新的網站 $ hugo new site /path/to/the/site e.g.">
-    
-    
-    
+    <meta property="og:url" content="/">
     <meta property="og:site_name" content="kerkerj">
-
-    
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:site" content="kerkerj" />
-    <meta name="twitter:title" content="kerkerj &middot; kerkerj">
-    <meta name="twitter:description" content="Hi.">
-
+    <meta name="twitter:title" content="kerkerj">
+    <meta name="twitter:description" content="">
     
-    <title>kerkerj &middot; kerkerj</title>
-
-    
-    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+      <meta name="twitter:creator" content="@kerkerj">
     
     
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
-    
-
-    <link rel="stylesheet" href="http://blog.kerkerj.in//css/all.min.css">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
     
     
-      <link rel="stylesheet" href="http://blog.kerkerj.in//css/highlight/railscasts.css">
+
+    
+      <meta property="og:image" content="//www.gravatar.com/avatar/269d15bf3b48dc4edd4a72f5637a54a8?s=640">
     
 
     
-    <link href="http://blog.kerkerj.in/favicon.ico" rel="icon">
+    
+    
 
     
-    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://blog.kerkerj.in//index.xml">
-</head>
-<body>
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://blog.kerkerj.in/css/style-jsjn0006wyhpyzivf6yceb31gvpjatbcs3qzjvlumobfnugccvobqwxnnaj8.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="2">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://blog.kerkerj.in/">kerkerj</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://blog.kerkerj.in/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="//www.gravatar.com/avatar/269d15bf3b48dc4edd4a72f5637a54a8?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="2">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://blog.kerkerj.in/#about">
+          <img class="sidebar-profile-picture" src="//www.gravatar.com/avatar/269d15bf3b48dc4edd4a72f5637a54a8?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">kerkerj</h4>
+        
+          <h5 class="sidebar-profile-bio">Cat lover &lt;3</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/kerkerj" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/page/cats/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-angle-right"></i>
+      
+      <span class="sidebar-button-desc">Cats</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/page/mac-app-list/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-angle-right"></i>
+      
+      <span class="sidebar-button-desc">Mac App List</span>
+    </a>
+  </li>
 
 
-<div id="layout" class="pure-g">
-    <div class="sidebar pure-u-1 pure-u-md-1-4">
-    <div class="header">
-        <hgroup>
-            <h1 class="brand-title"><a href="http://blog.kerkerj.in/">kerkerj</a></h1>
-            <h2 class="brand-tagline"> Hi. </h2>
-        </hgroup>
+    </ul>
+    <ul class="sidebar-buttons">
+      
 
-        <nav class="nav">
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="2"
+        class="
+               hasCoverMetaIn
+               ">
+        <section class="postShorten-group main-content-wrap">
+          
+          
             
-            <ul class="pure-menu-list">
-              
-              
-                <li class="pure-menu-link">
-                  <a href="http://blog.kerkerj.in/notes/">Notes</a>
-                </li>
-              
-                <li class="pure-menu-link">
-                  <a href="http://blog.kerkerj.in/about/">About</a>
-                </li>
-              
-                <li class="pure-menu-link">
-                  <a href="http://blog.kerkerj.in/mac-app-list/">Mac App List</a>
-                </li>
-              
-            </ul>
 
-            
-            <ul class="nav-list">
-                
-                <li class="nav-item">
-                    <a class="pure-button" href="http://twitter.com/kerkerj"><i class="fa fa-twitter"></i> Twitter</a>
-                </li>
-                
-                
-                <li class="nav-item">
-                    <a class="pure-button" href="http://github.com/kerkerj "><i class="fa fa-github-alt"></i> Github</a>
-                </li>
-                
-                
-                
-                <li class="nav-item">
-                    <a class="pure-button" href="http://blog.kerkerj.in/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
-                </li>
-            </ul>
-        </nav>
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/01/php-json_decode-error-by-wrong-json-string-with-quotes/">
+          [PHP] json_decode error by wrong json string with quotes 
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2014-01-28T00:00:00Z">
+        
+  January 28, 2014
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/php">php</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/json">json</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/php.ini">php.ini</a>
+    
+  
+
+  </div>
+
     </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      <p></p>
+      <p>
+        <a href="https://blog.kerkerj.in/2014/01/php-json_decode-error-by-wrong-json-string-with-quotes/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+          
+            
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/01/sublime-text-2-integration-with-rvm-and-rspec/">
+          [Sublime Text 2] Integration With RVM and Rspec
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2014-01-09T00:00:00Z">
+        
+  January 9, 2014
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/ruby">ruby</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/rvm">RVM</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/sublimetext2">SublimeText2</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      <p></p>
+      <p>
+        <a href="https://blog.kerkerj.in/2014/01/sublime-text-2-integration-with-rvm-and-rspec/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+          
+            
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/01/rails-list-of-rails-model-type-mysql/">
+          [Rails] List of Rails Model Type (MySQL)
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2014-01-02T00:00:00Z">
+        
+  January 2, 2014
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/rails">rails</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/mysql">mysql</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/model">model</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      <dl>
+<dt>
+      <p>
+        <a href="https://blog.kerkerj.in/2014/01/rails-list-of-rails-model-type-mysql/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+          
+            
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/01/rails-put-v.s.-patch/">
+          [Rails] PUT v.s. PATCH
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2014-01-02T00:00:00Z">
+        
+  January 2, 2014
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/rails">rails</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      <p></p>
+      <p>
+        <a href="https://blog.kerkerj.in/2014/01/rails-put-v.s.-patch/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+          
+            
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2013/12/aws-ubuntu-swap/">
+          [AWS] ubuntu swap
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2013-12-26T00:00:00Z">
+        
+  December 26, 2013
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/aws">aws</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/ubuntu">ubuntu</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/ec2">ec2</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/swap">swap</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      <p></p>
+      <p>
+        <a href="https://blog.kerkerj.in/2013/12/aws-ubuntu-swap/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+          
+            
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2013/12/sublimetext2-use-command-to-call-sublime-text2/">
+          [SublimeText2] use command to call sublime text2
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2013-12-24T00:00:00Z">
+        
+  December 24, 2013
+
+      </time>
+    
+    
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      ln -s /Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl /usr/local/bin/sublime  in terminal:
+$ sublime filename $ sublime . (open the directory)  
+      <p>
+        <a href="https://blog.kerkerj.in/2013/12/sublimetext2-use-command-to-call-sublime-text2/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+          
+            
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2013/12/gem-how-to-make---no-ri---no-rdoc-the-default-for-gem-install/">
+          [Gem] How to make --no-ri --no-rdoc the default for gem install?
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2013-12-22T00:00:00Z">
+        
+  December 22, 2013
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/gem">gem</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      <p></p>
+      <p>
+        <a href="https://blog.kerkerj.in/2013/12/gem-how-to-make---no-ri---no-rdoc-the-default-for-gem-install/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+          
+            
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2013/12/ubuntu-ror-environment/">
+          [Ubuntu] RoR environment
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2013-12-20T00:00:00Z">
+        
+  December 20, 2013
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/mysql">mysql</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/ubuntu">ubuntu</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/rvm">RVM</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/nginx">nginx</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/passenger">passenger</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/php5-fpm">php5-fpm</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      <p></p>
+      <p>
+        <a href="https://blog.kerkerj.in/2013/12/ubuntu-ror-environment/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+          
+            
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2013/12/vagrant-use-knife-solo-to-deploy-a-new-vm/">
+          [Vagrant] use knife-solo to deploy a new VM
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2013-12-19T00:00:00Z">
+        
+  December 19, 2013
+
+      </time>
+    
+    
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      <p></p>
+      <p>
+        <a href="https://blog.kerkerj.in/2013/12/vagrant-use-knife-solo-to-deploy-a-new-vm/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+          
+            
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2013/12/ruby-pp-to-ruby-as-var_dump-to-php/">
+          [Ruby] PP to Ruby as Var_dump to PHP 
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2013-12-18T00:00:00Z">
+        
+  December 18, 2013
+
+      </time>
+    
+    
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      <p></p>
+      <p>
+        <a href="https://blog.kerkerj.in/2013/12/ruby-pp-to-ruby-as-var_dump-to-php/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+          
+          
+  <div class="pagination-bar">
+    <ul class="pagination">
+      
+        
+          <li class="pagination-prev">
+            <a class="btn btn--default btn--small" href="https://blog.kerkerj.in/page/9/">
+              <i class="fa fa-angle-left text-base icon-mr"></i>
+              <span>NEWER POSTS</span>
+            </a>
+          </li>
+        
+        
+          <li class="pagination-next">
+            <a class="btn btn--default btn--small" href="https://blog.kerkerj.in/page/11/">
+              <span>OLDER POSTS</span>
+              <i class="fa fa-angle-right text-base icon-ml"></i>
+            </a>
+          </li>
+        
+      
+      <li class="pagination-number">page 10 of 15</li>
+    </ul>
+  </div>
+
+
+        </section>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2018 <a href="https://github.com/kerkerj">kerkerj</a>. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="//www.gravatar.com/avatar/269d15bf3b48dc4edd4a72f5637a54a8?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">kerkerj</h4>
+    
+      <div id="about-card-bio">Cat lover &lt;3</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Backend Engineer
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Taiwan
+      </div>
+    
+  </div>
 </div>
 
-
-    <div class="content pure-u-1 pure-u-md-3-4">
-        <div>
+    <div id="algolia-search-modal" class="modal-container">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="close-button"><i class="fa fa-close"></i></span>
+      <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+        <span class="searchby-algolia-text text-color-light text-small">by</span>
+        <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+      </a>
+      <i class="search-icon fa fa-search"></i>
+      <form id="algolia-search-form">
+        <input type="text" id="algolia-search-input" name="search"
+          class="form-control input--large search-input" placeholder="Search" />
+      </form>
+    </div>
+    <div class="modal-body">
+      <div class="no-result text-color-light text-center">no post found</div>
+      <div class="results">
+        
+        
+          <div class="media">
             
-            <div class="posts">
-                
-                <h1 class="content-subhead">2013-12-12 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://blog.kerkerj.in/blog/2013/12/18/2013-12-18-ruby-pp-to-ruby-as-var-dump-to-php/" class="post-title">[Ruby] PP to Ruby as Var_dump to PHP </a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <pre><code class="language-ruby">require 'pp'
-pp(ENV)
-</code></pre>
-
-<blockquote>
-<p>Usage:
-pp(any_variable)</p>
-</blockquote>
-
-<p>just like <code>var_dump</code> in <code>php</code></p>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2013-12-12 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://blog.kerkerj.in/blog/2013/12/18/2013-12-18-ubuntu-bash-warning-setlocale-lc-ctype-cannot-change-locale/" class="post-title">[Ubuntu] -bash: warning: setlocale: LC_CTYPE: cannot change locale</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-ubuntu" href="http://blog.kerkerj.in//categories/ubuntu">ubuntu</a><a class="post-category post-category-bash" href="http://blog.kerkerj.in//categories/bash">bash</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <pre><code>$ sudo locale-gen zh_TW.UTF-8
-$ sudo update-locale LANG=zh_TW.UTF-8
-</code></pre>
-
-<p>reload your bash profile</p>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2013-12-12 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://blog.kerkerj.in/blog/2013/12/16/2013-12-16-codeigniter-use-markdown-as-library/" class="post-title">[Codeigniter] use markdown as library</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p><a href="https://github.com/erusev/parsedown">https://github.com/erusev/parsedown</a></p>
-
-<p>download the Parsedown.php
-and put it into Library folder
-then edit autoload.php</p>
-
-<pre><code>$autoload['libraries'] = array('Parsedown');
-</code></pre>
-
-<p>then in the view php for tests:</p>
-
-<pre><code>$text = 'Hello **Parsedown**!';
-$result = Parsedown::instance()-&gt;parse($text);
-echo $result;
-</code></pre>
-
-<p>No need to require or include the file.
-If you want to load a file with path, you can use the function called file_get_contents:</p>
-
-<pre><code>file_get_contents('./markdown/test.md',true); (true: enable path)
-</code></pre>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2013-11-11 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://blog.kerkerj.in/blog/2013/11/26/2013-11-26-ubuntu-1204-install-oracle-java/" class="post-title">[Ubuntu] 12.04 install oracle java</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-java" href="http://blog.kerkerj.in//categories/java">java</a><a class="post-category post-category-ubuntu" href="http://blog.kerkerj.in//categories/ubuntu">ubuntu</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <pre><code>sudo rm /var/lib/dpkg/info/oracle-java7-installer*
-sudo apt-get purge oracle-java7-installer*
-sudo rm /etc/apt/sources.list.d/*java*
-sudo apt-get update
-sudo add-apt-repository ppa:webupd8team/java
-sudo apt-get update
-sudo apt-get install oracle-java7-installer
-</code></pre>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2013-11-11 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://blog.kerkerj.in/blog/2013/11/19/2013-11-19-xcode-emulator-home-keys-are-gone/" class="post-title">[Xcode] 模擬器的 home 鍵不見了?! </a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-iOS" href="http://blog.kerkerj.in//categories/ios">iOS</a><a class="post-category post-category-xcode" href="http://blog.kerkerj.in//categories/xcode">xcode</a><a class="post-category post-category-simulator" href="http://blog.kerkerj.in//categories/simulator">simulator</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p>其實有點有趣</p>
-
-<p>今天由於某些因素在測試 iOS app</p>
-
-<p>於是開了許久沒動的 xcode</p>
-
-<p>更新了一下發現多了一些 retina 的模擬器</p>
-
-<p>也沒想那麼多就把它 run 到模擬器上</p>
-
-<p>但模擬器一開出來我還以為是模擬器壞掉 XDDDD</p>
-
-<p>它的 home 鍵勒～～～～～</p>
-
-<p>其實是因為 iOS 5 以後的 simulater 沒有 home 鍵</p>
-
-<blockquote>
-<p>叫出 home 鍵   <code>command</code>+<code>shift</code>+<code>h</code></p>
-
-<p>調整大小               <code>command</code>+ <code>1</code> or <code>2</code> or <code>3</code></p>
-</blockquote>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2013-11-11 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://blog.kerkerj.in/blog/2013/11/13/2013-11-13-mac-osx-homebrew-update-error/" class="post-title">[Mac OSX] homebrew update error</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-git" href="http://blog.kerkerj.in//categories/git">git</a><a class="post-category post-category-mac" href="http://blog.kerkerj.in//categories/mac">mac</a><a class="post-category post-category-Homebrew" href="http://blog.kerkerj.in//categories/homebrew">Homebrew</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p>failed log:</p>
-
-<pre><code>$sudo brew update
-error: Your local changes to the following files would be overwritten by merge:
-    Library/Aliases/gperftools
-    Library/Aliases/hashdeep
-    Library/Aliases/htop
-    Library/Aliases/nodejs
-    Library/Aliases/ocio
-    Library/Aliases/oiio
-        ....
-error: The following untracked working tree files would be overwritten by merge:
-    Library/Aliases/gperftools
-    Library/Aliases/hashdeep
-    Library/Aliases/htop
-    Library/Aliases/nodejs
-    Library/Aliases/ocio
-    Library/Aliases/oiio
-        ....
-Aborting
-Error: Failure while executing: git pull -q origin refs/heads/master:refs/remotes/origin/master
-</code></pre>
-
-<p>Solution:</p>
-
-<pre><code>$ cd /usr/local
-$ git fetch origin
-$ git reset --hard origin/master
-</code></pre>
-
-<p><a href="http://stackoverflow.com/questions/10762859/brew-update-the-following-untracked-working-tree-files-would-be-overwritten-by">reference</a>
-<a href="http://git-scm.com/2011/07/11/reset.html">[read]</a></p>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2013-11-11 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://blog.kerkerj.in/blog/2013/11/13/2013-11-13-mac-osx-slow-opening-terminal-windows/" class="post-title">[Mac OSX] Slow-Opening Terminal Windows</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-mac" href="http://blog.kerkerj.in//categories/mac">mac</a><a class="post-category post-category-.bashrc" href="http://blog.kerkerj.in//categories/.bashrc">.bashrc</a><a class="post-category post-category-.bash_profile" href="http://blog.kerkerj.in//categories/.bash_profile">.bash_profile</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p>最近在開 mac 的 iTerm.app 或者是內建的終端機都覺得卡卡的，</p>
-
-<p>之前以為是 .bashrc 載入太多東西導致的，所以把一些掛載的 bin 目錄都註解掉，</p>
-
-<p>但是還是沒解決，心想不對勁，就順手 google 了一下&hellip;</p>
-
-<p>我執行了下列語法：</p>
-
-<pre><code>$ time /usr/libexec/path_helper
-PATH=&quot;/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/ABC/android-sdks/platform-tools:/Users/ABC/android-sdks/tools:/Application/Vagrant/bin&quot;; export PATH;
-
-real    0m0.043s
-user    0m0.001s
-sys 0m0.002s
-</code></pre>
-
-<p>接著我把 <code>PATH</code> 的內容寫進 <code>.bash_profile</code>，問題竟然就解決了&hellip;</p>
-
-<p>速度飛快～～</p>
-
-<p>後來看到一篇 <a href="http://www.joshstaiger.org/archives/2005/07/bash_profile_vs.html">.bash_profile vs.bashrc</a></p>
-
-<p>雖然大家都知道 <code>.bash_profile</code> 是在登入時執行（即是輸入帳號密碼時），</p>
-
-<p>而 <code>.bashrc</code> 是在系統內非登入狀態時開啟 prompt 時執行，</p>
-
-<p>但是！！ Mac OSX 是個例外～是個例外～是個例外～&hellip;&hellip;.=.=</p>
-
-<blockquote>
-<p>Mac OS X — an exception</p>
-
-<p>An exception to the terminal window guidelines is Mac OS X&rsquo;s Terminal.app, which runs a login shell by default for each new terminal window, calling .bash_profile instead of .bashrc. Other GUI terminal emulators may do the same, but most tend not to.</p>
-</blockquote>
-
-<p>所以通常解決方法是在 <code>.bash_profile</code> 寫入以下 script:</p>
-
-<pre><code>if [ -f ~/.bashrc ]; then
-    source ~/.bashrc
-fi
-</code></pre>
-
-<p>不過我之前就這樣做了，這次成功的方式是直接在 <code>.bash_profile</code> 寫入 PATH 路徑&hellip;</p>
-
-<p>猜想應該是在 <code>.bash_profile</code> 預先讀取而加快速度的</p>
-
-<p>如果把原本的 <code>.bashrc</code> 的 <code>PATH</code> 註解掉都移到 <code>.bash_profile</code> 會再稍快一些</p>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2013-11-11 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://blog.kerkerj.in/blog/2013/11/13/2013-11-13-mac-osx-bash-it/" class="post-title">[Mac OSX] bash-it</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-mac" href="http://blog.kerkerj.in//categories/mac">mac</a><a class="post-category post-category-Homebrew" href="http://blog.kerkerj.in//categories/homebrew">Homebrew</a><a class="post-category post-category-bash-it" href="http://blog.kerkerj.in//categories/bash-it">bash-it</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p>bash-it:</p>
-
-<pre><code>$git clone http://github.com/revans/bash-it.git ~/.bash_it
-$~/.bash_it/install.sh
-</code></pre>
-
-<p>他會幫你自動備份原來的 <code>.bash_profile</code> 為 <code>.bash_profile.bak</code> 所以別擔心</p>
-
-<p>當他在問你要使用什麼 completion 或 script 之類的東西時，</p>
-
-<p>選擇 &lsquo;some&rsquo; 就可以自己選擇~</p>
-
-<p>有許多的 theme 及 package , completion 等等可以用，很方便！</p>
-
-<p><a href="http://www.scholarslab.org/research-and-development/customizing-bash/">http://www.scholarslab.org/research-and-development/customizing-bash/</a></p>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2013-10-10 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://blog.kerkerj.in/blog/2013/10/22/2013-10-22-vagrant-vagrant-nginx-php5-fpm/" class="post-title">[Vagrant] 使用 Vagrant 安裝 Nginx, php5-fpm, MySQL</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-ubuntu" href="http://blog.kerkerj.in//categories/ubuntu">ubuntu</a><a class="post-category post-category-nginx" href="http://blog.kerkerj.in//categories/nginx">nginx</a><a class="post-category post-category-vagrant" href="http://blog.kerkerj.in//categories/vagrant">vagrant</a><a class="post-category post-category-virtualbox" href="http://blog.kerkerj.in//categories/virtualbox">virtualbox</a><a class="post-category post-category-php5-fpm" href="http://blog.kerkerj.in//categories/php5-fpm">php5-fpm</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        
-
-<h2 id="vagrant-1-development-environments-made-easy:393c871f756de36d9030b67aea0417c1"><a href="http://www.vagrantup.com/">Vagrant</a> - Development environments made easy.</h2>
-
-<p>就是這個軟體的宗旨，把它想做是 ghost 吧！我們開發網站或是測試一些多機器架構時，常不小心就把自己的電腦或是測試主機搞到爛掉，租機器又慢又花錢，搞到爛重灌更麻煩。因此這個軟體基於 VirtualBox 做出了令人方便設定的功能，讓我們可以快速架設安裝環境並測試，尤其是以多機器架構而言更是方便！例如從最簡單的 Web server + DB server，或是 Web Load Balancer + Application Server * 5 等等的架構，一台電腦就能達成囉！
-今天主要是以安裝 Vagrant 及架設出 Nginx + php5-fpm 的架構，下一篇打算另外建構一台 mongodb server，達到 Vagrant 最主要的多機器設定功能~</p>
-
-<h2 id="vagrant-基本設定:393c871f756de36d9030b67aea0417c1">Vagrant 基本設定</h2>
-
-<ol>
-<li>先下載 VirtualBox 吧！<br /></li>
-<li>下載 Vagarnt 套件 <a href="http://downloads.vagrantup.com/">http://downloads.vagrantup.com/</a><br />
-安裝好後，可能會需要加 path，至少 1.3.0 當時我是自己加的，現在 1.3.5 就不清楚了~<br /></li>
-<li>接下來就可以開始加入 box (可以把它想為 ghost 檔)，並開始設定 Vagrant。</li>
-</ol>
-
-<pre><code>vagrant box add {你想要的Box名稱} {下載網址} 
-</code></pre>
-
-<p>輸入後就會開始下載該 box 了！ 範例：</p>
-
-<pre><code>$vagrant box add devbox http://ﬁles.vagrantup.com/precise64.box   
-$mkdir my_box  
-$cd my_box  
-$vagrant init devbox (將 my_box 這個專案資料夾以 devbox 這個 box 檔案初始化)  
-</code></pre>
-
-<p>box 官方有提供 Ubuntu 的，在 <a href="http://www.vagrantbox.es/">vagrantbox.es</a> 很多，可以自己找～ 當然自己做應該也是可以的！</p>
-
-<h2 id="vagrant-基本指令:393c871f756de36d9030b67aea0417c1">Vagrant 基本指令</h2>
-
-<pre><code>vagrant up 開機  
-vagrant ssh 登⼊  
-vagrant suspend 暫停  
-vagrant halt 關機  
-vagrant destroy 刪除  
-</code></pre>
-
-<h2 id="進入新裝好的機器吧:393c871f756de36d9030b67aea0417c1">進入新裝好的機器吧！</h2>
-
-<pre><code>$vagrant up  //開機  
-$vagrant ssh //登入  
-</code></pre>
-
-<h2 id="vagrantfile-設定:393c871f756de36d9030b67aea0417c1">Vagrantfile 設定</h2>
-
-<p>Vagrantfile 這個設定檔可以用很多很強大的設定，在官方網頁裡有教學</p>
-
-<p>不過首先要先做的是： <code>config.vm.forward_port 80, 8088</code></p>
-
-<p>把虛擬機器裡從 80 port 傳送的東西丟到本機的 8088 port</p>
-
-<p>如此一來在本機瀏覽器輸入 localhost:8088 ，就可以看到網頁了！</p>
-
-<p>另外就是： <code>config.vm.synced_folder &quot;/vagrant&quot;, &quot;本機目錄&quot;</code></p>
-
-<p>如此一來，Ubuntu 底下就有一個 /vargrant 目錄，和自己主機裡的某個目錄是同步的！</p>
-
-<p>也就是在自己主機上寫好程式後，就可以直接讓虛擬機器抓到 code 去執行，超方便的！</p>
-
-<p>只要把 nginx 的網頁目錄設定在 /vagrant 上就可以了！ (後面會說)</p>
-
-<h2 id="ubuntu-基本安裝:393c871f756de36d9030b67aea0417c1">Ubuntu 基本安裝</h2>
-
-<p>進去後是乾淨的 Ubuntu 12.04 64位元版，因此需先做點安裝:</p>
-
-<pre><code>$sudo apt-get -y update  
-$sudo apt-get --no-install-recommends -y install build-essential openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev libgdbm-dev ncurses-dev automake libtool bison subversion pkg-config libffi-dev vim  
-</code></pre>
-
-<p>有些東西其實可以不用裝，就看個人的需求，必裝應該是 build-essential, openssl, curl, git-core, vim XD</p>
-
-<h2 id="nginx-php5-fpm-安裝:393c871f756de36d9030b67aea0417c1">Nginx &amp; php5-fpm 安裝</h2>
-
-<p>安裝 Nginx</p>
-
-<pre><code>$sudo apt-get install nginx  
-</code></pre>
-
-<p>若要更改 Nginx 的網頁目錄，設定檔在 <code>/etc/nginx/</code> 裡，</p>
-
-<p>通常應該是更改 <code>/etc/nginx/sites-enable/default</code> 裡的 <code>root /usr/share/nginx/www/</code></p>
-
-<p>還要將這段 code 解除註解：</p>
-
-<pre><code>location ~ \.php$ {
-    fastcgi_split_path_info ^(.+\.php)(/.+)$;
-    # NOTE: You should have &quot;cgi.fix_pathinfo = 0;&quot; in php.ini
-
-    # With php5-cgi alone:
-    #fastcgi_pass 127.0.0.1:9000;
-    # With php5-fpm:
-    fastcgi_pass unix:/var/run/php5-fpm.sock;
-    fastcgi_index index.php;
-    include fastcgi_params;
-}
-</code></pre>
-
-<p>更改後確認一下 <code>/etc/nginx/nginx.conf</code> 是否有 <code>inculde /etc/nginx/sites-enable/*</code></p>
-
-<pre><code>$sudo service nginx start (開始服務)
-</code></pre>
-
-<p>安裝 php5-fpm</p>
-
-<pre><code>$sudo apt-get install php5-fpm  
-$sudo vim /etc/php5/fpm/php.ini (找到並更改 cgi.fix_pathinfo = 0 )  
-$sudo vim /etc/php5/fpm/pool.d/www.conf  
-</code></pre>
-
-<p>找到 <code>listen = 127.0.0.1:9000</code>, 換成 <code>/var/run/php5-fpm.sock</code>
-寫個 phpinfo(); 的 php 檔放入資料夾</p>
-
-<pre><code>$sudo service php5-fpm restart (開啟服務)
-</code></pre>
-
-<p>在瀏覽器輸入 localhost:8088 就可以看到 nginx 的頁面，再讀取剛剛寫的 php 應該就成功囉！</p>
-
-<p>安裝 MySQL:</p>
-
-<pre><code>$ sudo apt-get install mysql-server
-</code></pre>
-
-<p>過程中會問 root 的密碼，裝完後就可以登入：</p>
-
-<pre><code>$ mysql -u root -p
-</code></pre>
-
-<p>下回就是多機器的設定囉～</p>
-
-<p>reference:<br />
-<a href="http://gogojimmy.net/2013/05/26/vagrant-tutorial/">http://gogojimmy.net/2013/05/26/vagrant-tutorial/</a></p>
-
-<p><a href="http://www.slideshare.net/ihower/vagrant-osdc">http://www.slideshare.net/ihower/vagrant-osdc</a></p>
-
-<p><a href="https://www.digitalocean.com/community/articles/how-to-install-linux-nginx-mysql-php-lemp-stack-on-ubuntu-12-04">https://www.digitalocean.com/community/articles/how-to-install-linux-nginx-mysql-php-lemp-stack-on-ubuntu-12-04</a></p>
-
-<p>p.s. Vagrantfile 產生器：<a href="https://puphpet.com/#vagrantfile">Puphpet.com/#vagrantfile</a></p>
-
-<p>這網站有很多值得玩的地方，可以直接幫你產生出這些設定檔真的是太方便了！</p>
-
-<p>p.s.s.有亂入用到的指令記一下：dpkg &ndash;get-selections 列出已安裝的 package</p>
-
-<p>另外提供一下我在研究 Vagrant 的筆記，很亂超級亂，但是有些東西沒有寫在 blog 裡~
-<a href="https://www.evernote.com/shard/s81/sh/91ccf490-d9cd-468e-943a-d57c79d052f4/71e0a682b024c6e97fd8c79b90f89f67">Evernote by kerkerj</a></p>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2012-06-06 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://blog.kerkerj.in/blog/2012/06/12/2012-06-12-android-ui-update-2/" class="post-title">[Android] thread 處理 UI update (2)</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-android" href="http://blog.kerkerj.in//categories/android">android</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p>這是第一篇: [[Android] thread 處理 UI update]</p>
-
-<p>在那之後自己在寫一些東西時也用到 runOnUiThread</p>
-
-<p>不過有別的方法可以不用像 runOnUiThread 寫的比較雜亂</p>
-
-<p>那就是用 AsyncTask , 剛剛自己也順手寫了一個 Test 放在 Github 上</p>
-
-<p>我覺得使用 AsyncTask 可以不用處理 thread, 而且寫法上比較清楚~</p>
-
-<script src="https://gist.github.com/kerkerj/7367244.js"></script>
-
-                    </div>
-                </section>
-                
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2018/05/again/">
+                <h3 class="media-heading">Again</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  May 5, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p>嗯，我又把 theme 換掉了。其實還有個原因是裝了最新版的 hugo 後，就 build 不出來了，只好順便換個新的 theme。</p>
+
+<p></p></div>
             </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
             
-<div class="pagination">
-  <nav role="pagination" class="post-list-pagination">
-      
-      <a href="http://blog.kerkerj.in/page/9/" class="post-list-pagination-item pure-button post-list-pagination-item-prev">
-        <i class="fa fa-angle-double-left"></i>&nbsp;Newer
-      </a>
-      
-    <span class="post-list-pagination-item post-list-pagination-item-current">Page 10 of 14</span>
-    
-      <a href="http://blog.kerkerj.in/page/11/" class="post-list-pagination-item pure-button post-list-pagination-item-next">
-        Older&nbsp;<i class="fa fa-angle-double-right"></i>
-      </a>
-    
-  </nav>
-</div>
-
-
-            <div class="footer">
-    <div class="pure-menu pure-menu-horizontal pure-menu-open">
-        <ul>
-            <li>Powered by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a></li>
-        </ul>
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/11/%E8%AE%80%E6%9B%B8-%E5%B7%A5%E4%BD%9C%E5%A4%A7%E8%A7%A3%E6%94%BE%E9%80%99%E6%A8%A3%E5%81%9A%E4%BA%8B%E5%8F%8D%E8%80%8C%E6%9B%B4%E6%88%90%E5%8A%9F/">
+                <h3 class="media-heading">[讀書] 工作大解放：這樣做事反而更成功</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Nov 11, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/goroutine-%E5%9F%B7%E8%A1%8C%E7%9B%B8%E9%97%9C%E8%A8%8E%E8%AB%96/">
+                <h3 class="media-heading">goroutine 執行相關討論</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/tld_length-%E5%9C%A8-rails-session_store-%E8%88%87-http-url-%E7%9A%84%E8%A8%AD%E5%AE%9A/">
+                <h3 class="media-heading">tld_length 在 Rails session_store 與 HTTP URL 的設定</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/rails-initializer-%E7%9A%84%E8%BC%89%E5%85%A5%E9%A0%86%E5%BA%8F/">
+                <h3 class="media-heading">Rails initializer 的載入順序</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/use-goconvey-in-projects-maganged-by-gb/">
+                <h3 class="media-heading">Use goconvey in projects maganged by gb</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/docker-ha-proxy/">
+                <h3 class="media-heading">docker HA proxy</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/tool-diff-so-fancy/">
+                <h3 class="media-heading">[tool] diff-so-fancy</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/new-theme/">
+                <h3 class="media-heading">New theme</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2015/05/migrating-to-hugo-from-octopress/">
+                <h3 class="media-heading">Migrating to Hugo from Octopress</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  May 5, 2015
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+      </div>
     </div>
+    <div class="modal-footer">
+      <p class="results-count text-medium"
+         data-message-zero="no post found"
+         data-message-one="1 post found"
+         data-message-other="{n} posts found">
+         141 posts found
+      </p>
+    </div>
+  </div>
 </div>
-<script src="http://blog.kerkerj.in//js/all.min.js"></script>
+    
+  
+    
+    <div id="cover" style="background-image:url('http://res.cloudinary.com/kerkerj/image/upload/e_blur:1265,q_auto:eco/v1526483175/everaldo-coelho-486011-unsplash-min.jpg');"></div>
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="https://blog.kerkerj.in/js/script-qi9wbxp2ya2j6p7wx1i6tgavftewndznf4v0hy2gvivk1rxgc3lm7njqb6bz.min.js"></script>
+
+
+
 <script>
-hljs.initHighlightingOnLoad();
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
 </script>
 
-        </div>
-    </div>
-</div>
 
 
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-ga('create', 'UA-45583907-2', 'auto');
-ga('send', 'pageview');
-
-</script>
-
-</body>
+    
+  </body>
 </html>

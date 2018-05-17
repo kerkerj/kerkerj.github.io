@@ -1,0 +1,923 @@
+
+
+  
+    
+  
+
+
+  
+
+
+
+
+  
+
+
+  
+
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Hugo 0.40.3 with theme Tranquilpeak 0.4.3-BETA">
+    <title>[Ubuntu] [RoR] install with rvm</title>
+    <meta name="author" content="kerkerj">
+    <meta name="keywords" content="">
+
+    <link rel="icon" href="https://blog.kerkerj.in/favicon.png">
+    
+
+    
+    <meta name="description" content="">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="[Ubuntu] [RoR] install with rvm">
+    <meta property="og:url" content="/2012/04/ubuntu-ror-install-with-rvm/">
+    <meta property="og:site_name" content="kerkerj">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="kerkerj">
+    <meta name="twitter:description" content="">
+    
+      <meta name="twitter:creator" content="@kerkerj">
+    
+    
+
+    
+    
+
+    
+      <meta property="og:image" content="//www.gravatar.com/avatar/269d15bf3b48dc4edd4a72f5637a54a8?s=640">
+    
+
+    
+    
+    
+
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://blog.kerkerj.in/css/style-jsjn0006wyhpyzivf6yceb31gvpjatbcs3qzjvlumobfnugccvobqwxnnaj8.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://blog.kerkerj.in/">kerkerj</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://blog.kerkerj.in/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="//www.gravatar.com/avatar/269d15bf3b48dc4edd4a72f5637a54a8?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://blog.kerkerj.in/#about">
+          <img class="sidebar-profile-picture" src="//www.gravatar.com/avatar/269d15bf3b48dc4edd4a72f5637a54a8?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">kerkerj</h4>
+        
+          <h5 class="sidebar-profile-bio">Cat lover &lt;3</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/kerkerj" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/page/cats/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-angle-right"></i>
+      
+      <span class="sidebar-button-desc">Cats</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/page/mac-app-list/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-angle-right"></i>
+      
+      <span class="sidebar-button-desc">Mac App List</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="5"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      [Ubuntu] [RoR] install with rvm
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2012-04-27T00:00:00Z">
+        
+  April 27, 2012
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/ruby">ruby</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/ubuntu">ubuntu</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/rvm">RVM</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/ror">ROR</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p></p>
+
+<p>以下都是以 Ubuntu 11.10為操作環境</p>
+
+<p>主要目標為使用 rvm (Ruby Version Manager)來管理 ruby 版本並安裝 ruby 和 rails</p>
+
+<p>先安裝一些必要套件 ( ex. openssl, zlib1g-dev &hellip;.etc. )</p>
+
+<pre><code>$sudo apt-get install build-essential bison openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev nodejs
+</code></pre>
+
+<p>安裝完基本套件後, 有兩種選擇:</p>
+
+<ol>
+<li>直接在系統上安裝 ruby ( sudo apt-get install ruby )</li>
+<li>使用 rvm 來管理 ruby 版本</li>
+</ol>
+
+<p>基本上有 rvm 來管理 ruby 版本是比較方便的, 可以隨時切換不同的 ruby 版本</p>
+
+<p>(不過在使用一些套件上會有一些問題需要排解, 本篇最底下有 trouble shooting)</p>
+
+<h2 id="rvm">RVM</h2>
+
+<p>安裝:</p>
+
+<pre><code>$bash &lt; &lt;(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer) 
+$echo '[[ -s &quot;$HOME/.rvm/scripts/rvm&quot; ]] &amp;&amp; . &quot;$HOME/.rvm/scripts/rvm&quot;
+</code></pre>
+
+<p>Load RVM function:  <code>~/.bash_profile</code></p>
+
+<p>指令:</p>
+
+<blockquote>
+<p>rvm info -&gt; 查看 rvm 做的設定</p>
+
+<p>rvm list known -&gt; 列出所有可安裝的套件</p>
+
+<p>rvm list -&gt; 列出目前已安裝的套件</p>
+
+<p>rvm install &ldquo;package_name&rdquo; -&gt; 安裝套件</p>
+
+<p>rvm remove &ldquo;package_name&rdquo; -&gt; 移除套件</p>
+
+<p>rvm 1.9.2 &ndash;default -&gt; 設定預設的 ruby 版本</p>
+</blockquote>
+
+<p>假設系統上的 ruby 版本是 1.9.1, 而我用 rvm 安裝了 ruby1.9.3</p>
+
+<p>那麼目前系統上的預設 ruby 版本是 1.9.3, 用 <code>ruby -v</code> 測試看看</p>
+
+<p>如果要切換回系統的 ruby 版本, 則使用 <code>rvm system</code></p>
+
+<p>要切換回來的話,則:</p>
+
+<p><code>rvm 1.9.3</code> (直接輸入有安裝過的 ruby 版號即可)</p>
+
+<p>or</p>
+
+<p><code>rvm use 1.9.3</code></p>
+
+<p>以上是 rvm 的一些簡單指令, 因為今天是要安裝 ruby on rails</p>
+
+<p>所以先安裝 ruby 吧:</p>
+
+<pre><code>$rvm pkg install openssl (詳見最後的 trouble shooting)
+$rvm install 1.9.3 --with-openssl-dir=$rvm_path/usr
+</code></pre>
+
+<h2 id="gem">Gem</h2>
+
+<p>指令:</p>
+
+<blockquote>
+<p>gem list -&gt; 列出目前已安裝的套件</p>
+
+<p>gem install &ldquo;package_name&rdquo; -&gt; 安裝套件不同的 ruby 版本有不同的 gem</p>
+</blockquote>
+
+<p>如果 rvm 裡有 1.9.1 和 1.9.3 兩個乾淨的 ruby 版本</p>
+
+<p>目前使用的 ruby 版本是 1.9.3</p>
+
+<p>則在 gem install rails 後</p>
+
+<p>使用 gem list 則會看到 一大堆的套件</p>
+
+<p>接著切換到 1.9.1 執行 gem list 後則會發現沒有任何東西</p>
+
+<p>在安裝 gem 套件時可以加上一些參數</p>
+
+<p>如: 不想要有說明文件 (通常這些東西都蠻肥大的) 就可以加上</p>
+
+<p><code>gem install &quot;gem_name&quot; --no-ri --no-rdoc</code></p>
+
+<p>以上是 gem 在 rvm 裡的一些概念, 因為今天是要安裝 ruby on rails</p>
+
+<p>所以來安裝 rails 吧:</p>
+
+<p><code>gem install rails --no-ri --no-rdoc (不要安裝文件, 速度會比較快)</code></p>
+
+<p>如果發現用 gem 安裝套件時需要 root 權限, 表示目前使用的 ruby 版本是系統的版本</p>
+
+<h2 id="gemset">Gemset</h2>
+
+<p>rvm 提供了方便的功能 gemset, 就把它看作 gem 的分類資料夾</p>
+
+<p>如果說我想要在 ruby 1.9.2 底下安裝兩種 rails 版本, 又怕會衝突該怎麼辦?</p>
+
+<p>就可以用 gemset 了</p>
+
+<p>樹狀架構大概如下:</p>
+
+<pre><code>        rvm -&gt; 1.9.1 -&gt; gemset: rails-2.3.9
+                                rails-3.1.1*
+            -&gt; 1.9.3 -&gt; gemset: rails-2.3.9
+                                rails-3.1.1
+</code></pre>
+
+<p>可以解釋為: 在 rvm 的 ruby 1.9.1 底下有兩個 gemset, 分別是 rails-2.3.9 和 rails-3.1.1</p>
+
+<p>指令:</p>
+
+<blockquote>
+<p>rvm gemset list -&gt; 查看目前建立的 gemset</p>
+
+<p>rvm 1.9.2@rails-3.1.1 -&gt; 在 ruby 1.9.2 版本底下使用 rails-3.1.1 這個 gemset</p>
+
+<p>rvm gemset create &ldquo;gemset_name&rdquo; -&gt; 建立 gemset</p>
+
+<p>rvm gemset use &ldquo;gemset_name&rdquo; -&gt; 使用某個 gemset</p>
+
+<p>rvm gemset empty &ldquo;gemset_name&rdquo; -&gt; 清空某個 gemset (只是清空)</p>
+
+<p>rvm gemset delete &ldquo;gemset_name&rdquo; -&gt; 刪除某個 gemset以上就是關於 rvm 的二三事, 做到這邊, ruby 和 rails 套件應該就安裝完了</p>
+</blockquote>
+
+<p>最後安裝資料庫的 adapter , 這裡是用 sqlite</p>
+
+<p><code>gem install sqlite3 --no-ri --no-rdoc</code></p>
+
+<p>接著就可以建立第一個 rails 專案:</p>
+
+<blockquote>
+<p>mkdir project</p>
+
+<p>cd project</p>
+
+<p>rails new demo</p>
+
+<p>rails server連上 localhost:3000 就是起始畫面了</p>
+</blockquote>
+
+<h2 id="trouble-shooting">Trouble shooting:</h2>
+
+<h3 id="error-message1-openssl-loaderror">Error message1: openssl  LoadError</h3>
+
+<blockquote>
+<p>SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificate verify failed (OpenSSL::SSL::SSLError)</p>
+
+<p>or</p>
+
+<p>Gem::RemoteFetcher::FetchError: SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B</p>
+</blockquote>
+
+<p>Solution:</p>
+
+<blockquote>
+<p>rvm pkg install openssl</p>
+
+<p>rvm remove 1.9.3</p>
+
+<p>rvm install 1.9.3 &ndash;with-openssl-dir=$rvm_path/usr</p>
+
+<p>然後將 rvm 裡的 ssl certs 資料夾移除, 改成直接讀系統的 ssl certs</p>
+
+<p>rmdir $rvm_path/usr/ssl/certs</p>
+
+<p>ln -s /etc/ssl/certs $rvm_path/usr/ssl</p>
+</blockquote>
+
+<h3 id="error-message2">Error message2:</h3>
+
+<blockquote>
+<p>when excuting the command &ldquo;gem install rails&rdquo;</p>
+
+<p>ERROR:  Loading command: install (LoadError)</p>
+
+<p>cannot load such file &ndash; zlib</p>
+
+<p>ERROR:  While executing gem &hellip; (NameError)</p>
+
+<p>uninitialized constant Gem::Commands::InstallCommand</p>
+</blockquote>
+
+<p>Solution:</p>
+
+<blockquote>
+<p>rvm remove 1.9.3 (depends on your ruby version, if your system also has ruby, remove it, too.)</p>
+
+<p>sudo apt-get install zlib1g-dev先將 rvm 的 ruby 和 system 的 ruby 移除</p>
+
+<p>然後安裝 zlib1g-dev</p>
+
+<p>安裝 system 和 rvm 的 ruby 就可以了</p>
+
+<p>Remove system&rsquo;s ruby, and all ruby versions in rvm</p>
+
+<p>Install zlib1g-dev, then install ruby in system and rvm.</p>
+</blockquote>
+
+<h3 id="error-message3">Error message3:</h3>
+
+<blockquote>
+<p>ExecJS::RuntimeUnavailable</p>
+</blockquote>
+
+<p>Solution:</p>
+
+<p><code>sudo apt-get install nodejs</code></p>
+
+<p>Reference:</p>
+
+<p><a href="http://www.openfoundry.org/tw/tech-column/8513-rvm-ruby-environment-version-manager">RVM - Ruby enVironment (Version) Manager</a></p>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+            
+            
+  <div class="post-actions-wrap">
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://blog.kerkerj.in/2012/06/php-checkbox-check/uncheck-all/" data-tooltip="[PHP] checkbox check/uncheck all">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://blog.kerkerj.in/2012/04/ubuntu-%E5%AE%89%E8%A3%9D%E8%A8%AD%E5%AE%9Assh/" data-tooltip="[Ubuntu] 安裝設定ssh">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.kerkerj.in/2012/04/ubuntu-ror-install-with-rvm/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://blog.kerkerj.in/2012/04/ubuntu-ror-install-with-rvm/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://blog.kerkerj.in/2012/04/ubuntu-ror-install-with-rvm/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+
+            
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2018 <a href="https://github.com/kerkerj">kerkerj</a>. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        
+  <div class="post-actions-wrap">
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://blog.kerkerj.in/2012/06/php-checkbox-check/uncheck-all/" data-tooltip="[PHP] checkbox check/uncheck all">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://blog.kerkerj.in/2012/04/ubuntu-%E5%AE%89%E8%A3%9D%E8%A8%AD%E5%AE%9Assh/" data-tooltip="[Ubuntu] 安裝設定ssh">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.kerkerj.in/2012/04/ubuntu-ror-install-with-rvm/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://blog.kerkerj.in/2012/04/ubuntu-ror-install-with-rvm/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://blog.kerkerj.in/2012/04/ubuntu-ror-install-with-rvm/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fblog.kerkerj.in%2F2012%2F04%2Fubuntu-ror-install-with-rvm%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fblog.kerkerj.in%2F2012%2F04%2Fubuntu-ror-install-with-rvm%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fblog.kerkerj.in%2F2012%2F04%2Fubuntu-ror-install-with-rvm%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="//www.gravatar.com/avatar/269d15bf3b48dc4edd4a72f5637a54a8?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">kerkerj</h4>
+    
+      <div id="about-card-bio">Cat lover &lt;3</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Backend Engineer
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Taiwan
+      </div>
+    
+  </div>
+</div>
+
+    <div id="algolia-search-modal" class="modal-container">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="close-button"><i class="fa fa-close"></i></span>
+      <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+        <span class="searchby-algolia-text text-color-light text-small">by</span>
+        <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+      </a>
+      <i class="search-icon fa fa-search"></i>
+      <form id="algolia-search-form">
+        <input type="text" id="algolia-search-input" name="search"
+          class="form-control input--large search-input" placeholder="Search" />
+      </form>
+    </div>
+    <div class="modal-body">
+      <div class="no-result text-color-light text-center">no post found</div>
+      <div class="results">
+        
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2018/05/again/">
+                <h3 class="media-heading">Again</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  May 5, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p>嗯，我又把 theme 換掉了。其實還有個原因是裝了最新版的 hugo 後，就 build 不出來了，只好順便換個新的 theme。</p>
+
+<p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/11/%E8%AE%80%E6%9B%B8-%E5%B7%A5%E4%BD%9C%E5%A4%A7%E8%A7%A3%E6%94%BE%E9%80%99%E6%A8%A3%E5%81%9A%E4%BA%8B%E5%8F%8D%E8%80%8C%E6%9B%B4%E6%88%90%E5%8A%9F/">
+                <h3 class="media-heading">[讀書] 工作大解放：這樣做事反而更成功</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Nov 11, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/goroutine-%E5%9F%B7%E8%A1%8C%E7%9B%B8%E9%97%9C%E8%A8%8E%E8%AB%96/">
+                <h3 class="media-heading">goroutine 執行相關討論</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/tld_length-%E5%9C%A8-rails-session_store-%E8%88%87-http-url-%E7%9A%84%E8%A8%AD%E5%AE%9A/">
+                <h3 class="media-heading">tld_length 在 Rails session_store 與 HTTP URL 的設定</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/rails-initializer-%E7%9A%84%E8%BC%89%E5%85%A5%E9%A0%86%E5%BA%8F/">
+                <h3 class="media-heading">Rails initializer 的載入順序</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/use-goconvey-in-projects-maganged-by-gb/">
+                <h3 class="media-heading">Use goconvey in projects maganged by gb</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/docker-ha-proxy/">
+                <h3 class="media-heading">docker HA proxy</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/tool-diff-so-fancy/">
+                <h3 class="media-heading">[tool] diff-so-fancy</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/new-theme/">
+                <h3 class="media-heading">New theme</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2015/05/migrating-to-hugo-from-octopress/">
+                <h3 class="media-heading">Migrating to Hugo from Octopress</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  May 5, 2015
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+      </div>
+    </div>
+    <div class="modal-footer">
+      <p class="results-count text-medium"
+         data-message-zero="no post found"
+         data-message-one="1 post found"
+         data-message-other="{n} posts found">
+         141 posts found
+      </p>
+    </div>
+  </div>
+</div>
+    
+  
+    
+    <div id="cover" style="background-image:url('http://res.cloudinary.com/kerkerj/image/upload/e_blur:1265,q_auto:eco/v1526483175/everaldo-coelho-486011-unsplash-min.jpg');"></div>
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="https://blog.kerkerj.in/js/script-qi9wbxp2ya2j6p7wx1i6tgavftewndznf4v0hy2gvivk1rxgc3lm7njqb6bz.min.js"></script>
+
+
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+  
+
+
+
+    
+  </body>
+</html>
+

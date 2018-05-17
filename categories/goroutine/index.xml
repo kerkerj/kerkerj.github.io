@@ -1,122 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>kerkerj</title>
-    <link>http://blog.kerkerj.in/categories/goroutine/index.xml</link>
-    <description>Recent content on kerkerj</description>
+    <title>Goroutine on kerkerj</title>
+    <link>https://blog.kerkerj.in/categories/goroutine/</link>
+    <description>Recent content in Goroutine on kerkerj</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
-    <atom:link href="http://blog.kerkerj.in/categories/goroutine/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 25 Oct 2016 12:32:55 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.kerkerj.in/categories/goroutine/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>goroutine 執行相關討論</title>
-      <link>http://blog.kerkerj.in/blog/goroutine-%E5%9F%B7%E8%A1%8C%E7%9B%B8%E9%97%9C%E8%A8%8E%E8%AB%96/</link>
+      <link>https://blog.kerkerj.in/2016/10/goroutine-%E5%9F%B7%E8%A1%8C%E7%9B%B8%E9%97%9C%E8%A8%8E%E8%AB%96/</link>
       <pubDate>Tue, 25 Oct 2016 12:32:55 +0800</pubDate>
       
-      <guid>http://blog.kerkerj.in/blog/goroutine-%E5%9F%B7%E8%A1%8C%E7%9B%B8%E9%97%9C%E8%A8%8E%E8%AB%96/</guid>
-      <description>&lt;p&gt;幾天前在 Golang Taiwan 的 slack 裡看到了一些關於 goroutine 的討論&lt;/p&gt;
-
-&lt;p&gt;有人問了以下程式碼 (from &lt;a href=&#34;http://blog.mergermarket.it/now-youre-thinking-with-channels/&#34;&gt;http://blog.mergermarket.it/now-youre-thinking-with-channels/&lt;/a&gt;)&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;package main
-
-import &amp;quot;fmt&amp;quot;
-
-func main() {
-	channelForInts := make(chan int)
-	go printIntFromChannel(channelForInts)
-	channelForInts &amp;lt;- 5
-}
-
-func printIntFromChannel(channel chan int) {
-	number := &amp;lt;-channel
-	fmt.Println(&amp;quot;The number is:&amp;quot;, number)
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;提到上述程式碼在 goplayground 上測試好幾次都會印出 &lt;code&gt;The number is:5&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;但&lt;strong&gt;他自己在本機跑是怎樣執行都不會出現 5&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;看到這個問題第一個想到的是 &lt;code&gt;sync.Waitgroup&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;之前剛開始學 goroutine 的概念時，就在 stackoverflow 上看到有人討論相關的議題&lt;/p&gt;
-
-&lt;p&gt;加個 &lt;code&gt;sync.Waitgroup&lt;/code&gt; 就可以保證看到 goroutine 執行完後的結果。&lt;/p&gt;
-
-&lt;p&gt;而事實上會這樣子的原因 &lt;a href=&#34;https://golang.org/ref/spec#Program_execution&#34;&gt;Go Programming Language Specification&lt;/a&gt; 有寫&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Program execution begins by initializing the main package and then invoking the function &lt;code&gt;main&lt;/code&gt;. When that function invocation returns, the program exits. It does not wait for other (non-&lt;code&gt;main&lt;/code&gt;) goroutines to complete.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;所以在 main 執行完後也不管 goroutine 了，反正我就是要關掉了～這樣&lt;/p&gt;
-
-&lt;p&gt;改成用 &lt;code&gt;sync.Waitgroup&lt;/code&gt; 的話大概就是長下面這樣，有稍微變形一下，多另外一個 goroutine 來往 channel 丟值&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;package main
-
-import (
-	&amp;quot;fmt&amp;quot;
-	&amp;quot;sync&amp;quot;
-)
-
-var wg sync.WaitGroup
-
-func main() {
-	channelForInts := make(chan int)
-
-	wg.Add(2)
-	go setNum(channelForInts)
-	go printIntFromChannel(channelForInts)
-
-	wg.Wait()
-}
-
-func setNum(channel chan int) {
-	defer wg.Done()
-	
-	for i := 0; i &amp;lt; 100; i++ {
-		channel &amp;lt;- i
-	}
-	close(channel)
-}
-
-func printIntFromChannel(channel chan int) {
-	defer wg.Done()
-
-	for {
-		number, ok := &amp;lt;-channel
-
-		if !ok {
-			break
-		}
-
-		fmt.Println(&amp;quot;The number is:&amp;quot;, number)
-	}
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;另外社群朋友也提到另一個觀點，那就是將 &lt;code&gt;GOMAXPROCS&lt;/code&gt; 設成 &lt;code&gt;1&lt;/code&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;The GOMAXPROCS variable limits the number of operating system threads that can execute user-level Go code simultaneously. There is no limit to the number of threads that can be blocked in system calls on behalf of Go code; those do not count against the GOMAXPROCS limit.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;且 goroutine 內沒有 system call，就不會有 context switch&lt;/p&gt;
-
-&lt;p&gt;所以會等 goroutine 跑完後回 main 把整個 process 完成&lt;/p&gt;
-
-&lt;p&gt;也是挺有趣的，從沒想過這個地方。&lt;/p&gt;
-
-&lt;p&gt;最後就是看起來這兩個來源值得一讀&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Golang 的 spec &lt;a href=&#34;https://golang.org/ref/spec&#34;&gt;https://golang.org/ref/spec&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Golang Memory Model &lt;a href=&#34;https://golang.org/ref/mem&#34;&gt;https://golang.org/ref/mem&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-</description>
+      <guid>https://blog.kerkerj.in/2016/10/goroutine-%E5%9F%B7%E8%A1%8C%E7%9B%B8%E9%97%9C%E8%A8%8E%E8%AB%96/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

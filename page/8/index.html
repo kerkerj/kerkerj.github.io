@@ -1,840 +1,1003 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+  
+
+
+
+
+  
+
+
+  
+
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Hugo 0.40.3 with theme Tranquilpeak 0.4.3-BETA">
+    <title>kerkerj</title>
+    <meta name="author" content="kerkerj">
+    <meta name="keywords" content="">
+
+    <link rel="icon" href="https://blog.kerkerj.in/favicon.png">
+    
+      <link rel="alternate" type="application/rss+xml" title="RSS" href="https://blog.kerkerj.in/index.xml">
+    
 
     
-    
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="http://blog.kerkerj.in/">
+    <meta name="description" content="">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="blog">
     <meta property="og:title" content="kerkerj">
-    
-    <meta property="og:description" content="hugo hugo - 快速又現代的靜態網站產生器 ^^^ 這是 spf13 自己說的 繼 spf13-vim 後又一個 spf13 出品的好東西 XD 在靜態網站產生器中最廣為人知的應該就是 Jekyll 以及基於 Jekyll 的 Octopress 了 (關於靜態網站產生器，這篇文章 介紹了六個除了 Jekyll 以外的產生器) 為什麼要用 hugo？ 雖然 Jekyll / Octopress 很紅資源多主題也不少 但是缺點就是要使用它們就必須裝 ruby、裝 gem 有在寫 ruby 的人感覺應該還好 沒在寫 ruby 的光想像就覺得應該會被搞死&hellip; XD 而且覺得文章一多時在編譯的時候好慢&hellip; 用 hugo 的好處就是因為他是用 go 寫的 執行速度飛快，而且只要下載一個 binary 檔案後就可以操作了喲~ 基本 hugo 安裝與操作 首先先安裝 hugo (我是用 mac 的 homebrew) $ brew install hugo 使用 hugo 產生一個新的網站 $ hugo new site /path/to/the/site e.g.">
-    
-    
-    
+    <meta property="og:url" content="/">
     <meta property="og:site_name" content="kerkerj">
-
-    
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:site" content="kerkerj" />
-    <meta name="twitter:title" content="kerkerj &middot; kerkerj">
-    <meta name="twitter:description" content="Hi.">
-
+    <meta name="twitter:title" content="kerkerj">
+    <meta name="twitter:description" content="">
     
-    <title>kerkerj &middot; kerkerj</title>
-
-    
-    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+      <meta name="twitter:creator" content="@kerkerj">
     
     
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
-    
-
-    <link rel="stylesheet" href="http://blog.kerkerj.in//css/all.min.css">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
     
     
-      <link rel="stylesheet" href="http://blog.kerkerj.in//css/highlight/railscasts.css">
+
+    
+      <meta property="og:image" content="//www.gravatar.com/avatar/269d15bf3b48dc4edd4a72f5637a54a8?s=640">
     
 
     
-    <link href="http://blog.kerkerj.in/favicon.ico" rel="icon">
+    
+    
 
     
-    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://blog.kerkerj.in//index.xml">
-</head>
-<body>
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://blog.kerkerj.in/css/style-jsjn0006wyhpyzivf6yceb31gvpjatbcs3qzjvlumobfnugccvobqwxnnaj8.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="2">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://blog.kerkerj.in/">kerkerj</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://blog.kerkerj.in/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="//www.gravatar.com/avatar/269d15bf3b48dc4edd4a72f5637a54a8?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="2">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://blog.kerkerj.in/#about">
+          <img class="sidebar-profile-picture" src="//www.gravatar.com/avatar/269d15bf3b48dc4edd4a72f5637a54a8?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">kerkerj</h4>
+        
+          <h5 class="sidebar-profile-bio">Cat lover &lt;3</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/kerkerj" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/page/cats/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-angle-right"></i>
+      
+      <span class="sidebar-button-desc">Cats</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/page/mac-app-list/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-angle-right"></i>
+      
+      <span class="sidebar-button-desc">Mac App List</span>
+    </a>
+  </li>
 
 
-<div id="layout" class="pure-g">
-    <div class="sidebar pure-u-1 pure-u-md-1-4">
-    <div class="header">
-        <hgroup>
-            <h1 class="brand-title"><a href="http://blog.kerkerj.in/">kerkerj</a></h1>
-            <h2 class="brand-tagline"> Hi. </h2>
-        </hgroup>
+    </ul>
+    <ul class="sidebar-buttons">
+      
 
-        <nav class="nav">
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://blog.kerkerj.in/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="2"
+        class="
+               hasCoverMetaIn
+               ">
+        <section class="postShorten-group main-content-wrap">
+          
+          
             
-            <ul class="pure-menu-list">
-              
-              
-                <li class="pure-menu-link">
-                  <a href="http://blog.kerkerj.in/notes/">Notes</a>
-                </li>
-              
-                <li class="pure-menu-link">
-                  <a href="http://blog.kerkerj.in/about/">About</a>
-                </li>
-              
-                <li class="pure-menu-link">
-                  <a href="http://blog.kerkerj.in/mac-app-list/">Mac App List</a>
-                </li>
-              
-            </ul>
 
-            
-            <ul class="nav-list">
-                
-                <li class="nav-item">
-                    <a class="pure-button" href="http://twitter.com/kerkerj"><i class="fa fa-twitter"></i> Twitter</a>
-                </li>
-                
-                
-                <li class="nav-item">
-                    <a class="pure-button" href="http://github.com/kerkerj "><i class="fa fa-github-alt"></i> Github</a>
-                </li>
-                
-                
-                
-                <li class="nav-item">
-                    <a class="pure-button" href="http://blog.kerkerj.in/index.xml"><i class="fa fa-rss-alt"></i> RSS</a>
-                </li>
-            </ul>
-        </nav>
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d1---%E5%AE%9A%E7%BE%A9-1---%E4%BB%80%E9%BA%BC%E6%98%AF-rest/restful/">
+          [API-d1] - 定義 1 - 什麼是 REST/RESTful?
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2014-10-02T00:00:00Z">
+        
+  October 2, 2014
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/restful">RESTful</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/api">API</a>
+    
+  
+
+  </div>
+
     </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      <p></p>
+      <p>
+        <a href="https://blog.kerkerj.in/2014/10/api-d1---%E5%AE%9A%E7%BE%A9-1---%E4%BB%80%E9%BA%BC%E6%98%AF-rest/restful/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+          
+            
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d2---%E5%AE%9A%E7%BE%A9-2---restful-%E7%9A%84%E5%84%AA%E9%BB%9E%E8%88%87%E8%A6%81%E6%B1%82/">
+          [API-d2] - 定義 2 - RESTful 的優點與要求
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2014-10-02T00:00:00Z">
+        
+  October 2, 2014
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/restful">RESTful</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/api">API</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      <p></p>
+      <p>
+        <a href="https://blog.kerkerj.in/2014/10/api-d2---%E5%AE%9A%E7%BE%A9-2---restful-%E7%9A%84%E5%84%AA%E9%BB%9E%E8%88%87%E8%A6%81%E6%B1%82/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+          
+            
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/swift-d1---%E4%BB%8B%E7%B4%B9/">
+          [Swift-d1] - 介紹
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2014-10-02T00:00:00Z">
+        
+  October 2, 2014
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/swift">Swift</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      <p></p>
+      <p>
+        <a href="https://blog.kerkerj.in/2014/10/swift-d1---%E4%BB%8B%E7%B4%B9/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+          
+            
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/swift-d2---%E5%AE%89%E8%A3%9D%E5%8F%8A-hello-world/">
+          [Swift-d2] - 安裝及 Hello World!
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2014-10-02T00:00:00Z">
+        
+  October 2, 2014
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/swift">swift</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      <p></p>
+      <p>
+        <a href="https://blog.kerkerj.in/2014/10/swift-d2---%E5%AE%89%E8%A3%9D%E5%8F%8A-hello-world/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+          
+            
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/09/codeigniter-on-nginx/">
+          Codeigniter on nginx
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2014-09-25T00:00:00Z">
+        
+  September 25, 2014
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/codeigniter">codeigniter</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/nginx">nginx</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/php5-fpm">php5-fpm</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      <p></p>
+      <p>
+        <a href="https://blog.kerkerj.in/2014/09/codeigniter-on-nginx/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+          
+            
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/08/event-driven-i/o-models-and-coroutine-notes/">
+          Event-driven I/O models and Coroutine Notes
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2014-08-18T00:00:00Z">
+        
+  August 18, 2014
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/event-driven">event-driven</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/nodejs">nodejs</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/node">node</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/ruby">ruby</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/python">python</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/twisted">twisted</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/eventmachine">eventmachine</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      <p></p>
+      <p>
+        <a href="https://blog.kerkerj.in/2014/08/event-driven-i/o-models-and-coroutine-notes/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+          
+            
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/08/add-tracked-file-to-.gitignore/">
+          Add tracked file to .gitignore
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2014-08-15T00:00:00Z">
+        
+  August 15, 2014
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/git">git</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      <p></p>
+      <p>
+        <a href="https://blog.kerkerj.in/2014/08/add-tracked-file-to-.gitignore/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+          
+            
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/08/emoji-data-in-mysql/">
+          Emoji data in MySQL
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2014-08-06T00:00:00Z">
+        
+  August 6, 2014
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/mysql">mysql</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/emoji">emoji</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      <p></p>
+      <p>
+        <a href="https://blog.kerkerj.in/2014/08/emoji-data-in-mysql/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+          
+            
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/08/writing-lua-on-mac/">
+          Writing Lua on Mac
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2014-08-06T00:00:00Z">
+        
+  August 6, 2014
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/mac">mac</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/lua">lua</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      <p></p>
+      <p>
+        <a href="https://blog.kerkerj.in/2014/08/writing-lua-on-mac/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+          
+            
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/08/capistrano-with-rails---basic-notes/">
+          Capistrano with rails - basic notes
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2014-08-05T00:00:00Z">
+        
+  August 5, 2014
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/rails">rails</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/capistrano">capistrano</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      <p></p>
+      <p>
+        <a href="https://blog.kerkerj.in/2014/08/capistrano-with-rails---basic-notes/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+          
+          
+  <div class="pagination-bar">
+    <ul class="pagination">
+      
+        
+          <li class="pagination-prev">
+            <a class="btn btn--default btn--small" href="https://blog.kerkerj.in/page/7/">
+              <i class="fa fa-angle-left text-base icon-mr"></i>
+              <span>NEWER POSTS</span>
+            </a>
+          </li>
+        
+        
+          <li class="pagination-next">
+            <a class="btn btn--default btn--small" href="https://blog.kerkerj.in/page/9/">
+              <span>OLDER POSTS</span>
+              <i class="fa fa-angle-right text-base icon-ml"></i>
+            </a>
+          </li>
+        
+      
+      <li class="pagination-number">page 8 of 15</li>
+    </ul>
+  </div>
+
+
+        </section>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2018 <a href="https://github.com/kerkerj">kerkerj</a>. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="//www.gravatar.com/avatar/269d15bf3b48dc4edd4a72f5637a54a8?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">kerkerj</h4>
+    
+      <div id="about-card-bio">Cat lover &lt;3</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Backend Engineer
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Taiwan
+      </div>
+    
+  </div>
 </div>
 
-
-    <div class="content pure-u-1 pure-u-md-3-4">
-        <div>
+    <div id="algolia-search-modal" class="modal-container">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="close-button"><i class="fa fa-close"></i></span>
+      <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+        <span class="searchby-algolia-text text-color-light text-small">by</span>
+        <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+      </a>
+      <i class="search-icon fa fa-search"></i>
+      <form id="algolia-search-form">
+        <input type="text" id="algolia-search-input" name="search"
+          class="form-control input--large search-input" placeholder="Search" />
+      </form>
+    </div>
+    <div class="modal-body">
+      <div class="no-result text-color-light text-center">no post found</div>
+      <div class="results">
+        
+        
+          <div class="media">
             
-            <div class="posts">
-                
-                <h1 class="content-subhead">2014-08-08 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://blog.kerkerj.in/blog/2014/08/05/2014-08-05-capistrano-with-rails-basic-notes/" class="post-title">Capistrano with rails - basic notes</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-rails" href="http://blog.kerkerj.in//categories/rails">rails</a><a class="post-category post-category-capistrano" href="http://blog.kerkerj.in//categories/capistrano">capistrano</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        
-
-<p>詳細的東西還是看 project&rsquo;s github page 比較快 - <a href="https://github.com/capistrano/capistrano">Capistrano@github</a></p>
-
-<p>Capistrano 剛開始寫 deploy script 時真的會有點搞不太懂 XD<br />
-記錄一下使用 &lsquo;capistrano&rsquo; 把特定的 github repo 抓到 remote server</p>
-
-<h2 id="安裝:0c80082cc245ac95d41aa492a716caef">安裝</h2>
-
-<p>先在 Gemfile 加入:</p>
-
-<pre><code>gem 'capistrano', '~&gt; 3.2.0'   
-</code></pre>
-
-<p>然後安裝~</p>
-
-<pre><code>bundle install
-</code></pre>
-
-<p>步驟大概會是：</p>
-
-<p>假設已經寫完 capistrano 了，執行 script 時，<br />
-capistrano 會先利用 script 裡提供的 server ip 以及 public key，<br />
-先連線到 remote server，接著再到 github 上拉 code 到指定的目錄裡，<br />
-再重開 server。</p>
-
-<h2 id="產生相關檔案:0c80082cc245ac95d41aa492a716caef">產生相關檔案</h2>
-
-<pre><code>bundle exec cap install 
-</code></pre>
-
-<p>會產生以下檔案:  (copy from <a href="https://github.com/capistrano/capistrano">Capistrano@github</a>)</p>
-
-<pre><code>├── Capfile
-├── config
-│   ├── deploy
-│   │   ├── production.rb
-│   │   └── staging.rb
-│   └── deploy.rb
-└── lib
-    └── capistrano
-            └── tasks
-</code></pre>
-
-<p>deploy.rb 通常是設定 source control 的類型 (可以設定 git, hg, svn)，<br />
-project repo 的路徑，要 deploy 到 server 的哪個目錄等等，<br />
-<code>config/deploy/*</code> 底下的檔案則是根據不同的 stage 分別設定，<br />
-以下是 deploy.rb, production.rb 的一些簡單設定</p>
-
-<pre><code class="language-ruby"># config valid only for Capistrano 3.1
-lock '3.2.1'
-
-set :application, 'application_name'
-set :repo_url, 'github_repo_url'
-
-set :deploy_via, :copy
-
-# Default branch is :master
-# ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
-
-# Default deploy_to directory is /var/www/my_app
-set :deploy_to, '/server/www/path/'
-
-# Default value for :scm is :git
-set :scm, :git
-
-# Default value for :format is :pretty
-set :format, :pretty
-
-# Default value for :log_level is :debug
-set :log_level, :debug
-
-# Default value for :pty is false
-# set :pty, true
-
-# Default value for :linked_files is []
-# set :linked_files, %w{config/database.yml}
-
-# Default value for linked_dirs is []
-# set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
-
-# Default value for default_env is {}
-# set :default_env, { path: &quot;/opt/ruby/bin:$PATH&quot; }
-
-# Default value for keep_releases is 5
-# set :keep_releases, 5
-
-namespace :deploy do
-
-  desc 'Restart application'
-  task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      # Your restart mechanism here, for example:
-      execute :mkdir, '-p', &quot;#{ release_path }/tmp&quot;
-      execute :touch, release_path.join('tmp/restart.txt')
-    end
-  end
-
-  after :publishing, :restart
-
-  after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
-      # Here we can do anything such as:
-      # within release_path do
-      #  execute :rake, 'cache:clear'
-      # end
-    end
-  end
-
-end
-
-</code></pre>
-
-<p>production.rb:</p>
-
-<pre><code class="language-ruby"># Simple Role Syntax
-# ==================
-# Supports bulk-adding hosts to roles, the primary server in each group
-# is considered to be the first unless any hosts have the primary
-# property set.  Don't declare `role :all`, it's a meta role.
-
-role :app, %w{app@server}
-role :web, %w{web@server}
-role :db,  %w{db@server}
-
-
-# Extended Server Syntax
-# ======================
-# This can be used to drop a more detailed server definition into the
-# server list. The second argument is a, or duck-types, Hash and is
-# used to set extended properties on the server.
-
-server 'server_ip', user: 'server_user', roles: %w{app}, my_property: :my_value
-
-
-# Custom SSH Options
-# ==================
-# You may pass any option but keep in mind that net/ssh understands a
-# limited set of options, consult[net/ssh documentation](http://net-ssh.github.io/net-ssh/classes/Net/SSH.html#method-c-start).
-#
-# Global options
-# --------------
-#  set :ssh_options, {
-#    keys: %w(/home/rlisowski/.ssh/id_rsa),
-#    forward_agent: true
-#    auth_methods: %w(password)
-#  }
-#
-# And/or per server (overrides global)
-# ------------------------------------
- server 'server_ip',
-   user: 'server_user',
-   ssh_options: {
-     keys: %w(/user/.ssh/id_rsa),
-     forward_agent: false,
-     auth_methods: %w(publickey password)
-   }
-
-</code></pre>
-
-<p>設定完後，因為這邊是設定 production.rb<br />
-因此執行以下指令 deploy 到 production server</p>
-
-<pre><code class="language-shell">$ bundle exec cap production deploy
-</code></pre>
-
-<p>如果 <code>exit status 0 (successful).</code><br />
-那就是成功啦~</p>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2014-08-08 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://blog.kerkerj.in/blog/2014/08/05/2014-08-05-openresty-on-ubuntu-14-dot-04/" class="post-title">Openresty on Ubuntu 14.04</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-ubuntu" href="http://blog.kerkerj.in//categories/ubuntu">ubuntu</a><a class="post-category post-category-nginx" href="http://blog.kerkerj.in//categories/nginx">nginx</a><a class="post-category post-category-openresty" href="http://blog.kerkerj.in//categories/openresty">openresty</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        
-
-<h2 id="install:a5e64391ada30ee8ed15fcd1b674ee6b">Install</h2>
-
-<p>choose the latest version of Openresty<br />
-I used ngx_openresty-1.7.2.1.tar.gz</p>
-
-<pre><code class="language-shell"># install packages
-sudo apt-get install libreadline-dev libpcre3-dev libssl-dev perl  
-
-# get openresty package
-wget http://openresty.org/download/ngx_openresty-1.7.2.1.tar.gz   
-
-# unzip
-tar xzvf ngx_openresty-1.7.2.1.tar.gz
-
-# install
-cd ngx_openresty-1.7.2.1/
-
-# You can setup with ./configure --prefix=&quot;the folder you want to install&quot;, default is '/usr/local/openresty'
-./configure 
-make
-sudo make install # need permission to copy file to target folder
-</code></pre>
-
-<p>Default folder: <code>/usr/local/openresty</code></p>
-
-<h2 id="setup:a5e64391ada30ee8ed15fcd1b674ee6b">Setup</h2>
-
-<p>create work folder in ~</p>
-
-<pre><code>mkdir ~/work
-cd ~/work
-mkdir logs/ conf/
-</code></pre>
-
-<p>create a new file in <code>~/work/conf/nginx.conf</code></p>
-
-<pre><code>worker_processes  1;
-error_log logs/error.log;
-events {
-    worker_connections 1024;
-}
-http {
-    server {
-        listen 8080;
-        location / {
-            default_type text/html;
-            content_by_lua '
-                ngx.say(&quot;&lt;p&gt;hello, world&lt;/p&gt;&quot;)
-            ';
-        }
-    }
-}
-</code></pre>
-
-<p>because Openresty is installed in <code>/usr/local/openresty</code>,<br />
-we need to add the directory to PATH variable</p>
-
-<pre><code>PATH=/usr/local/openresty/nginx/sbin:$PATH
-export PATH
-</code></pre>
-
-<p>Then use the way below to start nginx server</p>
-
-<pre><code>nginx -p `pwd`/ -c conf/nginx.conf
-</code></pre>
-
-<p>Assume that you have a nginx server originally, and then you installed Openresty, it can be set up at the same time if the port is not confilcted to the origin nginx.</p>
-
-<h2 id="use-external-lua-file-to-keep-conf-clean:a5e64391ada30ee8ed15fcd1b674ee6b">Use external lua file to keep conf clean</h2>
-
-<p>Edit <code>~/work/conf/nginx.conf</code></p>
-
-<pre><code>worker_processes  1;
-error_log logs/error.log;
-events {
-    worker_connections 1024;
-}
-http {
-    server {
-        listen 8080;
-        location /hello {
-            content_by_lua_file conf/hello.lua;
-        }
-    }
-}
-</code></pre>
-
-<pre><code class="language-lua">-- hello.lua
-ngx.say(&quot;Hello World&quot;)
-</code></pre>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2014-07-07 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://blog.kerkerj.in/blog/2014/07/30/2014-07-30-install-rails-server-env-with-rbenv-on-ubuntu-14-dot-04/" class="post-title">Install rails server env with rbenv on Ubuntu 14.04</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-ubuntu" href="http://blog.kerkerj.in//categories/ubuntu">ubuntu</a><a class="post-category post-category-rails" href="http://blog.kerkerj.in//categories/rails">rails</a><a class="post-category post-category-rbenv" href="http://blog.kerkerj.in//categories/rbenv">rbenv</a><a class="post-category post-category-nginx" href="http://blog.kerkerj.in//categories/nginx">nginx</a><a class="post-category post-category-passenger" href="http://blog.kerkerj.in//categories/passenger">passenger</a><a class="post-category post-category-mysql" href="http://blog.kerkerj.in//categories/mysql">mysql</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        
-
-<pre><code>nodejs v0.10.25 (for rails javascript engine)
-
-rbenv 0.4.0-98-g13a474c
-
-ruby 2.1.2p95 (2014-05-08 revision 45877) [x86_64-linux]
-
-Rails 4.1.4
-
-nginx version: nginx/1.6.0
-
-Phusion Passenger version 4.0.48
-
-mysql  Ver 14.14 Distrib 5.5.38, for debian-linux-gnu (x86_64) using readline 6.3
-
-</code></pre>
-
-<h2 id="installing-ruby-rails:c3f0d026b5eef696bef07e5a82f0b1ed">Installing Ruby &amp; Rails</h2>
-
-<pre><code>sudo apt-get update &amp;&amp; sudo apt-get upgrade
-sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties nodejs npm
-</code></pre>
-
-<p>Use rbenv</p>
-
-<pre><code>cd
-git clone git://github.com/sstephenson/rbenv.git .rbenv
-echo 'export PATH=&quot;$HOME/.rbenv/bin:$PATH&quot;' &gt;&gt; ~/.bashrc
-echo 'eval &quot;$(rbenv init -)&quot;' &gt;&gt; ~/.bashrc
-exec $SHELL
-
-git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
-echo 'export PATH=&quot;$HOME/.rbenv/plugins/ruby-build/bin:$PATH&quot;' &gt;&gt; ~/.bashrc
-exec $SHELL
-
-rbenv install 2.1.2
-exec $SHELL
-
-rbenv global 2.1.2
-ruby -v
-</code></pre>
-
-<p>Don&rsquo;t install rdoc when installing gems</p>
-
-<pre><code>echo &quot;gem: --no-ri --no-rdoc&quot; &gt; ~/.gemrc
-</code></pre>
-
-<p>Install rails</p>
-
-<pre><code>gem install rails
-exec $SHELL
-rails -v
-</code></pre>
-
-<h2 id="installing-nginx-with-passenger:c3f0d026b5eef696bef07e5a82f0b1ed">Installing Nginx with passenger</h2>
-
-<pre><code># Install Phusion's PGP key to verify packages
-gpg --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7
-gpg --armor --export 561F9B9CAC40B2F7 | sudo apt-key add -
-
-# Add HTTPS support to APT
-sudo apt-get install apt-transport-https
-
-# Add the passenger repository
-sudo sh -c &quot;echo 'deb https://oss-binaries.phusionpassenger.com/apt/passenger trusty main' &gt;&gt; /etc/apt/sources.list.d/passenger.list&quot;
-sudo chown root: /etc/apt/sources.list.d/passenger.list
-sudo chmod 600 /etc/apt/sources.list.d/passenger.list
-sudo apt-get update
-
-# Install nginx and passenger
-sudo apt-get install nginx-full passenger
-</code></pre>
-
-<p>Edit passenger configuration in <code>/etc/nginx/nginx.conf</code></p>
-
-<pre><code>##
-# Phusion Passenger
-##
-# Uncomment it if you installed ruby-passenger or ruby-passenger-enterprise
-##
-
-passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;
-
-passenger_ruby /usr/bin/ruby; #change this line
-
-# passenger_ruby /home/yourpath/.rbenv/shims/ruby; # If you use rbenv
-# Use `which ruby`
-</code></pre>
-
-<h2 id="installing-mysql:c3f0d026b5eef696bef07e5a82f0b1ed">Installing MySQL</h2>
-
-<pre><code>sudo apt-get install mysql-server mysql-client libmysqlclient-dev
-</code></pre>
-
-<p>Done!</p>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2014-07-07 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://blog.kerkerj.in/blog/2014/07/03/2014-07-03-rails-actioncontrollerinvalidauthenticitytoken-when-useing-rails-as-api/" class="post-title">[Rails] ActionController::InvalidAuthenticityToken when useing Rails4 as API </a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-rails" href="http://blog.kerkerj.in//categories/rails">rails</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p>change<br />
-<code>protect_from_forgery with: :exception</code><br />
-to<br />
-<code>protect_from_forgery with: :null_session</code><br />
-in <code>ApplicationController</code></p>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2014-06-06 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://blog.kerkerj.in/blog/2014/06/19/2014-06-19-apache-ssl/" class="post-title">[Apache] SSL (self-signed &amp; purchased version) </a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-apache" href="http://blog.kerkerj.in//categories/apache">apache</a><a class="post-category post-category-ssl" href="http://blog.kerkerj.in//categories/ssl">ssl</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        
-
-<h2 id="self-signed:ecf5dbe1752e516c50d0d4915274f6e7">[Self-signed]</h2>
-
-<hr />
-
-<ol>
-<li><p>Generate a host key:
-<code>
-sudo ssh-keygen -f host.key
-</code></p></li>
-
-<li><p>Generate a certificate request file
-<code>
-sudo openssl req -new -key host.key -out request.csr
-</code></p></li>
-</ol>
-
-<p>Type what you want:
-```
-  Country Name (2 letter code) [AU]:TW
-  State or Province Name (full name) [Some-State]:Taiwan
-  Locality Name (eg, city) []:Taipei
-  Organization Name (eg, company) [Internet Widgits Pty Ltd]:
-  Organizational Unit Name (eg, section) []:
-  Common Name (e.g. server FQDN or YOUR name) []:
-  Email Address []:</p>
-
-<p>Please enter the following &lsquo;extra&rsquo; attributes
-  to be sent with your certificate request
-  A challenge password []:
-  An optional company name []:
-```</p>
-
-<ol>
-<li><p>Create the SSL certificate
-<code>sudo openssl x509 -req -days 365 -in request.csr -signkey host.key -out server.crt</code></p>
-
-<p>Create a nopass&rsquo; key (optional)
-<code>openssl rsa -in host.key -out host.nopass.key</code></p></li>
-
-<li><p>Configure Apache
-<code>LoadModule ssl_module libexec/apache2/mod_ssl.so</code></p></li>
-</ol>
-
-<pre><code>SSLEngine on 
-SSLCertificateFile &quot;/etc/apache2/ssl/server.crt&quot;
-SSLCertificateKeyFile &quot;/etc/apache2/ssl/host.nopass.key&quot;
-</code></pre>
-
-<pre><code>sudo apachectl configtest 
-sudo apachectl restart 
-</code></pre>
-
-<p>p.s. enable mods: <code>sudo a2enmod ssl</code>
-enable sites: <code>sudo a2ensite default-ssl</code></p>
-
-<h2 id="purchased-symantec:ecf5dbe1752e516c50d0d4915274f6e7">[Purchased (Symantec)]</h2>
-
-<hr />
-
-<p>[<a href="http://www.symantec.com/tv/products/details.jsp?vid=1452855338001">http://www.symantec.com/tv/products/details.jsp?vid=1452855338001</a>]
-<object id="flashObj" width="640" height="360" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,47,0"><param name="movie" value="http://c.brightcove.com/services/viewer/federated_f9?isVid=1&isUI=1" /><param name="bgcolor" value="#FFFFFF" /><param name="flashVars" value="videoId=1452855338001&linkBaseURL=http%3A%2F%2Fwww.symantec.com%2Ftv%2Fproducts%2Fdetails.jsp%3Fvid%3D1452855338001&playerID=1170996384001&playerKey=AQ~~,AAAABuIiy9k~,I8BhasVwr9yry4vRRPOpsSrBvwjFZ03K&domain=embed&dynamicStreaming=true" /><param name="base" value="http://admin.brightcove.com" /><param name="seamlesstabbing" value="false" /><param name="allowFullScreen" value="true" /><param name="swLiveConnect" value="true" /><param name="allowScriptAccess" value="always" /><embed src="http://c.brightcove.com/services/viewer/federated_f9?isVid=1&isUI=1" bgcolor="#FFFFFF" flashVars="videoId=1452855338001&linkBaseURL=http%3A%2F%2Fwww.symantec.com%2Ftv%2Fproducts%2Fdetails.jsp%3Fvid%3D1452855338001&playerID=1170996384001&playerKey=AQ~~,AAAABuIiy9k~,I8BhasVwr9yry4vRRPOpsSrBvwjFZ03K&domain=embed&dynamicStreaming=true" base="http://admin.brightcove.com" name="flashObj" width="640" height="360" seamlesstabbing="false" type="application/x-shockwave-flash" allowFullScreen="true" allowScriptAccess="always" swLiveConnect="true" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"></embed></object></p>
-
-<p><object id="flashObj" width="640" height="360" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,47,0"><param name="movie" value="http://c.brightcove.com/services/viewer/federated_f9?isVid=1&isUI=1" /><param name="bgcolor" value="#FFFFFF" /><param name="flashVars" value="videoId=1452855338001&linkBaseURL=http%3A%2F%2Fwww.symantec.com%2Ftv%2Fproducts%2Fdetails.jsp%3Fvid%3D1452855338001&playerID=1170996384001&playerKey=AQ~~,AAAABuIiy9k~,I8BhasVwr9yry4vRRPOpsSrBvwjFZ03K&domain=embed&dynamicStreaming=true" /><param name="base" value="http://admin.brightcove.com" /><param name="seamlesstabbing" value="false" /><param name="allowFullScreen" value="true" /><param name="swLiveConnect" value="true" /><param name="allowScriptAccess" value="always" /><embed src="http://c.brightcove.com/services/viewer/federated_f9?isVid=1&isUI=1" bgcolor="#FFFFFF" flashVars="videoId=1452855338001&linkBaseURL=http%3A%2F%2Fwww.symantec.com%2Ftv%2Fproducts%2Fdetails.jsp%3Fvid%3D1452855338001&playerID=1170996384001&playerKey=AQ~~,AAAABuIiy9k~,I8BhasVwr9yry4vRRPOpsSrBvwjFZ03K&domain=embed&dynamicStreaming=true" base="http://admin.brightcove.com" name="flashObj" width="640" height="360" seamlesstabbing="false" type="application/x-shockwave-flash" allowFullScreen="true" allowScriptAccess="always" swLiveConnect="true" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"></embed></object></p>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2014-06-06 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://blog.kerkerj.in/blog/2014/06/16/2014-06-16-mac-update-openssl-on-mac/" class="post-title">[Mac] update openssl on mac</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-mac" href="http://blog.kerkerj.in//categories/mac">mac</a><a class="post-category post-category-OpenSSL" href="http://blog.kerkerj.in//categories/openssl">OpenSSL</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p>First of all, you need &lsquo;brew&rsquo; (<a href="http://brew.sh/">http://brew.sh/</a>)</p>
-
-<pre><code>$ brew update
-$ brew install openssl
-$ brew link --force openssl
- 
-$openssl version -a
-</code></pre>
-
-<p>If it&rsquo;s still the old version, you shoud:</p>
-
-<pre><code>$ sudo rm /usr/bin/openssl  #remove the old binary 
-$ sudo ln -s /usr/local/Cellar/openssl/1.0.1h/bin/openssl /usr/local/bin
-(1.0.1h -&gt; the latest version)
-</code></pre>
-
-<p>ref: <a href="http://apple.stackexchange.com/questions/126830/how-to-upgrade-openssl-in-os-x">http://apple.stackexchange.com/questions/126830/how-to-upgrade-openssl-in-os-x</a></p>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2014-06-06 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://blog.kerkerj.in/blog/2014/06/11/2014-06-11-mysql-add-a-unique-index-by-2-columns/" class="post-title">[MySQL] add a unique index by 2 columns</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p><code>ALTER TABLE table_name ADD UNIQUE INDEX(column1, column2);</code></p>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2014-05-05 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://blog.kerkerj.in/blog/2014/05/30/2014-05-30-ubuntu-enable-disable-services-on-start-up/" class="post-title">[Ubuntu] enable/disable services on start-up</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-ubuntu" href="http://blog.kerkerj.in//categories/ubuntu">ubuntu</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p>Take apache for example:</p>
-
-<p>Disable - <code>update-rc.d -f apache2 remove</code></p>
-
-<p>Enable - <code>update-rc.d apache2 defaults</code></p>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2014-05-05 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://blog.kerkerj.in/blog/2014/05/28/2014-05-28-codeigniter-tips-deploy-to-amazon-web-services/" class="post-title">[Codeigniter] Tips deploy to Amazon Web Services</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <ol>
-<li>If you use Amazon RDS, especially micro plan,<br />
-remember to set <code>$config['pconnect'] = FALSE</code> in <code>application/config/database.php</code>.<br />
-Because RDS has Max_connection limits.<br /></li>
-<li>If you use RDS, remeber that the system timezone in RDS is +0 timezone.<br />
-In your application, you should care about this thing.<br /></li>
-<li>If you will use loadbalancer, remember to &hellip;.(???)<br /></li>
-</ol>
-
-                    </div>
-                </section>
-                
-                <h1 class="content-subhead">2014-05-05 00:00</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://blog.kerkerj.in/blog/2014/05/06/2014-05-06-mysql-several-useful-statements-group-concat-ifnull-date-format/" class="post-title">[MySQL] Several useful statements (GROUP_CONCAT, ifnull, DATE_FORMAT)</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under
-                                
-                                <a class="post-category post-category-mysql" href="http://blog.kerkerj.in//categories/mysql">mysql</a><a class="post-category post-category-GROUP_CONCAT" href="http://blog.kerkerj.in//categories/group_concat">GROUP_CONCAT</a><a class="post-category post-category-ifnull" href="http://blog.kerkerj.in//categories/ifnull">ifnull</a><a class="post-category post-category-DATE_FORMAT" href="http://blog.kerkerj.in//categories/date_format">DATE_FORMAT</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <ol>
-<li><p>將 query 出來的多筆記錄結合成一個欄位<br />
-例如原本的 query 結果為：<br />
-<code>SELECT 'fruits' FROM 'fruits_table'</code><br />
-apple<br />
-banana<br />
-kiwi<br />
-<code>SELECT group_concat('fruits' separator ',') FROM 'fruits_table'</code><br />
-result: apple,banana,kiwi</p></li>
-
-<li><p>改變 datetime 欄位的顯示結果<br />
-<code>SELECT DATE_FORMAT( 'created_at', '%Y/%m/%d %H:%i') AS 'created_at' FROM 'message_table'</code><br />
-result: 2014/05/06 18:20</p></li>
-
-<li><p>若某個欄位的值為空，則給予預設值<br />
-<code>SELECT ifnull('is_success', 0) AS 'is_success' FROM ....</code></p></li>
-</ol>
-
-                    </div>
-                </section>
-                
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2018/05/again/">
+                <h3 class="media-heading">Again</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  May 5, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p>嗯，我又把 theme 換掉了。其實還有個原因是裝了最新版的 hugo 後，就 build 不出來了，只好順便換個新的 theme。</p>
+
+<p></p></div>
             </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
             
-<div class="pagination">
-  <nav role="pagination" class="post-list-pagination">
-      
-      <a href="http://blog.kerkerj.in/page/7/" class="post-list-pagination-item pure-button post-list-pagination-item-prev">
-        <i class="fa fa-angle-double-left"></i>&nbsp;Newer
-      </a>
-      
-    <span class="post-list-pagination-item post-list-pagination-item-current">Page 8 of 14</span>
-    
-      <a href="http://blog.kerkerj.in/page/9/" class="post-list-pagination-item pure-button post-list-pagination-item-next">
-        Older&nbsp;<i class="fa fa-angle-double-right"></i>
-      </a>
-    
-  </nav>
-</div>
-
-
-            <div class="footer">
-    <div class="pure-menu pure-menu-horizontal pure-menu-open">
-        <ul>
-            <li>Powered by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a></li>
-        </ul>
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/11/%E8%AE%80%E6%9B%B8-%E5%B7%A5%E4%BD%9C%E5%A4%A7%E8%A7%A3%E6%94%BE%E9%80%99%E6%A8%A3%E5%81%9A%E4%BA%8B%E5%8F%8D%E8%80%8C%E6%9B%B4%E6%88%90%E5%8A%9F/">
+                <h3 class="media-heading">[讀書] 工作大解放：這樣做事反而更成功</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Nov 11, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/goroutine-%E5%9F%B7%E8%A1%8C%E7%9B%B8%E9%97%9C%E8%A8%8E%E8%AB%96/">
+                <h3 class="media-heading">goroutine 執行相關討論</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/tld_length-%E5%9C%A8-rails-session_store-%E8%88%87-http-url-%E7%9A%84%E8%A8%AD%E5%AE%9A/">
+                <h3 class="media-heading">tld_length 在 Rails session_store 與 HTTP URL 的設定</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/rails-initializer-%E7%9A%84%E8%BC%89%E5%85%A5%E9%A0%86%E5%BA%8F/">
+                <h3 class="media-heading">Rails initializer 的載入順序</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/use-goconvey-in-projects-maganged-by-gb/">
+                <h3 class="media-heading">Use goconvey in projects maganged by gb</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/docker-ha-proxy/">
+                <h3 class="media-heading">docker HA proxy</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/tool-diff-so-fancy/">
+                <h3 class="media-heading">[tool] diff-so-fancy</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/new-theme/">
+                <h3 class="media-heading">New theme</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2015/05/migrating-to-hugo-from-octopress/">
+                <h3 class="media-heading">Migrating to Hugo from Octopress</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  May 5, 2015
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p></p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+      </div>
     </div>
+    <div class="modal-footer">
+      <p class="results-count text-medium"
+         data-message-zero="no post found"
+         data-message-one="1 post found"
+         data-message-other="{n} posts found">
+         141 posts found
+      </p>
+    </div>
+  </div>
 </div>
-<script src="http://blog.kerkerj.in//js/all.min.js"></script>
+    
+  
+    
+    <div id="cover" style="background-image:url('http://res.cloudinary.com/kerkerj/image/upload/e_blur:1265,q_auto:eco/v1526483175/everaldo-coelho-486011-unsplash-min.jpg');"></div>
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="https://blog.kerkerj.in/js/script-qi9wbxp2ya2j6p7wx1i6tgavftewndznf4v0hy2gvivk1rxgc3lm7njqb6bz.min.js"></script>
+
+
+
 <script>
-hljs.initHighlightingOnLoad();
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
 </script>
 
-        </div>
-    </div>
-</div>
 
 
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-ga('create', 'UA-45583907-2', 'auto');
-ga('send', 'pageview');
-
-</script>
-
-</body>
+    
+  </body>
 </html>
