@@ -13,191 +13,477 @@
     
     <item>
       <title>[Swift-d30] - 總結</title>
-      <link>https://blog.kerkerj.in/2014/10/swift-d30---%E7%B8%BD%E7%B5%90/</link>
+      <link>https://blog.kerkerj.in/2014/10/swift-d30-%E7%B8%BD%E7%B5%90/</link>
       <pubDate>Thu, 30 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/swift-d30---%E7%B8%BD%E7%B5%90/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/swift-d30-%E7%B8%BD%E7%B5%90/</guid>
+      <description>30 天下來其實中間受到不少人幫忙
+因為第一次寫 iOS 程式，對於 iOS 的基本運作流程還是詢問了不少同事
+包含在隔壁棚用 Cocos2d 寫 2D 遊戲的 Andy
+還有同事 Henry 和 Felix 都給予了很大的幫忙
+最後這隻小 app 其實 code 的品質並沒有很好
+主要還是因為寫來 demo 用的，以及老實講也沒什麼時間寫&amp;hellip;
+報兩個組別真的是很鐵人哪
+還看到隔壁棚一次報三四個主題的大大
+真是太厲害了
+假設明年還會參賽的話，應該還是會以單一技術來鑽研吧!
+Swift 有蠻多特性是 Objective-C 所沒有的
+如果有想在新專案嘗試的話
+最好還是先多看看網路上的比較
+避免踩到雷
+像有一點是我們同事曾經踩到的雷
+就是 NSDictionary V.S. Dictionary
+兩者的速度可以差到 5, 6 倍以上
+網路上搜尋也會發現有人在討論 Swift Dictionary 的效能差異
+若要在新專案使用還是要查詢一下避免掉一些問題
+另外還有就是 Swift on Xcode 的穩定度還是有待加強&amp;hellip;
+總而言之, 30 天結束了，ya!</description>
     </item>
     
     <item>
       <title>[Swift-d29] - 實戰開發 - TODOList - API 4 刪除</title>
-      <link>https://blog.kerkerj.in/2014/10/swift-d29---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---api-4-%E5%88%AA%E9%99%A4/</link>
+      <link>https://blog.kerkerj.in/2014/10/swift-d29-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-todolist-api-4-%E5%88%AA%E9%99%A4/</link>
       <pubDate>Wed, 29 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/swift-d29---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---api-4-%E5%88%AA%E9%99%A4/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/swift-d29-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-todolist-api-4-%E5%88%AA%E9%99%A4/</guid>
+      <description>Github link
+今天要處理刪除
+其實超簡單的
+只是想偷懶一下 XD
+一樣將下列程式碼新增到 RestApi class:
+func deleteTodoList(completionHandler: ((NSDictionary!, NSError!) -&amp;gt; Void)!, todoId: String) { var session = NSURLSession.sharedSession() var request = NSMutableURLRequest(URL: NSURL(string: &amp;quot;http://192.168.1.158:3000/user/kerkerj/todos/\(todoId)&amp;quot;)!) request.HTTPMethod = &amp;quot;DELETE&amp;quot; var err: NSError? request.addValue(&amp;quot;application/json&amp;quot;, forHTTPHeaderField: &amp;quot;Content-Type&amp;quot;) request.addValue(self.API_key, forHTTPHeaderField: &amp;quot;API-Key&amp;quot;) let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -&amp;gt; Void in if (error != nil) { return completionHandler(nil, error) } var error: NSError? let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &amp;amp;error) as NSDictionary println(json) if (error !</description>
     </item>
     
     <item>
       <title>[Swift-d28] - 實戰開發 - TODOList - API 3 新增與更新</title>
-      <link>https://blog.kerkerj.in/2014/10/swift-d28---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---api-3-%E6%96%B0%E5%A2%9E%E8%88%87%E6%9B%B4%E6%96%B0/</link>
+      <link>https://blog.kerkerj.in/2014/10/swift-d28-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-todolist-api-3-%E6%96%B0%E5%A2%9E%E8%88%87%E6%9B%B4%E6%96%B0/</link>
       <pubDate>Tue, 28 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/swift-d28---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---api-3-%E6%96%B0%E5%A2%9E%E8%88%87%E6%9B%B4%E6%96%B0/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/swift-d28-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-todolist-api-3-%E6%96%B0%E5%A2%9E%E8%88%87%E6%9B%B4%E6%96%B0/</guid>
+      <description>Github link
+昨天做了 get list
+今天就來做 新增和儲存吧!
+可能有人會問說，那讀取一筆 todo 的 API 呢?
+因為在這邊資料量少，所有的東西都可以從最外層的 list 拿到
+所以雖然有換頁的動作，但是節省流量可以不需要實做這件事
+在實際開發中也會如此，case by case，有些情況一次拿完回來處理最好
+不過有些則不是~
+離題了，
+以下是新增 todo 的程式碼:
+先到 RestApi.swift 新增 post function
+func addTodoList(completionHandler: ((NSDictionary!, NSError!) -&amp;gt; Void)!, content: String) { var session = NSURLSession.sharedSession() var request = NSMutableURLRequest(URL: self.addTodoUrl!) request.HTTPMethod = &amp;quot;POST&amp;quot; var params = [&amp;quot;content&amp;quot;: content] as Dictionary&amp;lt;String, String&amp;gt; var err: NSError? request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &amp;amp;err) request.addValue(&amp;quot;application/json&amp;quot;, forHTTPHeaderField: &amp;quot;Content-Type&amp;quot;) request.</description>
     </item>
     
     <item>
       <title>[Swift-d27] - 實戰開發 - TODOList - API 2 讀取清單資料</title>
-      <link>https://blog.kerkerj.in/2014/10/swift-d27---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---api-2-%E8%AE%80%E5%8F%96%E6%B8%85%E5%96%AE%E8%B3%87%E6%96%99/</link>
+      <link>https://blog.kerkerj.in/2014/10/swift-d27-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-todolist-api-2-%E8%AE%80%E5%8F%96%E6%B8%85%E5%96%AE%E8%B3%87%E6%96%99/</link>
       <pubDate>Mon, 27 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/swift-d27---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---api-2-%E8%AE%80%E5%8F%96%E6%B8%85%E5%96%AE%E8%B3%87%E6%96%99/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/swift-d27-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-todolist-api-2-%E8%AE%80%E5%8F%96%E6%B8%85%E5%96%AE%E8%B3%87%E6%96%99/</guid>
+      <description>Github link
+(某一天把兩天份的 commit 在一起了忘了開 branch 了&amp;hellip;)
+接下來就要來寫 api utility 了
+我們先開一個 swift 檔案 RestApi.swift
+import Foundation class RestApi { var API_key = &amp;quot;55665566&amp;quot; var getListUrl = NSURL(string: &amp;quot;http://192.168.1.158:3000/user/kerkerj/todos&amp;quot;) }  先做好前置設定，因為 API 有上簡單的小鎖，因此要先寫起來
+還有 request 的網址
+以下是 get list 的範例:
+func getTodoList(completionHandler: ((NSArray!, NSError!) -&amp;gt; Void)!) { var session = NSURLSession.sharedSession() var request = NSMutableURLRequest(URL: self.getListUrl!) request.HTTPMethod = &amp;quot;GET&amp;quot; request.addValue(&amp;quot;application/json&amp;quot;, forHTTPHeaderField: &amp;quot;Content-Type&amp;quot;) request.addValue(self.API_key, forHTTPHeaderField: &amp;quot;API-Key&amp;quot;) let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -&amp;gt; Void in if (error !</description>
     </item>
     
     <item>
       <title>[Swift-d26] - 實戰開發 - TODOList - API 前置資料準備</title>
-      <link>https://blog.kerkerj.in/2014/10/swift-d26---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---api-%E5%89%8D%E7%BD%AE%E8%B3%87%E6%96%99%E6%BA%96%E5%82%99/</link>
+      <link>https://blog.kerkerj.in/2014/10/swift-d26-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-todolist-api-%E5%89%8D%E7%BD%AE%E8%B3%87%E6%96%99%E6%BA%96%E5%82%99/</link>
       <pubDate>Sun, 26 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/swift-d26---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---api-%E5%89%8D%E7%BD%AE%E8%B3%87%E6%96%99%E6%BA%96%E5%82%99/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/swift-d26-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-todolist-api-%E5%89%8D%E7%BD%AE%E8%B3%87%E6%96%99%E6%BA%96%E5%82%99/</guid>
+      <description>接下來是要串 隔壁棚的 API XD
+從前幾天的 APP 組成
+我們所需要的資料大概會是以下幾種:
+ GET todo list  GET http://192.168.1.158:3000/user/kerkerj/todos return: [ { &amp;quot;_id&amp;quot;: &amp;quot;54441f64d84f1ea412db855c&amp;quot;, &amp;quot;updated_at&amp;quot;: &amp;quot;2014-10-19T20:30:28.797Z&amp;quot;, &amp;quot;created_at&amp;quot;: &amp;quot;2014-10-19T20:30:28.797Z&amp;quot;, &amp;quot;content&amp;quot;: &amp;quot;task11syy&amp;quot;, &amp;quot;user_id&amp;quot;: &amp;quot;kerkerj&amp;quot;, &amp;quot;__v&amp;quot;: 0 }, { &amp;quot;_id&amp;quot;: &amp;quot;54441f6fd84f1ea412db855e&amp;quot;, &amp;quot;updated_at&amp;quot;: &amp;quot;2014-10-19T20:30:39.957Z&amp;quot;, &amp;quot;created_at&amp;quot;: &amp;quot;2014-10-19T20:30:39.957Z&amp;quot;, &amp;quot;content&amp;quot;: &amp;quot;task13&amp;quot;, &amp;quot;user_id&amp;quot;: &amp;quot;kerkerj&amp;quot;, &amp;quot;__v&amp;quot;: 0 } ]   Get a todo task  GET http://192.168.1.158:3000/user/kerkerj/todos/54441f64d84f1ea412db855c return: { &amp;quot;_id&amp;quot;: &amp;quot;54441f64d84f1ea412db855c&amp;quot;, &amp;quot;updated_at&amp;quot;: &amp;quot;2014-10-19T20:30:28.797Z&amp;quot;, &amp;quot;created_at&amp;quot;: &amp;quot;2014-10-19T20:30:28.797Z&amp;quot;, &amp;quot;content&amp;quot;: &amp;quot;task11syy&amp;quot;, &amp;quot;user_id&amp;quot;: &amp;quot;kerkerj&amp;quot;, &amp;quot;__v&amp;quot;: 0 }   Add a todo task  POST http://192.</description>
     </item>
     
     <item>
       <title>[Swift-day25] - 實戰開發 - TODOList - Update View</title>
-      <link>https://blog.kerkerj.in/2014/10/swift-day25---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---update-view/</link>
+      <link>https://blog.kerkerj.in/2014/10/swift-day25-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-todolist-update-view/</link>
       <pubDate>Sat, 25 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/swift-day25---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---update-view/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/swift-day25-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-todolist-update-view/</guid>
+      <description>Github link
+(忘了是放在哪個 branch 了 Orz)
+接下來就要進到最後一個 Update View 了!
+什麼時候會進到 Update View 呢？
+是在顯示單筆 TODO 的時候的右上方按鈕:
+我們今天只會實作 view 的部分, fakeData 就不實作了
+因為接下來就要直接接 API 啦
+也不需要更新 fakeData 了 :P
+要加入 Edit 這個按鈕
+要到 ShowViewController, 加入 UIBarButtonItem
+並且讓其吃到一個方法，可以讓 Navigation 往下一個 View 前進:
+var id: String! override func viewDidLoad() { super.viewDidLoad() indexLabel.text = &amp;quot;\(index)&amp;quot; contentLabel.text = content self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: &amp;quot;Edit&amp;quot;, style: UIBarButtonItemStyle.Bordered, target: self, action: Selector(&amp;quot;editTodo&amp;quot;)) }  p.s. 先前忘記加了 id, 現在補回來 XD</description>
     </item>
     
     <item>
       <title>[Swift-d24] - 實戰開發 - TODOList - Create View</title>
-      <link>https://blog.kerkerj.in/2014/10/swift-d24---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---create-view/</link>
+      <link>https://blog.kerkerj.in/2014/10/swift-d24-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-todolist-create-view/</link>
       <pubDate>Fri, 24 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/swift-d24---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---create-view/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/swift-d24-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-todolist-create-view/</guid>
+      <description>Github link
+今天要來建立 &amp;ldquo;新增資料&amp;rdquo; 的頁面
+不過這個頁面我們也會拿來給 &amp;ldquo;更新資料&amp;rdquo; 的頁面使用
+原因其實很簡單
+兩邊要建立或編輯的資料是一樣的
+差別只在於，當今天是編輯資料的 view call 該頁面時，
+該頁面除了顯示編輯框外，編輯框內的文字也會預先 load 好舊的資料了
+除此之外兩個 view 的排版一模一樣
+所以在這邊我們就只建立一個 UpdateViewController 就可以了
+那我們一樣建立一組 UpdateViewController.swift + UpdateViewController.xib
+也一樣為元件建立關聯
+回到主頁
+我們幫 Add 新增一個按鈕吧
+在 viewDidLoad 中
+self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: &amp;quot;Add&amp;quot;, style: UIBarButtonItemStyle.Done, target: self, action: Selector(&amp;quot;pushToAddTODO&amp;quot;))  設定 Navigation 的右邊鍵的功能
+並且根據 pushToAddTODO 的方法做事情
+因此繼續下去將 pushToAddTODO 方法做一下
+	func pushToAddTODO(){ var addViewController = UpdateViewController(nibName: &amp;quot;UpdateViewController&amp;quot;, bundle: nil) addViewController.from = &amp;quot;add&amp;quot; self.navigationController?.pushViewController(addViewController, animated: true) }  這樣寫完後就可以執行看看了!</description>
     </item>
     
     <item>
       <title>[Swift-d23] - 實戰開發 - TODOList - Show View 2, Delete View</title>
-      <link>https://blog.kerkerj.in/2014/10/swift-d23---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---show-view-2-delete-view/</link>
+      <link>https://blog.kerkerj.in/2014/10/swift-d23-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-todolist-show-view-2-delete-view/</link>
       <pubDate>Thu, 23 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/swift-d23---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---show-view-2-delete-view/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/swift-d23-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-todolist-show-view-2-delete-view/</guid>
+      <description>Github link
+延續昨天，接下來要做換頁
+因此我們必須先新建立一個 ShowViewController, 以及他的 xib
+接著我們在 xib 拉幾個元件: 兩個 label, 一個用來顯示目前的 index, 另一個則是顯示內容
+拉好後，將這兩個元件設定連結到 ShowViewController.swift
+另外多在 ShowViewController 中放兩個變數
+var index: Int! var content: String!  回到 ViewController, 到 tableView didSelectRowAtIndexPath 中
+因為 didSelectRowAtIndexPath 的意思就是當 cell 被選取時要做什麼事情
+因此當 cell 被選取時，我們就要讓他跳到下一頁，並且是使用 ShowViewController 來顯示資料
+因此修改此方法:
+	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) { var showViewController = ShowViewController(nibName: &amp;quot;ShowViewController&amp;quot;, bundle: nil) showViewController.index = indexPath.row showViewController.content = fakeData[indexPath.row][&amp;quot;content&amp;quot;] // 回復非選取狀態 tableView.deselectRowAtIndexPath(indexPath, animated: true) self.</description>
     </item>
     
     <item>
       <title>[Swift-d22] - 實戰開發 - TODOList - Show View 1</title>
-      <link>https://blog.kerkerj.in/2014/10/swift-d22---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---show-view-1/</link>
+      <link>https://blog.kerkerj.in/2014/10/swift-d22-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-todolist-show-view-1/</link>
       <pubDate>Wed, 22 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/swift-d22---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---show-view-1/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/swift-d22-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-todolist-show-view-1/</guid>
+      <description>Github link
+接著我們要讓主頁顯示一些假資料:
+由於我們未來接的 api 的資料會是 todo_id + content
+因此我們先產生一個 dictionary array 來存放我們的假資料
+var fakeData = [[String:String]]() fakeData = [ [&amp;quot;id&amp;quot;: &amp;quot;1&amp;quot;, &amp;quot;content&amp;quot;: &amp;quot;A&amp;quot;], [&amp;quot;id&amp;quot;: &amp;quot;2&amp;quot;, &amp;quot;content&amp;quot;: &amp;quot;B&amp;quot;], [&amp;quot;id&amp;quot;: &amp;quot;3&amp;quot;, &amp;quot;content&amp;quot;: &amp;quot;C&amp;quot;], ]  再來對主頁的 controller 新增 tableView 上去
+並且對 UITableView 加入 delegate 以及 datasource
+import UIKit class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate { var fakeData = [[String:String]]() var tableView: UITableView? override func viewDidLoad() { super.viewDidLoad() // Do any additional setup after loading the view, typically from a nib.</description>
     </item>
     
     <item>
       <title>[Swift-d21] - 實戰開發 - TODOList - 前置設定</title>
-      <link>https://blog.kerkerj.in/2014/10/swift-d21---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---%E5%89%8D%E7%BD%AE%E8%A8%AD%E5%AE%9A/</link>
+      <link>https://blog.kerkerj.in/2014/10/swift-d21-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-todolist-%E5%89%8D%E7%BD%AE%E8%A8%AD%E5%AE%9A/</link>
       <pubDate>Tue, 21 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/swift-d21---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---%E5%89%8D%E7%BD%AE%E8%A8%AD%E5%AE%9A/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/swift-d21-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-todolist-%E5%89%8D%E7%BD%AE%E8%A8%AD%E5%AE%9A/</guid>
+      <description>Github link
+首先在開始寫這隻 app 前，
+我們要先定義好程式大致上的流程
+基本上接下來的程式碼都不會用到 storyboard
+只會用到程式 + xib
+程式的流程大致上是使用 Navigation controller 來控制 view 的轉換
+第一頁 - tableView 顯示 todo items list
+點進子項目可以觀看內容，進到子頁後可以編輯，
+編輯後就即可存檔
+新增項目則在主頁的右上角 &amp;ldquo;Add&amp;rdquo; 可以新增
+我們會先從建立假的資料開始，也就是我會先刻出程式的流程
+先不接 API
+實際寫出運作流程後，再加上 API 操作的部分
+因此今天的進度就先開一個新專案，將基本的 Navigation + tableView 建立起來吧:
+首先建立一個新專案
+再來到 project settings
+將 Main Interface 及 Launch Screen file 拿掉
+並將 deploy target 設成 7.1 (反正用到的程式碼都一樣~ 沒有特別使用 8.0 的 lib)
+設定 device orientation - 只限定直的
+接著就來編輯 AppDelegate.swift
+建立一個 NavigationController + ViewController</description>
     </item>
     
     <item>
       <title>[Swift-d20] - Basic - 捨棄 Storyboard 使用純程式碼 的方式撰寫 ViewController</title>
-      <link>https://blog.kerkerj.in/2014/10/swift-d20---basic---%E6%8D%A8%E6%A3%84-storyboard-%E4%BD%BF%E7%94%A8%E7%B4%94%E7%A8%8B%E5%BC%8F%E7%A2%BC-%E7%9A%84%E6%96%B9%E5%BC%8F%E6%92%B0%E5%AF%AB-viewcontroller/</link>
+      <link>https://blog.kerkerj.in/2014/10/swift-d20-basic-%E6%8D%A8%E6%A3%84-storyboard-%E4%BD%BF%E7%94%A8%E7%B4%94%E7%A8%8B%E5%BC%8F%E7%A2%BC-%E7%9A%84%E6%96%B9%E5%BC%8F%E6%92%B0%E5%AF%AB-viewcontroller/</link>
       <pubDate>Mon, 20 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/swift-d20---basic---%E6%8D%A8%E6%A3%84-storyboard-%E4%BD%BF%E7%94%A8%E7%B4%94%E7%A8%8B%E5%BC%8F%E7%A2%BC-%E7%9A%84%E6%96%B9%E5%BC%8F%E6%92%B0%E5%AF%AB-viewcontroller/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/swift-d20-basic-%E6%8D%A8%E6%A3%84-storyboard-%E4%BD%BF%E7%94%A8%E7%B4%94%E7%A8%8B%E5%BC%8F%E7%A2%BC-%E7%9A%84%E6%96%B9%E5%BC%8F%E6%92%B0%E5%AF%AB-viewcontroller/</guid>
+      <description>今天專案的 Github link
+其實哦
+寫 Swift 也有幾個禮拜了
+我一直覺得使用 Interface Builder 的確很方便
+但是在程式面與視覺面之間的溝通常常會漏東漏西的
+比方說如果要設定 reusable identifier 時
+除了程式裡面的字串要設定以外，還要再到 storyboard 裡設定同樣的字串
+一個簡單的小程式可能不超過 20 個 View 的情況下
+還可以這樣做，當程式長得非常大的時候，好像就很難注意到這件事，
+而且 View 太多 storyboard 就會開始變慢&amp;hellip;.
+因此今天要來試著在 Swift 中
+如何不用 Storyboard，來打造我們的程式
+(當然 xib/nib 還是會用到，只是我們單純捨棄 storyboard，用程式來控制流程)
+首先，一樣先建立一個測試專案
+接著我們要動到的程式碼是 AppDelegate.swift:
+編輯它:
+@UIApplicationMain class AppDelegate: UIResponder, UIApplicationDelegate { var window: UIWindow? var viewController: ViewController? func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -&amp;gt; Bool { // Override point for customization after application launch.</description>
     </item>
     
     <item>
       <title>Swift - Push/Pop Views delay</title>
-      <link>https://blog.kerkerj.in/2014/10/swift---push/pop-views-delay/</link>
+      <link>https://blog.kerkerj.in/2014/10/swift-push-pop-views-delay/</link>
       <pubDate>Sun, 19 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/swift---push/pop-views-delay/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/swift-push-pop-views-delay/</guid>
+      <description>請大家先看看下面的小短片，注意一下過場動畫的流暢度
+一開始是沒有加過場動畫，後來改程式碼變成有過場動畫
+
+direct link
+後來發現給一個預設的 backgroundColor 後就不會發生殘影的問題了
+是因為 push 的 view 沒有 backgroundColor
+和同事討論後發現:
+Apple Developer Reference
+UIView 的 backgroundColor 的 default 值是 null!
+ Discussion Changes to this property can be animated. The default value is nil, which results in a transparent background color.
+ 所以是這個原因導致在轉場的時候有殘影
+不過切換 View 時 target view 沒有 backgroundColor 的情況應該比較少吧&amp;hellip;(?)
+剛好在寫鐵人賽的 app 想先把流程弄出來時遇到了這個雷 XD</description>
     </item>
     
     <item>
       <title>[Swift-d19] - Basic - 橋接第三方 Objc library - Reachability and Bridge.h</title>
-      <link>https://blog.kerkerj.in/2014/10/swift-d19---basic---%E6%A9%8B%E6%8E%A5%E7%AC%AC%E4%B8%89%E6%96%B9-objc-library---reachability-and-bridge.h/</link>
+      <link>https://blog.kerkerj.in/2014/10/swift-d19-basic-%E6%A9%8B%E6%8E%A5%E7%AC%AC%E4%B8%89%E6%96%B9-objc-library-reachability-and-bridge.h/</link>
       <pubDate>Sun, 19 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/swift-d19---basic---%E6%A9%8B%E6%8E%A5%E7%AC%AC%E4%B8%89%E6%96%B9-objc-library---reachability-and-bridge.h/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/swift-d19-basic-%E6%A9%8B%E6%8E%A5%E7%AC%AC%E4%B8%89%E6%96%B9-objc-library-reachability-and-bridge.h/</guid>
+      <description>本日專案的 Github link
+由於 Swift 剛推出不到一年
+有許多的 third-party library 一定還沒轉換成 Swift
+或者是作者沒心力轉會成 Swift
+但是有些套件非常方便，那在 Swift 要怎麼使用 Objective-C 的套件呢?
+Xcode 有提供橋接的方式，非常好用
+接下來就介紹一下如何使用吧!
+以下的例子是一個叫做 Reachability 的套件
+它可以簡單地幫我們判斷是否有網路連線 3g or wifi 之類的
+所以我們先下載這個套件吧!
+https://github.com/tonymillion/Reachability
+下載解壓縮後
+將 .h 和 .m 檔拖曳進 Xcode 專案中
+接下來 Xcode 就會問一個非常重要的問題!:
+是否要建立橋接的 .h 檔案!
+當然是選擇建立囉~
+此時的專案結構就會變成這樣:
+再來編輯 bridge-header.h 檔
+將想要橋接的 objc 套件 import 進去
+#import &amp;quot;Reachability.h&amp;quot;  這樣我們就可以在 Swift 中直接使用該套件的類別與方法了!
+接下來就讓我們試試看!
+在 ViewController 中加入以下程式碼:
+// // ViewController.swift // BridgeObjcDemo // // Created by Jerry Huang on 2014/10/18.</description>
     </item>
     
     <item>
       <title>[Swift-d18] - Basic - Customize TableViewCell</title>
-      <link>https://blog.kerkerj.in/2014/10/swift-d18---basic---customize-tableviewcell/</link>
+      <link>https://blog.kerkerj.in/2014/10/swift-d18-basic-customize-tableviewcell/</link>
       <pubDate>Sat, 18 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/swift-d18---basic---customize-tableviewcell/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/swift-d18-basic-customize-tableviewcell/</guid>
+      <description>今天的主題延續昨天的 Navigation + TableView
+我們要來客製化 TableViewCell
+通常 TableView 可以被拿來做很多事情，不僅只是像是 ListView 而已
+而 TableViewCell 可以做更深度的切版，排列元素
+因此自定 TableViewCell 是一件算是還蠻重要的事情
+下面的 Code 是延續昨天的專案
+我先把已更改過的程式碼貼上來:
+import UIKit class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate { @IBOutlet var tableView: UITableView! var arr = [&amp;quot;A&amp;quot;, &amp;quot;B&amp;quot;, &amp;quot;C&amp;quot;] override func viewDidLoad() { super.viewDidLoad() // Do any additional setup after loading the view, typically from a nib. } override func didReceiveMemoryWarning() { super.didReceiveMemoryWarning() // Dispose of any resources that can be recreated.</description>
     </item>
     
     <item>
       <title>[Swift-d17] - Basic - Navigation View &#43; TableView</title>
-      <link>https://blog.kerkerj.in/2014/10/swift-d17---basic---navigation-view---tableview/</link>
+      <link>https://blog.kerkerj.in/2014/10/swift-d17-basic-navigation-view-tableview/</link>
       <pubDate>Fri, 17 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/swift-d17---basic---navigation-view---tableview/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/swift-d17-basic-navigation-view-tableview/</guid>
+      <description>今天要把 Navigation View 和 Table View 結合起來!
+把 NavigationController 拉進 Storyboard
+將程式進入點指向 NavigationController
+把原本程式自動產生的 UIViewController 刪除
+把自動產生的 TableViewController 刪除!
+拉一個新的 UIViewController
+將 NavigationController 的 RootViewController 指向新的 ViewController
+把 TableView 拉進 ViewController
+再將 TableViewCell 拉進 TableView
+再點選 ViewController, 到右上角中找尋 Custom Class
+將 ViewController.swift 指定給該 ViewController
+接著把 UITableView 引進程式碼裡做關聯
+再來就是實作 Table 的 data 了
+class ViewController: UIViewController, UITableViewDataSource {  class ViewController: UIViewController, UITableViewDataSource { @IBOutlet var tableView: UITableView! var arr = [&amp;quot;A&amp;quot;, &amp;quot;B&amp;quot;, &amp;quot;C&amp;quot;] override func viewDidLoad() { super.</description>
     </item>
     
     <item>
       <title>[Swift-d16] - Basic - Table View 2 換頁 (delegate)</title>
-      <link>https://blog.kerkerj.in/2014/10/swift-d16---basic---table-view-2-%E6%8F%9B%E9%A0%81-delegate/</link>
+      <link>https://blog.kerkerj.in/2014/10/swift-d16-basic-table-view-2-%E6%8F%9B%E9%A0%81-delegate/</link>
       <pubDate>Thu, 16 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/swift-d16---basic---table-view-2-%E6%8F%9B%E9%A0%81-delegate/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/swift-d16-basic-table-view-2-%E6%8F%9B%E9%A0%81-delegate/</guid>
+      <description>昨天我們實際操作了 tableView 的實作，今天要加入換頁
+意思就是假設我點了名為 &amp;ldquo;99&amp;rdquo; 的 cell，點擊後會跳轉到另外一頁，同樣顯示 &amp;ldquo;99&amp;rdquo;
+所以除了跳頁外，還要加入值的傳遞
+首先打開昨天的專案，我們要繼續下去
+回到 storyboard 中，昨天我們加入了 dataSource，今天要加入 delegate:
+回到程式碼中 ViewController.swift
+在 class 的宣告再加上 UITableViewDataSource
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {  再來就要設計換頁的流程了
+回到 storyboard
+拉一個新的 ViewController 到空白處
+接著點擊左邊的 TableViewCell, 按住 ctrl + 拖曳，拉到剛剛建立的 ViewController 上
+選擇 show detail
+就會長這樣:
+再來新增一個 ViewController
+接著讓新的 storyboard viewcontroller 連接到剛剛新增的 DetailViewController 程式碼
+記得先點選 ViewController
+在 storyboard 的 DetailViewController 中拉一個 label
+並且將該 label 連接到 DetailViewController 的程式碼中
+因此 DetailViewController 就會變這樣:</description>
     </item>
     
     <item>
       <title>[Swift-d15] - Basic - Table View 1 直接給值 datasource, (table view scroll)</title>
-      <link>https://blog.kerkerj.in/2014/10/swift-d15---basic---table-view-1-%E7%9B%B4%E6%8E%A5%E7%B5%A6%E5%80%BC-datasource-table-view-scroll/</link>
+      <link>https://blog.kerkerj.in/2014/10/swift-d15-basic-table-view-1-%E7%9B%B4%E6%8E%A5%E7%B5%A6%E5%80%BC-datasource-table-view-scroll/</link>
       <pubDate>Wed, 15 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/swift-d15---basic---table-view-1-%E7%9B%B4%E6%8E%A5%E7%B5%A6%E5%80%BC-datasource-table-view-scroll/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/swift-d15-basic-table-view-1-%E7%9B%B4%E6%8E%A5%E7%B5%A6%E5%80%BC-datasource-table-view-scroll/</guid>
+      <description>今天要來練習新的東西 - TableView
+據同事說明，TableView 是最常用到的 View 之一
+在我們的實戰開發中也會用到 TableView
+因此今天就先簡單的來建立出單頁純顯示資料的 TableView
+TableView 的概念大概是如下圖:
+長得有點像 ListView 但是每一行又可以多切開，放一些東西
+每一行都稱之為一個 TableViewCell
+今天就來要簡單寫一個資料已經預先定義好，並且會顯示在 view 上面的 TableView
+要進行下去之前當然就先開一個新的練習專案囉
+開啟完專案後，首先第一件事情就是進 storyboard
+選擇 TableView 拉進 storyboard 裏
+接著再選擇 TableViewCell 拉進 TableView 中
+透過此圖，我們了解到可以打開 storyboard 的 tree 來看看它們之間的關係
+下面此步驟很重要，資料的連接就靠這條線:
+先選取 TableView (可以使用階層樹或是點擊 storyboard)，然後選擇右方的 connection inspector (右上角的最右邊的那一個按鈕)
+裡頭有個 dataSource 以及 delegate
+我們先按住 dataSource 右邊的空心圓按鈕，拖曳拉到 storyboard 中的 ViewController，如上圖所示
+這樣子等等在程式碼中產生的資料才會有和 storyboard 的 UI 做連結
+最後一個和 storyboard 相關的操作是將 storyboard 的 TableView 和 程式碼做連結，好方便我們在程式碼中對 storyborad 的 TableView 做操作</description>
     </item>
     
     <item>
       <title>[Swift-d14] - Basic - Navigation View 2 &#43; ViewController</title>
-      <link>https://blog.kerkerj.in/2014/10/swift-d14---basic---navigation-view-2---viewcontroller/</link>
+      <link>https://blog.kerkerj.in/2014/10/swift-d14-basic-navigation-view-2-viewcontroller/</link>
       <pubDate>Tue, 14 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/swift-d14---basic---navigation-view-2---viewcontroller/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/swift-d14-basic-navigation-view-2-viewcontroller/</guid>
+      <description>延續昨天的主題，今天我們要做的事情是：
+ 爲新的 ViewController 實際加入程式碼 (ViewController2.swift) 加入一個 button 來控制是否前進下一頁或後退  我們先新增一個檔案:
+接著選擇 CocoaTouch Class:
+回到 storyboard, 選擇第二個 ViewController
+並按照下圖，將 Class 指定給 View2Controller
+這樣子 storyboard 的 View2 就會指定到 View2Controller 了
+我們在 View2Controller 的 viewDidLoad 方法中加入一行程式碼
+來驗證他是否有吃到 View2Controller
+self.title = &amp;quot;View2 by me&amp;quot;  Run 起來看的話就會是這樣:
+的確是有吃到程式碼的
+再來就是要加入按鈕了:
+我們先拉一個 Button 進 View2Controller
+並且將該 Button 拉進 View2Controller 的 code
+設定該 button 爲 Action, 並且名稱是 &amp;lsquo;backToView&amp;rsquo;
+意即我們要讓點下 View2Controller 的 Button 行為為回到上一個 View
+另外對 View2 為他加入一個 storyboard ID, View2，等等會用到:</description>
     </item>
     
     <item>
       <title>[Swift-d13] - Basic - Navigation View 1 &#43; ViewController</title>
-      <link>https://blog.kerkerj.in/2014/10/swift-d13---basic---navigation-view-1---viewcontroller/</link>
+      <link>https://blog.kerkerj.in/2014/10/swift-d13-basic-navigation-view-1-viewcontroller/</link>
       <pubDate>Mon, 13 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/swift-d13---basic---navigation-view-1---viewcontroller/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/swift-d13-basic-navigation-view-1-viewcontroller/</guid>
+      <description>今天來試著拉拉看 Navigation View
+什麼是 Navigation View?
+就是類似下圖的東西:
+用來控制 View 之間的流程
+今天我們繼續使用 storyboard 來簡單拉拉 Navigation View
+首先先開一個新 project 吧!
+接著我們到 storyboard，選擇 ViewController
+再來我們要嵌入 Navigation View
+所以要選擇: Edit -&amp;gt; Embed in -&amp;gt; Navigation View
+選擇後，就會發現 storyboard 的 layout 改變了
+Navigation View 實際上是透過 NavigationController 來控制
+原本程式的進入點是 ViewController
+由於我們要使用 Navigation View
+因此透過 Xcode 將 NavigationController 嵌進去
+讓程式進入點變成 NavigationController
+再透過 NavigationController 將程式導到 ViewController
+接下來我們命名一下 ViewController:
+然後我們從右下角的 Object library 選擇 Bar Button items 加入
+並將該物件拉到 NavigationBar 的右方</description>
     </item>
     
     <item>
       <title>[Swift-d12] - Basic - 基本元件 (Label, Button, UIColor, 文字輸入框)</title>
-      <link>https://blog.kerkerj.in/2014/10/swift-d12---basic---%E5%9F%BA%E6%9C%AC%E5%85%83%E4%BB%B6-label-button-uicolor-%E6%96%87%E5%AD%97%E8%BC%B8%E5%85%A5%E6%A1%86/</link>
+      <link>https://blog.kerkerj.in/2014/10/swift-d12-basic-%E5%9F%BA%E6%9C%AC%E5%85%83%E4%BB%B6-label-button-uicolor-%E6%96%87%E5%AD%97%E8%BC%B8%E5%85%A5%E6%A1%86/</link>
       <pubDate>Sun, 12 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/swift-d12---basic---%E5%9F%BA%E6%9C%AC%E5%85%83%E4%BB%B6-label-button-uicolor-%E6%96%87%E5%AD%97%E8%BC%B8%E5%85%A5%E6%A1%86/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/swift-d12-basic-%E5%9F%BA%E6%9C%AC%E5%85%83%E4%BB%B6-label-button-uicolor-%E6%96%87%E5%AD%97%E8%BC%B8%E5%85%A5%E6%A1%86/</guid>
+      <description>今天來放一些基本的元件:
+放入一個文字輸入框、文字標簽、按鈕，
+在文字框輸入一些字後，按下按鈕後，會在文字標簽顯示剛剛輸入的內容：
+首先使用右下角的 Object library 中將上述三種元件拉到 storyborad 中
+圖中依順序是文字標簽、文字輸入框、按鈕
+接著我們要使用到的文件是文字標簽以及文字輸入框，另外要將按鈕加入事件
+因此程式的流程是:
+按下按鈕後-&amp;gt; 執行按鈕事件 -&amp;gt; 抓到文字輸入框的輸入內容 -&amp;gt; 將文字標簽的內容改變成文字輸入框的內容
+因此先使用昨天的方式，將文字標簽及文字輸入框拉到 ViewController 中以便使用它們，在圖中的程式碼 12, 13 行：
+這樣我們就可以控制文字標簽的文字以及拿到輸入框的文字了
+再來就是最重要的按鈕事件了!
+一樣使用 ctrl + 拖曳的方式將按鈕拉到程式碼中，但是這次是要選擇 「IBAction」，是事件的意思:
+接著就會產生出一段 function:
+名為 titleButton, 我們在方法中輸入一行程式碼:
+titleLabel.text = titleField.text  意思就是將文字標簽的字改成文字輸入框的文字
+接著我們就把程式跑起來吧!
+在文字框中輸入文字，按下按鈕，標簽就可以變文字了!</description>
     </item>
     
     <item>
       <title>[Swift-d11] - Basic - Hello World! ViewController</title>
-      <link>https://blog.kerkerj.in/2014/10/swift-d11---basic---hello-world-viewcontroller/</link>
+      <link>https://blog.kerkerj.in/2014/10/swift-d11-basic-hello-world-viewcontroller/</link>
       <pubDate>Sat, 11 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/swift-d11---basic---hello-world-viewcontroller/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/swift-d11-basic-hello-world-viewcontroller/</guid>
+      <description>今天就要來建立一個 Hello World swift app 啦 XD
+首先就是開 Xcode 然後開專案囉~~
+就看你要存去哪裡啦～
+再來就會進到專案本身:
+我們就看右下角有個地方可以找到 Label 這個選項:
+把他拉到 Storyboard 的任意位置就可以了~
+然後更改 label 的屬性:
+先點一下 label 選取後，看右上角
+有個地方可以更改它的顯示文字，我們將它改成 HelloWorld!
+改完之後，按左上角的 Run! ，我們也可以選擇後面的 target 看是要跑在 i6 或是 i5 上，
+按下 Run 後程式就會 deploy 到模擬器上面了！
+這就是第一個 Hello World 啦!
+完全不用寫程式哦 XDDDDD
+不過還是要稍微了解一下運作原理啦~
+如果剛剛在編輯 storyboard 的時候，有發現那個 View 的左邊有一個奇怪的箭頭指向 View，那個箭頭的意思其實就是程式進入點的意思，
+storyboard 就是在描述程式的走向，像在說故事一樣，從某一頁按了什麼東西跳到哪一頁
+其實我一直都沒有很習慣 storyboard 的拉法，還是比較習慣用程式建立物件，將想要的物件用程式擺(憑空想像XD)，但是前面幾個比較屬於練習的小東西都還是會用拉的，比較好懂~
+我們剛剛建立的那一頁 Hello world
+基本上就是在左邊的 ViewController
+那我們試著使用程式來改變 HelloWorld 這個 label 的值吧!
+我們首先使用分割視窗的模式
+選擇左邊數來第二個按鈕</description>
     </item>
     
     <item>
@@ -206,88 +492,173 @@
       <pubDate>Fri, 10 Oct 2014 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2014/10/swift-d10-%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>今天算一算也來到第十天了，
+前面講了 8 天的語法，其實會有些枯燥
+不過有些語法又很有趣
+我不懂 Objective-C，
+如果想從 Objectiv-C 轉換到 Swift 的話，最好查查一些比較的文章
+最好的文件就是官方文件了
+以 UILabel 為例
+官方網站會列出兩種不同寫法:
+// SWIFT var text: String? // OBJECTIVE-C @property(nonatomic, copy) NSString *text  如果要從 Swift 基本概念開始，當然是首推官方的 The Swift Programming Language
+是英文苦手的話，強國人有 翻譯文件
+這群人非常厲害，發表後沒幾天就翻譯完成了
+不過因為技術用語還是以中國為主，因此建議英文優先，或是對照著看
+前面幾天都基本介紹前半部而已，屬於一般學習程式語言的基本練習而已
+後半部是更詳細的部分，有空的話還是可以多看看~
+另外，官方還出了一本 Using Swift with Cocoa ad Objective-C
+就是在介紹如何使用 Swift 加上 Cocoa framework 開發 App
+不過書的內容不多，算入門級，有興趣也可看看這本~
+接下來會開始用 Swift 寫簡單的界面
+由於筆者從沒寫過 iOS app，因此也是會用大約十天的時間來簡單練習一些常用的 Cocoa Touch framework 的元件
+順帶一提前面沒講到的，Objective-C 有個東西叫作 Catagory，在 Swift 裏是 extension</description>
     </item>
     
     <item>
       <title>[Swift-d9] - Playground - Class, Struct</title>
-      <link>https://blog.kerkerj.in/2014/10/swift-d9---playground---class-struct/</link>
+      <link>https://blog.kerkerj.in/2014/10/swift-d9-playground-class-struct/</link>
       <pubDate>Thu, 09 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/swift-d9---playground---class-struct/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/swift-d9-playground-class-struct/</guid>
+      <description>Playground - Class, Struct 再來就是要提重點的東西了!
+class 和 struct 是用來建構整個程式重要的東西
+兩者的差異在於：class 可以繼承其他 class，但是 struct 無法繼承
+以下是宣告方式
+class SomeClass { //... } struct SomeStruct { //... }  注意，Swift 的 class 和 struct 命名慣例是大寫命名風格 UpperCamelCase
+而屬性和方法則是 lowerCamelCase
+例如 increaseCount, addTwoInts
+舉個例子:
+struct Resolution { var width = 0 var height = 0 } class CustomLabel { var resolution = Resolution() var isLabel = true var name: String? }  實體化，就可以改變其中的值了
+var someResolution = Resolution() var someLabel = CustomLabel() someResolution.</description>
     </item>
     
     <item>
       <title>[Swift-d8] - Playground - Enumerations</title>
-      <link>https://blog.kerkerj.in/2014/10/swift-d8---playground---enumerations/</link>
+      <link>https://blog.kerkerj.in/2014/10/swift-d8-playground-enumerations/</link>
       <pubDate>Wed, 08 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/swift-d8---playground---enumerations/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/swift-d8-playground-enumerations/</guid>
+      <description>Playground - Enumerations 通常會使用來定義一組相關的值
+也是很方便的東西
+列舉語法 enum SomeEnumeration { // enumeration definition goes here }  比方說，車子
+enum Car { case toyota case benz case BMW }  也可以這樣寫
+enum Car { case toyota, benz, BMW }  使用:
+var car = Car.benz  和 Switch 的搭配 enum Car { case Toyota, Benz, BMW } var car = Car.Benz switch car { case .Toyota: println(&amp;quot;Toyota&amp;quot;) case .Benz: println(&amp;quot;Benz&amp;quot;) case .BMW: println(&amp;quot;BMW&amp;quot;) }  Associated Values 以 Barcode 來舉例子</description>
     </item>
     
     <item>
       <title>[Swift-d7] - Playground - Closures</title>
-      <link>https://blog.kerkerj.in/2014/10/swift-d7---playground---closures/</link>
+      <link>https://blog.kerkerj.in/2014/10/swift-d7-playground-closures/</link>
       <pubDate>Tue, 07 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/swift-d7---playground---closures/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/swift-d7-playground-closures/</guid>
+      <description>閉包表達式語法：
+{ (parameters) -&amp;gt; returnType in statements }  舉個例子:
+func multiple(value: Int, multiple: Int -&amp;gt; Int) -&amp;gt; Int { return multiple(value) } multiple(3, { (value) -&amp;gt; Int in value * 3 })  在 multiple function 中需要傳入一個 function
+在這邊我們並沒有另外定義，而是直接使用閉包的方式傳入一個 function
+這個閉包就符合了上面的定義
+根據上下文判斷型別 (Inferring type from context) 承上一個例子，我們可以寫得更簡潔一點
+multiple(3, { value in value * 3 })  這是因為 Swift 會根據兩邊的定義來判斷型別，因此可以寫得更簡潔一些
+參數名稱縮寫, 運算子函式 直接看例子
+func biggerThan0(value: Int, isBigger: Int -&amp;gt; Bool) -&amp;gt; Bool { return isBigger(value) } biggerThan0(-1, { $0 &amp;gt; 0 } )  尾隨閉包 (trailing closures) 通常如果閉包太長的話，可以把閉包接在括號後面：</description>
     </item>
     
     <item>
       <title>[Swift-d6] - Playground - function</title>
-      <link>https://blog.kerkerj.in/2014/10/swift-d6---playground---function/</link>
+      <link>https://blog.kerkerj.in/2014/10/swift-d6-playground-function/</link>
       <pubDate>Mon, 06 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/swift-d6---playground---function/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/swift-d6-playground-function/</guid>
+      <description>Playground - function 來看看 Swift 各種 function 的寫法吧!
+Swift 使用 func 當作宣告的保留字
+GOLANG 的 fu&amp;hellip;. XD
+寫 Swift 的 function 會很開心
+基本的 func say() { println(&amp;quot;Hello!&amp;quot;) }  有一個回傳值的 func say() -&amp;gt; String { return &amp;quot;Hello!&amp;quot; }  有多個回傳值的!!! (就是回傳 Tuple) func say() -&amp;gt; (String, Int) { let greeting = &amp;quot;hello&amp;quot; let times = 5 return (greeting, times) } say()  有參數的 func say(g: String) { println(g) } say(&amp;quot;Hello&amp;quot;)  多個參數</description>
     </item>
     
     <item>
       <title>[Swift-d5] - Playground - Array, Dictionary, Controll Flow</title>
-      <link>https://blog.kerkerj.in/2014/10/swift-d5---playground---array-dictionary-controll-flow/</link>
+      <link>https://blog.kerkerj.in/2014/10/swift-d5-playground-array-dictionary-controll-flow/</link>
       <pubDate>Sun, 05 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/swift-d5---playground---array-dictionary-controll-flow/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/swift-d5-playground-array-dictionary-controll-flow/</guid>
+      <description>Array 宣告 // var VARIABLE_NAME: [TYPE] = ..... var fruits: [String] = [&amp;quot;apple&amp;quot;, &amp;quot;banana&amp;quot;] var nums: [Int] = [1, 2] // 或是讓 Swift 自行判斷類型: var fruits = [&amp;quot;apple&amp;quot;, &amp;quot;banana&amp;quot;] var nums = [1, 2] // 初始化: var cars = [String]()  ps. Beta 版時的寫法是 var fruits: String[]
+現在已經變成了 var fruits: [String]
+操作 // 判斷該陣列是否有值，回傳 true 或 false fruits.isEmpty // 增加元素 fruits.append(&amp;quot;watermelon&amp;quot;) fruits += [&amp;quot;lemon&amp;quot;] // 取值 fruits[0] fruits[0...2] // 刪除值 - 將 apple 移除，banana 會自動補上 fruits.</description>
     </item>
     
     <item>
       <title>[Swift-d4] - Playground - Optional, ! and ? </title>
-      <link>https://blog.kerkerj.in/2014/10/swift-d4---playground---optional--and-/</link>
+      <link>https://blog.kerkerj.in/2014/10/swift-d4-playground-optional-and/</link>
       <pubDate>Sat, 04 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/swift-d4---playground---optional--and-/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/swift-d4-playground-optional-and/</guid>
+      <description>Playground - Optional, ! and ? 今天要來探討 Optional 型別，我認為這塊是初學 Swift 常遇到的問題
+大家搞不懂 &amp;ldquo;!&amp;rdquo; &amp;ldquo;?&amp;rdquo; 到底在幹什麼，所以今天就來了解一下
+在 Swift 中，所有的資料型別都不能賦予 nil
+也就是以下這件事是不成立的：
+var x: String = &amp;quot;test&amp;quot; x = nil  所以在 Swift 底下，就要使用 Optional 來處理值可能不存在的情況
+當一個變數 x 被宣告成 Optional 型別時，該變數就會有兩個情況：
+1. 有值，等於 x 2. 沒有值  要宣告一個變數可能為 nil 時的方式是使用問號 &amp;lsquo;?&amp;lsquo;：
+// 此時 x = &amp;quot;yaya&amp;quot; var x: String? = &amp;quot;yaya&amp;quot; // 此時 x 沒有值 x = nil  拿以下程式在 Playground 執行看看：</description>
     </item>
     
     <item>
       <title>[Swift-d3] - Playground - 變數與常數, 註解, 基本資料型別 </title>
-      <link>https://blog.kerkerj.in/2014/10/swift-d3---playground---%E8%AE%8A%E6%95%B8%E8%88%87%E5%B8%B8%E6%95%B8-%E8%A8%BB%E8%A7%A3-%E5%9F%BA%E6%9C%AC%E8%B3%87%E6%96%99%E5%9E%8B%E5%88%A5/</link>
+      <link>https://blog.kerkerj.in/2014/10/swift-d3-playground-%E8%AE%8A%E6%95%B8%E8%88%87%E5%B8%B8%E6%95%B8-%E8%A8%BB%E8%A7%A3-%E5%9F%BA%E6%9C%AC%E8%B3%87%E6%96%99%E5%9E%8B%E5%88%A5/</link>
       <pubDate>Fri, 03 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/swift-d3---playground---%E8%AE%8A%E6%95%B8%E8%88%87%E5%B8%B8%E6%95%B8-%E8%A8%BB%E8%A7%A3-%E5%9F%BA%E6%9C%AC%E8%B3%87%E6%96%99%E5%9E%8B%E5%88%A5/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/swift-d3-playground-%E8%AE%8A%E6%95%B8%E8%88%87%E5%B8%B8%E6%95%B8-%E8%A8%BB%E8%A7%A3-%E5%9F%BA%E6%9C%AC%E8%B3%87%E6%96%99%E5%9E%8B%E5%88%A5/</guid>
+      <description>變數與常數 定義一個變數:
+var obj: String = &amp;quot;&amp;quot;  var 是保留字，宣告 obj 是一個變數名稱，冒號後面接資料形態
+以此例子來說，宣告了一個字串變數叫做 obj，並且初始化為 &amp;ldquo;&amp;rdquo; 空字串
+let obj: String = &amp;quot;&amp;quot;  let 同樣是用來宣告一個變數，但是宣告此變數後，該變數的值無法被改變，
+無法被改變的數值其實正正的名字就叫做常數 以上面的例子來說， 若我們多做一件事:
+let obj: String = &amp;quot;&amp;quot; obj = &amp;quot;test&amp;quot;  若我們試圖去更改 obj，讓 obj 從空字串變成 &amp;ldquo;test&amp;rdquo; 時，
+Xcode 就會報錯，不能更改該值
+再來是宣告的變型，其實宣告時不一定要給資料形態，
+Swift 會自動從後面的值來判斷 x 可能是什麼資料形態，
+只是由於筆者的習慣，會儘量在後面加上該變數的資料型別
+var x = &amp;quot;test&amp;quot;  一行內宣告多值：
+var x = 0.0, y = 0.0, z = 0.0  我們就可以在 Playground 裡面試著宣告一些變數看看，並且使用昨天的輸出函式來輸出變數:</description>
     </item>
     
     <item>
       <title>[Swift-d1] - 介紹</title>
-      <link>https://blog.kerkerj.in/2014/10/swift-d1---%E4%BB%8B%E7%B4%B9/</link>
+      <link>https://blog.kerkerj.in/2014/10/swift-d1-%E4%BB%8B%E7%B4%B9/</link>
       <pubDate>Thu, 02 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/swift-d1---%E4%BB%8B%E7%B4%B9/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/swift-d1-%E4%BB%8B%E7%B4%B9/</guid>
+      <description>Swift 是 2014 年由蘋果公司在其開發者大會 WWDC 上所發佈的程式語言
+The Swift Programming Language 一書中提到：
+ Swift 用來撰寫 iOS 及 Mac OSX 的程式。
+ Swift 吸收了 C 和 Objective-C 的優點，使其在設計更具彈性、容易，且撰寫時有更多樂趣。
+ Swift 是基於成熟而且倍受喜愛的 Cocoa 和 Cocoa Touch framework，意即 Swift 可以直接使用這些現有的框架
+ Swift 兼具編譯語言的性能，以及直譯式語言的特性。
+  ** 什麼是 Cocoa/Cocoa Touch framework:
+Cocoa framework 是 Apple 爲 Mac OSX 所建立的環境，用來開發 OSX 的程式，
+而 Cocoa Touch framework 則是建立於 Cocoa framework 之上，用來開發 iOS 作業系統程式，
+此兩種 framework 皆遵循 MVC 軟體架構，開發時必須遵循此架構。</description>
     </item>
     
     <item>
       <title>[Swift-d2] - 安裝及 Hello World!</title>
-      <link>https://blog.kerkerj.in/2014/10/swift-d2---%E5%AE%89%E8%A3%9D%E5%8F%8A-hello-world/</link>
+      <link>https://blog.kerkerj.in/2014/10/swift-d2-%E5%AE%89%E8%A3%9D%E5%8F%8A-hello-world/</link>
       <pubDate>Thu, 02 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/swift-d2---%E5%AE%89%E8%A3%9D%E5%8F%8A-hello-world/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/swift-d2-%E5%AE%89%E8%A3%9D%E5%8F%8A-hello-world/</guid>
+      <description>首先，你必須要有一台 Mac。
+我也不知道要如何用虛擬機 build 一台 Mac VM 出來，
+所以就是，先買一台 Mac XD
+若已經有了 Mac，只要到 Appstore 下載 Xcode 即可，
+注意是要 Xcode 6.0 以上， Xcode 6 才有支援 Swift ，舊版的 Xcode 5 是無法開發 Swift 的
+安裝完 Xcode 後
+首先開啓 Xcode
+選擇 &amp;ldquo;Create a playground&amp;rdquo;
+輸入 Playground 名稱並選擇儲存位置
+就進入了 Playground 了！
+可以看到 Xcode 已經預先載入了幾行程式碼了 來稍微看一下:
+// Playground - noun: a place where people can play import UIKit var str = &amp;quot;Hello, playground&amp;quot;  第一行，使用了 //，有寫過程式的話一定都知道這是註解</description>
     </item>
     
   </channel>

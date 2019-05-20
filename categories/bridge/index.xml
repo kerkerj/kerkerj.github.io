@@ -13,11 +13,33 @@
     
     <item>
       <title>[Swift-d19] - Basic - 橋接第三方 Objc library - Reachability and Bridge.h</title>
-      <link>https://blog.kerkerj.in/2014/10/swift-d19---basic---%E6%A9%8B%E6%8E%A5%E7%AC%AC%E4%B8%89%E6%96%B9-objc-library---reachability-and-bridge.h/</link>
+      <link>https://blog.kerkerj.in/2014/10/swift-d19-basic-%E6%A9%8B%E6%8E%A5%E7%AC%AC%E4%B8%89%E6%96%B9-objc-library-reachability-and-bridge.h/</link>
       <pubDate>Sun, 19 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/swift-d19---basic---%E6%A9%8B%E6%8E%A5%E7%AC%AC%E4%B8%89%E6%96%B9-objc-library---reachability-and-bridge.h/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/swift-d19-basic-%E6%A9%8B%E6%8E%A5%E7%AC%AC%E4%B8%89%E6%96%B9-objc-library-reachability-and-bridge.h/</guid>
+      <description>本日專案的 Github link
+由於 Swift 剛推出不到一年
+有許多的 third-party library 一定還沒轉換成 Swift
+或者是作者沒心力轉會成 Swift
+但是有些套件非常方便，那在 Swift 要怎麼使用 Objective-C 的套件呢?
+Xcode 有提供橋接的方式，非常好用
+接下來就介紹一下如何使用吧!
+以下的例子是一個叫做 Reachability 的套件
+它可以簡單地幫我們判斷是否有網路連線 3g or wifi 之類的
+所以我們先下載這個套件吧!
+https://github.com/tonymillion/Reachability
+下載解壓縮後
+將 .h 和 .m 檔拖曳進 Xcode 專案中
+接下來 Xcode 就會問一個非常重要的問題!:
+是否要建立橋接的 .h 檔案!
+當然是選擇建立囉~
+此時的專案結構就會變成這樣:
+再來編輯 bridge-header.h 檔
+將想要橋接的 objc 套件 import 進去
+#import &amp;quot;Reachability.h&amp;quot;  這樣我們就可以在 Swift 中直接使用該套件的類別與方法了!
+接下來就讓我們試試看!
+在 ViewController 中加入以下程式碼:
+// // ViewController.swift // BridgeObjcDemo // // Created by Jerry Huang on 2014/10/18.</description>
     </item>
     
   </channel>

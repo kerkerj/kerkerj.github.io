@@ -13,11 +13,14 @@
     
     <item>
       <title>[Apache] SSL (self-signed &amp; purchased version) </title>
-      <link>https://blog.kerkerj.in/2014/06/apache-ssl-self-signed--purchased-version/</link>
+      <link>https://blog.kerkerj.in/2014/06/apache-ssl-self-signed-purchased-version/</link>
       <pubDate>Thu, 19 Jun 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/06/apache-ssl-self-signed--purchased-version/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/06/apache-ssl-self-signed-purchased-version/</guid>
+      <description>[Self-signed]  Generate a host key:
+sudo ssh-keygen -f host.key  Generate a certificate request file
+sudo openssl req -new -key host.key -out request.csr   Type what you want:
+ Country Name (2 letter code) [AU]:TW State or Province Name (full name) [Some-State]:Taiwan Locality Name (eg, city) []:Taipei Organization Name (eg, company) [Internet Widgits Pty Ltd]: Organizational Unit Name (eg, section) []: Common Name (e.g. server FQDN or YOUR name) []: Email Address []: Please enter the following &#39;extra&#39; attributes to be sent with your certificate request A challenge password []: An optional company name []:   Create the SSL certificate sudo openssl x509 -req -days 365 -in request.</description>
     </item>
     
   </channel>

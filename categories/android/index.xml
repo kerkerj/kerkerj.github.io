@@ -17,7 +17,11 @@
       <pubDate>Tue, 12 Jun 2012 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2012/06/android-thread-%E8%99%95%E7%90%86-ui-update-2/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>這是第一篇: [[Android] thread 處理 UI update]
+在那之後自己在寫一些東西時也用到 runOnUiThread
+不過有別的方法可以不用像 runOnUiThread 寫的比較雜亂
+那就是用 AsyncTask , 剛剛自己也順手寫了一個 Test 放在 Github 上
+我覺得使用 AsyncTask 可以不用處理 thread, 而且寫法上比較清楚~</description>
     </item>
     
     <item>
@@ -26,7 +30,13 @@
       <pubDate>Wed, 18 Apr 2012 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2012/04/android-%E5%AE%89%E8%A3%9D%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>最近電腦重裝的關係，順便把 Android 開發環境整理一下，
+不得不說 Android 在 Eclipse 上的外掛開發的越來越不錯了！
+Step1. 到 Oracle Java SE downloads 點擊 Java Platform (JDK) 並選擇作業系統
+Step2. 安裝 Eclipse IDE for Java EE Developers
+Step3. 到 Android Developers 下載 Android SDK 並安裝 
+Step4. 安裝 ADT Plugin for Eclipse ( 官方文件 )
+ a. 開啟 Eclipse， [Help] -&amp;gt; [Install New Software&amp;hellip;.] b. 點選 [Add] 輸入名稱及網址 ( APT / https://dl-ssl.google.com/android/eclipse/ ) c. 等待 pending 結束後會看到可以勾選的 Developer Tools ，選擇 next 並 accept 開始安裝</description>
     </item>
     
     <item>
@@ -35,7 +45,14 @@
       <pubDate>Wed, 11 Apr 2012 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2012/04/android-%E9%81%A0%E7%AB%AF%E4%B8%BB%E6%A9%9F%E5%B7%B2%E5%BC%B7%E5%88%B6%E9%97%9C%E9%96%89%E4%B8%80%E5%80%8B%E7%8F%BE%E5%AD%98%E7%9A%84%E9%80%A3%E7%B7%9A/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>不知道大家在寫Android程式時使用實體機接PC時會不會很常出現這個錯誤
+我個人還蠻常出現的，在測試時是非常緩慢的
+Google了一下，找到了強者自己寫的adb.exe
+檔案在討論串裡：http://code.google.com/p/android/issues/detail?id=12141
+Nov 28, 2011 New patched version of adb (1.0.29) Patch (diff) the same as early adb.exe 478 KB Download  Download: adb.exe
+下載後，到Android的SDK資料夾，進platform-tool資料夾，
+將原本的adb.exe做備份，再將新的複製到原本的exe檔所在的地方，
+重新啟動adb就可以了 (進DDMS重新啟動，或者重新啟動Eclipse也行)</description>
     </item>
     
     <item>
@@ -44,7 +61,12 @@
       <pubDate>Wed, 11 Apr 2012 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2012/04/android-%E9%96%8B%E6%A9%9F%E5%95%9F%E5%8B%95%E8%88%87%E8%A7%A3%E9%8E%96%E5%95%9F%E5%8B%95/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>BroadcastReceiver 開機啟動與解鎖啟動
+主要是這兩個intent:
+ Intent.ACTION_BOOT_COMPLETED //開機
+Intent.ACTION_USER_PRESENT //解鎖
+ 只要建立下面的 Receiver
+public class MyReceiver extends BroadcastReceiver { @Override public void onReceive(final Context context, final Intent intent) { final String action = intent.getAction(); if (Intent.ACTION_BOOT_COMPLETED.equals(action)) { // TODO 開機啟動 } else if (Intent.ACTION_USER_PRESENT.equals(action)) { // TODO 解鎖啟動 } } }  並且在 AndroidManifest.xml 裡宣告就可以了</description>
     </item>
     
     <item>
@@ -53,7 +75,8 @@
       <pubDate>Tue, 30 Aug 2011 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2011/08/android-alertdialog-with-edittext/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>AlertDialog.Builder alert = new AlertDialog.Builder(this); alert.setTitle(&amp;quot;Title&amp;quot;); alert.setMessage(&amp;quot;Message&amp;quot;); // Set an EditText view to get user input final EditText input = new EditText(this); alert.setView(input); alert.setPositiveButton(&amp;quot;Ok&amp;quot;, new DialogInterface.OnClickListener() { public void onClick(DialogInterface dialog, int whichButton) { String value = input.getText(); Do something with value! } }); alert.setNegativeButton(&amp;quot;Cancel&amp;quot;, new DialogInterface.OnClickListener() { public void onClick(DialogInterface dialog, int whichButton) { // Canceled. } }); alert.show();  就這樣XD
+ref: http://www.androidsnippets.com/prompt-user-input-with-an-alertdialog</description>
     </item>
     
     <item>
@@ -62,7 +85,7 @@
       <pubDate>Mon, 06 Jun 2011 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2011/06/android-%E7%A7%BB%E9%99%A4-activity%E7%9A%84-title-bar/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>&amp;lt;activity android:name=&amp;quot;.MyMainClass&amp;quot; android:label=&amp;quot;@string/app_name&amp;quot; android:theme=&amp;quot;@android:style/Theme.NoTitleBar&amp;quot;&amp;gt; &amp;lt;/activity&amp;gt;  style/Theme.NoTitleBar</description>
     </item>
     
     <item>
@@ -71,7 +94,19 @@
       <pubDate>Sat, 28 May 2011 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2011/05/android-%E6%A8%A3%E5%BC%8F%E4%B8%BB%E9%A1%8C%E9%96%8B%E7%99%BC%E9%9B%9C%E8%A8%98/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>就是改變Android 預設的介面,主題樣式，例如按鈕的樣子
+(以下殘體文)
+1. style属性在某个空间中起作用，而theme属性则会在整个activity和application中起作用。可以用theme统一整个程序的风格，再用 style微调其中的某些风格。andorid中的某些widget并不遵守theme所定义的风格，比如button上的字。如果你在 activity甚至在application范围内使用theme，button的字还是白色的！估计是这个空间没有引用android:textColor风格，此时只能用button的style属性来改变它了。 (引用自此)
+2. Android Styles &amp;amp; Themes（上）——Style
+3. Android Styles &amp;amp; Themes（下）——Theme
+4. 去掉默认ACTIVITY背景图
+5. Button的应用(for android)
+6. { Android学习指南 }
+(以下為英,中文)
+7. custom-button-style-and-theme
+(好站!! http://blog.androgames.net/category/android-tutorials/)
+8. 使用Android SDK提供的Draw9Patch Tool 
+9. 在Android中使用客製化按鈕</description>
     </item>
     
     <item>
@@ -80,7 +115,10 @@
       <pubDate>Fri, 06 May 2011 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2011/05/android-%E7%A8%8B%E5%BC%8F%E9%96%8B%E7%99%BC%E9%9B%9C%E8%A8%98/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>最近在寫和Android程式，因此把一些重點筆記下來：
+Android中各種JAVA包的功能描述 (ref: http://huenlil.pixnet.net/blog/post/24346240)
+在Android的應用程序開發中，通常使用的是JAVA語言，除了需要熟悉JAVA語言的基礎知識之外，還需要瞭解Android提供的擴展的JAVA功能。 在Android中，各種包寫成android.*的方式，重要包的描述如下所示：
+* android.app ：提供高層的程序模型、提供基本的運行環境 * android.content ：包含各種的對設備上的數據進行訪問和發佈的類 * android.database ：通過內容提供者瀏覽和操作數據庫 * android.graphics ：底層的圖形庫，包含畫布，顏色過濾，點，矩形，可以將他們直接繪製到屏幕上 * android.location ：定位和相關服務的類 * android.media ：提供一些類管理多種音頻、視頻的媒體接口 * android.net ：提供幫助網絡訪問的類，超過通常的java.net.* 接口 * android.os ：提供了系統服務、消息傳輸、IPC機制 * android.opengl ：提供OpenGL的工具 * android.provider ：提供類訪問Android的內容提供者 * android.telephony ：提供與撥打電話相關的API交互 * android.view ：提供基礎的用戶界面接口框架 * android.util ：涉及工具性的方法，例如時間日期的操作 * android.webkit ：默認瀏覽器操作接口 * android.widget ：包含各種UI元素（大部分是可見的）在應用程序的屏幕中使用  Empty Process, Background Process, Service Process, Visible Process, Foreground Process 初探 (ref: [Android 教學課程] Empty Process , Background Process , Service Process , Visible Process , Foreground Process 初探 )</description>
     </item>
     
   </channel>

@@ -17,7 +17,10 @@
       <pubDate>Thu, 25 Sep 2014 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2014/09/codeigniter-on-nginx/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>I use Ubuntu 14.04, Nginx 1.4.6, php5-fpm, Codeigniter 2.2.0
+It will remove index.php, and access Codeigniter site normally.
+Clean configuration &amp;ldquo;/etc/nginx/site-enabled/default&amp;rdquo;:
+server { #&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; START listen 80; listen [::]:80 default_server ipv6only=on; root /YOUR/PROJECT/ROOT; index index.html index.htm index.php; # Make site accessible from http://localhost/ server_name localhost; #location ~* .(ico|css|js|gif|jpe?g|png)(?[0-9]+)?$ { # expires max; # log_not_found off; #} location / { # First attempt to serve request as file, then # as directory, then fall back to displaying a 404.</description>
     </item>
     
     <item>
@@ -26,16 +29,35 @@
       <pubDate>Tue, 31 Jan 2012 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2012/01/codeigniter-disallowed-key-characters/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>Codeigniter 顯示 Disallowed Key Characters
+我的情況是：
+表單(form)名稱型態不符合格式。
+不得使用中文。
+＜input name=&amp;quot;姓名&amp;quot; type=&amp;quot;checkbox&amp;quot; value=&amp;quot;1&amp;quot; /＞
+改掉就好了
+ref: Codeigniter 顯示 Disallowed Key Characters</description>
     </item>
     
     <item>
       <title>[Codeigniter] remove index.php &amp; 圖片無法讀取問題</title>
-      <link>https://blog.kerkerj.in/2011/12/codeigniter-remove-index.php--%E5%9C%96%E7%89%87%E7%84%A1%E6%B3%95%E8%AE%80%E5%8F%96%E5%95%8F%E9%A1%8C/</link>
+      <link>https://blog.kerkerj.in/2011/12/codeigniter-remove-index.php-%E5%9C%96%E7%89%87%E7%84%A1%E6%B3%95%E8%AE%80%E5%8F%96%E5%95%8F%E9%A1%8C/</link>
       <pubDate>Tue, 20 Dec 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2011/12/codeigniter-remove-index.php--%E5%9C%96%E7%89%87%E7%84%A1%E6%B3%95%E8%AE%80%E5%8F%96%E5%95%8F%E9%A1%8C/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2011/12/codeigniter-remove-index.php-%E5%9C%96%E7%89%87%E7%84%A1%E6%B3%95%E8%AE%80%E5%8F%96%E5%95%8F%E9%A1%8C/</guid>
+      <description>首先，是先簡單說明使用 Codeigniter framework 時移除 URL 中的 index.php
+在 Codeigniter 的根目錄新增一 .htaccess 檔案
+並放入以下內容
+RewriteEngine on RewriteCond $1 !^(index\.php|js|robots\.txt|css) RewriteRule ^(.*)$ index.php/$1 [L]  另外還要修改 Codeigniter 的 config.php 設定
+$config[&#39;index_page&#39;] = &#39;&#39;&amp;quot;;
+不過上面的 rewrite rule 有些問題，
+情境是這樣的：
+我在 Codeigniter 根目錄新增一資料夾為 uploads ，
+放置上傳的圖片與影片，
+但是因為 rewrite rule routing 的關係沒辦法讀取到圖片，
+因此我將 .htaccess 檔修改如下：
+RewriteEngine on RewriteCond $1 !^(index\.php|images|css|js|robots\.txt|favicon\.ico) RewriteCond %{REQUEST_FILENAME} !-f RewriteCond %{REQUEST_FILENAME} !-d RewriteRule ^(.*)$ ./index.php?/$1 [L,QSA]  主要是在三四行的 %{REQUEST_FILENAME}
+這樣修改完就解決問題了!
+ref: CodeIgniter 如何去掉 URL 中的 index.</description>
     </item>
     
   </channel>

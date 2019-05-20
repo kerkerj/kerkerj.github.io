@@ -17,7 +17,7 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.40.3 with theme Tranquilpeak 0.4.3-BETA">
+    <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.3-BETA">
     <title>Nginx</title>
     <meta name="author" content="kerkerj">
     <meta name="keywords" content="">
@@ -67,14 +67,17 @@
 
     
       
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-45583907-2', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-45583907-2', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
 
     
@@ -232,7 +235,7 @@ ga('send', 'pageview');
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d29---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E7%99%BC%E4%BD%88---nginx/">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d29-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E7%99%BC%E4%BD%88-nginx/">
           [API-d29] - 實戰開發 - 發佈 - nginx
         </a>
       </h1>
@@ -266,9 +269,22 @@ ga('send', 'pageview');
 
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
-      <p></p>
+      接下來這篇就會比較偏 server 設定了！
+nginx 是一套伺服器軟體，和 apache 並駕齊驅
+(其實我覺得 nginx &gt;&gt;&gt; apache XD)
+主要是 nginx 清量快速
+我們要拿他幫 nodejs 處理接收 request 的部分，再將 request 導往 nodejs
+所以感覺就會如下圖:
+可以讓 nginx 當作是 load balancer,
+透過 reverse proxy 的方式轉發 request 給 nodejs, 讓 nginx 承受流量
+這就是我們今天要做的事情，
+所以首先，我們就要先裝 nginx，因此就先進虛擬機吧!
+$ sudo apt-get update &amp;&amp; sudo apt-get upgrade -y $ sudo apt-get install nginx  這樣就會安裝一個 nginx 了!
+Nginx 的設定檔都是放在 /etc/nginx/ 底下
+個別網站的設定放在 /etc/nginx/sites-available
+如果要讓該網站上線，則會將 /etc/nginx/sites-available 的設定檔 link 到 /etc/nginx/sites-enable
       <p>
-        <a href="https://blog.kerkerj.in/2014/10/api-d29---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E7%99%BC%E4%BD%88---nginx/" class="postShorten-excerpt_link link">Continue reading</a>
+        <a href="https://blog.kerkerj.in/2014/10/api-d29-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E7%99%BC%E4%BD%88-nginx/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
@@ -316,7 +332,10 @@ ga('send', 'pageview');
 
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
-      <p></p>
+      I use Ubuntu 14.04, Nginx 1.4.6, php5-fpm, Codeigniter 2.2.0
+It will remove index.php, and access Codeigniter site normally.
+Clean configuration &ldquo;/etc/nginx/site-enabled/default&rdquo;:
+server { #&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; START listen 80; listen [::]:80 default_server ipv6only=on; root /YOUR/PROJECT/ROOT; index index.html index.htm index.php; # Make site accessible from http://localhost/ server_name localhost; #location ~* .(ico|css|js|gif|jpe?g|png)(?[0-9]+)?$ { # expires max; # log_not_found off; #} location / { # First attempt to serve request as file, then # as directory, then fall back to displaying a 404.
       <p>
         <a href="https://blog.kerkerj.in/2014/09/codeigniter-on-nginx/" class="postShorten-excerpt_link link">Continue reading</a>
         
@@ -366,7 +385,10 @@ ga('send', 'pageview');
 
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
-      <p></p>
+      Install choose the latest version of Openresty
+I used ngx_openresty-1.7.2.1.tar.gz
+# install packages sudo apt-get install libreadline-dev libpcre3-dev libssl-dev perl # get openresty package wget http://openresty.org/download/ngx_openresty-1.7.2.1.tar.gz # unzip tar xzvf ngx_openresty-1.7.2.1.tar.gz # install cd ngx_openresty-1.7.2.1/ # You can setup with ./configure --prefix=&quot;the folder you want to install&quot;, default is '/usr/local/openresty' ./configure make sudo make install # need permission to copy file to target folder  Default folder: /usr/local/openresty
+Setup create work folder in ~
       <p>
         <a href="https://blog.kerkerj.in/2014/08/openresty-on-ubuntu-14.04/" class="postShorten-excerpt_link link">Continue reading</a>
         
@@ -422,7 +444,8 @@ ga('send', 'pageview');
 
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
-      <p></p>
+      nodejs v0.10.25 (for rails javascript engine) rbenv 0.4.0-98-g13a474c ruby 2.1.2p95 (2014-05-08 revision 45877) [x86_64-linux] Rails 4.1.4 nginx version: nginx/1.6.0 Phusion Passenger version 4.0.48 mysql Ver 14.14 Distrib 5.5.38, for debian-linux-gnu (x86_64) using readline 6.3  Installing Ruby &amp; Rails sudo apt-get update &amp;&amp; sudo apt-get upgrade sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties nodejs npm  Use rbenv
+cd git clone git://github.
       <p>
         <a href="https://blog.kerkerj.in/2014/07/install-rails-server-env-with-rbenv-on-ubuntu-14.04/" class="postShorten-excerpt_link link">Continue reading</a>
         
@@ -478,7 +501,8 @@ ga('send', 'pageview');
 
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
-      <p></p>
+      RVM with Ruby2.0.0-p353 + Rails4.0.2 + Ubuntu12.04(precise64) + php-fpm by Vagrant(clean install) p.s. If you don&rsquo;t use RVM, you can just follow the instruction from Passenger offcial website. It will be easier. Plus, I installed all these things by Vagrant.
+First thing to do $ sudo apt-get update $ sudo apt-get upgrade  Pre-setup: install necessary packages $ sudo apt-get update $ sudo apt-get install build-essential libssl-dev libpcre3-dev libncurses5-dev libreadline6-dev git vim curl libcurl4-openssl-dev libreadline6 autoconf openssl git-core zlib1g zlib1g-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev autoconf libc6-dev libgdbm-dev libncurses5-dev automake libtool bison subversion pkg-config libffi-dev  Get .
       <p>
         <a href="https://blog.kerkerj.in/2013/12/ubuntu-ror-environment/" class="postShorten-excerpt_link link">Continue reading</a>
         
@@ -532,7 +556,11 @@ ga('send', 'pageview');
 
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
-      <p></p>
+      Vagrant - Development environments made easy. 就是這個軟體的宗旨，把它想做是 ghost 吧！我們開發網站或是測試一些多機器架構時，常不小心就把自己的電腦或是測試主機搞到爛掉，租機器又慢又花錢，搞到爛重灌更麻煩。因此這個軟體基於 VirtualBox 做出了令人方便設定的功能，讓我們可以快速架設安裝環境並測試，尤其是以多機器架構而言更是方便！例如從最簡單的 Web server + DB server，或是 Web Load Balancer + Application Server * 5 等等的架構，一台電腦就能達成囉！ 今天主要是以安裝 Vagrant 及架設出 Nginx + php5-fpm 的架構，下一篇打算另外建構一台 mongodb server，達到 Vagrant 最主要的多機器設定功能~
+Vagrant 基本設定  先下載 VirtualBox 吧！
+ 下載 Vagarnt 套件 http://downloads.vagrantup.com/
+安裝好後，可能會需要加 path，至少 1.3.0 當時我是自己加的，現在 1.3.5 就不清楚了~
+ 接下來就可以開始加入 box (可以把它想為 ghost 檔)，並開始設定 Vagrant。  vagrant box add {你想要的Box名稱} {下載網址}  輸入後就會開始下載該 box 了！ 範例：
       <p>
         <a href="https://blog.kerkerj.in/2013/10/vagrant-%E4%BD%BF%E7%94%A8-vagrant-%E5%AE%89%E8%A3%9D-nginx-php5-fpm-mysql/" class="postShorten-excerpt_link link">Continue reading</a>
         
@@ -549,7 +577,7 @@ ga('send', 'pageview');
         
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2018 <a href="https://github.com/kerkerj">kerkerj</a>. Powered by <a href="https://gohugo.io/">hugo</a>. Theme <a href="https://github.com/kakawait/hugo-tranquilpeak-theme">Tranquilpeak</a>. All Rights Reserved
+    &copy; 2019 <a href="https://github.com/kerkerj">kerkerj</a>. Powered by <a href="https://gohugo.io/">hugo</a>. Theme <a href="https://github.com/kakawait/hugo-tranquilpeak-theme">Tranquilpeak</a>. All Rights Reserved
   </span>
 </footer>
 
@@ -607,6 +635,23 @@ ga('send', 'pageview');
           <div class="media">
             
             <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2019/05/kubectx/">
+                <h3 class="media-heading">kubectx</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  May 5, 2019
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p>-</p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
               <a class="link-unstyled" href="https://blog.kerkerj.in/2018/08/go-pprof/">
                 <h3 class="media-heading">Go pprof</h3>
               </a>
@@ -615,9 +660,7 @@ ga('send', 'pageview');
                   Aug 8, 2018
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p>簡單筆記一下會用到的 pprof 相關指令</p>
-
-<p></p></div>
+              <div class="media-content hide-xs font-merryweather"><p>簡單筆記一下會用到的 pprof 相關指令</p></div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -634,9 +677,7 @@ ga('send', 'pageview');
                   May 5, 2018
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p>嗯，我又把 theme 換掉了。還有個原因是裝了最新版的 hugo 後，就 build 不出來了，只好順便換個新的 theme。</p>
-
-<p></p></div>
+              <div class="media-content hide-xs font-merryweather"><p>嗯，我又把 theme 換掉了。還有個原因是裝了最新版的 hugo 後，就 build 不出來了，只好順便換個新的 theme。</p></div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -653,7 +694,11 @@ ga('send', 'pageview');
                   Nov 11, 2016
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p></p></div>
+              <div class="media-content hide-xs font-merryweather">最近看了一些書，有空就寫點筆記上來&hellip;
+ISBN: 978-986-216-605-5
+以下記一些片段
+ 計畫是一種猜測 別當工作狂 （J: work smart） 坐而言不如起而行（真正的重點在於你執行得好不好） 實現夢想完全是自己的責任，當你夠可望，自然就能撥出時間。（J: 不僅只是夢想，別拿時間當藉口） 明確表明立場 使命宣言不是說說而已（J: 莫忘初衷） 你需要的其實比想像少（J: 現階段真的需要這麼多嗎？） 別在進場時就想著怎麼退場（你需要的是實踐承諾的策略而不是退場策略） 擁抱限制、不要貪多 從核心要點做起 忽略初期的細枝末節 不管你規劃的多詳盡，凡事總有出錯的時候 懂得捨去才是關鍵 減少投入反而解決了問題 聚焦於不會改變的事物（專注於永久性的特點 e.g. 沒有人希望程式跑很慢的，一定都是越快越好） 不斷地動手做 有時放棄是對的 不必逞英雄 人類不擅長估計，預估一件大事很難，但預估小事簡單多了，把大事切成許多小事吧 一次只做一個小決定 不要抄襲、避免大眾化 預設拒絕立場 自己先動手做 靈感是會過期的  這本書和 hiroshi 大人借的，應該可以入手一本，覺得前半部比較偏個人、後半部就偏專案產品面，
+這本書值得不時拿出來細細品味，不同時間看應該都有不同的感覺。</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -670,7 +715,15 @@ ga('send', 'pageview');
                   Oct 10, 2016
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p></p></div>
+              <div class="media-content hide-xs font-merryweather">幾天前在 Golang Taiwan 的 slack 裡看到了一些關於 goroutine 的討論
+有人問了以下程式碼 (from http://blog.mergermarket.it/now-youre-thinking-with-channels/)
+package main import &quot;fmt&quot; func main() { channelForInts := make(chan int) go printIntFromChannel(channelForInts) channelForInts &lt;- 5 } func printIntFromChannel(channel chan int) { number := &lt;-channel fmt.Println(&quot;The number is:&quot;, number) }  提到上述程式碼在 goplayground 上測試好幾次都會印出 The number is:5
+但他自己在本機跑是怎樣執行都不會出現 5
+看到這個問題第一個想到的是 sync.Waitgroup
+之前剛開始學 goroutine 的概念時，就在 stackoverflow 上看到有人討論相關的議題
+加個 sync.Waitgroup 就可以保證看到 goroutine 執行完後的結果。
+而事實上會這樣子的原因 Go Programming Language Specification 有寫
+ Program execution begins by initializing the main package and then invoking the function main.</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -687,7 +740,13 @@ ga('send', 'pageview');
                   Oct 10, 2016
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p></p></div>
+              <div class="media-content hide-xs font-merryweather">工作上 rails 在每個 stage 的 domain 長度都不太一樣
+例如 production 是 example.com，staging 是 kerkerj.staging.example.com
+MyApp::Application.config.session_store :redis_session_store, { key: 'example_session_token', domain: :all, tld_length: 4, serializer: :hybrid, redis: { host: &quot;....&quot;, key_prefix: &quot;...&quot;, expire_after: 7.day, } }  相關原始碼: action_dispatch/middleware/cookies.rb
+在這裡的 tld_length 就是看你 domain 的 tld 想設定到哪就寫多少
+以 kerkerj.staging.example.com 為例，想要 example.com 就是 2，想要 kerkerj.staging.example.com 就是 4
+而在 Rails App 裡，在 config.action_dispatch.tld_length (或 ActionDispatch::Http::URL.tld_length ) 設定的 tld_length
+在 rails api document 的 #domain 有用法</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -704,7 +763,10 @@ ga('send', 'pageview');
                   Oct 10, 2016
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p></p></div>
+              <div class="media-content hide-xs font-merryweather">如果 rails app 裡的 initializer 有載入順序的需求的話
+可以照著 Ruby On Rails Guide 這篇來設定
+ If you have any ordering dependency in your initializers, you can control the load order through naming. Initializer files are loaded in alphabetical order by their path. For example, 01_critical.rb will be loaded before 02_normal.rb.
+ 檔名加個數字前綴，rails 就會以數字順序來依序載入~</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -721,7 +783,13 @@ ga('send', 'pageview');
                   Oct 10, 2016
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p></p></div>
+              <div class="media-content hide-xs font-merryweather">這是前陣子在工作上用到的
+有個 golang 的專案，使用了 gb 來管理第三方套件
+當時想套 goconvey 進來
+但是一直搞不定執行的方式
+後來在 github goconvey issue 裡找到了方式
+$ cd /to/your/gb_projects $ PROJECT_DIR=`pwd` $ GOPATH=&quot;$PROJECT_DIR/vendor:$PROJECT_DIR&quot; goconvey -packages=1 -port 8899  這樣就會跑 web ui 出來摟
+不想跑 web ui 就執行 gb test -v 就可以了&hellip;上面這樣只是單純想跑 web ui 而已 XD</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -738,7 +806,16 @@ ga('send', 'pageview');
                   Oct 10, 2016
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p></p></div>
+              <div class="media-content hide-xs font-merryweather">不知道標題該下啥&hellip;
+前陣子因為工作需要，需要測試一個 web app 分布在多台機器下的狀況
+想說使用 docker 來做這件事，但又懶得弄 nginx 的設定
+稍微查了一下發現有 dockercloud/haproxy
+我使用的情境是 web app * 3 + ha * 1 + redis * 1
+web 使用了兩個 port 7788, 7789
+但是不想讓 ha 把流量導去 7788，所以可以設定 EXCLUDE_PORTS
+ 如此一來，在 docker-compse up 後，就可以透過 http://192.168.99.100:5566/ 來連上了
+並且可以透過 docker stats $(docker ps -q) 這個指令來觀察正在執行中的 containers 的基本 metrics~
+快速簡單!</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -755,24 +832,10 @@ ga('send', 'pageview');
                   Oct 10, 2016
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p></p></div>
-            </div>
-            <div style="clear:both;"></div>
-            <hr>
-          </div>
-        
-          <div class="media">
-            
-            <div class="media-body">
-              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/new-theme/">
-                <h3 class="media-heading">New theme</h3>
-              </a>
-              <span class="media-meta">
-                <span class="media-date text-small">
-                  Oct 10, 2016
-                </span>
-              </span>
-              <div class="media-content hide-xs font-merryweather"><p></p></div>
+              <div class="media-content hide-xs font-merryweather">現在想到什麼都來 PO 一下 XD
+https://github.com/so-fancy/diff-so-fancy
+拿來幫你把 git diff 變漂亮的東東
+// install $ brew install diff-so-fancy // Setup $ git config --global core.pager &quot;diff-so-fancy | less --tabs=4 -RFX&quot; // make it more fancier $ git config --global color.diff-highlight.oldNormal &quot;red bold&quot; $ git config --global color.diff-highlight.oldHighlight &quot;red bold 52&quot; $ git config --global color.diff-highlight.newNormal &quot;green bold&quot; $ git config --global color.diff-highlight.newHighlight &quot;green bold 22&quot; </div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -785,7 +848,7 @@ ga('send', 'pageview');
          data-message-zero="no post found"
          data-message-one="1 post found"
          data-message-other="{n} posts found">
-         142 posts found
+         143 posts found
       </p>
     </div>
   </div>

@@ -13,20 +13,28 @@
     
     <item>
       <title>[API-d18] - 實戰開發 - 套件模組</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d18---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E5%A5%97%E4%BB%B6%E6%A8%A1%E7%B5%84/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d18-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E5%A5%97%E4%BB%B6%E6%A8%A1%E7%B5%84/</link>
       <pubDate>Sat, 18 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d18---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E5%A5%97%E4%BB%B6%E6%A8%A1%E7%B5%84/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d18-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E5%A5%97%E4%BB%B6%E6%A8%A1%E7%B5%84/</guid>
+      <description>會使用到的套件: 主體: express - web framework body-parser - parse request body 測試相關: mocha - test framework mocha-mongoose - 用來和 mocha 和 mongoose 中間做介接的套件 superagent - 拿它來丟 http request validator - 用來驗證某個物件是否為某個型別 expect.js - 類似 BDD 的語法，用來寫測試的 debug - debug package DB 相關: mongoose - mongodb orm mongodb - mongodb native driver 開發相關: nodemon - detect file change and restart server 生產環境相關: log4js - 記錄 request log  這是我的 package.json, 可以複製到專案目錄，然後下 npm install</description>
     </item>
     
     <item>
       <title>[API-d9] - NVM 與 NPM 使用</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d9---nvm-%E8%88%87-npm-%E4%BD%BF%E7%94%A8/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d9-nvm-%E8%88%87-npm-%E4%BD%BF%E7%94%A8/</link>
       <pubDate>Thu, 09 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d9---nvm-%E8%88%87-npm-%E4%BD%BF%E7%94%A8/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d9-nvm-%E8%88%87-npm-%E4%BD%BF%E7%94%A8/</guid>
+      <description>NVM 與 NPM 使用 NVM - Node.js Version Manager 安裝 如果是 Ubuntu 的話必須先要有 build-essential 和 libssl-dev 套件
+不過這個我們之前就裝過了，所以直接安裝 NVM 吧~
+$ curl https://raw.githubusercontent.com/creationix/nvm/v0.17.2/install.sh | bash $ source ~/.bashrc  使用 NVM 安裝 node.js 先前我們有使用 Ubuntu 本身的 apt-get 安裝 Node.js
+不過那是被安裝到 /usr/bin/node
+有時候要安裝套件需要 sudo 提供管理者權限
+非常麻煩，因此我們使用 NVM 來安裝另一個 Node.js
+這個 Node.js 的執行檔就任我們使用，不需要提供管理者權限了
+$ nvm install 0.10  nvm 就會安裝 0.10 版本，安裝完後就要使用它：
+$ nvm use 0.10  再來我們把 nvm 的 node.js 設定成預設的 node</description>
     </item>
     
   </channel>

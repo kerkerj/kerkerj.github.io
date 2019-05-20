@@ -17,7 +17,7 @@
       <pubDate>Tue, 26 Nov 2013 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2013/11/ubuntu-12.04-install-oracle-java/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>sudo rm /var/lib/dpkg/info/oracle-java7-installer* sudo apt-get purge oracle-java7-installer* sudo rm /etc/apt/sources.list.d/*java* sudo apt-get update sudo add-apt-repository ppa:webupd8team/java sudo apt-get update sudo apt-get install oracle-java7-installer </description>
     </item>
     
     <item>
@@ -26,7 +26,7 @@
       <pubDate>Wed, 15 Jun 2011 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2011/06/java-bytearray-%E7%9A%84-tostring-%E5%87%BD%E5%BC%8F/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>byte[] 的toString() 是回傳記憶體位置。</description>
     </item>
     
     <item>
@@ -35,16 +35,16 @@
       <pubDate>Wed, 15 Jun 2011 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2011/06/java-string-split-%E5%AD%97%E4%B8%B2%E5%88%86%E5%89%B2/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>String temp = &amp;quot;data1, data2, data3, data4&amp;quot;; //欲分割的字串 String data[] = temp.split(&amp;quot;,&amp;quot;); //分割後存進字串陣列 //印出每一個陣列元素 for(String result:data){ System.out.println(result); } </description>
     </item>
     
     <item>
       <title>[Java] Hex String &amp; Byte Array 轉換</title>
-      <link>https://blog.kerkerj.in/2011/06/java-hex-string--byte-array-%E8%BD%89%E6%8F%9B/</link>
+      <link>https://blog.kerkerj.in/2011/06/java-hex-string-byte-array-%E8%BD%89%E6%8F%9B/</link>
       <pubDate>Wed, 01 Jun 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2011/06/java-hex-string--byte-array-%E8%BD%89%E6%8F%9B/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2011/06/java-hex-string-byte-array-%E8%BD%89%E6%8F%9B/</guid>
+      <description>public String toHexString(byte[] in){ BigInteger temp = new BigInteger(in); return temp.toString(16); } public byte[] fromHexString(String in){ BigInteger temp = new BigInteger(in, 16); return temp.toByteArray(); }  文章參考自此</description>
     </item>
     
     <item>
@@ -53,7 +53,11 @@
       <pubDate>Tue, 31 May 2011 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2011/05/java-gridbaglayout/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>只有連結，因為看連結就好了，圖解很累ＸＤ
+ (圖片來源：http://blog.csdn.net/dmgactive/archive/2009/06/28/4304567.aspx )
+http://download.oracle.com/javase/tutorial/uiswing/layout/gridbag.html http://felixcic.blogspot.com/2010/11/gridbaglayout.html http://home.so-net.net.tw/idealist/Java/AWT/GridBagLayout.html
+大致上是設定以下參數
+public int anchor public int fill public gridheight Public gridweight public girdx public gridy public Insets insets public int ipadx public int ipady public double weightx public double weighty  大概是這樣</description>
     </item>
     
     <item>
@@ -62,7 +66,25 @@
       <pubDate>Thu, 26 May 2011 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2011/05/java-bouncy-castle-cryptography/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>這是為了ECT作業所作的筆記 Bouncy Castle Cryptography
+這次作業用到了密碼學的技術，助教給了這個網站的library讓大家方便實作
+作業內容是：可讀取文字, 圖片, 聲音
+先初始化轉成byte後，利用SHA512進行訊息摘要，
+再對檔案做RSA加密, 解密,接著是 AES 加密, 解密,
+最後使用解密後的內容作還原的動作,
+若input的檔案與output的檔案內容一樣表示成功。
+以下是這次作業會用到的class
+* SHA512Digest 產生訊息摘要MD * AESEngine (對稱式加密) * RSAEngine (非對稱式加密) * RSAKeyParameters ，用來產生RSA的公鑰、私鑰 * KeyParameter * BigInteger  p.s. 以下是在寫作業時遇到的問題解決網址
+其實用到了什麼class也是google後從學長的部落格看來的XD
+SHA512: SHA512 ouput 問題
+發現除了 SHA 的 out 外
+其他的加解密產生 output 值要印出時都可以用到：
+用： String.format(&amp;quot;%0128x&amp;quot;, new BigInteger(1, byteData));
+來取代 Hex.encode(byteData);
+RSA:
+JavaWorld - 在RSA 解密時的問題 
+使用Java進行RSA加解密
+RSA using BouncyCastle (有問題 不過解決了 &amp;ndash;&amp;gt; JavaClassCastException)</description>
     </item>
     
   </channel>

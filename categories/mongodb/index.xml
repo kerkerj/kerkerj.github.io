@@ -13,20 +13,32 @@
     
     <item>
       <title>[API-d18] - 實戰開發 - 套件模組</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d18---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E5%A5%97%E4%BB%B6%E6%A8%A1%E7%B5%84/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d18-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E5%A5%97%E4%BB%B6%E6%A8%A1%E7%B5%84/</link>
       <pubDate>Sat, 18 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d18---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E5%A5%97%E4%BB%B6%E6%A8%A1%E7%B5%84/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d18-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E5%A5%97%E4%BB%B6%E6%A8%A1%E7%B5%84/</guid>
+      <description>會使用到的套件: 主體: express - web framework body-parser - parse request body 測試相關: mocha - test framework mocha-mongoose - 用來和 mocha 和 mongoose 中間做介接的套件 superagent - 拿它來丟 http request validator - 用來驗證某個物件是否為某個型別 expect.js - 類似 BDD 的語法，用來寫測試的 debug - debug package DB 相關: mongoose - mongodb orm mongodb - mongodb native driver 開發相關: nodemon - detect file change and restart server 生產環境相關: log4js - 記錄 request log  這是我的 package.json, 可以複製到專案目錄，然後下 npm install</description>
     </item>
     
     <item>
       <title>[API-d12] - MongoDB - Hello World! (Client-side) </title>
-      <link>https://blog.kerkerj.in/2014/10/api-d12---mongodb---hello-world-client-side/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d12-mongodb-hello-world-client-side/</link>
       <pubDate>Sun, 12 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d12---mongodb---hello-world-client-side/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d12-mongodb-hello-world-client-side/</guid>
+      <description>今天要使用 Node.js 的 mongodb driver 來操作 DB
+一樣先開啟虛擬機並且登入吧
+會使用到的套件是:
+mongodb -&amp;gt; mongodb native driver  或許有人有看過 mongoose -&amp;gt; 官網
+算是 MongoDB 的 ORM，我們在這邊如果有時間的話再簡單了解一下，
+現在先使用 native driver 來操作
+我們在這邊就不裝全域套件了，裝在 API 專案裡面
+並且使用 -save 來將相依性寫入 package.json 裏
+$ cd /vagrant/API/ $ npm install mongodb -save  從虛擬機回到電腦的資料夾中，在虛擬機資料夾的 API 資料夾中，
+今天我們先不和 express 搭配，因此就是純操作 node.js + mongodb module
+新增一個 mongoTest.js
+我們先來連線到 MongoDB，連線的方式有很多，下面是其中一種方式，
+// 先宣告用的到的東西 var MongoClient = require(&#39;mongodb&#39;).MongoClient , Server = require(&#39;mongodb&#39;).Server , options = { auto_reconnection: true, poolSize: 10 }; // Server 設定 var mongoClient = new MongoClient(new Server(&#39;localhost&#39;, 27017, options)); // 開啟連線 mongoClient.</description>
     </item>
     
   </channel>

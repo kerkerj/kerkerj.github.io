@@ -13,11 +13,27 @@
     
     <item>
       <title>[API-d16] - 實戰開發 - 設定主題及規劃</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d16---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E8%A8%AD%E5%AE%9A%E4%B8%BB%E9%A1%8C%E5%8F%8A%E8%A6%8F%E5%8A%83/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d16-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E8%A8%AD%E5%AE%9A%E4%B8%BB%E9%A1%8C%E5%8F%8A%E8%A6%8F%E5%8A%83/</link>
       <pubDate>Thu, 16 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d16---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E8%A8%AD%E5%AE%9A%E4%B8%BB%E9%A1%8C%E5%8F%8A%E8%A6%8F%E5%8A%83/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d16-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E8%A8%AD%E5%AE%9A%E4%B8%BB%E9%A1%8C%E5%8F%8A%E8%A6%8F%E5%8A%83/</guid>
+      <description>接下來我們想要做到的是一個 TODO list 的 RESTful API
+並且會先使用 apiary.io 做規劃
+實際看看感覺如何
+進入網站後，註冊登入後
+左上角的 dropdown list 選擇 create new API
+產生後下方就會跑出範例文擋
+這個網站會透過特定格式的編排自己希望的 API endpoint 及範例回傳值後，產生出一份漂亮的文件
+網站中間是模式的選擇
+Documentation 是實際讓其他人看的，Editor 則是編輯模式
+我們就稍微簡單規劃一下 TODO List 的 RESTful API 吧!
+這是我自己規劃的 文件
+基本上 route 會長這個樣子:
+TODOs GET /user/{user_id}/todos/ POST /user/{user_id}/todos/ GET /user/{user_id}/todos/{id} PUT /user/{user_id}/todos/{id} DELETE /user/{user_id}/todos/{id}  資料格式也都在該文件整理好了
+/user/{user_id}/ 只是用來辨識是哪個 user 的 todo task data
+在這個小 API 不會琢磨在使用者系統的建立，只會專注在操作 todo task data
+我們可以直接透過 PostMan 來丟丟看
+我們設定必須要使用 API-key 才能存取 API，比較進階的做法就是使用 Oauth 的方式取得 token 來存取 API</description>
     </item>
     
   </channel>

@@ -17,7 +17,13 @@
       <pubDate>Wed, 06 Aug 2014 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2014/08/writing-lua-on-mac/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>Install lua on mac I&amp;rsquo;m not sure that whether Lua is built on mac originally.
+(Ok, tested on Mac OSX 10.9, there is Lua in it.)
+So I installed Lua via Homebrew.
+Install homebrew (optional)
+ruby -e &amp;quot;$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)&amp;quot;  Install Lua by homebrew
+brew install lua  Writing Lua You can use command: lua to interact with lua. (just like php -a or irb)
+print(&amp;quot;Hello World&amp;quot;)  function fact(n) if n == 0 then return 1 else return n * fact(n-1) end end print(&amp;quot;enter a number:&amp;quot;) num = io.</description>
     </item>
     
     <item>
@@ -26,7 +32,9 @@
       <pubDate>Mon, 16 Jun 2014 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2014/06/mac-update-openssl-on-mac/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>First of all, you need &amp;lsquo;brew&amp;rsquo; (http://brew.sh/)
+$ brew update $ brew install openssl $ brew link --force openssl $openssl version -a  If it&amp;rsquo;s still the old version, you shoud:
+$ sudo rm /usr/bin/openssl #remove the old binary $ sudo ln -s /usr/local/Cellar/openssl/1.0.1h/bin/openssl /usr/local/bin (1.0.1h -&amp;gt; the latest version)  ref: http://apple.stackexchange.com/questions/126830/how-to-upgrade-openssl-in-os-x</description>
     </item>
     
     <item>
@@ -35,7 +43,18 @@
       <pubDate>Wed, 13 Nov 2013 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2013/11/mac-osx-slow-opening-terminal-windows/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>最近在開 mac 的 iTerm.app 或者是內建的終端機都覺得卡卡的，
+之前以為是 .bashrc 載入太多東西導致的，所以把一些掛載的 bin 目錄都註解掉，
+但是還是沒解決，心想不對勁，就順手 google 了一下&amp;hellip;
+我執行了下列語法：
+$ time /usr/libexec/path_helper PATH=&amp;quot;/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/ABC/android-sdks/platform-tools:/Users/ABC/android-sdks/tools:/Application/Vagrant/bin&amp;quot;; export PATH; real 0m0.043s user 0m0.001s sys 0m0.002s  接著我把 PATH 的內容寫進 .bash_profile，問題竟然就解決了&amp;hellip;
+速度飛快～～
+後來看到一篇 .bash_profile vs.bashrc
+雖然大家都知道 .bash_profile 是在登入時執行（即是輸入帳號密碼時），
+而 .bashrc 是在系統內非登入狀態時開啟 prompt 時執行，
+但是！！ Mac OSX 是個例外～是個例外～是個例外～&amp;hellip;&amp;hellip;.=.=
+ Mac OS X — an exception
+An exception to the terminal window guidelines is Mac OS X&amp;rsquo;s Terminal.app, which runs a login shell by default for each new terminal window, calling .</description>
     </item>
     
     <item>
@@ -44,7 +63,12 @@
       <pubDate>Wed, 13 Nov 2013 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2013/11/mac-osx-bash-it/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>bash-it:
+$git clone http://github.com/revans/bash-it.git ~/.bash_it $~/.bash_it/install.sh  他會幫你自動備份原來的 .bash_profile 為 .bash_profile.bak 所以別擔心
+當他在問你要使用什麼 completion 或 script 之類的東西時，
+選擇 &amp;lsquo;some&amp;rsquo; 就可以自己選擇~
+有許多的 theme 及 package , completion 等等可以用，很方便！
+http://www.scholarslab.org/research-and-development/customizing-bash/</description>
     </item>
     
     <item>
@@ -53,7 +77,9 @@
       <pubDate>Wed, 13 Nov 2013 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2013/11/mac-osx-homebrew-update-error/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>failed log:
+$sudo brew update error: Your local changes to the following files would be overwritten by merge: Library/Aliases/gperftools Library/Aliases/hashdeep Library/Aliases/htop Library/Aliases/nodejs Library/Aliases/ocio Library/Aliases/oiio .... error: The following untracked working tree files would be overwritten by merge: Library/Aliases/gperftools Library/Aliases/hashdeep Library/Aliases/htop Library/Aliases/nodejs Library/Aliases/ocio Library/Aliases/oiio .... Aborting Error: Failure while executing: git pull -q origin refs/heads/master:refs/remotes/origin/master  Solution:
+$ cd /usr/local $ git fetch origin $ git reset --hard origin/master  reference [read]</description>
     </item>
     
   </channel>

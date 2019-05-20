@@ -17,7 +17,7 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.40.3 with theme Tranquilpeak 0.4.3-BETA">
+    <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.3-BETA">
     <title>鐵人賽</title>
     <meta name="author" content="kerkerj">
     <meta name="keywords" content="">
@@ -67,14 +67,17 @@
 
     
       
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-45583907-2', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-45583907-2', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
 
     
@@ -232,7 +235,7 @@ ga('send', 'pageview');
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d11---mongodb---hello-world/">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d11-mongodb-hello-world/">
           [API-d11] - MongoDB - Hello World!
         </a>
       </h1>
@@ -264,9 +267,18 @@ ga('send', 'pageview');
 
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
-      <p></p>
+      今天先講在 Server 中如何操作 MongoDB
+一樣開啟虛擬機，
+我們在先前已經有先安裝過 MongoDB 了，因此，在 Ubuntu Server 中預設是開機啟動的
+登入虛擬機吧~
+登入虛擬機後，我們要進入 MongoDB，必須使用 mongo 這個 MongoDB Shell
+$ mongo MongoDB shell version: 2.6.4 connecting to: test Welcome to the MongoDB shell. For interactive help, type &quot;help&quot;. For more comprehensive documentation, see http://docs.mongodb.org/ Questions? Try the support group http://groups.google.com/group/mongodb-user &gt;  此時會發現輸入指令的地方變成了 &gt; 表示我們已經在 mongodb 裡面了
+為什麼不需要帳號密碼即可進入 MongoDB 呢，因為 MongoDB 預設是不需要做登入的
+並且加上預設只能由本機存取，也就是說，外部連入的 IP 是進不了 MongoDB 的
+這部分後面會再作說明。
+傳統的 Table 在 MongoDB 中，稱之為 Collection
       <p>
-        <a href="https://blog.kerkerj.in/2014/10/api-d11---mongodb---hello-world/" class="postShorten-excerpt_link link">Continue reading</a>
+        <a href="https://blog.kerkerj.in/2014/10/api-d11-mongodb-hello-world/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
@@ -284,7 +296,7 @@ ga('send', 'pageview');
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/swift-d11---basic---hello-world-viewcontroller/">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/swift-d11-basic-hello-world-viewcontroller/">
           [Swift-d11] - Basic - Hello World! ViewController
         </a>
       </h1>
@@ -310,9 +322,30 @@ ga('send', 'pageview');
 
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
-      <p></p>
+      今天就要來建立一個 Hello World swift app 啦 XD
+首先就是開 Xcode 然後開專案囉~~
+就看你要存去哪裡啦～
+再來就會進到專案本身:
+我們就看右下角有個地方可以找到 Label 這個選項:
+把他拉到 Storyboard 的任意位置就可以了~
+然後更改 label 的屬性:
+先點一下 label 選取後，看右上角
+有個地方可以更改它的顯示文字，我們將它改成 HelloWorld!
+改完之後，按左上角的 Run! ，我們也可以選擇後面的 target 看是要跑在 i6 或是 i5 上，
+按下 Run 後程式就會 deploy 到模擬器上面了！
+這就是第一個 Hello World 啦!
+完全不用寫程式哦 XDDDDD
+不過還是要稍微了解一下運作原理啦~
+如果剛剛在編輯 storyboard 的時候，有發現那個 View 的左邊有一個奇怪的箭頭指向 View，那個箭頭的意思其實就是程式進入點的意思，
+storyboard 就是在描述程式的走向，像在說故事一樣，從某一頁按了什麼東西跳到哪一頁
+其實我一直都沒有很習慣 storyboard 的拉法，還是比較習慣用程式建立物件，將想要的物件用程式擺(憑空想像XD)，但是前面幾個比較屬於練習的小東西都還是會用拉的，比較好懂~
+我們剛剛建立的那一頁 Hello world
+基本上就是在左邊的 ViewController
+那我們試著使用程式來改變 HelloWorld 這個 label 的值吧!
+我們首先使用分割視窗的模式
+選擇左邊數來第二個按鈕
       <p>
-        <a href="https://blog.kerkerj.in/2014/10/swift-d11---basic---hello-world-viewcontroller/" class="postShorten-excerpt_link link">Continue reading</a>
+        <a href="https://blog.kerkerj.in/2014/10/swift-d11-basic-hello-world-viewcontroller/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
@@ -330,7 +363,7 @@ ga('send', 'pageview');
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d10---express---hello-world/">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d10-express-hello-world/">
           [API-d10] - Express - Hello World!
         </a>
       </h1>
@@ -362,9 +395,20 @@ ga('send', 'pageview');
 
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
-      <p></p>
+      Express - Hello World! 今天就要來安裝主角之一的 Express 了!
+一樣開啟虛擬機器我應該是可以不用多說了 XD
+先確認自己的 node 是不是 NVM 的 node 喲
+建立專案 $ cd /vagrant/ $ mkdir API $ cd API/ $ npm init  自己輸入專案的相關內容吧，不知道的就直接按 enter 空白丟給他~
+就會產生 package.json 了!
+安裝 Express // 在專案目錄底下 (/vagrant/API/) $ npm install express -save  下 -save 的原因是要將 express 加入 package.json 中
+離開虛擬機，其實我們也可以在虛擬機資料夾看到剛剛建立的專案了，
+現在開始就可以使用自己喜歡的編輯器來開啟這個專案資料夾，我個人偏好使用 Sublime Text
+要執行專案時再回終端機即可
+Express Hello World! 在 API 資料夾中建立一個 app.js
+內容是:
+javascript var express = require('express'); var app = express(); app.
       <p>
-        <a href="https://blog.kerkerj.in/2014/10/api-d10---express---hello-world/" class="postShorten-excerpt_link link">Continue reading</a>
+        <a href="https://blog.kerkerj.in/2014/10/api-d10-express-hello-world/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
@@ -408,7 +452,26 @@ ga('send', 'pageview');
 
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
-      <p></p>
+      今天算一算也來到第十天了，
+前面講了 8 天的語法，其實會有些枯燥
+不過有些語法又很有趣
+我不懂 Objective-C，
+如果想從 Objectiv-C 轉換到 Swift 的話，最好查查一些比較的文章
+最好的文件就是官方文件了
+以 UILabel 為例
+官方網站會列出兩種不同寫法:
+// SWIFT var text: String? // OBJECTIVE-C @property(nonatomic, copy) NSString *text  如果要從 Swift 基本概念開始，當然是首推官方的 The Swift Programming Language
+是英文苦手的話，強國人有 翻譯文件
+這群人非常厲害，發表後沒幾天就翻譯完成了
+不過因為技術用語還是以中國為主，因此建議英文優先，或是對照著看
+前面幾天都基本介紹前半部而已，屬於一般學習程式語言的基本練習而已
+後半部是更詳細的部分，有空的話還是可以多看看~
+另外，官方還出了一本 Using Swift with Cocoa ad Objective-C
+就是在介紹如何使用 Swift 加上 Cocoa framework 開發 App
+不過書的內容不多，算入門級，有興趣也可看看這本~
+接下來會開始用 Swift 寫簡單的界面
+由於筆者從沒寫過 iOS app，因此也是會用大約十天的時間來簡單練習一些常用的 Cocoa Touch framework 的元件
+順帶一提前面沒講到的，Objective-C 有個東西叫作 Catagory，在 Swift 裏是 extension
       <p>
         <a href="https://blog.kerkerj.in/2014/10/swift-d10-%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80/" class="postShorten-excerpt_link link">Continue reading</a>
         
@@ -428,7 +491,7 @@ ga('send', 'pageview');
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d9---nvm-%E8%88%87-npm-%E4%BD%BF%E7%94%A8/">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d9-nvm-%E8%88%87-npm-%E4%BD%BF%E7%94%A8/">
           [API-d9] - NVM 與 NPM 使用
         </a>
       </h1>
@@ -460,9 +523,17 @@ ga('send', 'pageview');
 
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
-      <p></p>
+      NVM 與 NPM 使用 NVM - Node.js Version Manager 安裝 如果是 Ubuntu 的話必須先要有 build-essential 和 libssl-dev 套件
+不過這個我們之前就裝過了，所以直接安裝 NVM 吧~
+$ curl https://raw.githubusercontent.com/creationix/nvm/v0.17.2/install.sh | bash $ source ~/.bashrc  使用 NVM 安裝 node.js 先前我們有使用 Ubuntu 本身的 apt-get 安裝 Node.js
+不過那是被安裝到 /usr/bin/node
+有時候要安裝套件需要 sudo 提供管理者權限
+非常麻煩，因此我們使用 NVM 來安裝另一個 Node.js
+這個 Node.js 的執行檔就任我們使用，不需要提供管理者權限了
+$ nvm install 0.10  nvm 就會安裝 0.10 版本，安裝完後就要使用它：
+$ nvm use 0.10  再來我們把 nvm 的 node.js 設定成預設的 node
       <p>
-        <a href="https://blog.kerkerj.in/2014/10/api-d9---nvm-%E8%88%87-npm-%E4%BD%BF%E7%94%A8/" class="postShorten-excerpt_link link">Continue reading</a>
+        <a href="https://blog.kerkerj.in/2014/10/api-d9-nvm-%E8%88%87-npm-%E4%BD%BF%E7%94%A8/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
@@ -480,7 +551,7 @@ ga('send', 'pageview');
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/swift-d9---playground---class-struct/">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/swift-d9-playground-class-struct/">
           [Swift-d9] - Playground - Class, Struct
         </a>
       </h1>
@@ -506,9 +577,18 @@ ga('send', 'pageview');
 
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
-      <p></p>
+      Playground - Class, Struct 再來就是要提重點的東西了!
+class 和 struct 是用來建構整個程式重要的東西
+兩者的差異在於：class 可以繼承其他 class，但是 struct 無法繼承
+以下是宣告方式
+class SomeClass { //... } struct SomeStruct { //... }  注意，Swift 的 class 和 struct 命名慣例是大寫命名風格 UpperCamelCase
+而屬性和方法則是 lowerCamelCase
+例如 increaseCount, addTwoInts
+舉個例子:
+struct Resolution { var width = 0 var height = 0 } class CustomLabel { var resolution = Resolution() var isLabel = true var name: String? }  實體化，就可以改變其中的值了
+var someResolution = Resolution() var someLabel = CustomLabel() someResolution.
       <p>
-        <a href="https://blog.kerkerj.in/2014/10/swift-d9---playground---class-struct/" class="postShorten-excerpt_link link">Continue reading</a>
+        <a href="https://blog.kerkerj.in/2014/10/swift-d9-playground-class-struct/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
@@ -526,7 +606,7 @@ ga('send', 'pageview');
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d8---node.js---hello-world/">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d8-node.js-hello-world/">
           [API-d8] - Node.js - Hello World!
         </a>
       </h1>
@@ -558,9 +638,19 @@ ga('send', 'pageview');
 
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
-      <p></p>
+      Node.js - Hello World! 一樣先開虛擬機哦~
+並且開啟終端機連進 server 裡面~
+以下是 Node.js 官方網站的 web server 程式範例，我稍作小修改：
+var http = require('http'); http.createServer(function (req, res) { res.writeHead(200, {'Content-Type': 'text/plain'}); res.end('Hello World\n'); }).listen(1337, '0.0.0.0'); console.log('Server running at http://0.0.0.0:1337/');  我們先在虛擬機的資料夾建立一個子資料夾 &lsquo;HelloWorld&rsquo;
+在 HelloWorld 資料夾裡面建立一個 app.js
+內容如上，存檔。
+使用終端機進入 server :
+$ vagrant ssh $ cd /vagrant/HelloWorld $ node app.js  到瀏覽器輸入 http://192.168.33.10:1337/
+(或者是你的 Vagrantfile 裡面設定的 private IP)
+即可看到 Hello World 了！
+要關掉 Server 也非常簡單，回到下指令的地方，按下 ctrl + c 即可中斷程式
       <p>
-        <a href="https://blog.kerkerj.in/2014/10/api-d8---node.js---hello-world/" class="postShorten-excerpt_link link">Continue reading</a>
+        <a href="https://blog.kerkerj.in/2014/10/api-d8-node.js-hello-world/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
@@ -578,7 +668,7 @@ ga('send', 'pageview');
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/swift-d8---playground---enumerations/">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/swift-d8-playground-enumerations/">
           [Swift-d8] - Playground - Enumerations
         </a>
       </h1>
@@ -604,9 +694,14 @@ ga('send', 'pageview');
 
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
-      <p></p>
+      Playground - Enumerations 通常會使用來定義一組相關的值
+也是很方便的東西
+列舉語法 enum SomeEnumeration { // enumeration definition goes here }  比方說，車子
+enum Car { case toyota case benz case BMW }  也可以這樣寫
+enum Car { case toyota, benz, BMW }  使用:
+var car = Car.benz  和 Switch 的搭配 enum Car { case Toyota, Benz, BMW } var car = Car.Benz switch car { case .Toyota: println(&quot;Toyota&quot;) case .Benz: println(&quot;Benz&quot;) case .BMW: println(&quot;BMW&quot;) }  Associated Values 以 Barcode 來舉例子
       <p>
-        <a href="https://blog.kerkerj.in/2014/10/swift-d8---playground---enumerations/" class="postShorten-excerpt_link link">Continue reading</a>
+        <a href="https://blog.kerkerj.in/2014/10/swift-d8-playground-enumerations/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
@@ -624,7 +719,7 @@ ga('send', 'pageview');
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d7---server-%E7%95%AA%E5%A4%96%E7%AF%87-%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E6%9C%AC%E6%A9%9F%E8%99%9B%E6%93%AC%E4%BC%BA%E6%9C%8D%E5%99%A8-3---%E6%89%93%E5%8C%85%E7%92%B0%E5%A2%83/">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d7-server-%E7%95%AA%E5%A4%96%E7%AF%87-%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E6%9C%AC%E6%A9%9F%E8%99%9B%E6%93%AC%E4%BC%BA%E6%9C%8D%E5%99%A8-3-%E6%89%93%E5%8C%85%E7%92%B0%E5%A2%83/">
           [API-d7] - [Server 番外篇] 建立自己的本機虛擬伺服器 3 - 打包環境
         </a>
       </h1>
@@ -652,9 +747,17 @@ ga('send', 'pageview');
 
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
-      <p></p>
+      昨天我們已經把一個全新乾淨的環境架起來了
+這時候我們不希望因為日後的操作導致 Server 環境髒掉，又要重灌
+因此我們今天就來練習一下如何使用 vagrant 打包環境!
+Vagrant 打包 一樣先進入虛擬機資料夾，先確保虛擬機沒有在運作:
+$ vagrant status Current machine states: default poweroff (virtualbox) The VM is powered off. To restart the VM, simply run `vagrant up`  如果是 poweroff 的話，就可以進行接下來的動作，如果是其他狀態的話，就先下關機指令囉
+$ vagrant package ==&gt; default: Clearing any previously set forwarded ports... ==&gt; default: Exporting VM... ==&gt; default: Compressing package to: /Users/.../ithome/package.box  vagrant 就會在虛擬機器資料夾底下建立一個 package.box
+這個檔案就是整個伺服器環境的檔案了!
+假設今天想要讓團隊成員使用，只要他們都有 VirtualBox + Vagrant 的話，
+就可以依循下面的指令步驟將你所做的 box 匯入並使用：
       <p>
-        <a href="https://blog.kerkerj.in/2014/10/api-d7---server-%E7%95%AA%E5%A4%96%E7%AF%87-%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E6%9C%AC%E6%A9%9F%E8%99%9B%E6%93%AC%E4%BC%BA%E6%9C%8D%E5%99%A8-3---%E6%89%93%E5%8C%85%E7%92%B0%E5%A2%83/" class="postShorten-excerpt_link link">Continue reading</a>
+        <a href="https://blog.kerkerj.in/2014/10/api-d7-server-%E7%95%AA%E5%A4%96%E7%AF%87-%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E6%9C%AC%E6%A9%9F%E8%99%9B%E6%93%AC%E4%BC%BA%E6%9C%8D%E5%99%A8-3-%E6%89%93%E5%8C%85%E7%92%B0%E5%A2%83/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
@@ -672,7 +775,7 @@ ga('send', 'pageview');
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/swift-d7---playground---closures/">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/swift-d7-playground-closures/">
           [Swift-d7] - Playground - Closures
         </a>
       </h1>
@@ -698,9 +801,17 @@ ga('send', 'pageview');
 
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
-      <p></p>
+      閉包表達式語法：
+{ (parameters) -&gt; returnType in statements }  舉個例子:
+func multiple(value: Int, multiple: Int -&gt; Int) -&gt; Int { return multiple(value) } multiple(3, { (value) -&gt; Int in value * 3 })  在 multiple function 中需要傳入一個 function
+在這邊我們並沒有另外定義，而是直接使用閉包的方式傳入一個 function
+這個閉包就符合了上面的定義
+根據上下文判斷型別 (Inferring type from context) 承上一個例子，我們可以寫得更簡潔一點
+multiple(3, { value in value * 3 })  這是因為 Swift 會根據兩邊的定義來判斷型別，因此可以寫得更簡潔一些
+參數名稱縮寫, 運算子函式 直接看例子
+func biggerThan0(value: Int, isBigger: Int -&gt; Bool) -&gt; Bool { return isBigger(value) } biggerThan0(-1, { $0 &gt; 0 } )  尾隨閉包 (trailing closures) 通常如果閉包太長的話，可以把閉包接在括號後面：
       <p>
-        <a href="https://blog.kerkerj.in/2014/10/swift-d7---playground---closures/" class="postShorten-excerpt_link link">Continue reading</a>
+        <a href="https://blog.kerkerj.in/2014/10/swift-d7-playground-closures/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
@@ -739,7 +850,7 @@ ga('send', 'pageview');
         
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2018 <a href="https://github.com/kerkerj">kerkerj</a>. Powered by <a href="https://gohugo.io/">hugo</a>. Theme <a href="https://github.com/kakawait/hugo-tranquilpeak-theme">Tranquilpeak</a>. All Rights Reserved
+    &copy; 2019 <a href="https://github.com/kerkerj">kerkerj</a>. Powered by <a href="https://gohugo.io/">hugo</a>. Theme <a href="https://github.com/kakawait/hugo-tranquilpeak-theme">Tranquilpeak</a>. All Rights Reserved
   </span>
 </footer>
 
@@ -797,6 +908,23 @@ ga('send', 'pageview');
           <div class="media">
             
             <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2019/05/kubectx/">
+                <h3 class="media-heading">kubectx</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  May 5, 2019
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p>-</p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
               <a class="link-unstyled" href="https://blog.kerkerj.in/2018/08/go-pprof/">
                 <h3 class="media-heading">Go pprof</h3>
               </a>
@@ -805,9 +933,7 @@ ga('send', 'pageview');
                   Aug 8, 2018
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p>簡單筆記一下會用到的 pprof 相關指令</p>
-
-<p></p></div>
+              <div class="media-content hide-xs font-merryweather"><p>簡單筆記一下會用到的 pprof 相關指令</p></div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -824,9 +950,7 @@ ga('send', 'pageview');
                   May 5, 2018
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p>嗯，我又把 theme 換掉了。還有個原因是裝了最新版的 hugo 後，就 build 不出來了，只好順便換個新的 theme。</p>
-
-<p></p></div>
+              <div class="media-content hide-xs font-merryweather"><p>嗯，我又把 theme 換掉了。還有個原因是裝了最新版的 hugo 後，就 build 不出來了，只好順便換個新的 theme。</p></div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -843,7 +967,11 @@ ga('send', 'pageview');
                   Nov 11, 2016
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p></p></div>
+              <div class="media-content hide-xs font-merryweather">最近看了一些書，有空就寫點筆記上來&hellip;
+ISBN: 978-986-216-605-5
+以下記一些片段
+ 計畫是一種猜測 別當工作狂 （J: work smart） 坐而言不如起而行（真正的重點在於你執行得好不好） 實現夢想完全是自己的責任，當你夠可望，自然就能撥出時間。（J: 不僅只是夢想，別拿時間當藉口） 明確表明立場 使命宣言不是說說而已（J: 莫忘初衷） 你需要的其實比想像少（J: 現階段真的需要這麼多嗎？） 別在進場時就想著怎麼退場（你需要的是實踐承諾的策略而不是退場策略） 擁抱限制、不要貪多 從核心要點做起 忽略初期的細枝末節 不管你規劃的多詳盡，凡事總有出錯的時候 懂得捨去才是關鍵 減少投入反而解決了問題 聚焦於不會改變的事物（專注於永久性的特點 e.g. 沒有人希望程式跑很慢的，一定都是越快越好） 不斷地動手做 有時放棄是對的 不必逞英雄 人類不擅長估計，預估一件大事很難，但預估小事簡單多了，把大事切成許多小事吧 一次只做一個小決定 不要抄襲、避免大眾化 預設拒絕立場 自己先動手做 靈感是會過期的  這本書和 hiroshi 大人借的，應該可以入手一本，覺得前半部比較偏個人、後半部就偏專案產品面，
+這本書值得不時拿出來細細品味，不同時間看應該都有不同的感覺。</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -860,7 +988,15 @@ ga('send', 'pageview');
                   Oct 10, 2016
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p></p></div>
+              <div class="media-content hide-xs font-merryweather">幾天前在 Golang Taiwan 的 slack 裡看到了一些關於 goroutine 的討論
+有人問了以下程式碼 (from http://blog.mergermarket.it/now-youre-thinking-with-channels/)
+package main import &quot;fmt&quot; func main() { channelForInts := make(chan int) go printIntFromChannel(channelForInts) channelForInts &lt;- 5 } func printIntFromChannel(channel chan int) { number := &lt;-channel fmt.Println(&quot;The number is:&quot;, number) }  提到上述程式碼在 goplayground 上測試好幾次都會印出 The number is:5
+但他自己在本機跑是怎樣執行都不會出現 5
+看到這個問題第一個想到的是 sync.Waitgroup
+之前剛開始學 goroutine 的概念時，就在 stackoverflow 上看到有人討論相關的議題
+加個 sync.Waitgroup 就可以保證看到 goroutine 執行完後的結果。
+而事實上會這樣子的原因 Go Programming Language Specification 有寫
+ Program execution begins by initializing the main package and then invoking the function main.</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -877,7 +1013,13 @@ ga('send', 'pageview');
                   Oct 10, 2016
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p></p></div>
+              <div class="media-content hide-xs font-merryweather">工作上 rails 在每個 stage 的 domain 長度都不太一樣
+例如 production 是 example.com，staging 是 kerkerj.staging.example.com
+MyApp::Application.config.session_store :redis_session_store, { key: 'example_session_token', domain: :all, tld_length: 4, serializer: :hybrid, redis: { host: &quot;....&quot;, key_prefix: &quot;...&quot;, expire_after: 7.day, } }  相關原始碼: action_dispatch/middleware/cookies.rb
+在這裡的 tld_length 就是看你 domain 的 tld 想設定到哪就寫多少
+以 kerkerj.staging.example.com 為例，想要 example.com 就是 2，想要 kerkerj.staging.example.com 就是 4
+而在 Rails App 裡，在 config.action_dispatch.tld_length (或 ActionDispatch::Http::URL.tld_length ) 設定的 tld_length
+在 rails api document 的 #domain 有用法</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -894,7 +1036,10 @@ ga('send', 'pageview');
                   Oct 10, 2016
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p></p></div>
+              <div class="media-content hide-xs font-merryweather">如果 rails app 裡的 initializer 有載入順序的需求的話
+可以照著 Ruby On Rails Guide 這篇來設定
+ If you have any ordering dependency in your initializers, you can control the load order through naming. Initializer files are loaded in alphabetical order by their path. For example, 01_critical.rb will be loaded before 02_normal.rb.
+ 檔名加個數字前綴，rails 就會以數字順序來依序載入~</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -911,7 +1056,13 @@ ga('send', 'pageview');
                   Oct 10, 2016
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p></p></div>
+              <div class="media-content hide-xs font-merryweather">這是前陣子在工作上用到的
+有個 golang 的專案，使用了 gb 來管理第三方套件
+當時想套 goconvey 進來
+但是一直搞不定執行的方式
+後來在 github goconvey issue 裡找到了方式
+$ cd /to/your/gb_projects $ PROJECT_DIR=`pwd` $ GOPATH=&quot;$PROJECT_DIR/vendor:$PROJECT_DIR&quot; goconvey -packages=1 -port 8899  這樣就會跑 web ui 出來摟
+不想跑 web ui 就執行 gb test -v 就可以了&hellip;上面這樣只是單純想跑 web ui 而已 XD</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -928,7 +1079,16 @@ ga('send', 'pageview');
                   Oct 10, 2016
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p></p></div>
+              <div class="media-content hide-xs font-merryweather">不知道標題該下啥&hellip;
+前陣子因為工作需要，需要測試一個 web app 分布在多台機器下的狀況
+想說使用 docker 來做這件事，但又懶得弄 nginx 的設定
+稍微查了一下發現有 dockercloud/haproxy
+我使用的情境是 web app * 3 + ha * 1 + redis * 1
+web 使用了兩個 port 7788, 7789
+但是不想讓 ha 把流量導去 7788，所以可以設定 EXCLUDE_PORTS
+ 如此一來，在 docker-compse up 後，就可以透過 http://192.168.99.100:5566/ 來連上了
+並且可以透過 docker stats $(docker ps -q) 這個指令來觀察正在執行中的 containers 的基本 metrics~
+快速簡單!</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -945,24 +1105,10 @@ ga('send', 'pageview');
                   Oct 10, 2016
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p></p></div>
-            </div>
-            <div style="clear:both;"></div>
-            <hr>
-          </div>
-        
-          <div class="media">
-            
-            <div class="media-body">
-              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/new-theme/">
-                <h3 class="media-heading">New theme</h3>
-              </a>
-              <span class="media-meta">
-                <span class="media-date text-small">
-                  Oct 10, 2016
-                </span>
-              </span>
-              <div class="media-content hide-xs font-merryweather"><p></p></div>
+              <div class="media-content hide-xs font-merryweather">現在想到什麼都來 PO 一下 XD
+https://github.com/so-fancy/diff-so-fancy
+拿來幫你把 git diff 變漂亮的東東
+// install $ brew install diff-so-fancy // Setup $ git config --global core.pager &quot;diff-so-fancy | less --tabs=4 -RFX&quot; // make it more fancier $ git config --global color.diff-highlight.oldNormal &quot;red bold&quot; $ git config --global color.diff-highlight.oldHighlight &quot;red bold 52&quot; $ git config --global color.diff-highlight.newNormal &quot;green bold&quot; $ git config --global color.diff-highlight.newHighlight &quot;green bold 22&quot; </div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -975,7 +1121,7 @@ ga('send', 'pageview');
          data-message-zero="no post found"
          data-message-one="1 post found"
          data-message-other="{n} posts found">
-         142 posts found
+         143 posts found
       </p>
     </div>
   </div>

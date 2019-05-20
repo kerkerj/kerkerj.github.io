@@ -17,7 +17,10 @@
       <pubDate>Thu, 26 Dec 2013 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2013/12/aws-ubuntu-swap/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>Add swap for an instance
+$ sudo /bin/dd if=/dev/zero of=/var/swap.1 bs=1M count=1024 $ sudo /sbin/mkswap /var/swap.1 $ sudo /sbin/swapon /var/swap.1 $ echo &amp;quot;/var/swap.1 swap swap defaults 0 0&amp;quot; &amp;gt;&amp;gt; /etc/fstab #將 swap 加入 開機啟動  在 Amazon EC2 micro plan，加入 swap 很容易 I/O 過量， 因此最好是需要時才開啟 swap，不用時關閉 swap 以免被收錢~
+swap usage
+$ swapon -s $ free -k --- $ swapoff -a $ swapon -a </description>
     </item>
     
   </channel>

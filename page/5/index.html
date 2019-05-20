@@ -17,7 +17,7 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.40.3 with theme Tranquilpeak 0.4.3-BETA">
+    <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.3-BETA">
     <title>kerkerj</title>
     <meta name="author" content="kerkerj">
     <meta name="keywords" content="">
@@ -67,14 +67,17 @@
 
     
       
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-45583907-2', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-45583907-2', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
 
     
@@ -229,7 +232,71 @@ ga('send', 'pageview');
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/swift-d18---basic---customize-tableviewcell/">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d18-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E5%A5%97%E4%BB%B6%E6%A8%A1%E7%B5%84/">
+          [API-d18] - 實戰開發 - 套件模組
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2014-10-18T00:00:00Z">
+        
+  October 18, 2014
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/restful">restful</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/api">api</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/nodejs">nodejs</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/express">express</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/npm">npm</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/mongodb">mongodb</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/mongoose">mongoose</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/mocha-superagent">mocha superagent</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/validator">validator</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/expect.js">expect.js</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      會使用到的套件: 主體: express - web framework body-parser - parse request body 測試相關: mocha - test framework mocha-mongoose - 用來和 mocha 和 mongoose 中間做介接的套件 superagent - 拿它來丟 http request validator - 用來驗證某個物件是否為某個型別 expect.js - 類似 BDD 的語法，用來寫測試的 debug - debug package DB 相關: mongoose - mongodb orm mongodb - mongodb native driver 開發相關: nodemon - detect file change and restart server 生產環境相關: log4js - 記錄 request log  這是我的 package.json, 可以複製到專案目錄，然後下 npm install
+      <p>
+        <a href="https://blog.kerkerj.in/2014/10/api-d18-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E5%A5%97%E4%BB%B6%E6%A8%A1%E7%B5%84/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+          
+            
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/swift-d18-basic-customize-tableviewcell/">
           [Swift-d18] - Basic - Customize TableViewCell
         </a>
       </h1>
@@ -257,9 +324,16 @@ ga('send', 'pageview');
 
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
-      <p></p>
+      今天的主題延續昨天的 Navigation + TableView
+我們要來客製化 TableViewCell
+通常 TableView 可以被拿來做很多事情，不僅只是像是 ListView 而已
+而 TableViewCell 可以做更深度的切版，排列元素
+因此自定 TableViewCell 是一件算是還蠻重要的事情
+下面的 Code 是延續昨天的專案
+我先把已更改過的程式碼貼上來:
+import UIKit class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate { @IBOutlet var tableView: UITableView! var arr = [&quot;A&quot;, &quot;B&quot;, &quot;C&quot;] override func viewDidLoad() { super.viewDidLoad() // Do any additional setup after loading the view, typically from a nib. } override func didReceiveMemoryWarning() { super.didReceiveMemoryWarning() // Dispose of any resources that can be recreated.
       <p>
-        <a href="https://blog.kerkerj.in/2014/10/swift-d18---basic---customize-tableviewcell/" class="postShorten-excerpt_link link">Continue reading</a>
+        <a href="https://blog.kerkerj.in/2014/10/swift-d18-basic-customize-tableviewcell/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
@@ -277,7 +351,7 @@ ga('send', 'pageview');
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d17---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E5%B0%88%E6%A1%88%E7%B5%90%E6%A7%8B/">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d17-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E5%B0%88%E6%A1%88%E7%B5%90%E6%A7%8B/">
           [API-d17] - 實戰開發 - 專案結構
         </a>
       </h1>
@@ -309,9 +383,14 @@ ga('send', 'pageview');
 
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
-      <p></p>
+      首先我們就在虛擬機的資料夾底下，建立一個專案資料夾吧!
+今天會來簡單切割一下我們的專案目錄
+建立新專案目錄: $ cd /vagrant/ $ mkdir TODOAPI $ cd TODOAPI $ npm init // 輸入專案資訊 $  建立專案結構 / | - bin/ | - routes/ | - model/ | - node_modules/ | - logs/ | - config/ | - test/ | - app.js | - package.json  分別講解一下各個 folder 的工作:
+bin 筆者會在 bin 資料夾底下放一個 server.js
+這個 server.js 就是會專門用來啟動一個 app.js instance
+routes 基本上如果了解 MVC 架構的話，routes 就是 controller 的意思，其實如果讀者本身夠了解的話，這個資料夾也可以改成 controller 也 ok，應該說，其實資料夾怎麼放都是看個人隨意即可，只是若是要模組化的話，筆者會這樣來處理一個專案結構。
       <p>
-        <a href="https://blog.kerkerj.in/2014/10/api-d17---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E5%B0%88%E6%A1%88%E7%B5%90%E6%A7%8B/" class="postShorten-excerpt_link link">Continue reading</a>
+        <a href="https://blog.kerkerj.in/2014/10/api-d17-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E5%B0%88%E6%A1%88%E7%B5%90%E6%A7%8B/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
@@ -329,7 +408,7 @@ ga('send', 'pageview');
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/swift-d17---basic---navigation-view---tableview/">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/swift-d17-basic-navigation-view-tableview/">
           [Swift-d17] - Basic - Navigation View &#43; TableView
         </a>
       </h1>
@@ -355,9 +434,22 @@ ga('send', 'pageview');
 
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
-      <p></p>
+      今天要把 Navigation View 和 Table View 結合起來!
+把 NavigationController 拉進 Storyboard
+將程式進入點指向 NavigationController
+把原本程式自動產生的 UIViewController 刪除
+把自動產生的 TableViewController 刪除!
+拉一個新的 UIViewController
+將 NavigationController 的 RootViewController 指向新的 ViewController
+把 TableView 拉進 ViewController
+再將 TableViewCell 拉進 TableView
+再點選 ViewController, 到右上角中找尋 Custom Class
+將 ViewController.swift 指定給該 ViewController
+接著把 UITableView 引進程式碼裡做關聯
+再來就是實作 Table 的 data 了
+class ViewController: UIViewController, UITableViewDataSource {  class ViewController: UIViewController, UITableViewDataSource { @IBOutlet var tableView: UITableView! var arr = [&quot;A&quot;, &quot;B&quot;, &quot;C&quot;] override func viewDidLoad() { super.
       <p>
-        <a href="https://blog.kerkerj.in/2014/10/swift-d17---basic---navigation-view---tableview/" class="postShorten-excerpt_link link">Continue reading</a>
+        <a href="https://blog.kerkerj.in/2014/10/swift-d17-basic-navigation-view-tableview/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
@@ -375,7 +467,7 @@ ga('send', 'pageview');
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d16---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E8%A8%AD%E5%AE%9A%E4%B8%BB%E9%A1%8C%E5%8F%8A%E8%A6%8F%E5%8A%83/">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d16-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E8%A8%AD%E5%AE%9A%E4%B8%BB%E9%A1%8C%E5%8F%8A%E8%A6%8F%E5%8A%83/">
           [API-d16] - 實戰開發 - 設定主題及規劃
         </a>
       </h1>
@@ -405,9 +497,25 @@ ga('send', 'pageview');
 
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
-      <p></p>
+      接下來我們想要做到的是一個 TODO list 的 RESTful API
+並且會先使用 apiary.io 做規劃
+實際看看感覺如何
+進入網站後，註冊登入後
+左上角的 dropdown list 選擇 create new API
+產生後下方就會跑出範例文擋
+這個網站會透過特定格式的編排自己希望的 API endpoint 及範例回傳值後，產生出一份漂亮的文件
+網站中間是模式的選擇
+Documentation 是實際讓其他人看的，Editor 則是編輯模式
+我們就稍微簡單規劃一下 TODO List 的 RESTful API 吧!
+這是我自己規劃的 文件
+基本上 route 會長這個樣子:
+TODOs GET /user/{user_id}/todos/ POST /user/{user_id}/todos/ GET /user/{user_id}/todos/{id} PUT /user/{user_id}/todos/{id} DELETE /user/{user_id}/todos/{id}  資料格式也都在該文件整理好了
+/user/{user_id}/ 只是用來辨識是哪個 user 的 todo task data
+在這個小 API 不會琢磨在使用者系統的建立，只會專注在操作 todo task data
+我們可以直接透過 PostMan 來丟丟看
+我們設定必須要使用 API-key 才能存取 API，比較進階的做法就是使用 Oauth 的方式取得 token 來存取 API
       <p>
-        <a href="https://blog.kerkerj.in/2014/10/api-d16---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E8%A8%AD%E5%AE%9A%E4%B8%BB%E9%A1%8C%E5%8F%8A%E8%A6%8F%E5%8A%83/" class="postShorten-excerpt_link link">Continue reading</a>
+        <a href="https://blog.kerkerj.in/2014/10/api-d16-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E8%A8%AD%E5%AE%9A%E4%B8%BB%E9%A1%8C%E5%8F%8A%E8%A6%8F%E5%8A%83/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
@@ -425,7 +533,7 @@ ga('send', 'pageview');
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/swift-d16---basic---table-view-2-%E6%8F%9B%E9%A0%81-delegate/">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/swift-d16-basic-table-view-2-%E6%8F%9B%E9%A0%81-delegate/">
           [Swift-d16] - Basic - Table View 2 換頁 (delegate)
         </a>
       </h1>
@@ -451,9 +559,27 @@ ga('send', 'pageview');
 
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
-      <p></p>
+      昨天我們實際操作了 tableView 的實作，今天要加入換頁
+意思就是假設我點了名為 &ldquo;99&rdquo; 的 cell，點擊後會跳轉到另外一頁，同樣顯示 &ldquo;99&rdquo;
+所以除了跳頁外，還要加入值的傳遞
+首先打開昨天的專案，我們要繼續下去
+回到 storyboard 中，昨天我們加入了 dataSource，今天要加入 delegate:
+回到程式碼中 ViewController.swift
+在 class 的宣告再加上 UITableViewDataSource
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {  再來就要設計換頁的流程了
+回到 storyboard
+拉一個新的 ViewController 到空白處
+接著點擊左邊的 TableViewCell, 按住 ctrl + 拖曳，拉到剛剛建立的 ViewController 上
+選擇 show detail
+就會長這樣:
+再來新增一個 ViewController
+接著讓新的 storyboard viewcontroller 連接到剛剛新增的 DetailViewController 程式碼
+記得先點選 ViewController
+在 storyboard 的 DetailViewController 中拉一個 label
+並且將該 label 連接到 DetailViewController 的程式碼中
+因此 DetailViewController 就會變這樣:
       <p>
-        <a href="https://blog.kerkerj.in/2014/10/swift-d16---basic---table-view-2-%E6%8F%9B%E9%A0%81-delegate/" class="postShorten-excerpt_link link">Continue reading</a>
+        <a href="https://blog.kerkerj.in/2014/10/swift-d16-basic-table-view-2-%E6%8F%9B%E9%A0%81-delegate/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
@@ -471,7 +597,7 @@ ga('send', 'pageview');
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d15---javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-callback-event/">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d15-javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-callback-event/">
           [API-d15] - [Javascript 番外篇] Javascript callback, event
         </a>
       </h1>
@@ -501,9 +627,22 @@ ga('send', 'pageview');
 
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
-      <p></p>
+      這幾天會探討 javascript 的特性，由於比較少在寫 js ，因此有錯請指正
+javascript 有個特性：event
+意思就是說，javascript 中，所有的事情都是由事件驅動的
+如果說有寫過 web 前端的話，
+其實呼叫 button.click function 時
+並不會馬上執行 click 裡面的動作
+而是加了一個 click 的 listener
+等到 button 被 click 後，才會執行 click 裡面的程式碼
+所以寫習慣一般 procedure 的程式會有點不太習慣
+舉個 procedure 的例子，下面有五件事想要做：
+煮飯(); // 10 分鐘 接電話(); // 1 分鐘 吃麵(); // 5 分鐘 丟垃圾(); // 7 分鐘  一般的程式會是照順序執行
+也就是 煮飯完 -&gt; 接電話 -&gt; 吃麵 -&gt; 丟垃圾
+總執行時間 = 23 分鐘
+但是如果把這段 code 丟給 javascript 執行的話
       <p>
-        <a href="https://blog.kerkerj.in/2014/10/api-d15---javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-callback-event/" class="postShorten-excerpt_link link">Continue reading</a>
+        <a href="https://blog.kerkerj.in/2014/10/api-d15-javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-callback-event/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
@@ -521,7 +660,7 @@ ga('send', 'pageview');
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/swift-d15---basic---table-view-1-%E7%9B%B4%E6%8E%A5%E7%B5%A6%E5%80%BC-datasource-table-view-scroll/">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/swift-d15-basic-table-view-1-%E7%9B%B4%E6%8E%A5%E7%B5%A6%E5%80%BC-datasource-table-view-scroll/">
           [Swift-d15] - Basic - Table View 1 直接給值 datasource, (table view scroll)
         </a>
       </h1>
@@ -547,9 +686,27 @@ ga('send', 'pageview');
 
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
-      <p></p>
+      今天要來練習新的東西 - TableView
+據同事說明，TableView 是最常用到的 View 之一
+在我們的實戰開發中也會用到 TableView
+因此今天就先簡單的來建立出單頁純顯示資料的 TableView
+TableView 的概念大概是如下圖:
+長得有點像 ListView 但是每一行又可以多切開，放一些東西
+每一行都稱之為一個 TableViewCell
+今天就來要簡單寫一個資料已經預先定義好，並且會顯示在 view 上面的 TableView
+要進行下去之前當然就先開一個新的練習專案囉
+開啟完專案後，首先第一件事情就是進 storyboard
+選擇 TableView 拉進 storyboard 裏
+接著再選擇 TableViewCell 拉進 TableView 中
+透過此圖，我們了解到可以打開 storyboard 的 tree 來看看它們之間的關係
+下面此步驟很重要，資料的連接就靠這條線:
+先選取 TableView (可以使用階層樹或是點擊 storyboard)，然後選擇右方的 connection inspector (右上角的最右邊的那一個按鈕)
+裡頭有個 dataSource 以及 delegate
+我們先按住 dataSource 右邊的空心圓按鈕，拖曳拉到 storyboard 中的 ViewController，如上圖所示
+這樣子等等在程式碼中產生的資料才會有和 storyboard 的 UI 做連結
+最後一個和 storyboard 相關的操作是將 storyboard 的 TableView 和 程式碼做連結，好方便我們在程式碼中對 storyborad 的 TableView 做操作
       <p>
-        <a href="https://blog.kerkerj.in/2014/10/swift-d15---basic---table-view-1-%E7%9B%B4%E6%8E%A5%E7%B5%A6%E5%80%BC-datasource-table-view-scroll/" class="postShorten-excerpt_link link">Continue reading</a>
+        <a href="https://blog.kerkerj.in/2014/10/swift-d15-basic-table-view-1-%E7%9B%B4%E6%8E%A5%E7%B5%A6%E5%80%BC-datasource-table-view-scroll/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
@@ -567,7 +724,7 @@ ga('send', 'pageview');
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d14---javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-function-scopes-%E5%92%8C-closures/">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d14-javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-function-scopes-%E5%92%8C-closures/">
           [API-d14] - [Javascript 番外篇] Javascript function scopes 和 closures
         </a>
       </h1>
@@ -597,9 +754,16 @@ ga('send', 'pageview');
 
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
-      <p></p>
+      這幾天會探討 javascript 的特性，由於比較少在寫 js ，因此有錯請指正
+Scope 例子:
+function hi() { var greetings = &quot;hi&quot;; console.log(&quot;Say: &quot; + greetings); function sayYa(newInput) { greetings = newInput; console.log(&quot;Say: &quot; + greetings); } function sayCool(newInput) { var cool = newInput; console.log(&quot;Say: &quot; + cool); } sayYa(&quot;Yo&quot;); sayCool(&quot;Cool&quot;); console.log(&quot;Say: &quot; + greetings); } hi();  很簡單的概念
+greetins 在 sayYa 方法中被覆寫掉了
+如果要定義 local 變數必須在 function 裏用 var 定義
+例如 sayCool function
+Closure 例子:
+function person(){ var name = 'default'; return { greetings: function() { console.
       <p>
-        <a href="https://blog.kerkerj.in/2014/10/api-d14---javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-function-scopes-%E5%92%8C-closures/" class="postShorten-excerpt_link link">Continue reading</a>
+        <a href="https://blog.kerkerj.in/2014/10/api-d14-javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-function-scopes-%E5%92%8C-closures/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
@@ -617,7 +781,7 @@ ga('send', 'pageview');
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/swift-d14---basic---navigation-view-2---viewcontroller/">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/swift-d14-basic-navigation-view-2-viewcontroller/">
           [Swift-d14] - Basic - Navigation View 2 &#43; ViewController
         </a>
       </h1>
@@ -643,59 +807,24 @@ ga('send', 'pageview');
 
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
-      <p></p>
+      延續昨天的主題，今天我們要做的事情是：
+ 爲新的 ViewController 實際加入程式碼 (ViewController2.swift) 加入一個 button 來控制是否前進下一頁或後退  我們先新增一個檔案:
+接著選擇 CocoaTouch Class:
+回到 storyboard, 選擇第二個 ViewController
+並按照下圖，將 Class 指定給 View2Controller
+這樣子 storyboard 的 View2 就會指定到 View2Controller 了
+我們在 View2Controller 的 viewDidLoad 方法中加入一行程式碼
+來驗證他是否有吃到 View2Controller
+self.title = &quot;View2 by me&quot;  Run 起來看的話就會是這樣:
+的確是有吃到程式碼的
+再來就是要加入按鈕了:
+我們先拉一個 Button 進 View2Controller
+並且將該 Button 拉進 View2Controller 的 code
+設定該 button 爲 Action, 並且名稱是 &lsquo;backToView&rsquo;
+意即我們要讓點下 View2Controller 的 Button 行為為回到上一個 View
+另外對 View2 為他加入一個 storyboard ID, View2，等等會用到:
       <p>
-        <a href="https://blog.kerkerj.in/2014/10/swift-d14---basic---navigation-view-2---viewcontroller/" class="postShorten-excerpt_link link">Continue reading</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
-
-          
-            
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d13---javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-require/-module/-module-pattern/">
-          [API-d13] - [Javascript 番外篇] Javascript require/ module/ Module Pattern
-        </a>
-      </h1>
-      
-  <div class="postShorten-meta post-meta">
-    
-      <time itemprop="datePublished" datetime="2014-10-13T00:00:00Z">
-        
-  October 13, 2014
-
-      </time>
-    
-    
-  
-  
-    <span>in</span>
-    
-      <a class="category-link" href="https://blog.kerkerj.in/categories/restful">restful</a>, 
-    
-      <a class="category-link" href="https://blog.kerkerj.in/categories/api">api</a>, 
-    
-      <a class="category-link" href="https://blog.kerkerj.in/categories/javascript">javascript</a>
-    
-  
-
-  </div>
-
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      <p></p>
-      <p>
-        <a href="https://blog.kerkerj.in/2014/10/api-d13---javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-require/-module/-module-pattern/" class="postShorten-excerpt_link link">Continue reading</a>
+        <a href="https://blog.kerkerj.in/2014/10/swift-d14-basic-navigation-view-2-viewcontroller/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
@@ -733,7 +862,7 @@ ga('send', 'pageview');
         </section>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2018 <a href="https://github.com/kerkerj">kerkerj</a>. Powered by <a href="https://gohugo.io/">hugo</a>. Theme <a href="https://github.com/kakawait/hugo-tranquilpeak-theme">Tranquilpeak</a>. All Rights Reserved
+    &copy; 2019 <a href="https://github.com/kerkerj">kerkerj</a>. Powered by <a href="https://gohugo.io/">hugo</a>. Theme <a href="https://github.com/kakawait/hugo-tranquilpeak-theme">Tranquilpeak</a>. All Rights Reserved
   </span>
 </footer>
 
@@ -791,6 +920,23 @@ ga('send', 'pageview');
           <div class="media">
             
             <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2019/05/kubectx/">
+                <h3 class="media-heading">kubectx</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  May 5, 2019
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p>-</p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
               <a class="link-unstyled" href="https://blog.kerkerj.in/2018/08/go-pprof/">
                 <h3 class="media-heading">Go pprof</h3>
               </a>
@@ -799,9 +945,7 @@ ga('send', 'pageview');
                   Aug 8, 2018
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p>簡單筆記一下會用到的 pprof 相關指令</p>
-
-<p></p></div>
+              <div class="media-content hide-xs font-merryweather"><p>簡單筆記一下會用到的 pprof 相關指令</p></div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -818,9 +962,7 @@ ga('send', 'pageview');
                   May 5, 2018
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p>嗯，我又把 theme 換掉了。還有個原因是裝了最新版的 hugo 後，就 build 不出來了，只好順便換個新的 theme。</p>
-
-<p></p></div>
+              <div class="media-content hide-xs font-merryweather"><p>嗯，我又把 theme 換掉了。還有個原因是裝了最新版的 hugo 後，就 build 不出來了，只好順便換個新的 theme。</p></div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -837,7 +979,11 @@ ga('send', 'pageview');
                   Nov 11, 2016
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p></p></div>
+              <div class="media-content hide-xs font-merryweather">最近看了一些書，有空就寫點筆記上來&hellip;
+ISBN: 978-986-216-605-5
+以下記一些片段
+ 計畫是一種猜測 別當工作狂 （J: work smart） 坐而言不如起而行（真正的重點在於你執行得好不好） 實現夢想完全是自己的責任，當你夠可望，自然就能撥出時間。（J: 不僅只是夢想，別拿時間當藉口） 明確表明立場 使命宣言不是說說而已（J: 莫忘初衷） 你需要的其實比想像少（J: 現階段真的需要這麼多嗎？） 別在進場時就想著怎麼退場（你需要的是實踐承諾的策略而不是退場策略） 擁抱限制、不要貪多 從核心要點做起 忽略初期的細枝末節 不管你規劃的多詳盡，凡事總有出錯的時候 懂得捨去才是關鍵 減少投入反而解決了問題 聚焦於不會改變的事物（專注於永久性的特點 e.g. 沒有人希望程式跑很慢的，一定都是越快越好） 不斷地動手做 有時放棄是對的 不必逞英雄 人類不擅長估計，預估一件大事很難，但預估小事簡單多了，把大事切成許多小事吧 一次只做一個小決定 不要抄襲、避免大眾化 預設拒絕立場 自己先動手做 靈感是會過期的  這本書和 hiroshi 大人借的，應該可以入手一本，覺得前半部比較偏個人、後半部就偏專案產品面，
+這本書值得不時拿出來細細品味，不同時間看應該都有不同的感覺。</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -854,7 +1000,15 @@ ga('send', 'pageview');
                   Oct 10, 2016
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p></p></div>
+              <div class="media-content hide-xs font-merryweather">幾天前在 Golang Taiwan 的 slack 裡看到了一些關於 goroutine 的討論
+有人問了以下程式碼 (from http://blog.mergermarket.it/now-youre-thinking-with-channels/)
+package main import &quot;fmt&quot; func main() { channelForInts := make(chan int) go printIntFromChannel(channelForInts) channelForInts &lt;- 5 } func printIntFromChannel(channel chan int) { number := &lt;-channel fmt.Println(&quot;The number is:&quot;, number) }  提到上述程式碼在 goplayground 上測試好幾次都會印出 The number is:5
+但他自己在本機跑是怎樣執行都不會出現 5
+看到這個問題第一個想到的是 sync.Waitgroup
+之前剛開始學 goroutine 的概念時，就在 stackoverflow 上看到有人討論相關的議題
+加個 sync.Waitgroup 就可以保證看到 goroutine 執行完後的結果。
+而事實上會這樣子的原因 Go Programming Language Specification 有寫
+ Program execution begins by initializing the main package and then invoking the function main.</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -871,7 +1025,13 @@ ga('send', 'pageview');
                   Oct 10, 2016
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p></p></div>
+              <div class="media-content hide-xs font-merryweather">工作上 rails 在每個 stage 的 domain 長度都不太一樣
+例如 production 是 example.com，staging 是 kerkerj.staging.example.com
+MyApp::Application.config.session_store :redis_session_store, { key: 'example_session_token', domain: :all, tld_length: 4, serializer: :hybrid, redis: { host: &quot;....&quot;, key_prefix: &quot;...&quot;, expire_after: 7.day, } }  相關原始碼: action_dispatch/middleware/cookies.rb
+在這裡的 tld_length 就是看你 domain 的 tld 想設定到哪就寫多少
+以 kerkerj.staging.example.com 為例，想要 example.com 就是 2，想要 kerkerj.staging.example.com 就是 4
+而在 Rails App 裡，在 config.action_dispatch.tld_length (或 ActionDispatch::Http::URL.tld_length ) 設定的 tld_length
+在 rails api document 的 #domain 有用法</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -888,7 +1048,10 @@ ga('send', 'pageview');
                   Oct 10, 2016
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p></p></div>
+              <div class="media-content hide-xs font-merryweather">如果 rails app 裡的 initializer 有載入順序的需求的話
+可以照著 Ruby On Rails Guide 這篇來設定
+ If you have any ordering dependency in your initializers, you can control the load order through naming. Initializer files are loaded in alphabetical order by their path. For example, 01_critical.rb will be loaded before 02_normal.rb.
+ 檔名加個數字前綴，rails 就會以數字順序來依序載入~</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -905,7 +1068,13 @@ ga('send', 'pageview');
                   Oct 10, 2016
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p></p></div>
+              <div class="media-content hide-xs font-merryweather">這是前陣子在工作上用到的
+有個 golang 的專案，使用了 gb 來管理第三方套件
+當時想套 goconvey 進來
+但是一直搞不定執行的方式
+後來在 github goconvey issue 裡找到了方式
+$ cd /to/your/gb_projects $ PROJECT_DIR=`pwd` $ GOPATH=&quot;$PROJECT_DIR/vendor:$PROJECT_DIR&quot; goconvey -packages=1 -port 8899  這樣就會跑 web ui 出來摟
+不想跑 web ui 就執行 gb test -v 就可以了&hellip;上面這樣只是單純想跑 web ui 而已 XD</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -922,7 +1091,16 @@ ga('send', 'pageview');
                   Oct 10, 2016
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p></p></div>
+              <div class="media-content hide-xs font-merryweather">不知道標題該下啥&hellip;
+前陣子因為工作需要，需要測試一個 web app 分布在多台機器下的狀況
+想說使用 docker 來做這件事，但又懶得弄 nginx 的設定
+稍微查了一下發現有 dockercloud/haproxy
+我使用的情境是 web app * 3 + ha * 1 + redis * 1
+web 使用了兩個 port 7788, 7789
+但是不想讓 ha 把流量導去 7788，所以可以設定 EXCLUDE_PORTS
+ 如此一來，在 docker-compse up 後，就可以透過 http://192.168.99.100:5566/ 來連上了
+並且可以透過 docker stats $(docker ps -q) 這個指令來觀察正在執行中的 containers 的基本 metrics~
+快速簡單!</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -939,24 +1117,10 @@ ga('send', 'pageview');
                   Oct 10, 2016
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p></p></div>
-            </div>
-            <div style="clear:both;"></div>
-            <hr>
-          </div>
-        
-          <div class="media">
-            
-            <div class="media-body">
-              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/new-theme/">
-                <h3 class="media-heading">New theme</h3>
-              </a>
-              <span class="media-meta">
-                <span class="media-date text-small">
-                  Oct 10, 2016
-                </span>
-              </span>
-              <div class="media-content hide-xs font-merryweather"><p></p></div>
+              <div class="media-content hide-xs font-merryweather">現在想到什麼都來 PO 一下 XD
+https://github.com/so-fancy/diff-so-fancy
+拿來幫你把 git diff 變漂亮的東東
+// install $ brew install diff-so-fancy // Setup $ git config --global core.pager &quot;diff-so-fancy | less --tabs=4 -RFX&quot; // make it more fancier $ git config --global color.diff-highlight.oldNormal &quot;red bold&quot; $ git config --global color.diff-highlight.oldHighlight &quot;red bold 52&quot; $ git config --global color.diff-highlight.newNormal &quot;green bold&quot; $ git config --global color.diff-highlight.newHighlight &quot;green bold 22&quot; </div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -969,7 +1133,7 @@ ga('send', 'pageview');
          data-message-zero="no post found"
          data-message-one="1 post found"
          data-message-other="{n} posts found">
-         142 posts found
+         143 posts found
       </p>
     </div>
   </div>

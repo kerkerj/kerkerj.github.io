@@ -17,16 +17,20 @@
       <pubDate>Tue, 28 Jan 2014 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2014/01/php-json_decode-error-by-wrong-json-string-with-quotes/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>Normal json string:
+{&amp;quot;Hey&amp;quot;:&amp;quot;There&amp;quot;}  Error json string got from $_POST variable:
+{\&amp;quot;Hey\&amp;quot;:\&amp;quot;There\&amp;quot;}  This may causes by magic_quotes in php.ini Magic is never good in development.</description>
     </item>
     
     <item>
       <title>[PHP] checkbox check/uncheck all</title>
-      <link>https://blog.kerkerj.in/2012/06/php-checkbox-check/uncheck-all/</link>
+      <link>https://blog.kerkerj.in/2012/06/php-checkbox-check-uncheck-all/</link>
       <pubDate>Tue, 12 Jun 2012 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2012/06/php-checkbox-check/uncheck-all/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2012/06/php-checkbox-check-uncheck-all/</guid>
+      <description>今天在做 checkbox 時, 想做全選/取消全選
+多使用一個 checkbox, 若勾選則是全選, 再點一次則全不選
+於是就產生了這段 code&amp;hellip;</description>
     </item>
     
     <item>
@@ -35,7 +39,13 @@
       <pubDate>Tue, 31 Jan 2012 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2012/01/codeigniter-disallowed-key-characters/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>Codeigniter 顯示 Disallowed Key Characters
+我的情況是：
+表單(form)名稱型態不符合格式。
+不得使用中文。
+＜input name=&amp;quot;姓名&amp;quot; type=&amp;quot;checkbox&amp;quot; value=&amp;quot;1&amp;quot; /＞
+改掉就好了
+ref: Codeigniter 顯示 Disallowed Key Characters</description>
     </item>
     
     <item>
@@ -44,7 +54,15 @@
       <pubDate>Tue, 31 Jan 2012 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2012/01/php-%E4%B8%8A%E5%82%B3%E6%AA%94%E6%A1%88%E7%9A%84%E9%99%90%E5%88%B6/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>php.ini
+ max_execution_time - Script執行時間上限(單位：秒)
+ max_input_time - Script處理資料時間上限(單位：秒)
+ memory_limit - 系統記憶體 (要比4,5大
+ post_max_size - 表單的POST發送量
+ upload_max_filesize - 單次上傳檔案容量
+ default_socket_timeout - Socket無回應斷線時間(單位：秒)
+ mysql.connect_timeout - 無回應斷線時間(單位：秒；-1代表不斷線一直等)
+ </description>
     </item>
     
     <item>
@@ -53,16 +71,30 @@
       <pubDate>Tue, 31 Jan 2012 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2012/01/php-%E5%8F%96%E5%BE%97%E7%9B%AE%E5%89%8D%E6%99%82%E9%96%93/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>很簡單，也很常忘，所以記下來 Orz
+$now =date(&amp;quot;Y-m-d H:i:s&amp;quot;,time());</description>
     </item>
     
     <item>
       <title>[Codeigniter] remove index.php &amp; 圖片無法讀取問題</title>
-      <link>https://blog.kerkerj.in/2011/12/codeigniter-remove-index.php--%E5%9C%96%E7%89%87%E7%84%A1%E6%B3%95%E8%AE%80%E5%8F%96%E5%95%8F%E9%A1%8C/</link>
+      <link>https://blog.kerkerj.in/2011/12/codeigniter-remove-index.php-%E5%9C%96%E7%89%87%E7%84%A1%E6%B3%95%E8%AE%80%E5%8F%96%E5%95%8F%E9%A1%8C/</link>
       <pubDate>Tue, 20 Dec 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2011/12/codeigniter-remove-index.php--%E5%9C%96%E7%89%87%E7%84%A1%E6%B3%95%E8%AE%80%E5%8F%96%E5%95%8F%E9%A1%8C/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2011/12/codeigniter-remove-index.php-%E5%9C%96%E7%89%87%E7%84%A1%E6%B3%95%E8%AE%80%E5%8F%96%E5%95%8F%E9%A1%8C/</guid>
+      <description>首先，是先簡單說明使用 Codeigniter framework 時移除 URL 中的 index.php
+在 Codeigniter 的根目錄新增一 .htaccess 檔案
+並放入以下內容
+RewriteEngine on RewriteCond $1 !^(index\.php|js|robots\.txt|css) RewriteRule ^(.*)$ index.php/$1 [L]  另外還要修改 Codeigniter 的 config.php 設定
+$config[&#39;index_page&#39;] = &#39;&#39;&amp;quot;;
+不過上面的 rewrite rule 有些問題，
+情境是這樣的：
+我在 Codeigniter 根目錄新增一資料夾為 uploads ，
+放置上傳的圖片與影片，
+但是因為 rewrite rule routing 的關係沒辦法讀取到圖片，
+因此我將 .htaccess 檔修改如下：
+RewriteEngine on RewriteCond $1 !^(index\.php|images|css|js|robots\.txt|favicon\.ico) RewriteCond %{REQUEST_FILENAME} !-f RewriteCond %{REQUEST_FILENAME} !-d RewriteRule ^(.*)$ ./index.php?/$1 [L,QSA]  主要是在三四行的 %{REQUEST_FILENAME}
+這樣修改完就解決問題了!
+ref: CodeIgniter 如何去掉 URL 中的 index.</description>
     </item>
     
     <item>
@@ -71,7 +103,15 @@
       <pubDate>Wed, 26 Jan 2011 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2011/01/php-%E7%B0%A1%E5%96%AE%E7%9A%84%E8%B3%87%E6%96%99%E5%BA%AB%E9%80%A3%E7%B5%90/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>我是PHP新手，超級嫩，所以就寫寫簡單的東西，今天來寫關於資料庫的連結。
+環境同之前寫的，就是 FreeBSD、MySQL、phpMyadmin 啦~
+我將他分成兩個檔案來寫：
+一個是負責連結資料庫：connectDB.inc.php
+另一個則是測試的 php ：test.php
+在 connectDB.inc.php 中設定好 SQL 主機的 IP、使用者名稱密碼等等資料，
+然後由 test.php 來呈現資料，直接看 code 最快：
+connectDB.inc.php
+&amp;lt;?php $cfgDB_HOST = &amp;quot;localhost&amp;quot;; //主機名稱或ip位址 $cfgDB_PORT = &amp;quot;80&amp;quot;; //主機開放連線的port $cfgDB_USERNAME = &amp;quot;account&amp;quot;; //登入主機帳號 $cfgDB_PASSWORD = &amp;quot;password&amp;quot;; //登入主機密碼 $cfgDB_NAME = &amp;quot;db_name&amp;quot;; //資料庫名稱 //建立資料庫連線 $link = mysql_connect($cfgDB_HOST . &amp;quot;:&amp;quot; . $cfgDB_PORT, $cfgDB_USERNAME, $cfgDB_PASSWORD) or die(&amp;quot;Could not connect MySQL&amp;quot;); //選擇資料庫 mysql_select_db($cfgDB_NAME, $link) or die(&amp;quot;Could not select database&amp;quot;); //讓中文正常顯示 mysql_query(&amp;quot;SET NAMES &#39;utf8&#39;&amp;quot;); ?&amp;gt;  test.</description>
     </item>
     
   </channel>

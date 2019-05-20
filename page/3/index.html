@@ -17,7 +17,7 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.40.3 with theme Tranquilpeak 0.4.3-BETA">
+    <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.3-BETA">
     <title>kerkerj</title>
     <meta name="author" content="kerkerj">
     <meta name="keywords" content="">
@@ -67,14 +67,17 @@
 
     
       
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-45583907-2', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-45583907-2', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
 
     
@@ -229,7 +232,64 @@ ga('send', 'pageview');
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d27---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---log-%E8%99%95%E7%90%86-%E5%8F%8A-config-db-apikey/">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/swift-d28-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-todolist-api-3-%E6%96%B0%E5%A2%9E%E8%88%87%E6%9B%B4%E6%96%B0/">
+          [Swift-d28] - 實戰開發 - TODOList - API 3 新增與更新
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2014-10-28T00:00:00Z">
+        
+  October 28, 2014
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/swift">swift</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      Github link
+昨天做了 get list
+今天就來做 新增和儲存吧!
+可能有人會問說，那讀取一筆 todo 的 API 呢?
+因為在這邊資料量少，所有的東西都可以從最外層的 list 拿到
+所以雖然有換頁的動作，但是節省流量可以不需要實做這件事
+在實際開發中也會如此，case by case，有些情況一次拿完回來處理最好
+不過有些則不是~
+離題了，
+以下是新增 todo 的程式碼:
+先到 RestApi.swift 新增 post function
+func addTodoList(completionHandler: ((NSDictionary!, NSError!) -&gt; Void)!, content: String) { var session = NSURLSession.sharedSession() var request = NSMutableURLRequest(URL: self.addTodoUrl!) request.HTTPMethod = &quot;POST&quot; var params = [&quot;content&quot;: content] as Dictionary&lt;String, String&gt; var err: NSError? request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &amp;err) request.addValue(&quot;application/json&quot;, forHTTPHeaderField: &quot;Content-Type&quot;) request.
+      <p>
+        <a href="https://blog.kerkerj.in/2014/10/swift-d28-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-todolist-api-3-%E6%96%B0%E5%A2%9E%E8%88%87%E6%9B%B4%E6%96%B0/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+          
+            
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d27-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-log-%E8%99%95%E7%90%86-%E5%8F%8A-config-db-apikey/">
           [API-d27] - 實戰開發 - log 處理 及 config (db, apikey)
         </a>
       </h1>
@@ -261,9 +321,23 @@ ga('send', 'pageview');
 
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
-      <p></p>
+      Github 參考
+log 處理 今天要來談談 log 的處理，
+身為一台自走 (?) node.js API server
+也應該要記錄一下 request 的 log 呀！
+不然哪天出問題了都不知道是哪個 request 把 server 搞掛了!
+因此我們就要加入 log 的 middleware
+node.js 的 log 套件也蠻多的, 例如 winston
+不過我們今天要用的是 log4js
+會選擇他其實也只是因為之前寫 java 有用過 log4j
+log4js 的設定感覺起來比較相似
+所以就使用它了!
+再來我們就安裝一下 log4js 吧
+$ npm install log4js -save  並在 app.js 中 require 進去
+var log4js = require('log4js');  接著在 app.js 的前面區段加入以下程式碼:
+log4js.configure({ appenders: [ { type: 'console' }, //控制台輸出 { type: 'file', //文件輸出 filename: 'logs/access.
       <p>
-        <a href="https://blog.kerkerj.in/2014/10/api-d27---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---log-%E8%99%95%E7%90%86-%E5%8F%8A-config-db-apikey/" class="postShorten-excerpt_link link">Continue reading</a>
+        <a href="https://blog.kerkerj.in/2014/10/api-d27-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-log-%E8%99%95%E7%90%86-%E5%8F%8A-config-db-apikey/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
@@ -281,7 +355,7 @@ ga('send', 'pageview');
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/swift-d27---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---api-2-%E8%AE%80%E5%8F%96%E6%B8%85%E5%96%AE%E8%B3%87%E6%96%99/">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/swift-d27-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-todolist-api-2-%E8%AE%80%E5%8F%96%E6%B8%85%E5%96%AE%E8%B3%87%E6%96%99/">
           [Swift-d27] - 實戰開發 - TODOList - API 2 讀取清單資料
         </a>
       </h1>
@@ -307,9 +381,16 @@ ga('send', 'pageview');
 
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
-      <p></p>
+      Github link
+(某一天把兩天份的 commit 在一起了忘了開 branch 了&hellip;)
+接下來就要來寫 api utility 了
+我們先開一個 swift 檔案 RestApi.swift
+import Foundation class RestApi { var API_key = &quot;55665566&quot; var getListUrl = NSURL(string: &quot;http://192.168.1.158:3000/user/kerkerj/todos&quot;) }  先做好前置設定，因為 API 有上簡單的小鎖，因此要先寫起來
+還有 request 的網址
+以下是 get list 的範例:
+func getTodoList(completionHandler: ((NSArray!, NSError!) -&gt; Void)!) { var session = NSURLSession.sharedSession() var request = NSMutableURLRequest(URL: self.getListUrl!) request.HTTPMethod = &quot;GET&quot; request.addValue(&quot;application/json&quot;, forHTTPHeaderField: &quot;Content-Type&quot;) request.addValue(self.API_key, forHTTPHeaderField: &quot;API-Key&quot;) let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -&gt; Void in if (error !
       <p>
-        <a href="https://blog.kerkerj.in/2014/10/swift-d27---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---api-2-%E8%AE%80%E5%8F%96%E6%B8%85%E5%96%AE%E8%B3%87%E6%96%99/" class="postShorten-excerpt_link link">Continue reading</a>
+        <a href="https://blog.kerkerj.in/2014/10/swift-d27-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-todolist-api-2-%E8%AE%80%E5%8F%96%E6%B8%85%E5%96%AE%E8%B3%87%E6%96%99/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
@@ -327,7 +408,7 @@ ga('send', 'pageview');
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d26---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---api-key/">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d26-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-api-key/">
           [API-d26] - 實戰開發 - API-key
         </a>
       </h1>
@@ -359,9 +440,25 @@ ga('send', 'pageview');
 
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
-      <p></p>
+      Github 參考
+假設今天我們的 API 上線了，可能就會面臨到一些問題，
+例如說，任何人都可以存取我們的 API
+當然我們不希望任何人都可以存取，
+因此我們必須加一點驗證機制在裡面，
+其中一種做法是使用 Oauth token
+在拿 API 資料前，先向 Oauth server 要一個 token
+Oauth Server 認可身份後即會核發一個 token 給 client 端
+該 token 具有時效性，6 mins ~ 30 min 不等，看怎麼實作
+接著 client 端就拿該組 token 以及 API url 對 resources server 丟 request
+其實我們現在在做的 API server 就是一個 resources server
+因為我們提供資源
+而 resources server 就會先認 token，
+確保該 token 的時效性以及正確性，以及該 token 可存取的資源範圍
+確認無誤後再回送正確的資料
+不過在這邊我們並沒有要實作 Oauth Server
+單純以一個 resources server 而言，只要認 token 是否正確
       <p>
-        <a href="https://blog.kerkerj.in/2014/10/api-d26---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---api-key/" class="postShorten-excerpt_link link">Continue reading</a>
+        <a href="https://blog.kerkerj.in/2014/10/api-d26-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-api-key/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
@@ -379,7 +476,7 @@ ga('send', 'pageview');
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/swift-d26---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---api-%E5%89%8D%E7%BD%AE%E8%B3%87%E6%96%99%E6%BA%96%E5%82%99/">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/swift-d26-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-todolist-api-%E5%89%8D%E7%BD%AE%E8%B3%87%E6%96%99%E6%BA%96%E5%82%99/">
           [Swift-d26] - 實戰開發 - TODOList - API 前置資料準備
         </a>
       </h1>
@@ -405,9 +502,12 @@ ga('send', 'pageview');
 
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
-      <p></p>
+      接下來是要串 隔壁棚的 API XD
+從前幾天的 APP 組成
+我們所需要的資料大概會是以下幾種:
+ GET todo list  GET http://192.168.1.158:3000/user/kerkerj/todos return: [ { &quot;_id&quot;: &quot;54441f64d84f1ea412db855c&quot;, &quot;updated_at&quot;: &quot;2014-10-19T20:30:28.797Z&quot;, &quot;created_at&quot;: &quot;2014-10-19T20:30:28.797Z&quot;, &quot;content&quot;: &quot;task11syy&quot;, &quot;user_id&quot;: &quot;kerkerj&quot;, &quot;__v&quot;: 0 }, { &quot;_id&quot;: &quot;54441f6fd84f1ea412db855e&quot;, &quot;updated_at&quot;: &quot;2014-10-19T20:30:39.957Z&quot;, &quot;created_at&quot;: &quot;2014-10-19T20:30:39.957Z&quot;, &quot;content&quot;: &quot;task13&quot;, &quot;user_id&quot;: &quot;kerkerj&quot;, &quot;__v&quot;: 0 } ]   Get a todo task  GET http://192.168.1.158:3000/user/kerkerj/todos/54441f64d84f1ea412db855c return: { &quot;_id&quot;: &quot;54441f64d84f1ea412db855c&quot;, &quot;updated_at&quot;: &quot;2014-10-19T20:30:28.797Z&quot;, &quot;created_at&quot;: &quot;2014-10-19T20:30:28.797Z&quot;, &quot;content&quot;: &quot;task11syy&quot;, &quot;user_id&quot;: &quot;kerkerj&quot;, &quot;__v&quot;: 0 }   Add a todo task  POST http://192.
       <p>
-        <a href="https://blog.kerkerj.in/2014/10/swift-d26---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---api-%E5%89%8D%E7%BD%AE%E8%B3%87%E6%96%99%E6%BA%96%E5%82%99/" class="postShorten-excerpt_link link">Continue reading</a>
+        <a href="https://blog.kerkerj.in/2014/10/swift-d26-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-todolist-api-%E5%89%8D%E7%BD%AE%E8%B3%87%E6%96%99%E6%BA%96%E5%82%99/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
@@ -425,7 +525,7 @@ ga('send', 'pageview');
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-day25---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E8%99%95%E7%90%86-404--500/">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-day25-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E8%99%95%E7%90%86-404-500/">
           [API-day25] - 實戰開發 - 處理 404 &amp; 500
         </a>
       </h1>
@@ -457,9 +557,15 @@ ga('send', 'pageview');
 
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
-      <p></p>
+      Github 參考
+不知道大家在用 POSTMAN 對前幾天寫的 API 丟 request 有沒有遇過類似下面的情況:
+Cannot GET /user/kerkerj/todoss  通常是丟錯網址時會出現的，或是 code 沒寫好會出現 500 error
+這些情況是有辦法接到的，今天我們希望能夠接到後，將 message 轉成 json 格式吐回給 client
+因此程式碼如下
+app.js
+// catch 404 and forward to error handler app.use(function(req, res, next) { var err = new Error('Not Found'); err.status = 404; res.status(404).jsonp({error: &quot;Not Found&quot;}); next(); }); // catch 500 app.use(function(err, req, res, next) { res.status(err.status || 500).json({error: err.message}); });  基本上這兩段 code 的意思就是加入了兩個 middleware
       <p>
-        <a href="https://blog.kerkerj.in/2014/10/api-day25---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E8%99%95%E7%90%86-404--500/" class="postShorten-excerpt_link link">Continue reading</a>
+        <a href="https://blog.kerkerj.in/2014/10/api-day25-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E8%99%95%E7%90%86-404-500/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
@@ -477,7 +583,7 @@ ga('send', 'pageview');
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/swift-day25---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---update-view/">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/swift-day25-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-todolist-update-view/">
           [Swift-day25] - 實戰開發 - TODOList - Update View
         </a>
       </h1>
@@ -503,9 +609,20 @@ ga('send', 'pageview');
 
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
-      <p></p>
+      Github link
+(忘了是放在哪個 branch 了 Orz)
+接下來就要進到最後一個 Update View 了!
+什麼時候會進到 Update View 呢？
+是在顯示單筆 TODO 的時候的右上方按鈕:
+我們今天只會實作 view 的部分, fakeData 就不實作了
+因為接下來就要直接接 API 啦
+也不需要更新 fakeData 了 :P
+要加入 Edit 這個按鈕
+要到 ShowViewController, 加入 UIBarButtonItem
+並且讓其吃到一個方法，可以讓 Navigation 往下一個 View 前進:
+var id: String! override func viewDidLoad() { super.viewDidLoad() indexLabel.text = &quot;\(index)&quot; contentLabel.text = content self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: &quot;Edit&quot;, style: UIBarButtonItemStyle.Bordered, target: self, action: Selector(&quot;editTodo&quot;)) }  p.s. 先前忘記加了 id, 現在補回來 XD
       <p>
-        <a href="https://blog.kerkerj.in/2014/10/swift-day25---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---update-view/" class="postShorten-excerpt_link link">Continue reading</a>
+        <a href="https://blog.kerkerj.in/2014/10/swift-day25-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-todolist-update-view/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
@@ -523,7 +640,7 @@ ga('send', 'pageview');
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d24---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E5%88%AA%E9%99%A4-todo-task-api-with-mongoose/">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d24-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E5%88%AA%E9%99%A4-todo-task-api-with-mongoose/">
           [API-d24] - 實戰開發 - 刪除 TODO task API with mongoose
         </a>
       </h1>
@@ -557,9 +674,18 @@ ga('send', 'pageview');
 
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
-      <p></p>
+      Github 參考
+還記得昨天說要偷懶一下嗎 XD
+因為刪除真的很簡單!
+我們前面走過了新增、修改、讀取了
+刪除？哪有什麼困難的呢! XD
+直接看 code 吧!
+routes/users.js:
+// Delete a todo task router.delete('/:user_id/todos/:todo_id', function(req, res) { var user_id = req.params.user_id; var todo_id = req.params.todo_id; TODO.remove( { _id: todo_id, user_id: user_id }, function (err) { if (err) { res.status(400).json( { error: &quot;delete data error&quot;} ); } else { res.status(201).json( { success: &quot;true&quot; } ); } } ); });  非常的簡單!
+先抓到 user_id, todo_id 後
+使用 .remove 的方法，下 WHERE 條件，並在 callback 作處理
       <p>
-        <a href="https://blog.kerkerj.in/2014/10/api-d24---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E5%88%AA%E9%99%A4-todo-task-api-with-mongoose/" class="postShorten-excerpt_link link">Continue reading</a>
+        <a href="https://blog.kerkerj.in/2014/10/api-d24-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E5%88%AA%E9%99%A4-todo-task-api-with-mongoose/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
@@ -577,7 +703,7 @@ ga('send', 'pageview');
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/swift-d24---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---create-view/">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/swift-d24-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-todolist-create-view/">
           [Swift-d24] - 實戰開發 - TODOList - Create View
         </a>
       </h1>
@@ -603,9 +729,26 @@ ga('send', 'pageview');
 
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
-      <p></p>
+      Github link
+今天要來建立 &ldquo;新增資料&rdquo; 的頁面
+不過這個頁面我們也會拿來給 &ldquo;更新資料&rdquo; 的頁面使用
+原因其實很簡單
+兩邊要建立或編輯的資料是一樣的
+差別只在於，當今天是編輯資料的 view call 該頁面時，
+該頁面除了顯示編輯框外，編輯框內的文字也會預先 load 好舊的資料了
+除此之外兩個 view 的排版一模一樣
+所以在這邊我們就只建立一個 UpdateViewController 就可以了
+那我們一樣建立一組 UpdateViewController.swift + UpdateViewController.xib
+也一樣為元件建立關聯
+回到主頁
+我們幫 Add 新增一個按鈕吧
+在 viewDidLoad 中
+self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: &quot;Add&quot;, style: UIBarButtonItemStyle.Done, target: self, action: Selector(&quot;pushToAddTODO&quot;))  設定 Navigation 的右邊鍵的功能
+並且根據 pushToAddTODO 的方法做事情
+因此繼續下去將 pushToAddTODO 方法做一下
+	func pushToAddTODO(){ var addViewController = UpdateViewController(nibName: &quot;UpdateViewController&quot;, bundle: nil) addViewController.from = &quot;add&quot; self.navigationController?.pushViewController(addViewController, animated: true) }  這樣寫完後就可以執行看看了!
       <p>
-        <a href="https://blog.kerkerj.in/2014/10/swift-d24---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---create-view/" class="postShorten-excerpt_link link">Continue reading</a>
+        <a href="https://blog.kerkerj.in/2014/10/swift-d24-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-todolist-create-view/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
@@ -623,7 +766,7 @@ ga('send', 'pageview');
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d23---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E4%BF%AE%E6%94%B9-todo-task-api-with-mongoose/">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d23-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E4%BF%AE%E6%94%B9-todo-task-api-with-mongoose/">
           [API-d23] - 實戰開發 - 修改 TODO task API with mongoose
         </a>
       </h1>
@@ -655,55 +798,15 @@ ga('send', 'pageview');
 
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
-      <p></p>
+      Github 參考
+接上篇，我們已經可以拿到 todo list 了
+也可以拿到特定的 todo task
+再來我們就可以編輯特定的 todo task 了對吧?
+不囉唆直接進入程式碼
+routes/users.js
+// Update a todo task router.put('/:user_id/todos/:todo_id', function(req, res) { var user_id = req.params.user_id; var todo_id = req.params.todo_id; var data = req.body; TODO.update( { _id: todo_id, user_id: user_id }, { $set: { content: data.content } }, function (err, num, raw, results) { if (err) { res.status(400).json( { error: &quot;update data error&quot; } ); } else { TODO.
       <p>
-        <a href="https://blog.kerkerj.in/2014/10/api-d23---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E4%BF%AE%E6%94%B9-todo-task-api-with-mongoose/" class="postShorten-excerpt_link link">Continue reading</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
-
-          
-            
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/swift-d23---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---show-view-2-delete-view/">
-          [Swift-d23] - 實戰開發 - TODOList - Show View 2, Delete View
-        </a>
-      </h1>
-      
-  <div class="postShorten-meta post-meta">
-    
-      <time itemprop="datePublished" datetime="2014-10-23T00:00:00Z">
-        
-  October 23, 2014
-
-      </time>
-    
-    
-  
-  
-    <span>in</span>
-    
-      <a class="category-link" href="https://blog.kerkerj.in/categories/swift">swift</a>
-    
-  
-
-  </div>
-
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      <p></p>
-      <p>
-        <a href="https://blog.kerkerj.in/2014/10/swift-d23---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---todolist---show-view-2-delete-view/" class="postShorten-excerpt_link link">Continue reading</a>
+        <a href="https://blog.kerkerj.in/2014/10/api-d23-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E4%BF%AE%E6%94%B9-todo-task-api-with-mongoose/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
@@ -741,7 +844,7 @@ ga('send', 'pageview');
         </section>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2018 <a href="https://github.com/kerkerj">kerkerj</a>. Powered by <a href="https://gohugo.io/">hugo</a>. Theme <a href="https://github.com/kakawait/hugo-tranquilpeak-theme">Tranquilpeak</a>. All Rights Reserved
+    &copy; 2019 <a href="https://github.com/kerkerj">kerkerj</a>. Powered by <a href="https://gohugo.io/">hugo</a>. Theme <a href="https://github.com/kakawait/hugo-tranquilpeak-theme">Tranquilpeak</a>. All Rights Reserved
   </span>
 </footer>
 
@@ -799,6 +902,23 @@ ga('send', 'pageview');
           <div class="media">
             
             <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2019/05/kubectx/">
+                <h3 class="media-heading">kubectx</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  May 5, 2019
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p>-</p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
               <a class="link-unstyled" href="https://blog.kerkerj.in/2018/08/go-pprof/">
                 <h3 class="media-heading">Go pprof</h3>
               </a>
@@ -807,9 +927,7 @@ ga('send', 'pageview');
                   Aug 8, 2018
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p>簡單筆記一下會用到的 pprof 相關指令</p>
-
-<p></p></div>
+              <div class="media-content hide-xs font-merryweather"><p>簡單筆記一下會用到的 pprof 相關指令</p></div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -826,9 +944,7 @@ ga('send', 'pageview');
                   May 5, 2018
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p>嗯，我又把 theme 換掉了。還有個原因是裝了最新版的 hugo 後，就 build 不出來了，只好順便換個新的 theme。</p>
-
-<p></p></div>
+              <div class="media-content hide-xs font-merryweather"><p>嗯，我又把 theme 換掉了。還有個原因是裝了最新版的 hugo 後，就 build 不出來了，只好順便換個新的 theme。</p></div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -845,7 +961,11 @@ ga('send', 'pageview');
                   Nov 11, 2016
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p></p></div>
+              <div class="media-content hide-xs font-merryweather">最近看了一些書，有空就寫點筆記上來&hellip;
+ISBN: 978-986-216-605-5
+以下記一些片段
+ 計畫是一種猜測 別當工作狂 （J: work smart） 坐而言不如起而行（真正的重點在於你執行得好不好） 實現夢想完全是自己的責任，當你夠可望，自然就能撥出時間。（J: 不僅只是夢想，別拿時間當藉口） 明確表明立場 使命宣言不是說說而已（J: 莫忘初衷） 你需要的其實比想像少（J: 現階段真的需要這麼多嗎？） 別在進場時就想著怎麼退場（你需要的是實踐承諾的策略而不是退場策略） 擁抱限制、不要貪多 從核心要點做起 忽略初期的細枝末節 不管你規劃的多詳盡，凡事總有出錯的時候 懂得捨去才是關鍵 減少投入反而解決了問題 聚焦於不會改變的事物（專注於永久性的特點 e.g. 沒有人希望程式跑很慢的，一定都是越快越好） 不斷地動手做 有時放棄是對的 不必逞英雄 人類不擅長估計，預估一件大事很難，但預估小事簡單多了，把大事切成許多小事吧 一次只做一個小決定 不要抄襲、避免大眾化 預設拒絕立場 自己先動手做 靈感是會過期的  這本書和 hiroshi 大人借的，應該可以入手一本，覺得前半部比較偏個人、後半部就偏專案產品面，
+這本書值得不時拿出來細細品味，不同時間看應該都有不同的感覺。</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -862,7 +982,15 @@ ga('send', 'pageview');
                   Oct 10, 2016
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p></p></div>
+              <div class="media-content hide-xs font-merryweather">幾天前在 Golang Taiwan 的 slack 裡看到了一些關於 goroutine 的討論
+有人問了以下程式碼 (from http://blog.mergermarket.it/now-youre-thinking-with-channels/)
+package main import &quot;fmt&quot; func main() { channelForInts := make(chan int) go printIntFromChannel(channelForInts) channelForInts &lt;- 5 } func printIntFromChannel(channel chan int) { number := &lt;-channel fmt.Println(&quot;The number is:&quot;, number) }  提到上述程式碼在 goplayground 上測試好幾次都會印出 The number is:5
+但他自己在本機跑是怎樣執行都不會出現 5
+看到這個問題第一個想到的是 sync.Waitgroup
+之前剛開始學 goroutine 的概念時，就在 stackoverflow 上看到有人討論相關的議題
+加個 sync.Waitgroup 就可以保證看到 goroutine 執行完後的結果。
+而事實上會這樣子的原因 Go Programming Language Specification 有寫
+ Program execution begins by initializing the main package and then invoking the function main.</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -879,7 +1007,13 @@ ga('send', 'pageview');
                   Oct 10, 2016
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p></p></div>
+              <div class="media-content hide-xs font-merryweather">工作上 rails 在每個 stage 的 domain 長度都不太一樣
+例如 production 是 example.com，staging 是 kerkerj.staging.example.com
+MyApp::Application.config.session_store :redis_session_store, { key: 'example_session_token', domain: :all, tld_length: 4, serializer: :hybrid, redis: { host: &quot;....&quot;, key_prefix: &quot;...&quot;, expire_after: 7.day, } }  相關原始碼: action_dispatch/middleware/cookies.rb
+在這裡的 tld_length 就是看你 domain 的 tld 想設定到哪就寫多少
+以 kerkerj.staging.example.com 為例，想要 example.com 就是 2，想要 kerkerj.staging.example.com 就是 4
+而在 Rails App 裡，在 config.action_dispatch.tld_length (或 ActionDispatch::Http::URL.tld_length ) 設定的 tld_length
+在 rails api document 的 #domain 有用法</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -896,7 +1030,10 @@ ga('send', 'pageview');
                   Oct 10, 2016
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p></p></div>
+              <div class="media-content hide-xs font-merryweather">如果 rails app 裡的 initializer 有載入順序的需求的話
+可以照著 Ruby On Rails Guide 這篇來設定
+ If you have any ordering dependency in your initializers, you can control the load order through naming. Initializer files are loaded in alphabetical order by their path. For example, 01_critical.rb will be loaded before 02_normal.rb.
+ 檔名加個數字前綴，rails 就會以數字順序來依序載入~</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -913,7 +1050,13 @@ ga('send', 'pageview');
                   Oct 10, 2016
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p></p></div>
+              <div class="media-content hide-xs font-merryweather">這是前陣子在工作上用到的
+有個 golang 的專案，使用了 gb 來管理第三方套件
+當時想套 goconvey 進來
+但是一直搞不定執行的方式
+後來在 github goconvey issue 裡找到了方式
+$ cd /to/your/gb_projects $ PROJECT_DIR=`pwd` $ GOPATH=&quot;$PROJECT_DIR/vendor:$PROJECT_DIR&quot; goconvey -packages=1 -port 8899  這樣就會跑 web ui 出來摟
+不想跑 web ui 就執行 gb test -v 就可以了&hellip;上面這樣只是單純想跑 web ui 而已 XD</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -930,7 +1073,16 @@ ga('send', 'pageview');
                   Oct 10, 2016
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p></p></div>
+              <div class="media-content hide-xs font-merryweather">不知道標題該下啥&hellip;
+前陣子因為工作需要，需要測試一個 web app 分布在多台機器下的狀況
+想說使用 docker 來做這件事，但又懶得弄 nginx 的設定
+稍微查了一下發現有 dockercloud/haproxy
+我使用的情境是 web app * 3 + ha * 1 + redis * 1
+web 使用了兩個 port 7788, 7789
+但是不想讓 ha 把流量導去 7788，所以可以設定 EXCLUDE_PORTS
+ 如此一來，在 docker-compse up 後，就可以透過 http://192.168.99.100:5566/ 來連上了
+並且可以透過 docker stats $(docker ps -q) 這個指令來觀察正在執行中的 containers 的基本 metrics~
+快速簡單!</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -947,24 +1099,10 @@ ga('send', 'pageview');
                   Oct 10, 2016
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p></p></div>
-            </div>
-            <div style="clear:both;"></div>
-            <hr>
-          </div>
-        
-          <div class="media">
-            
-            <div class="media-body">
-              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/new-theme/">
-                <h3 class="media-heading">New theme</h3>
-              </a>
-              <span class="media-meta">
-                <span class="media-date text-small">
-                  Oct 10, 2016
-                </span>
-              </span>
-              <div class="media-content hide-xs font-merryweather"><p></p></div>
+              <div class="media-content hide-xs font-merryweather">現在想到什麼都來 PO 一下 XD
+https://github.com/so-fancy/diff-so-fancy
+拿來幫你把 git diff 變漂亮的東東
+// install $ brew install diff-so-fancy // Setup $ git config --global core.pager &quot;diff-so-fancy | less --tabs=4 -RFX&quot; // make it more fancier $ git config --global color.diff-highlight.oldNormal &quot;red bold&quot; $ git config --global color.diff-highlight.oldHighlight &quot;red bold 52&quot; $ git config --global color.diff-highlight.newNormal &quot;green bold&quot; $ git config --global color.diff-highlight.newHighlight &quot;green bold 22&quot; </div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -977,7 +1115,7 @@ ga('send', 'pageview');
          data-message-zero="no post found"
          data-message-one="1 post found"
          data-message-other="{n} posts found">
-         142 posts found
+         143 posts found
       </p>
     </div>
   </div>

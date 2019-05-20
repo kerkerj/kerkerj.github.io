@@ -17,7 +17,10 @@
       <pubDate>Thu, 25 Sep 2014 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2014/09/codeigniter-on-nginx/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>I use Ubuntu 14.04, Nginx 1.4.6, php5-fpm, Codeigniter 2.2.0
+It will remove index.php, and access Codeigniter site normally.
+Clean configuration &amp;ldquo;/etc/nginx/site-enabled/default&amp;rdquo;:
+server { #&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; START listen 80; listen [::]:80 default_server ipv6only=on; root /YOUR/PROJECT/ROOT; index index.html index.htm index.php; # Make site accessible from http://localhost/ server_name localhost; #location ~* .(ico|css|js|gif|jpe?g|png)(?[0-9]+)?$ { # expires max; # log_not_found off; #} location / { # First attempt to serve request as file, then # as directory, then fall back to displaying a 404.</description>
     </item>
     
     <item>
@@ -26,7 +29,8 @@
       <pubDate>Fri, 20 Dec 2013 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2013/12/ubuntu-ror-environment/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>RVM with Ruby2.0.0-p353 + Rails4.0.2 + Ubuntu12.04(precise64) + php-fpm by Vagrant(clean install) p.s. If you don&amp;rsquo;t use RVM, you can just follow the instruction from Passenger offcial website. It will be easier. Plus, I installed all these things by Vagrant.
+First thing to do $ sudo apt-get update $ sudo apt-get upgrade  Pre-setup: install necessary packages $ sudo apt-get update $ sudo apt-get install build-essential libssl-dev libpcre3-dev libncurses5-dev libreadline6-dev git vim curl libcurl4-openssl-dev libreadline6 autoconf openssl git-core zlib1g zlib1g-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev autoconf libc6-dev libgdbm-dev libncurses5-dev automake libtool bison subversion pkg-config libffi-dev  Get .</description>
     </item>
     
     <item>
@@ -35,7 +39,11 @@
       <pubDate>Tue, 22 Oct 2013 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2013/10/vagrant-%E4%BD%BF%E7%94%A8-vagrant-%E5%AE%89%E8%A3%9D-nginx-php5-fpm-mysql/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>Vagrant - Development environments made easy. 就是這個軟體的宗旨，把它想做是 ghost 吧！我們開發網站或是測試一些多機器架構時，常不小心就把自己的電腦或是測試主機搞到爛掉，租機器又慢又花錢，搞到爛重灌更麻煩。因此這個軟體基於 VirtualBox 做出了令人方便設定的功能，讓我們可以快速架設安裝環境並測試，尤其是以多機器架構而言更是方便！例如從最簡單的 Web server + DB server，或是 Web Load Balancer + Application Server * 5 等等的架構，一台電腦就能達成囉！ 今天主要是以安裝 Vagrant 及架設出 Nginx + php5-fpm 的架構，下一篇打算另外建構一台 mongodb server，達到 Vagrant 最主要的多機器設定功能~
+Vagrant 基本設定  先下載 VirtualBox 吧！
+ 下載 Vagarnt 套件 http://downloads.vagrantup.com/
+安裝好後，可能會需要加 path，至少 1.3.0 當時我是自己加的，現在 1.3.5 就不清楚了~
+ 接下來就可以開始加入 box (可以把它想為 ghost 檔)，並開始設定 Vagrant。  vagrant box add {你想要的Box名稱} {下載網址}  輸入後就會開始下載該 box 了！ 範例：</description>
     </item>
     
   </channel>

@@ -17,7 +17,15 @@
       <pubDate>Tue, 25 Oct 2016 12:32:55 +0800</pubDate>
       
       <guid>https://blog.kerkerj.in/2016/10/goroutine-%E5%9F%B7%E8%A1%8C%E7%9B%B8%E9%97%9C%E8%A8%8E%E8%AB%96/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>幾天前在 Golang Taiwan 的 slack 裡看到了一些關於 goroutine 的討論
+有人問了以下程式碼 (from http://blog.mergermarket.it/now-youre-thinking-with-channels/)
+package main import &amp;quot;fmt&amp;quot; func main() { channelForInts := make(chan int) go printIntFromChannel(channelForInts) channelForInts &amp;lt;- 5 } func printIntFromChannel(channel chan int) { number := &amp;lt;-channel fmt.Println(&amp;quot;The number is:&amp;quot;, number) }  提到上述程式碼在 goplayground 上測試好幾次都會印出 The number is:5
+但他自己在本機跑是怎樣執行都不會出現 5
+看到這個問題第一個想到的是 sync.Waitgroup
+之前剛開始學 goroutine 的概念時，就在 stackoverflow 上看到有人討論相關的議題
+加個 sync.Waitgroup 就可以保證看到 goroutine 執行完後的結果。
+而事實上會這樣子的原因 Go Programming Language Specification 有寫
+ Program execution begins by initializing the main package and then invoking the function main.</description>
     </item>
     
   </channel>

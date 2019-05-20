@@ -13,11 +13,17 @@
     
     <item>
       <title>Event-driven I/O models and Coroutine Notes</title>
-      <link>https://blog.kerkerj.in/2014/08/event-driven-i/o-models-and-coroutine-notes/</link>
+      <link>https://blog.kerkerj.in/2014/08/event-driven-i-o-models-and-coroutine-notes/</link>
       <pubDate>Mon, 18 Aug 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/08/event-driven-i/o-models-and-coroutine-notes/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/08/event-driven-i-o-models-and-coroutine-notes/</guid>
+      <description>Event-driven I/O model 首先，聽到 Event-driven 是從 Node.js 得知，
+ Node.js® is a platform built on Chrome&amp;rsquo;s JavaScript runtime for easily building fast, scalable network applications.
+Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient, perfect for data-intensive real-time applications that run across distributed devices.
+ 其實剛聽到這詞會有點陌生，我們可以先從 Victor 所寫的文章開始讀起: 淺談coroutine與gevent
+裡面提到了幾種網路模型： &amp;gt; 1. 阻塞式單一行程
+2. 阻塞式多行程 3. 阻塞式多行程多執行序 4. 非阻塞式事件驅動 5. 非阻塞式 coroutine
+以下是各語言 event-driven 的 model</description>
     </item>
     
     <item>
@@ -26,7 +32,9 @@
       <pubDate>Thu, 09 Jan 2014 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2014/01/sublime-text-2-integration-with-rvm-and-rspec/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>Ruby:
+~/Library/Application\ Support/Sublime\ Text\ 2/Packages/Ruby/Ruby.sublime-build
+{ &amp;quot;env&amp;quot;:{ &amp;quot;PATH&amp;quot;:&amp;quot;${HOME}/.rvm/bin:${PATH}&amp;quot; }, &amp;quot;cmd&amp;quot;: [&amp;quot;rvm-auto-ruby&amp;quot;, &amp;quot;$file&amp;quot;], &amp;quot;file_regex&amp;quot;: &amp;quot;^(...*?):([0-9]*):?([0-9]*)&amp;quot;, &amp;quot;selector&amp;quot;: &amp;quot;source.ruby&amp;quot; }  http://rubenlaguna.com/wp/2012/12/07/sublime-text-2-rvm-rspec-take-2/</description>
     </item>
     
     <item>
@@ -35,7 +43,12 @@
       <pubDate>Fri, 27 Apr 2012 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2012/04/ubuntu-ror-install-with-rvm/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>以下都是以 Ubuntu 11.10為操作環境
+主要目標為使用 rvm (Ruby Version Manager)來管理 ruby 版本並安裝 ruby 和 rails
+先安裝一些必要套件 ( ex. openssl, zlib1g-dev &amp;hellip;.etc. )
+$sudo apt-get install build-essential bison openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev nodejs  安裝完基本套件後, 有兩種選擇:
+ 直接在系統上安裝 ruby ( sudo apt-get install ruby ) 使用 rvm 來管理 ruby 版本  基本上有 rvm 來管理 ruby 版本是比較方便的, 可以隨時切換不同的 ruby 版本
+(不過在使用一些套件上會有一些問題需要排解, 本篇最底下有 trouble shooting)</description>
     </item>
     
   </channel>

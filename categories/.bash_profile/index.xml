@@ -17,7 +17,18 @@
       <pubDate>Wed, 13 Nov 2013 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2013/11/mac-osx-slow-opening-terminal-windows/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>最近在開 mac 的 iTerm.app 或者是內建的終端機都覺得卡卡的，
+之前以為是 .bashrc 載入太多東西導致的，所以把一些掛載的 bin 目錄都註解掉，
+但是還是沒解決，心想不對勁，就順手 google 了一下&amp;hellip;
+我執行了下列語法：
+$ time /usr/libexec/path_helper PATH=&amp;quot;/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/ABC/android-sdks/platform-tools:/Users/ABC/android-sdks/tools:/Application/Vagrant/bin&amp;quot;; export PATH; real 0m0.043s user 0m0.001s sys 0m0.002s  接著我把 PATH 的內容寫進 .bash_profile，問題竟然就解決了&amp;hellip;
+速度飛快～～
+後來看到一篇 .bash_profile vs.bashrc
+雖然大家都知道 .bash_profile 是在登入時執行（即是輸入帳號密碼時），
+而 .bashrc 是在系統內非登入狀態時開啟 prompt 時執行，
+但是！！ Mac OSX 是個例外～是個例外～是個例外～&amp;hellip;&amp;hellip;.=.=
+ Mac OS X — an exception
+An exception to the terminal window guidelines is Mac OS X&amp;rsquo;s Terminal.app, which runs a login shell by default for each new terminal window, calling .</description>
     </item>
     
   </channel>

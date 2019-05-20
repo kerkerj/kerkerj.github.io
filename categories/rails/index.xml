@@ -17,7 +17,13 @@
       <pubDate>Thu, 20 Oct 2016 10:47:58 +0800</pubDate>
       
       <guid>https://blog.kerkerj.in/2016/10/tld_length-%E5%9C%A8-rails-session_store-%E8%88%87-http-url-%E7%9A%84%E8%A8%AD%E5%AE%9A/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>工作上 rails 在每個 stage 的 domain 長度都不太一樣
+例如 production 是 example.com，staging 是 kerkerj.staging.example.com
+MyApp::Application.config.session_store :redis_session_store, { key: &#39;example_session_token&#39;, domain: :all, tld_length: 4, serializer: :hybrid, redis: { host: &amp;quot;....&amp;quot;, key_prefix: &amp;quot;...&amp;quot;, expire_after: 7.day, } }  相關原始碼: action_dispatch/middleware/cookies.rb
+在這裡的 tld_length 就是看你 domain 的 tld 想設定到哪就寫多少
+以 kerkerj.staging.example.com 為例，想要 example.com 就是 2，想要 kerkerj.staging.example.com 就是 4
+而在 Rails App 裡，在 config.action_dispatch.tld_length (或 ActionDispatch::Http::URL.tld_length ) 設定的 tld_length
+在 rails api document 的 #domain 有用法</description>
     </item>
     
     <item>
@@ -26,16 +32,30 @@
       <pubDate>Thu, 20 Oct 2016 10:39:30 +0800</pubDate>
       
       <guid>https://blog.kerkerj.in/2016/10/rails-initializer-%E7%9A%84%E8%BC%89%E5%85%A5%E9%A0%86%E5%BA%8F/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>如果 rails app 裡的 initializer 有載入順序的需求的話
+可以照著 Ruby On Rails Guide 這篇來設定
+ If you have any ordering dependency in your initializers, you can control the load order through naming. Initializer files are loaded in alphabetical order by their path. For example, 01_critical.rb will be loaded before 02_normal.rb.
+ 檔名加個數字前綴，rails 就會以數字順序來依序載入~</description>
     </item>
     
     <item>
       <title>Capistrano with rails - basic notes</title>
-      <link>https://blog.kerkerj.in/2014/08/capistrano-with-rails---basic-notes/</link>
+      <link>https://blog.kerkerj.in/2014/08/capistrano-with-rails-basic-notes/</link>
       <pubDate>Tue, 05 Aug 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/08/capistrano-with-rails---basic-notes/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/08/capistrano-with-rails-basic-notes/</guid>
+      <description>詳細的東西還是看 project&amp;rsquo;s github page 比較快 - Capistrano@github
+Capistrano 剛開始寫 deploy script 時真的會有點搞不太懂 XD
+記錄一下使用 &amp;lsquo;capistrano&amp;rsquo; 把特定的 github repo 抓到 remote server
+安裝 先在 Gemfile 加入:
+gem &#39;capistrano&#39;, &#39;~&amp;gt; 3.2.0&#39;  然後安裝~
+bundle install  步驟大概會是：
+假設已經寫完 capistrano 了，執行 script 時，
+capistrano 會先利用 script 裡提供的 server ip 以及 public key，
+先連線到 remote server，接著再到 github 上拉 code 到指定的目錄裡，
+再重開 server。
+產生相關檔案 bundle exec cap install  會產生以下檔案: (copy from Capistrano@github)
+├── Capfile ├── config │ ├── deploy │ │ ├── production.</description>
     </item>
     
     <item>
@@ -44,7 +64,8 @@
       <pubDate>Wed, 30 Jul 2014 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2014/07/install-rails-server-env-with-rbenv-on-ubuntu-14.04/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>nodejs v0.10.25 (for rails javascript engine) rbenv 0.4.0-98-g13a474c ruby 2.1.2p95 (2014-05-08 revision 45877) [x86_64-linux] Rails 4.1.4 nginx version: nginx/1.6.0 Phusion Passenger version 4.0.48 mysql Ver 14.14 Distrib 5.5.38, for debian-linux-gnu (x86_64) using readline 6.3  Installing Ruby &amp;amp; Rails sudo apt-get update &amp;amp;&amp;amp; sudo apt-get upgrade sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties nodejs npm  Use rbenv
+cd git clone git://github.</description>
     </item>
     
     <item>
@@ -53,7 +74,11 @@
       <pubDate>Thu, 03 Jul 2014 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2014/07/rails-actioncontrollerinvalidauthenticitytoken-when-useing-rails4-as-api/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>change
+protect_from_forgery with: :exception
+to
+protect_from_forgery with: :null_session
+in ApplicationController</description>
     </item>
     
     <item>
@@ -72,7 +97,11 @@
       <pubDate>Thu, 02 Jan 2014 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2014/01/rails-put-v.s.-patch/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>According to rails convention,
+PUT is used for updating an existing resource
+POST is used for creating a new resource
+In rails 4, PUT has been changed to PATCH to avoid confusion.
+ posts GET /posts(.:format) {:action=&amp;gt;&amp;quot;index&amp;quot;, :controller=&amp;gt;&amp;quot;posts&amp;quot;} POST /posts(.:format) {:action=&amp;gt;&amp;quot;create&amp;quot;, :controller=&amp;gt;&amp;quot;posts&amp;quot;} new_post GET /posts/new(.:format) {:action=&amp;gt;&amp;quot;new&amp;quot;, :controller=&amp;gt;&amp;quot;posts&amp;quot;} edit_post GET /posts/:id/edit(.:format) {:action=&amp;gt;&amp;quot;edit&amp;quot;, :controller=&amp;gt;&amp;quot;posts&amp;quot;} post GET /posts/:id(.:format) {:action=&amp;gt;&amp;quot;show&amp;quot;, :controller=&amp;gt;&amp;quot;posts&amp;quot;} PUT /posts/:id(.:format) {:action=&amp;gt;&amp;quot;update&amp;quot;, :controller=&amp;gt;&amp;quot;posts&amp;quot;} DELETE /posts/:id(.:format) {:action=&amp;gt;&amp;quot;destroy&amp;quot;, :controller=&amp;gt;&amp;quot;posts&amp;quot;}  延伸閱讀：ihower - HTTP Verbs: 談 POST, PUT 和 PATCH 的應用</description>
     </item>
     
   </channel>

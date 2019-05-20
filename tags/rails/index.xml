@@ -17,7 +17,13 @@
       <pubDate>Thu, 20 Oct 2016 10:47:58 +0800</pubDate>
       
       <guid>https://blog.kerkerj.in/2016/10/tld_length-%E5%9C%A8-rails-session_store-%E8%88%87-http-url-%E7%9A%84%E8%A8%AD%E5%AE%9A/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>工作上 rails 在每個 stage 的 domain 長度都不太一樣
+例如 production 是 example.com，staging 是 kerkerj.staging.example.com
+MyApp::Application.config.session_store :redis_session_store, { key: &#39;example_session_token&#39;, domain: :all, tld_length: 4, serializer: :hybrid, redis: { host: &amp;quot;....&amp;quot;, key_prefix: &amp;quot;...&amp;quot;, expire_after: 7.day, } }  相關原始碼: action_dispatch/middleware/cookies.rb
+在這裡的 tld_length 就是看你 domain 的 tld 想設定到哪就寫多少
+以 kerkerj.staging.example.com 為例，想要 example.com 就是 2，想要 kerkerj.staging.example.com 就是 4
+而在 Rails App 裡，在 config.action_dispatch.tld_length (或 ActionDispatch::Http::URL.tld_length ) 設定的 tld_length
+在 rails api document 的 #domain 有用法</description>
     </item>
     
     <item>
@@ -26,7 +32,10 @@
       <pubDate>Thu, 20 Oct 2016 10:39:30 +0800</pubDate>
       
       <guid>https://blog.kerkerj.in/2016/10/rails-initializer-%E7%9A%84%E8%BC%89%E5%85%A5%E9%A0%86%E5%BA%8F/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>如果 rails app 裡的 initializer 有載入順序的需求的話
+可以照著 Ruby On Rails Guide 這篇來設定
+ If you have any ordering dependency in your initializers, you can control the load order through naming. Initializer files are loaded in alphabetical order by their path. For example, 01_critical.rb will be loaded before 02_normal.rb.
+ 檔名加個數字前綴，rails 就會以數字順序來依序載入~</description>
     </item>
     
   </channel>

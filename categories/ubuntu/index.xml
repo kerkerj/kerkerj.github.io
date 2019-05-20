@@ -17,7 +17,10 @@
       <pubDate>Tue, 05 Aug 2014 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2014/08/openresty-on-ubuntu-14.04/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>Install choose the latest version of Openresty
+I used ngx_openresty-1.7.2.1.tar.gz
+# install packages sudo apt-get install libreadline-dev libpcre3-dev libssl-dev perl # get openresty package wget http://openresty.org/download/ngx_openresty-1.7.2.1.tar.gz # unzip tar xzvf ngx_openresty-1.7.2.1.tar.gz # install cd ngx_openresty-1.7.2.1/ # You can setup with ./configure --prefix=&amp;quot;the folder you want to install&amp;quot;, default is &#39;/usr/local/openresty&#39; ./configure make sudo make install # need permission to copy file to target folder  Default folder: /usr/local/openresty
+Setup create work folder in ~</description>
     </item>
     
     <item>
@@ -26,16 +29,19 @@
       <pubDate>Wed, 30 Jul 2014 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2014/07/install-rails-server-env-with-rbenv-on-ubuntu-14.04/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>nodejs v0.10.25 (for rails javascript engine) rbenv 0.4.0-98-g13a474c ruby 2.1.2p95 (2014-05-08 revision 45877) [x86_64-linux] Rails 4.1.4 nginx version: nginx/1.6.0 Phusion Passenger version 4.0.48 mysql Ver 14.14 Distrib 5.5.38, for debian-linux-gnu (x86_64) using readline 6.3  Installing Ruby &amp;amp; Rails sudo apt-get update &amp;amp;&amp;amp; sudo apt-get upgrade sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties nodejs npm  Use rbenv
+cd git clone git://github.</description>
     </item>
     
     <item>
       <title>[Ubuntu] enable/disable services on start-up</title>
-      <link>https://blog.kerkerj.in/2014/05/ubuntu-enable/disable-services-on-start-up/</link>
+      <link>https://blog.kerkerj.in/2014/05/ubuntu-enable-disable-services-on-start-up/</link>
       <pubDate>Fri, 30 May 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/05/ubuntu-enable/disable-services-on-start-up/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/05/ubuntu-enable-disable-services-on-start-up/</guid>
+      <description>Take apache for example:
+Disable - update-rc.d -f apache2 remove
+Enable - update-rc.d apache2 defaults</description>
     </item>
     
     <item>
@@ -44,7 +50,9 @@
       <pubDate>Wed, 16 Apr 2014 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2014/04/ubuntu-update-openssl/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>Easy way:
+ Below the single command line to compiling and install the last openssl version.  $ curl https://www.openssl.org/source/openssl-1.0.1h.tar.gz | tar xz &amp;amp;&amp;amp; cd openssl-1.0.1h &amp;amp;&amp;amp; sudo ./config &amp;amp;&amp;amp; sudo make &amp;amp;&amp;amp; sudo make install   Replace old openssl binary file by the new one via a symlink.  $ sudo ln -sf /usr/local/ssl/bin/openssl `which openssl`  how to check version:
+$ openssl version -b built on: Mon Apr 7 20:33:29 UTC 2014 $ openssl version -a OpenSSL 1.</description>
     </item>
     
     <item>
@@ -53,7 +61,10 @@
       <pubDate>Thu, 26 Dec 2013 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2013/12/aws-ubuntu-swap/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>Add swap for an instance
+$ sudo /bin/dd if=/dev/zero of=/var/swap.1 bs=1M count=1024 $ sudo /sbin/mkswap /var/swap.1 $ sudo /sbin/swapon /var/swap.1 $ echo &amp;quot;/var/swap.1 swap swap defaults 0 0&amp;quot; &amp;gt;&amp;gt; /etc/fstab #將 swap 加入 開機啟動  在 Amazon EC2 micro plan，加入 swap 很容易 I/O 過量， 因此最好是需要時才開啟 swap，不用時關閉 swap 以免被收錢~
+swap usage
+$ swapon -s $ free -k --- $ swapoff -a $ swapon -a </description>
     </item>
     
     <item>
@@ -62,16 +73,17 @@
       <pubDate>Fri, 20 Dec 2013 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2013/12/ubuntu-ror-environment/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>RVM with Ruby2.0.0-p353 + Rails4.0.2 + Ubuntu12.04(precise64) + php-fpm by Vagrant(clean install) p.s. If you don&amp;rsquo;t use RVM, you can just follow the instruction from Passenger offcial website. It will be easier. Plus, I installed all these things by Vagrant.
+First thing to do $ sudo apt-get update $ sudo apt-get upgrade  Pre-setup: install necessary packages $ sudo apt-get update $ sudo apt-get install build-essential libssl-dev libpcre3-dev libncurses5-dev libreadline6-dev git vim curl libcurl4-openssl-dev libreadline6 autoconf openssl git-core zlib1g zlib1g-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev autoconf libc6-dev libgdbm-dev libncurses5-dev automake libtool bison subversion pkg-config libffi-dev  Get .</description>
     </item>
     
     <item>
       <title>[Ubuntu] -bash: warning: setlocale: LC_CTYPE: cannot change locale</title>
-      <link>https://blog.kerkerj.in/2013/12/ubuntu--bash-warning-setlocale-lc_ctype-cannot-change-locale/</link>
+      <link>https://blog.kerkerj.in/2013/12/ubuntu-bash-warning-setlocale-lc_ctype-cannot-change-locale/</link>
       <pubDate>Wed, 18 Dec 2013 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2013/12/ubuntu--bash-warning-setlocale-lc_ctype-cannot-change-locale/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2013/12/ubuntu-bash-warning-setlocale-lc_ctype-cannot-change-locale/</guid>
+      <description>$ sudo locale-gen zh_TW.UTF-8 $ sudo update-locale LANG=zh_TW.UTF-8  reload your bash profile</description>
     </item>
     
     <item>
@@ -80,7 +92,7 @@
       <pubDate>Tue, 26 Nov 2013 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2013/11/ubuntu-12.04-install-oracle-java/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>sudo rm /var/lib/dpkg/info/oracle-java7-installer* sudo apt-get purge oracle-java7-installer* sudo rm /etc/apt/sources.list.d/*java* sudo apt-get update sudo add-apt-repository ppa:webupd8team/java sudo apt-get update sudo apt-get install oracle-java7-installer </description>
     </item>
     
     <item>
@@ -89,7 +101,11 @@
       <pubDate>Tue, 22 Oct 2013 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2013/10/vagrant-%E4%BD%BF%E7%94%A8-vagrant-%E5%AE%89%E8%A3%9D-nginx-php5-fpm-mysql/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>Vagrant - Development environments made easy. 就是這個軟體的宗旨，把它想做是 ghost 吧！我們開發網站或是測試一些多機器架構時，常不小心就把自己的電腦或是測試主機搞到爛掉，租機器又慢又花錢，搞到爛重灌更麻煩。因此這個軟體基於 VirtualBox 做出了令人方便設定的功能，讓我們可以快速架設安裝環境並測試，尤其是以多機器架構而言更是方便！例如從最簡單的 Web server + DB server，或是 Web Load Balancer + Application Server * 5 等等的架構，一台電腦就能達成囉！ 今天主要是以安裝 Vagrant 及架設出 Nginx + php5-fpm 的架構，下一篇打算另外建構一台 mongodb server，達到 Vagrant 最主要的多機器設定功能~
+Vagrant 基本設定  先下載 VirtualBox 吧！
+ 下載 Vagarnt 套件 http://downloads.vagrantup.com/
+安裝好後，可能會需要加 path，至少 1.3.0 當時我是自己加的，現在 1.3.5 就不清楚了~
+ 接下來就可以開始加入 box (可以把它想為 ghost 檔)，並開始設定 Vagrant。  vagrant box add {你想要的Box名稱} {下載網址}  輸入後就會開始下載該 box 了！ 範例：</description>
     </item>
     
     <item>
@@ -98,7 +114,12 @@
       <pubDate>Fri, 27 Apr 2012 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2012/04/ubuntu-ror-install-with-rvm/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>以下都是以 Ubuntu 11.10為操作環境
+主要目標為使用 rvm (Ruby Version Manager)來管理 ruby 版本並安裝 ruby 和 rails
+先安裝一些必要套件 ( ex. openssl, zlib1g-dev &amp;hellip;.etc. )
+$sudo apt-get install build-essential bison openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev nodejs  安裝完基本套件後, 有兩種選擇:
+ 直接在系統上安裝 ruby ( sudo apt-get install ruby ) 使用 rvm 來管理 ruby 版本  基本上有 rvm 來管理 ruby 版本是比較方便的, 可以隨時切換不同的 ruby 版本
+(不過在使用一些套件上會有一些問題需要排解, 本篇最底下有 trouble shooting)</description>
     </item>
     
     <item>
@@ -107,7 +128,16 @@
       <pubDate>Fri, 20 Apr 2012 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2012/04/ubuntu-%E5%AE%89%E8%A3%9D%E8%A8%AD%E5%AE%9Assh/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>Ubuntu 裝完是沒辦法透過別台機器 ssh 進這台機器
+只能夠 ssh 出去, 所以來安裝一下
+$sudo apt-get update $sudo apt-get install ssh  裝完後修改一下設定檔 : $sudo vi /etc/ssh/sshd_config
+預設 port 為 22 可以改成別的 ( 可以到 /etc/services 看有沒有沒再用的 port 並指給它 ) (optional)
+Port 22 找到這行, 意思為允許 root 登入 (optional)
+PermitRootLogin yes 將 yes 改成 no, 不允許 root 登入.
+另外可以設定 /etc/hosts.allow 和 /etc/hosts.deny 更精準的限制連線 (optional)
+例如: 我只要 192.168.11.11 登入我這台機器
+則編輯 /etc/hosts.allow , 加入: sshd:192.168.11.11 :allow
+編輯 /etc/hosts.deny , 讓其他人都無法連入, 加入這行: sshd:all:deny</description>
     </item>
     
     <item>
@@ -116,7 +146,17 @@
       <pubDate>Mon, 16 Apr 2012 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2012/04/ubuntu-%E7%A3%81%E7%A2%9F%E5%88%86%E9%85%8D/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>我的筆電分割大概是這樣：
+HD: 250G
+ /boot : 200MB
+/ : 5GB
+/usr :10GB
+/var : 5GB
+/usr/local : 10GB
+/tmp : 5GB
+swap : 5GB
+/home : 40GB
+ no use: 170G ( 可以拿來灌Win7 )</description>
     </item>
     
     <item>
@@ -125,7 +165,8 @@
       <pubDate>Mon, 15 Aug 2011 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2011/08/ubuntu-%E5%B0%87-big5-%E6%96%87%E5%AD%97%E6%AA%94%E8%BD%89%E6%88%90-utf-8/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>$ iconv -f big5 -t utf-8 &amp;quot;要轉的big5檔案路徑&amp;quot; -o &amp;quot;轉好後要輸出的檔案名&amp;quot; $ iconv -f big5 -t utf-8 /home/test/bigtext.txt -o /home/test/utf8text.txt  也可以輸入和輸出是同一個檔案
+$ iconv -f big5 -t utf-8 /home/test/text.txt -o /home/test/text.txt </description>
     </item>
     
     <item>
@@ -134,7 +175,12 @@
       <pubDate>Mon, 02 May 2011 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2011/05/ubuntu-11.04-dropbox-%E5%95%9F%E5%8B%95%E5%95%8F%E9%A1%8C/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>我從 Dropbox 上下載 for Ubuntu 的套件，安裝完後，設定的頁面卻遲遲不出來，這真是非常的詭異，所以就查了解決方法。
+http://www.webupd8.org/2011/03/get-dropbox-appindicator-to-work-in.html#more
+ 一樣也是先去下載
+ 然後執行以下指令（一行一行)
+  $cd $wget http://webupd8.googlecode.com/files/fixdropbox $chmod +x fixdropbox $./fixdropbox  應該就可以了，如果要多作設定再：gedit ~/.dropbox.sh
+好像有什麼秒數的東西設定吧~~</description>
     </item>
     
   </channel>

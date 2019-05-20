@@ -13,272 +13,596 @@
     
     <item>
       <title>[API-d30] - 總結</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d30---%E7%B8%BD%E7%B5%90/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d30-%E7%B8%BD%E7%B5%90/</link>
       <pubDate>Thu, 30 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d30---%E7%B8%BD%E7%B5%90/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d30-%E7%B8%BD%E7%B5%90/</guid>
+      <description>總結三十天下來的 Restful API service 建置
+其實接觸到的東西很廣泛
+從 server 端到程式端，還有虛擬機器的使用都有沾到邊
+其實不管是哪個領域都是要一點一滴累積起來的
+以這次的開發技術來說，
+vagrant 方便在於我在和別人共享 server 環境時非常方便
+自己在架測試環境時也可以先將乾淨的 web serser 打包起來
+供日後隨時要用時開起來馬上 deploy 就可以使用
+另外加上方便的網路設定，
+在測試時非常方便
+另外則是 nodejs，
+這次會選擇 nodejs 主要也是想進入 javascript 的世界
+nodejs 若作為一個後端程式語言來說，我認為是非常輕量且入門非常簡單
+套一句最近常聽到的話
+javascript is everywhere
+不管是網頁前後端，nodejs 還可以拿來寫桌面應用、嵌入式系統
+應用領域非常廣泛
+也希望這門語言能夠更標準化，擺脫歷史包袱
+看最近幾年的發展，其實我認為是勢在必行的
+只缺一個領頭羊來帶領大家前往偉大的航道了! XD
+希望三十天的分享能給大家帶來不一樣的感受~
+對了突然想到一件事，這個主題的副標最後一句是想要和 APP 結合
+APP 在隔壁棚啦 XD</description>
     </item>
     
     <item>
       <title>[API-d29] - 實戰開發 - 發佈 - nginx</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d29---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E7%99%BC%E4%BD%88---nginx/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d29-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E7%99%BC%E4%BD%88-nginx/</link>
       <pubDate>Wed, 29 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d29---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E7%99%BC%E4%BD%88---nginx/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d29-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E7%99%BC%E4%BD%88-nginx/</guid>
+      <description>接下來這篇就會比較偏 server 設定了！
+nginx 是一套伺服器軟體，和 apache 並駕齊驅
+(其實我覺得 nginx &amp;gt;&amp;gt;&amp;gt; apache XD)
+主要是 nginx 清量快速
+我們要拿他幫 nodejs 處理接收 request 的部分，再將 request 導往 nodejs
+所以感覺就會如下圖:
+可以讓 nginx 當作是 load balancer,
+透過 reverse proxy 的方式轉發 request 給 nodejs, 讓 nginx 承受流量
+這就是我們今天要做的事情，
+所以首先，我們就要先裝 nginx，因此就先進虛擬機吧!
+$ sudo apt-get update &amp;amp;&amp;amp; sudo apt-get upgrade -y $ sudo apt-get install nginx  這樣就會安裝一個 nginx 了!
+Nginx 的設定檔都是放在 /etc/nginx/ 底下
+個別網站的設定放在 /etc/nginx/sites-available
+如果要讓該網站上線，則會將 /etc/nginx/sites-available 的設定檔 link 到 /etc/nginx/sites-enable</description>
     </item>
     
     <item>
       <title>[API-d28] - 實戰開發 - 發佈 - forever</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d28---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E7%99%BC%E4%BD%88---forever/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d28-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E7%99%BC%E4%BD%88-forever/</link>
       <pubDate>Tue, 28 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d28---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E7%99%BC%E4%BD%88---forever/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d28-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E7%99%BC%E4%BD%88-forever/</guid>
+      <description>Github 參考
+接下來兩天要講 deploy 的部分
+由於 deploy 的 script 其實非常的麻煩，因此我們就不提 deploy 的 script 了
+我們只專注在 server 上需要什麼東西
+今天要來看看 forever 這個套件
+這個套件可以幫助 nodejs 的 server 遇上無預警的 server 掛掉時
+會幫你自動重新啟動 nodejs 的 server
+也就是說
+假設說 nodejs 寫的 server 某個 route 有問題，
+送 request 後會因為某些因素造成 server error 造成程式碼 crash 時
+forever 的 monitor 會偵測到，並幫你自動重啟 server
+至少不會造成其他正常存取 server 的使用者遭遇到 server down 的問題
+這個套件可以選擇裝在 global 或是 project
+在這邊我是選擇裝成 global
+進到虛擬機
+$ npm install -g forever  p.</description>
     </item>
     
     <item>
       <title>[API-d27] - 實戰開發 - log 處理 及 config (db, apikey)</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d27---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---log-%E8%99%95%E7%90%86-%E5%8F%8A-config-db-apikey/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d27-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-log-%E8%99%95%E7%90%86-%E5%8F%8A-config-db-apikey/</link>
       <pubDate>Mon, 27 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d27---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---log-%E8%99%95%E7%90%86-%E5%8F%8A-config-db-apikey/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d27-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-log-%E8%99%95%E7%90%86-%E5%8F%8A-config-db-apikey/</guid>
+      <description>Github 參考
+log 處理 今天要來談談 log 的處理，
+身為一台自走 (?) node.js API server
+也應該要記錄一下 request 的 log 呀！
+不然哪天出問題了都不知道是哪個 request 把 server 搞掛了!
+因此我們就要加入 log 的 middleware
+node.js 的 log 套件也蠻多的, 例如 winston
+不過我們今天要用的是 log4js
+會選擇他其實也只是因為之前寫 java 有用過 log4j
+log4js 的設定感覺起來比較相似
+所以就使用它了!
+再來我們就安裝一下 log4js 吧
+$ npm install log4js -save  並在 app.js 中 require 進去
+var log4js = require(&#39;log4js&#39;);  接著在 app.js 的前面區段加入以下程式碼:
+log4js.configure({ appenders: [ { type: &#39;console&#39; }, //控制台輸出 { type: &#39;file&#39;, //文件輸出 filename: &#39;logs/access.</description>
     </item>
     
     <item>
       <title>[API-d26] - 實戰開發 - API-key</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d26---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---api-key/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d26-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-api-key/</link>
       <pubDate>Sun, 26 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d26---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---api-key/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d26-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-api-key/</guid>
+      <description>Github 參考
+假設今天我們的 API 上線了，可能就會面臨到一些問題，
+例如說，任何人都可以存取我們的 API
+當然我們不希望任何人都可以存取，
+因此我們必須加一點驗證機制在裡面，
+其中一種做法是使用 Oauth token
+在拿 API 資料前，先向 Oauth server 要一個 token
+Oauth Server 認可身份後即會核發一個 token 給 client 端
+該 token 具有時效性，6 mins ~ 30 min 不等，看怎麼實作
+接著 client 端就拿該組 token 以及 API url 對 resources server 丟 request
+其實我們現在在做的 API server 就是一個 resources server
+因為我們提供資源
+而 resources server 就會先認 token，
+確保該 token 的時效性以及正確性，以及該 token 可存取的資源範圍
+確認無誤後再回送正確的資料
+不過在這邊我們並沒有要實作 Oauth Server
+單純以一個 resources server 而言，只要認 token 是否正確</description>
     </item>
     
     <item>
       <title>[API-day25] - 實戰開發 - 處理 404 &amp; 500</title>
-      <link>https://blog.kerkerj.in/2014/10/api-day25---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E8%99%95%E7%90%86-404--500/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-day25-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E8%99%95%E7%90%86-404-500/</link>
       <pubDate>Sat, 25 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-day25---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E8%99%95%E7%90%86-404--500/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-day25-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E8%99%95%E7%90%86-404-500/</guid>
+      <description>Github 參考
+不知道大家在用 POSTMAN 對前幾天寫的 API 丟 request 有沒有遇過類似下面的情況:
+Cannot GET /user/kerkerj/todoss  通常是丟錯網址時會出現的，或是 code 沒寫好會出現 500 error
+這些情況是有辦法接到的，今天我們希望能夠接到後，將 message 轉成 json 格式吐回給 client
+因此程式碼如下
+app.js
+// catch 404 and forward to error handler app.use(function(req, res, next) { var err = new Error(&#39;Not Found&#39;); err.status = 404; res.status(404).jsonp({error: &amp;quot;Not Found&amp;quot;}); next(); }); // catch 500 app.use(function(err, req, res, next) { res.status(err.status || 500).json({error: err.message}); });  基本上這兩段 code 的意思就是加入了兩個 middleware</description>
     </item>
     
     <item>
       <title>[API-d24] - 實戰開發 - 刪除 TODO task API with mongoose</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d24---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E5%88%AA%E9%99%A4-todo-task-api-with-mongoose/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d24-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E5%88%AA%E9%99%A4-todo-task-api-with-mongoose/</link>
       <pubDate>Fri, 24 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d24---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E5%88%AA%E9%99%A4-todo-task-api-with-mongoose/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d24-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E5%88%AA%E9%99%A4-todo-task-api-with-mongoose/</guid>
+      <description>Github 參考
+還記得昨天說要偷懶一下嗎 XD
+因為刪除真的很簡單!
+我們前面走過了新增、修改、讀取了
+刪除？哪有什麼困難的呢! XD
+直接看 code 吧!
+routes/users.js:
+// Delete a todo task router.delete(&#39;/:user_id/todos/:todo_id&#39;, function(req, res) { var user_id = req.params.user_id; var todo_id = req.params.todo_id; TODO.remove( { _id: todo_id, user_id: user_id }, function (err) { if (err) { res.status(400).json( { error: &amp;quot;delete data error&amp;quot;} ); } else { res.status(201).json( { success: &amp;quot;true&amp;quot; } ); } } ); });  非常的簡單!
+先抓到 user_id, todo_id 後
+使用 .remove 的方法，下 WHERE 條件，並在 callback 作處理</description>
     </item>
     
     <item>
       <title>[API-d23] - 實戰開發 - 修改 TODO task API with mongoose</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d23---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E4%BF%AE%E6%94%B9-todo-task-api-with-mongoose/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d23-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E4%BF%AE%E6%94%B9-todo-task-api-with-mongoose/</link>
       <pubDate>Thu, 23 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d23---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E4%BF%AE%E6%94%B9-todo-task-api-with-mongoose/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d23-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E4%BF%AE%E6%94%B9-todo-task-api-with-mongoose/</guid>
+      <description>Github 參考
+接上篇，我們已經可以拿到 todo list 了
+也可以拿到特定的 todo task
+再來我們就可以編輯特定的 todo task 了對吧?
+不囉唆直接進入程式碼
+routes/users.js
+// Update a todo task router.put(&#39;/:user_id/todos/:todo_id&#39;, function(req, res) { var user_id = req.params.user_id; var todo_id = req.params.todo_id; var data = req.body; TODO.update( { _id: todo_id, user_id: user_id }, { $set: { content: data.content } }, function (err, num, raw, results) { if (err) { res.status(400).json( { error: &amp;quot;update data error&amp;quot; } ); } else { TODO.</description>
     </item>
     
     <item>
       <title>[API-d22] - 實戰開發 - 讀取 TODO task API with mongoose</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d22---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E8%AE%80%E5%8F%96-todo-task-api-with-mongoose/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d22-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E8%AE%80%E5%8F%96-todo-task-api-with-mongoose/</link>
       <pubDate>Wed, 22 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d22---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E8%AE%80%E5%8F%96-todo-task-api-with-mongoose/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d22-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E8%AE%80%E5%8F%96-todo-task-api-with-mongoose/</guid>
+      <description>Github 參考
+如果有使用 MongoDB client 的話就可以搭配使用會比較有感覺
+Mac 我是使用 Robomongo，算很好上手~
+今天要來實作讀取的部分
+讀取有分兩種，一種是讀取 list
+另一種是讀取特定某個 todo task，今天兩種都會實作
+首先我們先實作 get todo list
+因為若要拿到特定的 todo task，需要 todo task 的 id
+而我們現在還不曉得 todo task 的 id 是多少，我們只知道 user_id
+因此就先從 list 下手
+routes/users.js:
+// Get todo list router.get(&#39;/:user_id/todos&#39;, function(req, res) { var user_id = req.params.user_id; TODO.find( {user_id: user_id}, function (err, results) { if (err) { res.status(400).json( { error: &amp;quot;can not find data&amp;quot; } ); } else { res.</description>
     </item>
     
     <item>
       <title>[API-d21] - 實戰開發 - 新增 TODO task API with mongoose</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d21---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E6%96%B0%E5%A2%9E-todo-task-api-with-mongoose/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d21-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E6%96%B0%E5%A2%9E-todo-task-api-with-mongoose/</link>
       <pubDate>Tue, 21 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d21---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E6%96%B0%E5%A2%9E-todo-task-api-with-mongoose/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d21-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E6%96%B0%E5%A2%9E-todo-task-api-with-mongoose/</guid>
+      <description>Github 參考
+昨天我們了解了如何拿 url params 以及 request data
+今天我們就來使用他，對資料庫做存取
+由於使用到資料庫，因此我們要加入資料庫的 driver
+我們用的是 mongoose 套件
+app.js:
+// 在最上方加入 var mongoose = require(&#39;mongoose&#39;); // 在某個地方連接資料庫 var db_uri = &amp;quot;mongodb://192.168.33.10:27017/TODOs&amp;quot;; mongoose.connect(db_uri);  在這邊我是使用了虛擬機的 DB，因此是 mongodb://192.168.33.10:27017/TODOs
+DB 的名稱為 TODOs
+這樣在程式一跑起來時，就會連接資料庫了!
+再來我們就要設定在對資料庫做 CRUD 時，所需要做的事情
+首先我們先要定義 schema，
+雖然 mongodb 是 schema-free，但是官方文件也有提到最好還是有固定的 schema 避免記憶體 allocate 時出現問題，而程式撰寫時邏輯也不會因此而過於複雜
+這時候我們就需要 model 資料夾了，在 model 資料夾中新增一個 todos.js
+裡面要放的就是 todo task 的 schema
+內容如下:
+models/todos.js:
+&#39;use strict&#39;; var mongoose = require(&#39;mongoose&#39;); // Define our todo schema var TODOschema = new mongoose.</description>
     </item>
     
     <item>
       <title>[API-d20] - 實戰開發 - Routes 2, get params and request data</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d20---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---routes-2-get-params-and-request-data/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d20-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-routes-2-get-params-and-request-data/</link>
       <pubDate>Mon, 20 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d20---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---routes-2-get-params-and-request-data/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d20-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-routes-2-get-params-and-request-data/</guid>
+      <description>Github 參考
+接著我們要根據我們開之前寫好的 文件 來開發:
+要有下列 routes
+TODOs GET /user/{user_id}/todos/ POST /user/{user_id}/todos/ GET /user/{user_id}/todos/{id} PUT /user/{user_id}/todos/{id} DELETE /user/{user_id}/todos/{id}  這樣的需求其實可以用 namespace 實作，不過我們偷懶一點，直接指向 /user 就好
+所以在 app.js 加入
+var users = require(&#39;./routes/users&#39;); app.use(&#39;/user&#39;, users);  所以會變這樣:
+var express = require(&#39;express&#39;); var app = express(); // Set routers var index = require(&#39;./routes/index&#39;); var users = require(&#39;./routes/users&#39;); app.use(&#39;/&#39;, index); app.use(&#39;/user&#39;, users); module.exports = app;  不過看起來我們缺少 routes/users.js，所以我們也來新增一個
+routes/users.js 內容如下
+&#39;use strict&#39;; var express = require(&#39;express&#39;); var router = express.</description>
     </item>
     
     <item>
       <title>[API-d19] - 實戰開發 - index &amp; route &amp; http status code</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d19---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---index--route--http-status-code/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d19-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-index-route-http-status-code/</link>
       <pubDate>Sun, 19 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d19---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---index--route--http-status-code/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d19-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-index-route-http-status-code/</guid>
+      <description>Github 參考
+昨天先把專案目錄初始化，裝完該裝的套件後
+在 routes 中加入一個 index.js 檔案
+&#39;use strict&#39;; var express = require(&#39;express&#39;); var router = express.Router(); router.get(&#39;/&#39;, function(req, res) { res.status(200).json({ greetings: &amp;quot;hello world!&amp;quot;}); }); module.exports = router;  建立一個 app.js 在專案根目錄中:
+app.js
+var express = require(&#39;express&#39;); var app = express(); var index = require(&#39;./routes/index&#39;); // Set routers app.use(&#39;/&#39;, index); module.exports = app;  然後在 bin 資料夾建立一個 server.js:
+bin/server.js:
+&#39;use strict&#39;; var debug = require(&#39;debug&#39;)(&#39;TODOAPI&#39;); var app = require(&#39;.</description>
     </item>
     
     <item>
       <title>[API-d18] - 實戰開發 - 套件模組</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d18---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E5%A5%97%E4%BB%B6%E6%A8%A1%E7%B5%84/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d18-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E5%A5%97%E4%BB%B6%E6%A8%A1%E7%B5%84/</link>
       <pubDate>Sat, 18 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d18---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E5%A5%97%E4%BB%B6%E6%A8%A1%E7%B5%84/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d18-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E5%A5%97%E4%BB%B6%E6%A8%A1%E7%B5%84/</guid>
+      <description>會使用到的套件: 主體: express - web framework body-parser - parse request body 測試相關: mocha - test framework mocha-mongoose - 用來和 mocha 和 mongoose 中間做介接的套件 superagent - 拿它來丟 http request validator - 用來驗證某個物件是否為某個型別 expect.js - 類似 BDD 的語法，用來寫測試的 debug - debug package DB 相關: mongoose - mongodb orm mongodb - mongodb native driver 開發相關: nodemon - detect file change and restart server 生產環境相關: log4js - 記錄 request log  這是我的 package.json, 可以複製到專案目錄，然後下 npm install</description>
     </item>
     
     <item>
       <title>[API-d17] - 實戰開發 - 專案結構</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d17---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E5%B0%88%E6%A1%88%E7%B5%90%E6%A7%8B/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d17-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E5%B0%88%E6%A1%88%E7%B5%90%E6%A7%8B/</link>
       <pubDate>Fri, 17 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d17---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E5%B0%88%E6%A1%88%E7%B5%90%E6%A7%8B/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d17-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E5%B0%88%E6%A1%88%E7%B5%90%E6%A7%8B/</guid>
+      <description>首先我們就在虛擬機的資料夾底下，建立一個專案資料夾吧!
+今天會來簡單切割一下我們的專案目錄
+建立新專案目錄: $ cd /vagrant/ $ mkdir TODOAPI $ cd TODOAPI $ npm init // 輸入專案資訊 $  建立專案結構 / | - bin/ | - routes/ | - model/ | - node_modules/ | - logs/ | - config/ | - test/ | - app.js | - package.json  分別講解一下各個 folder 的工作:
+bin 筆者會在 bin 資料夾底下放一個 server.js
+這個 server.js 就是會專門用來啟動一個 app.js instance
+routes 基本上如果了解 MVC 架構的話，routes 就是 controller 的意思，其實如果讀者本身夠了解的話，這個資料夾也可以改成 controller 也 ok，應該說，其實資料夾怎麼放都是看個人隨意即可，只是若是要模組化的話，筆者會這樣來處理一個專案結構。</description>
     </item>
     
     <item>
       <title>[API-d16] - 實戰開發 - 設定主題及規劃</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d16---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E8%A8%AD%E5%AE%9A%E4%B8%BB%E9%A1%8C%E5%8F%8A%E8%A6%8F%E5%8A%83/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d16-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E8%A8%AD%E5%AE%9A%E4%B8%BB%E9%A1%8C%E5%8F%8A%E8%A6%8F%E5%8A%83/</link>
       <pubDate>Thu, 16 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d16---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E8%A8%AD%E5%AE%9A%E4%B8%BB%E9%A1%8C%E5%8F%8A%E8%A6%8F%E5%8A%83/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d16-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E8%A8%AD%E5%AE%9A%E4%B8%BB%E9%A1%8C%E5%8F%8A%E8%A6%8F%E5%8A%83/</guid>
+      <description>接下來我們想要做到的是一個 TODO list 的 RESTful API
+並且會先使用 apiary.io 做規劃
+實際看看感覺如何
+進入網站後，註冊登入後
+左上角的 dropdown list 選擇 create new API
+產生後下方就會跑出範例文擋
+這個網站會透過特定格式的編排自己希望的 API endpoint 及範例回傳值後，產生出一份漂亮的文件
+網站中間是模式的選擇
+Documentation 是實際讓其他人看的，Editor 則是編輯模式
+我們就稍微簡單規劃一下 TODO List 的 RESTful API 吧!
+這是我自己規劃的 文件
+基本上 route 會長這個樣子:
+TODOs GET /user/{user_id}/todos/ POST /user/{user_id}/todos/ GET /user/{user_id}/todos/{id} PUT /user/{user_id}/todos/{id} DELETE /user/{user_id}/todos/{id}  資料格式也都在該文件整理好了
+/user/{user_id}/ 只是用來辨識是哪個 user 的 todo task data
+在這個小 API 不會琢磨在使用者系統的建立，只會專注在操作 todo task data
+我們可以直接透過 PostMan 來丟丟看
+我們設定必須要使用 API-key 才能存取 API，比較進階的做法就是使用 Oauth 的方式取得 token 來存取 API</description>
     </item>
     
     <item>
       <title>[API-d15] - [Javascript 番外篇] Javascript callback, event</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d15---javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-callback-event/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d15-javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-callback-event/</link>
       <pubDate>Wed, 15 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d15---javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-callback-event/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d15-javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-callback-event/</guid>
+      <description>這幾天會探討 javascript 的特性，由於比較少在寫 js ，因此有錯請指正
+javascript 有個特性：event
+意思就是說，javascript 中，所有的事情都是由事件驅動的
+如果說有寫過 web 前端的話，
+其實呼叫 button.click function 時
+並不會馬上執行 click 裡面的動作
+而是加了一個 click 的 listener
+等到 button 被 click 後，才會執行 click 裡面的程式碼
+所以寫習慣一般 procedure 的程式會有點不太習慣
+舉個 procedure 的例子，下面有五件事想要做：
+煮飯(); // 10 分鐘 接電話(); // 1 分鐘 吃麵(); // 5 分鐘 丟垃圾(); // 7 分鐘  一般的程式會是照順序執行
+也就是 煮飯完 -&amp;gt; 接電話 -&amp;gt; 吃麵 -&amp;gt; 丟垃圾
+總執行時間 = 23 分鐘
+但是如果把這段 code 丟給 javascript 執行的話</description>
     </item>
     
     <item>
       <title>[API-d14] - [Javascript 番外篇] Javascript function scopes 和 closures</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d14---javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-function-scopes-%E5%92%8C-closures/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d14-javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-function-scopes-%E5%92%8C-closures/</link>
       <pubDate>Tue, 14 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d14---javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-function-scopes-%E5%92%8C-closures/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d14-javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-function-scopes-%E5%92%8C-closures/</guid>
+      <description>這幾天會探討 javascript 的特性，由於比較少在寫 js ，因此有錯請指正
+Scope 例子:
+function hi() { var greetings = &amp;quot;hi&amp;quot;; console.log(&amp;quot;Say: &amp;quot; + greetings); function sayYa(newInput) { greetings = newInput; console.log(&amp;quot;Say: &amp;quot; + greetings); } function sayCool(newInput) { var cool = newInput; console.log(&amp;quot;Say: &amp;quot; + cool); } sayYa(&amp;quot;Yo&amp;quot;); sayCool(&amp;quot;Cool&amp;quot;); console.log(&amp;quot;Say: &amp;quot; + greetings); } hi();  很簡單的概念
+greetins 在 sayYa 方法中被覆寫掉了
+如果要定義 local 變數必須在 function 裏用 var 定義
+例如 sayCool function
+Closure 例子:
+function person(){ var name = &#39;default&#39;; return { greetings: function() { console.</description>
     </item>
     
     <item>
       <title>[API-d13] - [Javascript 番外篇] Javascript require/ module/ Module Pattern</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d13---javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-require/-module/-module-pattern/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d13-javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-require-module-module-pattern/</link>
       <pubDate>Mon, 13 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d13---javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-require/-module/-module-pattern/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d13-javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-require-module-module-pattern/</guid>
+      <description>接下來幾天會探討 node.js 的特性，由於比較少在寫 js ，因此有錯請指正
+在 node.js 裏，要讀取外部模組都是透過 require 和 exports 來做溝通
+以下列出這次最簡單 module 的例子
+//hello.js console.log(&#39;Hello World&#39;);  // app.js require(&#39;./hello.js&#39;);  Module 也是有 Pattern 的 第一種: Global (Not so good)
+// foo.js foo = function() { console.log(&amp;quot;foo!&amp;quot;); } // app.js require(&#39;./foo.js&#39;); foo();  第二種: export an anonymous function
+// foo.js module.exports = function() { console.log(&amp;quot;foo! YA&amp;quot;); }; // app.js var test = require(&amp;quot;./foo.js&amp;quot;); test();  第三種： export a named function</description>
     </item>
     
     <item>
       <title>[API-d12] - MongoDB - Hello World! (Client-side) </title>
-      <link>https://blog.kerkerj.in/2014/10/api-d12---mongodb---hello-world-client-side/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d12-mongodb-hello-world-client-side/</link>
       <pubDate>Sun, 12 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d12---mongodb---hello-world-client-side/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d12-mongodb-hello-world-client-side/</guid>
+      <description>今天要使用 Node.js 的 mongodb driver 來操作 DB
+一樣先開啟虛擬機並且登入吧
+會使用到的套件是:
+mongodb -&amp;gt; mongodb native driver  或許有人有看過 mongoose -&amp;gt; 官網
+算是 MongoDB 的 ORM，我們在這邊如果有時間的話再簡單了解一下，
+現在先使用 native driver 來操作
+我們在這邊就不裝全域套件了，裝在 API 專案裡面
+並且使用 -save 來將相依性寫入 package.json 裏
+$ cd /vagrant/API/ $ npm install mongodb -save  從虛擬機回到電腦的資料夾中，在虛擬機資料夾的 API 資料夾中，
+今天我們先不和 express 搭配，因此就是純操作 node.js + mongodb module
+新增一個 mongoTest.js
+我們先來連線到 MongoDB，連線的方式有很多，下面是其中一種方式，
+// 先宣告用的到的東西 var MongoClient = require(&#39;mongodb&#39;).MongoClient , Server = require(&#39;mongodb&#39;).Server , options = { auto_reconnection: true, poolSize: 10 }; // Server 設定 var mongoClient = new MongoClient(new Server(&#39;localhost&#39;, 27017, options)); // 開啟連線 mongoClient.</description>
     </item>
     
     <item>
       <title>[API-d11] - MongoDB - Hello World!</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d11---mongodb---hello-world/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d11-mongodb-hello-world/</link>
       <pubDate>Sat, 11 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d11---mongodb---hello-world/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d11-mongodb-hello-world/</guid>
+      <description>今天先講在 Server 中如何操作 MongoDB
+一樣開啟虛擬機，
+我們在先前已經有先安裝過 MongoDB 了，因此，在 Ubuntu Server 中預設是開機啟動的
+登入虛擬機吧~
+登入虛擬機後，我們要進入 MongoDB，必須使用 mongo 這個 MongoDB Shell
+$ mongo MongoDB shell version: 2.6.4 connecting to: test Welcome to the MongoDB shell. For interactive help, type &amp;quot;help&amp;quot;. For more comprehensive documentation, see http://docs.mongodb.org/ Questions? Try the support group http://groups.google.com/group/mongodb-user &amp;gt;  此時會發現輸入指令的地方變成了 &amp;gt; 表示我們已經在 mongodb 裡面了
+為什麼不需要帳號密碼即可進入 MongoDB 呢，因為 MongoDB 預設是不需要做登入的
+並且加上預設只能由本機存取，也就是說，外部連入的 IP 是進不了 MongoDB 的
+這部分後面會再作說明。
+傳統的 Table 在 MongoDB 中，稱之為 Collection</description>
     </item>
     
     <item>
       <title>[API-d10] - Express - Hello World!</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d10---express---hello-world/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d10-express-hello-world/</link>
       <pubDate>Fri, 10 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d10---express---hello-world/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d10-express-hello-world/</guid>
+      <description>Express - Hello World! 今天就要來安裝主角之一的 Express 了!
+一樣開啟虛擬機器我應該是可以不用多說了 XD
+先確認自己的 node 是不是 NVM 的 node 喲
+建立專案 $ cd /vagrant/ $ mkdir API $ cd API/ $ npm init  自己輸入專案的相關內容吧，不知道的就直接按 enter 空白丟給他~
+就會產生 package.json 了!
+安裝 Express // 在專案目錄底下 (/vagrant/API/) $ npm install express -save  下 -save 的原因是要將 express 加入 package.json 中
+離開虛擬機，其實我們也可以在虛擬機資料夾看到剛剛建立的專案了，
+現在開始就可以使用自己喜歡的編輯器來開啟這個專案資料夾，我個人偏好使用 Sublime Text
+要執行專案時再回終端機即可
+Express Hello World! 在 API 資料夾中建立一個 app.js
+內容是:
+javascript var express = require(&#39;express&#39;); var app = express(); app.</description>
     </item>
     
     <item>
       <title>[API-d9] - NVM 與 NPM 使用</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d9---nvm-%E8%88%87-npm-%E4%BD%BF%E7%94%A8/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d9-nvm-%E8%88%87-npm-%E4%BD%BF%E7%94%A8/</link>
       <pubDate>Thu, 09 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d9---nvm-%E8%88%87-npm-%E4%BD%BF%E7%94%A8/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d9-nvm-%E8%88%87-npm-%E4%BD%BF%E7%94%A8/</guid>
+      <description>NVM 與 NPM 使用 NVM - Node.js Version Manager 安裝 如果是 Ubuntu 的話必須先要有 build-essential 和 libssl-dev 套件
+不過這個我們之前就裝過了，所以直接安裝 NVM 吧~
+$ curl https://raw.githubusercontent.com/creationix/nvm/v0.17.2/install.sh | bash $ source ~/.bashrc  使用 NVM 安裝 node.js 先前我們有使用 Ubuntu 本身的 apt-get 安裝 Node.js
+不過那是被安裝到 /usr/bin/node
+有時候要安裝套件需要 sudo 提供管理者權限
+非常麻煩，因此我們使用 NVM 來安裝另一個 Node.js
+這個 Node.js 的執行檔就任我們使用，不需要提供管理者權限了
+$ nvm install 0.10  nvm 就會安裝 0.10 版本，安裝完後就要使用它：
+$ nvm use 0.10  再來我們把 nvm 的 node.js 設定成預設的 node</description>
     </item>
     
     <item>
       <title>[API-d8] - Node.js - Hello World!</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d8---node.js---hello-world/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d8-node.js-hello-world/</link>
       <pubDate>Wed, 08 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d8---node.js---hello-world/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d8-node.js-hello-world/</guid>
+      <description>Node.js - Hello World! 一樣先開虛擬機哦~
+並且開啟終端機連進 server 裡面~
+以下是 Node.js 官方網站的 web server 程式範例，我稍作小修改：
+var http = require(&#39;http&#39;); http.createServer(function (req, res) { res.writeHead(200, {&#39;Content-Type&#39;: &#39;text/plain&#39;}); res.end(&#39;Hello World\n&#39;); }).listen(1337, &#39;0.0.0.0&#39;); console.log(&#39;Server running at http://0.0.0.0:1337/&#39;);  我們先在虛擬機的資料夾建立一個子資料夾 &amp;lsquo;HelloWorld&amp;rsquo;
+在 HelloWorld 資料夾裡面建立一個 app.js
+內容如上，存檔。
+使用終端機進入 server :
+$ vagrant ssh $ cd /vagrant/HelloWorld $ node app.js  到瀏覽器輸入 http://192.168.33.10:1337/
+(或者是你的 Vagrantfile 裡面設定的 private IP)
+即可看到 Hello World 了！
+要關掉 Server 也非常簡單，回到下指令的地方，按下 ctrl + c 即可中斷程式</description>
     </item>
     
     <item>
       <title>[API-d7] - [Server 番外篇] 建立自己的本機虛擬伺服器 3 - 打包環境</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d7---server-%E7%95%AA%E5%A4%96%E7%AF%87-%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E6%9C%AC%E6%A9%9F%E8%99%9B%E6%93%AC%E4%BC%BA%E6%9C%8D%E5%99%A8-3---%E6%89%93%E5%8C%85%E7%92%B0%E5%A2%83/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d7-server-%E7%95%AA%E5%A4%96%E7%AF%87-%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E6%9C%AC%E6%A9%9F%E8%99%9B%E6%93%AC%E4%BC%BA%E6%9C%8D%E5%99%A8-3-%E6%89%93%E5%8C%85%E7%92%B0%E5%A2%83/</link>
       <pubDate>Tue, 07 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d7---server-%E7%95%AA%E5%A4%96%E7%AF%87-%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E6%9C%AC%E6%A9%9F%E8%99%9B%E6%93%AC%E4%BC%BA%E6%9C%8D%E5%99%A8-3---%E6%89%93%E5%8C%85%E7%92%B0%E5%A2%83/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d7-server-%E7%95%AA%E5%A4%96%E7%AF%87-%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E6%9C%AC%E6%A9%9F%E8%99%9B%E6%93%AC%E4%BC%BA%E6%9C%8D%E5%99%A8-3-%E6%89%93%E5%8C%85%E7%92%B0%E5%A2%83/</guid>
+      <description>昨天我們已經把一個全新乾淨的環境架起來了
+這時候我們不希望因為日後的操作導致 Server 環境髒掉，又要重灌
+因此我們今天就來練習一下如何使用 vagrant 打包環境!
+Vagrant 打包 一樣先進入虛擬機資料夾，先確保虛擬機沒有在運作:
+$ vagrant status Current machine states: default poweroff (virtualbox) The VM is powered off. To restart the VM, simply run `vagrant up`  如果是 poweroff 的話，就可以進行接下來的動作，如果是其他狀態的話，就先下關機指令囉
+$ vagrant package ==&amp;gt; default: Clearing any previously set forwarded ports... ==&amp;gt; default: Exporting VM... ==&amp;gt; default: Compressing package to: /Users/.../ithome/package.box  vagrant 就會在虛擬機器資料夾底下建立一個 package.box
+這個檔案就是整個伺服器環境的檔案了!
+假設今天想要讓團隊成員使用，只要他們都有 VirtualBox + Vagrant 的話，
+就可以依循下面的指令步驟將你所做的 box 匯入並使用：</description>
     </item>
     
     <item>
       <title>[API-d6] - [Server 番外篇] 建立自己的本機虛擬伺服器 2 - Ubuntu 基本設定與安裝 Node.js, MongoDB</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d6---server-%E7%95%AA%E5%A4%96%E7%AF%87-%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E6%9C%AC%E6%A9%9F%E8%99%9B%E6%93%AC%E4%BC%BA%E6%9C%8D%E5%99%A8-2---ubuntu-%E5%9F%BA%E6%9C%AC%E8%A8%AD%E5%AE%9A%E8%88%87%E5%AE%89%E8%A3%9D-node.js-mongodb/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d6-server-%E7%95%AA%E5%A4%96%E7%AF%87-%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E6%9C%AC%E6%A9%9F%E8%99%9B%E6%93%AC%E4%BC%BA%E6%9C%8D%E5%99%A8-2-ubuntu-%E5%9F%BA%E6%9C%AC%E8%A8%AD%E5%AE%9A%E8%88%87%E5%AE%89%E8%A3%9D-node.js-mongodb/</link>
       <pubDate>Mon, 06 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d6---server-%E7%95%AA%E5%A4%96%E7%AF%87-%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E6%9C%AC%E6%A9%9F%E8%99%9B%E6%93%AC%E4%BC%BA%E6%9C%8D%E5%99%A8-2---ubuntu-%E5%9F%BA%E6%9C%AC%E8%A8%AD%E5%AE%9A%E8%88%87%E5%AE%89%E8%A3%9D-node.js-mongodb/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d6-server-%E7%95%AA%E5%A4%96%E7%AF%87-%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E6%9C%AC%E6%A9%9F%E8%99%9B%E6%93%AC%E4%BC%BA%E6%9C%8D%E5%99%A8-2-ubuntu-%E5%9F%BA%E6%9C%AC%E8%A8%AD%E5%AE%9A%E8%88%87%E5%AE%89%E8%A3%9D-node.js-mongodb/</guid>
+      <description>[Server 番外篇] 建立自己的本機虛擬伺服器 2 - Ubuntu 基本設定與安裝 Node.js, MongoDB 嗨又到了 Server 時間了!
+接下來我們都會做一些指令操作，
+如果進一步有興趣的可以 Google 鳥哥的私房菜，
+完整的 Linux 操作教學，淺顯易懂，想學習操作 linux OS 的話必看！
+今天我們要稍稍整理一下昨天剛安裝完的 Ubuntu 作業系統，以及安裝一些我們需要用到的東西
+首先我們的第一步就是先開啟終端機，到昨天放 Vagrantfile 的資料夾:
+$ cd ~/ithome/  開啟 Ubuntu
+$ vagrant up  順帶一提，有時候開機時可能會卡在一個地方：
+default: Warning: Connection timeout. Retrying... default: Warning: Connection timeout. Retrying... default: Warning: Connection timeout. Retrying...  這個就稍微等一下吧~ 如果電腦性能比較差的話可能會卡比較久，不過應該不至於會卡超過 10 分鐘
+如果卡超過十分鐘可能要強制中斷，並且尋找解決辦法了～
+開機完成後就登入吧!
+$ vagrant ssh ... vagrant@vagrant-ubuntu-trusty-64:~$  Ubuntu 套件, 設定時區 今天就要來幫 Ubuntu 安裝一些東西，</description>
     </item>
     
     <item>
       <title>[API-d5] - [Server 番外篇] 建立自己的本機虛擬伺服器 1 - Vagrant &amp; VirtualBox 安裝</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d5---server-%E7%95%AA%E5%A4%96%E7%AF%87-%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E6%9C%AC%E6%A9%9F%E8%99%9B%E6%93%AC%E4%BC%BA%E6%9C%8D%E5%99%A8-1---vagrant--virtualbox-%E5%AE%89%E8%A3%9D/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d5-server-%E7%95%AA%E5%A4%96%E7%AF%87-%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E6%9C%AC%E6%A9%9F%E8%99%9B%E6%93%AC%E4%BC%BA%E6%9C%8D%E5%99%A8-1-vagrant-virtualbox-%E5%AE%89%E8%A3%9D/</link>
       <pubDate>Sun, 05 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d5---server-%E7%95%AA%E5%A4%96%E7%AF%87-%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E6%9C%AC%E6%A9%9F%E8%99%9B%E6%93%AC%E4%BC%BA%E6%9C%8D%E5%99%A8-1---vagrant--virtualbox-%E5%AE%89%E8%A3%9D/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d5-server-%E7%95%AA%E5%A4%96%E7%AF%87-%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E6%9C%AC%E6%A9%9F%E8%99%9B%E6%93%AC%E4%BC%BA%E6%9C%8D%E5%99%A8-1-vagrant-virtualbox-%E5%AE%89%E8%A3%9D/</guid>
+      <description>VirtualBox 是一套虛擬軟體，可以方便幫助我們在現有的作業系統上
+模擬另一個作業系統 (如 linux, Ubuntu, CentOS&amp;hellip;)
+在虛擬機器裡面所以的一切變動，都不會影響到現有的作業系統，
+非常適合拿來做測試使用
+由於現在大部份的 Service 除了架設在 Windows Server 外，最大宗的就是 *nix distribution 了
+因此這在這個系列文中，也是一定要教大家如何建立起虛擬測試機器，
+來模擬真實 Server 環境中，如何架設自己撰寫的 API Service
+VirtualBox 到 VirtualBox 官方網站下載合適的安裝檔案吧!
+安裝完成就可以了!
+因為我們接下來會使用 Vagrant 這套 commaond line tool 來對 VirtualBox 進行操作
+因此只要安裝完 VirtualBox 後就可以不用管他了 XD
+Vagrant Vagrant
+它可以幫助我們快速的建立一個輕量、可重複使用、並且可以打包起來帶著走的環境
+透過編輯一個設定檔，就可以簡單設定該虛擬系統的 *nix 基本設定，如 共享資料夾、網路存取等等，
+不需要透過 VirtualBox
+通常這套軟體可以應用在團隊開發上：
+以網頁開發來說，如果大家的測試環境與版本都不太一樣，例如 apache 或 php 版本不同
+有時候會造成團隊溝通的負擔，因此透過 Vagrant 將 server 環境重新建立一套虛擬機器，
+並且透過 Vagrant 打包，就可以丟給其他人使用，這樣一來大家的環境都一樣，
+就可以避免這個問題，
+而且還有一點，Server 的安裝是很累人的，同樣的事情基本上都不會想做第二遍，
+因此打包一個乾淨的環境後備份，弄髒了可以隨時快速再把備份拿出來用，非常方便！
+安裝: 到 下載頁面 尋找適合自己的下載並且安裝</description>
     </item>
     
     <item>
       <title>[API-d4] - 使用技術與工具介紹及原因</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d4---%E4%BD%BF%E7%94%A8%E6%8A%80%E8%A1%93%E8%88%87%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%B4%B9%E5%8F%8A%E5%8E%9F%E5%9B%A0/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d4-%E4%BD%BF%E7%94%A8%E6%8A%80%E8%A1%93%E8%88%87%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%B4%B9%E5%8F%8A%E5%8E%9F%E5%9B%A0/</link>
       <pubDate>Sat, 04 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d4---%E4%BD%BF%E7%94%A8%E6%8A%80%E8%A1%93%E8%88%87%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%B4%B9%E5%8F%8A%E5%8E%9F%E5%9B%A0/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d4-%E4%BD%BF%E7%94%A8%E6%8A%80%E8%A1%93%E8%88%87%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%B4%B9%E5%8F%8A%E5%8E%9F%E5%9B%A0/</guid>
+      <description>使用技術與工具介紹及原因 終於要開始進入正題了！
+在了解 REST/RESTful 後，
+就要從無到有 - 從 Server 到 API endpoint 都由自己打造
+今天會先來說明接下來會使用到哪些工具及技術
+由於筆者使用 Mac ，因此若是有其他平台的使用者可能需要自行找教學
+Server - Ubuntu with Vagrant + VitrualBox 接下來幾天會先從這個部分開始提起
+我們會使用 VirtualBox + Vagrant 的方式來建立自己的虛擬環境
+避免一些讀者可能對 Server command line 不熟
+這個部分是大家可以跳過的部分，但是我還是會從無到有架起來
+Backend Language - Node.js 後端語言使用了 Node.js，其實本來有考慮使用 Golang，
+但顧及自己的時間&amp;hellip; 還是使用 Node.js，方便快速
+這幾年是 Javascript 的時代，
+優勝美地似乎也可以支援使用 Javascript 撰寫 Automation Tool
+從前端打到後端甚至到 DB 都可以使用到 Javascript ，
+是該來看看 Javascript 的語法特性了 :D
+而且 Node.js Event-driven 的特性，可以利用少少的資源提供高效能的服務
+同時搭配易用性及社群活躍度，這是我選擇 Node.js 而非選擇 Golang 的原因</description>
     </item>
     
     <item>
       <title>[API-d3] - 使用時機與實際 API 參考</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d3---%E4%BD%BF%E7%94%A8%E6%99%82%E6%A9%9F%E8%88%87%E5%AF%A6%E9%9A%9B-api-%E5%8F%83%E8%80%83/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d3-%E4%BD%BF%E7%94%A8%E6%99%82%E6%A9%9F%E8%88%87%E5%AF%A6%E9%9A%9B-api-%E5%8F%83%E8%80%83/</link>
       <pubDate>Fri, 03 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d3---%E4%BD%BF%E7%94%A8%E6%99%82%E6%A9%9F%E8%88%87%E5%AF%A6%E9%9A%9B-api-%E5%8F%83%E8%80%83/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d3-%E4%BD%BF%E7%94%A8%E6%99%82%E6%A9%9F%E8%88%87%E5%AF%A6%E9%9A%9B-api-%E5%8F%83%E8%80%83/</guid>
+      <description>使用時機與實際 API 參考 什麼時候需要打造 RESTful API?
+看看別人的 RESTful API (Instagram/Twitter)
+什麼時候需要打造 RESTful API?
+我認為當有數組資源要被多種不同平台使用時，就需要打造 RESTful API
+例如，有 Android/ iOS / Web 要對同一 table 做存取時，
+假設有個 MySQL DB，各個平台都使用各自的 mysql-driver 來直接操作 DB
+假設有個 A 專案建立了一套書籍管理系統，資料庫裡記錄了大大小小的書籍，
+而有個新的 B 專案需要使用到書籍的資料，此時 DB 操作的程式碼只能再寫一遍，
+且各個平台重新撰寫，似乎是不大靠譜。
+撰寫 RESTful API 的好處之一即是 RESTful 使用 HTTP 協定，
+各個平台皆支援，不需要太複雜的程式，只需要使用各個平台的 http-client，
+各個平台也不需要了解 DB 操作語法，只需要知道 json, xml 習慣的資料格式，
+且開發 API 還能夠對各個資源輕易地上 cache 增進反應速度，
+開發 RESTful API 好處多多，哪天想 Open API 也就不需要再多作處理了～
+接著讓我們來看看兩個有名網站的 API 吧！</description>
     </item>
     
     <item>
       <title>[API-d1] - 定義 1 - 什麼是 REST/RESTful?</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d1---%E5%AE%9A%E7%BE%A9-1---%E4%BB%80%E9%BA%BC%E6%98%AF-rest/restful/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d1-%E5%AE%9A%E7%BE%A9-1-%E4%BB%80%E9%BA%BC%E6%98%AF-rest-restful/</link>
       <pubDate>Thu, 02 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d1---%E5%AE%9A%E7%BE%A9-1---%E4%BB%80%E9%BA%BC%E6%98%AF-rest/restful/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d1-%E5%AE%9A%E7%BE%A9-1-%E4%BB%80%E9%BA%BC%E6%98%AF-rest-restful/</guid>
+      <description>Representational State Transfer，簡稱 REST，
+它是一種網路架構風格，他並不是一種標準。
+而 RESTful 可以這樣子想像:
+美麗 (Beauty) 的事物可以稱為 Beautiful
+設計為 REST 的系統就可以稱為 RESTful
+以 API 而言，假設我們正在撰寫一組待辦事項的 API，
+可能會有以下方式來作為 API 的 interface:
+獲取使用者資料 /getAllUsers 獲取使用者資料 /getUser/1 新增使用者資料 /createUser 更新使用者資料 /updateUser/1 刪除使用者資料 /deleteUser/1  若是以 REST 風格來開發 RESTful API 的話:
+獲取使用者資料 /GET /users 獲取使用者資料 /GET /user/1 新增使用者資料 /POST /user 更新使用者資料 /PUT /user/1 刪除使用者資料 /DELETE /user/1  兩者差異是在於 RESTful API 充分地使用了 HTTP protocol (GET/POST/PUT/DELETE)，
+達到
+1. 以直觀簡潔的資源 URI
+2. 並且善用 HTTP Verb</description>
     </item>
     
     <item>
       <title>[API-d2] - 定義 2 - RESTful 的優點與要求</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d2---%E5%AE%9A%E7%BE%A9-2---restful-%E7%9A%84%E5%84%AA%E9%BB%9E%E8%88%87%E8%A6%81%E6%B1%82/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d2-%E5%AE%9A%E7%BE%A9-2-restful-%E7%9A%84%E5%84%AA%E9%BB%9E%E8%88%87%E8%A6%81%E6%B1%82/</link>
       <pubDate>Thu, 02 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d2---%E5%AE%9A%E7%BE%A9-2---restful-%E7%9A%84%E5%84%AA%E9%BB%9E%E8%88%87%E8%A6%81%E6%B1%82/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d2-%E5%AE%9A%E7%BE%A9-2-restful-%E7%9A%84%E5%84%AA%E9%BB%9E%E8%88%87%E8%A6%81%E6%B1%82/</guid>
+      <description>承上篇，
+RESTful 的優點如下所列:
+ 1. 瀏覽器即可以作為 client 端 2. 可以更高效地利用 cache 來達到更快的回應速度 3. 界面與資料分離 4. 節省伺服器的計算資源 5. 可重用! web/android/ios 都可以用, 無痛轉換!  RESTful 的要求:
+ 1. client - server 架構 2. 分層系統 3. 利用快取機制增加效能 server-side: 在 GET 資源時，若該資源並沒有被變更，就可以利用 cache 機制減少 query，並且加快回應速度 client-side: 透過 client 端 cache 記錄 cache 版本， 若向 server 要求資源時發現 server 最新版與 cache 相同， 則 client 端直接取用本地資源即可，不需要再做一次查詢 省機器運算及流量 = 省錢 4. 通訊協定具有無狀態性 不能讓兩隻 API 做同一個動作! 假設完成轉賬手續必須先 call A 再 call B 的話， 若做完 A 後斷線導致 B 無法執行，後續要處理 A -&amp;gt; B 的方式會很麻煩 且不應該假設伺服器知道目前的狀態!</description>
     </item>
     
   </channel>

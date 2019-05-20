@@ -17,7 +17,18 @@
       <pubDate>Wed, 22 Apr 2015 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2015/04/raspberry-pi2-remote-webcam/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>如題~
+先假設 pi2 本身的 IP 是 192.168.1.200
+首先先進去 server 來更新一下~
+$ sudo apt-get update &amp;amp;&amp;amp; sudo apt-get upgrade  再來就裝 motion
+他其實是一個 motion detector，不過也可以拿來當作 web cam 用的 streaming server XD
+$ sudo apt-get install motion  編輯設定檔 /etc/motion/motion.conf
+$ sudo vi /etc/motion/motion.conf  找到以下幾個值，並分別改成下面
+daemon = ON webcam_localhost = OFF control_localhost = OFF  webcam_localhost 是 streaming 介面
+control_localhost 是設定介面
+如果要改預設 port，就找 webcam_port, or control_port
+最後設定將 service 啟動
+$ sudo vi /etc/default/motion  將 no 改成 yes</description>
     </item>
     
     <item>
@@ -26,7 +37,19 @@
       <pubDate>Wed, 22 Apr 2015 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2015/04/setup-wifi-on-raspberry-pi2/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>(這是篇筆記)
+前陣子從前同事那接手了一塊 raspberry pi2 的板子
+想要用 wifi 來連網，於是就買了一個 usb 無線網卡
+型號是:
+TP-LINK TL-WN725N 150MbpsUSB無線網卡 (pchome連結)
+一開始當然還是必須先插網路線，ssh 進去後
+先檢查 pi2 的 kernel 版本
+$ uname -r 3.18.7-v7+ # 這是我的版本  接著根據這個 repo
+將韌體載下來放到 /lib/firmware 裡
+$ sudo wget https://github.com/lwfinger/rtl8188eu/raw/c83976d1dfb4793893158461430261562b3a5bf0/rtl8188eufw.bin -O /lib/firmware/rtlwifi/rtl8188eufw.bin  再來設定 pi2 的網路
+$ ifconfig eth0 Link encap:Ethernet lo Link encap:Local Loopback wlan0 Link encap:Ethernet  如果網卡有裝成功，應該就會有 wlan0 或是 wlanX 之類的 (X 是數字)
+最後就是手動掃描無線網路，並設定連線值囉
+$ sudo iwlist scan =&amp;gt; 掃描無線網路 AP wlan0 Scan completed : Cell 01 - Address: XX:XX:XX:XX:XX:XX ESSID:&amp;quot;GGININDER&amp;quot; Cell 02 - Address: XX:XX:XX:XX:XX:XX ESSID:&amp;quot;TP-LINK_F5566&amp;quot;  連線的 SSID 就找 Cell 裡的 ESSID</description>
     </item>
     
   </channel>

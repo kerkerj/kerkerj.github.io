@@ -17,7 +17,12 @@
       <pubDate>Wed, 13 Nov 2013 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2013/11/mac-osx-bash-it/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>bash-it:
+$git clone http://github.com/revans/bash-it.git ~/.bash_it $~/.bash_it/install.sh  他會幫你自動備份原來的 .bash_profile 為 .bash_profile.bak 所以別擔心
+當他在問你要使用什麼 completion 或 script 之類的東西時，
+選擇 &amp;lsquo;some&amp;rsquo; 就可以自己選擇~
+有許多的 theme 及 package , completion 等等可以用，很方便！
+http://www.scholarslab.org/research-and-development/customizing-bash/</description>
     </item>
     
     <item>
@@ -26,7 +31,9 @@
       <pubDate>Wed, 13 Nov 2013 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2013/11/mac-osx-homebrew-update-error/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>failed log:
+$sudo brew update error: Your local changes to the following files would be overwritten by merge: Library/Aliases/gperftools Library/Aliases/hashdeep Library/Aliases/htop Library/Aliases/nodejs Library/Aliases/ocio Library/Aliases/oiio .... error: The following untracked working tree files would be overwritten by merge: Library/Aliases/gperftools Library/Aliases/hashdeep Library/Aliases/htop Library/Aliases/nodejs Library/Aliases/ocio Library/Aliases/oiio .... Aborting Error: Failure while executing: git pull -q origin refs/heads/master:refs/remotes/origin/master  Solution:
+$ cd /usr/local $ git fetch origin $ git reset --hard origin/master  reference [read]</description>
     </item>
     
   </channel>

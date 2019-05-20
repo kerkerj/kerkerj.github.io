@@ -13,20 +13,36 @@
     
     <item>
       <title>[API-d8] - Node.js - Hello World!</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d8---node.js---hello-world/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d8-node.js-hello-world/</link>
       <pubDate>Wed, 08 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d8---node.js---hello-world/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d8-node.js-hello-world/</guid>
+      <description>Node.js - Hello World! 一樣先開虛擬機哦~
+並且開啟終端機連進 server 裡面~
+以下是 Node.js 官方網站的 web server 程式範例，我稍作小修改：
+var http = require(&#39;http&#39;); http.createServer(function (req, res) { res.writeHead(200, {&#39;Content-Type&#39;: &#39;text/plain&#39;}); res.end(&#39;Hello World\n&#39;); }).listen(1337, &#39;0.0.0.0&#39;); console.log(&#39;Server running at http://0.0.0.0:1337/&#39;);  我們先在虛擬機的資料夾建立一個子資料夾 &amp;lsquo;HelloWorld&amp;rsquo;
+在 HelloWorld 資料夾裡面建立一個 app.js
+內容如上，存檔。
+使用終端機進入 server :
+$ vagrant ssh $ cd /vagrant/HelloWorld $ node app.js  到瀏覽器輸入 http://192.168.33.10:1337/
+(或者是你的 Vagrantfile 裡面設定的 private IP)
+即可看到 Hello World 了！
+要關掉 Server 也非常簡單，回到下指令的地方，按下 ctrl + c 即可中斷程式</description>
     </item>
     
     <item>
       <title>Event-driven I/O models and Coroutine Notes</title>
-      <link>https://blog.kerkerj.in/2014/08/event-driven-i/o-models-and-coroutine-notes/</link>
+      <link>https://blog.kerkerj.in/2014/08/event-driven-i-o-models-and-coroutine-notes/</link>
       <pubDate>Mon, 18 Aug 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/08/event-driven-i/o-models-and-coroutine-notes/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/08/event-driven-i-o-models-and-coroutine-notes/</guid>
+      <description>Event-driven I/O model 首先，聽到 Event-driven 是從 Node.js 得知，
+ Node.js® is a platform built on Chrome&amp;rsquo;s JavaScript runtime for easily building fast, scalable network applications.
+Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient, perfect for data-intensive real-time applications that run across distributed devices.
+ 其實剛聽到這詞會有點陌生，我們可以先從 Victor 所寫的文章開始讀起: 淺談coroutine與gevent
+裡面提到了幾種網路模型： &amp;gt; 1. 阻塞式單一行程
+2. 阻塞式多行程 3. 阻塞式多行程多執行序 4. 非阻塞式事件驅動 5. 非阻塞式 coroutine
+以下是各語言 event-driven 的 model</description>
     </item>
     
   </channel>

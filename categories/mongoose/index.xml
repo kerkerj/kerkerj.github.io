@@ -13,29 +13,54 @@
     
     <item>
       <title>[API-d24] - 實戰開發 - 刪除 TODO task API with mongoose</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d24---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E5%88%AA%E9%99%A4-todo-task-api-with-mongoose/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d24-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E5%88%AA%E9%99%A4-todo-task-api-with-mongoose/</link>
       <pubDate>Fri, 24 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d24---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E5%88%AA%E9%99%A4-todo-task-api-with-mongoose/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d24-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E5%88%AA%E9%99%A4-todo-task-api-with-mongoose/</guid>
+      <description>Github 參考
+還記得昨天說要偷懶一下嗎 XD
+因為刪除真的很簡單!
+我們前面走過了新增、修改、讀取了
+刪除？哪有什麼困難的呢! XD
+直接看 code 吧!
+routes/users.js:
+// Delete a todo task router.delete(&#39;/:user_id/todos/:todo_id&#39;, function(req, res) { var user_id = req.params.user_id; var todo_id = req.params.todo_id; TODO.remove( { _id: todo_id, user_id: user_id }, function (err) { if (err) { res.status(400).json( { error: &amp;quot;delete data error&amp;quot;} ); } else { res.status(201).json( { success: &amp;quot;true&amp;quot; } ); } } ); });  非常的簡單!
+先抓到 user_id, todo_id 後
+使用 .remove 的方法，下 WHERE 條件，並在 callback 作處理</description>
     </item>
     
     <item>
       <title>[API-d21] - 實戰開發 - 新增 TODO task API with mongoose</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d21---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E6%96%B0%E5%A2%9E-todo-task-api-with-mongoose/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d21-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E6%96%B0%E5%A2%9E-todo-task-api-with-mongoose/</link>
       <pubDate>Tue, 21 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d21---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E6%96%B0%E5%A2%9E-todo-task-api-with-mongoose/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d21-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E6%96%B0%E5%A2%9E-todo-task-api-with-mongoose/</guid>
+      <description>Github 參考
+昨天我們了解了如何拿 url params 以及 request data
+今天我們就來使用他，對資料庫做存取
+由於使用到資料庫，因此我們要加入資料庫的 driver
+我們用的是 mongoose 套件
+app.js:
+// 在最上方加入 var mongoose = require(&#39;mongoose&#39;); // 在某個地方連接資料庫 var db_uri = &amp;quot;mongodb://192.168.33.10:27017/TODOs&amp;quot;; mongoose.connect(db_uri);  在這邊我是使用了虛擬機的 DB，因此是 mongodb://192.168.33.10:27017/TODOs
+DB 的名稱為 TODOs
+這樣在程式一跑起來時，就會連接資料庫了!
+再來我們就要設定在對資料庫做 CRUD 時，所需要做的事情
+首先我們先要定義 schema，
+雖然 mongodb 是 schema-free，但是官方文件也有提到最好還是有固定的 schema 避免記憶體 allocate 時出現問題，而程式撰寫時邏輯也不會因此而過於複雜
+這時候我們就需要 model 資料夾了，在 model 資料夾中新增一個 todos.js
+裡面要放的就是 todo task 的 schema
+內容如下:
+models/todos.js:
+&#39;use strict&#39;; var mongoose = require(&#39;mongoose&#39;); // Define our todo schema var TODOschema = new mongoose.</description>
     </item>
     
     <item>
       <title>[API-d18] - 實戰開發 - 套件模組</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d18---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E5%A5%97%E4%BB%B6%E6%A8%A1%E7%B5%84/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d18-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E5%A5%97%E4%BB%B6%E6%A8%A1%E7%B5%84/</link>
       <pubDate>Sat, 18 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d18---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E5%A5%97%E4%BB%B6%E6%A8%A1%E7%B5%84/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d18-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E5%A5%97%E4%BB%B6%E6%A8%A1%E7%B5%84/</guid>
+      <description>會使用到的套件: 主體: express - web framework body-parser - parse request body 測試相關: mocha - test framework mocha-mongoose - 用來和 mocha 和 mongoose 中間做介接的套件 superagent - 拿它來丟 http request validator - 用來驗證某個物件是否為某個型別 expect.js - 類似 BDD 的語法，用來寫測試的 debug - debug package DB 相關: mongoose - mongodb orm mongodb - mongodb native driver 開發相關: nodemon - detect file change and restart server 生產環境相關: log4js - 記錄 request log  這是我的 package.json, 可以複製到專案目錄，然後下 npm install</description>
     </item>
     
   </channel>

@@ -13,11 +13,26 @@
     
     <item>
       <title>[API-d28] - 實戰開發 - 發佈 - forever</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d28---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E7%99%BC%E4%BD%88---forever/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d28-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E7%99%BC%E4%BD%88-forever/</link>
       <pubDate>Tue, 28 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d28---%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC---%E7%99%BC%E4%BD%88---forever/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d28-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E7%99%BC%E4%BD%88-forever/</guid>
+      <description>Github 參考
+接下來兩天要講 deploy 的部分
+由於 deploy 的 script 其實非常的麻煩，因此我們就不提 deploy 的 script 了
+我們只專注在 server 上需要什麼東西
+今天要來看看 forever 這個套件
+這個套件可以幫助 nodejs 的 server 遇上無預警的 server 掛掉時
+會幫你自動重新啟動 nodejs 的 server
+也就是說
+假設說 nodejs 寫的 server 某個 route 有問題，
+送 request 後會因為某些因素造成 server error 造成程式碼 crash 時
+forever 的 monitor 會偵測到，並幫你自動重啟 server
+至少不會造成其他正常存取 server 的使用者遭遇到 server down 的問題
+這個套件可以選擇裝在 global 或是 project
+在這邊我是選擇裝成 global
+進到虛擬機
+$ npm install -g forever  p.</description>
     </item>
     
   </channel>

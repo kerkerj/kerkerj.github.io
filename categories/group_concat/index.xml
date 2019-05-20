@@ -17,7 +17,20 @@
       <pubDate>Tue, 06 May 2014 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2014/05/mysql-several-useful-statements-group_concat-ifnull-date_format/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description> 將 query 出來的多筆記錄結合成一個欄位
+例如原本的 query 結果為：
+SELECT &#39;fruits&#39; FROM &#39;fruits_table&#39;
+apple
+banana
+kiwi
+SELECT group_concat(&#39;fruits&#39; separator &#39;,&#39;) FROM &#39;fruits_table&#39;
+result: apple,banana,kiwi
+ 改變 datetime 欄位的顯示結果
+SELECT DATE_FORMAT( &#39;created_at&#39;, &#39;%Y/%m/%d %H:%i&#39;) AS &#39;created_at&#39; FROM &#39;message_table&#39;
+result: 2014/05/06 18:20
+ 若某個欄位的值為空，則給予預設值
+SELECT ifnull(&#39;is_success&#39;, 0) AS &#39;is_success&#39; FROM ....
+ </description>
     </item>
     
   </channel>

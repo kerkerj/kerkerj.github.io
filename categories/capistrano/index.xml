@@ -13,11 +13,22 @@
     
     <item>
       <title>Capistrano with rails - basic notes</title>
-      <link>https://blog.kerkerj.in/2014/08/capistrano-with-rails---basic-notes/</link>
+      <link>https://blog.kerkerj.in/2014/08/capistrano-with-rails-basic-notes/</link>
       <pubDate>Tue, 05 Aug 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/08/capistrano-with-rails---basic-notes/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/08/capistrano-with-rails-basic-notes/</guid>
+      <description>詳細的東西還是看 project&amp;rsquo;s github page 比較快 - Capistrano@github
+Capistrano 剛開始寫 deploy script 時真的會有點搞不太懂 XD
+記錄一下使用 &amp;lsquo;capistrano&amp;rsquo; 把特定的 github repo 抓到 remote server
+安裝 先在 Gemfile 加入:
+gem &#39;capistrano&#39;, &#39;~&amp;gt; 3.2.0&#39;  然後安裝~
+bundle install  步驟大概會是：
+假設已經寫完 capistrano 了，執行 script 時，
+capistrano 會先利用 script 裡提供的 server ip 以及 public key，
+先連線到 remote server，接著再到 github 上拉 code 到指定的目錄裡，
+再重開 server。
+產生相關檔案 bundle exec cap install  會產生以下檔案: (copy from Capistrano@github)
+├── Capfile ├── config │ ├── deploy │ │ ├── production.</description>
     </item>
     
   </channel>

@@ -17,7 +17,12 @@
       <pubDate>Wed, 06 Aug 2014 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2014/08/emoji-data-in-mysql/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description>Supported MySQL 5.5, 5.6.
+First, MySQL should set DB and table to utf8mb4.
+utf8 - 3 byte characters
+utf8mb4 - 4 byte characters
+ALTER DATABASE my_database DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci; ALTER TABLE my_table DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci; ALTER TABLE my_column CHANGE my_column my_column TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;  Then, when inserting data or selecting data, execute this statement first:
+--Execute this statement first SET NAMES utf8mb4; --then insert or select SELECT * FROM my_table </description>
     </item>
     
   </channel>

@@ -13,29 +13,54 @@
     
     <item>
       <title>[API-d15] - [Javascript 番外篇] Javascript callback, event</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d15---javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-callback-event/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d15-javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-callback-event/</link>
       <pubDate>Wed, 15 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d15---javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-callback-event/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d15-javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-callback-event/</guid>
+      <description>這幾天會探討 javascript 的特性，由於比較少在寫 js ，因此有錯請指正
+javascript 有個特性：event
+意思就是說，javascript 中，所有的事情都是由事件驅動的
+如果說有寫過 web 前端的話，
+其實呼叫 button.click function 時
+並不會馬上執行 click 裡面的動作
+而是加了一個 click 的 listener
+等到 button 被 click 後，才會執行 click 裡面的程式碼
+所以寫習慣一般 procedure 的程式會有點不太習慣
+舉個 procedure 的例子，下面有五件事想要做：
+煮飯(); // 10 分鐘 接電話(); // 1 分鐘 吃麵(); // 5 分鐘 丟垃圾(); // 7 分鐘  一般的程式會是照順序執行
+也就是 煮飯完 -&amp;gt; 接電話 -&amp;gt; 吃麵 -&amp;gt; 丟垃圾
+總執行時間 = 23 分鐘
+但是如果把這段 code 丟給 javascript 執行的話</description>
     </item>
     
     <item>
       <title>[API-d14] - [Javascript 番外篇] Javascript function scopes 和 closures</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d14---javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-function-scopes-%E5%92%8C-closures/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d14-javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-function-scopes-%E5%92%8C-closures/</link>
       <pubDate>Tue, 14 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d14---javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-function-scopes-%E5%92%8C-closures/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d14-javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-function-scopes-%E5%92%8C-closures/</guid>
+      <description>這幾天會探討 javascript 的特性，由於比較少在寫 js ，因此有錯請指正
+Scope 例子:
+function hi() { var greetings = &amp;quot;hi&amp;quot;; console.log(&amp;quot;Say: &amp;quot; + greetings); function sayYa(newInput) { greetings = newInput; console.log(&amp;quot;Say: &amp;quot; + greetings); } function sayCool(newInput) { var cool = newInput; console.log(&amp;quot;Say: &amp;quot; + cool); } sayYa(&amp;quot;Yo&amp;quot;); sayCool(&amp;quot;Cool&amp;quot;); console.log(&amp;quot;Say: &amp;quot; + greetings); } hi();  很簡單的概念
+greetins 在 sayYa 方法中被覆寫掉了
+如果要定義 local 變數必須在 function 裏用 var 定義
+例如 sayCool function
+Closure 例子:
+function person(){ var name = &#39;default&#39;; return { greetings: function() { console.</description>
     </item>
     
     <item>
       <title>[API-d13] - [Javascript 番外篇] Javascript require/ module/ Module Pattern</title>
-      <link>https://blog.kerkerj.in/2014/10/api-d13---javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-require/-module/-module-pattern/</link>
+      <link>https://blog.kerkerj.in/2014/10/api-d13-javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-require-module-module-pattern/</link>
       <pubDate>Mon, 13 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.kerkerj.in/2014/10/api-d13---javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-require/-module/-module-pattern/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://blog.kerkerj.in/2014/10/api-d13-javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-require-module-module-pattern/</guid>
+      <description>接下來幾天會探討 node.js 的特性，由於比較少在寫 js ，因此有錯請指正
+在 node.js 裏，要讀取外部模組都是透過 require 和 exports 來做溝通
+以下列出這次最簡單 module 的例子
+//hello.js console.log(&#39;Hello World&#39;);  // app.js require(&#39;./hello.js&#39;);  Module 也是有 Pattern 的 第一種: Global (Not so good)
+// foo.js foo = function() { console.log(&amp;quot;foo!&amp;quot;); } // app.js require(&#39;./foo.js&#39;); foo();  第二種: export an anonymous function
+// foo.js module.exports = function() { console.log(&amp;quot;foo! YA&amp;quot;); }; // app.js var test = require(&amp;quot;./foo.js&amp;quot;); test();  第三種： export a named function</description>
     </item>
     
   </channel>
