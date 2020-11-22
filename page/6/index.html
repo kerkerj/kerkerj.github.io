@@ -232,6 +232,70 @@ if (!doNotTrack) {
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/swift-d15-basic-table-view-1-%E7%9B%B4%E6%8E%A5%E7%B5%A6%E5%80%BC-datasource-table-view-scroll/">
+          [Swift-d15] - Basic - Table View 1 直接給值 datasource, (table view scroll)
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2014-10-15T00:00:00Z">
+        
+  October 15, 2014
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/swift">swift</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      今天要來練習新的東西 - TableView
+據同事說明，TableView 是最常用到的 View 之一
+在我們的實戰開發中也會用到 TableView
+因此今天就先簡單的來建立出單頁純顯示資料的 TableView
+TableView 的概念大概是如下圖:
+長得有點像 ListView 但是每一行又可以多切開，放一些東西
+每一行都稱之為一個 TableViewCell
+今天就來要簡單寫一個資料已經預先定義好，並且會顯示在 view 上面的 TableView
+要進行下去之前當然就先開一個新的練習專案囉
+開啟完專案後，首先第一件事情就是進 storyboard
+選擇 TableView 拉進 storyboard 裏
+接著再選擇 TableViewCell 拉進 TableView 中
+透過此圖，我們了解到可以打開 storyboard 的 tree 來看看它們之間的關係
+下面此步驟很重要，資料的連接就靠這條線:
+先選取 TableView (可以使用階層樹或是點擊 storyboard)，然後選擇右方的 connection inspector (右上角的最右邊的那一個按鈕)
+裡頭有個 dataSource 以及 delegate
+我們先按住 dataSource 右邊的空心圓按鈕，拖曳拉到 storyboard 中的 ViewController，如上圖所示
+這樣子等等在程式碼中產生的資料才會有和 storyboard 的 UI 做連結
+最後一個和 storyboard 相關的操作是將 storyboard 的 TableView 和 程式碼做連結，好方便我們在程式碼中對 storyborad 的 TableView 做操作
+      <p>
+        <a href="https://blog.kerkerj.in/2014/10/swift-d15-basic-table-view-1-%E7%9B%B4%E6%8E%A5%E7%B5%A6%E5%80%BC-datasource-table-view-scroll/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+          
+            
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
         <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d14-javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-function-scopes-%E5%92%8C-closures/">
           [API-d14] - [Javascript 番外篇] Javascript function scopes 和 closures
         </a>
@@ -777,71 +841,6 @@ javascript var express = require('express'); var app = express(); app.
 </article>
 
           
-            
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/swift-d10-%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80/">
-          [Swift-d10] 延伸閱讀
-        </a>
-      </h1>
-      
-  <div class="postShorten-meta post-meta">
-    
-      <time itemprop="datePublished" datetime="2014-10-10T00:00:00Z">
-        
-  October 10, 2014
-
-      </time>
-    
-    
-  
-  
-    <span>in</span>
-    
-      <a class="category-link" href="https://blog.kerkerj.in/categories/swift">swift</a>
-    
-  
-
-  </div>
-
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      今天算一算也來到第十天了，
-前面講了 8 天的語法，其實會有些枯燥
-不過有些語法又很有趣
-我不懂 Objective-C，
-如果想從 Objectiv-C 轉換到 Swift 的話，最好查查一些比較的文章
-最好的文件就是官方文件了
-以 UILabel 為例
-官方網站會列出兩種不同寫法:
-// SWIFT var text: String? // OBJECTIVE-C @property(nonatomic, copy) NSString *text  如果要從 Swift 基本概念開始，當然是首推官方的 The Swift Programming Language
-是英文苦手的話，強國人有 翻譯文件
-這群人非常厲害，發表後沒幾天就翻譯完成了
-不過因為技術用語還是以中國為主，因此建議英文優先，或是對照著看
-前面幾天都基本介紹前半部而已，屬於一般學習程式語言的基本練習而已
-後半部是更詳細的部分，有空的話還是可以多看看~
-另外，官方還出了一本 Using Swift with Cocoa ad Objective-C
-就是在介紹如何使用 Swift 加上 Cocoa framework 開發 App
-不過書的內容不多，算入門級，有興趣也可看看這本~
-接下來會開始用 Swift 寫簡單的界面
-由於筆者從沒寫過 iOS app，因此也是會用大約十天的時間來簡單練習一些常用的 Cocoa Touch framework 的元件
-順帶一提前面沒講到的，Objective-C 有個東西叫作 Catagory，在 Swift 裏是 extension
-      <p>
-        <a href="https://blog.kerkerj.in/2014/10/swift-d10-%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80/" class="postShorten-excerpt_link link">Continue reading</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
-
-          
           
   <div class="pagination-bar">
     <ul class="pagination">
@@ -929,6 +928,23 @@ javascript var express = require('express'); var app = express(); app.
           <div class="media">
             
             <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2020/11/how-to-setup-slack-and-drone-slack-blame/">
+                <h3 class="media-heading">How to Setup Slack and Drone Slack Blame</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Nov 11, 2020
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p>Slack now has deprecated legacy tokens, instead, Slack encourages us to create <a href="https://api.slack.com/apps"><code>Slack Apps</code></a> to do our job, so I created a note to record how I set up Slack app and use it on <a href="http://plugins.drone.io/drone-plugins/drone-slack-blame/"><code>drone-slack-blame</code></a> plugin.</p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
               <a class="link-unstyled" href="https://blog.kerkerj.in/2020/11/use-zap-observer/">
                 <h3 class="media-heading">Use Zap Observer</h3>
               </a>
@@ -937,9 +953,9 @@ javascript var express = require('express'); var app = express(); app.
                   Nov 11, 2020
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">If you are using zap as your logging tool, then when you write the tests, you might want to assert the function via the logs. You can use zap/observer package to make it possible.
-Below is a code piece to demonstrate how it works:
-package main import ( &quot;testing&quot; &quot;go.uber.org/zap&quot; &quot;go.uber.org/zap/zapcore&quot; &quot;go.uber.org/zap/zaptest/observer&quot; ) func LogHello(name string) { zap.L().Info(&quot;hello: &quot; + name) } func TestLogHello(t *testing.T) { // arrange core, recordedLogs := observer.</div>
+              <div class="media-content hide-xs font-merryweather"><p>If you are using <code>zap</code> as your logging tool, then when you write the tests, you might want to assert the function via the logs. You can use <code>zap/observer</code> package to make it possible.</p>
+
+<p>Below is a code piece to demonstrate how it works:</p></div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -1102,29 +1118,6 @@ MyApp::Application.config.session_store :redis_session_store, { key: 'example_se
             <hr>
           </div>
         
-          <div class="media">
-            
-            <div class="media-body">
-              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/use-goconvey-in-projects-maganged-by-gb/">
-                <h3 class="media-heading">Use goconvey in projects maganged by gb</h3>
-              </a>
-              <span class="media-meta">
-                <span class="media-date text-small">
-                  Oct 10, 2016
-                </span>
-              </span>
-              <div class="media-content hide-xs font-merryweather">這是前陣子在工作上用到的
-有個 golang 的專案，使用了 gb 來管理第三方套件
-當時想套 goconvey 進來
-但是一直搞不定執行的方式
-後來在 github goconvey issue 裡找到了方式
-$ cd /to/your/gb_projects $ PROJECT_DIR=`pwd` $ GOPATH=&quot;$PROJECT_DIR/vendor:$PROJECT_DIR&quot; goconvey -packages=1 -port 8899  這樣就會跑 web ui 出來摟
-不想跑 web ui 就執行 gb test -v 就可以了&hellip;上面這樣只是單純想跑 web ui 而已 XD</div>
-            </div>
-            <div style="clear:both;"></div>
-            <hr>
-          </div>
-        
       </div>
     </div>
     <div class="modal-footer">
@@ -1132,7 +1125,7 @@ $ cd /to/your/gb_projects $ PROJECT_DIR=`pwd` $ GOPATH=&quot;$PROJECT_DIR/vendor
          data-message-zero="no post found"
          data-message-one="1 post found"
          data-message-other="{n} posts found">
-         145 posts found
+         146 posts found
       </p>
     </div>
   </div>

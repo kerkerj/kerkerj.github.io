@@ -232,6 +232,62 @@ if (!doNotTrack) {
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/use-goconvey-in-projects-maganged-by-gb/">
+          Use goconvey in projects maganged by gb
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2016-10-19T00:01:04&#43;08:00">
+        
+  October 19, 2016
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/golang">golang</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/gb">gb</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/goconvey">goconvey</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      這是前陣子在工作上用到的
+有個 golang 的專案，使用了 gb 來管理第三方套件
+當時想套 goconvey 進來
+但是一直搞不定執行的方式
+後來在 github goconvey issue 裡找到了方式
+$ cd /to/your/gb_projects $ PROJECT_DIR=`pwd` $ GOPATH=&quot;$PROJECT_DIR/vendor:$PROJECT_DIR&quot; goconvey -packages=1 -port 8899  這樣就會跑 web ui 出來摟
+不想跑 web ui 就執行 gb test -v 就可以了&hellip;上面這樣只是單純想跑 web ui 而已 XD
+      <p>
+        <a href="https://blog.kerkerj.in/2016/10/use-goconvey-in-projects-maganged-by-gb/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+          
+            
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
         <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/docker-ha-proxy/">
           docker HA proxy
         </a>
@@ -758,73 +814,6 @@ Swift 有蠻多特性是 Objective-C 所沒有的
 </article>
 
           
-            
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d29-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E7%99%BC%E4%BD%88-nginx/">
-          [API-d29] - 實戰開發 - 發佈 - nginx
-        </a>
-      </h1>
-      
-  <div class="postShorten-meta post-meta">
-    
-      <time itemprop="datePublished" datetime="2014-10-29T00:00:00Z">
-        
-  October 29, 2014
-
-      </time>
-    
-    
-  
-  
-    <span>in</span>
-    
-      <a class="category-link" href="https://blog.kerkerj.in/categories/restful">restful</a>, 
-    
-      <a class="category-link" href="https://blog.kerkerj.in/categories/api">api</a>, 
-    
-      <a class="category-link" href="https://blog.kerkerj.in/categories/nginx">nginx</a>, 
-    
-      <a class="category-link" href="https://blog.kerkerj.in/categories/nodejs">nodejs</a>, 
-    
-      <a class="category-link" href="https://blog.kerkerj.in/categories/express">express</a>
-    
-  
-
-  </div>
-
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      接下來這篇就會比較偏 server 設定了！
-nginx 是一套伺服器軟體，和 apache 並駕齊驅
-(其實我覺得 nginx &gt;&gt;&gt; apache XD)
-主要是 nginx 清量快速
-我們要拿他幫 nodejs 處理接收 request 的部分，再將 request 導往 nodejs
-所以感覺就會如下圖:
-可以讓 nginx 當作是 load balancer,
-透過 reverse proxy 的方式轉發 request 給 nodejs, 讓 nginx 承受流量
-這就是我們今天要做的事情，
-所以首先，我們就要先裝 nginx，因此就先進虛擬機吧!
-$ sudo apt-get update &amp;&amp; sudo apt-get upgrade -y $ sudo apt-get install nginx  這樣就會安裝一個 nginx 了!
-Nginx 的設定檔都是放在 /etc/nginx/ 底下
-個別網站的設定放在 /etc/nginx/sites-available
-如果要讓該網站上線，則會將 /etc/nginx/sites-available 的設定檔 link 到 /etc/nginx/sites-enable
-      <p>
-        <a href="https://blog.kerkerj.in/2014/10/api-d29-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E7%99%BC%E4%BD%88-nginx/" class="postShorten-excerpt_link link">Continue reading</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
-
-          
           
   <div class="pagination-bar">
     <ul class="pagination">
@@ -912,6 +901,23 @@ Nginx 的設定檔都是放在 /etc/nginx/ 底下
           <div class="media">
             
             <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2020/11/how-to-setup-slack-and-drone-slack-blame/">
+                <h3 class="media-heading">How to Setup Slack and Drone Slack Blame</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Nov 11, 2020
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p>Slack now has deprecated legacy tokens, instead, Slack encourages us to create <a href="https://api.slack.com/apps"><code>Slack Apps</code></a> to do our job, so I created a note to record how I set up Slack app and use it on <a href="http://plugins.drone.io/drone-plugins/drone-slack-blame/"><code>drone-slack-blame</code></a> plugin.</p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
               <a class="link-unstyled" href="https://blog.kerkerj.in/2020/11/use-zap-observer/">
                 <h3 class="media-heading">Use Zap Observer</h3>
               </a>
@@ -920,9 +926,9 @@ Nginx 的設定檔都是放在 /etc/nginx/ 底下
                   Nov 11, 2020
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">If you are using zap as your logging tool, then when you write the tests, you might want to assert the function via the logs. You can use zap/observer package to make it possible.
-Below is a code piece to demonstrate how it works:
-package main import ( &quot;testing&quot; &quot;go.uber.org/zap&quot; &quot;go.uber.org/zap/zapcore&quot; &quot;go.uber.org/zap/zaptest/observer&quot; ) func LogHello(name string) { zap.L().Info(&quot;hello: &quot; + name) } func TestLogHello(t *testing.T) { // arrange core, recordedLogs := observer.</div>
+              <div class="media-content hide-xs font-merryweather"><p>If you are using <code>zap</code> as your logging tool, then when you write the tests, you might want to assert the function via the logs. You can use <code>zap/observer</code> package to make it possible.</p>
+
+<p>Below is a code piece to demonstrate how it works:</p></div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -1085,29 +1091,6 @@ MyApp::Application.config.session_store :redis_session_store, { key: 'example_se
             <hr>
           </div>
         
-          <div class="media">
-            
-            <div class="media-body">
-              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/use-goconvey-in-projects-maganged-by-gb/">
-                <h3 class="media-heading">Use goconvey in projects maganged by gb</h3>
-              </a>
-              <span class="media-meta">
-                <span class="media-date text-small">
-                  Oct 10, 2016
-                </span>
-              </span>
-              <div class="media-content hide-xs font-merryweather">這是前陣子在工作上用到的
-有個 golang 的專案，使用了 gb 來管理第三方套件
-當時想套 goconvey 進來
-但是一直搞不定執行的方式
-後來在 github goconvey issue 裡找到了方式
-$ cd /to/your/gb_projects $ PROJECT_DIR=`pwd` $ GOPATH=&quot;$PROJECT_DIR/vendor:$PROJECT_DIR&quot; goconvey -packages=1 -port 8899  這樣就會跑 web ui 出來摟
-不想跑 web ui 就執行 gb test -v 就可以了&hellip;上面這樣只是單純想跑 web ui 而已 XD</div>
-            </div>
-            <div style="clear:both;"></div>
-            <hr>
-          </div>
-        
       </div>
     </div>
     <div class="modal-footer">
@@ -1115,7 +1098,7 @@ $ cd /to/your/gb_projects $ PROJECT_DIR=`pwd` $ GOPATH=&quot;$PROJECT_DIR/vendor
          data-message-zero="no post found"
          data-message-one="1 post found"
          data-message-other="{n} posts found">
-         145 posts found
+         146 posts found
       </p>
     </div>
   </div>

@@ -232,6 +232,66 @@ if (!doNotTrack) {
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/swift-push-pop-views-delay/">
+          Swift - Push/Pop Views delay
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2014-10-19T00:00:00Z">
+        
+  October 19, 2014
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/swift">swift</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/backgroundcolor">backgroundColor</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      請大家先看看下面的小短片，注意一下過場動畫的流暢度
+一開始是沒有加過場動畫，後來改程式碼變成有過場動畫
+
+direct link
+後來發現給一個預設的 backgroundColor 後就不會發生殘影的問題了
+是因為 push 的 view 沒有 backgroundColor
+和同事討論後發現:
+Apple Developer Reference
+UIView 的 backgroundColor 的 default 值是 null!
+ Discussion Changes to this property can be animated. The default value is nil, which results in a transparent background color.
+ 所以是這個原因導致在轉場的時候有殘影
+不過切換 View 時 target view 沒有 backgroundColor 的情況應該比較少吧&hellip;(?)
+剛好在寫鐵人賽的 app 想先把流程弄出來時遇到了這個雷 XD
+      <p>
+        <a href="https://blog.kerkerj.in/2014/10/swift-push-pop-views-delay/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+          
+            
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
         <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d19-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-index-route-http-status-code/">
           [API-d19] - 實戰開發 - index &amp; route &amp; http status code
         </a>
@@ -780,70 +840,6 @@ javascript 有個特性：event
 </article>
 
           
-            
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/swift-d15-basic-table-view-1-%E7%9B%B4%E6%8E%A5%E7%B5%A6%E5%80%BC-datasource-table-view-scroll/">
-          [Swift-d15] - Basic - Table View 1 直接給值 datasource, (table view scroll)
-        </a>
-      </h1>
-      
-  <div class="postShorten-meta post-meta">
-    
-      <time itemprop="datePublished" datetime="2014-10-15T00:00:00Z">
-        
-  October 15, 2014
-
-      </time>
-    
-    
-  
-  
-    <span>in</span>
-    
-      <a class="category-link" href="https://blog.kerkerj.in/categories/swift">swift</a>
-    
-  
-
-  </div>
-
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      今天要來練習新的東西 - TableView
-據同事說明，TableView 是最常用到的 View 之一
-在我們的實戰開發中也會用到 TableView
-因此今天就先簡單的來建立出單頁純顯示資料的 TableView
-TableView 的概念大概是如下圖:
-長得有點像 ListView 但是每一行又可以多切開，放一些東西
-每一行都稱之為一個 TableViewCell
-今天就來要簡單寫一個資料已經預先定義好，並且會顯示在 view 上面的 TableView
-要進行下去之前當然就先開一個新的練習專案囉
-開啟完專案後，首先第一件事情就是進 storyboard
-選擇 TableView 拉進 storyboard 裏
-接著再選擇 TableViewCell 拉進 TableView 中
-透過此圖，我們了解到可以打開 storyboard 的 tree 來看看它們之間的關係
-下面此步驟很重要，資料的連接就靠這條線:
-先選取 TableView (可以使用階層樹或是點擊 storyboard)，然後選擇右方的 connection inspector (右上角的最右邊的那一個按鈕)
-裡頭有個 dataSource 以及 delegate
-我們先按住 dataSource 右邊的空心圓按鈕，拖曳拉到 storyboard 中的 ViewController，如上圖所示
-這樣子等等在程式碼中產生的資料才會有和 storyboard 的 UI 做連結
-最後一個和 storyboard 相關的操作是將 storyboard 的 TableView 和 程式碼做連結，好方便我們在程式碼中對 storyborad 的 TableView 做操作
-      <p>
-        <a href="https://blog.kerkerj.in/2014/10/swift-d15-basic-table-view-1-%E7%9B%B4%E6%8E%A5%E7%B5%A6%E5%80%BC-datasource-table-view-scroll/" class="postShorten-excerpt_link link">Continue reading</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
-
-          
           
   <div class="pagination-bar">
     <ul class="pagination">
@@ -931,6 +927,23 @@ TableView 的概念大概是如下圖:
           <div class="media">
             
             <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2020/11/how-to-setup-slack-and-drone-slack-blame/">
+                <h3 class="media-heading">How to Setup Slack and Drone Slack Blame</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Nov 11, 2020
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p>Slack now has deprecated legacy tokens, instead, Slack encourages us to create <a href="https://api.slack.com/apps"><code>Slack Apps</code></a> to do our job, so I created a note to record how I set up Slack app and use it on <a href="http://plugins.drone.io/drone-plugins/drone-slack-blame/"><code>drone-slack-blame</code></a> plugin.</p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
               <a class="link-unstyled" href="https://blog.kerkerj.in/2020/11/use-zap-observer/">
                 <h3 class="media-heading">Use Zap Observer</h3>
               </a>
@@ -939,9 +952,9 @@ TableView 的概念大概是如下圖:
                   Nov 11, 2020
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">If you are using zap as your logging tool, then when you write the tests, you might want to assert the function via the logs. You can use zap/observer package to make it possible.
-Below is a code piece to demonstrate how it works:
-package main import ( &quot;testing&quot; &quot;go.uber.org/zap&quot; &quot;go.uber.org/zap/zapcore&quot; &quot;go.uber.org/zap/zaptest/observer&quot; ) func LogHello(name string) { zap.L().Info(&quot;hello: &quot; + name) } func TestLogHello(t *testing.T) { // arrange core, recordedLogs := observer.</div>
+              <div class="media-content hide-xs font-merryweather"><p>If you are using <code>zap</code> as your logging tool, then when you write the tests, you might want to assert the function via the logs. You can use <code>zap/observer</code> package to make it possible.</p>
+
+<p>Below is a code piece to demonstrate how it works:</p></div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -1104,29 +1117,6 @@ MyApp::Application.config.session_store :redis_session_store, { key: 'example_se
             <hr>
           </div>
         
-          <div class="media">
-            
-            <div class="media-body">
-              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/use-goconvey-in-projects-maganged-by-gb/">
-                <h3 class="media-heading">Use goconvey in projects maganged by gb</h3>
-              </a>
-              <span class="media-meta">
-                <span class="media-date text-small">
-                  Oct 10, 2016
-                </span>
-              </span>
-              <div class="media-content hide-xs font-merryweather">這是前陣子在工作上用到的
-有個 golang 的專案，使用了 gb 來管理第三方套件
-當時想套 goconvey 進來
-但是一直搞不定執行的方式
-後來在 github goconvey issue 裡找到了方式
-$ cd /to/your/gb_projects $ PROJECT_DIR=`pwd` $ GOPATH=&quot;$PROJECT_DIR/vendor:$PROJECT_DIR&quot; goconvey -packages=1 -port 8899  這樣就會跑 web ui 出來摟
-不想跑 web ui 就執行 gb test -v 就可以了&hellip;上面這樣只是單純想跑 web ui 而已 XD</div>
-            </div>
-            <div style="clear:both;"></div>
-            <hr>
-          </div>
-        
       </div>
     </div>
     <div class="modal-footer">
@@ -1134,7 +1124,7 @@ $ cd /to/your/gb_projects $ PROJECT_DIR=`pwd` $ GOPATH=&quot;$PROJECT_DIR/vendor
          data-message-zero="no post found"
          data-message-one="1 post found"
          data-message-other="{n} posts found">
-         145 posts found
+         146 posts found
       </p>
     </div>
   </div>
