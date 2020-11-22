@@ -811,7 +811,7 @@ Cocoa framework 是 Apple 爲 Mac OSX 所建立的環境，用來開發 OSX 的�
         
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2019 <a href="https://github.com/kerkerj">kerkerj</a>. Powered by <a href="https://gohugo.io/">hugo</a>. Theme <a href="https://github.com/kakawait/hugo-tranquilpeak-theme">Tranquilpeak</a>. All Rights Reserved
+    &copy; 2020 <a href="https://github.com/kerkerj">kerkerj</a>. Powered by <a href="https://gohugo.io/">hugo</a>. Theme <a href="https://github.com/kakawait/hugo-tranquilpeak-theme">Tranquilpeak</a>. All Rights Reserved
   </span>
 </footer>
 
@@ -865,6 +865,42 @@ Cocoa framework 是 Apple 爲 Mac OSX 所建立的環境，用來開發 OSX 的�
       <div class="no-result text-color-light text-center">no post found</div>
       <div class="results">
         
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2020/11/use-zap-observer/">
+                <h3 class="media-heading">Use Zap Observer</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Nov 11, 2020
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">If you are using zap as your logging tool, then when you write the tests, you might want to assert the function via the logs. You can use zap/observer package to make it possible.
+Below is a code piece to demonstrate how it works:
+package main import ( &quot;testing&quot; &quot;go.uber.org/zap&quot; &quot;go.uber.org/zap/zapcore&quot; &quot;go.uber.org/zap/zaptest/observer&quot; ) func LogHello(name string) { zap.L().Info(&quot;hello: &quot; + name) } func TestLogHello(t *testing.T) { // arrange core, recordedLogs := observer.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2019/05/google-cloud-ml-study-jam/">
+                <h3 class="media-heading">Google Cloud - ML Study Jam</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  May 5, 2019
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p>參加了 Google Cloud 的 <a href="https://events.withgoogle.com/ml-study-jam-basic-tw/">Basic ML Study Jam</a>，紀錄一下</p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
         
           <div class="media">
             
@@ -1029,52 +1065,6 @@ $ cd /to/your/gb_projects $ PROJECT_DIR=`pwd` $ GOPATH=&quot;$PROJECT_DIR/vendor
             <hr>
           </div>
         
-          <div class="media">
-            
-            <div class="media-body">
-              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/docker-ha-proxy/">
-                <h3 class="media-heading">docker HA proxy</h3>
-              </a>
-              <span class="media-meta">
-                <span class="media-date text-small">
-                  Oct 10, 2016
-                </span>
-              </span>
-              <div class="media-content hide-xs font-merryweather">不知道標題該下啥&hellip;
-前陣子因為工作需要，需要測試一個 web app 分布在多台機器下的狀況
-想說使用 docker 來做這件事，但又懶得弄 nginx 的設定
-稍微查了一下發現有 dockercloud/haproxy
-我使用的情境是 web app * 3 + ha * 1 + redis * 1
-web 使用了兩個 port 7788, 7789
-但是不想讓 ha 把流量導去 7788，所以可以設定 EXCLUDE_PORTS
- 如此一來，在 docker-compse up 後，就可以透過 http://192.168.99.100:5566/ 來連上了
-並且可以透過 docker stats $(docker ps -q) 這個指令來觀察正在執行中的 containers 的基本 metrics~
-快速簡單!</div>
-            </div>
-            <div style="clear:both;"></div>
-            <hr>
-          </div>
-        
-          <div class="media">
-            
-            <div class="media-body">
-              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/tool-diff-so-fancy/">
-                <h3 class="media-heading">[tool] diff-so-fancy</h3>
-              </a>
-              <span class="media-meta">
-                <span class="media-date text-small">
-                  Oct 10, 2016
-                </span>
-              </span>
-              <div class="media-content hide-xs font-merryweather">現在想到什麼都來 PO 一下 XD
-https://github.com/so-fancy/diff-so-fancy
-拿來幫你把 git diff 變漂亮的東東
-// install $ brew install diff-so-fancy // Setup $ git config --global core.pager &quot;diff-so-fancy | less --tabs=4 -RFX&quot; // make it more fancier $ git config --global color.diff-highlight.oldNormal &quot;red bold&quot; $ git config --global color.diff-highlight.oldHighlight &quot;red bold 52&quot; $ git config --global color.diff-highlight.newNormal &quot;green bold&quot; $ git config --global color.diff-highlight.newHighlight &quot;green bold 22&quot; </div>
-            </div>
-            <div style="clear:both;"></div>
-            <hr>
-          </div>
-        
       </div>
     </div>
     <div class="modal-footer">
@@ -1082,7 +1072,7 @@ https://github.com/so-fancy/diff-so-fancy
          data-message-zero="no post found"
          data-message-one="1 post found"
          data-message-other="{n} posts found">
-         143 posts found
+         145 posts found
       </p>
     </div>
   </div>

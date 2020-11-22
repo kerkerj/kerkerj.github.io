@@ -232,6 +232,135 @@ if (!doNotTrack) {
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d19-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-index-route-http-status-code/">
+          [API-d19] - 實戰開發 - index &amp; route &amp; http status code
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2014-10-19T00:00:00Z">
+        
+  October 19, 2014
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/restful">restful</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/api">api</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/nodejs">nodejs</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/express">express</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      Github 參考
+昨天先把專案目錄初始化，裝完該裝的套件後
+在 routes 中加入一個 index.js 檔案
+'use strict'; var express = require('express'); var router = express.Router(); router.get('/', function(req, res) { res.status(200).json({ greetings: &quot;hello world!&quot;}); }); module.exports = router;  建立一個 app.js 在專案根目錄中:
+app.js
+var express = require('express'); var app = express(); var index = require('./routes/index'); // Set routers app.use('/', index); module.exports = app;  然後在 bin 資料夾建立一個 server.js:
+bin/server.js:
+'use strict'; var debug = require('debug')('TODOAPI'); var app = require('.
+      <p>
+        <a href="https://blog.kerkerj.in/2014/10/api-d19-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-index-route-http-status-code/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+          
+            
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/swift-d19-basic-%E6%A9%8B%E6%8E%A5%E7%AC%AC%E4%B8%89%E6%96%B9-objc-library-reachability-and-bridge.h/">
+          [Swift-d19] - Basic - 橋接第三方 Objc library - Reachability and Bridge.h
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2014-10-19T00:00:00Z">
+        
+  October 19, 2014
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/swift">swift</a>, 
+    
+      <a class="category-link" href="https://blog.kerkerj.in/categories/bridge">bridge</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      本日專案的 Github link
+由於 Swift 剛推出不到一年
+有許多的 third-party library 一定還沒轉換成 Swift
+或者是作者沒心力轉會成 Swift
+但是有些套件非常方便，那在 Swift 要怎麼使用 Objective-C 的套件呢?
+Xcode 有提供橋接的方式，非常好用
+接下來就介紹一下如何使用吧!
+以下的例子是一個叫做 Reachability 的套件
+它可以簡單地幫我們判斷是否有網路連線 3g or wifi 之類的
+所以我們先下載這個套件吧!
+https://github.com/tonymillion/Reachability
+下載解壓縮後
+將 .h 和 .m 檔拖曳進 Xcode 專案中
+接下來 Xcode 就會問一個非常重要的問題!:
+是否要建立橋接的 .h 檔案!
+當然是選擇建立囉~
+此時的專案結構就會變成這樣:
+再來編輯 bridge-header.h 檔
+將想要橋接的 objc 套件 import 進去
+#import &quot;Reachability.h&quot;  這樣我們就可以在 Swift 中直接使用該套件的類別與方法了!
+接下來就讓我們試試看!
+在 ViewController 中加入以下程式碼:
+// // ViewController.swift // BridgeObjcDemo // // Created by Jerry Huang on 2014/10/18.
+      <p>
+        <a href="https://blog.kerkerj.in/2014/10/swift-d19-basic-%E6%A9%8B%E6%8E%A5%E7%AC%AC%E4%B8%89%E6%96%B9-objc-library-reachability-and-bridge.h/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+          
+            
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
         <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d18-%E5%AF%A6%E6%88%B0%E9%96%8B%E7%99%BC-%E5%A5%97%E4%BB%B6%E6%A8%A1%E7%B5%84/">
           [API-d18] - 實戰開發 - 套件模組
         </a>
@@ -715,124 +844,6 @@ TableView 的概念大概是如下圖:
 </article>
 
           
-            
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/api-d14-javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-function-scopes-%E5%92%8C-closures/">
-          [API-d14] - [Javascript 番外篇] Javascript function scopes 和 closures
-        </a>
-      </h1>
-      
-  <div class="postShorten-meta post-meta">
-    
-      <time itemprop="datePublished" datetime="2014-10-14T00:00:00Z">
-        
-  October 14, 2014
-
-      </time>
-    
-    
-  
-  
-    <span>in</span>
-    
-      <a class="category-link" href="https://blog.kerkerj.in/categories/restful">restful</a>, 
-    
-      <a class="category-link" href="https://blog.kerkerj.in/categories/api">api</a>, 
-    
-      <a class="category-link" href="https://blog.kerkerj.in/categories/javascript">javascript</a>
-    
-  
-
-  </div>
-
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      這幾天會探討 javascript 的特性，由於比較少在寫 js ，因此有錯請指正
-Scope 例子:
-function hi() { var greetings = &quot;hi&quot;; console.log(&quot;Say: &quot; + greetings); function sayYa(newInput) { greetings = newInput; console.log(&quot;Say: &quot; + greetings); } function sayCool(newInput) { var cool = newInput; console.log(&quot;Say: &quot; + cool); } sayYa(&quot;Yo&quot;); sayCool(&quot;Cool&quot;); console.log(&quot;Say: &quot; + greetings); } hi();  很簡單的概念
-greetins 在 sayYa 方法中被覆寫掉了
-如果要定義 local 變數必須在 function 裏用 var 定義
-例如 sayCool function
-Closure 例子:
-function person(){ var name = 'default'; return { greetings: function() { console.
-      <p>
-        <a href="https://blog.kerkerj.in/2014/10/api-d14-javascript-%E7%95%AA%E5%A4%96%E7%AF%87-javascript-function-scopes-%E5%92%8C-closures/" class="postShorten-excerpt_link link">Continue reading</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
-
-          
-            
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://blog.kerkerj.in/2014/10/swift-d14-basic-navigation-view-2-viewcontroller/">
-          [Swift-d14] - Basic - Navigation View 2 &#43; ViewController
-        </a>
-      </h1>
-      
-  <div class="postShorten-meta post-meta">
-    
-      <time itemprop="datePublished" datetime="2014-10-14T00:00:00Z">
-        
-  October 14, 2014
-
-      </time>
-    
-    
-  
-  
-    <span>in</span>
-    
-      <a class="category-link" href="https://blog.kerkerj.in/categories/swift">swift</a>
-    
-  
-
-  </div>
-
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      延續昨天的主題，今天我們要做的事情是：
- 爲新的 ViewController 實際加入程式碼 (ViewController2.swift) 加入一個 button 來控制是否前進下一頁或後退  我們先新增一個檔案:
-接著選擇 CocoaTouch Class:
-回到 storyboard, 選擇第二個 ViewController
-並按照下圖，將 Class 指定給 View2Controller
-這樣子 storyboard 的 View2 就會指定到 View2Controller 了
-我們在 View2Controller 的 viewDidLoad 方法中加入一行程式碼
-來驗證他是否有吃到 View2Controller
-self.title = &quot;View2 by me&quot;  Run 起來看的話就會是這樣:
-的確是有吃到程式碼的
-再來就是要加入按鈕了:
-我們先拉一個 Button 進 View2Controller
-並且將該 Button 拉進 View2Controller 的 code
-設定該 button 爲 Action, 並且名稱是 &lsquo;backToView&rsquo;
-意即我們要讓點下 View2Controller 的 Button 行為為回到上一個 View
-另外對 View2 為他加入一個 storyboard ID, View2，等等會用到:
-      <p>
-        <a href="https://blog.kerkerj.in/2014/10/swift-d14-basic-navigation-view-2-viewcontroller/" class="postShorten-excerpt_link link">Continue reading</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
-
-          
           
   <div class="pagination-bar">
     <ul class="pagination">
@@ -862,7 +873,7 @@ self.title = &quot;View2 by me&quot;  Run 起來看的話就會是這樣:
         </section>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2019 <a href="https://github.com/kerkerj">kerkerj</a>. Powered by <a href="https://gohugo.io/">hugo</a>. Theme <a href="https://github.com/kakawait/hugo-tranquilpeak-theme">Tranquilpeak</a>. All Rights Reserved
+    &copy; 2020 <a href="https://github.com/kerkerj">kerkerj</a>. Powered by <a href="https://gohugo.io/">hugo</a>. Theme <a href="https://github.com/kakawait/hugo-tranquilpeak-theme">Tranquilpeak</a>. All Rights Reserved
   </span>
 </footer>
 
@@ -916,6 +927,42 @@ self.title = &quot;View2 by me&quot;  Run 起來看的話就會是這樣:
       <div class="no-result text-color-light text-center">no post found</div>
       <div class="results">
         
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2020/11/use-zap-observer/">
+                <h3 class="media-heading">Use Zap Observer</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Nov 11, 2020
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">If you are using zap as your logging tool, then when you write the tests, you might want to assert the function via the logs. You can use zap/observer package to make it possible.
+Below is a code piece to demonstrate how it works:
+package main import ( &quot;testing&quot; &quot;go.uber.org/zap&quot; &quot;go.uber.org/zap/zapcore&quot; &quot;go.uber.org/zap/zaptest/observer&quot; ) func LogHello(name string) { zap.L().Info(&quot;hello: &quot; + name) } func TestLogHello(t *testing.T) { // arrange core, recordedLogs := observer.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://blog.kerkerj.in/2019/05/google-cloud-ml-study-jam/">
+                <h3 class="media-heading">Google Cloud - ML Study Jam</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  May 5, 2019
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p>參加了 Google Cloud 的 <a href="https://events.withgoogle.com/ml-study-jam-basic-tw/">Basic ML Study Jam</a>，紀錄一下</p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
         
           <div class="media">
             
@@ -1080,52 +1127,6 @@ $ cd /to/your/gb_projects $ PROJECT_DIR=`pwd` $ GOPATH=&quot;$PROJECT_DIR/vendor
             <hr>
           </div>
         
-          <div class="media">
-            
-            <div class="media-body">
-              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/docker-ha-proxy/">
-                <h3 class="media-heading">docker HA proxy</h3>
-              </a>
-              <span class="media-meta">
-                <span class="media-date text-small">
-                  Oct 10, 2016
-                </span>
-              </span>
-              <div class="media-content hide-xs font-merryweather">不知道標題該下啥&hellip;
-前陣子因為工作需要，需要測試一個 web app 分布在多台機器下的狀況
-想說使用 docker 來做這件事，但又懶得弄 nginx 的設定
-稍微查了一下發現有 dockercloud/haproxy
-我使用的情境是 web app * 3 + ha * 1 + redis * 1
-web 使用了兩個 port 7788, 7789
-但是不想讓 ha 把流量導去 7788，所以可以設定 EXCLUDE_PORTS
- 如此一來，在 docker-compse up 後，就可以透過 http://192.168.99.100:5566/ 來連上了
-並且可以透過 docker stats $(docker ps -q) 這個指令來觀察正在執行中的 containers 的基本 metrics~
-快速簡單!</div>
-            </div>
-            <div style="clear:both;"></div>
-            <hr>
-          </div>
-        
-          <div class="media">
-            
-            <div class="media-body">
-              <a class="link-unstyled" href="https://blog.kerkerj.in/2016/10/tool-diff-so-fancy/">
-                <h3 class="media-heading">[tool] diff-so-fancy</h3>
-              </a>
-              <span class="media-meta">
-                <span class="media-date text-small">
-                  Oct 10, 2016
-                </span>
-              </span>
-              <div class="media-content hide-xs font-merryweather">現在想到什麼都來 PO 一下 XD
-https://github.com/so-fancy/diff-so-fancy
-拿來幫你把 git diff 變漂亮的東東
-// install $ brew install diff-so-fancy // Setup $ git config --global core.pager &quot;diff-so-fancy | less --tabs=4 -RFX&quot; // make it more fancier $ git config --global color.diff-highlight.oldNormal &quot;red bold&quot; $ git config --global color.diff-highlight.oldHighlight &quot;red bold 52&quot; $ git config --global color.diff-highlight.newNormal &quot;green bold&quot; $ git config --global color.diff-highlight.newHighlight &quot;green bold 22&quot; </div>
-            </div>
-            <div style="clear:both;"></div>
-            <hr>
-          </div>
-        
       </div>
     </div>
     <div class="modal-footer">
@@ -1133,7 +1134,7 @@ https://github.com/so-fancy/diff-so-fancy
          data-message-zero="no post found"
          data-message-one="1 post found"
          data-message-other="{n} posts found">
-         143 posts found
+         145 posts found
       </p>
     </div>
   </div>

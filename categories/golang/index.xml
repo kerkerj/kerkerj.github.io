@@ -6,10 +6,21 @@
     <description>Recent content in Golang on kerkerj</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 21 Aug 2018 16:12:37 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 22 Nov 2020 23:03:48 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.kerkerj.in/categories/golang/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Use Zap Observer</title>
+      <link>https://blog.kerkerj.in/2020/11/use-zap-observer/</link>
+      <pubDate>Sun, 22 Nov 2020 23:03:48 +0800</pubDate>
+      
+      <guid>https://blog.kerkerj.in/2020/11/use-zap-observer/</guid>
+      <description>If you are using zap as your logging tool, then when you write the tests, you might want to assert the function via the logs. You can use zap/observer package to make it possible.
+Below is a code piece to demonstrate how it works:
+package main import ( &amp;quot;testing&amp;quot; &amp;quot;go.uber.org/zap&amp;quot; &amp;quot;go.uber.org/zap/zapcore&amp;quot; &amp;quot;go.uber.org/zap/zaptest/observer&amp;quot; ) func LogHello(name string) { zap.L().Info(&amp;quot;hello: &amp;quot; + name) } func TestLogHello(t *testing.T) { // arrange core, recordedLogs := observer.</description>
+    </item>
     
     <item>
       <title>Go pprof</title>
