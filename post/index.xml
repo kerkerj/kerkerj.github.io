@@ -229,19 +229,14 @@ $ sudo vi /etc/default/motion  將 no 改成 yes</description>
       <pubDate>Wed, 22 Apr 2015 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kerkerj.in/2015/04/setup-wifi-on-raspberry-pi2/</guid>
-      <description>(這是篇筆記)
+      <description>2021-0527 更新
+ 先確認自己的 kernal 版本   $ uname -r 5.10.17-v7+   到 http://downloads.fars-robotics.net/ 裡找相對應版本   http://downloads.fars-robotics.net/ wifi-drivers/ 8188eu-drivers/ ... 8188eu-3.18.7-757.tar.gz ... 8188eu-4.1.15-829.tar.gz .... 8188eu-5.10.17-v7-1414.tar.gz  檔案命名的規則是 8188eu-{$kernal_version}-xxxx.tar.gz
+ 找到相對應的 kernal 版本後下載下來並解壓   $ wget http://downloads.fars-robotics.net/wifi-drivers/8188eu-drivers/8188eu-5.10.17-v7-1414.tar.gz $ tar xvf 8188eu-5.10.17-v7-1414.tar.gz   執行 install.sh 後重開機應該就有了   $ ./install.sh  若沒有的話，翻翻 http://downloads.fars-robotics.net/ 的資料看有沒有提供解方
+ (這是篇筆記)
 前陣子從前同事那接手了一塊 raspberry pi2 的板子
 想要用 wifi 來連網，於是就買了一個 usb 無線網卡
 型號是:
-TP-LINK TL-WN725N 150MbpsUSB無線網卡 (pchome連結)
-一開始當然還是必須先插網路線，ssh 進去後
-先檢查 pi2 的 kernel 版本
-$ uname -r 3.18.7-v7+ # 這是我的版本  接著根據這個 repo
-將韌體載下來放到 /lib/firmware 裡
-$ sudo wget https://github.com/lwfinger/rtl8188eu/raw/c83976d1dfb4793893158461430261562b3a5bf0/rtl8188eufw.bin -O /lib/firmware/rtlwifi/rtl8188eufw.bin  再來設定 pi2 的網路
-$ ifconfig eth0 Link encap:Ethernet lo Link encap:Local Loopback wlan0 Link encap:Ethernet  如果網卡有裝成功，應該就會有 wlan0 或是 wlanX 之類的 (X 是數字)
-最後就是手動掃描無線網路，並設定連線值囉
-$ sudo iwlist scan =&amp;gt; 掃描無線網路 AP wlan0 Scan completed : Cell 01 - Address: XX:XX:XX:XX:XX:XX ESSID:&amp;quot;GGININDER&amp;quot; Cell 02 - Address: XX:XX:XX:XX:XX:XX ESSID:&amp;quot;TP-LINK_F5566&amp;quot;  連線的 SSID 就找 Cell 裡的 ESSID</description>
+TP-LINK TL-WN725N 150MbpsUSB無線網卡 (pchome連結)</description>
     </item>
     
     <item>
