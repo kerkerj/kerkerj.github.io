@@ -7,16 +7,16 @@ categories: ['arch linux']
 
 
 Arch linux 安裝雜記  
-本來要研究如何弄到USB上安裝的, 但發現教室有光碟, 所以就沒去研究了  
-以下是安裝Arch linux的一點簡單紀錄  
+本來要研究如何弄到 USB 上安裝的, 但發現教室有光碟, 所以就沒去研究了  
+以下是安裝 Arch linux 的一點簡單紀錄  
 
-首先不得不說[Arch linux的維基][1]  
+首先不得不說[Arch linux 的維基][1]  
 用關鍵字查詢會有許多結果, 包含中文翻譯  
 雖然目前還是簡體字較多, 但總比直接看英文還來的快些  
 若安裝上有問題或是對某個套件的詳細內容有興趣可以到這查  
 
-我這次安裝主要是先參考此篇文章: [ArchLinux 推廣教學起跑！(09.7.5更新)][2]  
-寫得很詳細, 雖然是2009年的文章, 但仍非常有參考價值  
+我這次安裝主要是先參考此篇文章: [ArchLinux 推廣教學起跑！(09.7.5 更新)][2]  
+寫得很詳細, 雖然是 2009 年的文章, 但仍非常有參考價值  
 
 前半段的步驟會和此篇文章有點類似  
 
@@ -29,9 +29,9 @@ Arch linux 安裝雜記
 
 	- Prepare Hard Drive: 我是使用整顆硬碟所以不需要太繁複的步驟  
 	- Select Package: 我使用預設值, 也不需要什麼步驟  
-	- Install package: 不能跳著作,一定要選擇package後才能安裝,沒選擇package也不會繼續往下作  
+	- Install package: 不能跳著作,一定要選擇 package 後才能安裝,沒選擇 package 也不會繼續往下作  
 	- Configure System: 照網頁作, 他問什麼就回答自己的情況就好  
-	- 文字編輯器我選擇 vi (其實之後裝了vim,我比較熟悉vim,不會用vi的話要選nano)  
+	- 文字編輯器我選擇 vi (其實之後裝了 vim,我比較熟悉 vim,不會用 vi 的話要選 nano)  
 	- 必須先編輯兩個檔案: `/etc/rc.conf`   `/etc/locale.gen`  
 	- `rc.conf` 是開機時會讀取的檔案  
 	- 因此要開機啟動的服務, 網路設定等等設定都會寫在這裡面, 很重要的檔案  
@@ -41,20 +41,20 @@ Arch linux 安裝雜記
   - 還要設定 root 密碼  
 
 Install Bootloader  
-	- 就照預設安裝吧, 會要你選擇要裝在哪, 我是裝在第一個0.0  
+	- 就照預設安裝吧, 會要你選擇要裝在哪, 我是裝在第一個 0.0  
 Exit Install  
 	- 完成後就離開囉, 然後輸入 reboot 重開機  
 
 3. 進入新系統, 建立新使用者 `#adduser`  
   
-4. 安裝sudo, screen, ssh  
+4. 安裝 sudo, screen, ssh  
 `#pacman -S sudo openssh screen`  
 ssh 的設定可以參考 Arch linux 的 wiki:[SSH (簡體中文)][3]  
   
-5. 若要安裝桌面環境的話就自行google吧  
-個人有安裝最小安裝的KDE  
+5. 若要安裝桌面環境的話就自行 google 吧  
+個人有安裝最小安裝的 KDE  
 `#pacman -S kdebase-workspace kdebase-konsole`  
-另外加裝了firefox, 主要是因為專題同學不習慣使用命令列  
+另外加裝了 firefox, 主要是因為專題同學不習慣使用命令列  
 因此還是裝了個環境讓有急用時可以上網搜尋之類的  
 Arch linux wiki 上關於 KDE 的頁面是正體中文  
 因此可以參考看看 [KDE (正體中文)][4]  

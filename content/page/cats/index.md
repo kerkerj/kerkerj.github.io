@@ -1,6 +1,6 @@
 ---
 title: "Cats"
-description: "> 201805 update: 改用 droplr 啦 > 201705 update: Dropbox 移除公開資料夾了，有點懶得換新圖床，就將就著用吧 囧rz These are my cats :) Facebook Page 依照時間先後到家裡排序 居居 aka GG..."
+description: "> 201805 update: 改用 droplr 啦 > 201705 update: Dropbox 移除公開資料夾了，有點懶得換新圖床，就將就著用吧 囧 rz These are my cats :) Facebook Page 依照時間先後到家裡排序 居居 aka GG..."
 date: 2016-11-14T21:25:00+08:00
 slug: "cats"
 menu:
@@ -12,7 +12,7 @@ menu:
 
 > 201805 update: 改用 droplr 啦~
 
-> 201705 update: Dropbox 移除公開資料夾了，有點懶得換新圖床，就將就著用吧 囧rz
+> 201705 update: Dropbox 移除公開資料夾了，有點懶得換新圖床，就將就著用吧 囧 rz
 
 These are my cats :) 
 

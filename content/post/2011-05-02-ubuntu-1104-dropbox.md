@@ -1,6 +1,6 @@
 ---
 title: '[Ubuntu] 11.04 Dropbox 啟動問題'
-description: "Ubuntu 11.04 安裝Dropbox後設定頁面遲遲不出現的修復方法，下載並執行 fixdropbox 腳本即可解決 AppIndicator 問題。"
+description: "Ubuntu 11.04 安裝 Dropbox 後設定頁面遲遲不出現的修復方法，下載並執行 fixdropbox 腳本即可解決 AppIndicator 問題。"
 date: 2011-05-02
 categories: ['Linux', '其他']
 ---

@@ -19,4 +19,4 @@ HD: 250G
 >swap			: 5GB  
 >/home		: 40GB  
    
-no use: 170G ( 可以拿來灌Win7 )  
+no use: 170G ( 可以拿來灌 Win7 )  

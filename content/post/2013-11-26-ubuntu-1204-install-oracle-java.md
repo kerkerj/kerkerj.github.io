@@ -1,6 +1,6 @@
 ---
 title: '[Ubuntu] 12.04 install oracle java'
-description: "Ubuntu 12.04 安裝Oracle Java的完整指令，清除舊版後加入 webupd8 PPA，再透過 apt-get 安裝 oracle-java7-installer。"
+description: "Ubuntu 12.04 安裝 Oracle Java 的完整指令，清除舊版後加入 webupd8 PPA，再透過 apt-get 安裝 oracle-java7-installer。"
 date: 2013-11-26
 categories: ['Java', 'Linux']
 ---

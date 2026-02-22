@@ -6,4 +6,4 @@ categories: ['Java']
 ---
 
 
-byte[] 的toString() 是回傳記憶體位置。
+byte[] 的 toString() 是回傳記憶體位置。

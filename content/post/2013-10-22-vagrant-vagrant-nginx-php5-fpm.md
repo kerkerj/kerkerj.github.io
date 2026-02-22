@@ -1,6 +1,6 @@
 ---
 title: '[Vagrant] 使用 Vagrant 安裝 Nginx, php5-fpm, MySQL'
-description: "使用Vagrant搭配VirtualBox架設Nginx+php5-fpm+MySQL開發環境的完整教學，涵蓋基本指令、Vagrantfile埠轉發與資料夾同步設定。"
+description: "使用 Vagrant 搭配 VirtualBox 架設 Nginx+php5-fpm+MySQL 開發環境的完整教學，涵蓋基本指令、Vagrantfile 埠轉發與資料夾同步設定。"
 date: 2013-10-22
 categories: ['Linux', 'Nginx', 'DevOps', 'PHP']
 ---

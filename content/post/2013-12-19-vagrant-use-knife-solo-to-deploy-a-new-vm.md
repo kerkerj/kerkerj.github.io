@@ -1,6 +1,6 @@
 ---
 title: '[Vagrant] use knife-solo to deploy a new VM'
-description: "使用 knife-solo（Chef工具）在Vagrant VM上自動化部署的基本流程，以安裝nginx為例示範如何撰寫cookbook並執行 bootstrap/cook 指令。"
+description: "使用 knife-solo（Chef 工具）在 Vagrant VM 上自動化部署的基本流程，以安裝 nginx 為例示範如何撰寫 cookbook 並執行 bootstrap/cook 指令。"
 date: 2013-12-19
 categories: 
 ---

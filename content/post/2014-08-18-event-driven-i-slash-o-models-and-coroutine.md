@@ -15,7 +15,7 @@ categories: ['Python', 'Node.js', 'Ruby']
 >Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient, perfect for data-intensive real-time applications that run across distributed devices.
 
 其實剛聽到這詞會有點陌生，我們可以先從 Victor 所寫的文章開始讀起:
-[淺談coroutine與gevent](http://blog.ez2learn.com/2010/07/17/talk-about-coroutine-and-gevent/)
+[淺談 coroutine 與 gevent](http://blog.ez2learn.com/2010/07/17/talk-about-coroutine-and-gevent/)
 
 裡面提到了幾種網路模型：
 >

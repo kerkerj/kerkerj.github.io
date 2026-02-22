@@ -1,18 +1,18 @@
 ---
 title: '[Android] 程式開發雜記'
-description: "Android開發雜記，彙整各Java套件功能速查、Empty/Background/Foreground等處理程序種類，以及Activity、Service等核心組件介紹。"
+description: "Android 開發雜記，彙整各 Java 套件功能速查、Empty/Background/Foreground 等處理程序種類，以及 Activity、Service 等核心組件介紹。"
 date: 2011-05-06
 categories: ['Android']
 ---
 
 
-最近在寫和Android程式，因此把一些重點筆記下來：
+最近在寫和 Android 程式，因此把一些重點筆記下來：
 
-## Android中各種JAVA包的功能描述
+## Android 中各種 JAVA 包的功能描述
 (ref: [http://huenlil.pixnet.net/blog/post/24346240][1])
 
-在Android的應用程序開發中，通常使用的是JAVA語言，除了需要熟悉JAVA語言的基礎知識之外，還需要瞭解Android提供的擴展的JAVA功能。
-在Android中，各種包寫成android.*的方式，重要包的描述如下所示：
+在 Android 的應用程序開發中，通常使用的是 JAVA 語言，除了需要熟悉 JAVA 語言的基礎知識之外，還需要瞭解 Android 提供的擴展的 JAVA 功能。
+在 Android 中，各種包寫成 android.*的方式，重要包的描述如下所示：
 
 ```
 * android.app        ：提供高層的程序模型、提供基本的運行環境

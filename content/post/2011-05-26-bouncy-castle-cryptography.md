@@ -1,23 +1,23 @@
 ---
 title: '[Java] Bouncy Castle Cryptography'
-description: "Java密碼學作業實作紀錄，使用Bouncy Castle函式庫完成SHA512摘要、RSA非對稱加密及AES對稱加密，處理文字、圖片與聲音檔案。"
+description: "Java 密碼學作業實作紀錄，使用 Bouncy Castle 函式庫完成 SHA512 摘要、RSA 非對稱加密及 AES 對稱加密，處理文字、圖片與聲音檔案。"
 date: 2011-05-26
 categories: ['Java']
 ---
 
 
-這是為了ECT作業所作的筆記
+這是為了 ECT 作業所作的筆記
 [Bouncy Castle Cryptography][1]
 
-這次作業用到了密碼學的技術，助教給了這個網站的library讓大家方便實作  
+這次作業用到了密碼學的技術，助教給了這個網站的 library 讓大家方便實作  
 
 作業內容是：可讀取文字, 圖片, 聲音  
-先初始化轉成byte後，利用SHA512進行訊息摘要，  
-再對檔案做RSA加密, 解密,接著是 AES 加密, 解密,   
+先初始化轉成 byte 後，利用 SHA512 進行訊息摘要，  
+再對檔案做 RSA 加密, 解密,接著是 AES 加密, 解密,   
 最後使用解密後的內容作還原的動作,  
-若input的檔案與output的檔案內容一樣表示成功。  
+若 input 的檔案與 output 的檔案內容一樣表示成功。  
 
-以下是這次作業會用到的class   
+以下是這次作業會用到的 class   
 ```
 * SHA512Digest 產生訊息摘要MD  
 * AESEngine (對稱式加密)  

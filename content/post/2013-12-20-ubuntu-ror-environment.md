@@ -1,6 +1,6 @@
 ---
 title: '[Ubuntu] RoR environment'
-description: "Vagrant Ubuntu 12.04 上使用RVM安裝Ruby 2.0 + Rails 4 + Passenger Nginx + php5-fpm + MySQL的完整環境建置教學，含各步驟指令與設定。"
+description: "Vagrant Ubuntu 12.04 上使用 RVM 安裝 Ruby 2.0 + Rails 4 + Passenger Nginx + php5-fpm + MySQL 的完整環境建置教學，含各步驟指令與設定。"
 date: 2013-12-20
 categories: ['MySQL', 'Linux', 'Ruby', 'Nginx', 'DevOps', 'PHP']
 ---

@@ -1,6 +1,6 @@
 ---
 title: '[Android] 安裝開發環境'
-description: "Android 開發環境五步驟建置教學：安裝JDK與Eclipse、下載Android SDK、設定ADT外掛、選擇SDK版本套件，最後建立模擬器。"
+description: "Android 開發環境五步驟建置教學：安裝 JDK 與 Eclipse、下載 Android SDK、設定 ADT 外掛、選擇 SDK 版本套件，最後建立模擬器。"
 date: 2012-04-18
 categories: ['Android']
 ---
@@ -34,7 +34,7 @@ Step5. 安裝 packages (Platforms and Other Packages)
    
    c. 從 Linux/Mac : 到 Android SDK 的 tools 資料夾，並執行 android 指令
    
-   選擇要開發的版本或package並安裝 
+   選擇要開發的版本或 package 並安裝 
    
 [![][11]][12]
 

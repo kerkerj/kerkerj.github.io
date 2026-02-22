@@ -1,6 +1,6 @@
 ---
 title: '[Codeigniter] Tips deploy to Amazon Web Services'
-description: "CodeIgniter 部署到AWS的注意事項：使用RDS需關閉 pconnect 持久連線避免超過連線上限、注意RDS時區為UTC，以及使用Load Balancer的考量。"
+description: "CodeIgniter 部署到 AWS 的注意事項：使用 RDS 需關閉 pconnect 持久連線避免超過連線上限、注意 RDS 時區為 UTC，以及使用 Load Balancer 的考量。"
 date: 2014-05-28
 categories: 
 ---
