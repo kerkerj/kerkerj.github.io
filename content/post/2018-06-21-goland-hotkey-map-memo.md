@@ -5,7 +5,7 @@ slug: "goland-hotkey-map-memo"
 categories: ['Golang', '工具']
 tags: ['Goland', 'JetBrains', 'IDE', '快捷鍵']
 description: "整理 JetBrains Goland 常用快捷鍵，包含搜尋、導覽、重構等操作，方便日常開發快速查閱。"
-draft: true
+
 ---
 
 首先從 command line 開啟 （Intellij 是 `idea`）

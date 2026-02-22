@@ -5,7 +5,7 @@ slug: "proxysql-percona-xtradb-cluster-using-docker"
 categories: ['MySQL', 'DevOps', 'Docker']
 tags: ['ProxySQL', 'Percona', 'XtraDB', 'MySQL', 'Docker', 'Load Balancing', 'PMM', 'Grafana']
 description: "介紹如何使用 Docker 搭建 ProxySQL 搭配 Percona XtraDB Cluster，涵蓋讀寫分離、負載均衡、Query Cache、Galera 支援及 PMM 監控設定。"
-draft: true
+
 ---
 
 GitHub:

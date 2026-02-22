@@ -5,7 +5,7 @@ slug: "flink-note"
 categories: ['其他']
 tags: ['Flink', 'Scala', 'Hadoop', 'Docker', 'Intellij', 'sbt', '大數據']
 description: "Apache Flink 入門筆記，涵蓋 Mac 上安裝與測試 Flink、使用 Docker Compose 部署、以及在 Intellij 中以 Scala 開發 Flink 任務的完整流程。"
-draft: true
+
 ---
 
 flink, hadoop, scala
