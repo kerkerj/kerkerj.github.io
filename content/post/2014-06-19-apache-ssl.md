@@ -1,6 +1,6 @@
 ---
 title: '[Apache] SSL (self-signed & purchased version) '
-description: "Apache 設定 SSL 的完整步驟：自簽憑證（產生金鑰、CSR、CRT 並設定 VirtualHost）以及向 Symantec 購買商業憑證的兩種方式。"
+description: "Complete guide to configuring SSL on Apache: self-signed certificates (generating key, CSR, CRT, and VirtualHost setup) and purchasing commercial certificates from Symantec."
 date: 2014-06-19
 categories: ['DevOps']
 ---

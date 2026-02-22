@@ -1,6 +1,6 @@
 ---
 title: '[PHP] json_decode error by wrong json string with quotes '
-description: "PHP 從 $_POST 接收的 JSON 字串被加上反斜線導致 json_decode 失敗，根本原因是 php.ini 的 magic_quotes 設定，關閉即可解決。"
+description: "PHP json_decode fails when the JSON string from $_POST has added backslashes. The root cause is the magic_quotes setting in php.ini — disable it to fix the issue."
 date: 2014-01-28
 categories: ['PHP', 'JavaScript']
 ---

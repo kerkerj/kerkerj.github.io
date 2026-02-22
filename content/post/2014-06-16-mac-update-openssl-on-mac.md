@@ -1,6 +1,6 @@
 ---
 title: '[Mac] update openssl on mac'
-description: "Mac 使用 Homebrew 更新 OpenSSL 的步驟，若版本仍顯示舊版，需手動刪除 /usr/bin/openssl 並建立指向新版的 symlink。"
+description: "How to update OpenSSL on Mac using Homebrew. If the version still shows the old one, manually remove /usr/bin/openssl and create a symlink to the new version."
 date: 2014-06-16
 categories: ['macOS', 'DevOps']
 ---

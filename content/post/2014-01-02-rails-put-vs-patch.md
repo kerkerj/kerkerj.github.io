@@ -1,6 +1,6 @@
 ---
 title: '[Rails] PUT v.s. PATCH'
-description: "Rails 中 PUT 與 PATCH 的差異：Rails 4 改用 PATCH 進行資源更新以符合 HTTP 語意規範，PUT 代表完整替換而非部分更新。"
+description: "The difference between PUT and PATCH in Rails. Rails 4 switched from PUT to PATCH for resource updates to follow proper HTTP semantics, where PUT means full replacement and PATCH means partial update."
 date: 2014-01-02
 categories: ['Rails']
 ---

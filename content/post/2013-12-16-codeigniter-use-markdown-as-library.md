@@ -1,6 +1,6 @@
 ---
 title: '[Codeigniter] use markdown as library'
-description: "將 Parsedown Markdown 解析器整合進 CodeIgniter 的步驟：下載後放入 Library 資料夾並設定 autoload.php，即可在 View 中直接解析 Markdown 為 HTML。"
+description: "How to integrate Parsedown Markdown parser into CodeIgniter as a library. Download Parsedown, place it in the Library folder, configure autoload.php, and render Markdown to HTML in your Views."
 date: 2013-12-16
 categories: 
 ---

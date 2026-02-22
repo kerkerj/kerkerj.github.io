@@ -1,6 +1,6 @@
 ---
 title: "Openresty on Ubuntu 14.04"
-description: "Ubuntu 14.04 從原始碼編譯安裝 OpenResty（Nginx + Lua）的完整步驟，並示範用 content_by_lua 與外部 Lua 檔案撰寫 Nginx 應用。"
+description: "How to compile and install OpenResty (Nginx + Lua) from source on Ubuntu 14.04, with examples of using content_by_lua and external Lua files to build Nginx applications."
 date: 2014-08-05
 categories: ['Linux', 'Nginx']
 ---

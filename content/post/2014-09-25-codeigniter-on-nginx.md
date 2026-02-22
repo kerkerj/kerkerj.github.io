@@ -1,6 +1,6 @@
 ---
 title: "Codeigniter on nginx"
-description: "Ubuntu 14.04 上 Nginx + php5-fpm 搭配 CodeIgniter 2.2.0 的完整設定，包含去除 URL 中 index.php 的 Nginx 設定檔與 config.php 修改。"
+description: "Complete Nginx + php5-fpm configuration for CodeIgniter 2.2.0 on Ubuntu 14.04, including removing index.php from URLs with proper Nginx config and config.php settings."
 date: 2014-09-25
 categories: ['PHP', 'Nginx']
 ---

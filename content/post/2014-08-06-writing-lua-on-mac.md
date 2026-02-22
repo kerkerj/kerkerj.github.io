@@ -1,6 +1,6 @@
 ---
 title: "Writing Lua on Mac"
-description: "Mac 上使用 Homebrew 安裝 Lua 並入門 Lua 程式設計，示範 Hello World 和遞迴階乘函式等基本語法範例。"
+description: "Getting started with Lua on Mac: install via Homebrew and learn basic Lua syntax with examples including Hello World and a recursive factorial function."
 date: 2014-08-06
 categories: ['macOS', 'Lua']
 ---

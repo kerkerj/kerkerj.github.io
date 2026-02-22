@@ -1,6 +1,6 @@
 ---
 title: '[Ubuntu] update OpenSSL'
-description: "Ubuntu 手動更新 OpenSSL 的兩種方法：簡便的 curl+make 一行指令，以及含 GPG 簽章驗證的完整安全 bash script，適用於 Heartbleed 等漏洞修補。"
+description: "Two ways to manually update OpenSSL on Ubuntu: a quick one-liner with curl and make, or a full bash script with GPG signature verification. Useful for patching vulnerabilities like Heartbleed."
 date: 2014-04-16
 categories: ['Linux', 'DevOps']
 ---
