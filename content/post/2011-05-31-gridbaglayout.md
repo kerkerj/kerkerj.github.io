@@ -32,7 +32,7 @@ public double weighty
 
 大概是這樣  
 
-[1]: http://1.bp.blogspot.com/-xUK4YkIFTj8/TeUxjstgvoI/AAAAAAAAA0M/CqwnFrzUJQg/s1600/gridlayout.jpg
+[1]: /images/blogspot/gridlayout.jpg
 [2]: http://blog.csdn.net/dmgactive/archive/2009/06/28/4304567.aspx
 [3]: http://download.oracle.com/javase/tutorial/uiswing/layout/gridbag.html
 [4]: http://felixcic.blogspot.com/2010/11/gridbaglayout.html

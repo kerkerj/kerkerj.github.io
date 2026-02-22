@@ -188,9 +188,9 @@ This script will help you to create project.
 
 8. File -> Project Structure (or `cmd + ;`) -> library -> add -> select `java` -> open `flink-1.4.2-bin-hadoop27-scala_2.11.tgz` and select all jar files in `lib`, and select `root` module to import.
 
-   ![image](http://d.kerkerj.in/e8QOHl+)
+   ![image](/images/droplr/e8QOHl.png)
 
-   ![image](http://d.kerkerj.in/8oXvTk+)
+   ![image](/images/droplr/8oXvTk.png)
 
 9. Run `WordCount` again, output should be like this:
 
@@ -243,7 +243,7 @@ Now let's build quickstart project.
 
 5. Choose `Buiild` -> `Build Artifacts` to build jar file, and output file will show up in the output directory after compiling.
 
-   ![image](http://d.kerkerj.in/thI3BI+)
+   ![image](/images/droplr/thI3BI.png)
 
 #### Use sbt
 
@@ -277,7 +277,7 @@ The output file will be generated.
 
 2. Upload the generated jar file, and check the uploaded item.
 
-   ![image](http://d.kerkerj.in/nieY8B+)
+   ![image](/images/droplr/nieY8B.png)
 
 
 

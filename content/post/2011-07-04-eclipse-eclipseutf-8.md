@@ -10,4 +10,4 @@ categories: ['Java', '其他']
 [![][1]][1]
 
   
-[1]: http://3.bp.blogspot.com/-m830CCAIkfQ/ThGEcyrt9_I/AAAAAAAAA5U/lU94Ot-Ci70/s1600/%25E6%259C%25AA%25E5%2591%25BD%25E5%2590%258D.png
+[1]: /images/blogspot/未命名-double.png

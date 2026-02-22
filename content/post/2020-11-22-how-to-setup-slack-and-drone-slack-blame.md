@@ -13,27 +13,27 @@ Slack now has deprecated legacy tokens, instead, Slack encourages us to create [
 
 1. Create a app: https://api.slack.com/apps?new_app=1
 
-	> ![image](http://d.kerkerj.in/76PLxe+)
+	> ![image](/images/droplr/76PLxe.png)
 	
 2. Add features and functionality
 
-	> ![](http://d.kerkerj.in/dikQXb+)
+	> ![](/images/droplr/dikQXb.png)
 
-	> ![](http://d.kerkerj.in/T4fYcK+)
+	> ![](/images/droplr/T4fYcK.png)
 
 	Edit App display name
 
-	> ![](http://d.kerkerj.in/Yu2jv6+)
+	> ![](/images/droplr/Yu2jv6.png)
 
 3. Go to OAuth & Permission, then edit the scope of bots:
 
-	> ![](http://d.kerkerj.in/ymdhsQ+)
+	> ![](/images/droplr/ymdhsQ.png)
    
 	What I need is to make Drone (drone-slack-blame) to notify the users with the build status, and send messages to channels as well, so I need `users:read` permission to map Github users and Slack users (you can set `mapping` in drone-slack-blame section in drone.yml), and Drone Bot requires `chat:write` to send private messages, and `chat:write:public` to send messages to public channels.
 
 4. Install App to workspace
 
-	> ![](http://d.kerkerj.in/uU9Zuc+)
+	> ![](/images/droplr/uU9Zuc.png)
 
 	then you should see `Bot User OAuth Access Token` is present.
 
@@ -47,11 +47,11 @@ Slack now has deprecated legacy tokens, instead, Slack encourages us to create [
 
 	The image below is for private messages:
 
-	> ![](http://d.kerkerj.in/AvXeIw+)
+	> ![](/images/droplr/AvXeIw.png)
 
 	And it sends message to a public channel as well:
 
-	> ![](http://d.kerkerj.in/e8DRl6+)
+	> ![](/images/droplr/e8DRl6.png)
 
 
 Last but not least, you can check https://api.slack.com/apps/ to configure your Slack app, I have to say that Slack administration pages are like a huge maze... it always takes me some time to find out what I want.
