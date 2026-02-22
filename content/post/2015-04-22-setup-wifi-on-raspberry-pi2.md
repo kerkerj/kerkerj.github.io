@@ -1,6 +1,6 @@
 ---
 title: "Setup wifi on raspberry pi2"
-description: "2021-0527 更新 1. 先確認自己的 kernal 版本 $ uname -r 5.10.17-v7+ 2. 到 http://downloads.fars-robotics.net/ 裡找相對應版本 http://downloads.fars-robotics."
+description: "Raspberry Pi 2 WiFi 設定教學（含2021更新），依 kernel 版本下載對應驅動程式，並設定 wpa_supplicant.conf 連接 WiFi 網路。"
 date: 2015-04-22
 categories: ['Raspberry Pi']
 ---

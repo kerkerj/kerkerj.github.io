@@ -1,6 +1,6 @@
 ---
 title: '[Ubuntu] -bash: warning: setlocale: LC_CTYPE: cannot change locale'
-description: "本文針對 Ubuntu 上 `bash: warning: setlocale: LC_CTYPE: cannot change locale` 錯誤，提供快速解決方案：透過 `locale-gen` 生成 `zh_TW.UTF-8` 語系，並更新系統預設語系設定。"
+description: "Ubuntu bash 出現 'setlocale: LC_CTYPE: cannot change locale' 警告的修復指令：執行 locale-gen zh_TW.UTF-8 並 update-locale 後重新載入設定檔。"
 date: 2013-12-18
 categories: ['Linux']
 ---

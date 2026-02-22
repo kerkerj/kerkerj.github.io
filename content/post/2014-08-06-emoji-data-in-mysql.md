@@ -1,6 +1,6 @@
 ---
 title: "Emoji data in MySQL"
-description: "Supported MySQL 5.5, 5.6. First, MySQL should set DB and table to utf8mb4. utf8 - 3 byte characters utf8mb4 - 4 byte characters sql ALTER DATABASE..."
+description: "MySQL 正確儲存 Emoji 的解法：將資料庫、資料表和欄位的字元集改為 utf8mb4（支援4位元組），並在每次操作前執行 SET NAMES utf8mb4。"
 date: 2014-08-06
 categories: ['MySQL', '其他']
 ---

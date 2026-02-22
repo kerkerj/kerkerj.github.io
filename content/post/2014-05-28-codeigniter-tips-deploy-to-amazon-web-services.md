@@ -1,6 +1,6 @@
 ---
 title: '[Codeigniter] Tips deploy to Amazon Web Services'
-description: "1. If you use Amazon RDS, especially micro plan, remember to set $config['pconnect'] = FALSE in application/config/database.php."
+description: "CodeIgniter 部署到AWS的注意事項：使用RDS需關閉 pconnect 持久連線避免超過連線上限、注意RDS時區為UTC，以及使用Load Balancer的考量。"
 date: 2014-05-28
 categories: 
 ---

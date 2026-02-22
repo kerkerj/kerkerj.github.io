@@ -1,6 +1,6 @@
 ---
 title: '[Codeigniter] remove index.php & 圖片無法讀取問題'
-description: "本文解決 CodeIgniter 框架中移除 URL 的 `index.php` 及圖片無法讀取的問題，透過修改 `.htaccess` rewrite 規則與 `config.php` 設定，確保網站路由正常運作。"
+description: "CodeIgniter 移除URL中 index.php 並修復上傳圖片無法讀取的問題，調整 .htaccess 的 RewriteRule 加入 REQUEST_FILENAME 條件即可解決。"
 date: 2011-12-20
 categories: ['PHP']
 ---

@@ -1,6 +1,6 @@
 ---
 title: '[PHP] 上傳檔案的限制'
-description: "本文列出 `php.ini` 中關於 PHP 腳本執行時間、輸入處理時間、記憶體用量、POST 資料大小、單檔上傳容量及 Socket/MySQL 連線逾時等關鍵限制設定。"
+description: "php.ini 中影響檔案上傳的七項關鍵設定說明，包含 max_execution_time、memory_limit、post_max_size、upload_max_filesize 等限制參數。"
 date: 2012-01-31
 categories: ['PHP']
 ---

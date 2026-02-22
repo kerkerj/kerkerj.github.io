@@ -1,6 +1,6 @@
 ---
 title: "Raspberry Pi2 remote webcam"
-description: "如題 先假設 pi2 本身的 IP 是 192.168.1.200 首先先進去 server 來更新一下 shell $ sudo apt-get update && sudo apt-get upgrade 再來就裝 motion 他其實是一個 motion detector，不過也可以拿來當作..."
+description: "Raspberry Pi 2 安裝 motion 作為遠端 webcam 串流伺服器，設定 motion.conf 開放串流存取，從瀏覽器遠端觀看攝影機即時影像。"
 date: 2015-04-22
 categories: ['Raspberry Pi']
 ---

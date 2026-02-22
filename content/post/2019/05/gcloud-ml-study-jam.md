@@ -3,30 +3,7 @@ title: "Google Cloud - ML Study Jam"
 date: 2019-05-20T23:23:20+08:00
 categories: ['gcloud', 'ml']
 tags: ['gcloud', 'ml', 'jam']
-keywords: ['tech']
-clearReading: true
-comments: true
-showTags: true
-showPagination: true
-showSocial: true
-showDate: true
-showMeta: true
-showActions: true
-#disqusIdentifier: ""
-#thumbnailImage: image-1.png
-#thumbnailImagePosition: bottom
-#autoThumbnailImage: yes
-#metaAlignment: center
-#coverImage: image-2.png
-#coverCaption: "A beautiful sunrise"
-#coverMeta: out
-#coverSize: full
-#coverImage: image-2.png
-#gallery:
-#    - image-3.jpg "New York"
-#    - image-4.png "Paris"
-#    - http://i.imgur.com/o9r19kD.jpg "Dubai"
-#    - https://example.com/orignal.jpg https://example.com/thumbnail.jpg "Sidney"
+description: "參加 Google Cloud Basic ML Study Jam 的學習紀錄。"
 ---
 
 參加了 Google Cloud 的 [Basic ML Study Jam](https://events.withgoogle.com/ml-study-jam-basic-tw/)，紀錄一下

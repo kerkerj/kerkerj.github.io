@@ -1,6 +1,6 @@
 ---
 title: '[Mac OSX] homebrew update error'
-description: "本文針對 Mac OSX 上 `homebrew update` 因本地修改或未追蹤檔案造成的 Git 合併錯誤，提供解決方案：進入 `/usr/local` 執行 `git fetch origin` 後 `git reset --hard origin/master` 以解決衝突。"
+description: "Homebrew update 因本地 git 變更衝突而失敗的解法：進入 /usr/local 執行 git fetch origin 再 git reset --hard origin/master 即可修復。"
 date: 2013-11-13
 categories: ['Git', 'macOS']
 ---

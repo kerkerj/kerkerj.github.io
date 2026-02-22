@@ -1,6 +1,6 @@
 ---
 title: '[Codeigniter] Disallowed Key Characters'
-description: "本文針對 CodeIgniter 框架中「Disallowed Key Characters」錯誤提供解決方案，特別指出表單名稱使用中文字元可能導致此問題，並建議避免使用非標準字元來修正。"
+description: "CodeIgniter 出現 'Disallowed Key Characters' 錯誤的原因與解法：表單 input 的 name 屬性不能使用中文，改成英文即可。"
 date: 2012-01-31
 categories: ['PHP']
 ---

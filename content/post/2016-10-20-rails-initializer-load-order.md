@@ -4,7 +4,7 @@ date: 2016-10-20T10:39:30+08:00
 draft: false
 tags: ["rails","initializer"]
 title: Rails initializer 的載入順序
-description: "如果 rails app 裡的 initializer 有載入順序的需求的話 可以照著 Ruby On Rails Guide 這篇來設定 > If you have any ordering dependency in your initializers, you can control the..."
+description: "Rails initializer 的載入順序控制方法：initializer 依照檔名的字母順序載入，在檔名前加上數字前綴即可確保特定順序執行。"
 ---
 
 

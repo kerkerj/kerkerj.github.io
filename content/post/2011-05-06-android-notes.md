@@ -1,6 +1,6 @@
 ---
 title: '[Android] 程式開發雜記'
-description: "彙整 Android 程式開發筆記，內容涵蓋 Android 各類 Java 套件功能、不同處理程序類型、核心應用程式組件介紹，以及 Android 裝置螢幕截圖方法。"
+description: "Android開發雜記，彙整各Java套件功能速查、Empty/Background/Foreground等處理程序種類，以及Activity、Service等核心組件介紹。"
 date: 2011-05-06
 categories: ['Android']
 ---

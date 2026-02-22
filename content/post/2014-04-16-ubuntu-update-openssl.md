@@ -1,6 +1,6 @@
 ---
 title: '[Ubuntu] update OpenSSL'
-description: "Easy way: Below the single command line to compiling and install the last openssl version. $ curl https://www.openssl.org/source/openssl-1.0.1h.tar."
+description: "Ubuntu 手動更新 OpenSSL 的兩種方法：簡便的 curl+make 一行指令，以及含 GPG 簽章驗證的完整安全 bash script，適用於 Heartbleed 等漏洞修補。"
 date: 2014-04-16
 categories: ['Linux', 'DevOps']
 ---

@@ -1,6 +1,6 @@
 ---
 title: '[Mac OSX] Slow-Opening Terminal Windows'
-description: "本文探討 Mac OSX 終端機開啟緩慢的問題，解釋 `Terminal.app` 預設載入 `.bash_profile` 的特性，並提供在 `.bash_profile` 中直接定義 `PATH` 變數以顯著提升終端機啟動速度的解決方案。"
+description: "Mac OSX 終端機開啟緩慢的原因：Terminal.app 預設執行 login shell 讀取 .bash_profile，將 PATH 直接寫入 .bash_profile 可大幅提升啟動速度。"
 date: 2013-11-13
 categories: ['macOS', 'Linux']
 ---

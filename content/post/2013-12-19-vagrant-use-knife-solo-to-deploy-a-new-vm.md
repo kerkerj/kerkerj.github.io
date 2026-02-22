@@ -1,6 +1,6 @@
 ---
 title: '[Vagrant] use knife-solo to deploy a new VM'
-description: "My own computer: host side My VM: guest side knife-solo is a tool for Chef. host side: you need ruby environment! $ gem install knife-solo The only..."
+description: "使用 knife-solo（Chef工具）在Vagrant VM上自動化部署的基本流程，以安裝nginx為例示範如何撰寫cookbook並執行 bootstrap/cook 指令。"
 date: 2013-12-19
 categories: 
 ---

@@ -1,6 +1,6 @@
 ---
 title: "Codeigniter on nginx"
-description: "I use Ubuntu 14.04, Nginx 1.4.6, php5-fpm, Codeigniter 2.2.0 It will remove index.php, and access Codeigniter site normally."
+description: "Ubuntu 14.04 上 Nginx + php5-fpm 搭配 CodeIgniter 2.2.0 的完整設定，包含去除 URL 中 index.php 的 Nginx 設定檔與 config.php 修改。"
 date: 2014-09-25
 categories: ['PHP', 'Nginx']
 ---

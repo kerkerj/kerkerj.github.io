@@ -4,7 +4,7 @@ date: 2016-10-25T12:32:55+08:00
 draft: false
 tags: ["golang","goroutine"]
 title: "goroutine 執行相關討論"
-description: "幾天前在 Golang Taiwan 的 slack 裡看到了一些關於 goroutine 的討論 有人問了以下程式碼 (from http://blog.mergermarket."
+description: "從 Golang Taiwan Slack 上的討論出發，探討 goroutine 的執行順序、GOMAXPROCS 與 runtime.Gosched 的影響。"
 ---
 
 

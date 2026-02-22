@@ -1,6 +1,6 @@
 ---
 title: '[Java] Hex String & Byte Array 轉換'
-description: "本文提供 Java 程式碼範例，示範如何利用 `BigInteger` 類別，高效地將十六進位字串轉換為位元組陣列，反之亦然。"
+description: "Java Hex String 與 Byte Array 互轉的程式碼片段，使用 BigInteger 類別實作 toHexString 和 fromHexString 兩個轉換方法。"
 date: 2011-06-01
 categories: ['Java']
 ---

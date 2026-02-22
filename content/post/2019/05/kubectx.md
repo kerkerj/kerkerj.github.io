@@ -1,32 +1,9 @@
 ---
 title: "kubectx"
 date: 2019-05-20T22:23:45+08:00
-categories: ['k8s', 'command']
+categories: ['k8s']
 tags: ['k8s']
-keywords: ['tech']
-clearReading: true
-comments: true
-showTags: true
-showPagination: true
-showSocial: true
-showDate: true
-showMeta: true
-showActions: true
-#disqusIdentifier: ""
-#thumbnailImage: image-1.png
-#thumbnailImagePosition: bottom
-#autoThumbnailImage: yes
-#metaAlignment: center
-#coverImage: image-2.png
-#coverCaption: "A beautiful sunrise"
-#coverMeta: out
-#coverSize: full
-#coverImage: image-2.png
-#gallery:
-#    - image-3.jpg "New York"
-#    - image-4.png "Paris"
-#    - http://i.imgur.com/o9r19kD.jpg "Dubai"
-#    - https://example.com/orignal.jpg https://example.com/thumbnail.jpg "Sidney"
+description: "kubectx 與 kubens：快速切換 Kubernetes context 和 namespace 的工具。"
 ---
 
 -

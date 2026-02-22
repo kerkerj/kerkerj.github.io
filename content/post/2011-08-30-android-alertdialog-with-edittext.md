@@ -1,6 +1,6 @@
 ---
 title: '[Android] AlertDialog with Edittext'
-description: "本文提供 Android Java 程式碼範例，示範如何建立一個包含 `EditText` 輸入框的 `AlertDialog`，讓使用者能輸入文字並提供確認與取消按鈕。"
+description: "Android 建立含 EditText 輸入框的 AlertDialog 程式碼範例，帶 Ok/Cancel 按鈕，可接收使用者輸入的文字。"
 date: 2011-08-30
 categories: ['Android']
 ---

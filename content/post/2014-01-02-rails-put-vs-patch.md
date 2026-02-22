@@ -1,6 +1,6 @@
 ---
 title: '[Rails] PUT v.s. PATCH'
-description: "According to rails convention, PUT is used for updating an existing resource POST is used for creating a new resource In rails 4, PUT has been..."
+description: "Rails 中 PUT 與 PATCH 的差異：Rails 4 改用 PATCH 進行資源更新以符合 HTTP 語意規範，PUT 代表完整替換而非部分更新。"
 date: 2014-01-02
 categories: ['Rails']
 ---

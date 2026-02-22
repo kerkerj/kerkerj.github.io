@@ -1,32 +1,9 @@
 ---
 title: "Go pprof"
 date: 2018-08-21T16:12:37+08:00
-categories: ['golang']
+categories: ['Golang']
 tags: ['golang', 'pprof', 'go-torch', 'trace']
-keywords: ['golang','pprof','kerkerj']
-clearReading: true
-comments: true
-showTags: true
-showPagination: true
-showSocial: true
-showDate: true
-showMeta: true
-showActions: true
-#disqusIdentifier: ""
-#thumbnailImage: image-1.png
-#thumbnailImagePosition: bottom
-#autoThumbnailImage: yes
-#metaAlignment: center
-#coverImage: image-2.png
-#coverCaption: "A beautiful sunrise"
-#coverMeta: out
-#coverSize: full
-#coverImage: image-2.png
-#gallery:
-#    - image-3.jpg "New York"
-#    - image-4.png "Paris"
-#    - http://i.imgur.com/o9r19kD.jpg "Dubai"
-#    - https://example.com/orignal.jpg https://example.com/thumbnail.jpg "Sidney"
+description: "Go pprof 相關指令筆記，包含 CPU/memory profiling 與 go-torch 火焰圖的使用方式。"
 ---
 
 

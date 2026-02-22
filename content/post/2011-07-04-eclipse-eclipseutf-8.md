@@ -1,6 +1,6 @@
 ---
 title: '[Eclipse] 將eclipse改成utf-8編碼'
-description: "本文透過一張圖片，快速指導如何在 Eclipse 開發環境中將預設編碼設定為 UTF-8，以解決編碼相關問題。"
+description: "Eclipse 將預設文字編碼改為 UTF-8 的設定步驟，附截圖說明，解決開發時的中文亂碼問題。"
 date: 2011-07-04
 categories: ['Java', '其他']
 ---

@@ -1,6 +1,6 @@
 ---
 title: "Openresty on Ubuntu 14.04"
-description: "Install choose the latest version of Openresty I used ngxopenresty-1.7.2.1.tar."
+description: "Ubuntu 14.04 從原始碼編譯安裝 OpenResty（Nginx + Lua）的完整步驟，並示範用 content_by_lua 與外部 Lua 檔案撰寫 Nginx 應用。"
 date: 2014-08-05
 categories: ['Linux', 'Nginx']
 ---

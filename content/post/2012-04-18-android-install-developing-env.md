@@ -1,6 +1,6 @@
 ---
 title: '[Android] 安裝開發環境'
-description: "本文詳細指導 Android 開發環境的建置過程，包含 JDK、Eclipse IDE、Android SDK 與 ADT 外掛的安裝，以及 SDK 套件配置和模擬器建立等步驟。"
+description: "Android 開發環境五步驟建置教學：安裝JDK與Eclipse、下載Android SDK、設定ADT外掛、選擇SDK版本套件，最後建立模擬器。"
 date: 2012-04-18
 categories: ['Android']
 ---

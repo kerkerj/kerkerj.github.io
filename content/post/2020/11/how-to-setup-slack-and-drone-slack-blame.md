@@ -3,30 +3,7 @@ title: "How to Setup Slack and Drone Slack Blame"
 date: 2020-11-22T23:24:20+08:00
 categories: ['drone']
 tags: ['slack', 'drone', 'drone-slack-blame']
-keywords: ['slack', 'drone', 'drone-slack-blame']
-clearReading: true
-comments: true
-showTags: true
-showPagination: true
-showSocial: true
-showDate: true
-showMeta: true
-showActions: true
-#disqusIdentifier: ""
-#thumbnailImage: image-1.png
-#thumbnailImagePosition: bottom
-#autoThumbnailImage: yes
-#metaAlignment: center
-#coverImage: image-2.png
-#coverCaption: "A beautiful sunrise"
-#coverMeta: out
-#coverSize: full
-#coverImage: image-2.png
-#gallery:
-#    - image-3.jpg "New York"
-#    - image-4.png "Paris"
-#    - http://i.imgur.com/o9r19kD.jpg "Dubai"
-#    - https://example.com/orignal.jpg https://example.com/thumbnail.jpg "Sidney"
+description: "Slack 棄用 legacy tokens 後，如何建立 Slack App 並搭配 drone-slack-blame plugin 使用。"
 ---
 
 Slack now has deprecated legacy tokens, instead, Slack encourages us to create [`Slack Apps`](https://api.slack.com/apps) to do our job, so I created a note to record how I set up Slack app and use it on [`drone-slack-blame`](http://plugins.drone.io/drone-plugins/drone-slack-blame/) plugin.

@@ -1,6 +1,6 @@
 ---
 title: "Writing Lua on Mac"
-description: "Install lua on mac I'm not sure that whether Lua is built on mac originally. (Ok, tested on Mac OSX 10.9, there is Lua in it."
+description: "Mac 上使用 Homebrew 安裝 Lua 並入門 Lua 程式設計，示範 Hello World 和遞迴階乘函式等基本語法範例。"
 date: 2014-08-06
 categories: ['macOS', 'Lua']
 ---

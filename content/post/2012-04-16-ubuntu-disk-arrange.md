@@ -1,6 +1,6 @@
 ---
 title: '[Ubuntu] 磁碟分配'
-description: "本文提供一個 Ubuntu 系統在 250GB 硬碟上的磁碟分割建議方案，詳細列出 `/boot`、`/`、`/usr`、`/var`、`/usr/local`、`/tmp`、`swap` 及 `/home` 等分區的推薦大小。"
+description: "Ubuntu 250GB 硬碟磁碟分割配置參考，列出 /boot、/usr、/var、swap、/home 等各分區的建議容量，剩餘空間可留給 Windows 雙系統。"
 date: 2012-04-16
 categories: ['Linux']
 ---

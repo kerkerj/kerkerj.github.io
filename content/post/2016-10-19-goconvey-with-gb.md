@@ -4,7 +4,7 @@ date: "2016-10-19T00:01:04+08:00"
 draft: false
 tags: ["golang","gb","goconvey"]
 title: "Use goconvey in projects maganged by gb"
-description: "這是前陣子在工作上用到的 有個 golang 的專案，使用了 gb 來管理第三方套件 當時想套 goconvey 進來 但是一直搞不定執行的方式 後來在 github goconvey issue 裡找到了方式 $ cd /to/your/gbprojects $ PROJECTDIR=pwd $..."
+description: "在以 gb 管理的 Golang 專案中啟動 goconvey web UI 的方法，透過正確設定 GOPATH 環境變數後執行 goconvey 指令。"
 ---
 
 

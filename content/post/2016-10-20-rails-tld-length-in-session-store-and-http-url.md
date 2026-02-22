@@ -4,7 +4,7 @@ date: 2016-10-20T10:47:58+08:00
 draft: false
 tags: ["rails", "session","url"]
 title: tld_length 在 Rails session_store 與 HTTP URL 的設定
-description: "工作上 rails 在每個 stage 的 domain 長度都不太一樣 例如 production 是 example.com，staging 是 kerkerj.staging.example.com ruby MyApp::Application.config."
+description: "Rails session_store 和 ActionDispatch::Http::URL 中 tld_length 的設定差異與實作原理。"
 ---
 
 

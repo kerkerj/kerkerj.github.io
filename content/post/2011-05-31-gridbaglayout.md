@@ -1,6 +1,6 @@
 ---
 title: '[Java] GridBagLayout'
-description: "本文簡要介紹 Java 的 `GridBagLayout` 排版管理器及其主要配置參數，並提供外部連結供讀者深入學習，以有效地在網格中排列組件。"
+description: "Java GridBagLayout排版管理器基礎介紹，列出anchor、fill、gridx、weightx等主要配置參數，附外部教學資源連結。"
 date: 2011-05-31
 categories: ['Java']
 ---

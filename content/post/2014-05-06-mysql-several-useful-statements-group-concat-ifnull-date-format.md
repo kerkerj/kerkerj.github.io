@@ -1,6 +1,6 @@
 ---
 title: '[MySQL] Several useful statements (GROUP_CONCAT, ifnull, DATE_FORMAT)'
-description: "1. 將 query 出來的多筆記錄結合成一個欄位 例如原本的 query 結果為： SELECT 'fruits' FROM 'fruitstable' apple banana kiwi SELECT groupconcat('fruits' separator ',') FROM..."
+description: "MySQL 三個實用語句：GROUP_CONCAT 將多行結果合併成一個欄位、DATE_FORMAT 格式化日期顯示，以及 IFNULL 為空值欄位設定預設值。"
 date: 2014-05-06
 categories: ['MySQL']
 ---

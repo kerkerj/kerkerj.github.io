@@ -4,7 +4,7 @@ date: 2016-10-18T23:36:40+08:00
 draft: false
 tags: ["docker","haproxy","docker-compose"]
 title: "docker HA proxy"
-description: "不知道標題該下啥... 前陣子因為工作需要，需要測試一個 web app 分布在多台機器下的狀況 想說使用 docker 來做這件事，但又懶得弄 nginx 的設定 稍微查了一下發現有 dockercloud/haproxy 我使用的情境是 web app 3 + ha 1 + redis 1..."
+description: "使用 dockercloud/haproxy 搭配 docker-compose 架設 web app × 3 + Redis + HAProxy 的負載均衡測試環境，並用 docker stats 觀察 container metrics。"
 ---
 
 

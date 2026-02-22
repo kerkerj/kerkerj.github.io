@@ -1,6 +1,6 @@
 ---
 title: '[Android] thread 處理 UI update'
-description: "本文針對 Android 背景執行緒更新 UI 時常見的「Only the original thread...」錯誤，提供使用 `runOnUiThread` 安全修改 UI 的解決方案，並附上 `ProgressDialog` 的程式碼範例。"
+description: "Android 背景執行緒出現『Only the original thread...』錯誤的解法：使用 runOnUiThread 方法才能安全修改UI，附 ProgressDialog 完整程式碼範例。"
 date: 2012-04-18
 categories: 
 ---

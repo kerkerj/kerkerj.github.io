@@ -1,6 +1,6 @@
 ---
 title: '[Xcode] 模擬器的 home 鍵不見了?! '
-description: "本文針對 Xcode iOS 模擬器中 Home 鍵「消失」的問題，解釋 iOS 5 之後的模擬器設計變化，並提供 `command`+`shift`+`h` 快捷鍵以叫出 Home 鍵，以及調整模擬器大小的快捷指令。"
+description: "Xcode iOS 模擬器 Home 鍵消失是 iOS 5 後的設計改變，按 Command+Shift+H 可叫出 Home 鍵，Command+1/2/3 可切換模擬器顯示大小。"
 date: 2013-11-19
 categories: ['iOS', 'macOS']
 ---

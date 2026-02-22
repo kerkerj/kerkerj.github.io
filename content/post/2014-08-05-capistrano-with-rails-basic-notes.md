@@ -1,6 +1,6 @@
 ---
 title: "Capistrano with rails - basic notes"
-description: "詳細的東西還是看 project's github page 比較快 - Capistrano@github Capistrano 剛開始寫 deploy script 時真的會有點搞不太懂 XD 記錄一下使用 'capistrano' 把特定的 github repo 抓到 remote..."
+description: "Capistrano 3 搭配 Rails 的自動化部署入門筆記，說明 deploy.rb 和 production.rb 的關鍵設定，從 GitHub 拉取程式碼並部署到遠端伺服器。"
 date: 2014-08-05
 categories: ['Rails', 'DevOps']
 ---

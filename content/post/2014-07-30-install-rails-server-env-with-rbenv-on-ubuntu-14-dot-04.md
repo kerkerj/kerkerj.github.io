@@ -1,6 +1,6 @@
 ---
 title: "Install rails server env with rbenv on Ubuntu 14.04"
-description: "nodejs v0.10.25 (for rails javascript engine) rbenv 0.4.0-98-g13a474c ruby 2.1.2p95 (2014-05-08 revision 45877) [x8664-linux] Rails 4.1."
+description: "Ubuntu 14.04 使用 rbenv 安裝 Ruby 2.1 + Rails 4 + Nginx + Phusion Passenger + MySQL 的完整生產環境建置教學，含各步驟指令。"
 date: 2014-07-30
 categories: ['Linux', 'Rails', 'Ruby', 'Nginx', 'DevOps', 'MySQL']
 ---

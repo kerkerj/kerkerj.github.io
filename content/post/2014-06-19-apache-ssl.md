@@ -1,6 +1,6 @@
 ---
 title: '[Apache] SSL (self-signed & purchased version) '
-description: "[Self-signed] 1. Generate a host key: sudo ssh-keygen -f host.key 2. Generate a certificate request file sudo openssl req -new -key host."
+description: "Apache 設定 SSL 的完整步驟：自簽憑證（產生金鑰、CSR、CRT並設定 VirtualHost）以及向 Symantec 購買商業憑證的兩種方式。"
 date: 2014-06-19
 categories: ['DevOps']
 ---

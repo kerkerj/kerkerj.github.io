@@ -1,6 +1,6 @@
 ---
 title: "Swift - Push/Pop Views delay"
-description: "請大家先看看下面的小短片，注意一下過場動畫的流暢度 一開始是沒有加過場動畫，後來改程式碼變成有過場動畫 direct link 後來發現給一個預設的 backgroundColor 後就不會發生殘影的問題了 是因為 push 的 view 沒有 backgroundColor 和同事討論後發現:..."
+description: "Swift Navigation push/pop 轉場出現殘影的除錯記錄，原因是 UIView 的 backgroundColor 預設為 nil，為目標 view 設定 backgroundColor 後解決。"
 date: 2014-10-19
 categories: ['Swift', 'iOS']
 tags: ['鐵人賽']

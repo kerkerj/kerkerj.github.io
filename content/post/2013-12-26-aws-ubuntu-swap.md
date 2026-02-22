@@ -1,6 +1,6 @@
 ---
 title: '[AWS] ubuntu swap'
-description: "Add swap for an instance $ sudo /bin/dd if=/dev/zero of=/var/swap.1 bs=1M count=1024 $ sudo /sbin/mkswap /var/swap.1 $ sudo /sbin/swapon /var/swap."
+description: "AWS EC2 Ubuntu 新增 1GB swap 的完整指令步驟，並提醒 micro plan 用戶需注意 I/O 用量上限，建議需要時才啟用以避免額外費用。"
 date: 2013-12-26
 categories: ['AWS', 'Linux']
 ---

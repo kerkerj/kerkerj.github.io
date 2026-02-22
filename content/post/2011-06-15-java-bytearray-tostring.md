@@ -1,6 +1,6 @@
 ---
 title: '[Java] ByteArray 的 toString 函式'
-description: "本文指出，在 Java 中對位元組陣列 (byte[]) 呼叫 `toString()` 方法時，其回傳值為該陣列的記憶體位置，而非實際內容。"
+description: "Java 筆記：byte[] 呼叫 toString() 回傳的是記憶體位置而非陣列內容，避免踩這個常見陷阱。"
 date: 2011-06-15
 categories: ['Java']
 ---

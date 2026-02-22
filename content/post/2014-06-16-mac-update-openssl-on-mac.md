@@ -1,6 +1,6 @@
 ---
 title: '[Mac] update openssl on mac'
-description: "First of all, you need 'brew' (http://brew.sh/) $ brew update $ brew install openssl $ brew link --force openssl $openssl version -a If it's still..."
+description: "Mac 使用 Homebrew 更新 OpenSSL 的步驟，若版本仍顯示舊版，需手動刪除 /usr/bin/openssl 並建立指向新版的 symlink。"
 date: 2014-06-16
 categories: ['macOS', 'DevOps']
 ---

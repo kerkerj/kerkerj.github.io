@@ -1,6 +1,6 @@
 ---
 title: '[Android] thread 處理 UI update (2)'
-description: "本文延續 Android 執行緒更新 UI 的討論，介紹 `AsyncTask` 為 `runOnUiThread` 的替代方案，能以更簡潔的方式處理背景操作與 UI 更新，並提供 GitHub 上的程式碼範例。"
+description: "Android 背景執行緒更新UI的進階做法：使用 AsyncTask 替代 runOnUiThread，程式結構更清晰，附 GitHub gist 程式碼範例。"
 date: 2012-06-12
 categories: ['Android']
 ---

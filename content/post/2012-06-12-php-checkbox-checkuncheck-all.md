@@ -1,6 +1,6 @@
 ---
 title: '[PHP] checkbox check/uncheck all'
-description: "本文提供 PHP 與 JavaScript 解決方案，實作網頁上多個核取方塊的「全選/取消全選」功能，透過一個額外的核取方塊來控制所有核取方塊的選取狀態。"
+description: "用 JavaScript 實作 checkbox 全選/取消全選功能，透過一個主控 checkbox 控制所有子 checkbox 的選取狀態，附 jsFiddle 範例。"
 date: 2012-06-12
 categories: ['PHP', 'iOS']
 ---

@@ -1,6 +1,6 @@
 ---
 title: '[Android] 遠端主機已強制關閉一個現存的連線'
-description: "本文針對 Android 開發中實體機連線 PC 時常出現的「遠端主機已強制關閉一個現存的連線」錯誤，提供替換 `adb.exe` 檔案的解決方案，以改善測試效能。"
+description: "Android 開發實體機連線 PC 頻繁出現『遠端主機已強制關閉連線』錯誤的解法，下載修補版 adb.exe 替換 platform-tools 中的舊版即可。"
 date: 2012-04-11
 categories: ['Android']
 ---
