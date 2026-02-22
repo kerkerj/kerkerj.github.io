@@ -1,0 +1,150 @@
+baseURL                = "https://blog.kerkerj.in/"
+languageCode           = "zh-hant-tw"
+title                  = "kerkerj"
+defaultContentLanguage = "zh-hant-tw"
+hasCJKLanguage         = true
+capitalizeListTitles   = false
+theme                  = "stack"
+timeZone               = "Asia/Taipei"
+
+[outputs]
+    home = ["HTML", "RSS"]
+    section = ["HTML", "RSS"]
+
+[pagination]
+    pagerSize = 10
+
+[permalinks]
+    post = "/:year/:month/:slug/"
+    page = "/:slug/"
+
+[taxonomies]
+    tag      = "tags"
+    category = "categories"
+
+[services.disqus]
+    shortname = "kerkerj-hugo-2018"
+
+[services.googleAnalytics]
+    ID = "UA-45583907-2"
+
+[markup.goldmark.extensions.passthrough]
+    enable = true
+
+    [markup.goldmark.extensions.passthrough.delimiters]
+        block  = [["\\[", "\\]"], ["$$", "$$"]]
+        inline = [["\\(", "\\)"]]
+
+[markup.goldmark.renderer]
+    unsafe = true
+
+[markup.tableOfContents]
+    endLevel   = 4
+    ordered    = true
+    startLevel = 2
+
+[markup.highlight]
+    noClasses          = false
+    codeFences         = true
+    guessSyntax        = true
+    lineNoStart        = 1
+    lineNos            = true
+    lineNumbersInTable = true
+    tabWidth           = 4
+
+[related]
+    includeNewer = true
+    threshold    = 60
+    toLower      = false
+
+    [[related.indices]]
+        name   = "tags"
+        weight = 100
+
+    [[related.indices]]
+        name   = "categories"
+        weight = 200
+
+[params]
+    favicon            = "/favicon.png"
+    mainSections       = ["post"]
+    featuredImageField = "image"
+    rssFullContent     = true
+
+    [params.footer]
+        since      = 2010
+        customText = 'Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a>. Theme <a href="https://stack.jimmycai.com/" target="_blank">Stack</a>. All Rights Reserved.'
+
+    [params.dateFormat]
+        published   = "2006-01-02"
+        lastUpdated = "2006-01-02"
+
+    [params.sidebar]
+        compact = false
+        avatar  = ""
+        subtitle = "kerkerj's blog"
+
+    [params.article]
+        headingAnchor = true
+        math          = false
+        toc           = true
+        readingTime   = true
+
+        [params.article.list]
+            showTags = true
+
+        [params.article.license]
+            enabled = false
+
+    [params.colorScheme]
+        toggle  = true
+        default = "auto"
+
+    [params.imageProcessing.cover]
+        enabled = false
+
+    [params.imageProcessing.content]
+        enabled = false
+
+    [params.widgets]
+        homepage = [
+            { type = "search" },
+            { type = "categories", params = { limit = 10 } },
+            { type = "tag-cloud", params = { limit = 15 } },
+        ]
+        page = [
+            { type = "toc" },
+            { type = "categories", params = { limit = 10 } },
+            { type = "tag-cloud", params = { limit = 15 } },
+        ]
+
+    [params.comments]
+        enabled  = true
+        provider = "disqus"
+
+        [params.comments.disqusjs]
+            shortname = "kerkerj-hugo-2018"
+
+[[menu.main]]
+    identifier = "home"
+    name       = "Home"
+    url        = "/"
+    weight     = -100
+    [menu.main.params]
+        icon = "home"
+
+[[menu.main]]
+    identifier = "rss"
+    name       = "RSS"
+    url        = "/index.xml"
+    weight     = -10
+    [menu.main.params]
+        icon = "rss"
+
+[[menu.social]]
+    identifier = "github"
+    name       = "GitHub"
+    url        = "https://github.com/kerkerj"
+
+    [menu.social.params]
+        icon = "brand-github"

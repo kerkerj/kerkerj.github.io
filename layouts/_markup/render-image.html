@@ -1,0 +1,29 @@
+{{- $url := urls.Parse .Destination -}}
+{{- $alt := .PlainText | safeHTML -}}
+{{- $title := .Title | markdownify -}}
+{{- $isExternal := in (slice "https" "http") $url.Scheme -}}
+
+{{- if $isExternal -}}
+<img src="{{ .Destination }}"
+	loading="lazy"
+	{{ with $alt }}alt="{{ . }}"{{ end }}
+	{{ with $title }}title="{{ . }}"{{ end }}
+>
+{{- else -}}
+{{- $image := partial "helper/image" (dict "Resources" .Page.Resources "Image" .Destination) -}}
+{{- $galleryImage := and $image $image.Height $image.Width -}}
+<img src="{{ if $image }}{{ $image.Permalink }}{{ else }}{{ .Destination }}{{ end }}"
+	{{ with $image }}
+		{{ with .Width }}width="{{ . }}"{{ end }}
+		{{ with .Height }}height="{{ . }}"{{ end }}
+	{{ end }}
+	loading="lazy"
+	{{ with $alt }}alt="{{ . }}"{{ end }}
+	{{ with $title }}title="{{ . }}" data-title-escaped="{{ . | htmlEscape }}"{{ end }}
+	{{ if $galleryImage }}
+		class="gallery-image" 
+		data-flex-grow="{{ div (mul $image.Width 100) $image.Height }}"
+		data-flex-basis="{{ div (mul $image.Width 240) $image.Height }}px"
+	{{ end }}
+>
+{{- end -}}
