@@ -11,11 +11,7 @@ tags: ['鐵人賽']
 
 一開始是沒有加過場動畫，後來改程式碼變成有過場動畫
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=dqxDFv-iieU
-" target="_blank"><img src="http://img.youtube.com/vi/dqxDFv-iieU/0.jpg" 
-alt="IMAGE ALT TEXT HERE" width="420" height="315" border="10" /></a>
-
-[direct link](https://www.youtube.com/watch?v=dqxDFv-iieU)
+{{< youtube dqxDFv-iieU >}}
 
 後來發現給一個預設的 backgroundColor 後就不會發生殘影的問題了
 
