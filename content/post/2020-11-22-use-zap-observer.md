@@ -10,7 +10,6 @@ If you are using `zap` as your logging tool, then when you write the tests, you 
 
 Below is a code piece to demonstrate how it works:
 
-<!--more-->
 
 ```go
 package main

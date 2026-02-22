@@ -8,7 +8,6 @@ description: "How to create a Slack App and use it with the drone-slack-blame pl
 
 Slack now has deprecated legacy tokens, instead, Slack encourages us to create [`Slack Apps`](https://api.slack.com/apps) to do our job, so I created a note to record how I set up Slack app and use it on [`drone-slack-blame`](http://plugins.drone.io/drone-plugins/drone-slack-blame/) plugin.
 
-<!--more-->
 
 
 1. Create a app: https://api.slack.com/apps?new_app=1

@@ -8,7 +8,6 @@ description: "參加 Google Cloud Basic ML Study Jam 的學習紀錄。"
 
 參加了 Google Cloud 的 [Basic ML Study Jam](https://events.withgoogle.com/ml-study-jam-basic-tw/)，紀錄一下
 
-<!--more-->
 
 這邊的 lab 在按下 `start lab` 後，最好在無痕模式開啟 gcloud console，並且在結束 lab 後登出該 console，避免和下一個撞。
 
