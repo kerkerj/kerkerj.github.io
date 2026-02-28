@@ -2,7 +2,8 @@
 title: '[Android] thread 處理 UI update (2)'
 description: "Android 背景執行緒更新 UI 的進階做法：使用 AsyncTask 替代 runOnUiThread，程式結構更清晰，附 GitHub gist 程式碼範例。"
 date: 2012-06-12
-categories: ['Android']
+slug: android-ui-update-2
+tags: ['android']
 ---
 
 

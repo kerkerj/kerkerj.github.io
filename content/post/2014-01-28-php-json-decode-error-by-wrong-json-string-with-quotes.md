@@ -2,7 +2,8 @@
 title: '[PHP] json_decode error by wrong json string with quotes '
 description: "PHP json_decode fails when the JSON string from $_POST has added backslashes. The root cause is the magic_quotes setting in php.ini — disable it to fix the issue."
 date: 2014-01-28
-categories: ['PHP', 'JavaScript']
+slug: php-json-decode-error-by-wrong-json-string-with-quotes
+tags: ['php', 'javascript']
 ---
 
 

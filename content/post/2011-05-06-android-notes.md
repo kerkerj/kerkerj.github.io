@@ -2,7 +2,8 @@
 title: '[Android] 程式開發雜記'
 description: "Android 開發雜記，彙整各 Java 套件功能速查、Empty/Background/Foreground 等處理程序種類，以及 Activity、Service 等核心組件介紹。"
 date: 2011-05-06
-categories: ['Android']
+slug: android-notes
+tags: ['android']
 ---
 
 

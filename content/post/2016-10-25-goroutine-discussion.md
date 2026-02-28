@@ -1,8 +1,8 @@
 ---
-categories: ['Golang']
 date: 2016-10-25T12:32:55+08:00
+slug: goroutine-discussion
 draft: false
-tags: ["golang","goroutine"]
+tags: ['golang', 'goroutine']
 title: "goroutine 執行相關討論"
 description: "從 Golang Taiwan Slack 上的討論出發，探討 goroutine 的執行順序、GOMAXPROCS 與 runtime.Gosched 的影響。"
 ---

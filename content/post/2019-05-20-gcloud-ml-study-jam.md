@@ -1,7 +1,7 @@
 ---
 title: "Google Cloud - ML Study Jam"
 date: 2019-05-20T23:23:20+08:00
-categories: ['gcloud', 'ml']
+slug: gcloud-ml-study-jam
 tags: ['gcloud', 'ml', 'jam']
 description: "參加 Google Cloud Basic ML Study Jam 的學習紀錄。"
 ---

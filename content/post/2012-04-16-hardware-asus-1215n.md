@@ -2,7 +2,8 @@
 title: '[Hardware] Asus 1215N 拆解'
 description: "Asus 1215N 筆電拆解教學，逐步說明如何移除觸控板板子、拆卸鍵盤，以及換硬碟的完整步驟，提醒注意卡榫與排線。"
 date: 2012-04-16
-categories: ['asus 1215n']
+slug: hardware-asus-1215n
+tags: ['asus-1215n']
 ---
 
 

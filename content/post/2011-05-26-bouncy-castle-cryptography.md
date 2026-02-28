@@ -2,7 +2,8 @@
 title: '[Java] Bouncy Castle Cryptography'
 description: "Java 密碼學作業實作紀錄，使用 Bouncy Castle 函式庫完成 SHA512 摘要、RSA 非對稱加密及 AES 對稱加密，處理文字、圖片與聲音檔案。"
 date: 2011-05-26
-categories: ['Java']
+slug: bouncy-castle-cryptography
+tags: ['java']
 ---
 
 

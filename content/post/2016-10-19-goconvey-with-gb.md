@@ -1,8 +1,8 @@
 ---
-categories: ['Golang']
 date: "2016-10-19T00:01:04+08:00"
+slug: goconvey-with-gb
 draft: false
-tags: ["golang","gb","goconvey"]
+tags: ['golang', 'gb', 'goconvey']
 title: "Use goconvey in projects maganged by gb"
 description: "在以 gb 管理的 Golang 專案中啟動 goconvey web UI 的方法，透過正確設定 GOPATH 環境變數後執行 goconvey 指令。"
 ---

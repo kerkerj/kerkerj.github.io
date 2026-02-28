@@ -2,7 +2,8 @@
 title: '[Ubuntu] update OpenSSL'
 description: "Two ways to manually update OpenSSL on Ubuntu: a quick one-liner with curl and make, or a full bash script with GPG signature verification. Useful for patching vulnerabilities like Heartbleed."
 date: 2014-04-16
-categories: ['Linux', 'DevOps']
+slug: ubuntu-update-openssl
+tags: ['linux', 'devops']
 ---
 
 

@@ -2,7 +2,8 @@
 title: '[Rails] PUT v.s. PATCH'
 description: "The difference between PUT and PATCH in Rails. Rails 4 switched from PUT to PATCH for resource updates to follow proper HTTP semantics, where PUT means full replacement and PATCH means partial update."
 date: 2014-01-02
-categories: ['Rails']
+slug: rails-put-vs-patch
+tags: ['rails']
 ---
 
 

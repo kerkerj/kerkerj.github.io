@@ -2,7 +2,8 @@
 title: '[Mac] update openssl on mac'
 description: "How to update OpenSSL on Mac using Homebrew. If the version still shows the old one, manually remove /usr/bin/openssl and create a symlink to the new version."
 date: 2014-06-16
-categories: ['macOS', 'DevOps']
+slug: mac-update-openssl-on-mac
+tags: ['macos', 'devops']
 ---
 
 

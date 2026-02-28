@@ -2,7 +2,8 @@
 title: '[Arch linux] 安裝雜記'
 description: "Arch Linux 安裝全程紀錄，涵蓋硬碟準備、rc.conf 與 locale.gen 設定、bootloader 安裝，到建立使用者並安裝 sudo、SSH 與 KDE 桌面環境。"
 date: 2011-06-30
-categories: ['arch linux']
+slug: arch-linux
+tags: ['arch-linux']
 ---
 
 

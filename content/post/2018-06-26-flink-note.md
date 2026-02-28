@@ -2,8 +2,7 @@
 title: "Apache Flink 學習筆記"
 date: 2018-06-26
 slug: "flink-note"
-categories: ['其他']
-tags: ['Flink', 'Scala', 'Hadoop', 'Docker', 'Intellij', 'sbt', '大數據']
+tags: ['flink', 'scala', 'hadoop', 'docker', 'intellij', 'sbt', '大數據']
 description: "Apache Flink getting started notes covering installation and testing on Mac, deploying with Docker Compose, and developing Flink jobs in Scala using IntelliJ."
 
 ---

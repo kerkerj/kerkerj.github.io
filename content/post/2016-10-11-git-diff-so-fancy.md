@@ -1,10 +1,10 @@
 ---
 date: 2016-10-11T11:10:52+08:00
+slug: git-diff-so-fancy
 draft: false
 title: "[tool] diff-so-fancy"
 description: "diff-so-fancy 工具讓 git diff 輸出更漂亮易讀，透過 Homebrew 安裝後設定 core.pager 並加上高亮顏色配置。"
-categories: ['Git', '工具']
-tags: ["git", "tool"]
+tags: ['git', 'tool', '工具']
 ---
 
 

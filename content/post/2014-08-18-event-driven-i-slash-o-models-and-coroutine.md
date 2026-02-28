@@ -2,7 +2,8 @@
 title: "Event-driven I/O models and Coroutine Notes"
 description: "Event-driven I/O 模型與 Coroutine 的學習筆記，比較阻塞/非阻塞網路模型，整理 Ruby、Python、Go 各語言相關框架，並探討 Reactor 模式的優缺點。"
 date: 2014-08-18
-categories: ['Python', 'Node.js', 'Ruby']
+slug: event-driven-i-slash-o-models-and-coroutine
+tags: ['python', 'nodejs', 'ruby']
 ---
 
 

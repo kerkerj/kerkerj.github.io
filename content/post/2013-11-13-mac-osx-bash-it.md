@@ -2,7 +2,8 @@
 title: '[Mac OSX] bash-it'
 description: "bash-it 框架安裝介紹，git clone 後執行 install.sh 即可，提供豐富的 theme、plugin 和自動補齊功能，並自動備份原有 .bash_profile。"
 date: 2013-11-13
-categories: ['macOS', 'Linux']
+slug: mac-osx-bash-it
+tags: ['macos', 'linux']
 ---
 
 

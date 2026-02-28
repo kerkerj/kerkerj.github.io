@@ -2,8 +2,8 @@
 title: "Swift - Push/Pop Views delay"
 description: "Swift Navigation push/pop 轉場出現殘影的除錯記錄，原因是 UIView 的 backgroundColor 預設為 nil，為目標 view 設定 backgroundColor 後解決。"
 date: 2014-10-19
-categories: ['Swift', 'iOS']
-tags: ['鐵人賽']
+slug: swift-push-slash-pop-views-delay
+tags: ['鐵人賽', 'swift', 'ios']
 ---
 
 

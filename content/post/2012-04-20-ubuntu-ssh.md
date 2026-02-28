@@ -2,7 +2,8 @@
 title: '[Ubuntu] 安裝設定 ssh'
 description: "Ubuntu SSH 伺服器安裝與設定教學，涵蓋修改 sshd_config 變更 port、禁止 root 登入，以及用 hosts.allow/deny 精準控制允許連線的 IP。"
 date: 2012-04-20
-categories: ['Linux', 'DevOps']
+slug: ubuntu-ssh
+tags: ['linux', 'devops']
 ---
 
 

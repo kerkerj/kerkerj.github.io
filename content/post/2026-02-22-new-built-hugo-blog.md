@@ -2,8 +2,7 @@
 title: Again, and again
 date: 2026-02-22
 slug: new-built-hugo-blog
-categories: ['其他']
-tags: ['hugo', 'blog', 'AI']
+tags: ['hugo', 'blog', 'ai']
 description: "過了這麼多年又來整理 blog，有了 AI 幫忙省了好多時間。未來的世界到底會長什麼樣呢？"
 ---
 過了這麼多年又來整理一下了，有了 AI 幫忙真的是省了好多時間

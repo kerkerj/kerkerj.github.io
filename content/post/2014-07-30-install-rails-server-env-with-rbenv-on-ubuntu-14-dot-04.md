@@ -2,7 +2,8 @@
 title: "Install rails server env with rbenv on Ubuntu 14.04"
 description: "Step-by-step guide to setting up Ruby 2.1 + Rails 4 + Nginx + Phusion Passenger + MySQL on Ubuntu 14.04 using rbenv for a production environment."
 date: 2014-07-30
-categories: ['Linux', 'Rails', 'Ruby', 'Nginx', 'DevOps', 'MySQL']
+slug: install-rails-server-env-with-rbenv-on-ubuntu-14-dot-04
+tags: ['linux', 'rails', 'ruby', 'nginx', 'devops', 'mysql']
 ---
 
 

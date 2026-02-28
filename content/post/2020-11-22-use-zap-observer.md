@@ -1,7 +1,7 @@
 ---
 title: "Use Zap Observer"
 date: 2020-11-22T23:03:48+08:00
-categories: ['Golang']
+slug: use-zap-observer
 tags: ['golang', 'zap']
 description: "How to use zap/observer to assert and verify log output content in Go tests."
 ---

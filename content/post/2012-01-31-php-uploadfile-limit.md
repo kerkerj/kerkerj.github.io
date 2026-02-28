@@ -2,7 +2,8 @@
 title: '[PHP] 上傳檔案的限制'
 description: "php.ini 中影響檔案上傳的七項關鍵設定說明，包含 max_execution_time、memory_limit、post_max_size、upload_max_filesize 等限制參數。"
 date: 2012-01-31
-categories: ['PHP']
+slug: php-uploadfile-limit
+tags: ['php']
 ---
 
 

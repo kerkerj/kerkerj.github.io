@@ -2,8 +2,7 @@
 title: "Goland Hotkey Map Memo"
 date: 2018-06-21
 slug: "goland-hotkey-map-memo"
-categories: ['Golang', '工具']
-tags: ['Goland', 'JetBrains', 'IDE', '快捷鍵']
+tags: ['goland', 'jetbrains', 'ide', '快捷鍵', 'golang', '工具']
 description: "整理 JetBrains Goland 常用快捷鍵，包含搜尋、導覽、重構等操作，方便日常開發快速查閱。"
 
 ---

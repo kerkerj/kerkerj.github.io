@@ -2,7 +2,8 @@
 title: "Raspberry Pi2 remote webcam"
 description: "Raspberry Pi 2 安裝 motion 作為遠端 webcam 串流伺服器，設定 motion.conf 開放串流存取，從瀏覽器遠端觀看攝影機即時影像。"
 date: 2015-04-22
-categories: ['Raspberry Pi']
+slug: raspberry-pi2-remote-webcam
+tags: ['raspberry-pi']
 ---
 
 

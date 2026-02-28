@@ -2,7 +2,8 @@
 title: "Writing Lua on Mac"
 description: "Getting started with Lua on Mac: install via Homebrew and learn basic Lua syntax with examples including Hello World and a recursive factorial function."
 date: 2014-08-06
-categories: ['macOS', 'Lua']
+slug: writing-lua-on-mac
+tags: ['macos', 'lua']
 ---
 
 

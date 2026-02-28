@@ -2,7 +2,8 @@
 title: '[Ubuntu] [RoR] install with rvm'
 description: "Ubuntu 上使用 RVM 安裝 Ruby on Rails 的完整流程，涵蓋 RVM 指令、Gem 管理、Gemset 使用，並附上 OpenSSL、zlib、ExecJS 三種常見錯誤的排解方法。"
 date: 2012-04-27
-categories: ['Ruby', 'Linux', 'Rails']
+slug: ubuntu-ror-install-with-rvm
+tags: ['ruby', 'linux', 'rails']
 ---
 
 

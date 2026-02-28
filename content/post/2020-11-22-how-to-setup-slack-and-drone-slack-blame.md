@@ -1,7 +1,7 @@
 ---
 title: "How to Setup Slack and Drone Slack Blame"
 date: 2020-11-22T23:24:20+08:00
-categories: ['drone']
+slug: how-to-setup-slack-and-drone-slack-blame
 tags: ['slack', 'drone', 'drone-slack-blame']
 description: "How to create a Slack App and use it with the drone-slack-blame plugin after Slack deprecated legacy tokens, including OAuth scope setup and Drone configuration."
 ---

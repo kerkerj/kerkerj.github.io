@@ -2,7 +2,8 @@
 title: '[Java] String split 字串分割'
 description: "Java String.split() 字串分割的程式碼示範，以逗號分隔字串並存入陣列，再用 for-each 逐一列印每個元素。"
 date: 2011-06-15
-categories: ['Java']
+slug: java-string-split
+tags: ['java']
 ---
 
 

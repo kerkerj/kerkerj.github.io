@@ -2,7 +2,8 @@
 title: '[Git] 一小時搞懂 Git'
 description: "分享 Git 快速入門的學習資源，包含台灣 Debian 社群的「一小時搞懂 Git」教學文章，以及 GitCasts 影音教學網站連結。"
 date: 2011-05-26
-categories: ['Git']
+slug: git-for-one-hour
+tags: ['git']
 ---
 
 

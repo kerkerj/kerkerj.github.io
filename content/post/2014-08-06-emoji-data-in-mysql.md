@@ -2,7 +2,8 @@
 title: "Emoji data in MySQL"
 description: "How to store Emoji in MySQL: change the character set of your database, table, and columns to utf8mb4 (supports 4 bytes), and run SET NAMES utf8mb4 before each operation."
 date: 2014-08-06
-categories: ['MySQL', '其他']
+slug: emoji-data-in-mysql
+tags: ['mysql']
 ---
 
 

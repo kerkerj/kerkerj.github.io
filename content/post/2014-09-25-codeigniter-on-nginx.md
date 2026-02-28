@@ -2,7 +2,8 @@
 title: "Codeigniter on nginx"
 description: "Complete Nginx + php5-fpm configuration for CodeIgniter 2.2.0 on Ubuntu 14.04, including removing index.php from URLs with proper Nginx config and config.php settings."
 date: 2014-09-25
-categories: ['PHP', 'Nginx']
+slug: codeigniter-on-nginx
+tags: ['php', 'nginx']
 ---
 
 

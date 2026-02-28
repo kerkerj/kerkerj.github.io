@@ -2,7 +2,8 @@
 title: '[Ubuntu] 磁碟分配'
 description: "Ubuntu 250GB 硬碟磁碟分割配置參考，列出 /boot、/usr、/var、swap、/home 等各分區的建議容量，剩餘空間可留給 Windows 雙系統。"
 date: 2012-04-16
-categories: ['Linux']
+slug: ubuntu-disk-arrange
+tags: ['linux']
 ---
 
 

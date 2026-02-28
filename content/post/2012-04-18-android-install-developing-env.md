@@ -2,7 +2,8 @@
 title: '[Android] 安裝開發環境'
 description: "Android 開發環境五步驟建置教學：安裝 JDK 與 Eclipse、下載 Android SDK、設定 ADT 外掛、選擇 SDK 版本套件，最後建立模擬器。"
 date: 2012-04-18
-categories: ['Android']
+slug: android-install-developing-env
+tags: ['android']
 ---
 
 

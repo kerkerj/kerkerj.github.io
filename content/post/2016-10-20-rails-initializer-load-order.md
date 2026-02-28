@@ -1,8 +1,8 @@
 ---
-categories: ['Rails']
 date: 2016-10-20T10:39:30+08:00
+slug: rails-initializer-load-order
 draft: false
-tags: ["rails","initializer"]
+tags: ['rails', 'initializer']
 title: Rails initializer 的載入順序
 description: "Rails initializer 的載入順序控制方法：initializer 依照檔名的字母順序載入，在檔名前加上數字前綴即可確保特定順序執行。"
 ---

@@ -2,7 +2,8 @@
 title: '[Apache] SSL (self-signed & purchased version) '
 description: "Complete guide to configuring SSL on Apache: self-signed certificates (generating key, CSR, CRT, and VirtualHost setup) and purchasing commercial certificates from Symantec."
 date: 2014-06-19
-categories: ['DevOps']
+slug: apache-ssl
+tags: ['devops']
 ---
 
 

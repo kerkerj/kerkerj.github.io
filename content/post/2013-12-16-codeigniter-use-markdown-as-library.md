@@ -2,7 +2,8 @@
 title: '[Codeigniter] use markdown as library'
 description: "How to integrate Parsedown Markdown parser into CodeIgniter as a library. Download Parsedown, place it in the Library folder, configure autoload.php, and render Markdown to HTML in your Views."
 date: 2013-12-16
-categories: 
+slug: codeigniter-use-markdown-as-library
+tags: ['codeigniter', 'php']
 ---
 
 

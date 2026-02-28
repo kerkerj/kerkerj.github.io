@@ -2,7 +2,8 @@
 title: "Capistrano with rails - basic notes"
 description: "Capistrano 3 搭配 Rails 的自動化部署入門筆記，說明 deploy.rb 和 production.rb 的關鍵設定，從 GitHub 拉取程式碼並部署到遠端伺服器。"
 date: 2014-08-05
-categories: ['Rails', 'DevOps']
+slug: capistrano-with-rails-basic-notes
+tags: ['rails', 'devops']
 ---
 
 

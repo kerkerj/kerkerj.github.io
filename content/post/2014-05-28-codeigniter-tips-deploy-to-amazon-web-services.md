@@ -2,7 +2,8 @@
 title: '[Codeigniter] Tips deploy to Amazon Web Services'
 description: "Tips for deploying CodeIgniter to AWS: disable pconnect when using RDS to avoid exceeding connection limits, note that RDS timezone defaults to UTC, and considerations when using a Load Balancer."
 date: 2014-05-28
-categories: 
+slug: codeigniter-tips-deploy-to-amazon-web-services
+tags: ['codeigniter', 'php', 'aws']
 ---
 
 

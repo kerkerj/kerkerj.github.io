@@ -2,7 +2,8 @@
 title: '[AWS] ubuntu swap'
 description: "AWS EC2 Ubuntu 新增 1GB swap 的完整指令步驟，並提醒 micro plan 用戶需注意 I/O 用量上限，建議需要時才啟用以避免額外費用。"
 date: 2013-12-26
-categories: ['AWS', 'Linux']
+slug: aws-ubuntu-swap
+tags: ['aws', 'linux']
 ---
 
 

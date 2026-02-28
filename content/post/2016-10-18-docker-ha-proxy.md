@@ -1,8 +1,8 @@
 ---
-categories: ['Docker', 'DevOps']
 date: 2016-10-18T23:36:40+08:00
+slug: docker-ha-proxy
 draft: false
-tags: ["docker","haproxy","docker-compose"]
+tags: ['docker', 'haproxy', 'docker-compose', 'devops']
 title: "docker HA proxy"
 description: "使用 dockercloud/haproxy 搭配 docker-compose 架設 web app × 3 + Redis + HAProxy 的負載均衡測試環境，並用 docker stats 觀察 container metrics。"
 ---

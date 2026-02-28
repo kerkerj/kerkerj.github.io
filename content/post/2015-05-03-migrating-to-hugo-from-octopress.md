@@ -1,8 +1,8 @@
 ---
-categories: ['Hugo', '筆記']
 date: 2015-05-03T02:14:59+08:00
+slug: migrating-to-hugo-from-octopress
 description: "從 Octopress 遷移到 Hugo 靜態網站產生器的完整紀錄，說明 Hugo 的速度優勢、安裝設定、主題選擇及從 Octopress 轉換的注意事項。"
-tags: ["hugo", "octopress", "notes"]
+tags: ['hugo', 'octopress', 'notes', '筆記']
 title: "Migrating to Hugo from Octopress"
 ---
 
