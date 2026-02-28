@@ -10,8 +10,8 @@ Create a markdown file in `content/post/`:
 ---
 title: "My New Post"
 date: 2026-02-22
+slug: my-new-post
 description: "A short summary of the post"
-categories: ['Category']
 tags: ['tag1', 'tag2']
 ---
 
@@ -40,3 +40,4 @@ git push
 - **Theme**: Stack (copied into repo, not a submodule)
 - **Base URL**: `https://blog.kerkerj.in/`
 - **Permalink**: `/:year/:month/:slug/`
+- **Taxonomy**: tags only (no categories)
