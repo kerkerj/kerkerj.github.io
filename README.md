@@ -2,6 +2,13 @@
 
 Source code for [blog.kerkerj.in](https://blog.kerkerj.in/), built with [Hugo](https://gohugo.io/) and [Stack](https://stack.jimmycai.com/) theme.
 
+## Setup
+
+```bash
+# Install pre-commit hook
+ln -sf ../../scripts/pre-commit .git/hooks/pre-commit
+```
+
 ## Write a new post
 
 Create a markdown file in `content/post/`:

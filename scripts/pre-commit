@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+# Pre-commit hook for kerkerj's blog
+# Checks staged content/post/*.md files for frontmatter issues
+
+set -euo pipefail
+
+ERRORS=0
+
+# Get staged .md files in content/post/
+STAGED_POSTS=$(git diff --cached --name-only --diff-filter=ACM | grep '^content/post/.*\.md$' || true)
+
+if [ -z "$STAGED_POSTS" ]; then
+  # No posts staged, just run hugo build check if hugo.toml changed
+  if git diff --cached --name-only | grep -q 'hugo.toml'; then
+    echo "🔨 hugo.toml changed, verifying build..."
+    if ! hugo --quiet 2>/dev/null; then
+      echo "❌ Hugo build failed!"
+      exit 1
+    fi
+    echo "✅ Hugo build OK"
+  fi
+  exit 0
+fi
+
+echo "🔍 Checking $(echo "$STAGED_POSTS" | wc -l | tr -d ' ') post(s)..."
+
+for file in $STAGED_POSTS; do
+  # Extract frontmatter (between first two ---)
+  FM=$(sed -n '2,/^---$/p' "$file" | sed '$d')
+
+  # 1. Required fields
+  for field in title date slug tags description; do
+    if ! echo "$FM" | grep -q "^${field}:"; then
+      echo "❌ $file: missing '$field'"
+      ERRORS=$((ERRORS + 1))
+    fi
+  done
+
+  # 2. No categories
+  if echo "$FM" | grep -q "^categories:"; then
+    echo "❌ $file: has 'categories' (use tags only)"
+    ERRORS=$((ERRORS + 1))
+  fi
+
+  # 3. Tags must be lowercase
+  TAGS_LINE=$(echo "$FM" | grep "^tags:" || true)
+  if [ -n "$TAGS_LINE" ]; then
+    # Check if any tag has uppercase letters (ignore field name)
+    TAG_VALUES=$(echo "$TAGS_LINE" | sed "s/^tags: *//;s/\[//;s/\]//;s/'//g;s/\"//g")
+    if echo "$TAG_VALUES" | grep -q '[A-Z]'; then
+      echo "❌ $file: tags must be all lowercase: $TAG_VALUES"
+      ERRORS=$((ERRORS + 1))
+    fi
+  fi
+done
+
+# 4. Hugo build check
+echo "🔨 Verifying Hugo build..."
+if ! hugo --quiet 2>/dev/null; then
+  echo "❌ Hugo build failed!"
+  ERRORS=$((ERRORS + 1))
+fi
+
+if [ $ERRORS -gt 0 ]; then
+  echo ""
+  echo "🚫 $ERRORS error(s) found. Commit aborted."
+  echo "   Fix the issues above and try again."
+  exit 1
+fi
+
+echo "✅ All checks passed"
